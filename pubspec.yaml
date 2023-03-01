@@ -39,6 +39,7 @@ dependencies:
   sizer: ^2.0.15
   smooth_page_indicator: ^1.0.1
   http: ^0.13.5
+  easy_debounce: ^2.0.3
 
 dev_dependencies:
   flutter_test:

@@ -6,6 +6,11 @@ class ImportantInformation {
 
   ImportantInformation(this.text, this.language);
 
+  ImportantInformation clone() => ImportantInformation(
+        text,
+        language,
+      );
+
   ImportantInformation.fromJson(Map<String, dynamic> json)
       : text = json['important_information_text'],
         language = Language.fromJson(json['important_information_language']);

@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:userapp/pets/profile_details/models/m_pet_picture.dart';
 
 import 'c_component_title.dart';
 import 'g_profile_detail_globals.dart';
 
 class PetPicturesComponent extends StatelessWidget {
-  const PetPicturesComponent(
-      {super.key,
-      required this.imageHeight,
-      required this.imageWidth,
-      required this.imageBorderRadius,
-      required this.imageSpacing});
+  const PetPicturesComponent({
+    super.key,
+    required this.imageHeight,
+    required this.imageWidth,
+    required this.imageBorderRadius,
+    required this.imageSpacing,
+    required this.petPictures,
+    required this.setPetPictures,
+  });
+
+  //Pictures
+  final List<PetPicture> petPictures;
+  final ValueSetter<List<PetPicture>> setPetPictures;
 
   final double imageHeight;
   final double imageWidth;

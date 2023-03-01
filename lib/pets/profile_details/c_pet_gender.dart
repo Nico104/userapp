@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 import 'package:sizer/sizer.dart';
 import '../../styles/text_styles.dart';
 import 'c_component_title.dart';
+import 'models/m_pet_profile.dart';
 
-class PetGenderComponent extends StatefulWidget {
-  const PetGenderComponent({super.key});
+class PetGenderComponent extends StatelessWidget {
+  const PetGenderComponent(
+      {super.key, required this.gender, required this.setGender});
 
-  @override
-  State<PetGenderComponent> createState() => _PetGenderComponentState();
-}
-
-class _PetGenderComponentState extends State<PetGenderComponent> {
-  bool isMaleActive = false;
+  //Gender
+  final Gender? gender;
+  final ValueSetter<Gender> setGender;
 
   @override
   Widget build(BuildContext context) {
@@ -26,23 +24,19 @@ class _PetGenderComponentState extends State<PetGenderComponent> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GestureDetector(
-              onTap: () => setState(() {
-                isMaleActive = true;
-              }),
+              onTap: () => setGender(Gender.male),
               child: GenderButton(
                 isMale: true,
-                isActive: isMaleActive,
+                isActive: gender == Gender.male,
                 label: "Male",
               ),
             ),
             SizedBox(width: 06.w),
             GestureDetector(
-              onTap: () => setState(() {
-                isMaleActive = false;
-              }),
+              onTap: () => setGender(Gender.female),
               child: GenderButton(
                 isMale: false,
-                isActive: !isMaleActive,
+                isActive: gender == Gender.female,
                 label: "Female",
               ),
             ),

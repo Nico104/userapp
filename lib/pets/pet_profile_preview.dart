@@ -4,11 +4,16 @@ import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/profile_detail_view.dart';
 
 import 'collar_tag_preview.dart';
+import 'profile_details/models/m_pet_profile.dart';
+import 'profile_details/models/m_tag.dart';
 
 class PetProfilePreview extends StatefulWidget {
-  const PetProfilePreview({super.key, required this.index});
+  const PetProfilePreview({
+    super.key,
+    required this.petProfileDetails,
+  });
 
-  final int index;
+  final PetProfileDetails petProfileDetails;
 
   @override
   State<PetProfilePreview> createState() => _PetProfilePreviewState();
@@ -29,7 +34,13 @@ class _PetProfilePreviewState extends State<PetProfilePreview> {
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const PetProfileDetailView()),
+              builder: (context) => PetProfileDetailView(
+                // petProfileDetails: PetProfileDetails.createNewEmptyProfile(
+                //   List<Tag>.empty(growable: false),
+                // ),
+                petProfileDetails: widget.petProfileDetails,
+              ),
+            ),
           ),
           child: SizedBox(
             width: double.infinity,
@@ -61,7 +72,7 @@ class _PetProfilePreviewState extends State<PetProfilePreview> {
                           2 +
                       collarelevation * 2),
           child: Hero(
-            tag: 'collartest' + widget.index.toString(),
+            tag: 'collar${widget.petProfileDetails.profileId}',
             child: CollarTag(
               collarheight: collarheight,
               collarelevation: collarelevation,

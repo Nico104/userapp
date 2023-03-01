@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CollarTagPersonalisation {
+class TagPersonalisation {
   final int collarTagPersonalisationId;
   final String collarTagId;
   final Color primaryColor;
@@ -10,7 +10,7 @@ class CollarTagPersonalisation {
   //!Change to Font Family
   final String letterStyle;
 
-  CollarTagPersonalisation(
+  TagPersonalisation(
     this.collarTagPersonalisationId,
     this.collarTagId,
     this.primaryColor,
@@ -20,7 +20,7 @@ class CollarTagPersonalisation {
     this.letterStyle,
   );
 
-  CollarTagPersonalisation.fromJson(Map<String, dynamic> json)
+  TagPersonalisation.fromJson(Map<String, dynamic> json)
       : collarTagPersonalisationId = json['collarTagPersonalisationId'],
         collarTagId = json['collarTag_id'],
         primaryColor = parseTagColor(json['primaryColor']),

@@ -9,6 +9,12 @@ class PhoneNumber {
     this.priority,
   );
 
+  PhoneNumber clone() => PhoneNumber(
+        petProfileId,
+        phoneNumber,
+        priority,
+      );
+
   PhoneNumber.fromJson(Map<String, dynamic> json)
       : petProfileId = json['petProfile_id'],
         phoneNumber = json['phone_number'],

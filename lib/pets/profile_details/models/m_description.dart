@@ -1,19 +1,25 @@
 import 'package:userapp/language/m_language.dart';
 
 class Description {
-  final String text;
-  final Language language;
+  String text;
+  Language language;
 
   Description(this.text, this.language);
+
+  Description clone() => Description(
+        text,
+        language,
+      );
 
   Description.fromJson(Map<String, dynamic> json)
       : text = json['description_text'],
         language = Language.fromJson(json['description_language']);
 
-  // Map<String, dynamic> toJson() => {
-  //       'name': text,
-  //       'email': languageCode,
-  //     };
+  Map<String, dynamic> toJson(int petProfileId) => {
+        'petProfile_id': petProfileId,
+        'language_key': language.languageKey,
+        'description_text': text
+      };
 }
 
 List<String> isolateLanguageCodesFromDescription(

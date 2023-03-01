@@ -1,3 +1,4 @@
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/models/m_description.dart';
 
@@ -7,7 +8,15 @@ import 'c_component_title.dart';
 import '../../language/c_language_selection.dart';
 
 class PetDescriptionComponent extends StatefulWidget {
-  const PetDescriptionComponent({super.key});
+  const PetDescriptionComponent({
+    super.key,
+    required this.descriptions,
+    // required this.addDescription,
+    // required this.removeDescription,
+  });
+
+  //Pictures
+  final List<Description> descriptions;
 
   @override
   State<PetDescriptionComponent> createState() =>
@@ -15,16 +24,7 @@ class PetDescriptionComponent extends StatefulWidget {
 }
 
 class _PetDescriptionComponentState extends State<PetDescriptionComponent> {
-  final List<Description> _descriptions = [
-    Description("aaa", Language("english", "en", "https://picsum.photos/100"))
-  ];
-
-  void addNewTranslation(String text, Language language) {
-    setState(() {
-      _descriptions.add(Description(text, language));
-    });
-  }
-
+  // final ValueSetter<Description> addDescription;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -33,21 +33,25 @@ class _PetDescriptionComponentState extends State<PetDescriptionComponent> {
       children: [
         const ComponentTitle(text: "Description"),
         ListView.builder(
-          itemCount: _descriptions.length + 1,
+          itemCount: widget.descriptions.length + 1,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
-            if (index == _descriptions.length) {
+            if (index == widget.descriptions.length) {
               return NewDescriptionTranslation(
-                descriptions: _descriptions,
-                addNewDescription: (text, language) =>
-                    addNewTranslation(text, language),
+                descriptions: widget.descriptions,
+                addNewDescription: (text, language) {
+                  setState(() {
+                    widget.descriptions.add(Description(text, language));
+                  });
+                },
               );
             } else {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: DescriptionTranslation(
-                  description: _descriptions.elementAt(index),
+                  //Pass by reference
+                  description: widget.descriptions.elementAt(index),
                   index: index,
                 ),
               );
@@ -97,6 +101,13 @@ class DescriptionTranslation extends StatelessWidget {
                 ),
               ),
             ),
+            onChanged: (value) {
+              EasyDebounce.debounce(
+                'description$index',
+                const Duration(milliseconds: 500),
+                () => description.text = value,
+              );
+            },
           ),
         ),
         Padding(
