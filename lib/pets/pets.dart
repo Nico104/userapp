@@ -1,8 +1,12 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/pets/profile_details/profile_detail_view.dart';
+import 'package:userapp/pets/rotation_3d.dart';
+import '../pet_color/u_pet_colors.dart';
+import 'page_transform.dart';
 import 'pet_profile_preview.dart';
 import 'profile_details/models/m_tag.dart';
 import 'u_pets.dart';
@@ -20,12 +24,41 @@ class _PetsState extends State<Pets> {
   final PageController _controller =
       PageController(viewportFraction: 0.8, keepPage: true);
 
+  // final PageController _controller =
+  //     PageController(viewportFraction: 0.8, keepPage: true, initialPage: 1);
+
+  Color activeBgColor = Colors.white;
+
+  // void setActiveBgColor() {
+  //   setState(() {});
+  // }
+
+  double pageindex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(() {
+      setState(() {
+        pageindex = _controller.page ?? 0;
+        // print(pageindex);
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("My Pets"),
-        backgroundColor: Colors.white,
+        backgroundColor:
+            getBackgroundColorFromTagColor(getTagColorFromString("Yellow")),
         foregroundColor: Colors.black,
         elevation: 0,
         actions: [
@@ -44,9 +77,11 @@ class _PetsState extends State<Pets> {
               icon: const Icon(Icons.add))
         ],
       ),
-      backgroundColor: Colors.white,
+      backgroundColor:
+          getBackgroundColorFromTagColor(getTagColorFromString("Yellow")),
       body: Padding(
-        padding: EdgeInsets.only(bottom: widget.bottomoffset),
+        // padding: EdgeInsets.only(bottom: widget.bottomoffset),
+        padding: EdgeInsets.only(bottom: 0),
         child: FutureBuilder<List<PetProfileDetails>>(
           future:
               fetchUserPets(), // a previously-obtained Future<String> or null
@@ -62,28 +97,53 @@ class _PetsState extends State<Pets> {
                       Container(
                         margin: EdgeInsets.only(bottom: 02.h, top: 02.h),
                         height: 80.h - widget.bottomoffset,
-                        child: PageView.builder(
-                          controller: _controller,
-                          pageSnapping: true,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, position) {
-                            return PetProfilePreview(
-                              petProfileDetails:
-                                  snapshot.data!.elementAt(position),
-                            );
-                          },
-                          // itemCount: 4,
-                          itemCount: snapshot.data!.length,
+                        child: ScrollConfiguration(
+                          behavior: ScrollConfiguration.of(context).copyWith(
+                            dragDevices: {
+                              PointerDeviceKind.touch,
+                              PointerDeviceKind.mouse,
+                            },
+                          ),
+                          child: PageView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            controller: _controller,
+                            pageSnapping: true,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, position) {
+                              // return PetProfilePreview(
+                              //   petProfileDetails:
+                              //       snapshot.data!.elementAt(position),
+                              // );
+                              return PetProfilePreviewPageTransform(
+                                page: pageindex,
+                                position: position,
+                                maxRotation: 20,
+                                minScaling: 0.8,
+                                child: PetProfilePreview(
+                                  petProfileDetails:
+                                      PetProfileDetails.createNewEmptyProfile(
+                                          []),
+                                ),
+                              );
+                            },
+                            itemCount: 4,
+                            // itemCount: snapshot.data!.length,
+                          ),
                         ),
                       ),
                       SmoothPageIndicator(
                         controller: _controller,
-                        count: snapshot.data!.length,
-                        effect: const ExpandingDotsEffect(
+                        // count: snapshot.data!.length,
+                        count: 4,
+                        // effect: const ExpandingDotsEffect(
+                        //   dotHeight: 8,
+                        //   dotWidth: 8,
+                        //   // type: WormType.thin,
+                        //   // strokeWidth: 5,
+                        // ),
+                        effect: const WormEffect(
                           dotHeight: 8,
                           dotWidth: 8,
-                          // type: WormType.thin,
-                          // strokeWidth: 5,
                         ),
                       ),
                     ],

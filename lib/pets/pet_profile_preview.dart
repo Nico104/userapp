@@ -42,25 +42,28 @@ class _PetProfilePreviewState extends State<PetProfilePreview> {
               ),
             ),
           ),
-          child: SizedBox(
-            width: double.infinity,
+          child: Container(
             height: double.infinity,
-            child: Padding(
-              padding: EdgeInsets.only(
-                  left: marginhorizontal,
-                  right: marginhorizontal,
-                  bottom: (math.sqrt(2 * math.pow(collarheight, 2))) / 2 +
-                      collaroffset),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(28),
-                    topRight: Radius.circular(28),
-                    bottomLeft: Radius.circular(42),
-                    bottomRight: Radius.circular(42)),
-                child: Image.network(
-                  "https://picsum.photos/600/800",
-                  fit: BoxFit.cover,
+            width: double.infinity,
+            margin: EdgeInsets.only(
+                left: marginhorizontal,
+                right: marginhorizontal,
+                bottom: (math.sqrt(2 * math.pow(collarheight, 2))) / 2 +
+                    collaroffset),
+            decoration: BoxDecoration(
+              border: Border.all(width: 3),
+              borderRadius: BorderRadius.circular(14),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black,
+                  spreadRadius: 0,
+                  blurRadius: 0,
+                  offset: Offset(4, 4), // changes position of shadow
                 ),
+              ],
+              image: const DecorationImage(
+                image: NetworkImage("https://picsum.photos/600/800"),
+                fit: BoxFit.cover,
               ),
             ),
           ),

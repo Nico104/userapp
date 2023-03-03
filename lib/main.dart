@@ -6,6 +6,7 @@ import 'bottom_nav_bar/chip_style.dart';
 import 'bottom_nav_bar/src/bottom_bar_inspired_inside.dart';
 import 'bottom_nav_bar/tab_item.dart';
 import 'bottom_nav_bar/widgets/inspired/inspired.dart';
+import 'pet_color/u_pet_colors.dart';
 import 'pets/custom_paint_test.dart';
 
 void main() {
@@ -52,15 +53,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
-  // int tabIndex = 1;
-  // int _tabIndex = 1;
-  // int get tabIndex => _tabIndex;
-  // set tabIndex(int v) {
-  //   _tabIndex = v;
-  //   setState(() {});
-  // }
-
-  int visit = 0;
+  int visit = 1;
 
   double navbarheight = 60;
   double navbarbottompadding = 20;
@@ -76,40 +69,6 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // extendBody: true,
-      // bottomNavigationBar: CircleNavBar(
-      //   activeIcons: const [
-      //     Icon(Icons.person, color: Colors.black),
-      //     Icon(Icons.home, color: Colors.black),
-      //     Icon(Icons.favorite, color: Colors.black),
-      //   ],
-      //   inactiveIcons: const [
-      //     Text("My"),
-      //     Text("Home"),
-      //     Text("Like"),
-      //   ],
-      //   iconCurve: Curves.fastOutSlowIn,
-      //   iconDurationMillSec: 250,
-      //   tabDurationMillSec: 250,
-      //   color: Colors.white,
-      //   height: 60,
-      //   circleWidth: 60,
-      //   activeIndex: tabIndex,
-      //   onTap: (index) {
-      //     tabIndex = index;
-      //     pageController.jumpToPage(tabIndex);
-      //   },
-      //   padding:
-      //       EdgeInsets.only(left: 16, right: 16, bottom: navbarbottompadding),
-      //   cornerRadius: const BorderRadius.only(
-      //     topLeft: Radius.circular(8),
-      //     topRight: Radius.circular(8),
-      //     bottomRight: Radius.circular(24),
-      //     bottomLeft: Radius.circular(24),
-      //   ),
-      //   shadowColor: Colors.black12,
-      //   elevation: 8,
-      // ),
       bottomNavigationBar: BottomBarInspiredInside(
         // height: 50,
         items: items,
@@ -134,9 +93,10 @@ class _MyHomePageState extends State<MyHomePage>
           });
           pageController.jumpToPage(index);
         },
-        chipStyle: const ChipStyle(
+        chipStyle: ChipStyle(
           convexBridge: true,
-          background: Colors.yellow,
+          background:
+              getBackgroundColorFromTagColor(getTagColorFromString("Yellow")),
           notchSmoothness: NotchSmoothness.sharpEdge,
         ),
         itemStyle: ItemStyle.circle,
@@ -155,10 +115,7 @@ class _MyHomePageState extends State<MyHomePage>
               height: double.infinity,
               color: Colors.red),
           Pets(bottomoffset: (navbarheight + navbarbottompadding) * 1.2),
-          // Container(
-          //     width: double.infinity,
-          //     height: double.infinity,
-          //     color: Colors.blue),
+          // Pets(bottomoffset: 0),
           Container(
             width: 300,
             height: 500,
