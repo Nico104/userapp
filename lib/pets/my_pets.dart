@@ -28,7 +28,6 @@ class _MyPetsState extends State<MyPets> {
       PageController(viewportFraction: 0.8, keepPage: true);
 
   double pageindex = 0;
-
   late Color backgroundColor;
 
   @override
@@ -47,14 +46,6 @@ class _MyPetsState extends State<MyPets> {
     WidgetsBinding.instance.addPostFrameCallback((_) =>
         widget.setAppBarNotchColor(getColor(widget.petProfiles, pageindex)));
   }
-
-  // void initBackgroundColor(List<PetProfileDetails> list, double pageindex) {
-  //   //pageindex should be 0
-  //   setState(() {
-  //     backgroundColor = getColor(widget.petProfiles, pageindex);
-  //   });
-  //   widget.setAppBarNotchColor(getColor(widget.petProfiles, pageindex));
-  // }
 
   @override
   void dispose() {
@@ -87,61 +78,73 @@ class _MyPetsState extends State<MyPets> {
         ],
       ),
       backgroundColor: backgroundColor,
-      body: Center(
-        child: SizedBox(
-          height: 70.h,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                child: ScrollConfiguration(
-                  behavior: ScrollConfiguration.of(context).copyWith(
-                    dragDevices: {
-                      PointerDeviceKind.touch,
-                      PointerDeviceKind.mouse,
-                    },
-                  ),
-                  child: PageView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    controller: _controller,
-                    pageSnapping: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, position) {
-                      return PetProfilePreviewPageTransform(
-                        page: pageindex,
-                        position: position,
-                        maxRotation: 15,
-                        minScaling: 0.9,
-                        child: PetProfilePreview(
-                          // petProfileDetails:
-                          //     PetProfileDetails.createNewEmptyProfile(
-                          //         []),
-                          petProfileDetails:
-                              widget.petProfiles.elementAt(position),
-                          imageAlignmentOffset:
-                              -getAlignmentOffset(pageindex, position),
-                        ),
-                      );
-                    },
-                    // itemCount: 4,
-                    itemCount: widget.petProfiles.length,
+      body: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          //With SetState In Parent didUpdateWidget in ProfilePreview gets called and extendedActions gert closed if open
+          setState(() {});
+        },
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          alignment: const Alignment(0, -0.5),
+          // margin: const EdgeInsets.only(top: 16),
+          child: SizedBox(
+            height: 75.h,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  //? Only for web testin needed, not for app!
+                  child: ScrollConfiguration(
+                    behavior: ScrollConfiguration.of(context).copyWith(
+                      dragDevices: {
+                        PointerDeviceKind.touch,
+                        PointerDeviceKind.mouse,
+                      },
+                    ),
+                    child: PageView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      controller: _controller,
+                      pageSnapping: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, position) {
+                        return PetProfilePreviewPageTransform(
+                          page: pageindex,
+                          position: position,
+                          maxRotation: 15,
+                          minScaling: 0.9,
+                          child: PetProfilePreview(
+                            // petProfileDetails:
+                            //     PetProfileDetails.createNewEmptyProfile(
+                            //         []),
+                            petProfileDetails:
+                                widget.petProfiles.elementAt(position),
+                            imageAlignmentOffset:
+                                -getAlignmentOffset(pageindex, position),
+                          ),
+                        );
+                      },
+                      // itemCount: 4,
+                      itemCount: widget.petProfiles.length,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 28,
-              ),
-              SmoothPageIndicator(
-                controller: _controller,
-                count: widget.petProfiles.length,
-                effect: const WormEffect(
-                  dotHeight: 8,
-                  dotWidth: 8,
-                  activeDotColor: Colors.black,
+                const SizedBox(
+                  height: 28,
                 ),
-              ),
-            ],
+                SmoothPageIndicator(
+                  controller: _controller,
+                  count: widget.petProfiles.length,
+                  effect: const WormEffect(
+                    dotHeight: 8,
+                    dotWidth: 8,
+                    activeDotColor: Colors.black,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
