@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/profile_detail_view.dart';
+import 'package:userapp/pets/tag/tags.dart';
 import 'collar_tag_preview.dart';
 import 'profile_details/models/m_pet_profile.dart';
 import 'tag/tag_single.dart';
@@ -71,11 +72,14 @@ class _PetProfilePreviewState extends State<PetProfilePreview> {
           child: Align(
             // alignment: Alignment.bottomCenter,
             alignment: Alignment(widget.imageAlignmentOffset * -0.1, 1),
-            child: TagSingle(
-              collardimension: collardimension,
-              tagPersonalisation:
-                  widget.petProfileDetails.tag.first.collarTagPersonalisation,
-            ),
+            // child: TagSingle(
+            //   collardimension: collardimension,
+            //   tagPersonalisation:
+            //       widget.petProfileDetails.tag.first.collarTagPersonalisation,
+            // ),
+            child: Tags(
+                tag: widget.petProfileDetails.tag,
+                collardimension: collardimension),
           ),
         )
       ],
