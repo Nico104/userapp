@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:userapp/pets/pets.dart';
-
 import 'bottom_nav_bar/chip_style.dart';
 import 'bottom_nav_bar/src/bottom_bar_inspired_inside.dart';
 import 'bottom_nav_bar/tab_item.dart';
 import 'bottom_nav_bar/widgets/inspired/inspired.dart';
 import 'pet_color/u_pet_colors.dart';
 import 'pets/custom_paint_test.dart';
+import 'pets/my_pets.dart';
+import 'pets/pets_loading.dart';
 
 void main() {
   runApp(const MyApp());
@@ -60,6 +60,8 @@ class _MyHomePageState extends State<MyHomePage>
 
   late PageController pageController;
 
+  Color appBarNotchColor = Colors.white;
+
   @override
   void initState() {
     super.initState();
@@ -95,8 +97,7 @@ class _MyHomePageState extends State<MyHomePage>
         },
         chipStyle: ChipStyle(
           convexBridge: true,
-          background:
-              getBackgroundColorFromTagColor(getTagColorFromString("Yellow")),
+          background: appBarNotchColor,
           notchSmoothness: NotchSmoothness.sharpEdge,
         ),
         itemStyle: ItemStyle.circle,
@@ -114,7 +115,13 @@ class _MyHomePageState extends State<MyHomePage>
               width: double.infinity,
               height: double.infinity,
               color: Colors.red),
-          Pets(bottomoffset: (navbarheight + navbarbottompadding) * 1.2),
+          PetsLoading(
+            setAppBarNotchColor: (value) {
+              setState(() {
+                appBarNotchColor = value;
+              });
+            },
+          ),
           // Pets(bottomoffset: 0),
           Container(
             width: 300,

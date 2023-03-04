@@ -1,3 +1,4 @@
 import 'package:flutter/material.dart';
 
-Color petBgYellow = const Color(0xFFFCF7DE);
+Color genderPink = const Color(0xFFFFE5F0);
+Color genderBlue = const Color(0xFFE0F3FB);
