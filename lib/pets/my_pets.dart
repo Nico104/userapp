@@ -2,9 +2,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:userapp/pet_color/hex_color.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
+import 'package:userapp/pets/profile_details/models/m_tag_personalisation.dart';
 import 'package:userapp/pets/profile_details/profile_detail_view.dart';
 import '../pet_color/u_pet_colors.dart';
+import '../styles/text_styles.dart';
 import 'page_transform.dart';
 import 'pet_profile_preview.dart';
 import 'profile_details/models/m_tag.dart';
@@ -72,7 +75,10 @@ class _MyPetsState extends State<MyPets> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("My Pets"),
+        title: Text(
+          "My Pets",
+          style: homeScreenTitle,
+        ),
         backgroundColor: backgroundColor,
         foregroundColor: Colors.black,
         elevation: 0,
@@ -82,9 +88,29 @@ class _MyPetsState extends State<MyPets> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => PetProfileDetailView(
+                        //ASK for Tag for Profile! No Profile without tag first
                         petProfileDetails:
                             PetProfileDetails.createNewEmptyProfile(
-                          List<Tag>.empty(growable: false),
+                          [
+                            Tag(
+                              "x",
+                              999999,
+                              "x",
+                              "x",
+                              TagPersonalisation(
+                                99999,
+                                "x",
+                                "x",
+                                "x",
+                                "x",
+                                "x",
+                                "x",
+                                HexColor("FCF7DE"),
+                                HexColor("FCF7DE"),
+                                HexColor("FCF7DE"),
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     ),

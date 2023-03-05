@@ -6,13 +6,13 @@ import 'm_phone_number.dart';
 import 'm_scan.dart';
 import 'm_tag.dart';
 
-enum Gender { male, female }
+enum Gender { male, female, none }
 
 class PetProfileDetails {
   final int? profileId;
   final DateTime? profileCreationDateTime;
   String? petName;
-  Gender? petGender;
+  Gender petGender;
   String? petChipId;
   List<Description> petDescription;
   List<ImportantInformation> petImportantInformation;
@@ -108,7 +108,7 @@ class PetProfileDetails {
       : profileId = null,
         profileCreationDateTime = null,
         petName = null,
-        petGender = Gender.male,
+        petGender = Gender.none,
         petChipId = null,
         petOwnerName = null,
         petOwnerEmail = null,
@@ -126,8 +126,7 @@ class PetProfileDetails {
 
   Map<String, dynamic> toJson() => {
         'pet_name': petName,
-        'pet_gender':
-            petGender != null ? parseStringFromGender(petGender!) : petGender,
+        'pet_gender': parseStringFromGender(petGender),
         'pet_chip_id': petChipId,
         'pet_owner_name': petOwnerName,
         'pet_owner_email': petOwnerEmail,
@@ -141,15 +140,20 @@ class PetProfileDetails {
 Gender parseGenderFromString(String value) {
   if (value.toUpperCase() == "MALE") {
     return Gender.male;
-  } else {
+  } else if (value.toUpperCase() == "FEMALE") {
     return Gender.female;
+  } else {
+    return Gender.none;
   }
 }
 
 String parseStringFromGender(Gender value) {
-  if (value == Gender.male) {
-    return "MALE";
-  } else {
-    return "FEMALE";
+  switch (value) {
+    case Gender.male:
+      return "MALE";
+    case Gender.female:
+      return "FEMALE";
+    case Gender.none:
+      return "NONE";
   }
 }

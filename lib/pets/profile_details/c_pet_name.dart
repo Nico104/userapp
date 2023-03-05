@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
+import 'package:userapp/pets/tag/tags.dart';
+import '../../styles/text_styles.dart';
 import '../collar_test.dart';
 import 'models/m_tag.dart';
 
@@ -35,18 +37,36 @@ class PetNameComponent extends StatelessWidget {
       children: [
         Hero(
           tag: 'collar$petProfileId',
-          child: CollarTest(collardimension: 100),
+          child: Tags(collardimension: 100, tag: tag),
         ),
+        const SizedBox(width: 32),
         Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(petName ?? "Unamed"),
-            gender != null ? Text(getPetTitle(gender!)) : const SizedBox(),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  petName ?? "Unamed",
+                  style: petNameStyle,
+                ),
+                const SizedBox(width: 8),
+                const Icon(
+                  Icons.edit,
+                  size: 18,
+                )
+              ],
+            ),
+            gender != null
+                ? Text(
+                    getPetTitle(gender!),
+                    style: petGoodBadgeStyle,
+                  )
+                : const SizedBox(),
           ],
         ),
-        Spacer(),
-        Icon(Icons.edit),
       ],
     );
   }
@@ -58,5 +78,7 @@ String getPetTitle(Gender gender) {
       return "Good boy";
     case Gender.female:
       return "Good girl";
+    case Gender.none:
+      return "";
   }
 }

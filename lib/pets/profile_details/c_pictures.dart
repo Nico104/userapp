@@ -90,32 +90,40 @@ class SinglePicture extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(
               top: imageOffsetRight / 1.2, right: imageOffsetRight),
-          child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(imageBorderRadius)),
-            child: Image.network(
-              "https://picsum.photos/600/800",
+          width: imageWidth,
+          height: imageHeight,
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 3,
+              color: Colors.black,
+            ),
+            borderRadius: BorderRadius.circular(imageBorderRadius),
+            image: const DecorationImage(
+              image: NetworkImage("https://picsum.photos/600/800"),
               fit: BoxFit.cover,
               alignment: Alignment.center,
-              width: imageWidth,
-              height: imageHeight,
             ),
           ),
         ),
-        Material(
-          elevation: 8,
-          borderRadius: BorderRadius.circular(closeBorderRadius),
-          // color: Colors.transparent,
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.redAccent, width: 1.5),
-                borderRadius: BorderRadius.circular(closeBorderRadius),
-                color: Colors.white),
-            child: const Padding(
-              padding: EdgeInsets.all(4),
-              child: Icon(
-                Icons.close_rounded,
-                color: Colors.redAccent,
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.redAccent, width: 1.5),
+            borderRadius: BorderRadius.circular(closeBorderRadius),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.redAccent.withOpacity(0.80),
+                spreadRadius: 0,
+                blurRadius: 0,
+                offset: const Offset(0.5, 0.5), // changes position of shadow
               ),
+            ],
+          ),
+          child: const Padding(
+            padding: EdgeInsets.all(4),
+            child: Icon(
+              Icons.close_rounded,
+              color: Colors.redAccent,
             ),
           ),
         ),

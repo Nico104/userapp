@@ -3,6 +3,7 @@ import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/profile_detail_view.dart';
 import 'package:userapp/pets/tag/tags.dart';
 import '../pet_color/pet_colors.dart';
+import '../styles/text_styles.dart';
 import 'profile_details/models/m_pet_profile.dart';
 
 class PetProfilePreview extends StatefulWidget {
@@ -159,12 +160,16 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                                       flex: iconFlex,
                                       child: const Center(
                                         child: Icon(
-                                          Icons.ios_share_rounded,
+                                          // Icons.ios_share_rounded,
+                                          Icons.share_rounded,
                                           size: 32,
                                         ),
                                       ),
                                     ),
-                                    const Text("Share"),
+                                    Text(
+                                      "Share",
+                                      style: extendedActions,
+                                    ),
                                     Expanded(
                                         flex: labelFlex,
                                         child: const SizedBox()),
@@ -200,7 +205,10 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                                         ),
                                       ),
                                     ),
-                                    Text(_switchValue ? "Lost" : "Found"),
+                                    Text(
+                                      _switchValue ? "Lost" : "Found",
+                                      style: extendedActions,
+                                    ),
                                     Expanded(
                                         flex: labelFlex,
                                         child: const SizedBox()),
@@ -227,7 +235,10 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                                         ),
                                       ),
                                     ),
-                                    const Text("Scans"),
+                                    Text(
+                                      "Scans",
+                                      style: extendedActions,
+                                    ),
                                     Expanded(
                                         flex: labelFlex,
                                         child: const SizedBox()),

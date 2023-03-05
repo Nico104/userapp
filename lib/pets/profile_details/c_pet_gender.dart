@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import '../../pet_color/pet_colors.dart';
 import '../../styles/text_styles.dart';
 import 'c_component_title.dart';
 import 'models/m_pet_profile.dart';
@@ -11,6 +12,14 @@ class PetGenderComponent extends StatelessWidget {
   //Gender
   final Gender? gender;
   final ValueSetter<Gender> setGender;
+
+  void handleButtonPress(Gender value) {
+    if (gender == value) {
+      setGender(Gender.none);
+    } else {
+      setGender(value);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +33,7 @@ class PetGenderComponent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GestureDetector(
-              onTap: () => setGender(Gender.male),
+              onTap: () => handleButtonPress(Gender.male),
               child: GenderButton(
                 isMale: true,
                 isActive: gender == Gender.male,
@@ -33,7 +42,7 @@ class PetGenderComponent extends StatelessWidget {
             ),
             SizedBox(width: 06.w),
             GestureDetector(
-              onTap: () => setGender(Gender.female),
+              onTap: () => handleButtonPress(Gender.female),
               child: GenderButton(
                 isMale: false,
                 isActive: gender == Gender.female,
@@ -75,7 +84,8 @@ class _GenderButtonState extends State<GenderButton> {
   final double _height = 60;
   late double _width;
 
-  final double _borderradius = 28;
+  final double _borderradius = 10;
+  final double _borderwidth = 2;
 
   @override
   void initState() {
@@ -84,16 +94,32 @@ class _GenderButtonState extends State<GenderButton> {
     _width = 40.w;
 
     enabledBoxDecoration = BoxDecoration(
-      color: widget.isMale ? Colors.blue : Colors.pink,
+      color:
+          widget.isMale ? genderButtonEnabledMale : genderButtonEnabledFemale,
       borderRadius: BorderRadius.circular(_borderradius),
+      border: Border.all(
+        width: _borderwidth,
+        color: Colors.black,
+      ),
     );
     disabledBoxDecoration = BoxDecoration(
-      color: widget.isMale ? Colors.blue.shade200 : Colors.pink.shade200,
+      color:
+          widget.isMale ? genderButtonDisabledMale : genderButtonDisabledFemale,
       borderRadius: BorderRadius.circular(_borderradius),
+      border: Border.all(
+        width: _borderwidth,
+        color: Colors.black,
+      ),
     );
     backgroundBoxDecoration = BoxDecoration(
-      color: widget.isMale ? Colors.blue.shade800 : Colors.pink.shade800,
+      color: widget.isMale
+          ? genderButtonBackgroundMale
+          : genderButtonBackgroundFemale,
       borderRadius: BorderRadius.circular(_borderradius),
+      border: Border.all(
+        width: _borderwidth,
+        color: Colors.black,
+      ),
     );
   }
 

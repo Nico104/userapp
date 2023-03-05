@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:userapp/pet_color/pet_colors.dart';
 import '../pets/profile_details/models/m_pet_profile.dart';
 
 Color getPageBackgroundColorMixture(Color color1, Color color2, double page) {
@@ -31,5 +32,13 @@ Color getColor(List<PetProfileDetails> list, double pageindex) {
         .first
         .collarTagPersonalisation
         .petPageBackgroundColor;
+  }
+}
+
+Color getGenderBackgroundColor(Gender gender) {
+  if (gender == Gender.male) {
+    return genderBgBlue;
+  } else {
+    return genderBgPink;
   }
 }

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/c_pet_name.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
+import '../../pet_color/pet_colors.dart';
+import '../../pet_color/u_pet_colors.dart';
+import '../../styles/text_styles.dart';
 import 'c_component_padding.dart';
 import 'c_description.dart';
 import 'c_pet_gender.dart';
@@ -54,7 +57,7 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
                 const SizedBox(height: 28),
                 OutlinedButton(
                   onPressed: () => Navigator.pop(context, controller.text),
-                  child: Text("Done!"),
+                  child: const Text("Done!"),
                 )
               ],
             ),
@@ -74,77 +77,85 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Profile Details"),
-        backgroundColor: Colors.white,
+        title: Text(
+          "Profile Details",
+          style: profileDetailsTitle,
+        ),
+        backgroundColor: widget
+            .petProfileDetails.tag.first.collarTagPersonalisation.primaryColor,
         foregroundColor: Colors.black,
         elevation: 0,
-        actions: [Icon(Icons.scanner)],
       ),
-      backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           handlePetProfileDetailsSave(
               _petProfileDetails, widget.petProfileDetails);
         },
       ),
-      body: ListView(
-        children: [
-          //Name and Tag
-          PaddingComponent(
-            component: PetNameComponent(
-              petProfileId: _petProfileDetails.profileId,
-              petName: _petProfileDetails.petName,
-              setPetName: (value) => setState(() {
-                _petProfileDetails.petName = value;
-              }),
-              gender: _petProfileDetails.petGender,
-              tag: _petProfileDetails.tag,
-              setTags: (value) => setState(() {
-                _petProfileDetails.tag = value;
-              }),
+      body: Container(
+        decoration: _petProfileDetails.petGender != Gender.none
+            ? BoxDecoration(
+                gradient: LinearGradient(
+                  begin: const Alignment(-1, -1),
+                  end: const Alignment(1, 1),
+                  colors: [
+                    widget.petProfileDetails.tag.first.collarTagPersonalisation
+                        .primaryColor,
+                    getGenderBackgroundColor(_petProfileDetails.petGender),
+                  ],
+                ),
+              )
+            : BoxDecoration(
+                color: widget.petProfileDetails.tag.first
+                    .collarTagPersonalisation.primaryColor,
+              ),
+        child: ListView(
+          children: [
+            //Name and Tag
+            PaddingComponent(
+              component: PetNameComponent(
+                petProfileId: _petProfileDetails.profileId,
+                petName: _petProfileDetails.petName,
+                setPetName: (value) => setState(() {
+                  _petProfileDetails.petName = value;
+                }),
+                gender: _petProfileDetails.petGender,
+                tag: _petProfileDetails.tag,
+                setTags: (value) => setState(() {
+                  _petProfileDetails.tag = value;
+                }),
+              ),
             ),
-          ),
-          const SectionTitle(text: "Pet Info"),
-          //TODO
-          PaddingComponent(
-            component: PetPicturesComponent(
-              imageHeight: 178,
-              imageWidth: 178,
-              imageBorderRadius: 24,
-              imageSpacing: 20,
-              petPictures: _petProfileDetails.petPictures,
-              setPetPictures: (value) => _petProfileDetails.petPictures,
+            const SectionTitle(text: "Pet Info"),
+            //TODO
+            PaddingComponent(
+              component: PetPicturesComponent(
+                imageHeight: 178,
+                imageWidth: 178,
+                imageBorderRadius: 14,
+                imageSpacing: 20,
+                petPictures: _petProfileDetails.petPictures,
+                setPetPictures: (value) => _petProfileDetails.petPictures,
+              ),
+              ignoreLeftPadding: true,
             ),
-            ignoreLeftPadding: true,
-          ),
-          PaddingComponent(
-            component: PetGenderComponent(
-              gender: _petProfileDetails.petGender,
-              setGender: (value) => setState(() {
-                _petProfileDetails.petGender = value;
-              }),
+            PaddingComponent(
+              component: PetGenderComponent(
+                gender: _petProfileDetails.petGender,
+                setGender: (value) => setState(() {
+                  _petProfileDetails.petGender = value;
+                }),
+              ),
             ),
-          ),
-          PaddingComponent(
-            component: PetDescriptionComponent(
-              //Pass by reference
-              descriptions: _petProfileDetails.petDescription,
+            PaddingComponent(
+              component: PetDescriptionComponent(
+                //Pass by reference
+                descriptions: _petProfileDetails.petDescription,
+              ),
             ),
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              // PetProfileDetails petProfileDetails =
-              //     await fetchPetProfileDetailsTest();
-
-              print(_petProfileDetails.petDescription
-                  .elementAt(0)
-                  .language
-                  .languageLabel);
-            },
-            child: Text("fetch"),
-          ),
-          //Wait for connection to Server for important info, maybe you can reuse the Description Model
-        ],
+            //Wait for connection to Server for important info, maybe you can reuse the Description Model
+          ],
+        ),
       ),
     );
   }
