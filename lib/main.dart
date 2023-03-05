@@ -137,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage>
   }
 }
 
-const List<TabItem> items = [
+List<TabItem> items = [
   TabItem(
     icon: Icons.shopping_bag_outlined,
     // title: 'Shop',

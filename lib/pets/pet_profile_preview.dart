@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/profile_detail_view.dart';
 import 'package:userapp/pets/tag/tags.dart';
+import '../pet_color/pet_colors.dart';
 import 'profile_details/models/m_pet_profile.dart';
 
 class PetProfilePreview extends StatefulWidget {
@@ -43,6 +44,14 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
 
   //Extended Actions variables
   bool _switchValue = false;
+  final int iconFlex = 10;
+  final int labelFlex = 2;
+
+  void switchLostValue() {
+    setState(() {
+      _switchValue = !_switchValue;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,62 +133,111 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                   AnimatedContainer(
                     duration: _duration,
                     curve: _curve,
-                    height: _showExtendedActions ? 80 : 0,
+                    height: _showExtendedActions ? 100 : 0,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(borderRadius),
                           bottomRight: Radius.circular(borderRadius)),
                       color: Colors.white,
                     ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              print("1");
-                            },
-                            child: Container(
-                              height: double.infinity,
-                              // color: Colors.red,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              print("2");
-                            },
-                            child: SizedBox(
-                              height: double.infinity,
-                              // color: Colors.blue,
-                              child: Theme(
-                                data: ThemeData(useMaterial3: true),
-                                child: Switch(
-                                  // activeColor: Colors.white,
-                                  activeTrackColor: Colors.red,
-                                  value: _switchValue,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _switchValue = value;
-                                    });
-                                  },
+                    child: AnimatedOpacity(
+                      duration: _duration,
+                      curve: _curve,
+                      opacity: _showExtendedActions ? 1 : 0,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                //To trigger the Hit Box
+                                color: Colors.transparent,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Expanded(
+                                      flex: iconFlex,
+                                      child: const Center(
+                                        child: Icon(
+                                          Icons.ios_share_rounded,
+                                          size: 32,
+                                        ),
+                                      ),
+                                    ),
+                                    const Text("Share"),
+                                    Expanded(
+                                        flex: labelFlex,
+                                        child: const SizedBox()),
+                                  ],
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              print("3");
-                            },
-                            child: Container(
-                              height: double.infinity,
-                              // color: Colors.yellow,
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                switchLostValue();
+                              },
+                              child: Container(
+                                //To trigger the Hit Box
+                                color: Colors.transparent,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Expanded(
+                                      flex: iconFlex,
+                                      child: Center(
+                                        child: Theme(
+                                          data: ThemeData(useMaterial3: true),
+                                          child: Switch(
+                                            activeTrackColor: activeLostSwitch,
+                                            inactiveTrackColor:
+                                                inactiveLostSwitch,
+                                            value: _switchValue,
+                                            onChanged: (_) => switchLostValue(),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Text(_switchValue ? "Lost" : "Found"),
+                                    Expanded(
+                                        flex: labelFlex,
+                                        child: const SizedBox()),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                //To trigger the Hit Box
+                                color: Colors.transparent,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Expanded(
+                                      flex: iconFlex,
+                                      child: const Center(
+                                        child: Icon(
+                                          Icons.qr_code_scanner_rounded,
+                                          size: 32,
+                                        ),
+                                      ),
+                                    ),
+                                    const Text("Scans"),
+                                    Expanded(
+                                        flex: labelFlex,
+                                        child: const SizedBox()),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
