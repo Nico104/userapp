@@ -15,10 +15,10 @@ class PetProfilePreview extends StatefulWidget {
   final double imageAlignmentOffset;
 
   @override
-  State<PetProfilePreview> createState() => _PetProfilePreviewState();
+  State<PetProfilePreview> createState() => PetProfilePreviewState();
 }
 
-class _PetProfilePreviewState extends State<PetProfilePreview> {
+class PetProfilePreviewState extends State<PetProfilePreview> {
   double collardimension = 130;
   double collaroffset = 10;
   double marginhorizontal = 06.w;
@@ -30,9 +30,8 @@ class _PetProfilePreviewState extends State<PetProfilePreview> {
   final Curve _curve = Curves.fastOutSlowIn;
   final double topOffset = 28;
 
-  @override
-  void didUpdateWidget(covariant PetProfilePreview oldWidget) {
-    super.didUpdateWidget(oldWidget);
+  void closeExpendedAction() {
+    print("close actions");
     if (_showExtendedActions) {
       if (mounted) {
         setState(() {
@@ -41,6 +40,9 @@ class _PetProfilePreviewState extends State<PetProfilePreview> {
       }
     }
   }
+
+  //Extended Actions variables
+  bool _switchValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -105,6 +107,7 @@ class _PetProfilePreviewState extends State<PetProfilePreview> {
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   AnimatedOpacity(
                     duration: _duration,
@@ -128,24 +131,77 @@ class _PetProfilePreviewState extends State<PetProfilePreview> {
                           bottomRight: Radius.circular(borderRadius)),
                       color: Colors.white,
                     ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              print("1");
+                            },
+                            child: Container(
+                              height: double.infinity,
+                              // color: Colors.red,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              print("2");
+                            },
+                            child: SizedBox(
+                              height: double.infinity,
+                              // color: Colors.blue,
+                              child: Theme(
+                                data: ThemeData(useMaterial3: true),
+                                child: Switch(
+                                  // activeColor: Colors.white,
+                                  activeTrackColor: Colors.red,
+                                  value: _switchValue,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _switchValue = value;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              print("3");
+                            },
+                            child: Container(
+                              height: double.infinity,
+                              // color: Colors.yellow,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
           ),
         ),
-        AnimatedOpacity(
-          duration: _duration,
-          curve: _curve,
-          opacity: _showExtendedActions ? 0 : 1,
-          child: Hero(
-            tag: 'collar${widget.petProfileDetails.profileId}',
-            child: Align(
-              // alignment: Alignment.bottomCenter,
-              alignment: Alignment(widget.imageAlignmentOffset * -0.2, 1),
-              child: Tags(
-                  tag: widget.petProfileDetails.tag,
-                  collardimension: collardimension),
+        IgnorePointer(
+          ignoring: _showExtendedActions,
+          child: AnimatedOpacity(
+            duration: _duration,
+            curve: _curve,
+            opacity: _showExtendedActions ? 0 : 1,
+            child: Hero(
+              tag: 'collar${widget.petProfileDetails.profileId}',
+              child: Align(
+                // alignment: Alignment.bottomCenter,
+                alignment: Alignment(widget.imageAlignmentOffset * -0.2, 1),
+                child: Tags(
+                    tag: widget.petProfileDetails.tag,
+                    collardimension: collardimension),
+              ),
             ),
           ),
         )

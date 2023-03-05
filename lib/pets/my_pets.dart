@@ -25,18 +25,27 @@ class MyPets extends StatefulWidget {
 
 class _MyPetsState extends State<MyPets> {
   final PageController _controller =
-      PageController(viewportFraction: 0.8, keepPage: true);
+      PageController(viewportFraction: 0.8, keepPage: false);
 
   double pageindex = 0;
   late Color backgroundColor;
 
+  List<GlobalKey<PetProfilePreviewState>> pageKeys =
+      List<GlobalKey<PetProfilePreviewState>>.empty(growable: true);
+
   @override
   void initState() {
     super.initState();
+
+    for (var _ in widget.petProfiles) {
+      pageKeys.add(GlobalKey<PetProfilePreviewState>());
+    }
+
     _controller.addListener(() {
       setState(() {
         pageindex = _controller.page ?? 0;
         backgroundColor = getColor(widget.petProfiles, pageindex);
+        _closeExtendedActions();
         print(pageindex);
       });
       widget.setAppBarNotchColor(getColor(widget.petProfiles, pageindex));
@@ -51,6 +60,12 @@ class _MyPetsState extends State<MyPets> {
   void dispose() {
     super.dispose();
     _controller.dispose();
+  }
+
+  void _closeExtendedActions() {
+    if (pageKeys.elementAt(pageindex.round()).currentState != null) {
+      pageKeys.elementAt(pageindex.round()).currentState?.closeExpendedAction();
+    }
   }
 
   @override
@@ -81,8 +96,7 @@ class _MyPetsState extends State<MyPets> {
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
-          //With SetState In Parent didUpdateWidget in ProfilePreview gets called and extendedActions gert closed if open
-          setState(() {});
+          _closeExtendedActions();
         },
         child: Container(
           width: double.infinity,
@@ -116,9 +130,7 @@ class _MyPetsState extends State<MyPets> {
                           maxRotation: 15,
                           minScaling: 0.9,
                           child: PetProfilePreview(
-                            // petProfileDetails:
-                            //     PetProfileDetails.createNewEmptyProfile(
-                            //         []),
+                            key: pageKeys.elementAt(position),
                             petProfileDetails:
                                 widget.petProfiles.elementAt(position),
                             imageAlignmentOffset:
