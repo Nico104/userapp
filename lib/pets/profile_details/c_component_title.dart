@@ -17,7 +17,7 @@ class ComponentTitle extends StatelessWidget {
           style: profileDetailsComponentTitle,
         ),
         const SizedBox(
-          height: 28,
+          height: 22,
         )
       ],
     );

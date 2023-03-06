@@ -15,3 +15,6 @@ Color genderButtonDisabledFemale = const Color(0xFFFFD1DC);
 
 Color genderButtonBackgroundMale = const Color(0xFF44bdea);
 Color genderButtonBackgroundFemale = const Color(0xFFff668a);
+
+//Dialog
+Color genderdataEditDialogButtonSave = const Color(0xFF64FF9D);

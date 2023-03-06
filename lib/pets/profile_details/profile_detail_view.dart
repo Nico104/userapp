@@ -5,6 +5,7 @@ import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import '../../pet_color/pet_colors.dart';
 import '../../pet_color/u_pet_colors.dart';
 import '../../styles/text_styles.dart';
+import 'c_chip_number.dart';
 import 'c_component_padding.dart';
 import 'c_description.dart';
 import 'c_pet_gender.dart';
@@ -29,10 +30,10 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
     super.initState();
     _petProfileDetails = widget.petProfileDetails.clone();
 
-    if (_petProfileDetails.petName == null) {
-      WidgetsBinding.instance
-          .addPostFrameCallback((_) => askForPetName(context));
-    }
+    // if (_petProfileDetails.petName == null) {
+    //   WidgetsBinding.instance
+    //       .addPostFrameCallback((_) => askForPetName(context));
+    // }
   }
 
   void askForPetName(BuildContext context) async {
@@ -86,12 +87,17 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
         foregroundColor: Colors.black,
         elevation: 0,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          handlePetProfileDetailsSave(
-              _petProfileDetails, widget.petProfileDetails);
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: const Icon(
+      //     Icons.save,
+      //     color: Colors.white,
+      //   ),
+      //   onPressed: () {
+      //     handlePetProfileDetailsSave(
+      //         _petProfileDetails, widget.petProfileDetails);
+      //   },
+      // ),
+      resizeToAvoidBottomInset: true,
       body: Container(
         decoration: _petProfileDetails.petGender != Gender.none
             ? BoxDecoration(
@@ -111,6 +117,7 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
               ),
         child: ListView(
           children: [
+            const SizedBox(height: 28),
             //Name and Tag
             PaddingComponent(
               component: PetNameComponent(
@@ -124,6 +131,7 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
                 setTags: (value) => setState(() {
                   _petProfileDetails.tag = value;
                 }),
+                collardimension: 120,
               ),
             ),
             const SectionTitle(text: "Pet Info"),
@@ -153,6 +161,33 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
                 descriptions: _petProfileDetails.petDescription,
               ),
             ),
+            PaddingComponent(
+              component: PetChipNumber(
+                chipNr: "5423523",
+                setchipNr: (value) {},
+              ),
+            ),
+            PaddingComponent(
+              component: PetChipNumber(
+                chipNr: "xx",
+                setchipNr: (value) {},
+              ),
+            ),
+            PaddingComponent(
+              component: PetChipNumber(
+                chipNr: "xx",
+                setchipNr: (value) {},
+              ),
+            ),
+            PaddingComponent(
+              component: PetChipNumber(
+                chipNr: "xx",
+                setchipNr: (value) {},
+              ),
+            ),
+            SizedBox(
+              height: 16,
+            )
             //Wait for connection to Server for important info, maybe you can reuse the Description Model
           ],
         ),

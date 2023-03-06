@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:userapp/pet_color/hex_color.dart';
+import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
+import 'package:userapp/pets/profile_details/models/m_tag.dart';
+import 'package:userapp/pets/profile_details/models/m_tag_personalisation.dart';
+import 'package:userapp/pets/profile_details/profile_detail_view.dart';
 import 'bottom_nav_bar/chip_style.dart';
 import 'bottom_nav_bar/src/bottom_bar_inspired_inside.dart';
 import 'bottom_nav_bar/tab_item.dart';
@@ -115,12 +120,37 @@ class _MyHomePageState extends State<MyHomePage>
               width: double.infinity,
               height: double.infinity,
               color: Colors.red),
-          PetsLoading(
-            setAppBarNotchColor: (value) {
-              setState(() {
-                appBarNotchColor = value;
-              });
-            },
+          // PetsLoading(
+          //   setAppBarNotchColor: (value) {
+          //     setState(() {
+          //       appBarNotchColor = value;
+          //     });
+          //   },
+          // ),
+          PetProfileDetailView(
+            //ASK for Tag for Profile! No Profile without tag first
+            petProfileDetails: PetProfileDetails.createNewEmptyProfile(
+              [
+                Tag(
+                  "x",
+                  999999,
+                  "x",
+                  "x",
+                  TagPersonalisation(
+                    99999,
+                    "x",
+                    "x",
+                    "x",
+                    "x",
+                    "x",
+                    "x",
+                    HexColor("FCF7DE"),
+                    HexColor("FCF7DE"),
+                    HexColor("FCF7DE"),
+                  ),
+                )
+              ],
+            ),
           ),
           // Pets(bottomoffset: 0),
           Container(

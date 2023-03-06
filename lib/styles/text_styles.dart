@@ -30,6 +30,12 @@ TextStyle profileDetailsComponentTitle = TextStyle(
   fontSize: 20,
   color: Colors.black.withOpacity(0.94),
 );
+TextStyle editDialogTitleStyle = TextStyle(
+  fontFamily: 'Shantell_Sans',
+  fontWeight: FontWeight.w700,
+  fontSize: 20,
+  color: Colors.black.withOpacity(0.94),
+);
 
 TextStyle newDescriptionLabel = TextStyle();
 
@@ -51,4 +57,26 @@ TextStyle profileGenderLabel = const TextStyle(
   fontWeight: FontWeight.w400,
   fontSize: 18,
   color: Colors.white,
+);
+
+TextStyle profileDetailsDataPreviewTextStyle = TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w400,
+  fontSize: 18,
+  color: Colors.black.withOpacity(0.64),
+);
+
+//Data Edit Dialog
+TextStyle dataEditDialogButtonSaveStyle = const TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w400,
+  fontSize: 16,
+  color: Colors.black,
+);
+
+TextStyle dataEditDialogButtonCancelStyle = const TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w400,
+  fontSize: 16,
+  color: Colors.grey,
 );

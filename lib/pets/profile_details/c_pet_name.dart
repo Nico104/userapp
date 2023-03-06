@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/pets/tag/tags.dart';
 import '../../styles/text_styles.dart';
-import '../collar_test.dart';
 import 'models/m_tag.dart';
 
 class PetNameComponent extends StatelessWidget {
@@ -14,6 +13,7 @@ class PetNameComponent extends StatelessWidget {
     required this.gender,
     required this.tag,
     required this.setTags,
+    required this.collardimension,
   });
 
   //profileId of Profile for Hero Animation
@@ -24,24 +24,32 @@ class PetNameComponent extends StatelessWidget {
   final ValueSetter<String> setPetName;
 
   //Gender
-  final Gender? gender;
+  final Gender gender;
 
   //Tags
   final List<Tag> tag;
   final ValueSetter<List<Tag>> setTags;
+  final double collardimension;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        const Spacer(
+          flex: 2,
+        ),
         Hero(
           tag: 'collar$petProfileId',
-          child: Tags(collardimension: 100, tag: tag),
+          child: Tags(collardimension: collardimension, tag: tag),
         ),
-        const SizedBox(width: 32),
+        // const SizedBox(width: 32),
+        const Spacer(
+          flex: 3,
+        ),
         Column(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -59,13 +67,16 @@ class PetNameComponent extends StatelessWidget {
                 )
               ],
             ),
-            gender != null
+            gender != Gender.none
                 ? Text(
-                    getPetTitle(gender!),
+                    getPetTitle(gender),
                     style: petGoodBadgeStyle,
                   )
                 : const SizedBox(),
           ],
+        ),
+        const Spacer(
+          flex: 16,
         ),
       ],
     );

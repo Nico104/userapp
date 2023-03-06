@@ -13,7 +13,7 @@ class PaddingComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-          bottom: 28.0, left: ignoreLeftPadding ? 0 : profileDetailLeftPadding),
+          bottom: 34.0, left: ignoreLeftPadding ? 0 : profileDetailLeftPadding),
       child: component,
     );
   }
