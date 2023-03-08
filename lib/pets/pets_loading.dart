@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:userapp/language/m_language.dart';
 import 'my_pets.dart';
 import 'profile_details/models/m_pet_profile.dart';
 import 'u_pets.dart';
@@ -13,15 +14,19 @@ class PetsLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<PetProfileDetails>>(
-      future: fetchUserPets(),
-      builder: (BuildContext context,
-          AsyncSnapshot<List<PetProfileDetails>> snapshot) {
+    return FutureBuilder(
+      future: Future.wait([
+        fetchUserPets(),
+        fetchAvailableLanguages(),
+      ]),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data!.isNotEmpty) {
+          if (snapshot.data[0] is List<PetProfileDetails> &&
+              snapshot.data[1] is List<Language>) {
             return MyPets(
-              petProfiles: snapshot.data!,
+              petProfiles: snapshot.data[0],
               setAppBarNotchColor: setAppBarNotchColor,
+              availableLanguages: snapshot.data[1],
             );
           } else {
             return const Center(child: Text("No Pets, create?"));

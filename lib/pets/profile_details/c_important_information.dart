@@ -1,6 +1,7 @@
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/models/m_description.dart';
+import 'package:userapp/pets/profile_details/models/m_important_information.dart';
 
 import '../../language/m_language.dart';
 import '../../styles/text_styles.dart';
@@ -8,52 +9,53 @@ import 'c_component_title.dart';
 import '../../language/c_language_selection.dart';
 import 'widgets/custom_textformfield.dart';
 
-class PetDescriptionComponent extends StatefulWidget {
-  const PetDescriptionComponent({
+class PetImportantInformation extends StatefulWidget {
+  const PetImportantInformation({
     super.key,
-    required this.descriptions,
+    required this.imortantInformations,
     // required this.addDescription,
     // required this.removeDescription,
   });
 
   //Pictures
-  final List<Description> descriptions;
+  final List<ImportantInformation> imortantInformations;
 
   @override
-  State<PetDescriptionComponent> createState() =>
-      _PetDescriptionComponentState();
+  State<PetImportantInformation> createState() =>
+      _PetImportantInformationState();
 }
 
-class _PetDescriptionComponentState extends State<PetDescriptionComponent> {
-  // final ValueSetter<Description> addDescription;
+class _PetImportantInformationState extends State<PetImportantInformation> {
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const ComponentTitle(text: "Description"),
+        const ComponentTitle(text: "Important Information"),
         ListView.builder(
-          itemCount: widget.descriptions.length + 1,
+          itemCount: widget.imortantInformations.length + 1,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
-            if (index == widget.descriptions.length) {
-              return NewDescriptionTranslation(
-                descriptions: widget.descriptions,
-                addNewDescription: (text, language) {
+            if (index == widget.imortantInformations.length) {
+              return NewImportantInformationTranslation(
+                importantInformation: widget.imortantInformations,
+                addImportantInformation: (text, language) {
                   setState(() {
-                    widget.descriptions.add(Description(text, language));
+                    widget.imortantInformations
+                        .add(ImportantInformation(text, language));
                   });
                 },
               );
             } else {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 8),
-                child: DescriptionTranslation(
+                child: ImportantInformationTranslation(
                   //Pass by reference
-                  description: widget.descriptions.elementAt(index),
-                  descriptions: widget.descriptions,
+                  importantInformation:
+                      widget.imortantInformations.elementAt(index),
+                  importantInformations: widget.imortantInformations,
                   index: index,
                 ),
               );
@@ -65,16 +67,16 @@ class _PetDescriptionComponentState extends State<PetDescriptionComponent> {
   }
 }
 
-class DescriptionTranslation extends StatelessWidget {
-  const DescriptionTranslation({
+class ImportantInformationTranslation extends StatelessWidget {
+  const ImportantInformationTranslation({
     super.key,
     required this.index,
-    required this.description,
-    required this.descriptions,
+    required this.importantInformation,
+    required this.importantInformations,
   });
 
-  final Description description;
-  final List<Description> descriptions;
+  final ImportantInformation importantInformation;
+  final List<ImportantInformation> importantInformations;
   final int index;
 
   @override
@@ -84,12 +86,12 @@ class DescriptionTranslation extends StatelessWidget {
       children: [
         Expanded(
           child: CustomTextFormFieldActive(
-            initialValue: description.text,
+            initialValue: importantInformation.text,
             hintText: "Enter Description",
             maxLines: null,
             keyboardType: TextInputType.multiline,
             onChanged: (val) {
-              description.text = val;
+              importantInformation.text = val;
             },
           ),
         ),
@@ -101,12 +103,13 @@ class DescriptionTranslation extends StatelessWidget {
                 context: context,
                 builder: (_) => LanguagePickerDialogComponent(
                   excludeLanguageCodes:
-                      isolateLanguageCodesFromDescription(descriptions),
+                      isolateLanguageCodesFromImportantInformation(
+                          importantInformations),
                 ),
               ).then((value) {
                 if (value != null) {
                   if (value is Language) {
-                    description.language = value;
+                    importantInformation.language = value;
                   }
                 }
               });
@@ -140,22 +143,23 @@ class DescriptionTranslation extends StatelessWidget {
   }
 }
 
-class NewDescriptionTranslation extends StatefulWidget {
-  const NewDescriptionTranslation({
+class NewImportantInformationTranslation extends StatefulWidget {
+  const NewImportantInformationTranslation({
     super.key,
-    required this.addNewDescription,
-    required this.descriptions,
+    required this.addImportantInformation,
+    required this.importantInformation,
   });
 
-  final List<Description> descriptions;
-  final Function(String text, Language language) addNewDescription;
+  final List<ImportantInformation> importantInformation;
+  final Function(String text, Language language) addImportantInformation;
 
   @override
-  State<NewDescriptionTranslation> createState() =>
-      _NewDescriptionTranslationState();
+  State<NewImportantInformationTranslation> createState() =>
+      _NewImportantInformationTranslationState();
 }
 
-class _NewDescriptionTranslationState extends State<NewDescriptionTranslation> {
+class _NewImportantInformationTranslationState
+    extends State<NewImportantInformationTranslation> {
   String _text = "";
 
   @override
@@ -189,11 +193,12 @@ class _NewDescriptionTranslationState extends State<NewDescriptionTranslation> {
                 context: context,
                 builder: (_) => LanguagePickerDialogComponent(
                   excludeLanguageCodes:
-                      isolateLanguageCodesFromDescription(widget.descriptions),
+                      isolateLanguageCodesFromImportantInformation(
+                          widget.importantInformation),
                 ),
               ).then((value) {
                 if (value != null) {
-                  widget.addNewDescription(_text, value);
+                  widget.addImportantInformation(_text, value);
                 }
               });
             },

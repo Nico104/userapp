@@ -2,7 +2,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:userapp/language/m_language.dart';
 import 'package:userapp/pet_color/hex_color.dart';
+import 'package:userapp/pets/profile_details/g_profile_detail_globals.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/pets/profile_details/models/m_tag_personalisation.dart';
 import 'package:userapp/pets/profile_details/profile_detail_view.dart';
@@ -17,10 +19,13 @@ class MyPets extends StatefulWidget {
     super.key,
     required this.petProfiles,
     required this.setAppBarNotchColor,
+    required this.availableLanguages,
   });
 
   final List<PetProfileDetails> petProfiles;
   final ValueSetter<Color> setAppBarNotchColor;
+
+  final List<Language> availableLanguages;
 
   @override
   State<MyPets> createState() => _MyPetsState();
@@ -39,6 +44,9 @@ class _MyPetsState extends State<MyPets> {
   @override
   void initState() {
     super.initState();
+
+    //InitAvailableLanguages
+    availableLanguages = List.from(widget.availableLanguages);
 
     for (var _ in widget.petProfiles) {
       pageKeys.add(GlobalKey<PetProfilePreviewState>());

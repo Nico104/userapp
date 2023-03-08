@@ -51,7 +51,7 @@ class _OneLineSimpleDialogState extends State<OneLineSimpleDialog> {
             children: [
               Text(
                 widget.title,
-                style: editDialogTitleStyle,
+                style: pickerDialogTitleStyle,
               ),
               const SizedBox(height: 28),
               TextFormField(
@@ -104,7 +104,7 @@ class _OneLineSimpleDialogState extends State<OneLineSimpleDialog> {
                     onPressed: () => widget.onSave.call(_controller.text),
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                      backgroundColor: genderdataEditDialogButtonSave,
+                      backgroundColor: dataEditDialogButtonSave,
                       side: const BorderSide(width: 1, color: Colors.black),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),

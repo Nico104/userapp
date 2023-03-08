@@ -2,9 +2,9 @@ import 'package:userapp/pets/profile_details/models/m_tag_personalisation.dart';
 
 class Tag {
   final String collarTagId;
-  final int petProfileId;
+  final int? petProfileId;
   //!Change with User Model
-  final String assignedUseremail;
+  final String? assignedUseremail;
   final String activationCode;
   final TagPersonalisation collarTagPersonalisation;
 

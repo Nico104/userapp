@@ -120,37 +120,12 @@ class _MyHomePageState extends State<MyHomePage>
               width: double.infinity,
               height: double.infinity,
               color: Colors.red),
-          // PetsLoading(
-          //   setAppBarNotchColor: (value) {
-          //     setState(() {
-          //       appBarNotchColor = value;
-          //     });
-          //   },
-          // ),
-          PetProfileDetailView(
-            //ASK for Tag for Profile! No Profile without tag first
-            petProfileDetails: PetProfileDetails.createNewEmptyProfile(
-              [
-                Tag(
-                  "x",
-                  999999,
-                  "x",
-                  "x",
-                  TagPersonalisation(
-                    99999,
-                    "x",
-                    "x",
-                    "x",
-                    "x",
-                    "x",
-                    "x",
-                    HexColor("FCF7DE"),
-                    HexColor("FCF7DE"),
-                    HexColor("FCF7DE"),
-                  ),
-                )
-              ],
-            ),
+          PetsLoading(
+            setAppBarNotchColor: (value) {
+              setState(() {
+                appBarNotchColor = value;
+              });
+            },
           ),
           // Pets(bottomoffset: 0),
           Container(

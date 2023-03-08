@@ -30,7 +30,7 @@ TextStyle profileDetailsComponentTitle = TextStyle(
   fontSize: 20,
   color: Colors.black.withOpacity(0.94),
 );
-TextStyle editDialogTitleStyle = TextStyle(
+TextStyle pickerDialogTitleStyle = TextStyle(
   fontFamily: 'Shantell_Sans',
   fontWeight: FontWeight.w700,
   fontSize: 20,
@@ -63,7 +63,14 @@ TextStyle profileDetailsDataPreviewTextStyle = TextStyle(
   fontFamily: 'Promt',
   fontWeight: FontWeight.w400,
   fontSize: 18,
-  color: Colors.black.withOpacity(0.64),
+  color: Colors.black.withOpacity(0.78),
+);
+
+TextStyle profileDetailsDataPreviewTextEmptyValueStyle = TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w400,
+  fontSize: 18,
+  color: Colors.black.withOpacity(0.16),
 );
 
 //Data Edit Dialog

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/profile_detail_view.dart';
 import 'package:userapp/pets/tag/tags.dart';
+import 'package:userapp/pets/tag_selection/d_tag_selection.dart';
+import '../language/m_language.dart';
 import '../pet_color/pet_colors.dart';
 import '../styles/text_styles.dart';
 import 'profile_details/models/m_pet_profile.dart';
@@ -258,18 +260,28 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
         ),
         IgnorePointer(
           ignoring: _showExtendedActions,
-          child: AnimatedOpacity(
-            duration: _duration,
-            curve: _curve,
-            opacity: _showExtendedActions ? 0 : 1,
-            child: Hero(
-              tag: 'collar${widget.petProfileDetails.profileId}',
-              child: Align(
-                // alignment: Alignment.bottomCenter,
-                alignment: Alignment(widget.imageAlignmentOffset * -0.2, 1),
-                child: Tags(
-                    tag: widget.petProfileDetails.tag,
-                    collardimension: collardimension),
+          child: GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (_) => TagSelectionDialog(
+                  currentTags: widget.petProfileDetails.tag,
+                ),
+              );
+            },
+            child: AnimatedOpacity(
+              duration: _duration,
+              curve: _curve,
+              opacity: _showExtendedActions ? 0 : 1,
+              child: Hero(
+                tag: 'collar${widget.petProfileDetails.profileId}',
+                child: Align(
+                  // alignment: Alignment.bottomCenter,
+                  alignment: Alignment(widget.imageAlignmentOffset * -0.2, 1),
+                  child: Tags(
+                      tag: widget.petProfileDetails.tag,
+                      collardimension: collardimension),
+                ),
               ),
             ),
           ),

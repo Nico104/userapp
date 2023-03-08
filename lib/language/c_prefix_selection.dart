@@ -5,13 +5,8 @@ import 'package:userapp/pets/profile_details/g_profile_detail_globals.dart';
 import '../styles/text_styles.dart';
 import 'm_language.dart';
 
-class LanguagePickerDialogComponent extends StatelessWidget {
-  const LanguagePickerDialogComponent({
-    super.key,
-    required this.excludeLanguageCodes,
-  });
-
-  final List<String> excludeLanguageCodes;
+class PrefixPickerDialogComponent extends StatelessWidget {
+  const PrefixPickerDialogComponent({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +17,15 @@ class LanguagePickerDialogComponent extends StatelessWidget {
       ),
       child: Container(
         width: 70.w,
+        // height: 60.h,
         constraints: BoxConstraints(maxHeight: 60.h),
         child: Padding(
-          padding: const EdgeInsets.only(left: 24, right: 24, top: 32),
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 32),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "Select Language",
+                "Select Prefix",
                 style: pickerDialogTitleStyle,
               ),
               const SizedBox(height: 28),
@@ -40,11 +36,8 @@ class LanguagePickerDialogComponent extends StatelessWidget {
                   return Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      AvailableLanguage(
-                        language: availableLanguages.elementAt(index),
-                        isActive: !(excludeLanguageCodes.contains(
-                            availableLanguages.elementAt(index).languageKey)),
-                      ),
+                      SinglePrefix(
+                          language: availableLanguages.elementAt(index)),
                       (index != availableLanguages.length - 1)
                           ? const Divider()
                           : const SizedBox(height: 20),
@@ -60,52 +53,43 @@ class LanguagePickerDialogComponent extends StatelessWidget {
   }
 }
 
-class AvailableLanguage extends StatelessWidget {
-  const AvailableLanguage({
+class SinglePrefix extends StatelessWidget {
+  const SinglePrefix({
     super.key,
     required this.language,
-    required this.isActive,
   });
 
   final Language language;
-  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        if (isActive) {
-          Navigator.pop(context, language);
-        }
-      },
+      onTap: () => Navigator.pop(context, language),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: 8),
-          Opacity(
-            opacity: isActive ? 1 : 0.5,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Spacer(),
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: NetworkImage("https://picsum.photos/60"),
-                      fit: BoxFit.cover,
-                    ),
+          Row(
+            children: [
+              const Spacer(),
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: NetworkImage("https://picsum.photos/60"),
+                    fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(width: 42),
-                Text(language.languageLabel),
-                const Spacer(
-                  flex: 5,
-                ),
-              ],
-            ),
+              ),
+              SizedBox(width: 36),
+              Text(language.languageLabel),
+              Text("+(${language.languagePrefix})"),
+              const Spacer(
+                flex: 3,
+              ),
+            ],
           ),
           const SizedBox(height: 8),
         ],

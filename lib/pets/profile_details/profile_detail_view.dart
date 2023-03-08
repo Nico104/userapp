@@ -2,19 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/c_pet_name.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
-import '../../pet_color/pet_colors.dart';
+import '../../language/m_language.dart';
 import '../../pet_color/u_pet_colors.dart';
 import '../../styles/text_styles.dart';
-import 'c_chip_number.dart';
 import 'c_component_padding.dart';
 import 'c_description.dart';
+import 'c_important_information.dart';
+import 'c_one_line_simple_input.dart';
 import 'c_pet_gender.dart';
+import 'c_phone_number.dart';
 import 'c_pictures.dart';
 import 'c_section_title.dart';
+import 'c_social_media.dart';
 import 'u_profile_details.dart';
 
 class PetProfileDetailView extends StatefulWidget {
-  const PetProfileDetailView({super.key, required this.petProfileDetails});
+  const PetProfileDetailView({
+    super.key,
+    required this.petProfileDetails,
+  });
 
   final PetProfileDetails petProfileDetails;
 
@@ -29,49 +35,6 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
   void initState() {
     super.initState();
     _petProfileDetails = widget.petProfileDetails.clone();
-
-    // if (_petProfileDetails.petName == null) {
-    //   WidgetsBinding.instance
-    //       .addPostFrameCallback((_) => askForPetName(context));
-    // }
-  }
-
-  void askForPetName(BuildContext context) async {
-    TextEditingController controller = TextEditingController();
-    await showDialog(
-      context: context,
-      builder: (_) => Dialog(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(36.0)),
-        child: SizedBox(
-          width: 60.w,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16, top: 32),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text("Please enter your Pets Name"),
-                const SizedBox(height: 28),
-                TextFormField(
-                  controller: controller,
-                ),
-                const SizedBox(height: 28),
-                OutlinedButton(
-                  onPressed: () => Navigator.pop(context, controller.text),
-                  child: const Text("Done!"),
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-    ).then((value) {
-      if (value != null) {
-        setState(() {
-          _petProfileDetails.petName = value;
-        });
-      }
-    });
   }
 
   @override
@@ -87,16 +50,16 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
         foregroundColor: Colors.black,
         elevation: 0,
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   child: const Icon(
-      //     Icons.save,
-      //     color: Colors.white,
-      //   ),
-      //   onPressed: () {
-      //     handlePetProfileDetailsSave(
-      //         _petProfileDetails, widget.petProfileDetails);
-      //   },
-      // ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(
+          Icons.save,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          handlePetProfileDetailsSave(
+              _petProfileDetails, widget.petProfileDetails);
+        },
+      ),
       resizeToAvoidBottomInset: true,
       body: Container(
         decoration: _petProfileDetails.petGender != Gender.none
@@ -148,6 +111,15 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
               ignoreLeftPadding: true,
             ),
             PaddingComponent(
+              component: OnelineSimpleInput(
+                flex: 7,
+                value: "52353245",
+                emptyValuePlaceholder: "Enter Chip Nr.",
+                title: "Chip Number",
+                saveValue: (_) async {},
+              ),
+            ),
+            PaddingComponent(
               component: PetGenderComponent(
                 gender: _petProfileDetails.petGender,
                 setGender: (value) => setState(() {
@@ -156,35 +128,53 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
               ),
             ),
             PaddingComponent(
+              component: PetImportantInformation(
+                //Pass by reference
+                imortantInformations:
+                    _petProfileDetails.petImportantInformation,
+              ),
+            ),
+            PaddingComponent(
               component: PetDescriptionComponent(
                 //Pass by reference
                 descriptions: _petProfileDetails.petDescription,
               ),
             ),
+
+            const SectionTitle(text: "Contact"),
             PaddingComponent(
-              component: PetChipNumber(
-                chipNr: "5423523",
-                setchipNr: (value) {},
+              component: OnelineSimpleInput(
+                flex: 6,
+                value: "",
+                emptyValuePlaceholder: "Enter Owners Name",
+                title: "Owners Name",
+                saveValue: (_) async {},
               ),
             ),
             PaddingComponent(
-              component: PetChipNumber(
-                chipNr: "xx",
-                setchipNr: (value) {},
+              component: OnelineSimpleInput(
+                flex: 8,
+                value: "Mainstreet 20A, Vienna, Austria",
+                emptyValuePlaceholder: "Enter Living Address",
+                title: "Home Address",
+                saveValue: (_) async {},
+              ),
+            ),
+
+            PaddingComponent(
+              component: PetPhoneNumbersComponent(
+                phoneNumbers: _petProfileDetails.petOwnerTelephoneNumbers,
+                petProfileId: _petProfileDetails.profileId,
               ),
             ),
             PaddingComponent(
-              component: PetChipNumber(
-                chipNr: "xx",
-                setchipNr: (value) {},
-              ),
-            ),
-            PaddingComponent(
-              component: PetChipNumber(
-                chipNr: "xx",
-                setchipNr: (value) {},
-              ),
-            ),
+                component: SocialMediaComponent(
+              title: "Social Media",
+              facebook: _petProfileDetails.petOwnerFacebook ?? "",
+              saveFacebook: (value) {},
+              instagram: _petProfileDetails.petOwnerInstagram ?? "",
+              saveInstagram: (value) {},
+            )),
             SizedBox(
               height: 16,
             )

@@ -1,8 +1,8 @@
 import 'package:userapp/language/m_language.dart';
 
 class ImportantInformation {
-  final String text;
-  final Language language;
+  String text;
+  Language language;
 
   ImportantInformation(this.text, this.language);
 
