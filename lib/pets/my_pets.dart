@@ -8,11 +8,13 @@ import 'package:userapp/pets/profile_details/g_profile_detail_globals.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/pets/profile_details/models/m_tag_personalisation.dart';
 import 'package:userapp/pets/profile_details/profile_detail_view.dart';
+import 'package:userapp/pets/tag/tags.dart';
 import '../pet_color/u_pet_colors.dart';
 import '../styles/text_styles.dart';
 import 'page_transform.dart';
 import 'pet_profile_preview.dart';
 import 'profile_details/models/m_tag.dart';
+import 'tag_selection/d_tag_selection.dart';
 
 class MyPets extends StatefulWidget {
   const MyPets({
@@ -20,12 +22,15 @@ class MyPets extends StatefulWidget {
     required this.petProfiles,
     required this.setAppBarNotchColor,
     required this.availableLanguages,
+    required this.reloadFuture,
   });
 
   final List<PetProfileDetails> petProfiles;
   final ValueSetter<Color> setAppBarNotchColor;
 
   final List<Language> availableLanguages;
+
+  final VoidCallback reloadFuture;
 
   @override
   State<MyPets> createState() => _MyPetsState();
@@ -92,37 +97,31 @@ class _MyPetsState extends State<MyPets> {
         elevation: 0,
         actions: [
           IconButton(
-              onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PetProfileDetailView(
-                        //ASK for Tag for Profile! No Profile without tag first
-                        petProfileDetails:
-                            PetProfileDetails.createNewEmptyProfile(
-                          [
-                            Tag(
-                              "x",
-                              999999,
-                              "x",
-                              "x",
-                              TagPersonalisation(
-                                99999,
-                                "x",
-                                "x",
-                                "x",
-                                "x",
-                                "x",
-                                "x",
-                                HexColor("FCF7DE"),
-                                HexColor("FCF7DE"),
-                                HexColor("FCF7DE"),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (_) => const TagSelectionDialog(
+                    currentTags: [],
                   ),
+                ).then((value) {
+                  if (value is List<Tag>) {
+                    if (value.isNotEmpty) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PetProfileDetailView(
+                            petProfileDetails:
+                                PetProfileDetails.createNewEmptyProfile(
+                              value,
+                            ),
+                            reloadFuture: () => widget.reloadFuture,
+                          ),
+                        ),
+                      );
+                    }
+                  }
+                });
+              },
               icon: const Icon(Icons.add))
         ],
       ),
@@ -169,6 +168,7 @@ class _MyPetsState extends State<MyPets> {
                                 widget.petProfiles.elementAt(position),
                             imageAlignmentOffset:
                                 -getAlignmentOffset(pageindex, position),
+                            reloadFuture: widget.reloadFuture,
                           ),
                         );
                       },

@@ -20,9 +20,12 @@ class PetProfileDetailView extends StatefulWidget {
   const PetProfileDetailView({
     super.key,
     required this.petProfileDetails,
+    required this.reloadFuture,
   });
 
   final PetProfileDetails petProfileDetails;
+
+  final VoidCallback reloadFuture;
 
   @override
   State<PetProfileDetailView> createState() => _PetProfileDetailViewState();
@@ -35,6 +38,14 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
   void initState() {
     super.initState();
     _petProfileDetails = widget.petProfileDetails.clone();
+    if (widget.petProfileDetails.petName == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => askForPetName(
+          context,
+          (value) => setState(() {
+                _petProfileDetails.petName = value;
+              }),
+          null));
+    }
   }
 
   @override
@@ -57,7 +68,13 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
         ),
         onPressed: () {
           handlePetProfileDetailsSave(
-              _petProfileDetails, widget.petProfileDetails);
+                  _petProfileDetails, widget.petProfileDetails)
+              .then(
+            (value) {
+              Navigator.pop(context);
+              widget.reloadFuture();
+            },
+          );
         },
       ),
       resizeToAvoidBottomInset: true,
@@ -65,8 +82,8 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
         decoration: _petProfileDetails.petGender != Gender.none
             ? BoxDecoration(
                 gradient: LinearGradient(
-                  begin: const Alignment(-1, -1),
-                  end: const Alignment(1, 1),
+                  begin: const Alignment(0, -0.85),
+                  end: Alignment.bottomRight,
                   colors: [
                     widget.petProfileDetails.tag.first.collarTagPersonalisation
                         .primaryColor,
@@ -113,10 +130,12 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
             PaddingComponent(
               component: OnelineSimpleInput(
                 flex: 7,
-                value: "52353245",
+                value: _petProfileDetails.petChipId ?? "",
                 emptyValuePlaceholder: "Enter Chip Nr.",
                 title: "Chip Number",
-                saveValue: (_) async {},
+                saveValue: (val) async {
+                  _petProfileDetails.petChipId = val;
+                },
               ),
             ),
             PaddingComponent(

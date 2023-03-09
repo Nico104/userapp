@@ -36,9 +36,12 @@ Future<List<Tag>> fetchUserTags() async {
       await http.get(Uri.parse('http://localhost:3000/pet/getUserTags'));
 
   if (response.statusCode == 200) {
-    return (jsonDecode(response.body) as List)
+    List<Tag> tags = (jsonDecode(response.body) as List)
         .map((t) => Tag.fromJson(t))
         .toList();
+    //Show Tags without Profile first
+    tags.sort((a, b) => a.petProfileId == null ? 0 : 1);
+    return tags;
   } else {
     throw Exception('Failed to load Usertags');
   }

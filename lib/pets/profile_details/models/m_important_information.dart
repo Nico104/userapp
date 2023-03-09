@@ -15,10 +15,11 @@ class ImportantInformation {
       : text = json['important_information_text'],
         language = Language.fromJson(json['important_information_language']);
 
-  // Map<String, dynamic> toJson() => {
-  //       'name': text,
-  //       'email': languageCode,
-  //     };
+  Map<String, dynamic> toJson(int petProfileId) => {
+        'petProfile_id': petProfileId,
+        'language_key': language.languageKey,
+        'important_information_text': text
+      };
 }
 
 List<String> isolateLanguageCodesFromImportantInformation(

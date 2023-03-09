@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
-import '../../pet_color/pet_colors.dart';
 import '../profile_details/models/m_tag.dart';
-import '../tag/tag_single.dart';
+import 'tag_selection_item.dart';
+
+enum TagSelection {
+  available,
+  selected,
+  inUse,
+}
 
 class TagSelectionList extends StatefulWidget {
-  const TagSelectionList(
-      {super.key, required this.userTags, required this.currentTags});
+  const TagSelectionList({
+    super.key,
+    required this.userTags,
+    required this.currentTags,
+    required this.returnTags,
+  });
 
   final List<Tag> userTags;
   final List<Tag> currentTags;
+  final Function(List<Tag>) returnTags;
 
   @override
   State<TagSelectionList> createState() => _TagSelectionListState();
@@ -24,6 +34,9 @@ class _TagSelectionListState extends State<TagSelectionList> {
       for (Tag tag in widget.userTags)
         tag: getTagActiveness(tag, widget.currentTags)
     };
+
+    WidgetsBinding.instance.addPostFrameCallback(
+        (_) => widget.returnTags(getSelectedTagsFromMap(tagSelection)));
   }
 
   @override
@@ -32,58 +45,18 @@ class _TagSelectionListState extends State<TagSelectionList> {
       shrinkWrap: true,
       itemCount: tagSelection.length,
       itemBuilder: (BuildContext context, int index) {
-        Tag tag = tagSelection.keys.elementAt(index);
-        bool isSelected = tagSelection[tagSelection.keys.elementAt(index)]!;
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () {
-                setState(() {
-                  tagSelection[tagSelection.keys.elementAt(index)] =
-                      !tagSelection[tagSelection.keys.elementAt(index)]!;
-                });
-              },
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TagSingle(
-                      tagPersonalisation: tag.collarTagPersonalisation,
-                      collardimension: 95,
-                    ),
-                    const Spacer(),
-                    Text(tag.collarTagId),
-                    const Spacer(flex: 8),
-                    Container(
-                      width: 30,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        border: Border.all(
-                          color: isSelected
-                              ? dataEditTagSelectionAvtiveBorder
-                              : Colors.grey.shade300,
-                          width: isSelected ? 3 : 2,
-                        ),
-                        color: isSelected
-                            ? dataEditTagSelectionActiveBackground
-                            : Colors.transparent,
-                      ),
-                      child: isSelected
-                          ? Icon(
-                              Icons.check,
-                              color: dataEditTagSelectionAvtiveBorder,
-                            )
-                          : const SizedBox(),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ],
+        return TagSelectionItem(
+          tag: tagSelection.keys.elementAt(index),
+          tagSelection: getTagSelection(
+              tagSelection.keys.elementAt(index),
+              tagSelection[tagSelection.keys.elementAt(index)]!,
+              widget.currentTags),
+          toggleSelectedValue: () {
+            //setStae gets called in Parent in returnTags
+            tagSelection[tagSelection.keys.elementAt(index)] =
+                !tagSelection[tagSelection.keys.elementAt(index)]!;
+            widget.returnTags(getSelectedTagsFromMap(tagSelection));
+          },
         );
       },
     );
@@ -101,4 +74,26 @@ bool getTagActiveness(Tag val, List<Tag> currentTags) {
 
 int countSelected(Map<Tag, bool> tagSelection) {
   return tagSelection.entries.where((e) => e.value == true).length;
+}
+
+TagSelection getTagSelection(Tag tag, bool isSelected, List<Tag> currentTags) {
+  if ((tag.petProfileId != null) &&
+      !isSelected &&
+      !getTagActiveness(tag, currentTags)) {
+    return TagSelection.inUse;
+  } else if (isSelected) {
+    return TagSelection.selected;
+  } else {
+    return TagSelection.available;
+  }
+}
+
+List<Tag> getSelectedTagsFromMap(Map<Tag, bool> tagSelection) {
+  List<Tag> selected = List.empty(growable: true);
+  tagSelection.forEach((key, value) {
+    if (value) {
+      selected.add(key);
+    }
+  });
+  return selected;
 }

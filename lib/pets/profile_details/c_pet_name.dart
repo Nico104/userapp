@@ -41,10 +41,6 @@ class _PetNameComponentState extends State<PetNameComponent> {
   @override
   void initState() {
     super.initState();
-    if (widget.petName == null) {
-      WidgetsBinding.instance.addPostFrameCallback(
-          (_) => askForPetName(context, widget.setPetName, widget.petName));
-    }
   }
 
   @override
@@ -118,7 +114,6 @@ String getPetTitle(Gender gender) {
 
 void askForPetName(BuildContext context, ValueSetter<String> setPetName,
     String? currentPetName) async {
-  TextEditingController controller = TextEditingController();
   await showDialog(
     context: context,
     builder: (_) => PetNameDialog(
@@ -141,7 +136,13 @@ class PetNameDialog extends StatefulWidget {
 }
 
 class _PetNameDialogState extends State<PetNameDialog> {
-  final TextEditingController _controller = TextEditingController();
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.initialValue);
+  }
 
   @override
   Widget build(BuildContext context) {

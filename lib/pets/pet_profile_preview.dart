@@ -13,10 +13,13 @@ class PetProfilePreview extends StatefulWidget {
     super.key,
     required this.petProfileDetails,
     required this.imageAlignmentOffset,
+    required this.reloadFuture,
   });
 
   final PetProfileDetails petProfileDetails;
   final double imageAlignmentOffset;
+
+  final VoidCallback reloadFuture;
 
   @override
   State<PetProfilePreview> createState() => PetProfilePreviewState();
@@ -66,6 +69,7 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
             MaterialPageRoute(
               builder: (context) => PetProfileDetailView(
                 petProfileDetails: widget.petProfileDetails,
+                reloadFuture: widget.reloadFuture,
               ),
             ),
           ),

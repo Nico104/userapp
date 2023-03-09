@@ -1,3 +1,4 @@
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'c_component_title.dart';
 import 'widgets/custom_textformfield.dart';
@@ -32,6 +33,15 @@ class OnelineSimpleInput extends StatelessWidget {
               child: CustomTextFormFieldActive(
                 initialValue: value,
                 hintText: emptyValuePlaceholder,
+                onChanged: (val) {
+                  EasyDebounce.debounce(
+                    '${title}debounce',
+                    const Duration(milliseconds: 500),
+                    () {
+                      saveValue.call(val);
+                    },
+                  );
+                },
               ),
             ),
             const Spacer(),

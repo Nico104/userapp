@@ -83,25 +83,39 @@ class PetProfileDetails {
         petOwnerFacebook = json['pet_owner_facebook'],
         petOwnerInstagram = json['pet_owner_instagram'],
         petIsLost = json['pet_is_Lost'],
-        petDescription = (json['pet_description'] as List)
-            .map((t) => Description.fromJson(t))
-            .toList(),
-        petImportantInformation = (json['pet_important_information'] as List)
-            .map((t) => ImportantInformation.fromJson(t))
-            .toList(),
-        petOwnerTelephoneNumbers = (json['pet_owner_telephone_numbers'] as List)
-            .map((t) => PhoneNumber.fromJson(t))
-            .toList(),
-        petDocuments = (json['pet_documents'] as List)
-            .map((t) => Document.fromJson(t))
-            .toList(),
-        petPictures = (json['pet_pictures'] as List)
-            .map((t) => PetPicture.fromJson(t))
-            .toList(),
-        petProfileScans = (json['pet_profile_scans'] as List)
-            .map((t) => Scan.fromJson(t))
-            .toList(),
-        tag = (json['Tag'] as List).map((t) => Tag.fromJson(t)).toList();
+        petDescription = json['pet_description'] != null
+            ? (json['pet_description'] as List)
+                .map((t) => Description.fromJson(t))
+                .toList()
+            : [],
+        petImportantInformation = json['pet_important_inforation'] != null
+            ? (json['pet_important_inforation'] as List)
+                .map((t) => ImportantInformation.fromJson(t))
+                .toList()
+            : [],
+        petOwnerTelephoneNumbers = json['pet_owner_telephone_numbers'] != null
+            ? (json['pet_owner_telephone_numbers'] as List)
+                .map((t) => PhoneNumber.fromJson(t))
+                .toList()
+            : [],
+        petDocuments = json['pet_documents'] != null
+            ? (json['pet_documents'] as List)
+                .map((t) => Document.fromJson(t))
+                .toList()
+            : [],
+        petPictures = json['pet_pictures'] != null
+            ? (json['pet_pictures'] as List)
+                .map((t) => PetPicture.fromJson(t))
+                .toList()
+            : [],
+        petProfileScans = json['pet_profile_scans'] != null
+            ? (json['pet_profile_scans'] as List)
+                .map((t) => Scan.fromJson(t))
+                .toList()
+            : [],
+        tag = json['Tag'] != null
+            ? (json['Tag'] as List).map((t) => Tag.fromJson(t)).toList()
+            : [];
 
   //New PetProfileDetails Object for creatring new Profile
   PetProfileDetails.createNewEmptyProfile(this.tag)
@@ -125,6 +139,7 @@ class PetProfileDetails {
         petProfileScans = List<Scan>.empty(growable: false);
 
   Map<String, dynamic> toJson() => {
+        'profile_id': profileId,
         'pet_name': petName,
         'pet_gender': parseStringFromGender(petGender),
         'pet_chip_id': petChipId,

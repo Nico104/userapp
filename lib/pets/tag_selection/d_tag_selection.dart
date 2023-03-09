@@ -20,6 +20,8 @@ class TagSelectionDialog extends StatefulWidget {
 }
 
 class _TagSelectionDialogState extends State<TagSelectionDialog> {
+  List<Tag> selectedTags = [];
+
   @override
   void initState() {
     super.initState();
@@ -47,54 +49,61 @@ class _TagSelectionDialogState extends State<TagSelectionDialog> {
                 style: pickerDialogTitleStyle,
               ),
               const SizedBox(height: 28),
-              FutureBuilder<List<Tag>>(
-                future: fetchUserTags(),
-                builder:
-                    (BuildContext context, AsyncSnapshot<List<Tag>> snapshot) {
-                  if (snapshot.hasData) {
-                    return TagSelectionList(
-                      userTags: snapshot.data!,
-                      currentTags: widget.currentTags,
-                    );
-                  } else if (snapshot.hasError) {
-                    print(snapshot);
-                    //Error
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.error_outline,
-                            color: Colors.red,
-                            size: 60,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 16),
-                            child: Text('Error: ${snapshot.error}'),
-                          ),
-                        ],
-                      ),
-                    );
-                  } else {
-                    //Loading
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          SizedBox(
-                            width: 60,
-                            height: 60,
-                            child: CircularProgressIndicator(),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 16),
-                            child: Text('Awaiting result...'),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
-                },
+              Expanded(
+                child: FutureBuilder<List<Tag>>(
+                  future: fetchUserTags(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Tag>> snapshot) {
+                    if (snapshot.hasData) {
+                      return TagSelectionList(
+                        userTags: snapshot.data!,
+                        currentTags: widget.currentTags,
+                        returnTags: (tags) {
+                          setState(() {
+                            selectedTags = List.from(tags);
+                          });
+                        },
+                      );
+                    } else if (snapshot.hasError) {
+                      print(snapshot);
+                      //Error
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.error_outline,
+                              color: Colors.red,
+                              size: 60,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 16),
+                              child: Text('Error: ${snapshot.error}'),
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      //Loading
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            SizedBox(
+                              width: 60,
+                              height: 60,
+                              child: CircularProgressIndicator(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 16),
+                              child: Text('Awaiting result...'),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  },
+                ),
               ),
               const SizedBox(height: 28),
               Row(
@@ -115,18 +124,30 @@ class _TagSelectionDialogState extends State<TagSelectionDialog> {
                     ),
                   ),
                   OutlinedButton(
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () {
+                      if (selectedTags.isNotEmpty) {
+                        Navigator.pop(context, selectedTags);
+                      }
+                    },
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                      backgroundColor: dataEditDialogButtonSave,
-                      side: const BorderSide(width: 1, color: Colors.black),
+                      backgroundColor: (selectedTags.isNotEmpty)
+                          ? dataEditDialogButtonSave
+                          : Colors.white,
+                      side: BorderSide(
+                          width: 1,
+                          color: (selectedTags.isNotEmpty)
+                              ? Colors.black
+                              : Colors.grey),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                     child: Text(
                       "Save ahead",
-                      style: dataEditDialogButtonSaveStyle,
+                      style: (selectedTags.isNotEmpty)
+                          ? dataEditDialogButtonSaveStyle
+                          : dataEditDialogButtonCancelStyle,
                     ),
                   ),
                 ],

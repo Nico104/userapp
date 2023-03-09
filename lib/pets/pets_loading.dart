@@ -4,13 +4,23 @@ import 'my_pets.dart';
 import 'profile_details/models/m_pet_profile.dart';
 import 'u_pets.dart';
 
-class PetsLoading extends StatelessWidget {
+class PetsLoading extends StatefulWidget {
   const PetsLoading({
     super.key,
     required this.setAppBarNotchColor,
   });
 
   final ValueSetter<Color> setAppBarNotchColor;
+
+  @override
+  State<PetsLoading> createState() => _PetsLoadingState();
+}
+
+class _PetsLoadingState extends State<PetsLoading> {
+  void rebuildFuture() {
+    print("reload");
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +35,9 @@ class PetsLoading extends StatelessWidget {
               snapshot.data[1] is List<Language>) {
             return MyPets(
               petProfiles: snapshot.data[0],
-              setAppBarNotchColor: setAppBarNotchColor,
+              setAppBarNotchColor: widget.setAppBarNotchColor,
               availableLanguages: snapshot.data[1],
+              reloadFuture: rebuildFuture,
             );
           } else {
             return const Center(child: Text("No Pets, create?"));
