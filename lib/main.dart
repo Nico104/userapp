@@ -5,6 +5,7 @@ import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/pets/profile_details/models/m_tag.dart';
 import 'package:userapp/pets/profile_details/models/m_tag_personalisation.dart';
 import 'package:userapp/pets/profile_details/profile_detail_view.dart';
+import 'package:userapp/styles/custom_icons_icons.dart';
 import 'bottom_nav_bar/chip_style.dart';
 import 'bottom_nav_bar/src/bottom_bar_inspired_inside.dart';
 import 'bottom_nav_bar/tab_item.dart';
@@ -143,16 +144,16 @@ class _MyHomePageState extends State<MyHomePage>
 }
 
 List<TabItem> items = [
-  TabItem(
-    icon: Icons.shopping_bag_outlined,
+  const TabItem(
+    icon: CustomIcons.bag_2,
     // title: 'Shop',
   ),
-  TabItem(
-    icon: Icons.home_outlined,
+  const TabItem(
+    icon: CustomIcons.home,
     // title: 'Home',
   ),
-  TabItem(
-    icon: Icons.settings_outlined,
+  const TabItem(
+    icon: CustomIcons.setting,
     // title: 'Setting',
   ),
 ];

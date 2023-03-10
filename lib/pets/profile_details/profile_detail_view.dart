@@ -5,6 +5,7 @@ import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import '../../language/m_language.dart';
 import '../../pet_color/u_pet_colors.dart';
 import '../../styles/text_styles.dart';
+import '../u_pets.dart';
 import 'c_component_padding.dart';
 import 'c_description.dart';
 import 'c_important_information.dart';
@@ -66,15 +67,17 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
           Icons.save,
           color: Colors.white,
         ),
-        onPressed: () {
-          handlePetProfileDetailsSave(
-                  _petProfileDetails, widget.petProfileDetails)
-              .then(
-            (value) {
-              Navigator.pop(context);
-              widget.reloadFuture();
-            },
-          );
+        onPressed: () async {
+          if (_petProfileDetails.tag.isNotEmpty) {
+            await handlePetProfileDetailsSave(
+                    _petProfileDetails, widget.petProfileDetails)
+                .then(
+              (value) {
+                Navigator.pop(context);
+                widget.reloadFuture.call();
+              },
+            );
+          }
         },
       ),
       resizeToAvoidBottomInset: true,

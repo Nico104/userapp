@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../profile_details/models/m_tag.dart';
+import '../../profile_details/models/m_tag.dart';
 import 'tag_selection_item.dart';
 
 enum TagSelection {

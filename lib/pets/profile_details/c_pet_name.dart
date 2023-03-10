@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/pets/tag/tags.dart';
+import 'package:userapp/styles/custom_icons_icons.dart';
 import '../../pet_color/pet_colors.dart';
 import '../../styles/text_styles.dart';
 import 'models/m_tag.dart';
@@ -78,7 +79,7 @@ class _PetNameComponentState extends State<PetNameComponent> {
                   child: const Padding(
                     padding: EdgeInsets.only(left: 14, bottom: 14, right: 14),
                     child: Icon(
-                      Icons.edit,
+                      CustomIcons.edit_square,
                       size: 18,
                     ),
                   ),

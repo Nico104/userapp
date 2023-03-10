@@ -112,6 +112,9 @@ flutter:
         - asset: fonts/Shantell_Sans/ShantellSans-Medium.ttf
           weight: 500
        
+    - family:  CustomIcons
+      fonts:
+        - asset: fonts/Icons/CustomIcons.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

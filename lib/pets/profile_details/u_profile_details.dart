@@ -5,6 +5,7 @@ import 'package:userapp/pets/profile_details/models/m_description.dart';
 import 'package:userapp/pets/profile_details/models/m_important_information.dart';
 
 import 'models/m_pet_profile.dart';
+import 'models/m_tag.dart';
 
 //!TEST
 Future<PetProfileDetails> fetchPetProfileDetails() async {
@@ -23,9 +24,9 @@ Future<void> handlePetProfileDetailsSave(PetProfileDetails petProfileDetails,
     PetProfileDetails petProfileDetailsOld) async {
   //petProfileDetails.profileId and petProfileDetailsOld.profileId should be equal since the Id doesnt get changed, but is null for new Objects
   if (petProfileDetails.profileId == null) {
-    createNewPetProfile(petProfileDetails, petProfileDetailsOld);
+    await createNewPetProfile(petProfileDetails, petProfileDetailsOld);
   } else {
-    updatePetProfile(petProfileDetails, petProfileDetailsOld);
+    await updatePetProfile(petProfileDetails, petProfileDetailsOld);
   }
 }
 
@@ -66,10 +67,50 @@ Future<void> createNewPetProfile(PetProfileDetails petProfileDetails,
   //Create Core
   PetProfileDetails createdPetProfile =
       await createPetProfileDetailsCore(petProfileDetails);
-  //Upload Descriptions
+
+  //Connect Tags
+  for (Tag tag in petProfileDetails.tag) {
+    await connectTagFromPetProfile(
+        createdPetProfile.profileId!, tag.collarTagId);
+  }
+
+  //Update Description
   for (Description description in upsertableDescriptions(
       petProfileDetails.petDescription, petProfileDetailsOld.petDescription)) {
-    upsertDescription(description, createdPetProfile.profileId!);
+    await upsertDescription(description, createdPetProfile.profileId!);
+  }
+  for (Description description in deletableDescriptions(
+      petProfileDetails.petDescription, petProfileDetailsOld.petDescription)) {
+    await deleteDescription(description, createdPetProfile.profileId!);
+  }
+
+  //Update ImportantInformation
+  for (ImportantInformation importantInformation
+      in upsertableImportantInformations(
+          petProfileDetails.petImportantInformation,
+          petProfileDetailsOld.petImportantInformation)) {
+    await upsertImportantInformation(
+        importantInformation, createdPetProfile.profileId!);
+  }
+  for (ImportantInformation importantInformation
+      in deletableImportantInformations(
+          petProfileDetails.petImportantInformation,
+          petProfileDetailsOld.petImportantInformation)) {
+    await deleteImportantInformation(
+        importantInformation, createdPetProfile.profileId!);
+  }
+}
+
+Future<void> handleTagChange(
+  List<Tag> newTags,
+  List<Tag> oldTags,
+  int profileId,
+) async {
+  for (Tag tag in disconnectableTags(newTags, oldTags)) {
+    await disconnectTagFromPetProfile(profileId, tag.collarTagId);
+  }
+  for (Tag tag in connectableTags(newTags, oldTags)) {
+    await connectTagFromPetProfile(profileId, tag.collarTagId);
   }
 }
 
@@ -204,6 +245,41 @@ Future<void> deleteImportantInformation(
   }
 }
 
+Future<void> connectTagFromPetProfile(int profileId, String collarTagId) async {
+  final response = await http.post(
+    Uri.parse('http://localhost:3000/pet/connectTagFromPetProfile'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode({"profileId": profileId, "collarTagId": collarTagId}),
+  );
+
+  print(response.body);
+
+  if (response.statusCode == 201) {
+  } else {
+    throw Exception('Failed to connectTagFromPetProfile.');
+  }
+}
+
+Future<void> disconnectTagFromPetProfile(
+    int profileId, String collarTagId) async {
+  final response = await http.post(
+    Uri.parse('http://localhost:3000/pet/disconnectTagFromPetProfile'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode({"profileId": profileId, "collarTagId": collarTagId}),
+  );
+
+  print(response.body);
+
+  if (response.statusCode == 201) {
+  } else {
+    throw Exception('Failed to disconnectTagFromPetProfile.');
+  }
+}
+
 ///Return all Descriptions which are new or updated
 List<Description> upsertableDescriptions(
     List<Description> newList, List<Description> oldList) {
@@ -276,6 +352,40 @@ List<ImportantInformation> deletableImportantInformations(
     for (ImportantInformation item in newList) {
       if (item.text == oldItem.text &&
           item.language.languageKey == oldItem.language.languageKey) {
+        addToList = false;
+      }
+    }
+    if (addToList) {
+      list.add(oldItem);
+    }
+  }
+
+  return list;
+}
+
+List<Tag> connectableTags(List<Tag> newList, List<Tag> oldList) {
+  List<Tag> list = List<Tag>.empty(growable: true);
+  for (Tag item in newList) {
+    bool addToList = true;
+    for (Tag oldItem in oldList) {
+      if (item.collarTagId == oldItem.collarTagId) {
+        addToList = false;
+      }
+    }
+    if (addToList) {
+      list.add(item);
+    }
+  }
+  return list;
+}
+
+List<Tag> disconnectableTags(List<Tag> newList, List<Tag> oldList) {
+  List<Tag> list = List<Tag>.empty(growable: true);
+
+  for (Tag oldItem in oldList) {
+    bool addToList = true;
+    for (Tag item in newList) {
+      if (item.collarTagId == oldItem.collarTagId) {
         addToList = false;
       }
     }

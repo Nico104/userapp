@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/profile_detail_view.dart';
+import 'package:userapp/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/pets/tag/tags.dart';
-import 'package:userapp/pets/tag_selection/d_tag_selection.dart';
+import 'package:userapp/pets/tag/tag_selection/d_tag_selection.dart';
+import 'package:userapp/styles/custom_icons_icons.dart';
 import '../language/m_language.dart';
 import '../pet_color/pet_colors.dart';
 import '../styles/text_styles.dart';
 import 'profile_details/models/m_pet_profile.dart';
+import 'profile_details/models/m_tag.dart';
 
 class PetProfilePreview extends StatefulWidget {
   const PetProfilePreview({
@@ -166,8 +169,8 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                                       flex: iconFlex,
                                       child: const Center(
                                         child: Icon(
-                                          // Icons.ios_share_rounded,
-                                          Icons.share_rounded,
+                                          CustomIcons.share_thin,
+                                          // Icons.share_rounded,
                                           size: 32,
                                         ),
                                       ),
@@ -236,7 +239,7 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                                       flex: iconFlex,
                                       child: const Center(
                                         child: Icon(
-                                          Icons.qr_code_scanner_rounded,
+                                          CustomIcons.qr_code_9,
                                           size: 32,
                                         ),
                                       ),
@@ -271,7 +274,16 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                 builder: (_) => TagSelectionDialog(
                   currentTags: widget.petProfileDetails.tag,
                 ),
-              );
+              ).then((value) async {
+                if (value != null) {
+                  if (value is List<Tag> &&
+                      widget.petProfileDetails.profileId != null) {
+                    await handleTagChange(value, widget.petProfileDetails.tag,
+                        widget.petProfileDetails.profileId!);
+                    widget.reloadFuture.call();
+                  }
+                }
+              });
             },
             child: AnimatedOpacity(
               duration: _duration,

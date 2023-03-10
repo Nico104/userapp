@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/u_pets.dart';
 
-import '../../../../pet_color/pet_colors.dart';
-import '../../../../styles/text_styles.dart';
-import '../profile_details/models/m_tag.dart';
+import '../../../../../pet_color/pet_colors.dart';
+import '../../../../../styles/text_styles.dart';
+import '../../profile_details/models/m_tag.dart';
 import 'tag_selection_list.dart';
 
 class TagSelectionDialog extends StatefulWidget {

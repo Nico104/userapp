@@ -2,6 +2,7 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/models/m_description.dart';
 import 'package:userapp/pets/profile_details/models/m_important_information.dart';
+import 'package:userapp/styles/custom_icons_icons.dart';
 
 import '../../language/m_language.dart';
 import '../../styles/text_styles.dart';
@@ -217,7 +218,7 @@ class _NewImportantInformationTranslationState
                 padding: EdgeInsets.all(8.0),
                 child: SizedBox.expand(
                   child: FittedBox(
-                    child: Icon(Icons.language),
+                    child: Icon(CustomIcons.globe_5),
                   ),
                 ),
               )),

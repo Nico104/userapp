@@ -9,12 +9,13 @@ import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/pets/profile_details/models/m_tag_personalisation.dart';
 import 'package:userapp/pets/profile_details/profile_detail_view.dart';
 import 'package:userapp/pets/tag/tags.dart';
+import 'package:userapp/pets/u_pets.dart';
 import '../pet_color/u_pet_colors.dart';
 import '../styles/text_styles.dart';
 import 'page_transform.dart';
 import 'pet_profile_preview.dart';
 import 'profile_details/models/m_tag.dart';
-import 'tag_selection/d_tag_selection.dart';
+import 'tag/tag_selection/d_tag_selection.dart';
 
 class MyPets extends StatefulWidget {
   const MyPets({
@@ -37,25 +38,22 @@ class MyPets extends StatefulWidget {
 }
 
 class _MyPetsState extends State<MyPets> {
-  final PageController _controller =
-      PageController(viewportFraction: 0.8, keepPage: false);
+  final PageController _controller = PageController(
+    viewportFraction: 0.8,
+  );
 
   double pageindex = 0;
   late Color backgroundColor;
 
-  List<GlobalKey<PetProfilePreviewState>> pageKeys =
-      List<GlobalKey<PetProfilePreviewState>>.empty(growable: true);
+  late List<GlobalKey<PetProfilePreviewState>> pageKeys;
 
   @override
   void initState() {
     super.initState();
-
     //InitAvailableLanguages
     availableLanguages = List.from(widget.availableLanguages);
 
-    for (var _ in widget.petProfiles) {
-      pageKeys.add(GlobalKey<PetProfilePreviewState>());
-    }
+    initKey();
 
     _controller.addListener(() {
       setState(() {
@@ -70,6 +68,21 @@ class _MyPetsState extends State<MyPets> {
     backgroundColor = getColor(widget.petProfiles, pageindex);
     WidgetsBinding.instance.addPostFrameCallback((_) =>
         widget.setAppBarNotchColor(getColor(widget.petProfiles, pageindex)));
+  }
+
+  @override
+  void didUpdateWidget(covariant MyPets oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    availableLanguages = List.from(widget.availableLanguages);
+    initKey();
+  }
+
+  void initKey() {
+    pageKeys = List<GlobalKey<PetProfilePreviewState>>.empty(growable: true);
+    for (var _ in widget.petProfiles) {
+      pageKeys.add(GlobalKey<PetProfilePreviewState>());
+    }
+    setState(() {});
   }
 
   @override
@@ -114,7 +127,7 @@ class _MyPetsState extends State<MyPets> {
                                 PetProfileDetails.createNewEmptyProfile(
                               value,
                             ),
-                            reloadFuture: () => widget.reloadFuture,
+                            reloadFuture: () => widget.reloadFuture.call(),
                           ),
                         ),
                       );
@@ -168,11 +181,11 @@ class _MyPetsState extends State<MyPets> {
                                 widget.petProfiles.elementAt(position),
                             imageAlignmentOffset:
                                 -getAlignmentOffset(pageindex, position),
-                            reloadFuture: widget.reloadFuture,
+                            // imageAlignmentOffset: 0,
+                            reloadFuture: () => widget.reloadFuture.call(),
                           ),
                         );
                       },
-                      // itemCount: 4,
                       itemCount: widget.petProfiles.length,
                     ),
                   ),

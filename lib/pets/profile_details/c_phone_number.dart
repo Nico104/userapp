@@ -2,6 +2,7 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/models/m_phone_number.dart';
 import 'package:userapp/pets/profile_details/widgets/custom_textformfield.dart';
+import 'package:userapp/styles/custom_icons_icons.dart';
 import '../../language/c_prefix_selection.dart';
 import '../../language/m_language.dart';
 import 'c_component_title.dart';
@@ -190,18 +191,9 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
                     child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 28,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.blue
-                          // image: DecorationImage(
-                          //   image: NetworkImage(description.language.languageImagePath),
-                          //   fit: BoxFit.cover,
-                          // ),
-                          ),
-                    ),
-                    Text("+**")
+                  children: const [
+                    Icon(CustomIcons.globe_5),
+                    Text("+**"),
                   ],
                 )),
               ),

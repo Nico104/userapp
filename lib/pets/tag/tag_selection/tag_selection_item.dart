@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:userapp/pets/tag_selection/tag_selection_list.dart';
-import '../../pet_color/pet_colors.dart';
-import '../profile_details/models/m_tag.dart';
-import '../tag/tag_single.dart';
+import 'package:userapp/pets/tag/tag_selection/tag_selection_list.dart';
+import '../../../pet_color/pet_colors.dart';
+import '../../profile_details/models/m_tag.dart';
+import '../tag_single.dart';
 
 class TagSelectionItem extends StatefulWidget {
   const TagSelectionItem({

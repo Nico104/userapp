@@ -33,11 +33,15 @@ class _PetsLoadingState extends State<PetsLoading> {
         if (snapshot.hasData) {
           if (snapshot.data[0] is List<PetProfileDetails> &&
               snapshot.data[1] is List<Language>) {
+            List<PetProfileDetails> petProfiles = snapshot.data[0]
+                .where((PetProfileDetails content) => content.tag.isNotEmpty)
+                .toList();
             return MyPets(
-              petProfiles: snapshot.data[0],
+              petProfiles: petProfiles,
               setAppBarNotchColor: widget.setAppBarNotchColor,
+              // availableLanguages: snapshot.data[1],
               availableLanguages: snapshot.data[1],
-              reloadFuture: rebuildFuture,
+              reloadFuture: () => rebuildFuture.call(),
             );
           } else {
             return const Center(child: Text("No Pets, create?"));
