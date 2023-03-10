@@ -106,6 +106,14 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                       ? const Offset(6, 6)
                       : const Offset(4, 4), // changes position of shadow
                 ),
+                // BoxShadow(
+                //   color: Colors.white,
+                //   spreadRadius: 0,
+                //   blurRadius: 0,
+                //   offset: _showExtendedActions
+                //       ? const Offset(4, 4)
+                //       : const Offset(2, 2), // changes position of shadow
+                // ),
               ],
               //Need Border Radius to draw shadow
               borderRadius: BorderRadius.circular(borderRadius),

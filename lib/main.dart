@@ -88,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage>
         activeIconSize: 42,
         sizeInside: 64,
         notchBorderColor: Colors.black,
-        notchBorderWidth: 2.5,
+        notchBorderWidth: 1.5,
         notchTopMargin: 16,
         borderColor: Colors.black,
         // borderColor: Colors.white,
@@ -103,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage>
         },
         chipStyle: ChipStyle(
           convexBridge: true,
-          background: appBarNotchColor,
+          background: appBarNotchColor.withOpacity(0.45),
           notchSmoothness: NotchSmoothness.sharpEdge,
         ),
         itemStyle: ItemStyle.circle,

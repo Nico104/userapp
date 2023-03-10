@@ -106,6 +106,7 @@ class _MyPetsState extends State<MyPets> {
           style: homeScreenTitle,
         ),
         backgroundColor: backgroundColor,
+        // backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
         actions: [

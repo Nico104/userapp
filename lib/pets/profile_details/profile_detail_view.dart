@@ -57,8 +57,8 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
           "Profile Details",
           style: profileDetailsTitle,
         ),
-        backgroundColor: widget
-            .petProfileDetails.tag.first.collarTagPersonalisation.primaryColor,
+        backgroundColor: widget.petProfileDetails.tag.first
+            .collarTagPersonalisation.petPageBackgroundColor,
         foregroundColor: Colors.black,
         elevation: 0,
       ),
@@ -89,7 +89,7 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
                   end: Alignment.bottomRight,
                   colors: [
                     widget.petProfileDetails.tag.first.collarTagPersonalisation
-                        .primaryColor,
+                        .petPageBackgroundColor,
                     getGenderBackgroundColor(_petProfileDetails.petGender),
                   ],
                 ),

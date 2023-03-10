@@ -27,7 +27,7 @@ class TagSingle extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 gradient: RadialGradient(
-                  // radius: 2,
+                  radius: 0.7,
                   focal: Alignment.center,
                   colors: [
                     tagPersonalisation.secondaryColor,

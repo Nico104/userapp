@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:userapp/language/m_language.dart';
+import 'package:userapp/network_globals.dart';
 import 'package:userapp/pets/profile_details/models/m_tag.dart';
 
 import 'profile_details/models/m_pet_profile.dart';
 
 Future<List<PetProfileDetails>> fetchUserPets() async {
-  final response =
-      await http.get(Uri.parse('http://localhost:3000/pet/getUserPets'));
+  final response = await http.get(Uri.parse('$hostAddress/pet/getUserPets'));
 
   if (response.statusCode == 200) {
     return (jsonDecode(response.body) as List)
@@ -19,8 +19,7 @@ Future<List<PetProfileDetails>> fetchUserPets() async {
 }
 
 Future<List<Language>> fetchAvailableLanguages() async {
-  final response =
-      await http.get(Uri.parse('http://localhost:3000/pet/getLanguages'));
+  final response = await http.get(Uri.parse('$hostAddress/pet/getLanguages'));
 
   if (response.statusCode == 200) {
     return (jsonDecode(response.body) as List)
@@ -32,8 +31,7 @@ Future<List<Language>> fetchAvailableLanguages() async {
 }
 
 Future<List<Tag>> fetchUserTags() async {
-  final response =
-      await http.get(Uri.parse('http://localhost:3000/pet/getUserTags'));
+  final response = await http.get(Uri.parse('$hostAddress/pet/getUserTags'));
 
   if (response.statusCode == 200) {
     List<Tag> tags = (jsonDecode(response.body) as List)
