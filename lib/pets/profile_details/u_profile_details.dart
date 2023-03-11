@@ -10,7 +10,7 @@ import 'models/m_tag.dart';
 
 //!TEST
 Future<PetProfileDetails> fetchPetProfileDetails() async {
-  final response = await http.get(Uri.parse('$hostAddress/pet/getPet/1'));
+  final response = await http.get(Uri.parse('$baseURL/pet/getPet/1'));
 
   if (response.statusCode == 200) {
     return PetProfileDetails.fromJson(jsonDecode(response.body));
@@ -118,7 +118,7 @@ Future<void> handleTagChange(
 Future<PetProfileDetails> createPetProfileDetailsCore(
     PetProfileDetails petProfileDetails) async {
   final response = await http.post(
-    Uri.parse('$hostAddress/pet/createPet'),
+    Uri.parse('$baseURL/pet/createPet'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -141,7 +141,7 @@ Future<PetProfileDetails> createPetProfileDetailsCore(
 Future<PetProfileDetails> updatePetProfileCore(
     PetProfileDetails petProfileDetails) async {
   final response = await http.post(
-    Uri.parse('$hostAddress/pet/updatePet'),
+    Uri.parse('$baseURL/pet/updatePet'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -160,7 +160,7 @@ Future<PetProfileDetails> updatePetProfileCore(
 Future<void> upsertDescription(
     Description description, int petProfileId) async {
   final response = await http.post(
-    Uri.parse('$hostAddress/pet/upsertDescription'),
+    Uri.parse('$baseURL/pet/upsertDescription'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -182,7 +182,7 @@ Future<void> upsertDescription(
 Future<void> deleteDescription(
     Description description, int petProfileId) async {
   final response = await http.delete(
-    Uri.parse('$hostAddress/pet/deleteDescription'),
+    Uri.parse('$baseURL/pet/deleteDescription'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -204,7 +204,7 @@ Future<void> deleteDescription(
 Future<void> upsertImportantInformation(
     ImportantInformation importantInformation, int petProfileId) async {
   final response = await http.post(
-    Uri.parse('$hostAddress/pet/upsertImportantInformation'),
+    Uri.parse('$baseURL/pet/upsertImportantInformation'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -226,7 +226,7 @@ Future<void> upsertImportantInformation(
 Future<void> deleteImportantInformation(
     ImportantInformation importantInformation, int petProfileId) async {
   final response = await http.delete(
-    Uri.parse('$hostAddress/pet/deleteImportantInformation'),
+    Uri.parse('$baseURL/pet/deleteImportantInformation'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -247,7 +247,7 @@ Future<void> deleteImportantInformation(
 
 Future<void> connectTagFromPetProfile(int profileId, String collarTagId) async {
   final response = await http.post(
-    Uri.parse('$hostAddress/pet/connectTagFromPetProfile'),
+    Uri.parse('$baseURL/pet/connectTagFromPetProfile'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -265,7 +265,7 @@ Future<void> connectTagFromPetProfile(int profileId, String collarTagId) async {
 Future<void> disconnectTagFromPetProfile(
     int profileId, String collarTagId) async {
   final response = await http.post(
-    Uri.parse('$hostAddress/pet/disconnectTagFromPetProfile'),
+    Uri.parse('$baseURL/pet/disconnectTagFromPetProfile'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
