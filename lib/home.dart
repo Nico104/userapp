@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
 import 'bottom_nav_bar/chip_style.dart';
@@ -14,8 +13,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen> {
   int visit = 1;
 
   double navbarheight = 60;

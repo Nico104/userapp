@@ -87,3 +87,53 @@ TextStyle dataEditDialogButtonCancelStyle = const TextStyle(
   fontSize: 16,
   color: Colors.grey,
 );
+
+//Login
+TextStyle loginTitle1 = const TextStyle(
+  fontFamily: 'Shantell_Sans',
+  fontWeight: FontWeight.w700,
+  fontSize: 28,
+  color: Colors.black,
+);
+
+TextStyle loginTitle2 = TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w400,
+  fontSize: 20,
+  color: Colors.black.withOpacity(0.84),
+);
+
+TextStyle loginButton = const TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w600,
+  fontSize: 20,
+  color: Colors.white,
+);
+
+TextStyle loginContinueWith = const TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w400,
+  fontSize: 14,
+  color: Colors.black,
+);
+
+TextStyle loginNotAMembner = const TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w400,
+  fontSize: 16,
+  color: Colors.black,
+);
+
+TextStyle loginSignUp = TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w400,
+  fontSize: 16,
+  color: Colors.blue.shade700,
+);
+
+TextStyle loginForgotPassword = TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w400,
+  fontSize: 16,
+  color: Colors.black.withOpacity(0.64),
+);

@@ -41,7 +41,6 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
   final double topOffset = 28;
 
   void closeExpendedAction() {
-    print("close actions");
     if (_showExtendedActions) {
       if (mounted) {
         setState(() {

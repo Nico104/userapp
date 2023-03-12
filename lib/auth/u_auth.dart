@@ -4,11 +4,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:userapp/network_globals.dart';
 
 ///Return true if the User is Authenticated
-Future<bool> isAuthenticated(http.Client client) async {
-  var url = Uri.parse(baseURL + '/protected');
+Future<bool> isAuthenticated() async {
+  var url = Uri.parse('$baseURL/protected');
   String? token = await getToken();
 
-  final response = await client.get(url, headers: {
+  final response = await http.get(url, headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
     'Authorization': 'Bearer $token',
@@ -195,11 +195,10 @@ Future<String?> getToken() async {
 // }
 
 //LoginMethod
-Future<bool> login(
-    String useremail, String password, http.Client client) async {
-  var url = Uri.parse(baseURL + '/login');
-  var response = await client
-      .post(url, body: {'username': useremail, 'password': password});
+Future<bool> login(String useremail, String password) async {
+  var url = Uri.parse('$baseURL/login');
+  var response =
+      await http.post(url, body: {'username': useremail, 'password': password});
   print('Response status: ${response.statusCode}');
   print('Response body: ${response.body}');
 
