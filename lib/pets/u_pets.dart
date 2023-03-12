@@ -4,12 +4,21 @@ import 'package:userapp/language/m_language.dart';
 import 'package:userapp/network_globals.dart';
 import 'package:userapp/pets/profile_details/models/m_tag.dart';
 
+import '../auth/u_auth.dart';
 import 'profile_details/models/m_pet_profile.dart';
 
 Future<List<PetProfileDetails>> fetchUserPets() async {
-  final response = await http.get(Uri.parse('$baseURL/pet/getUserPets'));
+  Uri url = Uri.parse('$baseURL/pet/getUserPets');
+  String? token = await getToken();
+
+  final response = await http.get(url, headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': 'Bearer $token',
+  });
 
   if (response.statusCode == 200) {
+    // return [];
     return (jsonDecode(response.body) as List)
         .map((t) => PetProfileDetails.fromJson(t))
         .toList();

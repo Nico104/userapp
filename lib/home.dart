@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:userapp/settings/setting_screen.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
 import 'bottom_nav_bar/chip_style.dart';
 import 'bottom_nav_bar/src/bottom_bar_inspired_inside.dart';
@@ -84,14 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           // Pets(bottomoffset: 0),
-          Container(
-            width: 300,
-            height: 500,
-            color: Colors.blue,
-            child: Center(
-              child: CustomPath(),
-            ),
-          ),
+          const Settings(),
         ],
       ),
     );

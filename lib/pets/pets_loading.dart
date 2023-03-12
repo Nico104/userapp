@@ -31,11 +31,11 @@ class _PetsLoadingState extends State<PetsLoading> {
       ]),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data[0] is List<PetProfileDetails> &&
-              snapshot.data[1] is List<Language>) {
-            List<PetProfileDetails> petProfiles = snapshot.data[0]
-                .where((PetProfileDetails content) => content.tag.isNotEmpty)
-                .toList();
+          List<PetProfileDetails> petProfiles = snapshot.data[0]
+              .where((PetProfileDetails content) => content.tag.isNotEmpty)
+              .toList();
+          print("Lenght: " + petProfiles.length.toString());
+          if (petProfiles.isNotEmpty) {
             return MyPets(
               petProfiles: petProfiles,
               setAppBarNotchColor: widget.setAppBarNotchColor,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 import 'package:sizer/sizer.dart';
+import 'package:userapp/auth/sign_up_screen.dart';
 import 'package:userapp/auth/u_auth.dart';
 import 'package:userapp/pet_color/hex_color.dart';
 
@@ -21,6 +22,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String? _emailErrorMsg;
   String? _passwordErrorMsg;
+
+  bool _rememberMe = true;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +72,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(6),
                       borderSide: const BorderSide(
                         color: Colors.red,
+                        width: 1.5,
+                      ),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide: const BorderSide(
+                        color: Colors.red,
                         width: 2.5,
                       ),
                     ),
@@ -87,11 +102,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  onTap: () {
-                    setState(() {
-                      _emailErrorMsg = null;
-                    });
-                  },
                 ),
                 SizedBox(height: 02.h),
                 TextFormField(
@@ -100,6 +110,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: InputDecoration(
                     errorText: _passwordErrorMsg,
                     errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide: const BorderSide(
+                        color: Colors.red,
+                        width: 1.5,
+                      ),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6),
                       borderSide: const BorderSide(
                         color: Colors.red,
@@ -126,16 +143,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  onTap: () {
-                    setState(() {
-                      _passwordErrorMsg = null;
-                    });
-                  },
                 ),
                 SizedBox(height: 02.h),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () {
+                        setState(() {
+                          _rememberMe = !_rememberMe;
+                        });
+                      },
+                      child: RememberMe(rememberMe: _rememberMe),
+                    ),
                     Text("Forgot Password", style: loginForgotPassword),
                   ],
                 ),
@@ -144,13 +165,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: const EdgeInsets.only(left: 36, right: 36),
                   child: GestureDetector(
                     onTap: () {
-                      login(email.text, password.text).then(
+                      login(email.text, password.text, _rememberMe).then(
                         (value) {
                           if (value) {
                             setState(() {
                               _emailErrorMsg = null;
                               _passwordErrorMsg = null;
                             });
+                            Navigator.of(context)
+                                .popUntil((route) => route.isFirst);
                             widget.reloadInitApp.call();
                           } else {
                             print("wrong credentials");
@@ -230,9 +253,21 @@ class _LoginScreenState extends State<LoginScreen> {
                       "Not a member? ",
                       style: loginNotAMembner,
                     ),
-                    Text(
-                      "Register now",
-                      style: loginSignUp,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SignUpScreen(
+                              reloadInitApp: () => widget.reloadInitApp(),
+                            ),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "Register now",
+                        style: loginSignUp,
+                      ),
                     ),
                   ],
                 ),
@@ -270,6 +305,52 @@ class SocialMediaContainer extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class RememberMe extends StatelessWidget {
+  const RememberMe({super.key, required this.rememberMe});
+
+  final bool rememberMe;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          height: 22,
+          width: 22,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: rememberMe ? Colors.lightBlue.shade300 : Colors.white,
+            border: Border.all(
+              width: 1.5,
+              color: Colors.black,
+              // strokeAlign: BorderSide.strokeAlignOutside,
+            ),
+            borderRadius: BorderRadius.circular(2),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black,
+                spreadRadius: 0,
+                blurRadius: 0,
+                offset: Offset(2, 2),
+              ),
+            ],
+          ),
+          child: rememberMe
+              ? const Icon(
+                  Icons.check,
+                  size: 20,
+                  color: Colors.deepPurple,
+                )
+              : null,
+        ),
+        const SizedBox(width: 8),
+        Text("Remember Me", style: loginForgotPassword),
+      ],
     );
   }
 }

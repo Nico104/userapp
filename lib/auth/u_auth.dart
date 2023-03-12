@@ -69,11 +69,23 @@ Future<String?> getToken() async {
 //   return response.statusCode;
 // }
 
-// ///deletes the currently saved Access Token
-// Future<void> logout() async {
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   prefs.remove('access_token');
-// }
+///deletes the currently saved Access Token
+Future<void> logout() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.remove('access_token');
+  prefs.remove('useremail');
+  prefs.remove('userpassword');
+}
+
+Future<void> setLoggedInOnce(bool val) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setBool('firstLaunch', val);
+}
+
+Future<bool> getLoggedInOnce() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getBool('firstLaunch') ?? false;
+}
 
 // ///Checks if the Code is correct to the, with the email, associated Account
 // ///returns true if the [code] is matching to the Account associated with [useremail],
@@ -166,36 +178,39 @@ Future<String?> getToken() async {
 //   }
 // }
 
-// ///Checks if [useremail] is a already used Userame or not
-// ///
-// ///return true if [useremail] is available, otherwise return false
-// Future<bool> isUseremailAvailable(String username, http.Client client) async {
-//   var url = Uri.parse(baseURL + 'user/isUseremailAvailable/$username');
-//   final response = await client.get(
-//     url,
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Accept': 'application/json',
-//       // 'Authorization': 'Bearer $token',
-//     },
-//   );
+///Checks if [useremail] is a already used Userame or not
+///
+///return true if [useremail] is available, otherwise return false
+Future<bool> isUseremailAvailable(String email) async {
+  if (email.isNotEmpty) {
+    var url = Uri.parse(baseURL + '/user/isUseremailAvailable/$email');
+    final response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        // 'Authorization': 'Bearer $token',
+      },
+    );
 
-//   print('Response status: ${response.statusCode}');
-//   print('Response body: ${response.body}');
+    if (response.statusCode != 200) {
+      throw Error();
+    } else {
+      if (response.body == 'true') {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  } else {
+    return false;
+  }
+}
 
-//   if (response.statusCode != 200) {
-//     throw Error();
-//   } else {
-//     if (response.body == 'true') {
-//       return true;
-//     } else {
-//       return false;
-//     }
-//   }
-// }
-
-//LoginMethod
-Future<bool> login(String useremail, String password) async {
+///LoginMethod
+///Sotres credentials only when login successfull
+Future<bool> login(
+    String useremail, String password, bool storeCredentials) async {
   var url = Uri.parse('$baseURL/login');
   var response =
       await http.post(url, body: {'username': useremail, 'password': password});
@@ -208,8 +223,38 @@ Future<bool> login(String useremail, String password) async {
         'access_token', json.decode(response.body)["access_token"]);
     print("Acess Token: ${prefs.getString('access_token')}");
 
+    //Save Credentials
+    await prefs.setString('useremail', useremail);
+    await prefs.setString('userpassword', password);
+
+    setLoggedInOnce(true);
+
     return true;
   }
 
   return false;
+}
+
+Future<bool> loginWithSavedCredentials() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String email = prefs.getString('useremail') ?? '';
+  String password = prefs.getString('userpassword') ?? '';
+  if (email.isNotEmpty && password.isNotEmpty) {
+    return await login(email, password, false);
+  } else {
+    return false;
+  }
+}
+
+//LoginMethod
+Future<bool> signUpUser(String useremail, String password) async {
+  var url = Uri.parse('$baseURL/user/signupUser');
+  var response = await http
+      .post(url, body: {'useremail': useremail, 'userpassword': password});
+
+  if (response.statusCode == 201) {
+    return true;
+  } else {
+    return false;
+  }
 }
