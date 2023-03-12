@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:userapp/auth/sign_up_screen.dart';
 import 'package:userapp/home.dart';
 import 'auth/login_screen.dart';
 import 'auth/u_auth.dart';
@@ -30,7 +31,10 @@ class _InitAppState extends State<InitApp> {
             //TODO refresh Token...just saying
             return const HomeScreen();
           } else {
-            return LoginScreen(
+            // return LoginScreen(
+            //   reloadInitApp: () => reloadInitApp(),
+            // );
+            return SignUpScreen(
               reloadInitApp: () => reloadInitApp(),
             );
           }
