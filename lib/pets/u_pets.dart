@@ -18,7 +18,6 @@ Future<List<PetProfileDetails>> fetchUserPets() async {
   });
 
   if (response.statusCode == 200) {
-    // return [];
     return (jsonDecode(response.body) as List)
         .map((t) => PetProfileDetails.fromJson(t))
         .toList();
@@ -40,7 +39,14 @@ Future<List<Language>> fetchAvailableLanguages() async {
 }
 
 Future<List<Tag>> fetchUserTags() async {
-  final response = await http.get(Uri.parse('$baseURL/pet/getUserTags'));
+  Uri url = Uri.parse('$baseURL/tag/getUserTags');
+  String? token = await getToken();
+
+  final response = await http.get(url, headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': 'Bearer $token',
+  });
 
   if (response.statusCode == 200) {
     List<Tag> tags = (jsonDecode(response.body) as List)
@@ -51,5 +57,31 @@ Future<List<Tag>> fetchUserTags() async {
     return tags;
   } else {
     throw Exception('Failed to load Usertags');
+  }
+}
+
+///Return true if assign was successfull, false if not
+Future<bool> assignTagToUser(String activationCode) async {
+  Uri url = Uri.parse('$baseURL/tag/assignTagToUser');
+  String? token = await getToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: jsonEncode({"activationCode": activationCode}),
+  );
+
+  if (response.statusCode == 201) {
+    if (response.body.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    throw Exception('Failed to assignTagToUser');
   }
 }

@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:userapp/pet_color/hex_color.dart';
 import 'package:userapp/pet_color/pet_colors.dart';
 import '../pets/profile_details/models/m_pet_profile.dart';
 
@@ -10,6 +9,10 @@ Color getPageBackgroundColorMixture(Color color1, Color color2, double page) {
 }
 
 Color getColor(List<PetProfileDetails> list, double pageindex) {
+  if (pageindex >= list.length) {
+    pageindex = list.length - 1;
+  }
+
   if (pageindex.floor() + 1 <= list.length - 1) {
     return getPageBackgroundColorMixture(
         list

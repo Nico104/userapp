@@ -12,9 +12,11 @@ import 'package:userapp/pets/tag/tags.dart';
 import 'package:userapp/pets/u_pets.dart';
 import '../pet_color/u_pet_colors.dart';
 import '../styles/text_styles.dart';
+import 'new_pet_profile.dart';
 import 'page_transform.dart';
 import 'pet_profile_preview.dart';
 import 'profile_details/models/m_tag.dart';
+import 'tag/new_tag/d_assign_tag.dart';
 import 'tag/tag_selection/d_tag_selection.dart';
 
 class MyPets extends StatefulWidget {
@@ -82,6 +84,8 @@ class _MyPetsState extends State<MyPets> {
     for (var _ in widget.petProfiles) {
       pageKeys.add(GlobalKey<PetProfilePreviewState>());
     }
+    //Add new Profile Page
+    pageKeys.add(GlobalKey<PetProfilePreviewState>());
     setState(() {});
   }
 
@@ -114,27 +118,11 @@ class _MyPetsState extends State<MyPets> {
               onPressed: () {
                 showDialog(
                   context: context,
-                  builder: (_) => const TagSelectionDialog(
-                    currentTags: [],
+                  builder: (_) => AssignNewTagDialog(
+                    onCancel: () {},
+                    onSave: (p0) {},
                   ),
-                ).then((value) {
-                  if (value is List<Tag>) {
-                    if (value.isNotEmpty) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PetProfileDetailView(
-                            petProfileDetails:
-                                PetProfileDetails.createNewEmptyProfile(
-                              value,
-                            ),
-                            reloadFuture: () => widget.reloadFuture.call(),
-                          ),
-                        ),
-                      );
-                    }
-                  }
-                });
+                );
               },
               icon: const Icon(Icons.add))
         ],
@@ -170,24 +158,36 @@ class _MyPetsState extends State<MyPets> {
                       controller: _controller,
                       pageSnapping: true,
                       scrollDirection: Axis.horizontal,
+                      itemCount: widget.petProfiles.length + 1,
                       itemBuilder: (context, position) {
-                        return PetProfilePreviewPageTransform(
-                          page: pageindex,
-                          position: position,
-                          maxRotation: 15,
-                          minScaling: 0.9,
-                          child: PetProfilePreview(
-                            key: pageKeys.elementAt(position),
-                            petProfileDetails:
-                                widget.petProfiles.elementAt(position),
-                            imageAlignmentOffset:
-                                -getAlignmentOffset(pageindex, position),
-                            // imageAlignmentOffset: 0,
-                            reloadFuture: () => widget.reloadFuture.call(),
-                          ),
-                        );
+                        if (position == widget.petProfiles.length) {
+                          return PetProfilePreviewPageTransform(
+                            page: pageindex,
+                            position: position,
+                            maxRotation: 15,
+                            minScaling: 0.9,
+                            child: NewPetProfile(
+                              reloadFuture: () => widget.reloadFuture.call(),
+                            ),
+                          );
+                        } else {
+                          return PetProfilePreviewPageTransform(
+                            page: pageindex,
+                            position: position,
+                            maxRotation: 15,
+                            minScaling: 0.9,
+                            child: PetProfilePreview(
+                              key: pageKeys.elementAt(position),
+                              petProfileDetails:
+                                  widget.petProfiles.elementAt(position),
+                              imageAlignmentOffset:
+                                  -getAlignmentOffset(pageindex, position),
+                              // imageAlignmentOffset: 0,
+                              reloadFuture: () => widget.reloadFuture.call(),
+                            ),
+                          );
+                        }
                       },
-                      itemCount: widget.petProfiles.length,
                     ),
                   ),
                 ),
@@ -196,7 +196,7 @@ class _MyPetsState extends State<MyPets> {
                 ),
                 SmoothPageIndicator(
                   controller: _controller,
-                  count: widget.petProfiles.length,
+                  count: widget.petProfiles.length + 1,
                   effect: const WormEffect(
                     dotHeight: 8,
                     dotWidth: 8,

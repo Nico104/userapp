@@ -42,6 +42,7 @@ dependencies:
   easy_debounce: ^2.0.3
   shared_preferences: ^2.0.18
   rive: ^0.10.2
+  pin_code_fields: ^7.4.0
 
 dev_dependencies:
   flutter_test:
