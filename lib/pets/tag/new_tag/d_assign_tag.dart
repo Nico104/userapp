@@ -28,7 +28,6 @@ class _AssignNewTagDialogState extends State<AssignNewTagDialog> {
   bool hasError = false;
   bool isCompleted = false;
   String currentText = "";
-  final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {

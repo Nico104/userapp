@@ -69,7 +69,15 @@ class NewPetProfile extends StatelessWidget {
             // strokeAlign: BorderSide.strokeAlignOutside,
           ),
         ),
-        child: Icon(Icons.add),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              Icon(Icons.add),
+              Text("Create New Profile"),
+            ],
+          ),
+        ),
       ),
     );
   }

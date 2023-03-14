@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 import 'package:sizer/sizer.dart';
-import 'package:userapp/auth/sign_up_screen.dart';
+import 'package:userapp/auth/sign_up_screen/sign_up_screen.dart';
 import 'package:userapp/auth/u_auth.dart';
 import 'package:userapp/pet_color/hex_color.dart';
 

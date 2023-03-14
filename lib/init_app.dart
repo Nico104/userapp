@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:userapp/auth/sign_up_screen.dart';
+import 'package:userapp/auth/sign_up_screen/sign_up_screen.dart';
 import 'package:userapp/home.dart';
 import 'auth/login_screen.dart';
 import 'auth/u_auth.dart';

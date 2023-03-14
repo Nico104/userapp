@@ -87,67 +87,62 @@ Future<bool> getLoggedInOnce() async {
   return prefs.getBool('firstLaunch') ?? false;
 }
 
-// ///Checks if the Code is correct to the, with the email, associated Account
-// ///returns true if the [code] is matching to the Account associated with [useremail],
-// ///otherwise return false
-// ///
-// ///takes in a String for [useremail], which will be the pending account which gets checked
-// ///takes in a String for [code], which should be the Code the User received as an Email
-// Future<bool> checkCode(String usermail, String code, http.Client client) async {
-//   var url = Uri.parse(baseURL + 'user/checkCode');
-//   final response = await client.post(url,
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'Accept': 'application/json',
-//         // 'Authorization': 'Bearer $token',
-//       },
-//       body: json.encode(<String, String>{
-//         "useremail": '$usermail',
-//         "code": '$code',
-//         // "notificationtext": notificationText
-//       }));
+///Checks if the Code is correct to the, with the email, associated Account
+///returns true if the [code] is matching to the Account associated with [useremail],
+///otherwise return false
+///
+///takes in a String for [useremail], which will be the pending account which gets checked
+///takes in a String for [code], which should be the Code the User received as an Email
+Future<bool> checkCode(String usermail, String code) async {
+  final bool onlyDigits = RegExp(r'^[0-9]+$').hasMatch(code);
+  if (onlyDigits) {
+    var url = Uri.parse('$baseURL/user/checkCode');
+    final response = await http.post(url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: json.encode(<String, String>{
+          "useremail": usermail,
+          "verificationCode": code,
+        }));
 
-//   print('Response status: ${response.statusCode}');
-//   print('Response body: ${response.body}');
+    print("Code is ${response.body}");
 
-//   if (response.statusCode != 201) {
-//     throw Error();
-//   } else {
-//     if (int.parse(response.body) == 0) {
-//       return false;
-//     } else {
-//       return true;
-//     }
-//   }
-// }
+    if (response.statusCode == 201) {
+      return response.body == 'true';
+    } else {
+      throw Error();
+    }
+  } else {
+    return false;
+  }
+}
 
-// /// Creates a new Pending Account for a new SignUp
-// /// returns true if the operation was successfull, otherwise return false
-// ///
-// /// takes in the given email as a String for [usermail]
-// Future<bool> createPendingAccount(String usermail, http.Client client) async {
-//   print(usermail);
+/// Creates a new Pending Account for a new SignUp
+/// returns true if the operation was successfull, otherwise return false
+///
+/// takes in the given email as a String for [usermail]
+Future<bool> createPendingAccount(String usermail) async {
+  var url = Uri.parse('$baseURL/user/signupPendingAccount');
+  final response = await http.post(url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: json.encode(<String, String>{
+        "useremail": usermail,
+      }));
 
-//   var url = Uri.parse(baseURL + 'user/signupPendingAccount');
-//   final response = await client.post(url,
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'Accept': 'application/json',
-//         // 'Authorization': 'Bearer $token',
-//       },
-//       body: json.encode(<String, String>{
-//         "useremail": '$usermail',
-//       }));
+  print('Response status: ${response.statusCode}');
+  print('Response body: ${response.body}');
 
-//   print('Response status: ${response.statusCode}');
-//   print('Response body: ${response.body}');
-
-//   if (response.statusCode != 201) {
-//     return false;
-//   } else {
-//     return true;
-//   }
-// }
+  if (response.statusCode == 201) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 // ///Checks if [username] is a already used Userame or not
 // ///
@@ -183,7 +178,7 @@ Future<bool> getLoggedInOnce() async {
 ///return true if [useremail] is available, otherwise return false
 Future<bool> isUseremailAvailable(String email) async {
   if (email.isNotEmpty) {
-    var url = Uri.parse(baseURL + '/user/isUseremailAvailable/$email');
+    var url = Uri.parse('$baseURL/user/isUseremailAvailable/$email');
     final response = await http.get(
       url,
       headers: {
@@ -247,10 +242,14 @@ Future<bool> loginWithSavedCredentials() async {
 }
 
 //LoginMethod
-Future<bool> signUpUser(String useremail, String password) async {
+Future<bool> signUpUser(
+    String useremail, String password, String verificationCode) async {
   var url = Uri.parse('$baseURL/user/signupUser');
-  var response = await http
-      .post(url, body: {'useremail': useremail, 'userpassword': password});
+  var response = await http.post(url, body: {
+    'useremail': useremail,
+    'userpassword': password,
+    'verificationCode': verificationCode,
+  });
 
   if (response.statusCode == 201) {
     return true;
