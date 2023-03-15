@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:userapp/pet_color/hex_color.dart';
+import 'package:userapp/pets/webshop.dart';
 import 'package:userapp/settings/setting_screen.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
 import 'bottom_nav_bar/chip_style.dart';
 import 'bottom_nav_bar/src/bottom_bar_inspired_inside.dart';
 import 'bottom_nav_bar/tab_item.dart';
 import 'bottom_nav_bar/widgets/inspired/inspired.dart';
-import 'pets/custom_paint_test.dart';
 import 'pets/pets_loading.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int visit = 1;
+  int visit = 2;
 
   double navbarheight = 60;
   double navbarbottompadding = 20;
@@ -33,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: HexColor("FFFF8F"),
       bottomNavigationBar: BottomBarInspiredInside(
         // height: 50,
         items: items,
@@ -73,10 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
         //   tabIndex = v;
         // },
         children: [
-          Container(
-              width: double.infinity,
-              height: double.infinity,
-              color: Colors.red),
+          const WebShop(),
           PetsLoading(
             setAppBarNotchColor: (value) {
               setState(() {

@@ -11,7 +11,7 @@ import 'new_pet_profile.dart';
 import 'page_transform.dart';
 import 'pet_profile_preview.dart';
 import 'tag/new_tag/d_assign_tag.dart';
-import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
+// import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 
 class MyPets extends StatefulWidget {
   const MyPets({
@@ -109,19 +109,21 @@ class _MyPetsState extends State<MyPets> {
         elevation: 0,
         actions: [
           IconButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (_) => AssignNewTagDialog(
-                    onCancel: () {},
-                    onSave: (p0) {},
-                  ),
-                );
-              },
-              // icon: const Icon(Icons.add))
-              icon: const iconoir.AddKeyframe(
-                color: Colors.black,
-              ))
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) => AssignNewTagDialog(
+                  onCancel: () {},
+                  onSave: (p0) {},
+                ),
+              );
+            },
+            // icon: const Icon(Icons.add))
+            // icon: const iconoir.AddKeyframe(
+            //   color: Colors.black,
+            // ),
+            icon: Icon(Icons.add),
+          )
         ],
       ),
       backgroundColor: backgroundColor,

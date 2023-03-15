@@ -43,8 +43,7 @@ dependencies:
   shared_preferences: ^2.0.18
   rive: ^0.10.2
   pin_code_fields: ^7.4.0
-  #maybe amke custom icons for that
-  iconoir_flutter: ^6.4.0
+  device_info_plus: ^8.1.0
 
 dev_dependencies:
   flutter_test:

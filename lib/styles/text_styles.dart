@@ -137,3 +137,18 @@ TextStyle loginForgotPassword = TextStyle(
   fontSize: 16,
   color: Colors.black.withOpacity(0.64),
 );
+
+//Settings
+TextStyle settingsTitle = TextStyle(
+  fontFamily: 'Shantell_Sans',
+  fontWeight: FontWeight.w700,
+  fontSize: 20,
+  color: Colors.black.withOpacity(0.94),
+);
+
+TextStyle settingsItem = const TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w400,
+  fontSize: 17,
+  color: Colors.black,
+);
