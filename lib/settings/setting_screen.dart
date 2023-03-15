@@ -5,6 +5,7 @@ import '../auth/u_auth.dart';
 import '../pet_color/hex_color.dart';
 import '../pets/profile_details/c_component_title.dart';
 import '../pets/profile_details/c_section_title.dart';
+import '../styles/custom_icons_icons.dart';
 import '../styles/text_styles.dart';
 
 class Settings extends StatefulWidget {
@@ -17,7 +18,6 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   final double settingItemSpacing = 16;
   double _appBarDividerHeight = 0;
-  double _appBarElevation = 0;
 
   final double _appBarDividerHeightActivated = 2.5;
   final double _appBarElevationActivated = 4;
@@ -37,14 +37,12 @@ class _SettingsState extends State<Settings> {
         if (_appBarDividerHeight != 0) {
           setState(() {
             _appBarDividerHeight = 0;
-            _appBarElevation = 0;
           });
         }
       } else {
         if (_appBarDividerHeight == 0) {
           setState(() {
             _appBarDividerHeight = _appBarDividerHeightActivated;
-            _appBarElevation = _appBarElevationActivated;
           });
         }
       }
@@ -54,15 +52,30 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: HexColor("FFFF8F"),
+      // backgroundColor: HexColor("FFFF8F"),
+      backgroundColor: HexColor("50ffaf"),
       appBar: AppBar(
         title: Text(
           "Settings",
-          style: homeScreenTitle,
+          style: settingsScreenTitle,
           textAlign: TextAlign.center,
         ),
-        backgroundColor: HexColor("FFFF8F"),
-        elevation: _appBarElevation,
+        actions: [
+          Icon(
+            Icons.new_releases_outlined,
+          ),
+          SizedBox(
+            width: 8,
+          )
+        ],
+        actionsIconTheme: IconThemeData(
+          color: Colors.black,
+          size: 32,
+        ),
+        // backgroundColor: HexColor("FFFF8F"),
+        backgroundColor: HexColor("50ffaf"),
+        scrolledUnderElevation: _appBarElevationActivated,
+        elevation: 0,
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(_appBarDividerHeight),
           child: Container(
@@ -297,7 +310,7 @@ class SettingsContainer extends StatelessWidget {
           color: Colors.black,
           // strokeAlign: BorderSide.strokeAlignOutside,
         ),
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(14),
         boxShadow: const [
           BoxShadow(
             color: Colors.black,

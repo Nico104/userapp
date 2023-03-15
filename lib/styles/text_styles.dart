@@ -139,6 +139,12 @@ TextStyle loginForgotPassword = TextStyle(
 );
 
 //Settings
+TextStyle settingsScreenTitle = const TextStyle(
+  fontFamily: 'RampartOne',
+  fontSize: 32,
+  color: Colors.black,
+);
+
 TextStyle settingsTitle = TextStyle(
   fontFamily: 'Shantell_Sans',
   fontWeight: FontWeight.w700,
