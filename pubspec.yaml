@@ -44,6 +44,8 @@ dependencies:
   rive: ^0.10.2
   pin_code_fields: ^7.4.0
   device_info_plus: ^8.1.0
+  image_picker: ^0.8.7
+  image_cropper: ^3.0.1
 
 dev_dependencies:
   flutter_test:

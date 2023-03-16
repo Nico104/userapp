@@ -12,7 +12,7 @@ import 'c_important_information.dart';
 import 'c_one_line_simple_input.dart';
 import 'c_pet_gender.dart';
 import 'c_phone_number.dart';
-import 'c_pictures.dart';
+import 'pictures/c_pictures.dart';
 import 'c_section_title.dart';
 import 'c_social_media.dart';
 import 'u_profile_details.dart';

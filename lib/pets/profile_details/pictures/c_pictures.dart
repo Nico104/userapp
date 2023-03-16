@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_picture.dart';
+import 'package:userapp/pets/profile_details/pictures/new_picture.dart';
 
-import 'c_component_title.dart';
-import 'g_profile_detail_globals.dart';
+import '../c_component_title.dart';
+import '../g_profile_detail_globals.dart';
 
 class PetPicturesComponent extends StatelessWidget {
   const PetPicturesComponent({
@@ -33,19 +34,27 @@ class PetPicturesComponent extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
+        const Padding(
           padding: EdgeInsets.only(left: profileDetailLeftPadding),
-          child: const ComponentTitle(text: "Pictures"),
+          child: ComponentTitle(text: "Pictures"),
         ),
         SizedBox(
           height: imageHeight + _imageOffset,
           child: ListView.builder(
-            itemCount: 4,
+            itemCount: 2,
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             itemBuilder: (BuildContext context, int index) {
               if (index == 0) {
-                return SizedBox(width: profileDetailLeftPadding);
+                return const SizedBox(width: profileDetailLeftPadding);
+              } else if (index == 1) {
+                return NewPicture(
+                  imageOffsetRight: _imageOffset,
+                  imageWidth: imageWidth,
+                  imageHeight: imageHeight,
+                  imageBorderRadius: imageBorderRadius,
+                  closeBorderRadius: _closeBorderRadius,
+                );
               } else {
                 return Padding(
                   padding: EdgeInsets.only(right: imageSpacing),
