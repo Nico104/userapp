@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'package:image_cropper/image_cropper.dart';
+import 'package:userapp/pet_color/hex_color.dart';
 import 'gallery_camera_dialog.dart';
 
 class NewPicture extends StatefulWidget {
@@ -11,6 +15,7 @@ class NewPicture extends StatefulWidget {
     required this.imageHeight,
     required this.imageBorderRadius,
     required this.closeBorderRadius,
+    required this.addNewImage,
   });
 
   final double imageOffsetRight;
@@ -19,14 +24,13 @@ class NewPicture extends StatefulWidget {
   final double imageBorderRadius;
   final double closeBorderRadius;
 
+  final Function(File) addNewImage;
+
   @override
   State<NewPicture> createState() => _NewPictureState();
 }
 
 class _NewPictureState extends State<NewPicture> {
-  final ImagePicker _picker = ImagePicker();
-  XFile? _image;
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -35,13 +39,21 @@ class _NewPictureState extends State<NewPicture> {
           context: context,
           builder: (_) => const GalleryCameraDialog(),
         ).then(
-          (value) async {
+          (value) {
             if (value != null) {
+              ImageSource imageSource = ImageSource.gallery;
               if (value == 0) {
-                _image = await _picker.pickImage(source: ImageSource.gallery);
+                imageSource = ImageSource.gallery;
               } else if (value == 1) {
-                _image = await _picker.pickImage(source: ImageSource.camera);
+                imageSource = ImageSource.camera;
               }
+              pickAndCropImage(imageSource).then(
+                (image) {
+                  if (image != null) {
+                    widget.addNewImage.call(image);
+                  }
+                },
+              );
             }
           },
         );
@@ -63,4 +75,43 @@ class _NewPictureState extends State<NewPicture> {
       ),
     );
   }
+}
+
+Future<File?> pickAndCropImage(ImageSource imageSource) async {
+  XFile? image = await ImagePicker().pickImage(source: imageSource);
+  if (image != null) {
+    CroppedFile? croppedFile = await cropFile(image.path);
+    if (croppedFile != null) {
+      return File(croppedFile.path);
+    }
+  }
+  return null;
+}
+
+Future<CroppedFile?> cropFile(String path) async {
+  return await ImageCropper().cropImage(
+    sourcePath: path,
+    aspectRatio: const CropAspectRatio(ratioX: 9, ratioY: 16),
+    uiSettings: [
+      AndroidUiSettings(
+        showCropGrid: false,
+        toolbarTitle: 'Cropper',
+        toolbarColor: HexColor("FFFF8F"),
+        toolbarWidgetColor: Colors.black,
+        activeControlsWidgetColor: Colors.black,
+        backgroundColor: Colors.black,
+        cropFrameColor: HexColor("FFFF8F"),
+        cropFrameStrokeWidth: 6,
+        hideBottomControls: true,
+        lockAspectRatio: true,
+      ),
+      IOSUiSettings(
+        title: 'Cropper',
+      ),
+      //Didn't add manifest configuration stuff
+      // WebUiSettings(
+      //   context: context,
+      // ),
+    ],
+  );
 }

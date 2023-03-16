@@ -18,6 +18,7 @@ Color genderButtonBackgroundFemale = const Color(0xFFff668a);
 
 //Dialog
 Color dataEditDialogButtonSave = const Color(0xFF64FF9D);
+Color alertDialogButtonConfirm = const Color(0xFFD70040);
 
 //TagSelection
 Color dataEditTagSelectionAvtiveBorder = const Color(0xFF228B22);

@@ -218,9 +218,14 @@ Future<bool> login(
         'access_token', json.decode(response.body)["access_token"]);
     print("Acess Token: ${prefs.getString('access_token')}");
 
+    //TODO send Login Data
+    //https://ipgeolocation.io/ip-location/78.104.182.53
+
     //Save Credentials
-    await prefs.setString('useremail', useremail);
-    await prefs.setString('userpassword', password);
+    if (storeCredentials) {
+      await prefs.setString('useremail', useremail);
+      await prefs.setString('userpassword', password);
+    }
 
     setLoggedInOnce(true);
 

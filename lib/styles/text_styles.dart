@@ -30,11 +30,19 @@ TextStyle profileDetailsComponentTitle = TextStyle(
   fontSize: 20,
   color: Colors.black.withOpacity(0.94),
 );
+
+//Dialog
 TextStyle pickerDialogTitleStyle = TextStyle(
   fontFamily: 'Shantell_Sans',
   fontWeight: FontWeight.w700,
   fontSize: 20,
   color: Colors.black.withOpacity(0.94),
+);
+TextStyle alertDialogMessageTextStyle = const TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w400,
+  fontSize: 16,
+  color: Colors.black,
 );
 
 TextStyle newDescriptionLabel = TextStyle();
