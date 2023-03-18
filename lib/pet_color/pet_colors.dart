@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'hex_color.dart';
+
+Color defaultBGColor = HexColor("50ffaf");
+
 Color genderBgPink = const Color(0xFFFFE5F0);
 Color genderBgBlue = const Color(0xFFE0F3FB);
 

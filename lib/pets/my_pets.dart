@@ -122,7 +122,7 @@ class _MyPetsState extends State<MyPets> {
             // icon: const iconoir.AddKeyframe(
             //   color: Colors.black,
             // ),
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
           )
         ],
       ),
@@ -190,18 +190,25 @@ class _MyPetsState extends State<MyPets> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 28,
-                ),
-                SmoothPageIndicator(
-                  controller: _controller,
-                  count: widget.petProfiles.length + 1,
-                  effect: const WormEffect(
-                    dotHeight: 8,
-                    dotWidth: 8,
-                    activeDotColor: Colors.black,
-                  ),
-                ),
+                (widget.petProfiles.isNotEmpty)
+                    ? Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SizedBox(
+                            height: 28,
+                          ),
+                          SmoothPageIndicator(
+                            controller: _controller,
+                            count: widget.petProfiles.length + 1,
+                            effect: const WormEffect(
+                              dotHeight: 8,
+                              dotWidth: 8,
+                              activeDotColor: Colors.black,
+                            ),
+                          ),
+                        ],
+                      )
+                    : const SizedBox(),
               ],
             ),
           ),

@@ -9,7 +9,9 @@ Color getPageBackgroundColorMixture(Color color1, Color color2, double page) {
 }
 
 Color getColor(List<PetProfileDetails> list, double pageindex) {
-  if (pageindex >= list.length) {
+  if (list.length == 0) {
+    return defaultBGColor;
+  } else if (pageindex >= list.length) {
     pageindex = list.length - 1;
   }
 

@@ -33,6 +33,7 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
   @override
   void initState() {
     super.initState();
+    print("Email to: " + widget.useremail);
     createPendingAccount(widget.useremail);
   }
 

@@ -35,17 +35,23 @@ class _PetsLoadingState extends State<PetsLoading> {
               .where((PetProfileDetails content) => content.tag.isNotEmpty)
               .toList();
           print("Lenght: " + petProfiles.length.toString());
-          if (petProfiles.isNotEmpty) {
-            return MyPets(
-              petProfiles: petProfiles,
-              setAppBarNotchColor: widget.setAppBarNotchColor,
-              // availableLanguages: snapshot.data[1],
-              availableLanguages: snapshot.data[1],
-              reloadFuture: () => rebuildFuture.call(),
-            );
-          } else {
-            return const Center(child: Text("No Pets, create?"));
-          }
+          // if (petProfiles.isNotEmpty) {
+          //   return MyPets(
+          //     petProfiles: petProfiles,
+          //     setAppBarNotchColor: widget.setAppBarNotchColor,
+          //     // availableLanguages: snapshot.data[1],
+          //     availableLanguages: snapshot.data[1],
+          //     reloadFuture: () => rebuildFuture.call(),
+          //   );
+          // } else {
+          //   return const Center(child: Text("No Pets, create?"));
+          // }
+          return MyPets(
+            petProfiles: petProfiles,
+            setAppBarNotchColor: widget.setAppBarNotchColor,
+            availableLanguages: snapshot.data[1],
+            reloadFuture: () => rebuildFuture.call(),
+          );
         } else if (snapshot.hasError) {
           print(snapshot);
           //Error

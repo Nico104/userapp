@@ -58,15 +58,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     children: <Widget>[
                       SignUpEmailPage(
                         onNext: (useremail) {
-                          email = useremail;
+                          setState(() {
+                            email = useremail;
+                          });
                           controller.animateToPage(1,
                               duration: const Duration(milliseconds: 250),
                               curve: Curves.fastOutSlowIn);
                         },
                       ),
                       SignUpPasswordPage(
-                        onNext: (password) {
-                          email = password;
+                        onNext: (userpassword) {
+                          setState(() {
+                            password = userpassword;
+                          });
                           controller.animateToPage(2,
                               duration: const Duration(milliseconds: 250),
                               curve: Curves.fastOutSlowIn);
@@ -76,6 +80,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SignUpVerificationPage(
                         useremail: email ?? "",
                         onCodeCorrect: (code) {
+                          print(email.toString() + password.toString() + code);
                           signUpUser(email!, password!, code)
                               .then((successFullSignUp) {
                             if (successFullSignUp) {
