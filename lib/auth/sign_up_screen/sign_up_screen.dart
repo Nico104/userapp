@@ -47,88 +47,97 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(28, 42, 28, 28),
-            child: Column(
-              children: [
-                Expanded(
-                  child: PageView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    controller: controller,
-                    children: <Widget>[
-                      SignUpEmailPage(
-                        onNext: (useremail) {
-                          setState(() {
-                            email = useremail;
-                          });
-                          controller.animateToPage(1,
-                              duration: const Duration(milliseconds: 250),
-                              curve: Curves.fastOutSlowIn);
-                        },
-                      ),
-                      SignUpPasswordPage(
-                        onNext: (userpassword) {
-                          setState(() {
-                            password = userpassword;
-                          });
-                          controller.animateToPage(2,
-                              duration: const Duration(milliseconds: 250),
-                              curve: Curves.fastOutSlowIn);
-                        },
-                      ),
-                      //Sends Code on init Verification Page
-                      SignUpVerificationPage(
-                        useremail: email ?? "",
-                        onCodeCorrect: (code) {
-                          print(email.toString() + password.toString() + code);
-                          signUpUser(email!, password!, code)
-                              .then((successFullSignUp) {
-                            if (successFullSignUp) {
-                              login(email!, password!, true).then(
-                                (loginSuccessfull) {
-                                  if (loginSuccessfull) {
-                                    Navigator.of(context)
-                                        .popUntil((route) => route.isFirst);
-                                    widget.reloadInitApp.call();
-                                  } else {
-                                    print("error in SignUp Process");
-                                  }
-                                },
-                              );
-                            }
-                          });
-                        },
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(height: 03.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+          SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
+            child: SizedBox(
+              height: 100.h,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(28, 76, 28, 28),
+                child: Column(
                   children: [
-                    Text(
-                      "Already a member? ",
-                      style: loginNotAMembner,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => LoginScreen(
-                              reloadInitApp: () => widget.reloadInitApp(),
-                            ),
+                    Expanded(
+                      child: PageView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        controller: controller,
+                        children: <Widget>[
+                          SignUpEmailPage(
+                            onNext: (useremail) {
+                              setState(() {
+                                email = useremail;
+                              });
+                              controller.animateToPage(1,
+                                  duration: const Duration(milliseconds: 250),
+                                  curve: Curves.fastOutSlowIn);
+                            },
                           ),
-                        );
-                      },
-                      child: Text(
-                        "Log In now",
-                        style: loginSignUp,
+                          SignUpPasswordPage(
+                            onNext: (userpassword) {
+                              setState(() {
+                                password = userpassword;
+                              });
+                              controller.animateToPage(2,
+                                  duration: const Duration(milliseconds: 250),
+                                  curve: Curves.fastOutSlowIn);
+                            },
+                          ),
+                          //Sends Code on init Verification Page
+                          SignUpVerificationPage(
+                            useremail: email ?? "",
+                            onCodeCorrect: (code) {
+                              print(email.toString() +
+                                  password.toString() +
+                                  code);
+                              signUpUser(email!, password!, code)
+                                  .then((successFullSignUp) {
+                                if (successFullSignUp) {
+                                  login(email!, password!, true).then(
+                                    (loginSuccessfull) {
+                                      if (loginSuccessfull) {
+                                        Navigator.of(context)
+                                            .popUntil((route) => route.isFirst);
+                                        widget.reloadInitApp.call();
+                                      } else {
+                                        print("error in SignUp Process");
+                                      }
+                                    },
+                                  );
+                                }
+                              });
+                            },
+                          )
+                        ],
                       ),
+                    ),
+                    // Spacer(),
+                    SizedBox(height: 03.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Already a member? ",
+                          style: loginNotAMembner,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LoginScreen(
+                                  reloadInitApp: () => widget.reloadInitApp(),
+                                ),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "Log In now",
+                            style: loginSignUp,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
         ],

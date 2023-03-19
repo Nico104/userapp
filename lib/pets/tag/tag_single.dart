@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import '../../styles/text_styles.dart';
 import '../profile_details/models/m_tag_personalisation.dart';
 
 class TagSingle extends StatelessWidget {
@@ -51,7 +52,12 @@ class TagSingle extends StatelessWidget {
             ),
           ),
         ),
-        Text(tagPersonalisation.letter),
+        DefaultTextStyle(
+          style: defaultTagLetterStyle,
+          child: Text(
+            tagPersonalisation.letter,
+          ),
+        )
       ],
     );
   }

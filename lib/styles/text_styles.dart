@@ -100,14 +100,14 @@ TextStyle dataEditDialogButtonCancelStyle = const TextStyle(
 TextStyle loginTitle1 = const TextStyle(
   fontFamily: 'Shantell_Sans',
   fontWeight: FontWeight.w700,
-  fontSize: 28,
+  fontSize: 24,
   color: Colors.black,
 );
 
 TextStyle loginTitle2 = TextStyle(
   fontFamily: 'Promt',
   fontWeight: FontWeight.w400,
-  fontSize: 20,
+  fontSize: 16,
   color: Colors.black.withOpacity(0.84),
 );
 

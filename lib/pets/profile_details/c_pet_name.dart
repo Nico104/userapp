@@ -56,6 +56,7 @@ class _PetNameComponentState extends State<PetNameComponent> {
           tag: 'collar${widget.petProfileId}',
           child: Tags(collardimension: widget.collardimension, tag: widget.tag),
         ),
+        // Tags(collardimension: widget.collardimension, tag: widget.tag),
         // const SizedBox(width: 32),
         const Spacer(
           flex: 3,

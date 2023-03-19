@@ -38,7 +38,8 @@ class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
             textAlign: TextAlign.center,
             style: loginTitle2,
           ),
-          SizedBox(height: 09.h),
+          SizedBox(height: 05.h),
+          const Spacer(),
           TextFormField(
             controller: password,
             cursorColor: Colors.black.withOpacity(0.74),
@@ -180,12 +181,13 @@ class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
                 ),
                 child: Center(
                     child: Text(
-                  "Sign Up",
+                  "Continue",
                   style: loginButton,
                 )),
               ),
             ),
           ),
+          const Spacer(flex: 9),
         ],
       ),
     );

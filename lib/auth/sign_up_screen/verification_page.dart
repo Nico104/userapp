@@ -33,8 +33,7 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
   @override
   void initState() {
     super.initState();
-    print("Email to: " + widget.useremail);
-    createPendingAccount(widget.useremail);
+    // createPendingAccount(widget.useremail);
   }
 
   void checkVerificationCode(String code) {
@@ -66,7 +65,8 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
           textAlign: TextAlign.center,
           style: loginTitle2,
         ),
-        SizedBox(height: 09.h),
+        SizedBox(height: 05.h),
+        const Spacer(),
         PinCodeTextField(
           appContext: context,
           length: 6,
@@ -160,6 +160,9 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
               )),
             ),
           ),
+        ),
+        const Spacer(
+          flex: 3,
         ),
       ],
     );

@@ -4,6 +4,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../pet_color/hex_color.dart';
 import '../../styles/text_styles.dart';
+import '../login_screen.dart';
 import '../u_auth.dart';
 
 class SignUpEmailPage extends StatefulWidget {
@@ -42,7 +43,7 @@ class _SignUpEmailPageState extends State<SignUpEmailPage> {
             textAlign: TextAlign.center,
             style: loginTitle2,
           ),
-          SizedBox(height: 09.h),
+          SizedBox(height: 05.h),
           TextFormField(
             controller: email,
             cursorColor: Colors.black.withOpacity(0.74),
@@ -167,7 +168,7 @@ class _SignUpEmailPageState extends State<SignUpEmailPage> {
               ),
             ),
           ),
-          SizedBox(height: 07.h),
+          SizedBox(height: 05.h),
           Padding(
             padding: const EdgeInsets.only(left: 36, right: 36),
             child: Row(
@@ -185,7 +186,7 @@ class _SignUpEmailPageState extends State<SignUpEmailPage> {
               ],
             ),
           ),
-          SizedBox(height: 03.h),
+          SizedBox(height: 02.h),
           Padding(
             padding: const EdgeInsets.only(left: 36, right: 36),
             child: Row(
@@ -220,33 +221,4 @@ bool validEmail(String email) {
           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
       .hasMatch(email);
   return emailValid;
-}
-
-class SocialMediaContainer extends StatelessWidget {
-  const SocialMediaContainer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 60,
-      width: 90,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(
-          width: 1.5,
-          color: Colors.black,
-          // strokeAlign: BorderSide.strokeAlignOutside,
-        ),
-        borderRadius: BorderRadius.circular(6),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black,
-            spreadRadius: 0,
-            blurRadius: 0,
-            offset: Offset(3, 3),
-          ),
-        ],
-      ),
-    );
-  }
 }
