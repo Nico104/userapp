@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/c_pet_name.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
-import '../../language/m_language.dart';
 import '../../pet_color/u_pet_colors.dart';
 import '../../styles/text_styles.dart';
-import '../u_pets.dart';
 import 'c_component_padding.dart';
 import 'c_description.dart';
 import 'c_important_information.dart';
@@ -35,6 +32,15 @@ class PetProfileDetailView extends StatefulWidget {
 class _PetProfileDetailViewState extends State<PetProfileDetailView> {
   late PetProfileDetails _petProfileDetails;
 
+  //Divider Appbar
+  double _appBarDividerHeight = 0;
+
+  final double _appBarDividerHeightActivated = 2.5;
+  final double _appBarElevationActivated = 4;
+
+  // Create a variable
+  final _scrollSontroller = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -47,6 +53,24 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
               }),
           null));
     }
+
+    // Setup Scroll Listener dfor AppBarDivider
+    _scrollSontroller.addListener(() {
+      bool isTop = _scrollSontroller.position.pixels == 0;
+      if (isTop) {
+        if (_appBarDividerHeight != 0) {
+          setState(() {
+            _appBarDividerHeight = 0;
+          });
+        }
+      } else {
+        if (_appBarDividerHeight == 0) {
+          setState(() {
+            _appBarDividerHeight = _appBarDividerHeightActivated;
+          });
+        }
+      }
+    });
   }
 
   @override
@@ -60,7 +84,15 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
         backgroundColor: widget.petProfileDetails.tag.first
             .collarTagPersonalisation.petPageBackgroundColor,
         foregroundColor: Colors.black,
+        scrolledUnderElevation: _appBarElevationActivated,
         elevation: 0,
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(_appBarDividerHeight),
+          child: Container(
+            color: Colors.black,
+            height: _appBarDividerHeight,
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(
@@ -96,9 +128,10 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
               )
             : BoxDecoration(
                 color: widget.petProfileDetails.tag.first
-                    .collarTagPersonalisation.primaryColor,
+                    .collarTagPersonalisation.petPageBackgroundColor,
               ),
         child: ListView(
+          controller: _scrollSontroller,
           children: [
             const SizedBox(height: 28),
             //Name and Tag

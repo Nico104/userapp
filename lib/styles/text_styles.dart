@@ -166,3 +166,12 @@ TextStyle settingsItem = const TextStyle(
   fontSize: 17,
   color: Colors.black,
 );
+
+//Tag
+//tagsStyles...
+TextStyle defaultTagLetterStyle = const TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w400,
+  fontSize: 17,
+  color: Colors.black,
+);

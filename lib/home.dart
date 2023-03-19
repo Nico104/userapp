@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int visit = 2;
+  int visit = 1;
 
   double navbarheight = 60;
   double navbarbottompadding = 20;

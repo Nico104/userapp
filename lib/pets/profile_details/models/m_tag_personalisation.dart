@@ -34,7 +34,8 @@ class TagPersonalisation {
         secondaryColorName = json['secondaryColorName'],
         baseColorName = json['baseColorName'],
         letter = json['letter'],
-        letterStyle = json['letterStyle'],
+        //Change to TextStyle and add Method to parse
+        letterStyle = json['letterStyle'] ?? "defaultTagLetterStyle",
         petPageBackgroundColor = HexColor(json['appBackgroundColorHex']),
         primaryColor = HexColor(json['appPetTagPrimaryColor']),
         secondaryColor = HexColor(json['appPetTagSecundaryColor']);
