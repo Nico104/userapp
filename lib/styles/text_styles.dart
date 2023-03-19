@@ -167,6 +167,13 @@ TextStyle settingsItem = const TextStyle(
   color: Colors.black,
 );
 
+TextStyle settingsSuffixText = TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w400,
+  fontSize: 14,
+  color: Colors.black.withOpacity(0.64),
+);
+
 //Tag
 //tagsStyles...
 TextStyle defaultTagLetterStyle = const TextStyle(

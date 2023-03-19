@@ -236,14 +236,25 @@ Future<bool> login(
 }
 
 Future<bool> loginWithSavedCredentials() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String email = prefs.getString('useremail') ?? '';
-  String password = prefs.getString('userpassword') ?? '';
-  if (email.isNotEmpty && password.isNotEmpty) {
-    return await login(email, password, false);
+  List<String> savedCredentials = await getSavedCredentails();
+  if (savedCredentials.elementAt(0).isNotEmpty &&
+      savedCredentials.elementAt(1).isNotEmpty) {
+    return await login(
+        savedCredentials.elementAt(0), savedCredentials.elementAt(1), false);
   } else {
     return false;
   }
+}
+
+///Retruns a String array with the saved Credentials
+///Pos 0 is Email
+///Pos 1 is Password
+Future<List<String>> getSavedCredentails() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String email = prefs.getString('useremail') ?? '';
+  String password = prefs.getString('userpassword') ?? '';
+  List<String> savedCredentials = [email, password];
+  return savedCredentials;
 }
 
 //LoginMethod

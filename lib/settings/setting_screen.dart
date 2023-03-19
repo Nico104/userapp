@@ -3,10 +3,9 @@ import 'package:userapp/init_app.dart';
 
 import '../auth/u_auth.dart';
 import '../pet_color/hex_color.dart';
-import '../pets/profile_details/c_component_title.dart';
-import '../pets/profile_details/c_section_title.dart';
-import '../styles/custom_icons_icons.dart';
 import '../styles/text_styles.dart';
+import 'setting_screens/account_settings/account_settings.dart';
+import 'widgets/settings_widgets.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -16,22 +15,17 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  final double settingItemSpacing = 16;
   double _appBarDividerHeight = 0;
 
   final double _appBarDividerHeightActivated = 2.5;
   final double _appBarElevationActivated = 4;
 
-  // Create a variable
   final _scrollSontroller = ScrollController();
 
   @override
   void initState() {
     super.initState();
-
-    // Setup the listener.
     _scrollSontroller.addListener(() {
-      print(_scrollSontroller.position.pixels);
       bool isTop = _scrollSontroller.position.pixels == 0;
       if (isTop) {
         if (_appBarDividerHeight != 0) {
@@ -52,7 +46,6 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: HexColor("FFFF8F"),
       backgroundColor: HexColor("50ffaf"),
       appBar: AppBar(
         title: Text(
@@ -60,7 +53,7 @@ class _SettingsState extends State<Settings> {
           style: settingsScreenTitle,
           textAlign: TextAlign.center,
         ),
-        actions: [
+        actions: const [
           Icon(
             Icons.new_releases_outlined,
           ),
@@ -68,7 +61,7 @@ class _SettingsState extends State<Settings> {
             width: 8,
           )
         ],
-        actionsIconTheme: IconThemeData(
+        actionsIconTheme: const IconThemeData(
           color: Colors.black,
           size: 32,
         ),
@@ -84,26 +77,6 @@ class _SettingsState extends State<Settings> {
           ),
         ),
       ),
-      // body: Center(
-      //   child: GestureDetector(
-      //     onTap: () {
-      //       logout().then(
-      //         (value) {
-      //           Navigator.pushAndRemoveUntil(
-      //               context,
-      //               MaterialPageRoute(builder: (context) => const InitApp()),
-      //               (route) => false);
-      //         },
-      //       );
-      //     },
-      //     child: Container(
-      //       color: Colors.blue,
-      //       width: 100,
-      //       height: 60,
-      //       child: const Text("Logout"),
-      //     ),
-      //   ),
-      // ),
       body: ListView(
         controller: _scrollSontroller,
         children: [
@@ -117,24 +90,32 @@ class _SettingsState extends State<Settings> {
                   style: settingsTitle,
                 ),
                 const SizedBox(height: 28),
-                const SettingsItem(
+                SettingsItem(
                   label: "Account",
-                  leading: Icon(Icons.person_outline),
-                  suffix: Icon(Icons.keyboard_arrow_right),
+                  leading: const Icon(Icons.person_outline),
+                  suffix: const Icon(Icons.keyboard_arrow_right),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AccountSettings(),
+                      ),
+                    );
+                  },
                 ),
-                SizedBox(height: settingItemSpacing),
+                const SizedBox(height: settingItemSpacing),
                 const SettingsItem(
                   label: "My Tags",
                   leading: Icon(Icons.hexagon_outlined),
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),
-                SizedBox(height: settingItemSpacing),
+                const SizedBox(height: settingItemSpacing),
                 const SettingsItem(
                   label: "Notifications",
                   leading: Icon(Icons.notifications_outlined),
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),
-                SizedBox(height: settingItemSpacing),
+                const SizedBox(height: settingItemSpacing),
                 const SettingsItem(
                   label: "How to use this app?",
                   leading: Icon(Icons.lightbulb_outline),
@@ -159,19 +140,19 @@ class _SettingsState extends State<Settings> {
                   leading: Icon(Icons.payment_outlined),
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),
-                SizedBox(height: settingItemSpacing),
+                const SizedBox(height: settingItemSpacing),
                 const SettingsItem(
                   label: "Billing and Shipment",
                   leading: Icon(Icons.delivery_dining),
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),
-                SizedBox(height: settingItemSpacing),
+                const SizedBox(height: settingItemSpacing),
                 const SettingsItem(
                   label: "My Orders",
                   leading: Icon(Icons.list_alt_outlined),
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),
-                SizedBox(height: settingItemSpacing),
+                const SizedBox(height: settingItemSpacing),
                 const SettingsItem(
                   label: "Order and Payment History",
                   leading: Icon(Icons.history),
@@ -196,25 +177,25 @@ class _SettingsState extends State<Settings> {
                   leading: Icon(Icons.warning_amber_rounded),
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),
-                SizedBox(height: settingItemSpacing),
+                const SizedBox(height: settingItemSpacing),
                 const SettingsItem(
                   label: "Contact us (even for Feedback)",
                   leading: Icon(Icons.notifications),
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),
-                SizedBox(height: settingItemSpacing),
+                const SizedBox(height: settingItemSpacing),
                 const SettingsItem(
                   label: "FAQ",
                   leading: Icon(Icons.question_answer_outlined),
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),
-                SizedBox(height: settingItemSpacing),
+                const SizedBox(height: settingItemSpacing),
                 const SettingsItem(
                   label: "Privacy Contract",
                   leading: Icon(Icons.privacy_tip_outlined),
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),
-                SizedBox(height: settingItemSpacing),
+                const SizedBox(height: settingItemSpacing),
                 const SettingsItem(
                   label: "About",
                   leading: Icon(Icons.question_mark),
@@ -249,79 +230,6 @@ class _SettingsState extends State<Settings> {
           const SizedBox(height: 28),
         ],
       ),
-    );
-  }
-}
-
-class SettingsItem extends StatelessWidget {
-  const SettingsItem({
-    super.key,
-    required this.label,
-    required this.leading,
-    required this.suffix,
-    this.onTap,
-  });
-
-  final String label;
-  final Widget? leading;
-  final Widget? suffix;
-  final Function()? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Container(
-        margin: const EdgeInsets.all(8),
-        child: Row(
-          children: [
-            leading ?? const SizedBox(),
-            const SizedBox(width: 16),
-            Text(
-              label,
-              style: settingsItem,
-            ),
-            const Spacer(),
-            suffix ?? const SizedBox(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class SettingsContainer extends StatelessWidget {
-  const SettingsContainer({
-    super.key,
-    required this.child,
-  });
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(28),
-      margin: const EdgeInsets.all(28),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(
-          width: 2,
-          color: Colors.black,
-          // strokeAlign: BorderSide.strokeAlignOutside,
-        ),
-        borderRadius: BorderRadius.circular(14),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black,
-            spreadRadius: 0,
-            blurRadius: 0,
-            offset: Offset(4, 4),
-          ),
-        ],
-      ),
-      child: child,
     );
   }
 }

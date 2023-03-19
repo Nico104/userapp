@@ -21,6 +21,15 @@ class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
   TextEditingController password = TextEditingController();
   TextEditingController passwordRepeat = TextEditingController();
 
+  bool _obscurePassword = true;
+
+  @override
+  void dispose() {
+    password.dispose();
+    passwordRepeat.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -42,6 +51,7 @@ class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
           const Spacer(),
           TextFormField(
             controller: password,
+            obscureText: _obscurePassword,
             cursorColor: Colors.black.withOpacity(0.74),
             decoration: InputDecoration(
               errorBorder: OutlineInputBorder(
@@ -77,6 +87,18 @@ class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
                   width: 1.5,
                 ),
               ),
+              suffixIcon: InkWell(
+                onTap: () {
+                  setState(() {
+                    _obscurePassword = !_obscurePassword;
+                  });
+                },
+                child: Icon(
+                  _obscurePassword
+                      ? Icons.visibility_outlined
+                      : Icons.visibility_off_outlined,
+                ),
+              ),
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -91,6 +113,7 @@ class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
           SizedBox(height: 02.h),
           TextFormField(
             controller: passwordRepeat,
+            obscureText: _obscurePassword,
             cursorColor: Colors.black.withOpacity(0.74),
             decoration: InputDecoration(
               errorBorder: OutlineInputBorder(
@@ -124,6 +147,18 @@ class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
                 borderSide: const BorderSide(
                   color: Colors.black,
                   width: 1.5,
+                ),
+              ),
+              suffixIcon: InkWell(
+                onTap: () {
+                  setState(() {
+                    _obscurePassword = !_obscurePassword;
+                  });
+                },
+                child: Icon(
+                  _obscurePassword
+                      ? Icons.visibility_outlined
+                      : Icons.visibility_off_outlined,
                 ),
               ),
             ),

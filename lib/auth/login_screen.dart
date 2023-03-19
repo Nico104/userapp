@@ -25,9 +25,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _rememberMe = true;
 
+  bool _obscurePassword = true;
+
   @override
-  void initState() {
-    super.initState();
+  void dispose() {
+    email.dispose();
+    password.dispose();
+    super.dispose();
   }
 
   @override
@@ -110,6 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 02.h),
                     TextFormField(
                       controller: password,
+                      obscureText: _obscurePassword,
                       cursorColor: Colors.black.withOpacity(0.74),
                       decoration: InputDecoration(
                         errorText: _passwordErrorMsg,
@@ -144,6 +149,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderSide: const BorderSide(
                             color: Colors.black,
                             width: 1.5,
+                          ),
+                        ),
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
+                          child: Icon(
+                            _obscurePassword
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
                           ),
                         ),
                       ),
