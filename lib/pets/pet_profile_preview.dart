@@ -17,12 +17,15 @@ class PetProfilePreview extends StatefulWidget {
     required this.petProfileDetails,
     required this.imageAlignmentOffset,
     required this.reloadFuture,
+    required this.extendedActions,
+    required this.switchExtendedActions,
   });
 
   final PetProfileDetails petProfileDetails;
   final double imageAlignmentOffset;
-
   final VoidCallback reloadFuture;
+  final bool extendedActions;
+  final VoidCallback switchExtendedActions;
 
   @override
   State<PetProfilePreview> createState() => PetProfilePreviewState();
@@ -31,54 +34,33 @@ class PetProfilePreview extends StatefulWidget {
 class PetProfilePreviewState extends State<PetProfilePreview> {
   double collardimension = 130;
   double collaroffset = 10;
-  double marginhorizontal = 06.w;
-  final double borderRadius = 14;
+  double marginhorizontal = 03.w;
+  final double borderRadius = 36;
 
   //Extended Actions
-  bool _showExtendedActions = false;
   final Duration _duration = const Duration(milliseconds: 125);
   final Curve _curve = Curves.fastOutSlowIn;
-  final double topOffset = 28;
-
-  void closeExpendedAction() {
-    if (_showExtendedActions) {
-      if (mounted) {
-        setState(() {
-          _showExtendedActions = false;
-        });
-      }
-    }
-  }
-
-  //Extended Actions variables
-  bool _switchValue = false;
+  final double topOffset = 25;
+  final double bottomOffset = 16;
   final int iconFlex = 10;
   final int labelFlex = 2;
-
-  void switchLostValue() {
-    setState(() {
-      _switchValue = !_switchValue;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         GestureDetector(
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PetProfileDetailView(
-                petProfileDetails: widget.petProfileDetails,
-                reloadFuture: widget.reloadFuture,
-              ),
-            ),
-          ),
-          onLongPress: () {
-            setState(() {
-              _showExtendedActions = true;
-            });
+          // onTap: () => Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => PetProfileDetailView(
+          //       petProfileDetails: widget.petProfileDetails,
+          //       reloadFuture: widget.reloadFuture,
+          //     ),
+          //   ),
+          // ),
+          onTap: () {
+            widget.switchExtendedActions();
           },
           child: AnimatedContainer(
             duration: _duration,
@@ -86,194 +68,148 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
             height: double.infinity,
             width: double.infinity,
             margin: EdgeInsets.only(
-              top: _showExtendedActions ? 0 : topOffset,
-              left: _showExtendedActions ? 0 : marginhorizontal,
-              right: _showExtendedActions ? 0 : marginhorizontal,
+              top: widget.extendedActions ? 0 : topOffset,
+              left: widget.extendedActions ? 0 : marginhorizontal,
+              right: widget.extendedActions ? 0 : marginhorizontal,
               //6 because its the shadow offset
-              bottom:
-                  _showExtendedActions ? 6 : collardimension / 2 + collaroffset,
-            ),
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: _showExtendedActions
-                      ? Colors.black.withOpacity(0.94)
-                      : Colors.black,
-                  spreadRadius: 0,
-                  blurRadius: 0,
-                  offset: _showExtendedActions
-                      ? const Offset(6, 6)
-                      : const Offset(4, 4), // changes position of shadow
-                ),
-                // BoxShadow(
-                //   color: Colors.white,
-                //   spreadRadius: 0,
-                //   blurRadius: 0,
-                //   offset: _showExtendedActions
-                //       ? const Offset(4, 4)
-                //       : const Offset(2, 2), // changes position of shadow
-                // ),
-              ],
-              //Need Border Radius to draw shadow
-              borderRadius: BorderRadius.circular(borderRadius),
+              bottom: widget.extendedActions
+                  ? 16
+                  : collardimension / 2 + collaroffset + bottomOffset,
             ),
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(
-                  width: 3,
-                  color: Colors.black,
-                  // strokeAlign: BorderSide.strokeAlignOutside,
-                ),
                 borderRadius: BorderRadius.circular(borderRadius),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.28),
+                    blurRadius: 6,
+                    offset: const Offset(1, 3), // changes position of shadow
+                  ),
+                ],
                 image: DecorationImage(
                   image: const NetworkImage("https://picsum.photos/600/800"),
                   fit: BoxFit.cover,
                   alignment: Alignment(widget.imageAlignmentOffset, 0),
                 ),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  AnimatedOpacity(
+              child: Container(
+                height: double.infinity,
+                width: double.infinity,
+                alignment: Alignment.bottomCenter,
+                child: AnimatedContainer(
+                  duration: _duration,
+                  curve: _curve,
+                  height: widget.extendedActions ? 130 : 0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(borderRadius),
+                        bottomRight: Radius.circular(borderRadius)),
+                    color: Colors.white,
+                  ),
+                  child: AnimatedOpacity(
                     duration: _duration,
                     curve: _curve,
-                    opacity: _showExtendedActions ? 1 : 0,
-                    child: const Divider(
-                      color: Colors.black,
-                      thickness: 3,
-                      height: 0,
-                      indent: 0,
-                      endIndent: 0,
+                    opacity: widget.extendedActions ? 1 : 0,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                              //To trigger the Hit Box
+                              color: Colors.transparent,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                    flex: iconFlex,
+                                    child: const Center(
+                                      child: Icon(
+                                        CustomIcons.share_thin,
+                                        // Icons.share_rounded,
+                                        size: 32,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    "Share",
+                                    style: extendedActions,
+                                  ),
+                                  Expanded(
+                                      flex: labelFlex, child: const SizedBox()),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                              //To trigger the Hit Box
+                              color: Colors.transparent,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                    flex: iconFlex,
+                                    child: const Center(
+                                      child: Icon(
+                                        CustomIcons.edit_square,
+                                        size: 32,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    "Edit",
+                                    style: extendedActions,
+                                  ),
+                                  Expanded(
+                                      flex: labelFlex, child: const SizedBox()),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                              //To trigger the Hit Box
+                              color: Colors.transparent,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                    flex: iconFlex,
+                                    child: const Center(
+                                      child: Icon(
+                                        CustomIcons.qr_code_9,
+                                        size: 32,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    "Scans",
+                                    style: extendedActions,
+                                  ),
+                                  Expanded(
+                                      flex: labelFlex, child: const SizedBox()),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  AnimatedContainer(
-                    duration: _duration,
-                    curve: _curve,
-                    height: _showExtendedActions ? 100 : 0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(borderRadius),
-                          bottomRight: Radius.circular(borderRadius)),
-                      color: Colors.white,
-                    ),
-                    child: AnimatedOpacity(
-                      duration: _duration,
-                      curve: _curve,
-                      opacity: _showExtendedActions ? 1 : 0,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                //To trigger the Hit Box
-                                color: Colors.transparent,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Expanded(
-                                      flex: iconFlex,
-                                      child: const Center(
-                                        child: Icon(
-                                          CustomIcons.share_thin,
-                                          // Icons.share_rounded,
-                                          size: 32,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      "Share",
-                                      style: extendedActions,
-                                    ),
-                                    Expanded(
-                                        flex: labelFlex,
-                                        child: const SizedBox()),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () {
-                                switchLostValue();
-                              },
-                              child: Container(
-                                //To trigger the Hit Box
-                                color: Colors.transparent,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Expanded(
-                                      flex: iconFlex,
-                                      child: Center(
-                                        child: Theme(
-                                          data: ThemeData(useMaterial3: true),
-                                          child: Switch(
-                                            activeTrackColor: activeLostSwitch,
-                                            inactiveTrackColor:
-                                                inactiveLostSwitch,
-                                            value: _switchValue,
-                                            onChanged: (_) => switchLostValue(),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      _switchValue ? "Lost" : "Found",
-                                      style: extendedActions,
-                                    ),
-                                    Expanded(
-                                        flex: labelFlex,
-                                        child: const SizedBox()),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                //To trigger the Hit Box
-                                color: Colors.transparent,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Expanded(
-                                      flex: iconFlex,
-                                      child: const Center(
-                                        child: Icon(
-                                          CustomIcons.qr_code_9,
-                                          size: 32,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      "Scans",
-                                      style: extendedActions,
-                                    ),
-                                    Expanded(
-                                        flex: labelFlex,
-                                        child: const SizedBox()),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
           ),
         ),
         IgnorePointer(
-          ignoring: _showExtendedActions,
+          ignoring: widget.extendedActions,
           child: GestureDetector(
             onTap: () {
               showDialog(
@@ -292,18 +228,21 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                 }
               });
             },
-            child: AnimatedOpacity(
-              duration: _duration,
-              curve: _curve,
-              opacity: _showExtendedActions ? 0 : 1,
-              child: Hero(
-                tag: 'collar${widget.petProfileDetails.profileId}',
-                child: Align(
-                  // alignment: Alignment.bottomCenter,
-                  alignment: Alignment(widget.imageAlignmentOffset * -0.2, 1),
-                  child: Tags(
-                      tag: widget.petProfileDetails.tag,
-                      collardimension: collardimension),
+            child: Padding(
+              padding: EdgeInsets.only(bottom: bottomOffset),
+              child: AnimatedOpacity(
+                duration: _duration,
+                curve: _curve,
+                opacity: widget.extendedActions ? 0 : 1,
+                child: Hero(
+                  tag: 'collar${widget.petProfileDetails.profileId}',
+                  child: Align(
+                    // alignment: Alignment.bottomCenter,
+                    alignment: Alignment(widget.imageAlignmentOffset * -0.2, 1),
+                    child: Tags(
+                        tag: widget.petProfileDetails.tag,
+                        collardimension: collardimension),
+                  ),
                 ),
               ),
             ),

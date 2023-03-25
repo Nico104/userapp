@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:userapp/language/m_language.dart';
-import 'my_pets.dart';
+import 'package:userapp/pets/my_pets.dart';
 import 'profile_details/models/m_pet_profile.dart';
 import 'u_pets.dart';
 
 class PetsLoading extends StatefulWidget {
   const PetsLoading({
     super.key,
-    required this.setAppBarNotchColor,
+    // required this.setAppBarNotchColor,
   });
 
-  final ValueSetter<Color> setAppBarNotchColor;
+  // final ValueSetter<Color> setAppBarNotchColor;
 
   @override
   State<PetsLoading> createState() => _PetsLoadingState();
@@ -48,7 +48,7 @@ class _PetsLoadingState extends State<PetsLoading> {
           // }
           return MyPets(
             petProfiles: petProfiles,
-            setAppBarNotchColor: widget.setAppBarNotchColor,
+            // setAppBarNotchColor: widget.setAppBarNotchColor,
             availableLanguages: snapshot.data[1],
             reloadFuture: () => rebuildFuture.call(),
           );

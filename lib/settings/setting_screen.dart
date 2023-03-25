@@ -5,6 +5,7 @@ import '../auth/u_auth.dart';
 import '../pet_color/hex_color.dart';
 import '../styles/text_styles.dart';
 import 'setting_screens/account_settings/account_settings.dart';
+import 'setting_screens/my_tags/my_tags_screen.dart';
 import 'widgets/settings_widgets.dart';
 
 class Settings extends StatefulWidget {
@@ -104,10 +105,18 @@ class _SettingsState extends State<Settings> {
                   },
                 ),
                 const SizedBox(height: settingItemSpacing),
-                const SettingsItem(
+                SettingsItem(
                   label: "My Tags",
-                  leading: Icon(Icons.hexagon_outlined),
-                  suffix: Icon(Icons.keyboard_arrow_right),
+                  leading: const Icon(Icons.hexagon_outlined),
+                  suffix: const Icon(Icons.keyboard_arrow_right),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MyTagsSettings(),
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(height: settingItemSpacing),
                 const SettingsItem(
