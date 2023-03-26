@@ -7,11 +7,32 @@ TextStyle homeScreenTitle = const TextStyle(
   color: Colors.black,
 );
 
-//Appbar Title
+TextStyle homeWelcomeMessage = TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w400,
+  fontSize: 16,
+  color: Colors.black.withOpacity(0.56),
+);
+
+TextStyle homeWelcomeUser = TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w600,
+  fontSize: 16,
+  color: Colors.black.withOpacity(0.87),
+);
+
+//ExtendedActions
 TextStyle extendedActions = const TextStyle(
   fontFamily: 'Promt',
   fontWeight: FontWeight.w400,
   fontSize: 16,
+  color: Colors.black,
+);
+
+//Home
+TextStyle homePetName = const TextStyle(
+  fontFamily: 'Satisfy',
+  fontSize: 46,
   color: Colors.black,
 );
 

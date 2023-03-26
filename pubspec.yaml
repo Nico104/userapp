@@ -90,6 +90,9 @@ flutter:
     - family: RampartOne
       fonts:
         - asset: fonts/RampartOne/RampartOne-Regular.ttf
+    - family: Satisfy
+      fonts:
+        - asset: fonts/Satisfy/Satisfy-Regular.ttf
     - family: Promt
       fonts:
         - asset: fonts/Promt/Prompt-Black.ttf

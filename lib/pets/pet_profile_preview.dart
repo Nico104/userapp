@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/profile_detail_view.dart';
@@ -47,207 +49,262 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Column(
       children: [
-        GestureDetector(
-          // onTap: () => Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => PetProfileDetailView(
-          //       petProfileDetails: widget.petProfileDetails,
-          //       reloadFuture: widget.reloadFuture,
-          //     ),
-          //   ),
-          // ),
-          onTap: () {
-            widget.switchExtendedActions();
-          },
-          child: AnimatedContainer(
-            duration: _duration,
-            curve: _curve,
-            height: double.infinity,
-            width: double.infinity,
-            margin: EdgeInsets.only(
-              top: widget.extendedActions ? 0 : topOffset,
-              left: widget.extendedActions ? 0 : marginhorizontal,
-              right: widget.extendedActions ? 0 : marginhorizontal,
-              //6 because its the shadow offset
-              bottom: widget.extendedActions
-                  ? 16
-                  : collardimension / 2 + collaroffset + bottomOffset,
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(borderRadius),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.28),
-                    blurRadius: 6,
-                    offset: const Offset(1, 3), // changes position of shadow
-                  ),
-                ],
-                image: DecorationImage(
-                  image: const NetworkImage("https://picsum.photos/600/800"),
-                  fit: BoxFit.cover,
-                  alignment: Alignment(widget.imageAlignmentOffset, 0),
-                ),
-              ),
-              child: Container(
-                height: double.infinity,
-                width: double.infinity,
-                alignment: Alignment.bottomCenter,
+        Expanded(
+          child: Stack(
+            children: [
+              GestureDetector(
+                // onTap: () => Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => PetProfileDetailView(
+                //       petProfileDetails: widget.petProfileDetails,
+                //       reloadFuture: widget.reloadFuture,
+                //     ),
+                //   ),
+                // ),
+                onTap: () {
+                  widget.switchExtendedActions();
+                },
                 child: AnimatedContainer(
                   duration: _duration,
                   curve: _curve,
-                  height: widget.extendedActions ? 130 : 0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(borderRadius),
-                        bottomRight: Radius.circular(borderRadius)),
-                    color: Colors.white,
+                  height: double.infinity,
+                  width: double.infinity,
+                  margin: EdgeInsets.only(
+                    top: widget.extendedActions ? 0 : topOffset,
+                    left: widget.extendedActions ? 0 : marginhorizontal,
+                    right: widget.extendedActions ? 0 : marginhorizontal,
+                    //6 because its the shadow offset
+                    bottom: widget.extendedActions
+                        ? 16
+                        : collardimension / 2 + collaroffset + bottomOffset,
                   ),
-                  child: AnimatedOpacity(
-                    duration: _duration,
-                    curve: _curve,
-                    opacity: widget.extendedActions ? 1 : 0,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {},
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(borderRadius),
+                            // borderRadius: BorderRadius.only(
+                            //   bottomLeft: widget.extendedActions
+                            //       ? const Radius.circular(0)
+                            //       : Radius.circular(borderRadius),
+                            //   bottomRight: widget.extendedActions
+                            //       ? const Radius.circular(0)
+                            //       : Radius.circular(borderRadius),
+                            //   topLeft: Radius.circular(borderRadius),
+                            //   topRight: Radius.circular(borderRadius),
+                            // ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.28),
+                                blurRadius: 6,
+                                offset: const Offset(
+                                    1, 3), // changes position of shadow
+                              ),
+                            ],
+                            image: DecorationImage(
+                              image: const NetworkImage(
+                                  "https://picsum.photos/600/800"),
+                              fit: BoxFit.cover,
+                              alignment:
+                                  Alignment(widget.imageAlignmentOffset, 0),
+                            ),
+                          ),
+                          child: Container(
+                            height: double.infinity,
+                            width: double.infinity,
+                            alignment: Alignment.bottomCenter,
                             child: Container(
-                              //To trigger the Hit Box
-                              color: Colors.transparent,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Expanded(
-                                    flex: iconFlex,
-                                    child: const Center(
-                                      child: Icon(
-                                        CustomIcons.share_thin,
-                                        // Icons.share_rounded,
-                                        size: 32,
+                              height: widget.extendedActions ? 130 : 0,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: widget.extendedActions
+                                        ? const Radius.circular(0)
+                                        : Radius.circular(borderRadius),
+                                    topRight: widget.extendedActions
+                                        ? const Radius.circular(0)
+                                        : Radius.circular(borderRadius),
+                                    bottomLeft: Radius.circular(borderRadius),
+                                    bottomRight: Radius.circular(borderRadius)),
+                                // color: Colors.white.withOpacity(1),
+                                color: Colors.white,
+                              ),
+                              child: AnimatedOpacity(
+                                duration: _duration,
+                                curve: _curve,
+                                opacity: widget.extendedActions ? 1 : 0,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () {},
+                                        child: Container(
+                                          //To trigger the Hit Box
+                                          color: Colors.transparent,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Expanded(
+                                                flex: iconFlex,
+                                                child: const Center(
+                                                  child: Icon(
+                                                    CustomIcons.share_thin,
+                                                    // Icons.share_rounded,
+                                                    size: 32,
+                                                  ),
+                                                ),
+                                              ),
+                                              Text(
+                                                "Share",
+                                                style: extendedActions,
+                                              ),
+                                              Expanded(
+                                                  flex: labelFlex,
+                                                  child: const SizedBox()),
+                                            ],
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Text(
-                                    "Share",
-                                    style: extendedActions,
-                                  ),
-                                  Expanded(
-                                      flex: labelFlex, child: const SizedBox()),
-                                ],
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () {},
+                                        child: Container(
+                                          //To trigger the Hit Box
+                                          color: Colors.transparent,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Expanded(
+                                                flex: iconFlex,
+                                                child: const Center(
+                                                  child: Icon(
+                                                    CustomIcons.edit_square,
+                                                    size: 32,
+                                                  ),
+                                                ),
+                                              ),
+                                              Text(
+                                                "Edit",
+                                                style: extendedActions,
+                                              ),
+                                              Expanded(
+                                                  flex: labelFlex,
+                                                  child: const SizedBox()),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () {},
+                                        child: Container(
+                                          //To trigger the Hit Box
+                                          color: Colors.transparent,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Expanded(
+                                                flex: iconFlex,
+                                                child: const Center(
+                                                  child: Icon(
+                                                    CustomIcons.qr_code_9,
+                                                    size: 32,
+                                                  ),
+                                                ),
+                                              ),
+                                              Text(
+                                                "Scans",
+                                                style: extendedActions,
+                                              ),
+                                              Expanded(
+                                                  flex: labelFlex,
+                                                  child: const SizedBox()),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              //To trigger the Hit Box
-                              color: Colors.transparent,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Expanded(
-                                    flex: iconFlex,
-                                    child: const Center(
-                                      child: Icon(
-                                        CustomIcons.edit_square,
-                                        size: 32,
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    "Edit",
-                                    style: extendedActions,
-                                  ),
-                                  Expanded(
-                                      flex: labelFlex, child: const SizedBox()),
-                                ],
-                              ),
-                            ),
-                          ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              IgnorePointer(
+                ignoring: widget.extendedActions,
+                child: GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => TagSelectionDialog(
+                        currentTags: widget.petProfileDetails.tag,
+                      ),
+                    ).then((value) async {
+                      if (value != null) {
+                        if (value is List<Tag> &&
+                            widget.petProfileDetails.profileId != null) {
+                          await handleTagChange(
+                              value,
+                              widget.petProfileDetails.tag,
+                              widget.petProfileDetails.profileId!);
+                          widget.reloadFuture.call();
+                        }
+                      }
+                    });
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: bottomOffset),
+                    child: AnimatedOpacity(
+                      duration: _duration,
+                      curve: _curve,
+                      opacity: widget.extendedActions ? 0 : 1,
+                      child: Hero(
+                        tag: 'collar${widget.petProfileDetails.profileId}',
+                        child: Align(
+                          // alignment: Alignment.bottomCenter,
+                          alignment:
+                              Alignment(widget.imageAlignmentOffset * -0.2, 1),
+                          child: Tags(
+                              tag: widget.petProfileDetails.tag,
+                              collardimension: collardimension),
                         ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              //To trigger the Hit Box
-                              color: Colors.transparent,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Expanded(
-                                    flex: iconFlex,
-                                    child: const Center(
-                                      child: Icon(
-                                        CustomIcons.qr_code_9,
-                                        size: 32,
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    "Scans",
-                                    style: extendedActions,
-                                  ),
-                                  Expanded(
-                                      flex: labelFlex, child: const SizedBox()),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
-              ),
+              )
+            ],
+          ),
+        ),
+        // const SizedBox(
+        //   height: 16,
+        // ),
+        AnimatedSize(
+          duration: const Duration(milliseconds: 125),
+          curve: Curves.fastOutSlowIn,
+          child: SizedBox(
+            width: widget.extendedActions ? 0 : null,
+            height: widget.extendedActions ? 0 : null,
+            child: Text(
+              widget.petProfileDetails.petName ?? "",
+              key: ValueKey<String>(widget.petProfileDetails.petName ?? ""),
+              style: homePetName,
             ),
           ),
         ),
-        IgnorePointer(
-          ignoring: widget.extendedActions,
-          child: GestureDetector(
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (_) => TagSelectionDialog(
-                  currentTags: widget.petProfileDetails.tag,
-                ),
-              ).then((value) async {
-                if (value != null) {
-                  if (value is List<Tag> &&
-                      widget.petProfileDetails.profileId != null) {
-                    await handleTagChange(value, widget.petProfileDetails.tag,
-                        widget.petProfileDetails.profileId!);
-                    widget.reloadFuture.call();
-                  }
-                }
-              });
-            },
-            child: Padding(
-              padding: EdgeInsets.only(bottom: bottomOffset),
-              child: AnimatedOpacity(
-                duration: _duration,
-                curve: _curve,
-                opacity: widget.extendedActions ? 0 : 1,
-                child: Hero(
-                  tag: 'collar${widget.petProfileDetails.profileId}',
-                  child: Align(
-                    // alignment: Alignment.bottomCenter,
-                    alignment: Alignment(widget.imageAlignmentOffset * -0.2, 1),
-                    child: Tags(
-                        tag: widget.petProfileDetails.tag,
-                        collardimension: collardimension),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        )
       ],
     );
   }

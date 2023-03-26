@@ -216,31 +216,64 @@ class _MyPetsState extends State<MyPets> {
                 // const SizedBox(
                 //   height: 16,
                 // ),
-                (activeExtendedActions == null)
-                    ? AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 80),
-                        // transitionBuilder:
-                        //     (Widget child, Animation<double> animation) {
-                        //   // return SlideTransition(
-                        //   //   child: child,
-                        //   //   position: Tween<Offset>(
-                        //   //           begin: Offset(0.0, -0.5), end: Offset(0.0, 0.0))
-                        //   //       .animate(animation),
-                        //   // );
-                        //   return FadeTransition(
-                        //     key: ValueKey<Key?>(child.key),
-                        //     opacity: animation,
-                        //     child: child,
-                        //   );
-                        // },
-                        child: Text(
-                          getPetName(widget.petProfiles, pageindex.round()),
-                          key: ValueKey<String>(getPetName(
-                              widget.petProfiles, pageindex.round())),
-                          style: TextStyle(fontSize: 45, color: Colors.black),
-                        ),
-                      )
-                    : const SizedBox(),
+                // (activeExtendedActions == null)
+                //     ? AnimatedSwitcher(
+                //         duration: const Duration(milliseconds: 80),
+                //         // transitionBuilder:
+                //         //     (Widget child, Animation<double> animation) {
+                //         //   // return SlideTransition(
+                //         //   //   child: child,
+                //         //   //   position: Tween<Offset>(
+                //         //   //           begin: Offset(0.0, -0.5), end: Offset(0.0, 0.0))
+                //         //   //       .animate(animation),
+                //         //   // );
+                //         //   return FadeTransition(
+                //         //     key: ValueKey<Key?>(child.key),
+                //         //     opacity: animation,
+                //         //     child: child,
+                //         //   );
+                //         // },
+                //         child: Text(
+                //           getPetName(widget.petProfiles, pageindex.round()),
+                //           key: ValueKey<String>(getPetName(
+                //               widget.petProfiles, pageindex.round())),
+                //           style: homePetName,
+                //         ),
+                //       )
+                //     : const SizedBox(),
+                // AnimatedSize(
+                //   duration: const Duration(milliseconds: 125),
+                //   curve: Curves.fastOutSlowIn,
+                //   child: SizedBox(
+                //     width:
+                //         (activeExtendedActions == pageindex.round()) ? 0 : null,
+                //     height:
+                //         (activeExtendedActions == pageindex.round()) ? 0 : null,
+                //     child: AnimatedSwitcher(
+                //       duration: const Duration(milliseconds: 80),
+                //       // transitionBuilder:
+                //       //     (Widget child, Animation<double> animation) {
+                //       //   // return SlideTransition(
+                //       //   //   child: child,
+                //       //   //   position: Tween<Offset>(
+                //       //   //           begin: Offset(0.0, -0.5), end: Offset(0.0, 0.0))
+                //       //   //       .animate(animation),
+                //       //   // );
+                //       //   return FadeTransition(
+                //       //     key: ValueKey<Key?>(child.key),
+                //       //     opacity: animation,
+                //       //     child: child,
+                //       //   );
+                //       // },
+                //       child: Text(
+                //         getPetName(widget.petProfiles, pageindex.round()),
+                //         key: ValueKey<String>(
+                //             getPetName(widget.petProfiles, pageindex.round())),
+                //         style: homePetName,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 const SizedBox(
                   height: 28,
                 ),
