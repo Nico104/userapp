@@ -47,7 +47,7 @@ class _EditPagesTabComponentState extends State<EditPagesTabComponent> {
               ),
               const Spacer(flex: 1),
               TabItem(
-                label: "Contact",
+                label: "Cosntact",
                 isActive: index == 1,
                 bgColor: Colors.green.shade200,
                 onTap: () {
