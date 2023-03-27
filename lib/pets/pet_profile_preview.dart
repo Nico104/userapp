@@ -87,16 +87,6 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(borderRadius),
-                            // borderRadius: BorderRadius.only(
-                            //   bottomLeft: widget.extendedActions
-                            //       ? const Radius.circular(0)
-                            //       : Radius.circular(borderRadius),
-                            //   bottomRight: widget.extendedActions
-                            //       ? const Radius.circular(0)
-                            //       : Radius.circular(borderRadius),
-                            //   topLeft: Radius.circular(borderRadius),
-                            //   topRight: Radius.circular(borderRadius),
-                            // ),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.28),
@@ -172,7 +162,17 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                                     ),
                                     Expanded(
                                       child: GestureDetector(
-                                        onTap: () {},
+                                        onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                PetProfileDetailView(
+                                              petProfileDetails:
+                                                  widget.petProfileDetails,
+                                              reloadFuture: widget.reloadFuture,
+                                            ),
+                                          ),
+                                        ),
                                         child: Container(
                                           //To trigger the Hit Box
                                           color: Colors.transparent,

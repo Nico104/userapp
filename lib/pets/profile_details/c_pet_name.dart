@@ -49,13 +49,10 @@ class _PetNameComponentState extends State<PetNameComponent> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        const Spacer(
-          flex: 2,
-        ),
-        Hero(
-          tag: 'collar${widget.petProfileId}',
-          child: Tags(collardimension: widget.collardimension, tag: widget.tag),
-        ),
+        // const Spacer(
+        //   flex: 2,
+        // ),
+        Tags(collardimension: widget.collardimension, tag: widget.tag),
         // Tags(collardimension: widget.collardimension, tag: widget.tag),
         // const SizedBox(width: 32),
         const Spacer(

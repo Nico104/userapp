@@ -38,7 +38,11 @@ TextStyle homePetName = const TextStyle(
 
 //Pet Profile Details
 TextStyle profileDetailsTitle = const TextStyle(
-    fontFamily: 'RampartOne', fontSize: 24, color: Colors.black);
+  fontFamily: 'LibreBaskerville',
+  fontSize: 24,
+  color: Colors.black,
+);
+
 TextStyle profileDetailsSectionTitle = TextStyle(
   fontFamily: 'Promt',
   fontWeight: FontWeight.w600,
@@ -46,10 +50,23 @@ TextStyle profileDetailsSectionTitle = TextStyle(
   color: Colors.black.withOpacity(0.34),
 );
 TextStyle profileDetailsComponentTitle = TextStyle(
-  fontFamily: 'Shantell_Sans',
-  fontWeight: FontWeight.w700,
+  fontFamily: 'Lora',
   fontSize: 20,
-  color: Colors.black.withOpacity(0.94),
+  color: Colors.black.withOpacity(0.74),
+);
+
+TextStyle profileDetailsTabLabelInactive = const TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w400,
+  fontSize: 20,
+  color: Colors.black,
+);
+
+TextStyle profileDetailsTabLabelActive = const TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w600,
+  fontSize: 20,
+  color: Colors.black,
 );
 
 //Dialog
@@ -71,13 +88,13 @@ TextStyle newDescriptionLabel = TextStyle();
 TextStyle petNameStyle = const TextStyle(
   fontFamily: 'Promt',
   fontWeight: FontWeight.w600,
-  fontSize: 26,
+  fontSize: 32,
   color: Colors.black,
 );
 TextStyle petGoodBadgeStyle = TextStyle(
   fontFamily: 'Promt',
   fontWeight: FontWeight.w400,
-  fontSize: 16,
+  fontSize: 18,
   color: Colors.black.withOpacity(0.56),
 );
 

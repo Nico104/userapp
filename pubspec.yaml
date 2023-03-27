@@ -93,6 +93,12 @@ flutter:
     - family: Satisfy
       fonts:
         - asset: fonts/Satisfy/Satisfy-Regular.ttf
+    - family: Lora
+      fonts:
+        - asset: fonts/Lora/Lora-Regular.ttf
+    - family: LibreBaskerville
+      fonts:
+        - asset: fonts/LibreBaskerville/LibreBaskerville-Regular.ttf
     - family: Promt
       fonts:
         - asset: fonts/Promt/Prompt-Black.ttf

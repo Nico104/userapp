@@ -1,10 +1,14 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/c_pet_name.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import '../../pet_color/u_pet_colors.dart';
 import '../../styles/text_styles.dart';
 import 'c_component_padding.dart';
 import 'c_description.dart';
+import 'c_edit_pages.dart';
 import 'c_important_information.dart';
 import 'c_one_line_simple_input.dart';
 import 'c_pet_gender.dart';
@@ -33,9 +37,10 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
   late PetProfileDetails _petProfileDetails;
 
   //Divider Appbar
-  double _appBarDividerHeight = 0;
+  // double _appBarDividerHeight = 0;
 
-  final double _appBarDividerHeightActivated = 2.5;
+  bool isScrollTop = true;
+  // final double _appBarDividerHeightActivated = 2.5;
   final double _appBarElevationActivated = 4;
 
   // Create a variable
@@ -58,15 +63,15 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
     _scrollSontroller.addListener(() {
       bool isTop = _scrollSontroller.position.pixels == 0;
       if (isTop) {
-        if (_appBarDividerHeight != 0) {
+        if (!isScrollTop) {
           setState(() {
-            _appBarDividerHeight = 0;
+            isScrollTop = true;
           });
         }
       } else {
-        if (_appBarDividerHeight == 0) {
+        if (isScrollTop) {
           setState(() {
-            _appBarDividerHeight = _appBarDividerHeightActivated;
+            isScrollTop = false;
           });
         }
       }
@@ -81,18 +86,22 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
           "Profile Details",
           style: profileDetailsTitle,
         ),
-        backgroundColor: widget.petProfileDetails.tag.first
-            .collarTagPersonalisation.petPageBackgroundColor,
+        centerTitle: true,
+        backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         scrolledUnderElevation: _appBarElevationActivated,
         elevation: 0,
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(_appBarDividerHeight),
-          child: Container(
-            color: Colors.black,
-            height: _appBarDividerHeight,
-          ),
-        ),
+        flexibleSpace: !isScrollTop
+            ? ClipRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+                  child: Container(
+                    color: Colors.transparent,
+                    height: double.infinity,
+                  ),
+                ),
+              )
+            : null,
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(
@@ -112,130 +121,188 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
           }
         },
       ),
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
-      body: Container(
-        decoration: _petProfileDetails.petGender != Gender.none
-            ? BoxDecoration(
-                gradient: LinearGradient(
-                  begin: const Alignment(0, -0.85),
-                  end: Alignment.bottomRight,
-                  colors: [
-                    widget.petProfileDetails.tag.first.collarTagPersonalisation
-                        .petPageBackgroundColor,
-                    getGenderBackgroundColor(_petProfileDetails.petGender),
+      body: ListView(
+        shrinkWrap: true,
+        controller: _scrollSontroller,
+        children: [
+          const SizedBox(height: 28),
+          PaddingComponent(
+            ignoreLeftPadding: true,
+            child: Center(
+              child: Container(
+                width: 90.w,
+                height: 90.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.16),
+                      blurRadius: 6,
+                      offset: const Offset(1, 3), // changes position of shadow
+                    ),
                   ],
+                  image: const DecorationImage(
+                    image: NetworkImage("https://picsum.photos/512"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              )
-            : BoxDecoration(
-                color: widget.petProfileDetails.tag.first
-                    .collarTagPersonalisation.petPageBackgroundColor,
-              ),
-        child: ListView(
-          controller: _scrollSontroller,
-          children: [
-            const SizedBox(height: 28),
-            //Name and Tag
-            PaddingComponent(
-              component: PetNameComponent(
-                petProfileId: _petProfileDetails.profileId,
-                petName: _petProfileDetails.petName,
-                setPetName: (value) => setState(() {
-                  _petProfileDetails.petName = value;
-                }),
-                gender: _petProfileDetails.petGender,
-                tag: _petProfileDetails.tag,
-                setTags: (value) => setState(() {
-                  _petProfileDetails.tag = value;
-                }),
-                collardimension: 120,
               ),
             ),
-            const SectionTitle(text: "Pet Info"),
-            //TODO
-            PaddingComponent(
-              component: PetPicturesComponent(
-                imageHeight: 178,
-                imageWidth: 178,
-                imageBorderRadius: 14,
-                imageSpacing: 20,
-                petPictures: _petProfileDetails.petPictures,
-                setPetPictures: (value) => _petProfileDetails.petPictures,
-              ),
-              ignoreLeftPadding: true,
+          ),
+          //Name and Tag
+          PaddingComponent(
+            child: PetNameComponent(
+              petProfileId: _petProfileDetails.profileId,
+              petName: _petProfileDetails.petName,
+              setPetName: (value) => setState(() {
+                _petProfileDetails.petName = value;
+              }),
+              gender: _petProfileDetails.petGender,
+              tag: _petProfileDetails.tag,
+              setTags: (value) => setState(() {
+                _petProfileDetails.tag = value;
+              }),
+              collardimension: 120,
             ),
-            PaddingComponent(
-              component: OnelineSimpleInput(
-                flex: 7,
-                value: _petProfileDetails.petChipId ?? "",
-                emptyValuePlaceholder: "Enter Chip Nr.",
-                title: "Chip Number",
-                saveValue: (val) async {
-                  _petProfileDetails.petChipId = val;
-                },
-              ),
+          ),
+          EditPagesTabComponent(
+            petInfo: Column(
+              key: const ValueKey("PetInfo"),
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                PaddingComponent(
+                  ignoreLeftPadding: true,
+                  child: PetPicturesComponent(
+                    imageHeight: 178,
+                    imageWidth: 178,
+                    imageBorderRadius: 14,
+                    imageSpacing: 20,
+                    petPictures: _petProfileDetails.petPictures,
+                    setPetPictures: (value) => _petProfileDetails.petPictures,
+                  ),
+                ),
+                PaddingComponent(
+                  child: OnelineSimpleInput(
+                    flex: 7,
+                    value: _petProfileDetails.petChipId ?? "",
+                    emptyValuePlaceholder: "Enter Chip Nr.",
+                    title: "Chip Number",
+                    saveValue: (val) async {
+                      _petProfileDetails.petChipId = val;
+                    },
+                  ),
+                ),
+                PaddingComponent(
+                  child: PetGenderComponent(
+                    gender: _petProfileDetails.petGender,
+                    setGender: (value) => setState(() {
+                      _petProfileDetails.petGender = value;
+                    }),
+                  ),
+                ),
+                PaddingComponent(
+                  child: PetImportantInformation(
+                    //Pass by reference
+                    imortantInformations:
+                        _petProfileDetails.petImportantInformation,
+                  ),
+                ),
+                PaddingComponent(
+                  child: PetDescriptionComponent(
+                    //Pass by reference
+                    descriptions: _petProfileDetails.petDescription,
+                  ),
+                ),
+              ],
             ),
-            PaddingComponent(
-              component: PetGenderComponent(
-                gender: _petProfileDetails.petGender,
-                setGender: (value) => setState(() {
-                  _petProfileDetails.petGender = value;
-                }),
-              ),
+            contact: Column(
+              key: const ValueKey("Contact"),
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                PaddingComponent(
+                  child: OnelineSimpleInput(
+                    flex: 6,
+                    value: "",
+                    emptyValuePlaceholder: "Enter Owners Name",
+                    title: "Owners Name",
+                    saveValue: (_) async {},
+                  ),
+                ),
+                PaddingComponent(
+                  child: OnelineSimpleInput(
+                    flex: 8,
+                    value: "Mainstreet 20A, Vienna, Austria",
+                    emptyValuePlaceholder: "Enter Living Address",
+                    title: "Home Address",
+                    saveValue: (_) async {},
+                  ),
+                ),
+                PaddingComponent(
+                  child: PetPhoneNumbersComponent(
+                    phoneNumbers: _petProfileDetails.petOwnerTelephoneNumbers,
+                    petProfileId: _petProfileDetails.profileId,
+                  ),
+                ),
+                PaddingComponent(
+                  child: SocialMediaComponent(
+                    title: "Social Media",
+                    facebook: _petProfileDetails.petOwnerFacebook ?? "",
+                    saveFacebook: (value) {},
+                    instagram: _petProfileDetails.petOwnerInstagram ?? "",
+                    saveInstagram: (value) {},
+                  ),
+                ),
+              ],
             ),
-            PaddingComponent(
-              component: PetImportantInformation(
-                //Pass by reference
-                imortantInformations:
-                    _petProfileDetails.petImportantInformation,
-              ),
+            document: Column(
+              key: const ValueKey("Documents"),
+              mainAxisSize: MainAxisSize.min,
+              children: [],
             ),
-            PaddingComponent(
-              component: PetDescriptionComponent(
-                //Pass by reference
-                descriptions: _petProfileDetails.petDescription,
-              ),
-            ),
+          ),
 
-            const SectionTitle(text: "Contact"),
-            PaddingComponent(
-              component: OnelineSimpleInput(
-                flex: 6,
-                value: "",
-                emptyValuePlaceholder: "Enter Owners Name",
-                title: "Owners Name",
-                saveValue: (_) async {},
-              ),
-            ),
-            PaddingComponent(
-              component: OnelineSimpleInput(
-                flex: 8,
-                value: "Mainstreet 20A, Vienna, Austria",
-                emptyValuePlaceholder: "Enter Living Address",
-                title: "Home Address",
-                saveValue: (_) async {},
-              ),
-            ),
+          // const SectionTitle(text: "Contact"),
+          // PaddingComponent(
+          //   child: OnelineSimpleInput(
+          //     flex: 6,
+          //     value: "",
+          //     emptyValuePlaceholder: "Enter Owners Name",
+          //     title: "Owners Name",
+          //     saveValue: (_) async {},
+          //   ),
+          // ),
+          // PaddingComponent(
+          //   child: OnelineSimpleInput(
+          //     flex: 8,
+          //     value: "Mainstreet 20A, Vienna, Austria",
+          //     emptyValuePlaceholder: "Enter Living Address",
+          //     title: "Home Address",
+          //     saveValue: (_) async {},
+          //   ),
+          // ),
 
-            PaddingComponent(
-              component: PetPhoneNumbersComponent(
-                phoneNumbers: _petProfileDetails.petOwnerTelephoneNumbers,
-                petProfileId: _petProfileDetails.profileId,
-              ),
-            ),
-            PaddingComponent(
-                component: SocialMediaComponent(
-              title: "Social Media",
-              facebook: _petProfileDetails.petOwnerFacebook ?? "",
-              saveFacebook: (value) {},
-              instagram: _petProfileDetails.petOwnerInstagram ?? "",
-              saveInstagram: (value) {},
-            )),
-            SizedBox(
-              height: 16,
-            )
-            //Wait for connection to Server for important info, maybe you can reuse the Description Model
-          ],
-        ),
+          // PaddingComponent(
+          //   child: PetPhoneNumbersComponent(
+          //     phoneNumbers: _petProfileDetails.petOwnerTelephoneNumbers,
+          //     petProfileId: _petProfileDetails.profileId,
+          //   ),
+          // ),
+          // PaddingComponent(
+          //     child: SocialMediaComponent(
+          //   title: "Social Media",
+          //   facebook: _petProfileDetails.petOwnerFacebook ?? "",
+          //   saveFacebook: (value) {},
+          //   instagram: _petProfileDetails.petOwnerInstagram ?? "",
+          //   saveInstagram: (value) {},
+          // )),
+          SizedBox(
+            height: 16,
+          )
+          //Wait for connection to Server for important info, maybe you can reuse the Description Model
+        ],
       ),
     );
   }

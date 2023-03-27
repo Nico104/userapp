@@ -62,7 +62,7 @@ class _PetPicturesComponentState extends State<PetPicturesComponent> {
               if (position == -1) {
                 return const SizedBox(width: profileDetailLeftPadding);
               } else if (position < petPictureLenght) {
-                print("I am a Path");
+                // print("I am a Path");
                 return Padding(
                   padding: EdgeInsets.only(right: widget.imageSpacing),
                   child: SinglePicturePath(
@@ -74,7 +74,7 @@ class _PetPicturesComponentState extends State<PetPicturesComponent> {
                   ),
                 );
               } else if (position < petPictureLenght + newPictures.length) {
-                print("I am a File");
+                // print("I am a File");
                 return Padding(
                   padding: EdgeInsets.only(right: widget.imageSpacing),
                   child: SinglePictureFile(
@@ -92,7 +92,7 @@ class _PetPicturesComponentState extends State<PetPicturesComponent> {
                   ),
                 );
               } else {
-                print("I am a New");
+                // print("I am a New");
                 return Padding(
                   padding: EdgeInsets.only(right: widget.imageSpacing),
                   child: NewPicture(
@@ -140,15 +140,18 @@ class SinglePicturePath extends StatelessWidget {
       children: [
         Container(
           margin: EdgeInsets.only(
-              top: imageOffsetRight / 1.2, right: imageOffsetRight),
+              top: imageOffsetRight / 1.2, right: imageOffsetRight, bottom: 8),
           width: imageWidth,
           height: imageHeight,
           decoration: BoxDecoration(
-            border: Border.all(
-              width: 3,
-              color: Colors.black,
-            ),
             borderRadius: BorderRadius.circular(imageBorderRadius),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.16),
+                blurRadius: 6,
+                offset: const Offset(0.5, 1.5), // changes position of shadow
+              ),
+            ],
             image: const DecorationImage(
               image: NetworkImage("https://picsum.photos/600/800"),
               fit: BoxFit.cover,
@@ -158,17 +161,9 @@ class SinglePicturePath extends StatelessWidget {
         ),
         Container(
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.redAccent, width: 1.5),
+            border: Border.all(color: Colors.redAccent, width: 1),
             borderRadius: BorderRadius.circular(closeBorderRadius),
             color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.redAccent.withOpacity(0.80),
-                spreadRadius: 0,
-                blurRadius: 0,
-                offset: const Offset(0.5, 0.5), // changes position of shadow
-              ),
-            ],
           ),
           child: const Padding(
             padding: EdgeInsets.all(4),
@@ -214,10 +209,13 @@ class SinglePictureFile extends StatelessWidget {
           width: imageWidth,
           height: imageHeight,
           decoration: BoxDecoration(
-            border: Border.all(
-              width: 3,
-              color: Colors.black,
-            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.16),
+                blurRadius: 6,
+                offset: const Offset(1, 3), // changes position of shadow
+              ),
+            ],
             borderRadius: BorderRadius.circular(imageBorderRadius),
             image: DecorationImage(
               image: FileImage(image),
@@ -237,17 +235,9 @@ class SinglePictureFile extends StatelessWidget {
           }),
           child: Container(
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.redAccent, width: 1.5),
+              border: Border.all(color: Colors.redAccent, width: 1),
               borderRadius: BorderRadius.circular(closeBorderRadius),
               color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.redAccent.withOpacity(0.80),
-                  spreadRadius: 0,
-                  blurRadius: 0,
-                  offset: const Offset(0.5, 0.5), // changes position of shadow
-                ),
-              ],
             ),
             child: const Padding(
               padding: EdgeInsets.all(4),
