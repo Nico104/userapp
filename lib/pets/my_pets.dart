@@ -115,8 +115,8 @@ class _MyPetsState extends State<MyPets> {
               ),
               child: BackdropFilter(
                 filter: ImageFilter.blur(
-                  sigmaX: 25,
-                  sigmaY: 25,
+                  sigmaX: 15,
+                  sigmaY: 15,
                 ),
                 child: Container(
                   color: Colors.white.withOpacity(0.50),
@@ -124,160 +124,165 @@ class _MyPetsState extends State<MyPets> {
               ),
             ),
           ),
-          GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () {
-              _closeExtendedActions();
-            },
-            child: Column(
-              children: [
-                SizedBox(height: 28),
-                MyPetsNavbar(),
-                SizedBox(height: 36),
-                Expanded(
-                  child: Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    alignment: const Alignment(0, -0.5),
-                    // margin: const EdgeInsets.only(bottom: 24, top: 24),
-                    child: SizedBox(
-                      // height: 80.h,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                            //? Only for web testin needed, not for app!
-                            child: ScrollConfiguration(
-                              behavior:
-                                  ScrollConfiguration.of(context).copyWith(
-                                dragDevices: {
-                                  PointerDeviceKind.touch,
-                                  PointerDeviceKind.mouse,
-                                },
-                              ),
-                              child: PageView.builder(
-                                physics: const BouncingScrollPhysics(),
-                                controller: _controller,
-                                pageSnapping: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: widget.petProfiles.length + 1,
-                                itemBuilder: (context, position) {
-                                  if (position == widget.petProfiles.length) {
-                                    return PetProfilePreviewPageTransform(
-                                      page: pageindex,
-                                      position: position,
-                                      maxRotation: 15,
-                                      minScaling: 0.9,
-                                      child: NewPetProfile(
-                                        reloadFuture: () =>
-                                            widget.reloadFuture.call(),
-                                      ),
-                                    );
-                                  } else {
-                                    return PetProfilePreviewPageTransform(
-                                      page: pageindex,
-                                      position: position,
-                                      maxRotation: 15,
-                                      minScaling: 0.9,
-                                      child: PetProfilePreview(
-                                        extendedActions: isExtendedIndexActive(
-                                            activeExtendedActions, position),
-                                        petProfileDetails: widget.petProfiles
-                                            .elementAt(position),
-                                        imageAlignmentOffset:
-                                            -getAlignmentOffset(
-                                                pageindex, position),
-                                        // imageAlignmentOffset: 0,
-                                        reloadFuture: () =>
-                                            widget.reloadFuture.call(),
-                                        switchExtendedActions: () {
-                                          setState(() {
-                                            if (activeExtendedActions !=
-                                                position) {
-                                              activeExtendedActions = position;
-                                            } else {
-                                              activeExtendedActions = null;
-                                            }
-                                          });
-                                        },
-                                      ),
-                                    );
-                                  }
-                                },
+          SafeArea(
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                _closeExtendedActions();
+              },
+              child: Column(
+                children: [
+                  const SizedBox(height: 28),
+                  const MyPetsNavbar(),
+                  const SizedBox(height: 36),
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      alignment: const Alignment(0, -0.5),
+                      // margin: const EdgeInsets.only(bottom: 24, top: 24),
+                      child: SizedBox(
+                        // height: 80.h,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Expanded(
+                              //? Only for web testin needed, not for app!
+                              child: ScrollConfiguration(
+                                behavior:
+                                    ScrollConfiguration.of(context).copyWith(
+                                  dragDevices: {
+                                    PointerDeviceKind.touch,
+                                    PointerDeviceKind.mouse,
+                                  },
+                                ),
+                                child: PageView.builder(
+                                  physics: const BouncingScrollPhysics(),
+                                  controller: _controller,
+                                  pageSnapping: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: widget.petProfiles.length + 1,
+                                  itemBuilder: (context, position) {
+                                    if (position == widget.petProfiles.length) {
+                                      return PetProfilePreviewPageTransform(
+                                        page: pageindex,
+                                        position: position,
+                                        maxRotation: 15,
+                                        minScaling: 0.9,
+                                        child: NewPetProfile(
+                                          reloadFuture: () =>
+                                              widget.reloadFuture.call(),
+                                        ),
+                                      );
+                                    } else {
+                                      return PetProfilePreviewPageTransform(
+                                        page: pageindex,
+                                        position: position,
+                                        maxRotation: 15,
+                                        minScaling: 0.9,
+                                        child: PetProfilePreview(
+                                          extendedActions:
+                                              isExtendedIndexActive(
+                                                  activeExtendedActions,
+                                                  position),
+                                          petProfileDetails: widget.petProfiles
+                                              .elementAt(position),
+                                          imageAlignmentOffset:
+                                              -getAlignmentOffset(
+                                                  pageindex, position),
+                                          // imageAlignmentOffset: 0,
+                                          reloadFuture: () =>
+                                              widget.reloadFuture.call(),
+                                          switchExtendedActions: () {
+                                            setState(() {
+                                              if (activeExtendedActions !=
+                                                  position) {
+                                                activeExtendedActions =
+                                                    position;
+                                              } else {
+                                                activeExtendedActions = null;
+                                              }
+                                            });
+                                          },
+                                        ),
+                                      );
+                                    }
+                                  },
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                // const SizedBox(
-                //   height: 16,
-                // ),
-                // (activeExtendedActions == null)
-                //     ? AnimatedSwitcher(
-                //         duration: const Duration(milliseconds: 80),
-                //         // transitionBuilder:
-                //         //     (Widget child, Animation<double> animation) {
-                //         //   // return SlideTransition(
-                //         //   //   child: child,
-                //         //   //   position: Tween<Offset>(
-                //         //   //           begin: Offset(0.0, -0.5), end: Offset(0.0, 0.0))
-                //         //   //       .animate(animation),
-                //         //   // );
-                //         //   return FadeTransition(
-                //         //     key: ValueKey<Key?>(child.key),
-                //         //     opacity: animation,
-                //         //     child: child,
-                //         //   );
-                //         // },
-                //         child: Text(
-                //           getPetName(widget.petProfiles, pageindex.round()),
-                //           key: ValueKey<String>(getPetName(
-                //               widget.petProfiles, pageindex.round())),
-                //           style: homePetName,
-                //         ),
-                //       )
-                //     : const SizedBox(),
-                // AnimatedSize(
-                //   duration: const Duration(milliseconds: 125),
-                //   curve: Curves.fastOutSlowIn,
-                //   child: SizedBox(
-                //     width:
-                //         (activeExtendedActions == pageindex.round()) ? 0 : null,
-                //     height:
-                //         (activeExtendedActions == pageindex.round()) ? 0 : null,
-                //     child: AnimatedSwitcher(
-                //       duration: const Duration(milliseconds: 80),
-                //       // transitionBuilder:
-                //       //     (Widget child, Animation<double> animation) {
-                //       //   // return SlideTransition(
-                //       //   //   child: child,
-                //       //   //   position: Tween<Offset>(
-                //       //   //           begin: Offset(0.0, -0.5), end: Offset(0.0, 0.0))
-                //       //   //       .animate(animation),
-                //       //   // );
-                //       //   return FadeTransition(
-                //       //     key: ValueKey<Key?>(child.key),
-                //       //     opacity: animation,
-                //       //     child: child,
-                //       //   );
-                //       // },
-                //       child: Text(
-                //         getPetName(widget.petProfiles, pageindex.round()),
-                //         key: ValueKey<String>(
-                //             getPetName(widget.petProfiles, pageindex.round())),
-                //         style: homePetName,
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                const SizedBox(
-                  height: 28,
-                ),
-              ],
+                  // const SizedBox(
+                  //   height: 16,
+                  // ),
+                  // (activeExtendedActions == null)
+                  //     ? AnimatedSwitcher(
+                  //         duration: const Duration(milliseconds: 80),
+                  //         // transitionBuilder:
+                  //         //     (Widget child, Animation<double> animation) {
+                  //         //   // return SlideTransition(
+                  //         //   //   child: child,
+                  //         //   //   position: Tween<Offset>(
+                  //         //   //           begin: Offset(0.0, -0.5), end: Offset(0.0, 0.0))
+                  //         //   //       .animate(animation),
+                  //         //   // );
+                  //         //   return FadeTransition(
+                  //         //     key: ValueKey<Key?>(child.key),
+                  //         //     opacity: animation,
+                  //         //     child: child,
+                  //         //   );
+                  //         // },
+                  //         child: Text(
+                  //           getPetName(widget.petProfiles, pageindex.round()),
+                  //           key: ValueKey<String>(getPetName(
+                  //               widget.petProfiles, pageindex.round())),
+                  //           style: homePetName,
+                  //         ),
+                  //       )
+                  //     : const SizedBox(),
+                  // AnimatedSize(
+                  //   duration: const Duration(milliseconds: 125),
+                  //   curve: Curves.fastOutSlowIn,
+                  //   child: SizedBox(
+                  //     width:
+                  //         (activeExtendedActions == pageindex.round()) ? 0 : null,
+                  //     height:
+                  //         (activeExtendedActions == pageindex.round()) ? 0 : null,
+                  //     child: AnimatedSwitcher(
+                  //       duration: const Duration(milliseconds: 80),
+                  //       // transitionBuilder:
+                  //       //     (Widget child, Animation<double> animation) {
+                  //       //   // return SlideTransition(
+                  //       //   //   child: child,
+                  //       //   //   position: Tween<Offset>(
+                  //       //   //           begin: Offset(0.0, -0.5), end: Offset(0.0, 0.0))
+                  //       //   //       .animate(animation),
+                  //       //   // );
+                  //       //   return FadeTransition(
+                  //       //     key: ValueKey<Key?>(child.key),
+                  //       //     opacity: animation,
+                  //       //     child: child,
+                  //       //   );
+                  //       // },
+                  //       child: Text(
+                  //         getPetName(widget.petProfiles, pageindex.round()),
+                  //         key: ValueKey<String>(
+                  //             getPetName(widget.petProfiles, pageindex.round())),
+                  //         style: homePetName,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  const SizedBox(
+                    height: 28,
+                  ),
+                ],
+              ),
             ),
           ),
         ],

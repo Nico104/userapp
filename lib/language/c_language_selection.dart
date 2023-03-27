@@ -16,9 +16,9 @@ class LanguagePickerDialogComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      elevation: 16,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(14),
-        side: const BorderSide(color: Colors.black, width: 2.5),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: Container(
         width: 70.w,

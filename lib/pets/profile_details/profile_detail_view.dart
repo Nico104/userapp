@@ -103,23 +103,10 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
               )
             : null,
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(
-          Icons.save,
-          color: Colors.white,
-        ),
-        onPressed: () async {
-          if (_petProfileDetails.tag.isNotEmpty) {
-            await handlePetProfileDetailsSave(
-                    _petProfileDetails, widget.petProfileDetails)
-                .then(
-              (value) {
-                Navigator.pop(context);
-                widget.reloadFuture.call();
-              },
-            );
-          }
-        },
+      floatingActionButton: SaveFloatingActionButton(
+        petProfileDetails: _petProfileDetails,
+        oldPetProfileDetails: widget.petProfileDetails,
+        reloadFuture: () => widget.reloadFuture.call(),
       ),
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
@@ -303,6 +290,46 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
           )
           //Wait for connection to Server for important info, maybe you can reuse the Description Model
         ],
+      ),
+    );
+  }
+}
+
+class SaveFloatingActionButton extends StatelessWidget {
+  const SaveFloatingActionButton({
+    super.key,
+    required PetProfileDetails petProfileDetails,
+    required this.oldPetProfileDetails,
+    required this.reloadFuture,
+  }) : _petProfileDetails = petProfileDetails;
+
+  final PetProfileDetails oldPetProfileDetails;
+  final PetProfileDetails _petProfileDetails;
+  final VoidCallback reloadFuture;
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(14),
+      ),
+      backgroundColor: Colors.blue.shade200,
+      tooltip: "Click to save changes",
+      onPressed: () async {
+        if (_petProfileDetails.tag.isNotEmpty) {
+          await handlePetProfileDetailsSave(
+                  _petProfileDetails, oldPetProfileDetails)
+              .then(
+            (value) {
+              Navigator.pop(context);
+              reloadFuture.call();
+            },
+          );
+        }
+      },
+      child: const Icon(
+        Icons.save,
+        color: Colors.white,
       ),
     );
   }

@@ -52,7 +52,7 @@ TextStyle profileDetailsSectionTitle = TextStyle(
 TextStyle profileDetailsComponentTitle = TextStyle(
   fontFamily: 'Lora',
   fontSize: 20,
-  color: Colors.black.withOpacity(0.74),
+  color: Colors.black.withOpacity(0.86),
 );
 
 TextStyle profileDetailsTabLabelInactive = const TextStyle(
@@ -71,14 +71,12 @@ TextStyle profileDetailsTabLabelActive = const TextStyle(
 
 //Dialog
 TextStyle pickerDialogTitleStyle = TextStyle(
-  fontFamily: 'Shantell_Sans',
-  fontWeight: FontWeight.w700,
+  fontFamily: 'Lora',
   fontSize: 20,
   color: Colors.black.withOpacity(0.94),
 );
 TextStyle alertDialogMessageTextStyle = const TextStyle(
-  fontFamily: 'Promt',
-  fontWeight: FontWeight.w400,
+  fontFamily: 'Lora',
   fontSize: 16,
   color: Colors.black,
 );
@@ -182,6 +180,21 @@ TextStyle loginForgotPassword = TextStyle(
   fontWeight: FontWeight.w400,
   fontSize: 16,
   color: Colors.black.withOpacity(0.64),
+);
+
+//Edit
+TextStyle textFieldHint = TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w400,
+  fontSize: 18,
+  color: Colors.black.withOpacity(0.16),
+);
+
+TextStyle textFieldText = TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w400,
+  fontSize: 18,
+  color: Colors.black.withOpacity(0.76),
 );
 
 //Settings

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../styles/text_styles.dart';
+
 class CustomTextFormFieldActive extends StatefulWidget {
   const CustomTextFormFieldActive({
     super.key,
@@ -9,6 +11,7 @@ class CustomTextFormFieldActive extends StatefulWidget {
     this.textInputAction,
     this.onChanged,
     this.keyboardType,
+    this.autofocus = false,
   });
 
   final String? initialValue;
@@ -17,6 +20,7 @@ class CustomTextFormFieldActive extends StatefulWidget {
   final TextInputAction? textInputAction;
   final Function(String)? onChanged;
   final TextInputType? keyboardType;
+  final bool autofocus;
 
   @override
   State<CustomTextFormFieldActive> createState() =>
@@ -26,7 +30,7 @@ class CustomTextFormFieldActive extends StatefulWidget {
 class _CustomTextFormFieldActiveState extends State<CustomTextFormFieldActive> {
   late TextEditingController _textEditingController;
   late FocusNode _focusNode;
-  bool _showSuffix = false;
+  bool _isFocused = false;
 
   @override
   void initState() {
@@ -38,13 +42,13 @@ class _CustomTextFormFieldActiveState extends State<CustomTextFormFieldActive> {
     _focusNode = FocusNode();
     _textEditingController = TextEditingController(text: widget.initialValue);
     _focusNode.addListener(() {
-      if (_focusNode.hasFocus && !_showSuffix) {
+      if (_focusNode.hasFocus && !_isFocused) {
         setState(() {
-          _showSuffix = true;
+          _isFocused = true;
         });
-      } else if ((!_focusNode.hasFocus && _showSuffix)) {
+      } else if ((!_focusNode.hasFocus && _isFocused)) {
         setState(() {
-          _showSuffix = false;
+          _isFocused = false;
         });
       }
     });
@@ -59,43 +63,58 @@ class _CustomTextFormFieldActiveState extends State<CustomTextFormFieldActive> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: widget.keyboardType,
-      maxLines: widget.maxLines,
-      textInputAction: widget.textInputAction,
-      focusNode: _focusNode,
-      controller: _textEditingController,
-      cursorColor: Colors.black.withOpacity(0.74),
-      decoration: InputDecoration(
-        hintText: widget.hintText,
-        // labelText: "Oner",
-        fillColor: Colors.white,
-        filled: true,
-        suffixIconColor: Colors.grey,
-        suffixIcon: _showSuffix
-            ? GestureDetector(
-                onTap: () {
-                  _textEditingController.clear();
-                },
-                child: const Icon(Icons.delete),
-              )
-            : null,
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
-          borderSide: const BorderSide(
-            color: Colors.black,
-            width: 2,
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 125),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(2),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(_isFocused ? 0.16 : 0.04),
+            blurRadius: _isFocused ? 8 : 6,
+            offset: const Offset(1, 3), // changes position of shadow
           ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: Colors.black,
-            width: 1.5,
-          ),
-        ),
+        ],
       ),
-      onChanged: widget.onChanged,
+      child: TextFormField(
+        autofocus: widget.autofocus,
+        keyboardType: widget.keyboardType,
+        maxLines: widget.maxLines,
+        textInputAction: widget.textInputAction,
+        focusNode: _focusNode,
+        controller: _textEditingController,
+        cursorColor: Colors.black.withOpacity(0.74),
+        style: textFieldText,
+        decoration: InputDecoration(
+          hintText: widget.hintText,
+          hintStyle: textFieldHint,
+          fillColor: Colors.white,
+          filled: true,
+          suffixIconColor: Colors.grey,
+          suffixIcon: _isFocused
+              ? GestureDetector(
+                  onTap: () {
+                    _textEditingController.clear();
+                  },
+                  child: const Icon(Icons.delete),
+                )
+              : null,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2),
+            borderSide: BorderSide(
+              color: Colors.black.withOpacity(0.84),
+              width: 1,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: Colors.black.withOpacity(0.24),
+              width: 0.5,
+            ),
+          ),
+        ),
+        onChanged: widget.onChanged,
+      ),
     );
   }
 }
@@ -125,7 +144,7 @@ class _CustomTextFormFieldInactiveState
     extends State<CustomTextFormFieldInactive> {
   late TextEditingController _textEditingController;
   late FocusNode _focusNode;
-  bool _showSuffix = false;
+  bool _isFocused = false;
 
   @override
   void initState() {
@@ -137,13 +156,13 @@ class _CustomTextFormFieldInactiveState
     _focusNode = FocusNode();
     _textEditingController = TextEditingController();
     _focusNode.addListener(() {
-      if (_focusNode.hasFocus && !_showSuffix) {
+      if (_focusNode.hasFocus && !_isFocused) {
         setState(() {
-          _showSuffix = true;
+          _isFocused = true;
         });
-      } else if ((!_focusNode.hasFocus && _showSuffix)) {
+      } else if ((!_focusNode.hasFocus && _isFocused)) {
         setState(() {
-          _showSuffix = false;
+          _isFocused = false;
         });
       }
     });
@@ -158,42 +177,57 @@ class _CustomTextFormFieldInactiveState
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: widget.keyboardType,
-      maxLines: widget.maxLines,
-      textInputAction: widget.textInputAction,
-      focusNode: _focusNode,
-      controller: _textEditingController,
-      cursorColor: const Color(0xFF707070).withOpacity(0.28),
-      decoration: InputDecoration(
-        hintText: widget.hintText,
-        fillColor: Colors.white,
-        filled: true,
-        suffixIconColor: Colors.grey,
-        suffixIcon: _showSuffix
-            ? GestureDetector(
-                onTap: () {
-                  _textEditingController.clear();
-                },
-                child: const Icon(Icons.delete),
-              )
-            : null,
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
-          borderSide: BorderSide(
-            color: const Color(0xFF707070).withOpacity(0.28),
-            width: 2,
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 125),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(2),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(_isFocused ? 0.16 : 0.04),
+            blurRadius: _isFocused ? 8 : 6,
+            offset: const Offset(1, 3), // changes position of shadow
           ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(
-            color: const Color(0xFF707070).withOpacity(0.28),
-            width: 1.5,
-          ),
-        ),
+        ],
       ),
-      onChanged: widget.onChanged,
+      child: TextFormField(
+        keyboardType: widget.keyboardType,
+        maxLines: widget.maxLines,
+        textInputAction: widget.textInputAction,
+        focusNode: _focusNode,
+        controller: _textEditingController,
+        cursorColor: const Color(0xFF707070).withOpacity(0.28),
+        style: textFieldText,
+        decoration: InputDecoration(
+          hintText: widget.hintText,
+          hintStyle: textFieldHint,
+          fillColor: Colors.white,
+          filled: true,
+          suffixIconColor: Colors.grey,
+          suffixIcon: _isFocused
+              ? GestureDetector(
+                  onTap: () {
+                    _textEditingController.clear();
+                  },
+                  child: const Icon(Icons.delete),
+                )
+              : null,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2),
+            borderSide: BorderSide(
+              color: Colors.black.withOpacity(0.84),
+              width: 1,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: Colors.black.withOpacity(0.24),
+              width: 0.5,
+            ),
+          ),
+        ),
+        onChanged: widget.onChanged,
+      ),
     );
   }
 }

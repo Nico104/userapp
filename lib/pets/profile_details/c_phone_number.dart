@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/models/m_phone_number.dart';
 import 'package:userapp/pets/profile_details/widgets/custom_textformfield.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
+import 'package:userapp/styles/text_styles.dart';
 import '../../language/c_prefix_selection.dart';
 import '../../language/m_language.dart';
 import 'c_component_title.dart';
@@ -98,7 +99,17 @@ class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.black, width: 1.5),
+                  border: Border.all(
+                    color: Colors.black.withOpacity(0.16),
+                    width: 0.5,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.04),
+                      blurRadius: 6,
+                      offset: const Offset(1, 3), // changes position of shadow
+                    ),
+                  ],
                   color: Colors.white,
                 ),
                 child: Center(
@@ -117,7 +128,10 @@ class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
                           // ),
                           ),
                     ),
-                    Text(widget.number.language.languagePrefix)
+                    Text(
+                      widget.number.language.languagePrefix,
+                      style: textFieldText,
+                    )
                   ],
                 )),
               ),
@@ -183,17 +197,31 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                      color: const Color(0xFF707070).withOpacity(0.28),
-                      width: 1.5),
+                    color: Colors.black.withOpacity(0.16),
+                    width: 0.5,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.04),
+                      blurRadius: 6,
+                      offset: const Offset(1, 3), // changes position of shadow
+                    ),
+                  ],
                   color: Colors.white,
                 ),
                 child: Center(
                     child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    Icon(CustomIcons.globe_5),
-                    Text("+**"),
+                  children: [
+                    Icon(
+                      CustomIcons.globe_5,
+                      color: Colors.black.withOpacity(0.16),
+                    ),
+                    Text(
+                      "+**",
+                      style: textFieldHint,
+                    ),
                   ],
                 )),
               ),

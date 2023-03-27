@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
 
+import '../settings/setting_screen.dart';
 import '../styles/text_styles.dart';
 
 class MyPetsNavbar extends StatelessWidget {
@@ -31,9 +32,19 @@ class MyPetsNavbar extends StatelessWidget {
           size: 28,
         ),
         const SizedBox(width: 16),
-        const Icon(
-          CustomIcons.setting,
-          size: 28,
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const Settings(),
+              ),
+            );
+          },
+          child: const Icon(
+            CustomIcons.setting,
+            size: 28,
+          ),
         ),
         const SizedBox(
           width: 28,

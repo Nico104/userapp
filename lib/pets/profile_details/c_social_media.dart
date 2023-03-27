@@ -85,7 +85,17 @@ class SingleSocialMedia extends StatelessWidget {
             width: 55,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.black, width: 1.5),
+              border: Border.all(
+                color: Colors.black.withOpacity(0.16),
+                width: 0.5,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.04),
+                  blurRadius: 6,
+                  offset: const Offset(1, 3), // changes position of shadow
+                ),
+              ],
               color: Colors.white,
             ),
             child: Center(

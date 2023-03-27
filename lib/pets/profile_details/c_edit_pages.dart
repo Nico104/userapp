@@ -1,8 +1,4 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:userapp/pets/profile_details/c_component_padding.dart';
 
 import '../../styles/text_styles.dart';
@@ -47,7 +43,7 @@ class _EditPagesTabComponentState extends State<EditPagesTabComponent> {
               ),
               const Spacer(flex: 1),
               TabItem(
-                label: "Cosntact",
+                label: "Contact",
                 isActive: index == 1,
                 bgColor: Colors.green.shade200,
                 onTap: () {
@@ -73,12 +69,12 @@ class _EditPagesTabComponentState extends State<EditPagesTabComponent> {
                   }
                 },
               ),
-              const Spacer(flex: 16),
+              const Spacer(flex: 8),
             ],
           ),
         ),
         AnimatedSwitcher(
-          duration: Duration(milliseconds: 80),
+          duration: Duration(milliseconds: 0),
           transitionBuilder: (Widget child, Animation<double> animation) {
             return SlideTransition(
               position: Tween(

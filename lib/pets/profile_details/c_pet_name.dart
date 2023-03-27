@@ -1,6 +1,8 @@
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
+import 'package:userapp/pets/profile_details/widgets/custom_textformfield.dart';
 import 'package:userapp/pets/tag/tags.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
 import '../../pet_color/pet_colors.dart';
@@ -135,22 +137,23 @@ class PetNameDialog extends StatefulWidget {
 }
 
 class _PetNameDialogState extends State<PetNameDialog> {
-  late final TextEditingController _controller;
+  String text = "";
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: widget.initialValue);
+    text = widget.initialValue ?? "";
   }
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      alignment: const Alignment(0, 0.85),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(14),
-        side: const BorderSide(color: Colors.black, width: 2.5),
+        borderRadius: BorderRadius.circular(8),
+        // side: const BorderSide(color: Colors.black, width: 2.5),
       ),
-      elevation: 0,
+      elevation: 16,
       child: SizedBox(
         width: 80.w,
         child: Padding(
@@ -164,33 +167,49 @@ class _PetNameDialogState extends State<PetNameDialog> {
                 style: pickerDialogTitleStyle,
               ),
               const SizedBox(height: 28),
-              TextFormField(
+              // TextFormField(
+              //   autofocus: true,
+              //   controller: _controller,
+              //   cursorColor: Colors.black.withOpacity(0.74),
+              //   decoration: InputDecoration(
+              //     hintText: "Enter Description",
+              //     fillColor: Colors.white,
+              //     suffixIconColor: Colors.grey,
+              //     suffixIcon: GestureDetector(
+              //       onTap: () => _controller.clear(),
+              //       child: const Icon(Icons.delete),
+              //     ),
+              //     focusedBorder: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(8),
+              //       borderSide: const BorderSide(
+              //         color: Colors.black,
+              //         width: 1.5,
+              //       ),
+              //     ),
+              //     enabledBorder: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(10),
+              //       borderSide: const BorderSide(
+              //         color: Colors.grey,
+              //         width: 0.75,
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              CustomTextFormFieldActive(
                 autofocus: true,
-                controller: _controller,
-                cursorColor: Colors.black.withOpacity(0.74),
-                decoration: InputDecoration(
-                  hintText: "Enter Description",
-                  fillColor: Colors.white,
-                  suffixIconColor: Colors.grey,
-                  suffixIcon: GestureDetector(
-                    onTap: () => _controller.clear(),
-                    child: const Icon(Icons.delete),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(
-                      color: Colors.black,
-                      width: 1.5,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(
-                      color: Colors.grey,
-                      width: 0.75,
-                    ),
-                  ),
-                ),
+                initialValue: text,
+                hintText: "Enter Pet Name",
+                onChanged: (val) {
+                  EasyDebounce.debounce(
+                    'petName',
+                    const Duration(milliseconds: 50),
+                    () {
+                      setState(() {
+                        text = val;
+                      });
+                    },
+                  );
+                },
               ),
               const SizedBox(height: 28),
               Row(
@@ -200,7 +219,8 @@ class _PetNameDialogState extends State<PetNameDialog> {
                     onPressed: () => Navigator.pop(context),
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                      side: const BorderSide(width: 1, color: Colors.grey),
+                      side: BorderSide(
+                          width: 0.5, color: Colors.black.withOpacity(0.16)),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -211,11 +231,14 @@ class _PetNameDialogState extends State<PetNameDialog> {
                     ),
                   ),
                   OutlinedButton(
-                    onPressed: () => Navigator.pop(context, _controller.text),
+                    onPressed: () => Navigator.pop(context, text),
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
                       backgroundColor: dataEditDialogButtonSave,
-                      side: const BorderSide(width: 1, color: Colors.black),
+                      side: BorderSide(
+                        width: 0.5,
+                        color: Colors.black.withOpacity(0.16),
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),

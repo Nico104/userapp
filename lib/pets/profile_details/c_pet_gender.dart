@@ -84,8 +84,8 @@ class _GenderButtonState extends State<GenderButton> {
   final double _height = 60;
   late double _width;
 
-  final double _borderradius = 10;
-  final double _borderwidth = 2;
+  final double _borderradius = 12;
+  final double _borderwidth = 1.5;
 
   @override
   void initState() {
@@ -99,7 +99,7 @@ class _GenderButtonState extends State<GenderButton> {
       borderRadius: BorderRadius.circular(_borderradius),
       border: Border.all(
         width: _borderwidth,
-        color: Colors.black,
+        color: Colors.black.withOpacity(0.16),
       ),
     );
     disabledBoxDecoration = BoxDecoration(
@@ -108,7 +108,7 @@ class _GenderButtonState extends State<GenderButton> {
       borderRadius: BorderRadius.circular(_borderradius),
       border: Border.all(
         width: _borderwidth,
-        color: Colors.black,
+        color: Colors.black.withOpacity(0.16),
       ),
     );
     backgroundBoxDecoration = BoxDecoration(
@@ -118,7 +118,7 @@ class _GenderButtonState extends State<GenderButton> {
       borderRadius: BorderRadius.circular(_borderradius),
       border: Border.all(
         width: _borderwidth,
-        color: Colors.black,
+        color: Colors.black.withOpacity(0.16),
       ),
     );
   }
