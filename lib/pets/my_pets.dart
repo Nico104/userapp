@@ -46,7 +46,10 @@ class _MyPetsState extends State<MyPets> {
 
   int? activeExtendedActions;
 
-  // late List<GlobalKey<PetProfilePreviewState>> pageKeys;
+  List<NetworkImage> bgList = [
+    NetworkImage("https://picsum.photos/600/800"),
+    NetworkImage("https://picsum.photos/800"),
+  ];
 
   @override
   void initState() {
@@ -65,8 +68,13 @@ class _MyPetsState extends State<MyPets> {
     });
 
     // backgroundColor = getColor(widget.petProfiles, pageindex);
-    // WidgetsBinding.instance.addPostFrameCallback((_) =>
-    //     widget.setAppBarNotchColor(getColor(widget.petProfiles, pageindex)));
+    WidgetsBinding.instance.addPostFrameCallback((_) => precacheImages());
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    precacheImages();
   }
 
   @override
@@ -86,6 +94,12 @@ class _MyPetsState extends State<MyPets> {
       setState(() {
         activeExtendedActions = null;
       });
+    }
+  }
+
+  void precacheImages() {
+    for (var img in bgList) {
+      precacheImage(img, context);
     }
   }
 
