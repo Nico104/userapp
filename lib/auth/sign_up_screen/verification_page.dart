@@ -6,6 +6,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../pet_color/hex_color.dart';
 import '../../styles/text_styles.dart';
+import '../auth_widgets.dart';
 import '../u_auth.dart';
 
 class SignUpVerificationPage extends StatefulWidget {
@@ -84,10 +85,10 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
             selectedFillColor: Colors.white,
             inactiveFillColor: Colors.white,
             inactiveColor: Colors.black,
-            borderWidth: 2,
+            borderWidth: 1,
             errorBorderColor: Colors.red,
             shape: PinCodeFieldShape.box,
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(8),
             // fieldHeight: 50,
             // fieldWidth: 40,
           ),
@@ -121,7 +122,8 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
         SizedBox(height: 05.h),
         Padding(
           padding: const EdgeInsets.only(left: 36, right: 36),
-          child: GestureDetector(
+          child: CustomBigButton(
+            label: "Sign Up",
             onTap: () {
               if (currentText.length != 6) {
                 print("not complete");
@@ -133,32 +135,6 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
                 checkVerificationCode(currentText);
               }
             },
-            child: Container(
-              width: double.infinity,
-              height: 60,
-              decoration: BoxDecoration(
-                color: HexColor("8F8FFF"),
-                border: Border.all(
-                  width: 2,
-                  color: Colors.black,
-                  // strokeAlign: BorderSide.strokeAlignOutside,
-                ),
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black,
-                    spreadRadius: 0,
-                    blurRadius: 0,
-                    offset: Offset(4, 4),
-                  ),
-                ],
-              ),
-              child: Center(
-                  child: Text(
-                "Sign Up",
-                style: loginButton,
-              )),
-            ),
           ),
         ),
         const Spacer(

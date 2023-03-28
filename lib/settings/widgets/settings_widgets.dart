@@ -33,7 +33,8 @@ class SettingsItem extends StatelessWidget {
             const SizedBox(width: 16),
             Text(
               label,
-              style: settingsItem,
+              // style: settingsItem,
+              style: textFieldText,
             ),
             const Spacer(),
             Row(
@@ -70,17 +71,16 @@ class SettingsContainer extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(
-          width: 2,
+          width: 0.5,
           color: Colors.black,
           // strokeAlign: BorderSide.strokeAlignOutside,
         ),
-        borderRadius: BorderRadius.circular(14),
-        boxShadow: const [
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: [
           BoxShadow(
-            color: Colors.black,
-            spreadRadius: 0,
-            blurRadius: 0,
-            offset: Offset(4, 4),
+            color: Colors.black.withOpacity(0.16),
+            blurRadius: 6,
+            offset: const Offset(1, 3),
           ),
         ],
       ),

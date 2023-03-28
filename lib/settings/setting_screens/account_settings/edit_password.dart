@@ -1,8 +1,11 @@
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:userapp/auth/auth_widgets.dart';
 import 'package:userapp/styles/text_styles.dart';
 
 import '../../../pet_color/hex_color.dart';
+import '../../../pets/profile_details/widgets/custom_textformfield.dart';
 
 class EditPasswordPage extends StatefulWidget {
   const EditPasswordPage({
@@ -18,32 +21,21 @@ class EditPasswordPage extends StatefulWidget {
 
 class _EditPasswordPageState extends State<EditPasswordPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController currentPassword = TextEditingController();
-  TextEditingController password = TextEditingController();
-  TextEditingController passwordRepeat = TextEditingController();
 
-  bool _obscureCurrentPassword = true;
-  bool _obscurePassword = true;
-
-  @override
-  void dispose() {
-    currentPassword.dispose();
-    password.dispose();
-    passwordRepeat.dispose();
-    super.dispose();
-  }
+  String currentPassword = "";
+  String password = "";
+  String passwordRepeat = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: HexColor("50ffaf"),
-        iconTheme: const IconThemeData(
-          color: Colors.black,
-        ),
+        scrolledUnderElevation: 8,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
       ),
-      backgroundColor: HexColor("50ffaf"),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(28),
         child: Form(
@@ -63,57 +55,22 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
               ),
               SizedBox(height: 05.h),
               const Spacer(),
-              TextFormField(
-                controller: currentPassword,
-                obscureText: _obscureCurrentPassword,
-                cursorColor: Colors.black.withOpacity(0.74),
-                decoration: InputDecoration(
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6),
-                    borderSide: const BorderSide(
-                      color: Colors.red,
-                      width: 1.5,
-                    ),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6),
-                    borderSide: const BorderSide(
-                      color: Colors.red,
-                      width: 2.5,
-                    ),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                      vertical: 22.0, horizontal: 14.0),
-                  labelText: "Current Password",
-                  fillColor: Colors.white,
-                  filled: true,
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                      color: Colors.black,
-                      width: 2,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(
-                      color: Colors.black,
-                      width: 1.5,
-                    ),
-                  ),
-                  suffixIcon: InkWell(
-                    onTap: () {
-                      setState(() {
-                        _obscureCurrentPassword = !_obscureCurrentPassword;
-                      });
+              CustomTextFormFieldActive(
+                isPassword: true,
+                onChanged: (value) {
+                  EasyDebounce.debounce(
+                    'currentPassword',
+                    const Duration(milliseconds: 250),
+                    () async {
+                      if (currentPassword != value) {
+                        setState(() {
+                          currentPassword = value;
+                        });
+                      }
                     },
-                    child: Icon(
-                      _obscureCurrentPassword
-                          ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined,
-                    ),
-                  ),
-                ),
+                  );
+                },
+                labelText: "New Password",
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'I cannot be empty mate';
@@ -127,57 +84,22 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                 },
               ),
               SizedBox(height: 04.h),
-              TextFormField(
-                controller: password,
-                obscureText: _obscurePassword,
-                cursorColor: Colors.black.withOpacity(0.74),
-                decoration: InputDecoration(
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6),
-                    borderSide: const BorderSide(
-                      color: Colors.red,
-                      width: 1.5,
-                    ),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6),
-                    borderSide: const BorderSide(
-                      color: Colors.red,
-                      width: 2.5,
-                    ),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                      vertical: 22.0, horizontal: 14.0),
-                  labelText: "New Password",
-                  fillColor: Colors.white,
-                  filled: true,
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                      color: Colors.black,
-                      width: 2,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(
-                      color: Colors.black,
-                      width: 1.5,
-                    ),
-                  ),
-                  suffixIcon: InkWell(
-                    onTap: () {
-                      setState(() {
-                        _obscurePassword = !_obscurePassword;
-                      });
+              CustomTextFormFieldActive(
+                isPassword: true,
+                onChanged: (value) {
+                  EasyDebounce.debounce(
+                    'currentPassword',
+                    const Duration(milliseconds: 250),
+                    () async {
+                      if (password != value) {
+                        setState(() {
+                          password = value;
+                        });
+                      }
                     },
-                    child: Icon(
-                      _obscurePassword
-                          ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined,
-                    ),
-                  ),
-                ),
+                  );
+                },
+                labelText: "New Password",
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'I cannot be empty mate';
@@ -189,61 +111,26 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                 },
               ),
               SizedBox(height: 02.h),
-              TextFormField(
-                controller: passwordRepeat,
-                obscureText: _obscurePassword,
-                cursorColor: Colors.black.withOpacity(0.74),
-                decoration: InputDecoration(
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6),
-                    borderSide: const BorderSide(
-                      color: Colors.red,
-                      width: 1.5,
-                    ),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6),
-                    borderSide: const BorderSide(
-                      color: Colors.red,
-                      width: 2.5,
-                    ),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                      vertical: 22.0, horizontal: 14.0),
-                  labelText: "Repeat New Password",
-                  fillColor: Colors.white,
-                  filled: true,
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                      color: Colors.black,
-                      width: 2,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(
-                      color: Colors.black,
-                      width: 1.5,
-                    ),
-                  ),
-                  suffixIcon: InkWell(
-                    onTap: () {
-                      setState(() {
-                        _obscurePassword = !_obscurePassword;
-                      });
+              CustomTextFormFieldActive(
+                isPassword: true,
+                onChanged: (value) {
+                  EasyDebounce.debounce(
+                    'currentPassword',
+                    const Duration(milliseconds: 250),
+                    () async {
+                      if (passwordRepeat != value) {
+                        setState(() {
+                          passwordRepeat = value;
+                        });
+                      }
                     },
-                    child: Icon(
-                      _obscurePassword
-                          ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined,
-                    ),
-                  ),
-                ),
+                  );
+                },
+                labelText: "Repeat New Password",
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'I cannot be empty mate';
-                  } else if (value != password.text) {
+                  } else if (value != password) {
                     return 'I must be the equal to the other password mate';
                   } else {
                     return null;
@@ -253,38 +140,13 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
               SizedBox(height: 05.h),
               Padding(
                 padding: const EdgeInsets.only(left: 36, right: 36),
-                child: GestureDetector(
+                child: CustomBigButton(
+                  label: "Change Password",
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
                       Navigator.pop(context);
                     }
                   },
-                  child: Container(
-                    width: double.infinity,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: HexColor("8F8FFF"),
-                      border: Border.all(
-                        width: 2,
-                        color: Colors.black,
-                        // strokeAlign: BorderSide.strokeAlignOutside,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black,
-                          spreadRadius: 0,
-                          blurRadius: 0,
-                          offset: Offset(4, 4),
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                        child: Text(
-                      "Change Password",
-                      style: loginButton,
-                    )),
-                  ),
                 ),
               ),
               const Spacer(flex: 14),

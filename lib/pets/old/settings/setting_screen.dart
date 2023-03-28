@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:userapp/init_app.dart';
-import 'package:userapp/styles/custom_icons_icons.dart';
 
 import '../auth/u_auth.dart';
 import '../pet_color/hex_color.dart';
@@ -17,46 +16,67 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  final double _appBarElevationActivated = 8;
+  double _appBarDividerHeight = 0;
+
+  final double _appBarDividerHeightActivated = 2.5;
+  final double _appBarElevationActivated = 4;
 
   final _scrollSontroller = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    // _scrollSontroller.addListener(() {
-    // bool isTop = _scrollSontroller.position.pixels == 0;
-    // if (isTop) {
-    //   if (_appBarDividerHeight != 0) {
-    //     setState(() {
-    //       _appBarDividerHeight = 0;
-    //     });
-    //   }
-    // } else {
-    //   if (_appBarDividerHeight == 0) {
-    //     setState(() {
-    //       _appBarDividerHeight = _appBarDividerHeightActivated;
-    //     });
-    //   }
-    // }
-    // });
+    _scrollSontroller.addListener(() {
+      bool isTop = _scrollSontroller.position.pixels == 0;
+      if (isTop) {
+        if (_appBarDividerHeight != 0) {
+          setState(() {
+            _appBarDividerHeight = 0;
+          });
+        }
+      } else {
+        if (_appBarDividerHeight == 0) {
+          setState(() {
+            _appBarDividerHeight = _appBarDividerHeightActivated;
+          });
+        }
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: HexColor("50ffaf"),
       appBar: AppBar(
         title: Text(
           "Settings",
-          style: profileDetailsTitle,
+          style: settingsScreenTitle,
           textAlign: TextAlign.center,
         ),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        actions: const [
+          Icon(
+            Icons.new_releases_outlined,
+          ),
+          SizedBox(
+            width: 8,
+          )
+        ],
+        actionsIconTheme: const IconThemeData(
+          color: Colors.black,
+          size: 32,
+        ),
+        // backgroundColor: HexColor("FFFF8F"),
+        backgroundColor: HexColor("50ffaf"),
         scrolledUnderElevation: _appBarElevationActivated,
         elevation: 0,
-        centerTitle: true,
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(_appBarDividerHeight),
+          child: Container(
+            color: Colors.black,
+            height: _appBarDividerHeight,
+          ),
+        ),
       ),
       body: ListView(
         controller: _scrollSontroller,
@@ -101,7 +121,7 @@ class _SettingsState extends State<Settings> {
                 const SizedBox(height: settingItemSpacing),
                 const SettingsItem(
                   label: "Notifications",
-                  leading: Icon(CustomIcons.notification),
+                  leading: Icon(Icons.notifications_outlined),
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),
                 const SizedBox(height: settingItemSpacing),
@@ -125,8 +145,26 @@ class _SettingsState extends State<Settings> {
                 ),
                 const SizedBox(height: 28),
                 const SettingsItem(
-                  label: "Go to Shop",
-                  leading: Icon(CustomIcons.shopping_bag_8),
+                  label: "Payment Options",
+                  leading: Icon(Icons.payment_outlined),
+                  suffix: Icon(Icons.keyboard_arrow_right),
+                ),
+                const SizedBox(height: settingItemSpacing),
+                const SettingsItem(
+                  label: "Billing and Shipment",
+                  leading: Icon(Icons.delivery_dining),
+                  suffix: Icon(Icons.keyboard_arrow_right),
+                ),
+                const SizedBox(height: settingItemSpacing),
+                const SettingsItem(
+                  label: "My Orders",
+                  leading: Icon(Icons.list_alt_outlined),
+                  suffix: Icon(Icons.keyboard_arrow_right),
+                ),
+                const SizedBox(height: settingItemSpacing),
+                const SettingsItem(
+                  label: "Order and Payment History",
+                  leading: Icon(Icons.history),
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),
               ],
@@ -151,7 +189,7 @@ class _SettingsState extends State<Settings> {
                 const SizedBox(height: settingItemSpacing),
                 const SettingsItem(
                   label: "Contact us (even for Feedback)",
-                  leading: Icon(CustomIcons.notification),
+                  leading: Icon(Icons.notifications),
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),
                 const SizedBox(height: settingItemSpacing),

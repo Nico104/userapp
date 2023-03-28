@@ -1,3 +1,4 @@
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 import 'package:sizer/sizer.dart';
@@ -5,6 +6,7 @@ import 'package:userapp/auth/sign_up_screen/sign_up_screen.dart';
 import 'package:userapp/auth/u_auth.dart';
 import 'package:userapp/pet_color/hex_color.dart';
 
+import '../pets/profile_details/widgets/custom_textformfield.dart';
 import '../styles/text_styles.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,8 +19,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
+  // TextEditingController email = TextEditingController();
+  // TextEditingController password = TextEditingController();
+
+  String emailText = "";
+  String passwordText = "";
 
   String? _emailErrorMsg;
   String? _passwordErrorMsg;
@@ -27,30 +32,30 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _obscurePassword = true;
 
-  @override
-  void dispose() {
-    email.dispose();
-    password.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   email.dispose();
+  //   password.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: HexColor("FFFF8F"),
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
-          const Align(
-            alignment: Alignment(0, 0.97),
-            child: SizedBox(
-              height: 450,
-              child: RiveAnimation.asset(
-                'assets/Animations/girl_and_dog.riv',
-                fit: BoxFit.cover,
-                alignment: Alignment(0.85, 0),
-              ),
-            ),
-          ),
+          // const Align(
+          //   alignment: Alignment(0, 0.97),
+          //   child: SizedBox(
+          //     height: 450,
+          //     child: RiveAnimation.asset(
+          //       'assets/Animations/girl_and_dog.riv',
+          //       fit: BoxFit.cover,
+          //       alignment: Alignment(0.85, 0),
+          //     ),
+          //   ),
+          // ),
           SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
             child: SizedBox(
@@ -71,99 +76,41 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: loginTitle2,
                     ),
                     SizedBox(height: 04.h),
-                    TextFormField(
-                      controller: email,
-                      cursorColor: Colors.black.withOpacity(0.74),
-                      decoration: InputDecoration(
-                        errorText: _emailErrorMsg,
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide: const BorderSide(
-                            color: Colors.red,
-                            width: 1.5,
-                          ),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide: const BorderSide(
-                            color: Colors.red,
-                            width: 2.5,
-                          ),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 22.0, horizontal: 14.0),
-                        labelText: "Email",
-                        fillColor: Colors.white,
-                        filled: true,
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: Colors.black,
-                            width: 2,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(
-                            color: Colors.black,
-                            width: 1.5,
-                          ),
-                        ),
-                      ),
+                    CustomTextFormFieldActive(
+                      onChanged: (value) {
+                        EasyDebounce.debounce(
+                          'emailLoginPage',
+                          const Duration(milliseconds: 250),
+                          () {
+                            if (emailText != value) {
+                              setState(() {
+                                emailText = value;
+                              });
+                            }
+                          },
+                        );
+                      },
+                      errorText: _emailErrorMsg,
+                      labelText: "Email",
                     ),
                     SizedBox(height: 02.h),
-                    TextFormField(
-                      controller: password,
-                      obscureText: _obscurePassword,
-                      cursorColor: Colors.black.withOpacity(0.74),
-                      decoration: InputDecoration(
-                        errorText: _passwordErrorMsg,
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide: const BorderSide(
-                            color: Colors.red,
-                            width: 1.5,
-                          ),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide: const BorderSide(
-                            color: Colors.red,
-                            width: 2.5,
-                          ),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 22.0, horizontal: 14.0),
-                        labelText: "Password",
-                        fillColor: Colors.white,
-                        filled: true,
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: Colors.black,
-                            width: 2,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(
-                            color: Colors.black,
-                            width: 1.5,
-                          ),
-                        ),
-                        suffixIcon: InkWell(
-                          onTap: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
+                    CustomTextFormFieldActive(
+                      isPassword: true,
+                      onChanged: (value) {
+                        EasyDebounce.debounce(
+                          'passwordLoginPage',
+                          const Duration(milliseconds: 250),
+                          () {
+                            if (passwordText != value) {
+                              setState(() {
+                                passwordText = value;
+                              });
+                            }
                           },
-                          child: Icon(
-                            _obscurePassword
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                          ),
-                        ),
-                      ),
+                        );
+                      },
+                      errorText: _passwordErrorMsg,
+                      labelText: "Password",
                     ),
                     SizedBox(height: 02.h),
                     Row(
@@ -186,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: const EdgeInsets.only(left: 36, right: 36),
                       child: GestureDetector(
                         onTap: () {
-                          login(email.text, password.text, _rememberMe).then(
+                          login(emailText, passwordText, _rememberMe).then(
                             (value) {
                               if (value) {
                                 setState(() {
@@ -213,17 +160,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           decoration: BoxDecoration(
                             color: HexColor("8F8FFF"),
                             border: Border.all(
-                              width: 2,
-                              color: Colors.black,
+                              width: 1,
+                              color: Colors.black.withOpacity(0.16),
                               // strokeAlign: BorderSide.strokeAlignOutside,
                             ),
-                            borderRadius: BorderRadius.circular(8),
-                            boxShadow: const [
+                            borderRadius: BorderRadius.circular(14),
+                            boxShadow: [
                               BoxShadow(
-                                color: Colors.black,
-                                spreadRadius: 0,
-                                blurRadius: 0,
-                                offset: Offset(4, 4),
+                                color: Colors.black.withOpacity(0.16),
+                                blurRadius: 6,
+                                offset: const Offset(1, 3),
                               ),
                             ],
                           ),
@@ -238,21 +184,24 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 05.h),
                     Padding(
                       padding: const EdgeInsets.only(left: 36, right: 36),
-                      child: Row(
-                        children: [
-                          const Expanded(
-                              child:
-                                  Divider(color: Colors.black, thickness: 1)),
-                          SizedBox(width: 03.w),
-                          Text(
-                            "or continue with",
-                            style: loginContinueWith,
-                          ),
-                          SizedBox(width: 03.w),
-                          const Expanded(
-                              child:
-                                  Divider(color: Colors.black, thickness: 1)),
-                        ],
+                      child: Opacity(
+                        opacity: 0.28,
+                        child: Row(
+                          children: [
+                            const Expanded(
+                                child:
+                                    Divider(color: Colors.black, thickness: 1)),
+                            SizedBox(width: 03.w),
+                            Text(
+                              "or continue with",
+                              style: loginContinueWith,
+                            ),
+                            SizedBox(width: 03.w),
+                            const Expanded(
+                                child:
+                                    Divider(color: Colors.black, thickness: 1)),
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(height: 02.h),
@@ -316,17 +265,16 @@ class SocialMediaContainer extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(
-          width: 1.5,
-          color: Colors.black,
+          width: 1,
+          color: Colors.black.withOpacity(0.16),
           // strokeAlign: BorderSide.strokeAlignOutside,
         ),
-        borderRadius: BorderRadius.circular(6),
-        boxShadow: const [
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
           BoxShadow(
-            color: Colors.black,
-            spreadRadius: 0,
-            blurRadius: 0,
-            offset: Offset(3, 3),
+            color: Colors.black.withOpacity(0.16),
+            blurRadius: 6,
+            offset: const Offset(1, 3),
           ),
         ],
       ),
@@ -349,19 +297,19 @@ class RememberMe extends StatelessWidget {
           width: 22,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: rememberMe ? Colors.lightBlue.shade300 : Colors.white,
+            color: rememberMe ? Colors.lightBlue.shade200 : Colors.white,
             border: Border.all(
-              width: 1.5,
+              width: 0.5,
               color: Colors.black,
               // strokeAlign: BorderSide.strokeAlignOutside,
             ),
             borderRadius: BorderRadius.circular(2),
-            boxShadow: const [
+            boxShadow: [
               BoxShadow(
-                color: Colors.black,
+                color: Colors.black.withOpacity(0.16),
                 spreadRadius: 0,
-                blurRadius: 0,
-                offset: Offset(2, 2),
+                blurRadius: 3,
+                offset: Offset(0.5, 1.5),
               ),
             ],
           ),
@@ -369,7 +317,7 @@ class RememberMe extends StatelessWidget {
               ? const Icon(
                   Icons.check,
                   size: 20,
-                  color: Colors.deepPurple,
+                  color: Colors.black,
                 )
               : null,
         ),

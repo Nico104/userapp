@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../pet_color/hex_color.dart';
+import '../../pets/profile_details/widgets/custom_textformfield.dart';
 import '../../styles/text_styles.dart';
+import '../auth_widgets.dart';
 import '../login_screen.dart';
 import '../u_auth.dart';
 
@@ -24,7 +26,9 @@ class SignUpEmailPage extends StatefulWidget {
 class _SignUpEmailPageState extends State<SignUpEmailPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _emailAvailable = false;
-  TextEditingController email = TextEditingController();
+  // TextEditingController email = TextEditingController();
+
+  String emailText = "";
 
   @override
   Widget build(BuildContext context) {
@@ -44,46 +48,7 @@ class _SignUpEmailPageState extends State<SignUpEmailPage> {
             style: loginTitle2,
           ),
           SizedBox(height: 05.h),
-          TextFormField(
-            controller: email,
-            cursorColor: Colors.black.withOpacity(0.74),
-            decoration: InputDecoration(
-              suffixIcon: getEmailIcon(email.text, _emailAvailable),
-              // errorText: _emailErrorMsg,
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(6),
-                borderSide: const BorderSide(
-                  color: Colors.red,
-                  width: 1.5,
-                ),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(6),
-                borderSide: const BorderSide(
-                  color: Colors.red,
-                  width: 2.5,
-                ),
-              ),
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 22.0, horizontal: 14.0),
-              labelText: "Email",
-              fillColor: Colors.white,
-              filled: true,
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
-                borderSide: const BorderSide(
-                  color: Colors.black,
-                  width: 2,
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: const BorderSide(
-                  color: Colors.black,
-                  width: 1.5,
-                ),
-              ),
-            ),
+          CustomTextFormFieldActive(
             onChanged: (value) {
               EasyDebounce.debounce(
                 'emailAvailable',
@@ -99,9 +64,15 @@ class _SignUpEmailPageState extends State<SignUpEmailPage> {
                       _emailAvailable = false;
                     });
                   }
+                  if (emailText != value) {
+                    setState(() {
+                      emailText = value;
+                    });
+                  }
                 },
               );
             },
+            labelText: "Email",
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'I cannot be empty mate';
@@ -121,69 +92,34 @@ class _SignUpEmailPageState extends State<SignUpEmailPage> {
           SizedBox(height: 05.h),
           Padding(
             padding: const EdgeInsets.only(left: 36, right: 36),
-            child: GestureDetector(
+            child: CustomBigButton(
+              label: "Continue",
               onTap: () {
                 if (_formKey.currentState!.validate()) {
-                  widget.onNext.call(email.text);
-                  // signUpUser(email.text, password.text).then((successFullSignUp) {
-                  //   if (successFullSignUp) {
-                  //     login(email.text, password.text, true).then(
-                  //       (loginSuccessfull) {
-                  //         if (loginSuccessfull) {
-                  //           Navigator.of(context)
-                  //               .popUntil((route) => route.isFirst);
-                  //           widget.reloadInitApp.call();
-                  //         } else {}
-                  //       },
-                  //     );
-                  //   }
-                  // });
+                  widget.onNext.call(emailText);
                 }
               },
-              child: Container(
-                width: double.infinity,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: HexColor("8F8FFF"),
-                  border: Border.all(
-                    width: 2,
-                    color: Colors.black,
-                    // strokeAlign: BorderSide.strokeAlignOutside,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black,
-                      spreadRadius: 0,
-                      blurRadius: 0,
-                      offset: Offset(4, 4),
-                    ),
-                  ],
-                ),
-                child: Center(
-                    child: Text(
-                  "Sign Up",
-                  style: loginButton,
-                )),
-              ),
             ),
           ),
           SizedBox(height: 05.h),
           Padding(
             padding: const EdgeInsets.only(left: 36, right: 36),
-            child: Row(
-              children: [
-                const Expanded(
-                    child: Divider(color: Colors.black, thickness: 1)),
-                SizedBox(width: 03.w),
-                Text(
-                  "or continue with",
-                  style: loginContinueWith,
-                ),
-                SizedBox(width: 03.w),
-                const Expanded(
-                    child: Divider(color: Colors.black, thickness: 1)),
-              ],
+            child: Opacity(
+              opacity: 0.28,
+              child: Row(
+                children: [
+                  const Expanded(
+                      child: Divider(color: Colors.black, thickness: 1)),
+                  SizedBox(width: 03.w),
+                  Text(
+                    "or continue with",
+                    style: loginContinueWith,
+                  ),
+                  SizedBox(width: 03.w),
+                  const Expanded(
+                      child: Divider(color: Colors.black, thickness: 1)),
+                ],
+              ),
             ),
           ),
           SizedBox(height: 02.h),

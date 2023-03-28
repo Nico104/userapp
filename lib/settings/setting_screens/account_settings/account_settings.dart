@@ -14,32 +14,11 @@ class AccountSettings extends StatefulWidget {
 }
 
 class _AccountSettingsState extends State<AccountSettings> {
-  double _appBarDividerHeight = 0;
-
-  final double _appBarDividerHeightActivated = 2.5;
-  final double _appBarElevationActivated = 4;
-
-  final _scrollSontroller = ScrollController();
+  final double _appBarElevationActivated = 8;
 
   @override
   void initState() {
     super.initState();
-    _scrollSontroller.addListener(() {
-      bool isTop = _scrollSontroller.position.pixels == 0;
-      if (isTop) {
-        if (_appBarDividerHeight != 0) {
-          setState(() {
-            _appBarDividerHeight = 0;
-          });
-        }
-      } else {
-        if (_appBarDividerHeight == 0) {
-          setState(() {
-            _appBarDividerHeight = _appBarDividerHeightActivated;
-          });
-        }
-      }
-    });
   }
 
   @override
@@ -48,25 +27,16 @@ class _AccountSettingsState extends State<AccountSettings> {
       appBar: AppBar(
         title: Text(
           "My Account",
-          style: settingsScreenTitle,
+          style: profileDetailsTitle,
           textAlign: TextAlign.center,
         ),
         centerTitle: true,
-        iconTheme: const IconThemeData(
-          color: Colors.black,
-        ),
-        backgroundColor: HexColor("50ffaf"),
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.white,
         scrolledUnderElevation: _appBarElevationActivated,
         elevation: 0,
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(_appBarDividerHeight),
-          child: Container(
-            color: Colors.black,
-            height: _appBarDividerHeight,
-          ),
-        ),
       ),
-      backgroundColor: HexColor("50ffaf"),
+      backgroundColor: Colors.white,
       body: FutureBuilder(
         future: getSavedCredentails(),
         builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {

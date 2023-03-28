@@ -12,6 +12,10 @@ class CustomTextFormFieldActive extends StatefulWidget {
     this.onChanged,
     this.keyboardType,
     this.autofocus = false,
+    this.errorText,
+    this.labelText,
+    this.validator,
+    this.isPassword = false,
   });
 
   final String? initialValue;
@@ -22,6 +26,11 @@ class CustomTextFormFieldActive extends StatefulWidget {
   final TextInputType? keyboardType;
   final bool autofocus;
 
+  final String? labelText;
+  final String? errorText;
+  final String? Function(String?)? validator;
+  final bool isPassword;
+
   @override
   State<CustomTextFormFieldActive> createState() =>
       _CustomTextFormFieldActiveState();
@@ -31,6 +40,8 @@ class _CustomTextFormFieldActiveState extends State<CustomTextFormFieldActive> {
   late TextEditingController _textEditingController;
   late FocusNode _focusNode;
   bool _isFocused = false;
+
+  bool _obscureText = false;
 
   @override
   void initState() {
@@ -76,26 +87,57 @@ class _CustomTextFormFieldActiveState extends State<CustomTextFormFieldActive> {
         ],
       ),
       child: TextFormField(
+        obscureText: _obscureText,
+        validator: widget.validator,
         autofocus: widget.autofocus,
         keyboardType: widget.keyboardType,
-        maxLines: widget.maxLines,
+        maxLines: widget.isPassword ? 1 : widget.maxLines,
         textInputAction: widget.textInputAction,
         focusNode: _focusNode,
         controller: _textEditingController,
         cursorColor: Colors.black.withOpacity(0.74),
         style: textFieldText,
         decoration: InputDecoration(
-          hintText: widget.hintText,
+          errorText: widget.errorText,
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(6),
+            borderSide: const BorderSide(
+              color: Colors.red,
+              width: 0.5,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(6),
+            borderSide: const BorderSide(
+              color: Colors.red,
+              width: 1,
+            ),
+          ),
+          hintText: (widget.hintText != null && widget.labelText == null)
+              ? widget.hintText
+              : null,
+          labelText: (widget.hintText == null && widget.labelText != null)
+              ? widget.labelText
+              : null,
           hintStyle: textFieldHint,
+          labelStyle: textFieldLabel,
           fillColor: Colors.white,
           filled: true,
           suffixIconColor: Colors.grey,
           suffixIcon: _isFocused
               ? GestureDetector(
                   onTap: () {
-                    _textEditingController.clear();
+                    if (widget.isPassword) {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    } else {
+                      _textEditingController.clear();
+                    }
                   },
-                  child: const Icon(Icons.delete),
+                  child: Icon(
+                    _getSuffix(widget.isPassword, _obscureText),
+                  ),
                 )
               : null,
           focusedBorder: OutlineInputBorder(
@@ -116,6 +158,16 @@ class _CustomTextFormFieldActiveState extends State<CustomTextFormFieldActive> {
         onChanged: widget.onChanged,
       ),
     );
+  }
+}
+
+IconData _getSuffix(bool isPassword, bool obscureOn) {
+  if (isPassword && obscureOn) {
+    return Icons.visibility_outlined;
+  } else if (isPassword && !obscureOn) {
+    return Icons.visibility_off_outlined;
+  } else {
+    return Icons.delete;
   }
 }
 

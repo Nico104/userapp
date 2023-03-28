@@ -14,33 +14,33 @@ class MyTagsSettings extends StatefulWidget {
 }
 
 class _MyTagsSettingsState extends State<MyTagsSettings> {
-  double _appBarDividerHeight = 0;
+  // double _appBarDividerHeight = 0;
 
-  final double _appBarDividerHeightActivated = 2.5;
-  final double _appBarElevationActivated = 4;
+  // final double _appBarDividerHeightActivated = 2.5;
+  final double _appBarElevationActivated = 8;
 
-  final _scrollSontroller = ScrollController();
+  // final _scrollSontroller = ScrollController();
 
-  @override
-  void initState() {
-    super.initState();
-    _scrollSontroller.addListener(() {
-      bool isTop = _scrollSontroller.position.pixels == 0;
-      if (isTop) {
-        if (_appBarDividerHeight != 0) {
-          setState(() {
-            _appBarDividerHeight = 0;
-          });
-        }
-      } else {
-        if (_appBarDividerHeight == 0) {
-          setState(() {
-            _appBarDividerHeight = _appBarDividerHeightActivated;
-          });
-        }
-      }
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _scrollSontroller.addListener(() {
+  //     bool isTop = _scrollSontroller.position.pixels == 0;
+  //     if (isTop) {
+  //       if (_appBarDividerHeight != 0) {
+  //         setState(() {
+  //           _appBarDividerHeight = 0;
+  //         });
+  //       }
+  //     } else {
+  //       if (_appBarDividerHeight == 0) {
+  //         setState(() {
+  //           _appBarDividerHeight = _appBarDividerHeightActivated;
+  //         });
+  //       }
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -48,25 +48,19 @@ class _MyTagsSettingsState extends State<MyTagsSettings> {
       appBar: AppBar(
         title: Text(
           "My Tags",
-          style: settingsScreenTitle,
+          style: profileDetailsTitle,
           textAlign: TextAlign.center,
         ),
         centerTitle: true,
         iconTheme: const IconThemeData(
           color: Colors.black,
         ),
-        backgroundColor: HexColor("50ffaf"),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
         scrolledUnderElevation: _appBarElevationActivated,
         elevation: 0,
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(_appBarDividerHeight),
-          child: Container(
-            color: Colors.black,
-            height: _appBarDividerHeight,
-          ),
-        ),
       ),
-      backgroundColor: HexColor("50ffaf"),
+      backgroundColor: Colors.white,
       body: FutureBuilder<List<List<dynamic>>>(
         future: Future.wait([
           fetchUserTags(),
@@ -79,7 +73,6 @@ class _MyTagsSettingsState extends State<MyTagsSettings> {
             List<PetProfileDetails> petProfiles =
                 snapshot.data?.last as List<PetProfileDetails>;
             return ListView.builder(
-              controller: _scrollSontroller,
               //+1 to give initialPadding
               itemCount: tags.length + 1,
               itemBuilder: (BuildContext context, int index) {

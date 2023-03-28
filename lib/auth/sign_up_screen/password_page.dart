@@ -1,8 +1,11 @@
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../pet_color/hex_color.dart';
+import '../../pets/profile_details/widgets/custom_textformfield.dart';
 import '../../styles/text_styles.dart';
+import '../auth_widgets.dart';
 
 class SignUpPasswordPage extends StatefulWidget {
   const SignUpPasswordPage({
@@ -18,17 +21,20 @@ class SignUpPasswordPage extends StatefulWidget {
 
 class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController password = TextEditingController();
-  TextEditingController passwordRepeat = TextEditingController();
+  // TextEditingController password = TextEditingController();
+  // TextEditingController passwordRepeat = TextEditingController();
+
+  String password = "";
+  String passwordRepeat = "";
 
   bool _obscurePassword = true;
 
-  @override
-  void dispose() {
-    password.dispose();
-    passwordRepeat.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   password.dispose();
+  //   passwordRepeat.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -49,57 +55,22 @@ class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
           ),
           SizedBox(height: 05.h),
           const Spacer(),
-          TextFormField(
-            controller: password,
-            obscureText: _obscurePassword,
-            cursorColor: Colors.black.withOpacity(0.74),
-            decoration: InputDecoration(
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(6),
-                borderSide: const BorderSide(
-                  color: Colors.red,
-                  width: 1.5,
-                ),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(6),
-                borderSide: const BorderSide(
-                  color: Colors.red,
-                  width: 2.5,
-                ),
-              ),
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 22.0, horizontal: 14.0),
-              labelText: "Password",
-              fillColor: Colors.white,
-              filled: true,
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
-                borderSide: const BorderSide(
-                  color: Colors.black,
-                  width: 2,
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: const BorderSide(
-                  color: Colors.black,
-                  width: 1.5,
-                ),
-              ),
-              suffixIcon: InkWell(
-                onTap: () {
-                  setState(() {
-                    _obscurePassword = !_obscurePassword;
-                  });
+          CustomTextFormFieldActive(
+            isPassword: true,
+            onChanged: (value) {
+              EasyDebounce.debounce(
+                'emailAvailable',
+                const Duration(milliseconds: 250),
+                () {
+                  if (password != value) {
+                    setState(() {
+                      password = value;
+                    });
+                  }
                 },
-                child: Icon(
-                  _obscurePassword
-                      ? Icons.visibility_outlined
-                      : Icons.visibility_off_outlined,
-                ),
-              ),
-            ),
+              );
+            },
+            labelText: "Password",
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'I cannot be empty mate';
@@ -111,61 +82,26 @@ class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
             },
           ),
           SizedBox(height: 02.h),
-          TextFormField(
-            controller: passwordRepeat,
-            obscureText: _obscurePassword,
-            cursorColor: Colors.black.withOpacity(0.74),
-            decoration: InputDecoration(
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(6),
-                borderSide: const BorderSide(
-                  color: Colors.red,
-                  width: 1.5,
-                ),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(6),
-                borderSide: const BorderSide(
-                  color: Colors.red,
-                  width: 2.5,
-                ),
-              ),
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 22.0, horizontal: 14.0),
-              labelText: "Repeat Password",
-              fillColor: Colors.white,
-              filled: true,
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
-                borderSide: const BorderSide(
-                  color: Colors.black,
-                  width: 2,
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: const BorderSide(
-                  color: Colors.black,
-                  width: 1.5,
-                ),
-              ),
-              suffixIcon: InkWell(
-                onTap: () {
-                  setState(() {
-                    _obscurePassword = !_obscurePassword;
-                  });
+          CustomTextFormFieldActive(
+            isPassword: true,
+            onChanged: (value) {
+              EasyDebounce.debounce(
+                'emailAvailable',
+                const Duration(milliseconds: 250),
+                () {
+                  if (passwordRepeat != value) {
+                    setState(() {
+                      passwordRepeat = value;
+                    });
+                  }
                 },
-                child: Icon(
-                  _obscurePassword
-                      ? Icons.visibility_outlined
-                      : Icons.visibility_off_outlined,
-                ),
-              ),
-            ),
+              );
+            },
+            labelText: "Repeat Password",
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'I cannot be empty mate';
-              } else if (value != password.text) {
+              } else if (value != password) {
                 return 'I must be the equal to the other password mate';
               } else {
                 return null;
@@ -175,51 +111,13 @@ class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
           SizedBox(height: 05.h),
           Padding(
             padding: const EdgeInsets.only(left: 36, right: 36),
-            child: GestureDetector(
+            child: CustomBigButton(
+              label: "Continue",
               onTap: () {
                 if (_formKey.currentState!.validate()) {
-                  widget.onNext.call(password.text);
-                  // signUpUser(email.text, password.text).then((successFullSignUp) {
-                  //   if (successFullSignUp) {
-                  //     login(email.text, password.text, true).then(
-                  //       (loginSuccessfull) {
-                  //         if (loginSuccessfull) {
-                  //           Navigator.of(context)
-                  //               .popUntil((route) => route.isFirst);
-                  //           widget.reloadInitApp.call();
-                  //         } else {}
-                  //       },
-                  //     );
-                  //   }
-                  // });
+                  widget.onNext.call(password);
                 }
               },
-              child: Container(
-                width: double.infinity,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: HexColor("8F8FFF"),
-                  border: Border.all(
-                    width: 2,
-                    color: Colors.black,
-                    // strokeAlign: BorderSide.strokeAlignOutside,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black,
-                      spreadRadius: 0,
-                      blurRadius: 0,
-                      offset: Offset(4, 4),
-                    ),
-                  ],
-                ),
-                child: Center(
-                    child: Text(
-                  "Continue",
-                  style: loginButton,
-                )),
-              ),
             ),
           ),
           const Spacer(flex: 9),

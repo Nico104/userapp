@@ -134,8 +134,7 @@ TextStyle dataEditDialogButtonCancelStyle = const TextStyle(
 
 //Login
 TextStyle loginTitle1 = const TextStyle(
-  fontFamily: 'Shantell_Sans',
-  fontWeight: FontWeight.w700,
+  fontFamily: 'LibreBaskerville',
   fontSize: 24,
   color: Colors.black,
 );
@@ -148,13 +147,13 @@ TextStyle loginTitle2 = TextStyle(
 );
 
 TextStyle loginButton = const TextStyle(
-  fontFamily: 'Promt',
+  fontFamily: 'Lora',
   fontWeight: FontWeight.w600,
   fontSize: 20,
   color: Colors.white,
 );
 
-TextStyle loginContinueWith = const TextStyle(
+TextStyle loginContinueWith = TextStyle(
   fontFamily: 'Promt',
   fontWeight: FontWeight.w400,
   fontSize: 14,
@@ -190,6 +189,13 @@ TextStyle textFieldHint = TextStyle(
   color: Colors.black.withOpacity(0.16),
 );
 
+TextStyle textFieldLabel = TextStyle(
+  fontFamily: 'Promt',
+  fontWeight: FontWeight.w400,
+  fontSize: 18,
+  color: Colors.black.withOpacity(0.38),
+);
+
 TextStyle textFieldText = TextStyle(
   fontFamily: 'Promt',
   fontWeight: FontWeight.w400,
@@ -205,10 +211,13 @@ TextStyle settingsScreenTitle = const TextStyle(
 );
 
 TextStyle settingsTitle = TextStyle(
-  fontFamily: 'Shantell_Sans',
-  fontWeight: FontWeight.w700,
+  // fontFamily: 'Shantell_Sans',
+  // fontWeight: FontWeight.w700,
+  // fontSize: 20,
+  // color: Colors.black.withOpacity(0.94),
+  fontFamily: 'Lora',
   fontSize: 20,
-  color: Colors.black.withOpacity(0.94),
+  color: Colors.black.withOpacity(0.86),
 );
 
 TextStyle settingsItem = const TextStyle(

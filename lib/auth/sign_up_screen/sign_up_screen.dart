@@ -33,20 +33,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: HexColor("FFFF8F"),
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
-          const Align(
-            alignment: Alignment(0, 0.89),
-            child: SizedBox(
-              height: 380,
-              child: RiveAnimation.asset(
-                'assets/Animations/lottietest_05.riv',
-                fit: BoxFit.cover,
-                alignment: Alignment(0.65, 0),
-              ),
-            ),
-          ),
+          // const Align(
+          //   alignment: Alignment(0, 0.89),
+          //   child: SizedBox(
+          //     height: 380,
+          //     child: RiveAnimation.asset(
+          //       'assets/Animations/lottietest_05.riv',
+          //       fit: BoxFit.cover,
+          //       alignment: Alignment(0.65, 0),
+          //     ),
+          //   ),
+          // ),
           SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
             child: SizedBox(
