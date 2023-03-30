@@ -7,6 +7,7 @@ import 'package:userapp/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/pets/tag/tags.dart';
 import 'package:userapp/pets/tag/tag_selection/d_tag_selection.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
+import 'package:userapp/theme/custom_text_styles.dart';
 import '../language/m_language.dart';
 import '../pet_color/pet_colors.dart';
 import '../styles/text_styles.dart';
@@ -150,11 +151,14 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                                               ),
                                               Text(
                                                 "Share",
-                                                style: extendedActions,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelMedium,
                                               ),
                                               Expanded(
-                                                  flex: labelFlex,
-                                                  child: const SizedBox()),
+                                                flex: labelFlex,
+                                                child: const SizedBox(),
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -191,7 +195,9 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                                               ),
                                               Text(
                                                 "Edit",
-                                                style: extendedActions,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelMedium,
                                               ),
                                               Expanded(
                                                   flex: labelFlex,
@@ -222,7 +228,9 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                                               ),
                                               Text(
                                                 "Scans",
-                                                style: extendedActions,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelMedium,
                                               ),
                                               Expanded(
                                                   flex: labelFlex,
@@ -243,6 +251,40 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                   ),
                 ),
               ),
+              // Align(
+              //   alignment: Alignment.topRight,
+              //   child: Stack(
+              //     alignment: Alignment.center,
+              //     children: [
+              //       ClipRRect(
+              //         child: Container(
+              //           width: 50,
+              //           height: 50,
+              //           margin: const EdgeInsets.all(4),
+              //           decoration: BoxDecoration(
+              //             color: Colors.white,
+              //             borderRadius: BorderRadius.circular(80),
+              //             boxShadow: [
+              //               BoxShadow(
+              //                 color: Colors.black.withOpacity(0.16),
+              //                 blurRadius: 6,
+              //                 offset: const Offset(1, 3),
+              //               ),
+              //             ],
+              //           ),
+              //           // child: BackdropFilter(
+              //           //   filter: ImageFilter.blur(
+              //           //     sigmaX: 5,
+              //           //     sigmaY: 5,
+              //           //   ),
+              //           //   child: const SizedBox.expand(),
+              //           // ),
+              //         ),
+              //       ),
+              //       const Icon(CustomIcons.edit),
+              //     ],
+              //   ),
+              // ),
               IgnorePointer(
                 ignoring: widget.extendedActions,
                 child: GestureDetector(
@@ -301,7 +343,7 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
             child: Text(
               widget.petProfileDetails.petName ?? "",
               key: ValueKey<String>(widget.petProfileDetails.petName ?? ""),
-              style: homePetName,
+              style: getCustomTextStyles(context).homePetName,
             ),
           ),
         ),

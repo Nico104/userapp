@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:userapp/init_app.dart';
+import 'package:userapp/settings/setting_screens/theme_settings/theme_settings.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
 
 import '../auth/u_auth.dart';
 import '../pet_color/hex_color.dart';
 import '../styles/text_styles.dart';
+import '../theme/theme_provider.dart';
 import 'setting_screens/account_settings/account_settings.dart';
 import 'setting_screens/my_tags/my_tags_screen.dart';
 import 'widgets/settings_widgets.dart';
@@ -45,18 +48,8 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(
-          "Settings",
-          style: profileDetailsTitle,
-          textAlign: TextAlign.center,
-        ),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        scrolledUnderElevation: _appBarElevationActivated,
-        elevation: 0,
-        centerTitle: true,
+        title: const Text("Settings"),
       ),
       body: ListView(
         controller: _scrollSontroller,
@@ -68,7 +61,7 @@ class _SettingsState extends State<Settings> {
               children: [
                 Text(
                   "General",
-                  style: settingsTitle,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 28),
                 SettingsItem(
@@ -105,6 +98,20 @@ class _SettingsState extends State<Settings> {
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),
                 const SizedBox(height: settingItemSpacing),
+                SettingsItem(
+                  label: "Themes",
+                  leading: const Icon(Icons.hexagon_outlined),
+                  suffix: const Icon(Icons.keyboard_arrow_right),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ThemeSettings(),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: settingItemSpacing),
                 const SettingsItem(
                   label: "How to use this app?",
                   leading: Icon(Icons.lightbulb_outline),
@@ -121,7 +128,7 @@ class _SettingsState extends State<Settings> {
               children: [
                 Text(
                   "Shop",
-                  style: settingsTitle,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 28),
                 const SettingsItem(
@@ -140,7 +147,7 @@ class _SettingsState extends State<Settings> {
               children: [
                 Text(
                   "Help and Support",
-                  style: settingsTitle,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 28),
                 const SettingsItem(

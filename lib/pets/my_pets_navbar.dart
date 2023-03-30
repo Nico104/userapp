@@ -5,6 +5,7 @@ import 'package:userapp/styles/custom_icons_icons.dart';
 
 import '../settings/setting_screen.dart';
 import '../styles/text_styles.dart';
+import '../theme/custom_text_styles.dart';
 
 class MyPetsNavbar extends StatelessWidget {
   const MyPetsNavbar({super.key});
@@ -20,11 +21,11 @@ class MyPetsNavbar extends StatelessWidget {
         ),
         Text(
           "Welcome back ",
-          style: homeWelcomeMessage,
+          style: getCustomTextStyles(context).homeWelcomeMessage,
         ),
         Text(
           username,
-          style: homeWelcomeUser,
+          style: getCustomTextStyles(context).homeWelcomeUser,
         ),
         const Spacer(),
         const Icon(

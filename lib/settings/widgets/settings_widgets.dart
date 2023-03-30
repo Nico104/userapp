@@ -34,7 +34,7 @@ class SettingsItem extends StatelessWidget {
             Text(
               label,
               // style: settingsItem,
-              style: textFieldText,
+              style: Theme.of(context).textTheme.labelMedium,
             ),
             const Spacer(),
             Row(
@@ -42,7 +42,7 @@ class SettingsItem extends StatelessWidget {
               children: [
                 Text(
                   suffixText ?? "",
-                  style: settingsSuffixText,
+                  style: Theme.of(context).textTheme.labelSmall,
                 ),
                 const SizedBox(width: 8),
                 suffix ?? const SizedBox(),

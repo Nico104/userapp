@@ -46,11 +46,7 @@ class _MyTagsSettingsState extends State<MyTagsSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "My Tags",
-          style: profileDetailsTitle,
-          textAlign: TextAlign.center,
-        ),
+        title: const Text("My Tags"),
         centerTitle: true,
         iconTheme: const IconThemeData(
           color: Colors.black,

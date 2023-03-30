@@ -7,6 +7,7 @@ import 'package:userapp/pets/tag/tags.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
 import '../../pet_color/pet_colors.dart';
 import '../../styles/text_styles.dart';
+import '../../theme/custom_text_styles.dart';
 import 'models/m_tag.dart';
 
 class PetNameComponent extends StatefulWidget {
@@ -71,7 +72,7 @@ class _PetNameComponentState extends State<PetNameComponent> {
               children: [
                 Text(
                   widget.petName ?? "Unamed",
-                  style: petNameStyle,
+                  style: getCustomTextStyles(context).profileDetailsPetName,
                 ),
                 GestureDetector(
                   onTap: () =>
@@ -89,7 +90,7 @@ class _PetNameComponentState extends State<PetNameComponent> {
             widget.gender != Gender.none
                 ? Text(
                     getPetTitle(widget.gender),
-                    style: petGoodBadgeStyle,
+                    style: Theme.of(context).textTheme.labelSmall,
                   )
                 : const SizedBox(),
           ],
@@ -164,7 +165,7 @@ class _PetNameDialogState extends State<PetNameDialog> {
             children: [
               Text(
                 "Select Pet Name",
-                style: pickerDialogTitleStyle,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 28),
               // TextFormField(
@@ -227,7 +228,8 @@ class _PetNameDialogState extends State<PetNameDialog> {
                     ),
                     child: Text(
                       "Cancel",
-                      style: dataEditDialogButtonCancelStyle,
+                      style: getCustomTextStyles(context)
+                          .dataEditDialogButtonCancelStyle,
                     ),
                   ),
                   OutlinedButton(
@@ -245,7 +247,8 @@ class _PetNameDialogState extends State<PetNameDialog> {
                     ),
                     child: Text(
                       "Save ahead",
-                      style: dataEditDialogButtonSaveStyle,
+                      style: getCustomTextStyles(context)
+                          .dataEditDialogButtonSaveStyle,
                     ),
                   ),
                 ],

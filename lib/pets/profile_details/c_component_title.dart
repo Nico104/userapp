@@ -14,7 +14,7 @@ class ComponentTitle extends StatelessWidget {
       children: [
         Text(
           text,
-          style: profileDetailsComponentTitle,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(
           height: 22,

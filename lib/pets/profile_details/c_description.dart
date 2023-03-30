@@ -165,7 +165,7 @@ class _NewDescriptionTranslationState extends State<NewDescriptionTranslation> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          child: CustomTextFormFieldInactive(
+          child: CustomTextFormFieldActive(
             hintText: "Enter Description",
             maxLines: null,
             keyboardType: TextInputType.multiline,

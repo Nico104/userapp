@@ -82,10 +82,7 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Profile Details",
-          style: profileDetailsTitle,
-        ),
+        title: const Text("Profile Details"),
         centerTitle: true,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,

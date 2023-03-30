@@ -25,16 +25,7 @@ class _AccountSettingsState extends State<AccountSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "My Account",
-          style: profileDetailsTitle,
-          textAlign: TextAlign.center,
-        ),
-        centerTitle: true,
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
-        scrolledUnderElevation: _appBarElevationActivated,
-        elevation: 0,
+        title: const Text("My Account"),
       ),
       backgroundColor: Colors.white,
       body: FutureBuilder(
@@ -50,7 +41,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                     children: [
                       Text(
                         "Account Information",
-                        style: settingsTitle,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 28),
                       SettingsItem(

@@ -108,6 +108,10 @@ class _MyPetsState extends State<MyPets> {
     return Scaffold(
       // backgroundColor: backgroundColor,
       backgroundColor: Colors.white,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
       body: Stack(
         children: [
           AnimatedSwitcher(

@@ -169,7 +169,7 @@ class _NewImportantInformationTranslationState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          child: CustomTextFormFieldInactive(
+          child: CustomTextFormFieldActive(
             hintText: "Enter Description",
             maxLines: null,
             keyboardType: TextInputType.multiline,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/c_component_padding.dart';
 
 import '../../styles/text_styles.dart';
+import '../../theme/custom_text_styles.dart';
 
 class EditPagesTabComponent extends StatefulWidget {
   const EditPagesTabComponent({
@@ -131,8 +132,9 @@ class TabItem extends StatelessWidget {
               child: Text(
                 label,
                 style: isActive
-                    ? profileDetailsTabLabelActive
-                    : profileDetailsTabLabelInactive,
+                    ? getCustomTextStyles(context).profileDetailsTabLabelActive
+                    : getCustomTextStyles(context)
+                        .profileDetailsTabLabelInactive,
               ),
             ),
           ],

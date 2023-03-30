@@ -130,7 +130,7 @@ class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
                     ),
                     Text(
                       widget.number.language.languagePrefix,
-                      style: textFieldText,
+                      style: Theme.of(context).textTheme.labelMedium,
                     )
                   ],
                 )),
@@ -193,37 +193,44 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
                   }
                 });
               },
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: Colors.black.withOpacity(0.16),
-                    width: 0.5,
+              child: Opacity(
+                opacity: 1,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: Colors.black.withOpacity(0.24),
+                      width: 0.5,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.04),
+                        blurRadius: 6,
+                        offset:
+                            const Offset(1, 3), // changes position of shadow
+                      ),
+                    ],
+                    color: Colors.white,
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.04),
-                      blurRadius: 6,
-                      offset: const Offset(1, 3), // changes position of shadow
-                    ),
-                  ],
-                  color: Colors.white,
+                  child: Center(
+                      child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        CustomIcons.globe_5,
+                        color: Colors.black.withOpacity(0.24),
+                      ),
+                      Opacity(
+                        opacity: 0.24,
+                        child: Text(
+                          "+**",
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
+                      ),
+                    ],
+                  )),
                 ),
-                child: Center(
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      CustomIcons.globe_5,
-                      color: Colors.black.withOpacity(0.16),
-                    ),
-                    Text(
-                      "+**",
-                      style: textFieldHint,
-                    ),
-                  ],
-                )),
               ),
             ),
           ),
@@ -232,7 +239,22 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
           ),
           Expanded(
             flex: 10,
-            child: CustomTextFormFieldInactive(
+            //? Could use normal Textfield only and just change all opacity
+            // child: CustomTextFormFieldInactive(
+            //   hintText: "Enter new Number",
+            //   onChanged: (val) {
+            //     EasyDebounce.debounce(
+            //       'newPhoneNumber',
+            //       const Duration(milliseconds: 500),
+            //       () {
+            //         setState(() {
+            //           _text = val;
+            //         });
+            //       },
+            //     );
+            //   },
+            // ),
+            child: CustomTextFormFieldActive(
               hintText: "Enter new Number",
               onChanged: (val) {
                 EasyDebounce.debounce(

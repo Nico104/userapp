@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../pet_color/pet_colors.dart';
 import '../../styles/text_styles.dart';
+import '../../theme/custom_text_styles.dart';
 import 'c_component_title.dart';
 import 'models/m_pet_profile.dart';
 
@@ -156,7 +157,7 @@ class _GenderButtonState extends State<GenderButton> {
           child: Center(
             child: Text(
               widget.label,
-              style: profileGenderLabel,
+              style: getCustomTextStyles(context).profileGenderLabel,
             ),
           ),
         ),

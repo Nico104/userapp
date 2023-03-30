@@ -45,13 +45,13 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
               Text(
                 "Update your Password",
                 textAlign: TextAlign.center,
-                style: loginTitle1,
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
               SizedBox(height: 02.h),
               Text(
                 "Please enter your exisitng password and your new password.",
                 textAlign: TextAlign.center,
-                style: loginTitle2,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
               SizedBox(height: 05.h),
               const Spacer(),
