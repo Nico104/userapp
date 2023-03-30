@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../../pet_color/pet_colors.dart';
 import '../../../styles/text_styles.dart';
+import '../../../theme/custom_text_styles.dart';
 
 ///Lets USer choose between camera and gallery
 ///returns 1 if Camera has been chosen or 0 if Gallery has been chosen
@@ -33,12 +34,12 @@ class _DeleteImageAlertDialogState extends State<DeleteImageAlertDialog> {
             children: [
               Text(
                 "Delete Picture",
-                style: pickerDialogTitleStyle,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 28),
               Text(
                 "Fur real? You're going to delete this cute pic?",
-                style: alertDialogMessageTextStyle,
+                style: Theme.of(context).textTheme.labelMedium,
               ),
               const SizedBox(height: 28),
               Row(
@@ -55,7 +56,8 @@ class _DeleteImageAlertDialogState extends State<DeleteImageAlertDialog> {
                     ),
                     child: Text(
                       "Cancel",
-                      style: dataEditDialogButtonCancelStyle,
+                      style: getCustomTextStyles(context)
+                          .dataEditDialogButtonCancelStyle,
                     ),
                   ),
                   OutlinedButton(
@@ -70,7 +72,8 @@ class _DeleteImageAlertDialogState extends State<DeleteImageAlertDialog> {
                     ),
                     child: Text(
                       "Delete",
-                      style: dataEditDialogButtonSaveStyle,
+                      style: getCustomTextStyles(context)
+                          .dataEditDialogButtonSaveStyle,
                     ),
                   ),
                 ],

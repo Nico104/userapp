@@ -32,7 +32,7 @@ class _GalleryCameraDialogState extends State<GalleryCameraDialog> {
             children: [
               Text(
                 "Choose Picture with",
-                style: pickerDialogTitleStyle,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 28),
               Row(

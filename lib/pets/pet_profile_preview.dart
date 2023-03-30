@@ -288,25 +288,25 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
               IgnorePointer(
                 ignoring: widget.extendedActions,
                 child: GestureDetector(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (_) => TagSelectionDialog(
-                        currentTags: widget.petProfileDetails.tag,
-                      ),
-                    ).then((value) async {
-                      if (value != null) {
-                        if (value is List<Tag> &&
-                            widget.petProfileDetails.profileId != null) {
-                          await handleTagChange(
-                              value,
-                              widget.petProfileDetails.tag,
-                              widget.petProfileDetails.profileId!);
-                          widget.reloadFuture.call();
-                        }
-                      }
-                    });
-                  },
+                  // onTap: () {
+                  //   showDialog(
+                  //     context: context,
+                  //     builder: (_) => TagSelectionDialog(
+                  //       currentTags: widget.petProfileDetails.tag,
+                  //     ),
+                  //   ).then((value) async {
+                  //     if (value != null) {
+                  //       if (value is List<Tag> &&
+                  //           widget.petProfileDetails.profileId != null) {
+                  //         await handleTagChange(
+                  //             value,
+                  //             widget.petProfileDetails.tag,
+                  //             widget.petProfileDetails.profileId!);
+                  //         widget.reloadFuture.call();
+                  //       }
+                  //     }
+                  //   });
+                  // },
                   child: Padding(
                     padding: EdgeInsets.only(bottom: bottomOffset),
                     child: AnimatedOpacity(

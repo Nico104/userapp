@@ -30,7 +30,7 @@ class LanguagePickerDialogComponent extends StatelessWidget {
             children: [
               Text(
                 "Select Language",
-                style: pickerDialogTitleStyle,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 28),
               ListView.builder(

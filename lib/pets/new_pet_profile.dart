@@ -20,28 +20,28 @@ class NewPetProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        showDialog(
-          context: context,
-          builder: (_) => const TagSelectionDialog(
-            currentTags: [],
-          ),
-        ).then((value) {
-          if (value is List<Tag>) {
-            if (value.isNotEmpty) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PetProfileDetailView(
-                    petProfileDetails: PetProfileDetails.createNewEmptyProfile(
-                      value,
-                    ),
-                    reloadFuture: () => reloadFuture.call(),
-                  ),
-                ),
-              );
-            }
-          }
-        });
+        // showDialog(
+        //   context: context,
+        //   builder: (_) => const TagSelectionDialog(
+        //     currentTags: [],
+        //   ),
+        // ).then((value) {
+        //   if (value is List<Tag>) {
+        //     if (value.isNotEmpty) {
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(
+        //           builder: (context) => PetProfileDetailView(
+        //             petProfileDetails: PetProfileDetails.createNewEmptyProfile(
+        //               value,
+        //             ),
+        //             reloadFuture: () => reloadFuture.call(),
+        //           ),
+        //         ),
+        //       );
+        //     }
+        //   }
+        // });
       },
       child: Container(
         height: double.infinity,
