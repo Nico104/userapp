@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import '../../styles/text_styles.dart';
 import '../../theme/custom_colors.dart';
 import '../../theme/custom_text_styles.dart';
 import 'c_component_title.dart';
@@ -22,6 +21,9 @@ class PetGenderComponent extends StatelessWidget {
     }
   }
 
+  final double _borderradius = 12;
+  final double _borderwidth = 1.5;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -36,18 +38,70 @@ class PetGenderComponent extends StatelessWidget {
             GestureDetector(
               onTap: () => handleButtonPress(Gender.male),
               child: GenderButton(
-                isMale: true,
                 isActive: gender == Gender.male,
                 label: "Male",
+                enabledBoxDecoration: BoxDecoration(
+                  color: getCustomColors(context).genderButtonEnabledMale,
+                  borderRadius: BorderRadius.circular(_borderradius),
+                  border: Border.all(
+                    width: _borderwidth,
+                    color: getCustomColors(context).lightBorder ??
+                        Colors.transparent,
+                  ),
+                ),
+                disabledBoxDecoration: BoxDecoration(
+                  color: getCustomColors(context).genderButtonDisabledMale,
+                  borderRadius: BorderRadius.circular(_borderradius),
+                  border: Border.all(
+                    width: _borderwidth,
+                    color: getCustomColors(context).lightBorder ??
+                        Colors.transparent,
+                  ),
+                ),
+                backgroundBoxDecoration: BoxDecoration(
+                  color: getCustomColors(context).genderButtonBackgroundMale,
+                  borderRadius: BorderRadius.circular(_borderradius),
+                  border: Border.all(
+                    width: _borderwidth,
+                    color: getCustomColors(context).lightBorder ??
+                        Colors.transparent,
+                  ),
+                ),
               ),
             ),
             SizedBox(width: 06.w),
             GestureDetector(
               onTap: () => handleButtonPress(Gender.female),
               child: GenderButton(
-                isMale: false,
                 isActive: gender == Gender.female,
                 label: "Female",
+                enabledBoxDecoration: BoxDecoration(
+                  color: getCustomColors(context).genderButtonEnabledFemale,
+                  borderRadius: BorderRadius.circular(_borderradius),
+                  border: Border.all(
+                    width: _borderwidth,
+                    color: getCustomColors(context).lightBorder ??
+                        Colors.transparent,
+                  ),
+                ),
+                disabledBoxDecoration: BoxDecoration(
+                  color: getCustomColors(context).genderButtonDisabledFemale,
+                  borderRadius: BorderRadius.circular(_borderradius),
+                  border: Border.all(
+                    width: _borderwidth,
+                    color: getCustomColors(context).lightBorder ??
+                        Colors.transparent,
+                  ),
+                ),
+                backgroundBoxDecoration: BoxDecoration(
+                  color: getCustomColors(context).genderButtonBackgroundFemale,
+                  borderRadius: BorderRadius.circular(_borderradius),
+                  border: Border.all(
+                    width: _borderwidth,
+                    color: getCustomColors(context).lightBorder ??
+                        Colors.transparent,
+                  ),
+                ),
               ),
             ),
           ],
@@ -60,14 +114,19 @@ class PetGenderComponent extends StatelessWidget {
 class GenderButton extends StatefulWidget {
   const GenderButton({
     super.key,
-    required this.isMale,
     required this.isActive,
     required this.label,
+    required this.enabledBoxDecoration,
+    required this.disabledBoxDecoration,
+    required this.backgroundBoxDecoration,
   });
 
-  final bool isMale;
   final bool isActive;
   final String label;
+
+  final BoxDecoration enabledBoxDecoration;
+  final BoxDecoration disabledBoxDecoration;
+  final BoxDecoration backgroundBoxDecoration;
 
   @override
   State<GenderButton> createState() => _GenderButtonState();
@@ -78,54 +137,13 @@ class _GenderButtonState extends State<GenderButton> {
   final Duration _disableBackgroundDuration = const Duration(milliseconds: 250);
   final Duration _containerDuration = const Duration(milliseconds: 250);
 
-  BoxDecoration? enabledBoxDecoration;
-  BoxDecoration? disabledBoxDecoration;
-  BoxDecoration? backgroundBoxDecoration;
-
   final double _height = 60;
   late double _width;
-
-  final double _borderradius = 12;
-  final double _borderwidth = 1.5;
 
   @override
   void initState() {
     super.initState();
-
     _width = 40.w;
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      enabledBoxDecoration = BoxDecoration(
-        color: widget.isMale
-            ? getCustomColors(context).genderButtonEnabledMale
-            : getCustomColors(context).genderButtonEnabledFemale,
-        borderRadius: BorderRadius.circular(_borderradius),
-        border: Border.all(
-          width: _borderwidth,
-          color: getCustomColors(context).lightBorder ?? Colors.transparent,
-        ),
-      );
-      disabledBoxDecoration = BoxDecoration(
-        color: widget.isMale
-            ? getCustomColors(context).genderButtonDisabledMale
-            : getCustomColors(context).genderButtonDisabledFemale,
-        borderRadius: BorderRadius.circular(_borderradius),
-        border: Border.all(
-          width: _borderwidth,
-          color: getCustomColors(context).lightBorder ?? Colors.transparent,
-        ),
-      );
-      backgroundBoxDecoration = BoxDecoration(
-        color: widget.isMale
-            ? getCustomColors(context).genderButtonBackgroundMale
-            : getCustomColors(context).genderButtonBackgroundFemale,
-        borderRadius: BorderRadius.circular(_borderradius),
-        border: Border.all(
-          width: _borderwidth,
-          color: getCustomColors(context).lightBorder ?? Colors.transparent,
-        ),
-      );
-    });
   }
 
   @override
@@ -146,7 +164,7 @@ class _GenderButtonState extends State<GenderButton> {
             turns: widget.isActive ? -0.01 : 0,
             curve: widget.isActive ? Curves.elasticOut : Curves.linear,
             child: Container(
-              decoration: backgroundBoxDecoration,
+              decoration: widget.backgroundBoxDecoration,
               height: _height,
               width: _width,
             ),
@@ -154,8 +172,9 @@ class _GenderButtonState extends State<GenderButton> {
         ),
         AnimatedContainer(
           duration: _containerDuration,
-          decoration:
-              widget.isActive ? enabledBoxDecoration : disabledBoxDecoration,
+          decoration: widget.isActive
+              ? widget.enabledBoxDecoration
+              : widget.disabledBoxDecoration,
           height: _height,
           width: _width,
           child: Center(

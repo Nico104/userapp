@@ -152,7 +152,7 @@ final ThemeData constLightTheme = ThemeData(
       hardBorder: Colors.black,
       shadow: Colors.black.withOpacity(0.16),
       lightShadow: Colors.black.withOpacity(0.04),
-      accentShadow: HexColor("8F8FFF").withOpacity(0.16),
+      accentShadow: HexColor("7676ff").withOpacity(0.28),
     ),
   ],
 );

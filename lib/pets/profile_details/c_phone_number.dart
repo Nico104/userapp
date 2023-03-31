@@ -259,7 +259,7 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
             //   },
             // ),
             child: CustomTextFormFieldActive(
-              hintText: "Enter new Number",
+              hintText: "384 432 5683",
               onChanged: (val) {
                 EasyDebounce.debounce(
                   'newPhoneNumber',

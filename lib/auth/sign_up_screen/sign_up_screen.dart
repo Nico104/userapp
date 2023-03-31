@@ -6,6 +6,7 @@ import 'package:userapp/auth/login_screen.dart';
 import 'package:userapp/auth/sign_up_screen/verification_page.dart';
 import 'package:userapp/auth/u_auth.dart';
 import 'package:userapp/pet_color/hex_color.dart';
+import 'package:userapp/utils/util_methods.dart';
 
 import '../../styles/text_styles.dart';
 import '../../theme/custom_text_styles.dart';
@@ -119,14 +120,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(
+                            navigatePerSlide(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) => LoginScreen(
-                                  reloadInitApp: () => widget.reloadInitApp(),
-                                ),
+                              LoginScreen(
+                                reloadInitApp: () => widget.reloadInitApp(),
                               ),
                             );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => LoginScreen(
+                            //       reloadInitApp: () => widget.reloadInitApp(),
+                            //     ),
+                            //   ),
+                            // );
                           },
                           child: Text(
                             "Log In now",

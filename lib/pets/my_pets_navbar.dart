@@ -6,6 +6,7 @@ import 'package:userapp/styles/custom_icons_icons.dart';
 import '../settings/setting_screen.dart';
 import '../styles/text_styles.dart';
 import '../theme/custom_text_styles.dart';
+import '../utils/util_methods.dart';
 
 class MyPetsNavbar extends StatelessWidget {
   const MyPetsNavbar({super.key});
@@ -35,12 +36,13 @@ class MyPetsNavbar extends StatelessWidget {
         const SizedBox(width: 16),
         GestureDetector(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const Settings(),
-              ),
-            );
+            navigatePerSlide(context, const Settings());
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => const Settings(),
+            //   ),
+            // );
           },
           child: const Icon(
             CustomIcons.setting,

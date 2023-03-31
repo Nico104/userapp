@@ -17,6 +17,7 @@ import 'c_phone_number.dart';
 import 'pictures/c_pictures.dart';
 import 'c_section_title.dart';
 import 'c_social_media.dart';
+import 'save_floating_action_button.dart';
 import 'u_profile_details.dart';
 
 class PetProfileDetailView extends StatefulWidget {
@@ -160,7 +161,7 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
                   child: OnelineSimpleInput(
                     flex: 7,
                     value: _petProfileDetails.petChipId ?? "",
-                    emptyValuePlaceholder: "Enter Chip Nr.",
+                    emptyValuePlaceholder: "977200000000000",
                     title: "Chip Number",
                     saveValue: (val) async {
                       _petProfileDetails.petChipId = val;
@@ -198,7 +199,7 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
                   child: OnelineSimpleInput(
                     flex: 6,
                     value: "",
-                    emptyValuePlaceholder: "Enter Owners Name",
+                    emptyValuePlaceholder: "Schlongus Longus",
                     title: "Owners Name",
                     saveValue: (_) async {},
                   ),
@@ -207,7 +208,7 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
                   child: OnelineSimpleInput(
                     flex: 8,
                     value: "Mainstreet 20A, Vienna, Austria",
-                    emptyValuePlaceholder: "Enter Living Address",
+                    emptyValuePlaceholder: "Mainstreet 20A, Vienna, Austria",
                     title: "Home Address",
                     saveValue: (_) async {},
                   ),
@@ -240,47 +241,6 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
           )
           //Wait for connection to Server for important info, maybe you can reuse the Description Model
         ],
-      ),
-    );
-  }
-}
-
-class SaveFloatingActionButton extends StatelessWidget {
-  const SaveFloatingActionButton({
-    super.key,
-    required PetProfileDetails petProfileDetails,
-    required this.oldPetProfileDetails,
-    required this.reloadFuture,
-  }) : _petProfileDetails = petProfileDetails;
-
-  final PetProfileDetails oldPetProfileDetails;
-  final PetProfileDetails _petProfileDetails;
-  final VoidCallback reloadFuture;
-
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(14),
-      ),
-      //TODO add accentcolor dark and light
-      backgroundColor: getCustomColors(context).accentLight,
-      tooltip: "Click to save changes",
-      onPressed: () async {
-        if (_petProfileDetails.tag.isNotEmpty) {
-          await handlePetProfileDetailsSave(
-                  _petProfileDetails, oldPetProfileDetails)
-              .then(
-            (value) {
-              Navigator.pop(context);
-              reloadFuture.call();
-            },
-          );
-        }
-      },
-      child: Icon(
-        Icons.save,
-        color: Theme.of(context).primaryColor,
       ),
     );
   }

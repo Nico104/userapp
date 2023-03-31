@@ -5,6 +5,7 @@ import 'package:userapp/pets/tag/tags.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
 import 'package:userapp/theme/custom_colors.dart';
 import 'package:userapp/theme/custom_text_styles.dart';
+import 'package:userapp/utils/util_methods.dart';
 import 'profile_details/models/m_pet_profile.dart';
 
 class PetProfilePreview extends StatefulWidget {
@@ -49,15 +50,6 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
           child: Stack(
             children: [
               GestureDetector(
-                // onTap: () => Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => PetProfileDetailView(
-                //       petProfileDetails: widget.petProfileDetails,
-                //       reloadFuture: widget.reloadFuture,
-                //     ),
-                //   ),
-                // ),
                 onTap: () {
                   widget.switchExtendedActions();
                 },
@@ -159,17 +151,27 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                                     ),
                                     Expanded(
                                       child: GestureDetector(
-                                        onTap: () => Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                PetProfileDetailView(
+                                        onTap: () {
+                                          navigatePerSlide(
+                                            context,
+                                            PetProfileDetailView(
                                               petProfileDetails:
                                                   widget.petProfileDetails,
                                               reloadFuture: widget.reloadFuture,
                                             ),
-                                          ),
-                                        ),
+                                          );
+                                        },
+                                        // onTap: () => Navigator.push(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //     builder: (context) =>
+                                        //         PetProfileDetailView(
+                                        //       petProfileDetails:
+                                        //           widget.petProfileDetails,
+                                        //       reloadFuture: widget.reloadFuture,
+                                        //     ),
+                                        //   ),
+                                        // ),
                                         child: Container(
                                           //To trigger the Hit Box
                                           color: Colors.transparent,

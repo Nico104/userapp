@@ -30,7 +30,7 @@ class SocialMediaComponent extends StatelessWidget {
         ComponentTitle(text: title),
         SingleSocialMedia(
           flex: 8,
-          emptyValuePlaceholder: "No Facebook set",
+          emptyValuePlaceholder: "https:/facebook/profile/LongusSchlongus",
           icon: const Icon(
             Icons.facebook,
             color: Colors.blue,
@@ -44,7 +44,7 @@ class SocialMediaComponent extends StatelessWidget {
         ),
         SingleSocialMedia(
           flex: 4,
-          emptyValuePlaceholder: "No Insta set",
+          emptyValuePlaceholder: "@LongusSchlongus",
           icon: const Icon(
             Icons.facebook,
             color: Colors.pink,

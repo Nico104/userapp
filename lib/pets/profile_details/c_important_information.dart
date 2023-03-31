@@ -89,7 +89,7 @@ class ImportantInformationTranslation extends StatelessWidget {
         Expanded(
           child: CustomTextFormFieldActive(
             initialValue: importantInformation.text,
-            hintText: "Enter Description",
+            hintText: "Enter Important Information",
             maxLines: null,
             keyboardType: TextInputType.multiline,
             onChanged: (val) {
@@ -174,7 +174,8 @@ class _NewImportantInformationTranslationState
       children: [
         Expanded(
           child: CustomTextFormFieldActive(
-            hintText: "Enter Description",
+            hintText:
+                "Do not bring near children, likes to bite their left ball",
             maxLines: null,
             keyboardType: TextInputType.multiline,
             onChanged: (val) {

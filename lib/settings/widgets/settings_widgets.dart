@@ -27,7 +27,10 @@ class SettingsItem extends StatelessWidget {
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
       child: Container(
-        margin: const EdgeInsets.all(8),
+        margin: const EdgeInsets.only(
+          top: 5,
+          bottom: 5,
+        ),
         child: Row(
           children: [
             leading ?? const SizedBox(),
@@ -67,8 +70,8 @@ class SettingsContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(28),
-      margin: const EdgeInsets.all(28),
+      padding: const EdgeInsets.all(22),
+      margin: const EdgeInsets.fromLTRB(28, 16, 28, 16),
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
         border: Border.all(

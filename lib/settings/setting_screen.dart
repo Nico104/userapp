@@ -8,6 +8,7 @@ import '../auth/u_auth.dart';
 import '../pet_color/hex_color.dart';
 import '../styles/text_styles.dart';
 import '../theme/theme_provider.dart';
+import '../utils/util_methods.dart';
 import 'setting_screens/account_settings/account_settings.dart';
 import 'setting_screens/my_tags/my_tags_screen.dart';
 import 'widgets/settings_widgets.dart';
@@ -63,18 +64,13 @@ class _SettingsState extends State<Settings> {
                   "General",
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
-                const SizedBox(height: 28),
+                const SizedBox(height: 20),
                 SettingsItem(
                   label: "Account",
                   leading: const Icon(Icons.person_outline),
                   suffix: const Icon(Icons.keyboard_arrow_right),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const AccountSettings(),
-                      ),
-                    );
+                    navigatePerSlide(context, const AccountSettings());
                   },
                 ),
                 const SizedBox(height: settingItemSpacing),
@@ -83,12 +79,16 @@ class _SettingsState extends State<Settings> {
                   leading: const Icon(Icons.hexagon_outlined),
                   suffix: const Icon(Icons.keyboard_arrow_right),
                   onTap: () {
-                    Navigator.push(
+                    navigatePerSlide(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => const MyTagsSettings(),
-                      ),
+                      const MyTagsSettings(),
                     );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const MyTagsSettings(),
+                    //   ),
+                    // );
                   },
                 ),
                 const SizedBox(height: settingItemSpacing),
@@ -103,12 +103,16 @@ class _SettingsState extends State<Settings> {
                   leading: const Icon(Icons.hexagon_outlined),
                   suffix: const Icon(Icons.keyboard_arrow_right),
                   onTap: () {
-                    Navigator.push(
+                    navigatePerSlide(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => const ThemeSettings(),
-                      ),
+                      const ThemeSettings(),
                     );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const ThemeSettings(),
+                    //   ),
+                    // );
                   },
                 ),
                 const SizedBox(height: settingItemSpacing),
@@ -130,7 +134,7 @@ class _SettingsState extends State<Settings> {
                   "Shop",
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
-                const SizedBox(height: 28),
+                const SizedBox(height: 20),
                 const SettingsItem(
                   label: "Go to Shop",
                   leading: Icon(CustomIcons.shopping_bag_8),
@@ -149,7 +153,7 @@ class _SettingsState extends State<Settings> {
                   "Help and Support",
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
-                const SizedBox(height: 28),
+                const SizedBox(height: 20),
                 const SettingsItem(
                   label: "Report Bug",
                   leading: Icon(Icons.warning_amber_rounded),

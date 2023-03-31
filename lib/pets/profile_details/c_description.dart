@@ -170,7 +170,8 @@ class _NewDescriptionTranslationState extends State<NewDescriptionTranslation> {
       children: [
         Expanded(
           child: CustomTextFormFieldActive(
-            hintText: "Enter Description",
+            hintText:
+                "My Dog is Child friendly, loves to be kicked in his left ball",
             maxLines: null,
             keyboardType: TextInputType.multiline,
             onChanged: (val) {
