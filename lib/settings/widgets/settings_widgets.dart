@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:userapp/theme/custom_colors.dart';
 
 import '../../styles/text_styles.dart';
 
@@ -69,16 +70,16 @@ class SettingsContainer extends StatelessWidget {
       padding: const EdgeInsets.all(28),
       margin: const EdgeInsets.all(28),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).primaryColor,
         border: Border.all(
           width: 0.5,
-          color: Colors.black,
+          color: getCustomColors(context).hardBorder ?? Colors.transparent,
           // strokeAlign: BorderSide.strokeAlignOutside,
         ),
         borderRadius: BorderRadius.circular(18),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.16),
+            color: getCustomColors(context).shadow ?? Colors.transparent,
             blurRadius: 6,
             offset: const Offset(1, 3),
           ),

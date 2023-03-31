@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/c_component_padding.dart';
 
 import '../../styles/text_styles.dart';
+import '../../theme/custom_colors.dart';
 import '../../theme/custom_text_styles.dart';
 
 class EditPagesTabComponent extends StatefulWidget {
@@ -32,7 +33,7 @@ class _EditPagesTabComponentState extends State<EditPagesTabComponent> {
               TabItem(
                 label: "Pet Info",
                 isActive: index == 0,
-                bgColor: Colors.blue.shade200,
+                bgColor: getCustomColors(context).accent ?? Colors.transparent,
                 onTap: () {
                   int myIndex = 0;
                   if (index != myIndex) {
@@ -46,7 +47,7 @@ class _EditPagesTabComponentState extends State<EditPagesTabComponent> {
               TabItem(
                 label: "Contact",
                 isActive: index == 1,
-                bgColor: Colors.green.shade200,
+                bgColor: getCustomColors(context).accent ?? Colors.transparent,
                 onTap: () {
                   int myIndex = 1;
                   if (index != myIndex) {
@@ -60,7 +61,7 @@ class _EditPagesTabComponentState extends State<EditPagesTabComponent> {
               TabItem(
                 label: "Documents",
                 isActive: index == 2,
-                bgColor: Colors.orange.shade200,
+                bgColor: getCustomColors(context).accent ?? Colors.transparent,
                 onTap: () {
                   int myIndex = 2;
                   if (index != myIndex) {

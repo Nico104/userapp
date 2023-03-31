@@ -23,13 +23,7 @@ class _ThemeSettingsState extends State<ThemeSettings> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Choose Theme"),
-        centerTitle: true,
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
-        scrolledUnderElevation: _appBarElevationActivated,
-        elevation: 0,
       ),
-      backgroundColor: Colors.white,
       body: Consumer<ThemeNotifier>(
         builder: (context, theme, _) => Column(
           children: [

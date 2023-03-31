@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import '../pet_color/hex_color.dart';
-import '../styles/text_styles.dart';
+import '../theme/custom_colors.dart';
 
 class CustomBigButton extends StatelessWidget {
   const CustomBigButton({
@@ -22,16 +21,16 @@ class CustomBigButton extends StatelessWidget {
         width: double.infinity,
         height: 60,
         decoration: BoxDecoration(
-          color: HexColor("8F8FFF"),
+          color: getCustomColors(context).accent,
           border: Border.all(
             width: 1,
-            color: Colors.black.withOpacity(0.16),
+            color: getCustomColors(context).lightBorder ?? Colors.transparent,
             // strokeAlign: BorderSide.strokeAlignOutside,
           ),
           borderRadius: BorderRadius.circular(14),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.16),
+              color: getCustomColors(context).shadow ?? Colors.transparent,
               blurRadius: 6,
               offset: const Offset(1, 3),
             ),
@@ -63,16 +62,14 @@ class ContinueWithSocialMedia extends StatelessWidget {
             opacity: 0.28,
             child: Row(
               children: [
-                const Expanded(
-                    child: Divider(color: Colors.black, thickness: 1)),
+                const Expanded(child: Divider()),
                 SizedBox(width: 03.w),
                 Text(
                   "or continue with",
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
                 SizedBox(width: 03.w),
-                const Expanded(
-                    child: Divider(color: Colors.black, thickness: 1)),
+                const Expanded(child: Divider()),
               ],
             ),
           ),
@@ -104,16 +101,15 @@ class SocialMediaContainer extends StatelessWidget {
       height: 60,
       width: 80,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).primaryColor,
         border: Border.all(
           width: 1,
-          color: Colors.black.withOpacity(0.16),
-          // strokeAlign: BorderSide.strokeAlignOutside,
+          color: getCustomColors(context).lightBorder ?? Colors.transparent,
         ),
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.16),
+            color: getCustomColors(context).shadow ?? Colors.transparent,
             blurRadius: 6,
             offset: const Offset(1, 3),
           ),

@@ -6,6 +6,7 @@ import 'package:userapp/pets/profile_details/c_pet_name.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import '../../pet_color/u_pet_colors.dart';
 import '../../styles/text_styles.dart';
+import '../../theme/custom_colors.dart';
 import 'c_component_padding.dart';
 import 'c_description.dart';
 import 'c_edit_pages.dart';
@@ -36,14 +37,7 @@ class PetProfileDetailView extends StatefulWidget {
 class _PetProfileDetailViewState extends State<PetProfileDetailView> {
   late PetProfileDetails _petProfileDetails;
 
-  //Divider Appbar
-  // double _appBarDividerHeight = 0;
-
   bool isScrollTop = true;
-  // final double _appBarDividerHeightActivated = 2.5;
-  final double _appBarElevationActivated = 4;
-
-  // Create a variable
   final _scrollSontroller = ScrollController();
 
   @override
@@ -83,11 +77,6 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profile Details"),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        scrolledUnderElevation: _appBarElevationActivated,
-        elevation: 0,
         flexibleSpace: !isScrollTop
             ? ClipRect(
                 child: BackdropFilter(
@@ -106,7 +95,6 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
         reloadFuture: () => widget.reloadFuture.call(),
       ),
       extendBodyBehindAppBar: true,
-      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
       body: ListView(
         shrinkWrap: true,
@@ -247,42 +235,7 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
               children: [],
             ),
           ),
-
-          // const SectionTitle(text: "Contact"),
-          // PaddingComponent(
-          //   child: OnelineSimpleInput(
-          //     flex: 6,
-          //     value: "",
-          //     emptyValuePlaceholder: "Enter Owners Name",
-          //     title: "Owners Name",
-          //     saveValue: (_) async {},
-          //   ),
-          // ),
-          // PaddingComponent(
-          //   child: OnelineSimpleInput(
-          //     flex: 8,
-          //     value: "Mainstreet 20A, Vienna, Austria",
-          //     emptyValuePlaceholder: "Enter Living Address",
-          //     title: "Home Address",
-          //     saveValue: (_) async {},
-          //   ),
-          // ),
-
-          // PaddingComponent(
-          //   child: PetPhoneNumbersComponent(
-          //     phoneNumbers: _petProfileDetails.petOwnerTelephoneNumbers,
-          //     petProfileId: _petProfileDetails.profileId,
-          //   ),
-          // ),
-          // PaddingComponent(
-          //     child: SocialMediaComponent(
-          //   title: "Social Media",
-          //   facebook: _petProfileDetails.petOwnerFacebook ?? "",
-          //   saveFacebook: (value) {},
-          //   instagram: _petProfileDetails.petOwnerInstagram ?? "",
-          //   saveInstagram: (value) {},
-          // )),
-          SizedBox(
+          const SizedBox(
             height: 16,
           )
           //Wait for connection to Server for important info, maybe you can reuse the Description Model
@@ -310,7 +263,8 @@ class SaveFloatingActionButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(14),
       ),
-      backgroundColor: Colors.blue.shade200,
+      //TODO add accentcolor dark and light
+      backgroundColor: getCustomColors(context).accentLight,
       tooltip: "Click to save changes",
       onPressed: () async {
         if (_petProfileDetails.tag.isNotEmpty) {
@@ -324,9 +278,9 @@ class SaveFloatingActionButton extends StatelessWidget {
           );
         }
       },
-      child: const Icon(
+      child: Icon(
         Icons.save,
-        color: Colors.white,
+        color: Theme.of(context).primaryColor,
       ),
     );
   }

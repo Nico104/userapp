@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:userapp/theme/custom_colors.dart';
+import '../pet_color/hex_color.dart';
 import 'custom_text_styles.dart';
 
 ///Light Theme
 final ThemeData constLightTheme = ThemeData(
-  // primaryColor: Colors.white,
   brightness: Brightness.light,
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.white,
@@ -18,7 +18,17 @@ final ThemeData constLightTheme = ThemeData(
       color: Colors.black,
     ),
   ),
+  //Used e.p. for SocialMediaContainer
+  primaryColor: Colors.white,
+  // primaryColorLight: ,
+  // primaryColorDark: ,
+  //Used for Scaffold BG e.p.
   canvasColor: Colors.white,
+  dividerTheme: const DividerThemeData(
+    color: Colors.black,
+    thickness: 1,
+  ),
+  iconTheme: const IconThemeData(color: Colors.black),
   textTheme: TextTheme(
     //Login Welcome or Update Password Screen
     headlineLarge: const TextStyle(
@@ -52,7 +62,7 @@ final ThemeData constLightTheme = ThemeData(
       fontSize: 14,
       color: Colors.black.withOpacity(0.64),
     ),
-    //Used for Button Labels
+    // Used for Button Labels
     labelLarge: const TextStyle(
       fontFamily: 'Lora',
       fontWeight: FontWeight.w600,
@@ -133,6 +143,16 @@ final ThemeData constLightTheme = ThemeData(
         fontSize: 16,
         color: Colors.blue.shade700,
       ),
+    ),
+    CustomColors(
+      accent: HexColor("8F8FFF"),
+      accentLight: HexColor("a9a9ff"),
+      accentDark: HexColor("7676ff"),
+      lightBorder: Colors.black.withOpacity(0.16),
+      hardBorder: Colors.black,
+      shadow: Colors.black.withOpacity(0.16),
+      lightShadow: Colors.black.withOpacity(0.04),
+      accentShadow: HexColor("8F8FFF").withOpacity(0.16),
     ),
   ],
 );

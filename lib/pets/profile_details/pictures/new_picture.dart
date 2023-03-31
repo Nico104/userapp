@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:image_cropper/image_cropper.dart';
 import 'package:userapp/pet_color/hex_color.dart';
+import '../../../theme/custom_colors.dart';
 import 'gallery_camera_dialog.dart';
 
 class NewPicture extends StatefulWidget {
@@ -65,11 +66,11 @@ class _NewPictureState extends State<NewPicture> {
         height: widget.imageHeight,
         decoration: BoxDecoration(
           border: Border.all(
-            width: 3,
-            color: Colors.black,
+            width: 0.5,
+            color: getCustomColors(context).lightBorder ?? Colors.transparent,
           ),
           borderRadius: BorderRadius.circular(widget.imageBorderRadius),
-          color: Colors.grey,
+          color: Theme.of(context).primaryColor,
         ),
         child: const Icon(Icons.add),
       ),
@@ -93,6 +94,7 @@ Future<CroppedFile?> cropFile(String path) async {
     sourcePath: path,
     aspectRatio: const CropAspectRatio(ratioX: 9, ratioY: 16),
     uiSettings: [
+      //TODO set Colors
       AndroidUiSettings(
         showCropGrid: false,
         toolbarTitle: 'Cropper',

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import '../../pet_color/pet_colors.dart';
 import '../../styles/text_styles.dart';
+import '../../theme/custom_colors.dart';
 import '../../theme/custom_text_styles.dart';
 import 'c_component_title.dart';
 import 'models/m_pet_profile.dart';
@@ -78,9 +78,9 @@ class _GenderButtonState extends State<GenderButton> {
   final Duration _disableBackgroundDuration = const Duration(milliseconds: 250);
   final Duration _containerDuration = const Duration(milliseconds: 250);
 
-  late BoxDecoration enabledBoxDecoration;
-  late BoxDecoration disabledBoxDecoration;
-  late BoxDecoration backgroundBoxDecoration;
+  BoxDecoration? enabledBoxDecoration;
+  BoxDecoration? disabledBoxDecoration;
+  BoxDecoration? backgroundBoxDecoration;
 
   final double _height = 60;
   late double _width;
@@ -94,34 +94,38 @@ class _GenderButtonState extends State<GenderButton> {
 
     _width = 40.w;
 
-    enabledBoxDecoration = BoxDecoration(
-      color:
-          widget.isMale ? genderButtonEnabledMale : genderButtonEnabledFemale,
-      borderRadius: BorderRadius.circular(_borderradius),
-      border: Border.all(
-        width: _borderwidth,
-        color: Colors.black.withOpacity(0.16),
-      ),
-    );
-    disabledBoxDecoration = BoxDecoration(
-      color:
-          widget.isMale ? genderButtonDisabledMale : genderButtonDisabledFemale,
-      borderRadius: BorderRadius.circular(_borderradius),
-      border: Border.all(
-        width: _borderwidth,
-        color: Colors.black.withOpacity(0.16),
-      ),
-    );
-    backgroundBoxDecoration = BoxDecoration(
-      color: widget.isMale
-          ? genderButtonBackgroundMale
-          : genderButtonBackgroundFemale,
-      borderRadius: BorderRadius.circular(_borderradius),
-      border: Border.all(
-        width: _borderwidth,
-        color: Colors.black.withOpacity(0.16),
-      ),
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      enabledBoxDecoration = BoxDecoration(
+        color: widget.isMale
+            ? getCustomColors(context).genderButtonEnabledMale
+            : getCustomColors(context).genderButtonEnabledFemale,
+        borderRadius: BorderRadius.circular(_borderradius),
+        border: Border.all(
+          width: _borderwidth,
+          color: getCustomColors(context).lightBorder ?? Colors.transparent,
+        ),
+      );
+      disabledBoxDecoration = BoxDecoration(
+        color: widget.isMale
+            ? getCustomColors(context).genderButtonDisabledMale
+            : getCustomColors(context).genderButtonDisabledFemale,
+        borderRadius: BorderRadius.circular(_borderradius),
+        border: Border.all(
+          width: _borderwidth,
+          color: getCustomColors(context).lightBorder ?? Colors.transparent,
+        ),
+      );
+      backgroundBoxDecoration = BoxDecoration(
+        color: widget.isMale
+            ? getCustomColors(context).genderButtonBackgroundMale
+            : getCustomColors(context).genderButtonBackgroundFemale,
+        borderRadius: BorderRadius.circular(_borderradius),
+        border: Border.all(
+          width: _borderwidth,
+          color: getCustomColors(context).lightBorder ?? Colors.transparent,
+        ),
+      );
+    });
   }
 
   @override

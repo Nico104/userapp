@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_picture.dart';
 import 'package:userapp/pets/profile_details/pictures/new_picture.dart';
 
+import '../../../theme/custom_colors.dart';
 import '../c_component_title.dart';
 import '../g_profile_detail_globals.dart';
 import 'delete_alert_dialog.dart';
@@ -65,31 +66,33 @@ class _PetPicturesComponentState extends State<PetPicturesComponent> {
                 // print("I am a Path");
                 return Padding(
                   padding: EdgeInsets.only(right: widget.imageSpacing),
-                  child: SinglePicturePath(
+                  child: SinglePicture(
                     imageOffsetRight: widget.imageOffset,
                     imageWidth: widget.imageWidth,
                     imageHeight: widget.imageHeight,
                     imageBorderRadius: widget.imageBorderRadius,
                     closeBorderRadius: widget.closeBorderRadius,
+                    deleteImage: () {},
+                    image: const NetworkImage("https://picsum.photos/600/800"),
                   ),
                 );
               } else if (position < petPictureLenght + newPictures.length) {
                 // print("I am a File");
                 return Padding(
                   padding: EdgeInsets.only(right: widget.imageSpacing),
-                  child: SinglePictureFile(
-                    image: newPictures.elementAt(position - petPictureLenght),
-                    deleteImage: () {
-                      setState(() {
-                        newPictures.removeAt(position - petPictureLenght);
-                      });
-                    },
-                    imageOffsetRight: widget.imageOffset,
-                    imageWidth: widget.imageWidth,
-                    imageHeight: widget.imageHeight,
-                    imageBorderRadius: widget.imageBorderRadius,
-                    closeBorderRadius: widget.closeBorderRadius,
-                  ),
+                  child: SinglePicture(
+                      imageOffsetRight: widget.imageOffset,
+                      imageWidth: widget.imageWidth,
+                      imageHeight: widget.imageHeight,
+                      imageBorderRadius: widget.imageBorderRadius,
+                      closeBorderRadius: widget.closeBorderRadius,
+                      deleteImage: () {
+                        setState(() {
+                          newPictures.removeAt(position - petPictureLenght);
+                        });
+                      },
+                      image: FileImage(
+                          newPictures.elementAt(position - petPictureLenght))),
                 );
               } else {
                 // print("I am a New");
@@ -117,14 +120,16 @@ class _PetPicturesComponentState extends State<PetPicturesComponent> {
   }
 }
 
-class SinglePicturePath extends StatelessWidget {
-  const SinglePicturePath({
+class SinglePicture extends StatelessWidget {
+  const SinglePicture({
     super.key,
     required this.imageOffsetRight,
     required this.imageWidth,
     required this.imageHeight,
     required this.imageBorderRadius,
     required this.closeBorderRadius,
+    required this.image,
+    required this.deleteImage,
   });
 
   final double imageOffsetRight;
@@ -132,6 +137,8 @@ class SinglePicturePath extends StatelessWidget {
   final double imageHeight;
   final double imageBorderRadius;
   final double closeBorderRadius;
+  final VoidCallback deleteImage;
+  final ImageProvider<Object> image;
 
   @override
   Widget build(BuildContext context) {
@@ -147,13 +154,13 @@ class SinglePicturePath extends StatelessWidget {
             borderRadius: BorderRadius.circular(imageBorderRadius),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.16),
+                color: getCustomColors(context).shadow ?? Colors.transparent,
                 blurRadius: 6,
                 offset: const Offset(0.5, 1.5), // changes position of shadow
               ),
             ],
-            image: const DecorationImage(
-              image: NetworkImage("https://picsum.photos/600/800"),
+            image: DecorationImage(
+              image: image,
               fit: BoxFit.cover,
               alignment: Alignment.center,
             ),
@@ -163,88 +170,13 @@ class SinglePicturePath extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border.all(color: Colors.redAccent, width: 1),
             borderRadius: BorderRadius.circular(closeBorderRadius),
-            color: Colors.white,
+            color: Theme.of(context).primaryColor,
           ),
           child: const Padding(
             padding: EdgeInsets.all(4),
             child: Icon(
               Icons.close_rounded,
               color: Colors.redAccent,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class SinglePictureFile extends StatelessWidget {
-  const SinglePictureFile({
-    super.key,
-    required this.image,
-    required this.deleteImage,
-    required this.imageOffsetRight,
-    required this.imageWidth,
-    required this.imageHeight,
-    required this.imageBorderRadius,
-    required this.closeBorderRadius,
-  });
-
-  final File image;
-  final VoidCallback deleteImage;
-  final double imageOffsetRight;
-  final double imageWidth;
-  final double imageHeight;
-  final double imageBorderRadius;
-  final double closeBorderRadius;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.topRight,
-      children: [
-        Container(
-          margin: EdgeInsets.only(
-              top: imageOffsetRight / 1.2, right: imageOffsetRight),
-          width: imageWidth,
-          height: imageHeight,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.16),
-                blurRadius: 6,
-                offset: const Offset(1, 3), // changes position of shadow
-              ),
-            ],
-            borderRadius: BorderRadius.circular(imageBorderRadius),
-            image: DecorationImage(
-              image: FileImage(image),
-              fit: BoxFit.cover,
-              alignment: Alignment.center,
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () => showDialog(
-            context: context,
-            builder: (_) => const DeleteImageAlertDialog(),
-          ).then((value) {
-            if (value == 1) {
-              deleteImage.call();
-            }
-          }),
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.redAccent, width: 1),
-              borderRadius: BorderRadius.circular(closeBorderRadius),
-              color: Colors.white,
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(4),
-              child: Icon(
-                Icons.close_rounded,
-                color: Colors.redAccent,
-              ),
             ),
           ),
         ),

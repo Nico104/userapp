@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:userapp/pets/tag/tag_selection/tag_selection_list.dart';
-import '../../../pet_color/pet_colors.dart';
 import '../../profile_details/models/m_tag.dart';
 import '../tag_single.dart';
 
@@ -78,14 +77,14 @@ Widget getSelectionIcon(TagSelection tagSelection) {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
-            color: dataEditTagSelectionAvtiveBorder,
+            color: const Color(0xFF228B22),
             width: 3,
           ),
-          color: dataEditTagSelectionActiveBackground,
+          color: const Color(0xFF50C878),
         ),
-        child: Icon(
+        child: const Icon(
           Icons.check,
-          color: dataEditTagSelectionAvtiveBorder,
+          color: Color(0xFF228B22),
         ),
       );
     case TagSelection.inUse:

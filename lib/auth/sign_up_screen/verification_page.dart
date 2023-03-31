@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:sizer/sizer.dart';
+import 'package:userapp/theme/custom_colors.dart';
 
 import '../../pet_color/hex_color.dart';
 import '../../styles/text_styles.dart';
@@ -76,15 +77,17 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
           autoDismissKeyboard: true,
           obscureText: false,
           animationType: AnimationType.fade,
-          cursorColor: Colors.black,
+          cursorColor: getCustomColors(context).hardBorder,
           pinTheme: PinTheme(
-            activeFillColor: Colors.white,
-            activeColor: isCompleted ? Colors.green : Colors.black,
-            disabledColor: Colors.black.withOpacity(0.28),
-            selectedColor: Colors.black,
-            selectedFillColor: Colors.white,
-            inactiveFillColor: Colors.white,
-            inactiveColor: Colors.black,
+            activeFillColor: Theme.of(context).primaryColor,
+            activeColor: isCompleted
+                ? getCustomColors(context).accent
+                : getCustomColors(context).hardBorder,
+            disabledColor: getCustomColors(context).lightBorder,
+            selectedColor: getCustomColors(context).hardBorder,
+            selectedFillColor: Theme.of(context).primaryColor,
+            inactiveFillColor: Theme.of(context).primaryColor,
+            inactiveColor: getCustomColors(context).hardBorder,
             borderWidth: 1,
             errorBorderColor: Colors.red,
             shape: PinCodeFieldShape.box,

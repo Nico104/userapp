@@ -27,7 +27,6 @@ class _AccountSettingsState extends State<AccountSettings> {
       appBar: AppBar(
         title: const Text("My Account"),
       ),
-      backgroundColor: Colors.white,
       body: FutureBuilder(
         future: getSavedCredentails(),
         builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {

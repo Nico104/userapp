@@ -13,7 +13,6 @@ class PrefixPickerDialogComponent extends StatelessWidget {
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(14),
-        side: const BorderSide(color: Colors.black, width: 2.5),
       ),
       child: Container(
         width: 70.w,

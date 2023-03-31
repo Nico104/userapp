@@ -1,18 +1,11 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/profile_detail_view.dart';
-import 'package:userapp/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/pets/tag/tags.dart';
-import 'package:userapp/pets/tag/tag_selection/d_tag_selection.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
+import 'package:userapp/theme/custom_colors.dart';
 import 'package:userapp/theme/custom_text_styles.dart';
-import '../language/m_language.dart';
-import '../pet_color/pet_colors.dart';
-import '../styles/text_styles.dart';
 import 'profile_details/models/m_pet_profile.dart';
-import 'profile_details/models/m_tag.dart';
 
 class PetProfilePreview extends StatefulWidget {
   const PetProfilePreview({
@@ -90,7 +83,8 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                             borderRadius: BorderRadius.circular(borderRadius),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.28),
+                                color: getCustomColors(context).shadow ??
+                                    Colors.transparent,
                                 blurRadius: 6,
                                 offset: const Offset(
                                     1, 3), // changes position of shadow
@@ -120,8 +114,7 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                                         : Radius.circular(borderRadius),
                                     bottomLeft: Radius.circular(borderRadius),
                                     bottomRight: Radius.circular(borderRadius)),
-                                // color: Colors.white.withOpacity(1),
-                                color: Colors.white,
+                                color: Theme.of(context).primaryColor,
                               ),
                               child: AnimatedOpacity(
                                 duration: _duration,

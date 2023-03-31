@@ -47,14 +47,6 @@ class _MyTagsSettingsState extends State<MyTagsSettings> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("My Tags"),
-        centerTitle: true,
-        iconTheme: const IconThemeData(
-          color: Colors.black,
-        ),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        scrolledUnderElevation: _appBarElevationActivated,
-        elevation: 0,
       ),
       backgroundColor: Colors.white,
       body: FutureBuilder<List<List<dynamic>>>(

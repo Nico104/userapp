@@ -9,6 +9,7 @@ import 'package:userapp/theme/custom_text_styles.dart';
 
 import '../pets/profile_details/widgets/custom_textformfield.dart';
 import '../styles/text_styles.dart';
+import '../theme/custom_colors.dart';
 import 'auth_widgets.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -32,7 +33,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Stack(
         children: [
           // const Align(
@@ -205,19 +205,21 @@ class RememberMe extends StatelessWidget {
           width: 22,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: rememberMe ? Colors.lightBlue.shade200 : Colors.white,
+            color: rememberMe
+                ? getCustomColors(context).accentLight
+                : Colors.white,
             border: Border.all(
               width: 0.5,
-              color: Colors.black,
+              color: getCustomColors(context).hardBorder ?? Colors.transparent,
               // strokeAlign: BorderSide.strokeAlignOutside,
             ),
             borderRadius: BorderRadius.circular(2),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.16),
+                color: getCustomColors(context).shadow ?? Colors.transparent,
                 spreadRadius: 0,
                 blurRadius: 3,
-                offset: Offset(0.5, 1.5),
+                offset: const Offset(0.5, 1.5),
               ),
             ],
           ),
@@ -225,7 +227,6 @@ class RememberMe extends StatelessWidget {
               ? const Icon(
                   Icons.check,
                   size: 20,
-                  color: Colors.black,
                 )
               : null,
         ),

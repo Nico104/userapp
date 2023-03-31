@@ -6,6 +6,7 @@ import 'package:userapp/styles/custom_icons_icons.dart';
 import 'package:userapp/styles/text_styles.dart';
 import '../../language/c_prefix_selection.dart';
 import '../../language/m_language.dart';
+import '../../theme/custom_colors.dart';
 import 'c_component_title.dart';
 
 class PetPhoneNumbersComponent extends StatefulWidget {
@@ -100,17 +101,19 @@ class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: Colors.black.withOpacity(0.16),
+                    color: getCustomColors(context).lightBorder ??
+                        Colors.transparent,
                     width: 0.5,
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.04),
+                      color: getCustomColors(context).lightShadow ??
+                          Colors.transparent,
                       blurRadius: 6,
                       offset: const Offset(1, 3), // changes position of shadow
                     ),
                   ],
-                  color: Colors.white,
+                  color: Theme.of(context).primaryColor,
                 ),
                 child: Center(
                     child: Row(
@@ -199,36 +202,37 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                      color: Colors.black.withOpacity(0.24),
+                      color: getCustomColors(context).lightBorder ??
+                          Colors.transparent,
                       width: 0.5,
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.04),
+                        color: getCustomColors(context).lightShadow ??
+                            Colors.transparent,
                         blurRadius: 6,
                         offset:
                             const Offset(1, 3), // changes position of shadow
                       ),
                     ],
-                    color: Colors.white,
+                    color: Theme.of(context).primaryColor,
                   ),
                   child: Center(
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        CustomIcons.globe_5,
-                        color: Colors.black.withOpacity(0.24),
-                      ),
-                      Opacity(
-                        opacity: 0.24,
-                        child: Text(
+                      child: Opacity(
+                    opacity: 0.24,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          CustomIcons.globe_5,
+                        ),
+                        Text(
                           "+**",
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   )),
                 ),
               ),

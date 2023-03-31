@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import '../../../pet_color/pet_colors.dart';
-import '../../../styles/text_styles.dart';
+import 'package:userapp/theme/custom_colors.dart';
 import '../../../theme/custom_text_styles.dart';
 
 ///Lets USer choose between camera and gallery
@@ -21,7 +20,6 @@ class _DeleteImageAlertDialogState extends State<DeleteImageAlertDialog> {
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(14),
-        side: const BorderSide(color: Colors.black, width: 2.5),
       ),
       elevation: 0,
       child: SizedBox(
@@ -45,6 +43,7 @@ class _DeleteImageAlertDialogState extends State<DeleteImageAlertDialog> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  //Todo switch with Cancel and Confirm Widgets
                   OutlinedButton(
                     onPressed: () => Navigator.pop(context),
                     style: OutlinedButton.styleFrom(
@@ -64,7 +63,8 @@ class _DeleteImageAlertDialogState extends State<DeleteImageAlertDialog> {
                     onPressed: () => Navigator.pop(context, 1),
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                      backgroundColor: alertDialogButtonConfirm,
+                      //TODO put delete Color
+                      backgroundColor: getCustomColors(context).accent,
                       side: const BorderSide(width: 1, color: Colors.black),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),

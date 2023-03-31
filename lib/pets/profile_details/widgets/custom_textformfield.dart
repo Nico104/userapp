@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../styles/text_styles.dart';
+import '../../../theme/custom_colors.dart';
 import '../../../theme/custom_text_styles.dart';
 
 class CustomTextFormFieldActive extends StatefulWidget {
@@ -81,7 +82,9 @@ class _CustomTextFormFieldActiveState extends State<CustomTextFormFieldActive> {
         borderRadius: BorderRadius.circular(2),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(_isFocused ? 0.16 : 0.04),
+            color: _isFocused
+                ? getCustomColors(context).shadow ?? Colors.transparent
+                : getCustomColors(context).lightShadow ?? Colors.transparent,
             blurRadius: _isFocused ? 8 : 6,
             offset: const Offset(1, 3), // changes position of shadow
           ),
@@ -96,7 +99,7 @@ class _CustomTextFormFieldActiveState extends State<CustomTextFormFieldActive> {
         textInputAction: widget.textInputAction,
         focusNode: _focusNode,
         controller: _textEditingController,
-        cursorColor: Colors.black.withOpacity(0.74),
+        cursorColor: getCustomColors(context).hardBorder,
         style: Theme.of(context).textTheme.labelMedium,
         decoration: InputDecoration(
           errorText: widget.errorText,
@@ -122,9 +125,10 @@ class _CustomTextFormFieldActiveState extends State<CustomTextFormFieldActive> {
               : null,
           hintStyle: getCustomTextStyles(context).textFormFieldHint,
           labelStyle: getCustomTextStyles(context).textFormFieldLabel,
-          fillColor: Colors.white,
+          fillColor: Theme.of(context).primaryColor,
           filled: true,
-          suffixIconColor: Colors.grey,
+          //TODO suffixColor
+          suffixIconColor: getCustomColors(context).hardBorder,
           suffixIcon: _isFocused
               ? GestureDetector(
                   onTap: () {
@@ -144,14 +148,14 @@ class _CustomTextFormFieldActiveState extends State<CustomTextFormFieldActive> {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(2),
             borderSide: BorderSide(
-              color: Colors.black.withOpacity(0.84),
+              color: getCustomColors(context).hardBorder ?? Colors.transparent,
               width: 1,
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(
-              color: Colors.black.withOpacity(0.24),
+              color: getCustomColors(context).lightBorder ?? Colors.transparent,
               width: 0.5,
             ),
           ),

@@ -5,8 +5,9 @@ import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/pets/profile_details/widgets/custom_textformfield.dart';
 import 'package:userapp/pets/tag/tags.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
-import '../../pet_color/pet_colors.dart';
+
 import '../../styles/text_styles.dart';
+import '../../theme/custom_colors.dart';
 import '../../theme/custom_text_styles.dart';
 import 'models/m_tag.dart';
 
@@ -216,12 +217,16 @@ class _PetNameDialogState extends State<PetNameDialog> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  //Todo remove Outlined Button and stay with Containers to keep it the same everywhere - Extract Cancel Widget and Save Widget
                   OutlinedButton(
                     onPressed: () => Navigator.pop(context),
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
                       side: BorderSide(
-                          width: 0.5, color: Colors.black.withOpacity(0.16)),
+                        width: 0.5,
+                        color: getCustomColors(context).lightBorder ??
+                            Colors.transparent,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -236,10 +241,11 @@ class _PetNameDialogState extends State<PetNameDialog> {
                     onPressed: () => Navigator.pop(context, text),
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                      backgroundColor: dataEditDialogButtonSave,
+                      backgroundColor: getCustomColors(context).accent,
                       side: BorderSide(
                         width: 0.5,
-                        color: Colors.black.withOpacity(0.16),
+                        color: getCustomColors(context).lightBorder ??
+                            Colors.transparent,
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),

@@ -19,7 +19,6 @@ class _GalleryCameraDialogState extends State<GalleryCameraDialog> {
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(14),
-        side: const BorderSide(color: Colors.black, width: 2.5),
       ),
       elevation: 0,
       child: SizedBox(

@@ -1,6 +1,7 @@
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import '../../../styles/text_styles.dart';
+import '../../theme/custom_colors.dart';
 import 'c_component_title.dart';
 import 'widgets/custom_textformfield.dart';
 
@@ -86,7 +87,8 @@ class SingleSocialMedia extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: Colors.black.withOpacity(0.16),
+                color:
+                    getCustomColors(context).lightBorder ?? Colors.transparent,
                 width: 0.5,
               ),
               boxShadow: [
@@ -96,7 +98,7 @@ class SingleSocialMedia extends StatelessWidget {
                   offset: const Offset(1, 3), // changes position of shadow
                 ),
               ],
-              color: Colors.white,
+              color: Theme.of(context).primaryColor,
             ),
             child: Center(
               child: Padding(

@@ -106,12 +106,6 @@ class _MyPetsState extends State<MyPets> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: backgroundColor,
-      backgroundColor: Colors.white,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
       body: Stack(
         children: [
           AnimatedSwitcher(
@@ -137,7 +131,7 @@ class _MyPetsState extends State<MyPets> {
                   sigmaY: 15,
                 ),
                 child: Container(
-                  color: Colors.white.withOpacity(0.50),
+                  color: Theme.of(context).canvasColor.withOpacity(0.50),
                 ),
               ),
             ),

@@ -2,6 +2,7 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/models/m_description.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
+import 'package:userapp/theme/custom_colors.dart';
 
 import '../../language/m_language.dart';
 import '../../styles/text_styles.dart';
@@ -117,8 +118,11 @@ class DescriptionTranslation extends StatelessWidget {
               width: 60,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.black, width: 1.5),
-                color: Colors.white,
+                border: Border.all(
+                    color: getCustomColors(context).lightBorder ??
+                        Colors.transparent,
+                    width: 1),
+                color: Theme.of(context).primaryColor,
               ),
               child: Center(
                   child: Padding(
@@ -204,9 +208,11 @@ class _NewDescriptionTranslationState extends State<NewDescriptionTranslation> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                    color: const Color(0xFF707070).withOpacity(0.28),
-                    width: 1.5),
-                color: Colors.white,
+                  color: getCustomColors(context).lightBorder ??
+                      Colors.transparent,
+                  width: 1,
+                ),
+                color: Theme.of(context).primaryColor,
               ),
               child: const Center(
                   child: Padding(

@@ -29,12 +29,7 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        scrolledUnderElevation: 8,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-      ),
+      appBar: AppBar(),
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(28),

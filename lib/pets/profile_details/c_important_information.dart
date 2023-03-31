@@ -6,6 +6,7 @@ import 'package:userapp/styles/custom_icons_icons.dart';
 
 import '../../language/m_language.dart';
 import '../../styles/text_styles.dart';
+import '../../theme/custom_colors.dart';
 import 'c_component_title.dart';
 import '../../language/c_language_selection.dart';
 import 'widgets/custom_textformfield.dart';
@@ -120,8 +121,11 @@ class ImportantInformationTranslation extends StatelessWidget {
               width: 60,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.black, width: 1.5),
-                color: Colors.white,
+                border: Border.all(
+                    color: getCustomColors(context).lightBorder ??
+                        Colors.transparent,
+                    width: 1),
+                color: Theme.of(context).primaryColor,
               ),
               child: Center(
                   child: Padding(
@@ -209,9 +213,11 @@ class _NewImportantInformationTranslationState
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                    color: const Color(0xFF707070).withOpacity(0.28),
-                    width: 1.5),
-                color: Colors.white,
+                  color: getCustomColors(context).lightBorder ??
+                      Colors.transparent,
+                  width: 1,
+                ),
+                color: Theme.of(context).primaryColor,
               ),
               child: const Center(
                   child: Padding(
