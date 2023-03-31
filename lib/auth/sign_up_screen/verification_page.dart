@@ -58,13 +58,13 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
         Text(
           "Verification",
           textAlign: TextAlign.center,
-          style: loginTitle1,
+          style: Theme.of(context).textTheme.headlineLarge,
         ),
         SizedBox(height: 02.h),
         Text(
           "We send email pululu",
           textAlign: TextAlign.center,
-          style: loginTitle2,
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
         SizedBox(height: 05.h),
         const Spacer(),

@@ -39,13 +39,13 @@ class _SignUpEmailPageState extends State<SignUpEmailPage> {
           Text(
             "Tail-waggingly happy\nto see you!",
             textAlign: TextAlign.center,
-            style: loginTitle1,
+            style: Theme.of(context).textTheme.headlineLarge,
           ),
           SizedBox(height: 02.h),
           Text(
             "It's time to sign up and get\nthis paw-ty started.",
             textAlign: TextAlign.center,
-            style: loginTitle2,
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
           SizedBox(height: 05.h),
           CustomTextFormFieldActive(
@@ -102,38 +102,7 @@ class _SignUpEmailPageState extends State<SignUpEmailPage> {
             ),
           ),
           SizedBox(height: 05.h),
-          Padding(
-            padding: const EdgeInsets.only(left: 36, right: 36),
-            child: Opacity(
-              opacity: 0.28,
-              child: Row(
-                children: [
-                  const Expanded(
-                      child: Divider(color: Colors.black, thickness: 1)),
-                  SizedBox(width: 03.w),
-                  Text(
-                    "or continue with",
-                    style: loginContinueWith,
-                  ),
-                  SizedBox(width: 03.w),
-                  const Expanded(
-                      child: Divider(color: Colors.black, thickness: 1)),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(height: 02.h),
-          Padding(
-            padding: const EdgeInsets.only(left: 36, right: 36),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                SocialMediaContainer(),
-                SocialMediaContainer(),
-                SocialMediaContainer(),
-              ],
-            ),
-          ),
+          const ContinueWithSocialMedia(),
         ],
       ),
     );

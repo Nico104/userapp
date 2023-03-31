@@ -52,6 +52,13 @@ final ThemeData constLightTheme = ThemeData(
       fontSize: 14,
       color: Colors.black.withOpacity(0.64),
     ),
+    //Used for Button Labels
+    labelLarge: const TextStyle(
+      fontFamily: 'Lora',
+      fontWeight: FontWeight.w600,
+      fontSize: 20,
+      color: Colors.white,
+    ),
   ),
   extensions: <ThemeExtension<dynamic>>[
     CustomTextStyles(
@@ -119,6 +126,12 @@ final ThemeData constLightTheme = ThemeData(
         fontWeight: FontWeight.w400,
         fontSize: 18,
         color: Colors.black.withOpacity(0.38),
+      ),
+      authRegisterNowAction: TextStyle(
+        fontFamily: 'Promt',
+        fontWeight: FontWeight.w400,
+        fontSize: 16,
+        color: Colors.blue.shade700,
       ),
     ),
   ],

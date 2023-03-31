@@ -45,13 +45,13 @@ class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
           Text(
             "Password",
             textAlign: TextAlign.center,
-            style: loginTitle1,
+            style: Theme.of(context).textTheme.headlineLarge,
           ),
           SizedBox(height: 02.h),
           Text(
             "It's time to sign up and get\nthis paw-ty started.",
             textAlign: TextAlign.center,
-            style: loginTitle2,
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
           SizedBox(height: 05.h),
           const Spacer(),

@@ -14,6 +14,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
     @required this.profileDetailsTabLabelInactive,
     @required this.textFormFieldHint,
     @required this.textFormFieldLabel,
+    @required this.authRegisterNowAction,
   });
 
   final TextStyle? profileDetailsPetName;
@@ -29,6 +30,9 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
   final TextStyle? textFormFieldHint;
   final TextStyle? textFormFieldLabel;
 
+  //Used for the not a Member text
+  final TextStyle? authRegisterNowAction;
+
   @override
   CustomTextStyles copyWith({
     TextStyle? profileDetailsPetName,
@@ -42,6 +46,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
     TextStyle? profileDetailsTabLabelInactive,
     TextStyle? textFormFieldHint,
     TextStyle? textFormFieldLabel,
+    TextStyle? authRegisterNowAction,
   }) {
     return CustomTextStyles(
       profileDetailsPetName:
@@ -60,6 +65,8 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
           profileDetailsTabLabelInactive ?? this.profileDetailsTabLabelInactive,
       textFormFieldHint: textFormFieldHint ?? this.textFormFieldHint,
       textFormFieldLabel: textFormFieldLabel ?? this.textFormFieldLabel,
+      authRegisterNowAction:
+          authRegisterNowAction ?? this.authRegisterNowAction,
     );
   }
 
@@ -122,6 +129,11 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
       textFormFieldLabel: TextStyle.lerp(
         textFormFieldLabel,
         other.textFormFieldLabel,
+        t,
+      ),
+      authRegisterNowAction: TextStyle.lerp(
+        authRegisterNowAction,
+        other.authRegisterNowAction,
         t,
       ),
     );

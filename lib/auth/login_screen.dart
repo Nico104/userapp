@@ -5,9 +5,11 @@ import 'package:sizer/sizer.dart';
 import 'package:userapp/auth/sign_up_screen/sign_up_screen.dart';
 import 'package:userapp/auth/u_auth.dart';
 import 'package:userapp/pet_color/hex_color.dart';
+import 'package:userapp/theme/custom_text_styles.dart';
 
 import '../pets/profile_details/widgets/custom_textformfield.dart';
 import '../styles/text_styles.dart';
+import 'auth_widgets.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, required this.reloadInitApp});
@@ -19,9 +21,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  // TextEditingController email = TextEditingController();
-  // TextEditingController password = TextEditingController();
-
   String emailText = "";
   String passwordText = "";
 
@@ -29,15 +28,6 @@ class _LoginScreenState extends State<LoginScreen> {
   String? _passwordErrorMsg;
 
   bool _rememberMe = true;
-
-  bool _obscurePassword = true;
-
-  // @override
-  // void dispose() {
-  //   email.dispose();
-  //   password.dispose();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -67,13 +57,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     Text(
                       "Tail-waggingly happy\nto see you!",
                       textAlign: TextAlign.center,
-                      style: loginTitle1,
+                      style: Theme.of(context).textTheme.headlineLarge,
                     ),
                     SizedBox(height: 02.h),
                     Text(
                       "It's time to log in and get\nthis paw-ty started.",
                       textAlign: TextAlign.center,
-                      style: loginTitle2,
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     SizedBox(height: 04.h),
                     CustomTextFormFieldActive(
@@ -125,13 +115,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           child: RememberMe(rememberMe: _rememberMe),
                         ),
-                        Text("Forgot Password", style: loginForgotPassword),
+                        Text(
+                          "Forgot Password",
+                          style: Theme.of(context).textTheme.labelSmall,
+                        ),
                       ],
                     ),
                     SizedBox(height: 05.h),
                     Padding(
                       padding: const EdgeInsets.only(left: 36, right: 36),
-                      child: GestureDetector(
+                      child: CustomBigButton(
+                        label: "Sign In",
                         onTap: () {
                           login(emailText, passwordText, _rememberMe).then(
                             (value) {
@@ -154,76 +148,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           );
                         },
-                        child: Container(
-                          width: double.infinity,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: HexColor("8F8FFF"),
-                            border: Border.all(
-                              width: 1,
-                              color: Colors.black.withOpacity(0.16),
-                              // strokeAlign: BorderSide.strokeAlignOutside,
-                            ),
-                            borderRadius: BorderRadius.circular(14),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.16),
-                                blurRadius: 6,
-                                offset: const Offset(1, 3),
-                              ),
-                            ],
-                          ),
-                          child: Center(
-                              child: Text(
-                            "Sign In",
-                            style: loginButton,
-                          )),
-                        ),
                       ),
                     ),
                     SizedBox(height: 05.h),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 36, right: 36),
-                      child: Opacity(
-                        opacity: 0.28,
-                        child: Row(
-                          children: [
-                            const Expanded(
-                                child:
-                                    Divider(color: Colors.black, thickness: 1)),
-                            SizedBox(width: 03.w),
-                            Text(
-                              "or continue with",
-                              style: loginContinueWith,
-                            ),
-                            SizedBox(width: 03.w),
-                            const Expanded(
-                                child:
-                                    Divider(color: Colors.black, thickness: 1)),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 02.h),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 36, right: 36),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          SocialMediaContainer(),
-                          SocialMediaContainer(),
-                          SocialMediaContainer(),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 03.h),
+                    const ContinueWithSocialMedia(),
                     const Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           "Not a member? ",
-                          style: loginNotAMembner,
+                          style: Theme.of(context).textTheme.labelMedium,
                         ),
                         GestureDetector(
                           onTap: () {
@@ -238,7 +173,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           child: Text(
                             "Register now",
-                            style: loginSignUp,
+                            style: getCustomTextStyles(context)
+                                .authRegisterNowAction,
                           ),
                         ),
                       ],
@@ -247,34 +183,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class SocialMediaContainer extends StatelessWidget {
-  const SocialMediaContainer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 60,
-      width: 80,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(
-          width: 1,
-          color: Colors.black.withOpacity(0.16),
-          // strokeAlign: BorderSide.strokeAlignOutside,
-        ),
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.16),
-            blurRadius: 6,
-            offset: const Offset(1, 3),
           ),
         ],
       ),
@@ -322,7 +230,7 @@ class RememberMe extends StatelessWidget {
               : null,
         ),
         const SizedBox(width: 8),
-        Text("Remember Me", style: loginForgotPassword),
+        Text("Remember Me", style: Theme.of(context).textTheme.labelSmall),
       ],
     );
   }

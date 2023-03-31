@@ -13,11 +13,12 @@ class ThemeNotifier with ChangeNotifier {
   ThemeNotifier() {
     StorageManager.readData('themeMode').then(
       (value) {
-        if (value == 'light') {
-          _themeData = lightTheme;
-        } else {
-          _themeData = darkTheme;
-        }
+        // if (value == 'light') {
+        //   _themeData = lightTheme;
+        // } else {
+        //   _themeData = darkTheme;
+        // }
+        _themeData = lightTheme;
         notifyListeners();
       },
     );
