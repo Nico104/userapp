@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:userapp/init_app.dart';
+import 'package:userapp/settings/setting_screens/notifcation_settings/notification_settings.dart';
 import 'package:userapp/settings/setting_screens/theme_settings/theme_settings.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
 
@@ -92,10 +93,16 @@ class _SettingsState extends State<Settings> {
                   },
                 ),
                 const SizedBox(height: settingItemSpacing),
-                const SettingsItem(
+                SettingsItem(
                   label: "Notifications",
-                  leading: Icon(CustomIcons.notification),
-                  suffix: Icon(Icons.keyboard_arrow_right),
+                  leading: const Icon(CustomIcons.notification),
+                  suffix: const Icon(Icons.keyboard_arrow_right),
+                  onTap: () {
+                    navigatePerSlide(
+                      context,
+                      const NotificationSettings(),
+                    );
+                  },
                 ),
                 const SizedBox(height: settingItemSpacing),
                 SettingsItem(
@@ -107,12 +114,6 @@ class _SettingsState extends State<Settings> {
                       context,
                       const ThemeSettings(),
                     );
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const ThemeSettings(),
-                    //   ),
-                    // );
                   },
                 ),
                 const SizedBox(height: settingItemSpacing),
@@ -161,7 +162,7 @@ class _SettingsState extends State<Settings> {
                 ),
                 const SizedBox(height: settingItemSpacing),
                 const SettingsItem(
-                  label: "Contact us (even for Feedback)",
+                  label: "Contact us",
                   leading: Icon(CustomIcons.notification),
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),

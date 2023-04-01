@@ -91,7 +91,7 @@ class SingleSocialMedia extends StatelessWidget {
                     getCustomColors(context).lightBorder ?? Colors.transparent,
                 width: 0.5,
               ),
-              boxShadow: kElevationToShadow[2],
+              boxShadow: kElevationToShadow[0],
               color: Theme.of(context).primaryColor,
             ),
             child: Center(

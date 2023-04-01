@@ -20,6 +20,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
   });
 
   final Color? accent;
+  //? In dark mode accentLight might be needed for accentDark in Light mode and vice versa, name accordingly
   final Color? accentLight;
   final Color? accentDark;
   final Color? lightBorder;

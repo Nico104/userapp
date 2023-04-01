@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../styles/text_styles.dart';
+import '../../../theme/custom_colors.dart';
 import '../../../theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -11,13 +11,6 @@ class ThemeSettings extends StatefulWidget {
 }
 
 class _ThemeSettingsState extends State<ThemeSettings> {
-  final double _appBarElevationActivated = 8;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,26 +18,138 @@ class _ThemeSettingsState extends State<ThemeSettings> {
         title: const Text("Choose Theme"),
       ),
       body: Consumer<ThemeNotifier>(
-        builder: (context, theme, _) => Column(
+        builder: (context, theme, _) => ListView(
           children: [
-            OutlinedButton(
-              onPressed: () {
-                if (theme.getTheme() == theme.darkTheme) {
+            ThemeSelectionContainer(
+              isActive: theme.getTheme() == theme.lightTheme,
+              onTap: () {
+                if (theme.getTheme() != theme.lightTheme) {
                   theme.setLightTheme();
                 }
               },
-              child: const Text("Light"),
+              label: "Light Mode",
+              themeData: theme.lightTheme,
             ),
-            OutlinedButton(
-              onPressed: () {
-                if (theme.getTheme() == theme.lightTheme) {
+            ThemeSelectionContainer(
+              isActive: theme.getTheme() == theme.darkTheme,
+              onTap: () {
+                if (theme.getTheme() != theme.darkTheme) {
                   theme.setDarkTheme();
                 }
               },
-              child: const Text("Dark"),
+              label: "Dark Mode",
+              themeData: theme.darkTheme,
             ),
+            // OutlinedButton(
+            //   onPressed: () {
+            //     if (theme.getTheme() == theme.darkTheme) {
+            //       theme.setLightTheme();
+            //     }
+            //   },
+            //   child: const Text("Light"),
+            // ),
+            // OutlinedButton(
+            //   onPressed: () {
+            //     if (theme.getTheme() == theme.lightTheme) {
+            //       theme.setDarkTheme();
+            //     }
+            //   },
+            //   child: const Text("Dark"),
+            // ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ThemeSelectionContainer extends StatelessWidget {
+  const ThemeSelectionContainer({
+    super.key,
+    required this.isActive,
+    required this.onTap,
+    required this.label,
+    required this.themeData,
+  });
+
+  final bool isActive;
+  final VoidCallback onTap;
+
+  final String label;
+  final ThemeData themeData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(28),
+      padding: const EdgeInsets.all(28),
+      decoration: BoxDecoration(
+        color: isActive ? themeData.primaryColor : Colors.transparent,
+        borderRadius: BorderRadius.circular(22),
+        boxShadow: kElevationToShadow[isActive ? 4 : 0],
+      ),
+      child: Column(
+        children: [
+          Container(
+            height: 250,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColorDark,
+              border: Border.all(
+                width: 1.5,
+                strokeAlign: BorderSide.strokeAlignOutside,
+                color: themeData.extension<CustomColors>()?.lightBorder ??
+                    Colors.transparent,
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: FractionallySizedBox(
+              widthFactor: 0.85,
+              heightFactor: 0.75,
+              alignment: FractionalOffset.bottomRight,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  //To only have it on top and left side plus keep border Radius
+                  boxShadow: [
+                    BoxShadow(
+                        color:
+                            themeData.extension<CustomColors>()?.lightBorder ??
+                                Colors.transparent,
+                        blurRadius: 0,
+                        offset: const Offset(-1, -1)),
+                  ],
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20)),
+                ),
+                padding: const EdgeInsets.all(16),
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Aa",
+                  style: themeData.textTheme.headlineLarge,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 28),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Light Mode",
+                style: themeData.textTheme.titleMedium,
+              ),
+              isActive
+                  ? Chip(
+                      label: Text(
+                      "Active",
+                      style: themeData.textTheme.labelSmall,
+                    ))
+                  : const SizedBox(),
+            ],
+          )
+        ],
       ),
     );
   }

@@ -61,7 +61,8 @@ class _EditPagesTabComponentState extends State<EditPagesTabComponent> {
               TabItem(
                 label: "Documents",
                 isActive: index == 2,
-                bgColor: getCustomColors(context).accent ?? Colors.transparent,
+                bgColor:
+                    getCustomColors(context).accentLight ?? Colors.transparent,
                 onTap: () {
                   int myIndex = 2;
                   if (index != myIndex) {
@@ -76,12 +77,12 @@ class _EditPagesTabComponentState extends State<EditPagesTabComponent> {
           ),
         ),
         AnimatedSwitcher(
-          duration: Duration(milliseconds: 0),
+          duration: const Duration(milliseconds: 0),
           transitionBuilder: (Widget child, Animation<double> animation) {
             return SlideTransition(
               position: Tween(
-                begin: Offset(1, 0),
-                end: Offset(0, 0),
+                begin: const Offset(1, 0),
+                end: const Offset(0, 0),
               ).animate(animation),
               child: child,
             );

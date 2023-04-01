@@ -28,6 +28,7 @@ class CustomBigButton extends StatelessWidget {
             // strokeAlign: BorderSide.strokeAlignOutside,
           ),
           borderRadius: BorderRadius.circular(14),
+          //The following elevations have defined shadows: 1, 2, 3, 4, 6, 8, 9, 12, 16, 24
           boxShadow: kElevationToShadow[4],
         ),
         child: Center(

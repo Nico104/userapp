@@ -6,6 +6,7 @@ import 'package:userapp/styles/custom_icons_icons.dart';
 import 'package:userapp/theme/custom_colors.dart';
 import 'package:userapp/theme/custom_text_styles.dart';
 import 'package:userapp/utils/util_methods.dart';
+import 'pet_profile_preview_extended_actions.dart';
 import 'profile_details/models/m_pet_profile.dart';
 
 class PetProfilePreview extends StatefulWidget {
@@ -82,156 +83,26 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                                   Alignment(widget.imageAlignmentOffset, 0),
                             ),
                           ),
-                          child: Container(
-                            height: double.infinity,
-                            width: double.infinity,
-                            alignment: Alignment.bottomCenter,
-                            child: Container(
-                              height: widget.extendedActions ? 130 : 0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: widget.extendedActions
-                                        ? const Radius.circular(0)
-                                        : Radius.circular(borderRadius),
-                                    topRight: widget.extendedActions
-                                        ? const Radius.circular(0)
-                                        : Radius.circular(borderRadius),
-                                    bottomLeft: Radius.circular(borderRadius),
-                                    bottomRight: Radius.circular(borderRadius)),
-                                color: Theme.of(context).primaryColor,
-                              ),
-                              child: AnimatedOpacity(
-                                duration: _duration,
-                                curve: _curve,
-                                opacity: widget.extendedActions ? 1 : 0,
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: GestureDetector(
-                                        onTap: () {},
-                                        child: Container(
-                                          //To trigger the Hit Box
-                                          color: Colors.transparent,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              Expanded(
-                                                flex: iconFlex,
-                                                child: const Center(
-                                                  child: Icon(
-                                                    CustomIcons.share_thin,
-                                                    // Icons.share_rounded,
-                                                    size: 32,
-                                                  ),
-                                                ),
-                                              ),
-                                              Text(
-                                                "Share",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .labelMedium,
-                                              ),
-                                              Expanded(
-                                                flex: labelFlex,
-                                                child: const SizedBox(),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          navigatePerSlide(
-                                            context,
-                                            PetProfileDetailView(
-                                              petProfileDetails:
-                                                  widget.petProfileDetails,
-                                              reloadFuture: widget.reloadFuture,
-                                            ),
-                                          );
-                                        },
-                                        // onTap: () => Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //     builder: (context) =>
-                                        //         PetProfileDetailView(
-                                        //       petProfileDetails:
-                                        //           widget.petProfileDetails,
-                                        //       reloadFuture: widget.reloadFuture,
-                                        //     ),
-                                        //   ),
-                                        // ),
-                                        child: Container(
-                                          //To trigger the Hit Box
-                                          color: Colors.transparent,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              Expanded(
-                                                flex: iconFlex,
-                                                child: const Center(
-                                                  child: Icon(
-                                                    CustomIcons.edit_square,
-                                                    size: 32,
-                                                  ),
-                                                ),
-                                              ),
-                                              Text(
-                                                "Edit",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .labelMedium,
-                                              ),
-                                              Expanded(
-                                                  flex: labelFlex,
-                                                  child: const SizedBox()),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: GestureDetector(
-                                        onTap: () {},
-                                        child: Container(
-                                          //To trigger the Hit Box
-                                          color: Colors.transparent,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              Expanded(
-                                                flex: iconFlex,
-                                                child: const Center(
-                                                  child: Icon(
-                                                    CustomIcons.qr_code_9,
-                                                    size: 32,
-                                                  ),
-                                                ),
-                                              ),
-                                              Text(
-                                                "Scans",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .labelMedium,
-                                              ),
-                                              Expanded(
-                                                  flex: labelFlex,
-                                                  child: const SizedBox()),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                          child: IgnorePointer(
+                            ignoring: !widget.extendedActions,
+                            child: ExtendedSettingsContainer(
+                              isActive: widget.extendedActions,
+                              petProfileDetails: widget.petProfileDetails,
+                              reloadFuture: widget.reloadFuture,
                             ),
                           ),
+                          // child: ExtendedSettingsContainer(
+                          //     widget: widget,
+                          //     widget: widget,
+                          //     borderRadius: borderRadius,
+                          //     widget: widget,
+                          //     duration: _duration,
+                          //     curve: _curve,
+                          //     widget: widget,
+                          //     iconFlex: iconFlex,
+                          //     labelFlex: labelFlex,
+                          //     widget: widget,
+                          //     widget: widget),
                         ),
                       ),
                     ],
@@ -273,7 +144,8 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
               //   ),
               // ),
               IgnorePointer(
-                ignoring: widget.extendedActions,
+                // ignoring: widget.extendedActions,
+                ignoring: true,
                 child: GestureDetector(
                   // onTap: () {
                   //   showDialog(
@@ -338,3 +210,149 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
     );
   }
 }
+
+// class ExtendedSettingsContainer extends StatelessWidget {
+//   const ExtendedSettingsContainer({
+//     super.key,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       height: double.infinity,
+//       width: double.infinity,
+//       alignment: Alignment.bottomCenter,
+//       child: Container(
+//         height: widget.extendedActions ? 130 : 0,
+//         decoration: BoxDecoration(
+//           borderRadius: BorderRadius.only(
+//               topLeft: widget.extendedActions
+//                   ? const Radius.circular(0)
+//                   : Radius.circular(borderRadius),
+//               topRight: widget.extendedActions
+//                   ? const Radius.circular(0)
+//                   : Radius.circular(borderRadius),
+//               bottomLeft: Radius.circular(borderRadius),
+//               bottomRight: Radius.circular(borderRadius)),
+//           color: Theme.of(context).primaryColor,
+//         ),
+//         child: AnimatedOpacity(
+//           duration: _duration,
+//           curve: _curve,
+//           opacity: widget.extendedActions ? 1 : 0,
+//           child: Row(
+//             children: [
+//               Expanded(
+//                 child: GestureDetector(
+//                   onTap: () {},
+//                   child: Container(
+//                     //To trigger the Hit Box
+//                     color: Colors.transparent,
+//                     child: Column(
+//                       mainAxisAlignment: MainAxisAlignment.end,
+//                       children: [
+//                         Expanded(
+//                           flex: iconFlex,
+//                           child: const Center(
+//                             child: Icon(
+//                               CustomIcons.share_thin,
+//                               // Icons.share_rounded,
+//                               size: 32,
+//                             ),
+//                           ),
+//                         ),
+//                         Text(
+//                           "Share",
+//                           style: Theme.of(context).textTheme.labelMedium,
+//                         ),
+//                         Expanded(
+//                           flex: labelFlex,
+//                           child: const SizedBox(),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//               Expanded(
+//                 child: GestureDetector(
+//                   onTap: () {
+//                     navigatePerSlide(
+//                       context,
+//                       PetProfileDetailView(
+//                         petProfileDetails: widget.petProfileDetails,
+//                         reloadFuture: widget.reloadFuture,
+//                       ),
+//                     );
+//                   },
+//                   // onTap: () => Navigator.push(
+//                   //   context,
+//                   //   MaterialPageRoute(
+//                   //     builder: (context) =>
+//                   //         PetProfileDetailView(
+//                   //       petProfileDetails:
+//                   //           widget.petProfileDetails,
+//                   //       reloadFuture: widget.reloadFuture,
+//                   //     ),
+//                   //   ),
+//                   // ),
+//                   child: Container(
+//                     //To trigger the Hit Box
+//                     color: Colors.transparent,
+//                     child: Column(
+//                       mainAxisAlignment: MainAxisAlignment.end,
+//                       children: [
+//                         Expanded(
+//                           flex: iconFlex,
+//                           child: const Center(
+//                             child: Icon(
+//                               CustomIcons.edit_square,
+//                               size: 32,
+//                             ),
+//                           ),
+//                         ),
+//                         Text(
+//                           "Edit",
+//                           style: Theme.of(context).textTheme.labelMedium,
+//                         ),
+//                         Expanded(flex: labelFlex, child: const SizedBox()),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//               Expanded(
+//                 child: GestureDetector(
+//                   onTap: () {},
+//                   child: Container(
+//                     //To trigger the Hit Box
+//                     color: Colors.transparent,
+//                     child: Column(
+//                       mainAxisAlignment: MainAxisAlignment.end,
+//                       children: [
+//                         Expanded(
+//                           flex: iconFlex,
+//                           child: const Center(
+//                             child: Icon(
+//                               CustomIcons.qr_code_9,
+//                               size: 32,
+//                             ),
+//                           ),
+//                         ),
+//                         Text(
+//                           "Scans",
+//                           style: Theme.of(context).textTheme.labelMedium,
+//                         ),
+//                         Expanded(flex: labelFlex, child: const SizedBox()),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

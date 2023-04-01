@@ -199,7 +199,7 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
                           Colors.transparent,
                       width: 0.5,
                     ),
-                    boxShadow: kElevationToShadow[4],
+                    boxShadow: kElevationToShadow[0],
                     color: Theme.of(context).primaryColor,
                   ),
                   child: Center(

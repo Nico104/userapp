@@ -3,6 +3,7 @@ import 'package:userapp/auth/u_auth.dart';
 
 import '../../../pet_color/hex_color.dart';
 import '../../../styles/text_styles.dart';
+import '../../../utils/util_methods.dart';
 import '../../widgets/settings_widgets.dart';
 import 'edit_password.dart';
 
@@ -63,12 +64,10 @@ class _AccountSettingsState extends State<AccountSettings> {
                         leading: const Icon(Icons.password_outlined),
                         suffix: const Icon(Icons.keyboard_arrow_right),
                         onTap: () {
-                          Navigator.push(
+                          navigatePerSlide(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => EditPasswordPage(
-                                currentPassword: snapshot.data!.elementAt(1),
-                              ),
+                            EditPasswordPage(
+                              currentPassword: snapshot.data!.elementAt(1),
                             ),
                           );
                         },

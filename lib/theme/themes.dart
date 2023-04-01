@@ -14,14 +14,15 @@ final ThemeData constLightTheme = ThemeData(
     centerTitle: true,
     titleTextStyle: TextStyle(
       fontFamily: 'LibreBaskerville',
-      fontSize: 24,
+      fontSize: 20,
       color: Colors.black,
     ),
   ),
+  switchTheme: SwitchThemeData(),
   //Used e.p. for SocialMediaContainer
   primaryColor: Colors.white,
   // primaryColorLight: ,
-  // primaryColorDark: ,
+  primaryColorDark: HexColor("f3f3f3"),
   //Used for Scaffold BG e.p.
   canvasColor: Colors.white,
   dividerTheme: const DividerThemeData(
