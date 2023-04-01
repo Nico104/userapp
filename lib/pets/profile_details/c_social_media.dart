@@ -91,13 +91,7 @@ class SingleSocialMedia extends StatelessWidget {
                     getCustomColors(context).lightBorder ?? Colors.transparent,
                 width: 0.5,
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.04),
-                  blurRadius: 6,
-                  offset: const Offset(1, 3), // changes position of shadow
-                ),
-              ],
+              boxShadow: kElevationToShadow[2],
               color: Theme.of(context).primaryColor,
             ),
             child: Center(

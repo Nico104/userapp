@@ -80,13 +80,7 @@ class SettingsContainer extends StatelessWidget {
           // strokeAlign: BorderSide.strokeAlignOutside,
         ),
         borderRadius: BorderRadius.circular(18),
-        boxShadow: [
-          BoxShadow(
-            color: getCustomColors(context).shadow ?? Colors.transparent,
-            blurRadius: 6,
-            offset: const Offset(1, 3),
-          ),
-        ],
+        boxShadow: kElevationToShadow[3],
       ),
       child: child,
     );

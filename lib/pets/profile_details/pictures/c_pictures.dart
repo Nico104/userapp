@@ -152,13 +152,7 @@ class SinglePicture extends StatelessWidget {
           height: imageHeight,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(imageBorderRadius),
-            boxShadow: [
-              BoxShadow(
-                color: getCustomColors(context).shadow ?? Colors.transparent,
-                blurRadius: 6,
-                offset: const Offset(0.5, 1.5), // changes position of shadow
-              ),
-            ],
+            boxShadow: kElevationToShadow[2],
             image: DecorationImage(
               image: image,
               fit: BoxFit.cover,

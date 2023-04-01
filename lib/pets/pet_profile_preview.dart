@@ -73,15 +73,7 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(borderRadius),
-                            boxShadow: [
-                              BoxShadow(
-                                color: getCustomColors(context).shadow ??
-                                    Colors.transparent,
-                                blurRadius: 6,
-                                offset: const Offset(
-                                    1, 3), // changes position of shadow
-                              ),
-                            ],
+                            boxShadow: kElevationToShadow[4],
                             image: DecorationImage(
                               image: const NetworkImage(
                                   "https://picsum.photos/600/800"),

@@ -221,14 +221,7 @@ class RememberMe extends StatelessWidget {
               // strokeAlign: BorderSide.strokeAlignOutside,
             ),
             borderRadius: BorderRadius.circular(2),
-            boxShadow: [
-              BoxShadow(
-                color: getCustomColors(context).shadow ?? Colors.transparent,
-                spreadRadius: 0,
-                blurRadius: 3,
-                offset: const Offset(0.5, 1.5),
-              ),
-            ],
+            boxShadow: kElevationToShadow[2],
           ),
           child: rememberMe
               ? const Icon(

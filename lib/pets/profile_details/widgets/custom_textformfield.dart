@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../../../styles/text_styles.dart';
 import '../../../theme/custom_colors.dart';
 import '../../../theme/custom_text_styles.dart';
 
@@ -43,12 +41,17 @@ class _CustomTextFormFieldActiveState extends State<CustomTextFormFieldActive> {
   late FocusNode _focusNode;
   bool _isFocused = false;
 
-  bool _obscureText = false;
+  late bool _obscureText;
 
   @override
   void initState() {
     super.initState();
     initFocusNodes();
+    if (widget.isPassword) {
+      _obscureText = true;
+    } else {
+      _obscureText = false;
+    }
   }
 
   void initFocusNodes() {
@@ -80,15 +83,16 @@ class _CustomTextFormFieldActiveState extends State<CustomTextFormFieldActive> {
       duration: const Duration(milliseconds: 125),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(2),
-        boxShadow: [
-          BoxShadow(
-            color: _isFocused
-                ? getCustomColors(context).shadow ?? Colors.transparent
-                : getCustomColors(context).lightShadow ?? Colors.transparent,
-            blurRadius: _isFocused ? 8 : 6,
-            offset: const Offset(1, 3), // changes position of shadow
-          ),
-        ],
+        boxShadow: _isFocused ? kElevationToShadow[2] : kElevationToShadow[0],
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: _isFocused
+        //         ? getCustomColors(context).shadow ?? Colors.transparent
+        //         : getCustomColors(context).lightShadow ?? Colors.transparent,
+        //     blurRadius: _isFocused ? 8 : 6,
+        //     offset: const Offset(1, 3), // changes position of shadow
+        //   ),
+        // ],
       ),
       child: TextFormField(
         obscureText: _obscureText,

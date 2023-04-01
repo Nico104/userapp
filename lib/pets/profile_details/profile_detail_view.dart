@@ -110,13 +110,7 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
                 height: 90.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(14),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.16),
-                      blurRadius: 6,
-                      offset: const Offset(1, 3), // changes position of shadow
-                    ),
-                  ],
+                  boxShadow: kElevationToShadow[4],
                   image: const DecorationImage(
                     image: NetworkImage("https://picsum.photos/512"),
                     fit: BoxFit.cover,

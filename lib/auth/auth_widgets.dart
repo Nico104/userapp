@@ -28,13 +28,7 @@ class CustomBigButton extends StatelessWidget {
             // strokeAlign: BorderSide.strokeAlignOutside,
           ),
           borderRadius: BorderRadius.circular(14),
-          boxShadow: [
-            BoxShadow(
-              color: getCustomColors(context).shadow ?? Colors.transparent,
-              blurRadius: 6,
-              offset: const Offset(1, 3),
-            ),
-          ],
+          boxShadow: kElevationToShadow[4],
         ),
         child: Center(
             child: Text(
@@ -107,13 +101,7 @@ class SocialMediaContainer extends StatelessWidget {
           color: getCustomColors(context).lightBorder ?? Colors.transparent,
         ),
         borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: getCustomColors(context).shadow ?? Colors.transparent,
-            blurRadius: 6,
-            offset: const Offset(1, 3),
-          ),
-        ],
+        boxShadow: kElevationToShadow[4],
       ),
     );
   }

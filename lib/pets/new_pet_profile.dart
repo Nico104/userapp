@@ -54,14 +54,7 @@ class NewPetProfile extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: Colors.white,
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black,
-              spreadRadius: 0,
-              blurRadius: 0,
-              offset: Offset(4, 4), // changes position of shadow
-            ),
-          ],
+          boxShadow: kElevationToShadow[4],
           borderRadius: BorderRadius.circular(borderRadius),
           border: Border.all(
             width: 3,

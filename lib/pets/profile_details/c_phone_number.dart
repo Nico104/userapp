@@ -105,14 +105,7 @@ class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
                         Colors.transparent,
                     width: 0.5,
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: getCustomColors(context).lightShadow ??
-                          Colors.transparent,
-                      blurRadius: 6,
-                      offset: const Offset(1, 3), // changes position of shadow
-                    ),
-                  ],
+                  boxShadow: kElevationToShadow[2],
                   color: Theme.of(context).primaryColor,
                 ),
                 child: Center(
@@ -206,15 +199,7 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
                           Colors.transparent,
                       width: 0.5,
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: getCustomColors(context).lightShadow ??
-                            Colors.transparent,
-                        blurRadius: 6,
-                        offset:
-                            const Offset(1, 3), // changes position of shadow
-                      ),
-                    ],
+                    boxShadow: kElevationToShadow[4],
                     color: Theme.of(context).primaryColor,
                   ),
                   child: Center(
