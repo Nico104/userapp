@@ -48,7 +48,7 @@ class _SignUpEmailPageState extends State<SignUpEmailPage> {
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           SizedBox(height: 05.h),
-          CustomTextFormFieldActive(
+          CustomTextFormField(
             onChanged: (value) {
               EasyDebounce.debounce(
                 'emailAvailable',

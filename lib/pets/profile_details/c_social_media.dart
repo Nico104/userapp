@@ -110,7 +110,7 @@ class SingleSocialMedia extends StatelessWidget {
           ),
           Expanded(
             flex: flex,
-            child: CustomTextFormFieldActive(
+            child: CustomTextFormField(
               hintText: emptyValuePlaceholder,
               onChanged: (val) {
                 EasyDebounce.debounce(

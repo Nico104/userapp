@@ -138,7 +138,7 @@ class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
           ),
           Expanded(
             flex: 10,
-            child: CustomTextFormFieldActive(
+            child: CustomTextFormField(
               initialValue: widget.number.phoneNumber,
               hintText: "XXX",
             ),
@@ -243,7 +243,7 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
             //     );
             //   },
             // ),
-            child: CustomTextFormFieldActive(
+            child: CustomTextFormField(
               hintText: "384 432 5683",
               onChanged: (val) {
                 EasyDebounce.debounce(

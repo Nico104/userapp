@@ -50,7 +50,7 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
               ),
               SizedBox(height: 05.h),
               const Spacer(),
-              CustomTextFormFieldActive(
+              CustomTextFormField(
                 isPassword: true,
                 onChanged: (value) {
                   EasyDebounce.debounce(
@@ -79,7 +79,7 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                 },
               ),
               SizedBox(height: 04.h),
-              CustomTextFormFieldActive(
+              CustomTextFormField(
                 isPassword: true,
                 onChanged: (value) {
                   EasyDebounce.debounce(
@@ -106,7 +106,7 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                 },
               ),
               SizedBox(height: 02.h),
-              CustomTextFormFieldActive(
+              CustomTextFormField(
                 isPassword: true,
                 onChanged: (value) {
                   EasyDebounce.debounce(

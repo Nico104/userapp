@@ -87,7 +87,7 @@ class ImportantInformationTranslation extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          child: CustomTextFormFieldActive(
+          child: CustomTextFormField(
             initialValue: importantInformation.text,
             hintText: "Enter Important Information",
             maxLines: null,
@@ -173,7 +173,7 @@ class _NewImportantInformationTranslationState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          child: CustomTextFormFieldActive(
+          child: CustomTextFormField(
             hintText:
                 "Do not bring near children, likes to bite their left ball",
             maxLines: null,

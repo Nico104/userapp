@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../../theme/custom_colors.dart';
 import '../../../theme/custom_text_styles.dart';
 
-class CustomTextFormFieldActive extends StatefulWidget {
-  const CustomTextFormFieldActive({
+class CustomTextFormField extends StatefulWidget {
+  const CustomTextFormField({
     super.key,
     this.hintText,
     this.initialValue,
@@ -16,6 +16,11 @@ class CustomTextFormFieldActive extends StatefulWidget {
     this.labelText,
     this.validator,
     this.isPassword = false,
+    this.textEditingController,
+    this.ignoreBoxShadow = false,
+    this.thickUnfocusedBorder = false,
+    this.showSuffix = true,
+    this.expands = false,
   });
 
   final String? initialValue;
@@ -30,13 +35,20 @@ class CustomTextFormFieldActive extends StatefulWidget {
   final String? errorText;
   final String? Function(String?)? validator;
   final bool isPassword;
+  final bool showSuffix;
+
+  final bool thickUnfocusedBorder;
+  final bool expands;
+
+  final TextEditingController? textEditingController;
+  //TODO Breaks shadow when showing error for some reason
+  final bool ignoreBoxShadow;
 
   @override
-  State<CustomTextFormFieldActive> createState() =>
-      _CustomTextFormFieldActiveState();
+  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
 
-class _CustomTextFormFieldActiveState extends State<CustomTextFormFieldActive> {
+class _CustomTextFormFieldState extends State<CustomTextFormField> {
   late TextEditingController _textEditingController;
   late FocusNode _focusNode;
   bool _isFocused = false;
@@ -56,7 +68,13 @@ class _CustomTextFormFieldActiveState extends State<CustomTextFormFieldActive> {
 
   void initFocusNodes() {
     _focusNode = FocusNode();
-    _textEditingController = TextEditingController(text: widget.initialValue);
+    if (widget.textEditingController != null) {
+      _textEditingController =
+          widget.textEditingController ?? TextEditingController();
+    } else {
+      _textEditingController = TextEditingController(text: widget.initialValue);
+    }
+
     _focusNode.addListener(() {
       if (_focusNode.hasFocus && !_isFocused) {
         setState(() {
@@ -83,7 +101,9 @@ class _CustomTextFormFieldActiveState extends State<CustomTextFormFieldActive> {
       duration: const Duration(milliseconds: 125),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(2),
-        boxShadow: _isFocused ? kElevationToShadow[2] : kElevationToShadow[0],
+        boxShadow: (_isFocused && !widget.ignoreBoxShadow)
+            ? kElevationToShadow[2]
+            : kElevationToShadow[0],
         // boxShadow: [
         //   BoxShadow(
         //     color: _isFocused
@@ -95,6 +115,8 @@ class _CustomTextFormFieldActiveState extends State<CustomTextFormFieldActive> {
         // ],
       ),
       child: TextFormField(
+        expands: widget.expands,
+        textAlignVertical: widget.expands ? TextAlignVertical.top : null,
         obscureText: _obscureText,
         validator: widget.validator,
         autofocus: widget.autofocus,
@@ -106,6 +128,7 @@ class _CustomTextFormFieldActiveState extends State<CustomTextFormFieldActive> {
         cursorColor: getCustomColors(context).hardBorder,
         style: Theme.of(context).textTheme.labelMedium,
         decoration: InputDecoration(
+          alignLabelWithHint: widget.expands ? true : null,
           errorText: widget.errorText,
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6),
@@ -133,7 +156,7 @@ class _CustomTextFormFieldActiveState extends State<CustomTextFormFieldActive> {
           filled: true,
           //TODO suffixColor
           suffixIconColor: getCustomColors(context).hardBorder,
-          suffixIcon: _isFocused
+          suffixIcon: (_isFocused && widget.showSuffix)
               ? GestureDetector(
                   onTap: () {
                     if (widget.isPassword) {
@@ -159,8 +182,11 @@ class _CustomTextFormFieldActiveState extends State<CustomTextFormFieldActive> {
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(
-              color: getCustomColors(context).lightBorder ?? Colors.transparent,
-              width: 0.5,
+              color: widget.thickUnfocusedBorder
+                  ? (getCustomColors(context).hardBorder ?? Colors.transparent)
+                      .withOpacity(0.5)
+                  : getCustomColors(context).lightBorder ?? Colors.transparent,
+              width: widget.thickUnfocusedBorder ? 1 : 0.5,
             ),
           ),
         ),

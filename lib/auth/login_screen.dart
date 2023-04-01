@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     SizedBox(height: 04.h),
-                    CustomTextFormFieldActive(
+                    CustomTextFormField(
                       onChanged: (value) {
                         EasyDebounce.debounce(
                           'emailLoginPage',
@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       labelText: "Email",
                     ),
                     SizedBox(height: 02.h),
-                    CustomTextFormFieldActive(
+                    CustomTextFormField(
                       isPassword: true,
                       onChanged: (value) {
                         EasyDebounce.debounce(

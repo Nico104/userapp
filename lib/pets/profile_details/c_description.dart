@@ -85,7 +85,7 @@ class DescriptionTranslation extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          child: CustomTextFormFieldActive(
+          child: CustomTextFormField(
             initialValue: description.text,
             hintText: "Enter Description",
             maxLines: null,
@@ -169,7 +169,7 @@ class _NewDescriptionTranslationState extends State<NewDescriptionTranslation> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          child: CustomTextFormFieldActive(
+          child: CustomTextFormField(
             hintText:
                 "My Dog is Child friendly, loves to be kicked in his left ball",
             maxLines: null,

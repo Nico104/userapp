@@ -30,7 +30,7 @@ class OnelineSimpleInput extends StatelessWidget {
           children: [
             Expanded(
               flex: flex,
-              child: CustomTextFormFieldActive(
+              child: CustomTextFormField(
                 initialValue: value,
                 hintText: emptyValuePlaceholder,
                 onChanged: (val) {

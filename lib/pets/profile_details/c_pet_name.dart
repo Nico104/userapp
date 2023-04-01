@@ -197,7 +197,7 @@ class _PetNameDialogState extends State<PetNameDialog> {
               //     ),
               //   ),
               // ),
-              CustomTextFormFieldActive(
+              CustomTextFormField(
                 autofocus: true,
                 initialValue: text,
                 hintText: "Enter Pet Name",

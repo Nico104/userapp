@@ -55,7 +55,7 @@ class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
           ),
           SizedBox(height: 05.h),
           const Spacer(),
-          CustomTextFormFieldActive(
+          CustomTextFormField(
             isPassword: true,
             onChanged: (value) {
               EasyDebounce.debounce(
@@ -82,7 +82,7 @@ class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
             },
           ),
           SizedBox(height: 02.h),
-          CustomTextFormFieldActive(
+          CustomTextFormField(
             isPassword: true,
             onChanged: (value) {
               EasyDebounce.debounce(

@@ -46,6 +46,12 @@ class _NotificationSettingsState extends State<NotificationSettings> {
               description:
                   "Get Notification as soon as a new update is available",
             ),
+            const SizedBox(height: 32),
+            const NotificationSettingsItem(
+              label: "Reply",
+              description:
+                  'Get Notification as soon as we reply to your request in "Contact us"',
+            ),
             const SizedBox(height: 52),
             SettingsItem(
               label: "Email Notifications",
