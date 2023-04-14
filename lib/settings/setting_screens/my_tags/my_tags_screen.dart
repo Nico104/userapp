@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import '../../../pets/profile_details/models/m_tag.dart';
 import '../../../pets/tag/tag_single.dart';
 import '../../../pets/u_pets.dart';
 import '../../../theme/custom_colors.dart';
+import 'my_tag_tile.dart';
 
 class MyTagsSettings extends StatelessWidget {
   const MyTagsSettings({super.key});
@@ -12,9 +14,8 @@ class MyTagsSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("My Tags"),
+        title: Text("appBarTitleMyTags".tr()),
       ),
-      backgroundColor: Colors.white,
       body: FutureBuilder<List<List<dynamic>>>(
         future: Future.wait([
           fetchUserTags(),
@@ -28,7 +29,8 @@ class MyTagsSettings extends StatelessWidget {
                 snapshot.data?.last as List<PetProfileDetails>;
             return ListView.builder(
               //+1 to give initialPadding
-              itemCount: tags.length + 1,
+              itemCount: tags.length + 1 + 10,
+              shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
                 if (index == 0) {
                   return Column(
@@ -38,9 +40,15 @@ class MyTagsSettings extends StatelessWidget {
                     ],
                   );
                 } else {
-                  int position = index - 1;
+                  // int position = index - 1;
+                  int position = 0;
                   PetProfileDetails? petProfileDetails = getPetAssignedToTag(
                       petProfiles, tags.elementAt(position));
+
+                  return MyTagTile(
+                    tag: tags.elementAt(position),
+                    petProfileDetails: petProfileDetails,
+                  );
 
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),

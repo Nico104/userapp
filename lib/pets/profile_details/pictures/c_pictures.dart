@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_picture.dart';
 import 'package:userapp/pets/profile_details/pictures/new_picture.dart';
@@ -47,9 +48,10 @@ class _PetPicturesComponentState extends State<PetPicturesComponent> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(left: profileDetailLeftPadding),
-          child: ComponentTitle(text: "Pictures"),
+        Padding(
+          padding: const EdgeInsets.only(left: profileDetailLeftPadding),
+          child:
+              ComponentTitle(text: "profileDetailsComponentTitlePictures".tr()),
         ),
         SizedBox(
           height: widget.imageHeight + widget.imageOffset,

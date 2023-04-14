@@ -1,6 +1,5 @@
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:rive/rive.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/auth/login_screen.dart';
 import 'package:userapp/auth/sign_up_screen/verification_page.dart';

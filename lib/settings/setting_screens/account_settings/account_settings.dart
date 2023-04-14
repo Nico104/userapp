@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/auth/u_auth.dart';
 
@@ -26,7 +27,7 @@ class _AccountSettingsState extends State<AccountSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("My Account"),
+        title: Text("appBarAccountSettings".tr()),
       ),
       body: FutureBuilder(
         future: getSavedCredentails(),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/auth/auth_widgets.dart';
@@ -19,7 +20,7 @@ class _ContactUsState extends State<ContactUs> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Contact Us"),
+        title: Text("appBarTitleContactUs".tr()),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 28, right: 28),

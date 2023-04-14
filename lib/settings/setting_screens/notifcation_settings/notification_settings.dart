@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../styles/custom_icons_icons.dart';
 import '../../../utils/util_methods.dart';
@@ -22,7 +23,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("App Notifications"),
+        title: Text("appBarTitleNotificationSettings".tr()),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 22, right: 22),

@@ -1,4 +1,5 @@
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/models/m_description.dart';
 import 'package:userapp/pets/profile_details/models/m_important_information.dart';
@@ -34,7 +35,8 @@ class _PetImportantInformationState extends State<PetImportantInformation> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const ComponentTitle(text: "Important Information"),
+        ComponentTitle(
+            text: "profileDetailsComponentTitleImportantInformation".tr()),
         ListView.builder(
           itemCount: widget.imortantInformations.length + 1,
           shrinkWrap: true,

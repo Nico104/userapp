@@ -1,4 +1,5 @@
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/models/m_description.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
@@ -34,7 +35,7 @@ class _PetDescriptionComponentState extends State<PetDescriptionComponent> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const ComponentTitle(text: "Description"),
+        ComponentTitle(text: "profileDetailsComponentTitleDescription".tr()),
         ListView.builder(
           itemCount: widget.descriptions.length + 1,
           shrinkWrap: true,

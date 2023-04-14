@@ -17,7 +17,6 @@ class PetProfilePreview extends StatefulWidget {
     required this.reloadFuture,
     required this.extendedActions,
     required this.switchExtendedActions,
-    this.image,
   });
 
   final PetProfileDetails petProfileDetails;
@@ -25,8 +24,6 @@ class PetProfilePreview extends StatefulWidget {
   final VoidCallback reloadFuture;
   final bool extendedActions;
   final VoidCallback switchExtendedActions;
-
-  final ImageProvider<Object>? image;
 
   @override
   State<PetProfilePreview> createState() => PetProfilePreviewState();
@@ -62,61 +59,52 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                   curve: _curve,
                   height: double.infinity,
                   width: double.infinity,
-                  // margin: EdgeInsets.only(
-                  //   top: widget.extendedActions ? 0 : topOffset,
-                  //   left: widget.extendedActions ? 0 : marginhorizontal,
-                  //   right: widget.extendedActions ? 0 : marginhorizontal,
-                  //   //6 because its the shadow offset
-                  //   bottom: widget.extendedActions
-                  //       ? 16
-                  //       : collardimension / 2 + collaroffset + bottomOffset,
-                  // ),
+                  margin: EdgeInsets.only(
+                    top: widget.extendedActions ? 0 : topOffset,
+                    left: widget.extendedActions ? 0 : marginhorizontal,
+                    right: widget.extendedActions ? 0 : marginhorizontal,
+                    //6 because its the shadow offset
+                    bottom: widget.extendedActions
+                        ? 16
+                        : collardimension / 2 + collaroffset + bottomOffset,
+                  ),
                   child: Column(
                     children: [
                       Expanded(
-                        child: FractionallySizedBox(
-                          heightFactor: 0.6,
-                          widthFactor: 0.6,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(borderRadius),
-                              boxShadow: kElevationToShadow[4],
-                              image: DecorationImage(
-                                image: widget.image ??
-                                    const NetworkImage(
-                                        "https://picsum.photos/600/800"),
-                                fit: BoxFit.cover,
-                                alignment:
-                                    Alignment(widget.imageAlignmentOffset, 0),
-                              ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(borderRadius),
+                            boxShadow: kElevationToShadow[4],
+                            image: DecorationImage(
+                              image: const NetworkImage(
+                                  "https://picsum.photos/600/800"),
+                              fit: BoxFit.cover,
+                              alignment:
+                                  Alignment(widget.imageAlignmentOffset, 0),
                             ),
-                            child: IgnorePointer(
-                              ignoring: !widget.extendedActions,
-                              child: ExtendedSettingsContainer(
-                                isActive: widget.extendedActions,
-                                petProfileDetails: widget.petProfileDetails,
-                                reloadFuture: widget.reloadFuture,
-                              ),
-                            ),
-                            // child: ExtendedSettingsContainer(
-                            //     widget: widget,
-                            //     widget: widget,
-                            //     borderRadius: borderRadius,
-                            //     widget: widget,
-                            //     duration: _duration,
-                            //     curve: _curve,
-                            //     widget: widget,
-                            //     iconFlex: iconFlex,
-                            //     labelFlex: labelFlex,
-                            //     widget: widget,
-                            //     widget: widget),
                           ),
+                          child: IgnorePointer(
+                            ignoring: !widget.extendedActions,
+                            child: ExtendedSettingsContainer(
+                              isActive: widget.extendedActions,
+                              petProfileDetails: widget.petProfileDetails,
+                              reloadFuture: widget.reloadFuture,
+                            ),
+                          ),
+                          // child: ExtendedSettingsContainer(
+                          //     widget: widget,
+                          //     widget: widget,
+                          //     borderRadius: borderRadius,
+                          //     widget: widget,
+                          //     duration: _duration,
+                          //     curve: _curve,
+                          //     widget: widget,
+                          //     iconFlex: iconFlex,
+                          //     labelFlex: labelFlex,
+                          //     widget: widget,
+                          //     widget: widget),
                         ),
                       ),
-                      //For floatingappbar
-                      SizedBox(
-                        height: 110,
-                      )
                     ],
                   ),
                 ),
@@ -159,65 +147,62 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                 // ignoring: widget.extendedActions,
                 ignoring: true,
                 child: GestureDetector(
-                    // onTap: () {
-                    //   showDialog(
-                    //     context: context,
-                    //     builder: (_) => TagSelectionDialog(
-                    //       currentTags: widget.petProfileDetails.tag,
-                    //     ),
-                    //   ).then((value) async {
-                    //     if (value != null) {
-                    //       if (value is List<Tag> &&
-                    //           widget.petProfileDetails.profileId != null) {
-                    //         await handleTagChange(
-                    //             value,
-                    //             widget.petProfileDetails.tag,
-                    //             widget.petProfileDetails.profileId!);
-                    //         widget.reloadFuture.call();
-                    //       }
-                    //     }
-                    //   });
-                    // },
-                    // child: Padding(
-                    //   padding: EdgeInsets.only(bottom: bottomOffset),
-                    //   child: AnimatedOpacity(
-                    //     duration: _duration,
-                    //     curve: _curve,
-                    //     opacity: widget.extendedActions ? 0 : 1,
-                    //     child: Hero(
-                    //       tag: 'collar${widget.petProfileDetails.profileId}',
-                    //       child: Align(
-                    //         // alignment: Alignment.bottomCenter,
-                    //         alignment:
-                    //             Alignment(widget.imageAlignmentOffset * -0.2, 1),
-                    //         child: Tags(
-                    //             tag: widget.petProfileDetails.tag,
-                    //             collardimension: collardimension),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
+                  // onTap: () {
+                  //   showDialog(
+                  //     context: context,
+                  //     builder: (_) => TagSelectionDialog(
+                  //       currentTags: widget.petProfileDetails.tag,
+                  //     ),
+                  //   ).then((value) async {
+                  //     if (value != null) {
+                  //       if (value is List<Tag> &&
+                  //           widget.petProfileDetails.profileId != null) {
+                  //         await handleTagChange(
+                  //             value,
+                  //             widget.petProfileDetails.tag,
+                  //             widget.petProfileDetails.profileId!);
+                  //         widget.reloadFuture.call();
+                  //       }
+                  //     }
+                  //   });
+                  // },
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: bottomOffset),
+                    child: AnimatedOpacity(
+                      duration: _duration,
+                      curve: _curve,
+                      opacity: widget.extendedActions ? 0 : 1,
+                      child: Hero(
+                        tag: 'collar${widget.petProfileDetails.profileId}',
+                        child: Align(
+                          // alignment: Alignment.bottomCenter,
+                          alignment:
+                              Alignment(widget.imageAlignmentOffset * -0.2, 1),
+                          child: Tags(
+                              tag: widget.petProfileDetails.tag,
+                              collardimension: collardimension),
+                        ),
+                      ),
                     ),
+                  ),
+                ),
               )
             ],
           ),
         ),
-        // const SizedBox(
-        //   height: 16,
-        // ),
-        // AnimatedSize(
-        //   duration: const Duration(milliseconds: 125),
-        //   curve: Curves.fastOutSlowIn,
-        //   child: SizedBox(
-        //     width: widget.extendedActions ? 0 : null,
-        //     height: widget.extendedActions ? 0 : null,
-        //     child: Text(
-        //       widget.petProfileDetails.petName ?? "",
-        //       key: ValueKey<String>(widget.petProfileDetails.petName ?? ""),
-        //       style: getCustomTextStyles(context).homePetName,
-        //     ),
-        //   ),
-        // ),
+        AnimatedSize(
+          duration: const Duration(milliseconds: 125),
+          curve: Curves.fastOutSlowIn,
+          child: SizedBox(
+            width: widget.extendedActions ? 0 : null,
+            height: widget.extendedActions ? 0 : null,
+            child: Text(
+              widget.petProfileDetails.petName ?? "",
+              key: ValueKey<String>(widget.petProfileDetails.petName ?? ""),
+              style: getCustomTextStyles(context).homePetName,
+            ),
+          ),
+        ),
       ],
     );
   }

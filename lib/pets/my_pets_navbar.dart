@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -21,11 +22,12 @@ class MyPetsNavbar extends StatelessWidget {
           width: 28,
         ),
         Text(
-          "Welcome back ",
+          // "Welcome back ",
+          'welcomeMsg'.tr(),
           style: getCustomTextStyles(context).homeWelcomeMessage,
         ),
         Text(
-          username,
+          " $username",
           style: getCustomTextStyles(context).homeWelcomeUser,
         ),
         const Spacer(),

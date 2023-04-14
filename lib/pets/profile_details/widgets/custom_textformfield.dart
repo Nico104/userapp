@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:userapp/theme/theme_provider.dart';
 import '../../../theme/custom_colors.dart';
 import '../../../theme/custom_text_styles.dart';
 
@@ -97,101 +99,110 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 125),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(2),
-        boxShadow: (_isFocused && !widget.ignoreBoxShadow)
-            ? kElevationToShadow[2]
-            : kElevationToShadow[0],
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: _isFocused
-        //         ? getCustomColors(context).shadow ?? Colors.transparent
-        //         : getCustomColors(context).lightShadow ?? Colors.transparent,
-        //     blurRadius: _isFocused ? 8 : 6,
-        //     offset: const Offset(1, 3), // changes position of shadow
-        //   ),
-        // ],
-      ),
-      child: TextFormField(
-        expands: widget.expands,
-        textAlignVertical: widget.expands ? TextAlignVertical.top : null,
-        obscureText: _obscureText,
-        validator: widget.validator,
-        autofocus: widget.autofocus,
-        keyboardType: widget.keyboardType,
-        maxLines: widget.isPassword ? 1 : widget.maxLines,
-        textInputAction: widget.textInputAction,
-        focusNode: _focusNode,
-        controller: _textEditingController,
-        cursorColor: getCustomColors(context).hardBorder,
-        style: Theme.of(context).textTheme.labelMedium,
-        decoration: InputDecoration(
-          alignLabelWithHint: widget.expands ? true : null,
-          errorText: widget.errorText,
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6),
-            borderSide: const BorderSide(
-              color: Colors.red,
-              width: 0.5,
-            ),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6),
-            borderSide: const BorderSide(
-              color: Colors.red,
-              width: 1,
-            ),
-          ),
-          hintText: (widget.hintText != null && widget.labelText == null)
-              ? widget.hintText
-              : null,
-          labelText: (widget.hintText == null && widget.labelText != null)
-              ? widget.labelText
-              : null,
-          hintStyle: getCustomTextStyles(context).textFormFieldHint,
-          labelStyle: getCustomTextStyles(context).textFormFieldLabel,
-          fillColor: Theme.of(context).primaryColor,
-          filled: true,
-          //TODO suffixColor
-          suffixIconColor: getCustomColors(context).hardBorder,
-          suffixIcon: (_isFocused && widget.showSuffix)
-              ? GestureDetector(
-                  onTap: () {
-                    if (widget.isPassword) {
-                      setState(() {
-                        _obscureText = !_obscureText;
-                      });
-                    } else {
-                      _textEditingController.clear();
-                    }
-                  },
-                  child: Icon(
-                    _getSuffix(widget.isPassword, _obscureText),
-                  ),
-                )
-              : null,
-          focusedBorder: OutlineInputBorder(
+    return Consumer<ThemeNotifier>(
+      builder: (context, theme, _) {
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 125),
+          decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2),
-            borderSide: BorderSide(
-              color: getCustomColors(context).hardBorder ?? Colors.transparent,
-              width: 1,
-            ),
+            boxShadow: (_isFocused && !widget.ignoreBoxShadow)
+                ? kElevationToShadow[2]
+                : kElevationToShadow[0],
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: _isFocused
+            //         ? getCustomColors(context).shadow ?? Colors.transparent
+            //         : getCustomColors(context).lightShadow ?? Colors.transparent,
+            //     blurRadius: _isFocused ? 8 : 6,
+            //     offset: const Offset(1, 3), // changes position of shadow
+            //   ),
+            // ],
           ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(
-              color: widget.thickUnfocusedBorder
-                  ? (getCustomColors(context).hardBorder ?? Colors.transparent)
-                      .withOpacity(0.5)
-                  : getCustomColors(context).lightBorder ?? Colors.transparent,
-              width: widget.thickUnfocusedBorder ? 1 : 0.5,
+          child: TextFormField(
+            expands: widget.expands,
+            textAlignVertical: widget.expands ? TextAlignVertical.top : null,
+            obscureText: _obscureText,
+            validator: widget.validator,
+            autofocus: widget.autofocus,
+            keyboardType: widget.keyboardType,
+            maxLines: widget.isPassword ? 1 : widget.maxLines,
+            textInputAction: widget.textInputAction,
+            focusNode: _focusNode,
+            controller: _textEditingController,
+            cursorColor: getCustomColors(context).hardBorder,
+            style: Theme.of(context).textTheme.labelMedium,
+            decoration: InputDecoration(
+              alignLabelWithHint: widget.expands ? true : null,
+              errorText: widget.errorText,
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(6),
+                borderSide: const BorderSide(
+                  color: Colors.red,
+                  width: 0.5,
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(6),
+                borderSide: const BorderSide(
+                  color: Colors.red,
+                  width: 1,
+                ),
+              ),
+              hintText: (widget.hintText != null && widget.labelText == null)
+                  ? widget.hintText
+                  : null,
+              labelText: (widget.hintText == null && widget.labelText != null)
+                  ? widget.labelText
+                  : null,
+              hintStyle: getCustomTextStyles(context).textFormFieldHint,
+              labelStyle: getCustomTextStyles(context).textFormFieldLabel,
+              fillColor: Theme.of(context).primaryColor,
+              filled: true,
+              //TODO suffixColor
+              suffixIconColor: getCustomColors(context).hardBorder,
+              suffixIcon: (_isFocused && widget.showSuffix)
+                  ? GestureDetector(
+                      onTap: () {
+                        if (widget.isPassword) {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        } else {
+                          _textEditingController.clear();
+                        }
+                      },
+                      child: Icon(
+                        _getSuffix(widget.isPassword, _obscureText),
+                      ),
+                    )
+                  : null,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(2),
+                borderSide: BorderSide(
+                  color:
+                      getCustomColors(context).hardBorder ?? Colors.transparent,
+                  width: (theme.getTheme().brightness == Brightness.dark)
+                      ? 2.5
+                      : 1,
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(
+                  color: widget.thickUnfocusedBorder
+                      ? (getCustomColors(context).hardBorder ??
+                              Colors.transparent)
+                          .withOpacity(0.5)
+                      : getCustomColors(context).lightBorder ??
+                          Colors.transparent,
+                  width: widget.thickUnfocusedBorder ? 1 : 0.5,
+                ),
+              ),
             ),
+            onChanged: widget.onChanged,
           ),
-        ),
-        onChanged: widget.onChanged,
-      ),
+        );
+      },
     );
   }
 }

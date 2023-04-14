@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'notification_settings_item.dart';
 
@@ -19,7 +20,7 @@ class _EmailNotificationSettingsState extends State<EmailNotificationSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Email Notifications"),
+        title: Text("appBarTitleEmailNotificationSettings".tr()),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 22, right: 22),

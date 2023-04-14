@@ -30,7 +30,6 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(28),
         child: Form(

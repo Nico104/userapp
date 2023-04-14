@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../theme/custom_colors.dart';
@@ -30,7 +31,7 @@ class PetGenderComponent extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const ComponentTitle(text: "Gender"),
+        ComponentTitle(text: "profileDetailsComponentTitleGender".tr()),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,

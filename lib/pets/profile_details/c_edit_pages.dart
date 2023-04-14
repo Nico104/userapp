@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/c_component_padding.dart';
 
@@ -31,9 +32,10 @@ class _EditPagesTabComponentState extends State<EditPagesTabComponent> {
           child: Row(
             children: [
               TabItem(
-                label: "Pet Info",
+                label: "profileDetailsTabTitlePetInfo".tr(),
                 isActive: index == 0,
-                bgColor: getCustomColors(context).accent ?? Colors.transparent,
+                bgColor:
+                    getCustomColors(context).accentLight ?? Colors.transparent,
                 onTap: () {
                   int myIndex = 0;
                   if (index != myIndex) {
@@ -45,9 +47,10 @@ class _EditPagesTabComponentState extends State<EditPagesTabComponent> {
               ),
               const Spacer(flex: 1),
               TabItem(
-                label: "Contact",
+                label: "profileDetailsTabTitleContact".tr(),
                 isActive: index == 1,
-                bgColor: getCustomColors(context).accent ?? Colors.transparent,
+                bgColor:
+                    getCustomColors(context).accentLight ?? Colors.transparent,
                 onTap: () {
                   int myIndex = 1;
                   if (index != myIndex) {
@@ -59,7 +62,7 @@ class _EditPagesTabComponentState extends State<EditPagesTabComponent> {
               ),
               const Spacer(flex: 1),
               TabItem(
-                label: "Documents",
+                label: "profileDetailsTabTitleDocument".tr(),
                 isActive: index == 2,
                 bgColor:
                     getCustomColors(context).accentLight ?? Colors.transparent,

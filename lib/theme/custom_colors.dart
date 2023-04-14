@@ -11,6 +11,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
     @required this.shadow,
     @required this.lightShadow,
     @required this.accentShadow,
+    @required this.error,
     this.genderButtonEnabledMale = const Color(0xFF93E4FF),
     this.genderButtonEnabledFemale = const Color(0xFFffb6c1),
     this.genderButtonDisabledMale = const Color(0xFFbae7f8),
@@ -41,6 +42,8 @@ class CustomColors extends ThemeExtension<CustomColors> {
 
   //TextFormField suffix
 
+  final Color? error;
+
   @override
   CustomColors copyWith({
     Color? accent,
@@ -57,6 +60,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
     Color? genderButtonDisabledFemale,
     Color? genderButtonBackgroundMale,
     Color? genderButtonBackgroundFemale,
+    Color? error,
   }) {
     return CustomColors(
       accent: accent ?? this.accent,
@@ -79,6 +83,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
           genderButtonBackgroundMale ?? this.genderButtonBackgroundMale,
       genderButtonBackgroundFemale:
           genderButtonBackgroundFemale ?? this.genderButtonBackgroundFemale,
+      error: error ?? this.error,
     );
   }
 
@@ -156,6 +161,11 @@ class CustomColors extends ThemeExtension<CustomColors> {
       genderButtonBackgroundFemale: Color.lerp(
         genderButtonBackgroundFemale,
         other.genderButtonBackgroundFemale,
+        t,
+      ),
+      error: Color.lerp(
+        error,
+        other.error,
         t,
       ),
     );

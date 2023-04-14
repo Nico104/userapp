@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:userapp/init_app.dart';
@@ -52,7 +53,7 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Settings"),
+        title: Text("appBarTitleSettings".tr()),
       ),
       body: ListView(
         controller: _scrollSontroller,
@@ -63,12 +64,12 @@ class _SettingsState extends State<Settings> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "General",
+                  "settingsSectionTitleGeneral".tr(),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 20),
                 SettingsItem(
-                  label: "Account",
+                  label: "settingsItemAccount".tr(),
                   leading: const Icon(Icons.person_outline),
                   suffix: const Icon(Icons.keyboard_arrow_right),
                   onTap: () {
@@ -77,7 +78,7 @@ class _SettingsState extends State<Settings> {
                 ),
                 const SizedBox(height: settingItemSpacing),
                 SettingsItem(
-                  label: "My Tags",
+                  label: "settingsItemMyTags".tr(),
                   leading: const Icon(Icons.hexagon_outlined),
                   suffix: const Icon(Icons.keyboard_arrow_right),
                   onTap: () {
@@ -95,7 +96,7 @@ class _SettingsState extends State<Settings> {
                 ),
                 const SizedBox(height: settingItemSpacing),
                 SettingsItem(
-                  label: "Notifications",
+                  label: "settingsItemNotifications".tr(),
                   leading: const Icon(CustomIcons.notification),
                   suffix: const Icon(Icons.keyboard_arrow_right),
                   onTap: () {
@@ -107,7 +108,7 @@ class _SettingsState extends State<Settings> {
                 ),
                 const SizedBox(height: settingItemSpacing),
                 SettingsItem(
-                  label: "Themes",
+                  label: "settingsItemThemes".tr(),
                   leading: const Icon(Icons.hexagon_outlined),
                   suffix: const Icon(Icons.keyboard_arrow_right),
                   onTap: () {
@@ -118,8 +119,8 @@ class _SettingsState extends State<Settings> {
                   },
                 ),
                 const SizedBox(height: settingItemSpacing),
-                const SettingsItem(
-                  label: "How to use this app?",
+                SettingsItem(
+                  label: "settingsItemHowToUse".tr(),
                   leading: Icon(Icons.lightbulb_outline),
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),
@@ -133,12 +134,12 @@ class _SettingsState extends State<Settings> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Shop",
+                  "settingsSectionTitleShop".tr(),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 20),
-                const SettingsItem(
-                  label: "Go to Shop",
+                SettingsItem(
+                  label: "settingsItemGoShop".tr(),
                   leading: Icon(CustomIcons.shopping_bag_8),
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),
@@ -152,18 +153,18 @@ class _SettingsState extends State<Settings> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Help and Support",
+                  "settingsSectionTitleHelp".tr(),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 20),
-                const SettingsItem(
-                  label: "Report Bug",
+                SettingsItem(
+                  label: "settingsItemReportBug".tr(),
                   leading: Icon(Icons.warning_amber_rounded),
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),
                 const SizedBox(height: settingItemSpacing),
                 SettingsItem(
-                  label: "Contact us",
+                  label: "settingsItemContactUs".tr(),
                   leading: const Icon(CustomIcons.notification),
                   suffix: const Icon(Icons.keyboard_arrow_right),
                   onTap: () {
@@ -171,20 +172,20 @@ class _SettingsState extends State<Settings> {
                   },
                 ),
                 const SizedBox(height: settingItemSpacing),
-                const SettingsItem(
-                  label: "FAQ",
+                SettingsItem(
+                  label: "settingsItemFAQ".tr(),
                   leading: Icon(Icons.question_answer_outlined),
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),
                 const SizedBox(height: settingItemSpacing),
-                const SettingsItem(
-                  label: "Privacy Contract",
+                SettingsItem(
+                  label: "settingsItemPrivacy".tr(),
                   leading: Icon(Icons.privacy_tip_outlined),
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),
                 const SizedBox(height: settingItemSpacing),
-                const SettingsItem(
-                  label: "About",
+                SettingsItem(
+                  label: "settingsItemAbout".tr(),
                   leading: Icon(Icons.question_mark),
                   suffix: Icon(Icons.keyboard_arrow_right),
                 ),
@@ -195,7 +196,7 @@ class _SettingsState extends State<Settings> {
           //? Vlt in account
           SettingsContainer(
             child: SettingsItem(
-              label: "Logout",
+              label: "settingsItemLogout".tr(),
               leading: const Icon(
                 Icons.logout_outlined,
                 color: Colors.red,

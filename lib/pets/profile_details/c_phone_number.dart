@@ -1,4 +1,5 @@
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/models/m_phone_number.dart';
 import 'package:userapp/pets/profile_details/widgets/custom_textformfield.dart';
@@ -33,7 +34,7 @@ class _PetPhoneNumbersComponentState extends State<PetPhoneNumbersComponent> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const ComponentTitle(text: "Phone Numbers"),
+        ComponentTitle(text: "profileDetailsComponentTitlePhoneNumbers".tr()),
         ListView.builder(
           itemCount: widget.phoneNumbers.length + 1,
           shrinkWrap: true,

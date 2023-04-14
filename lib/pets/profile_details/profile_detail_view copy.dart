@@ -21,8 +21,6 @@ import 'c_social_media.dart';
 import 'save_button/save_floating_action_button.dart';
 import 'u_profile_details.dart';
 
-import 'package:flutter/scheduler.dart' show timeDilation;
-
 class PetProfileDetailView extends StatefulWidget {
   const PetProfileDetailView({
     super.key,
@@ -44,26 +42,17 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
   bool isScrollTop = true;
   final _scrollSontroller = ScrollController();
 
-  bool enableHero = true;
-
   @override
   void initState() {
     super.initState();
     _petProfileDetails = widget.petProfileDetails.clone();
     if (widget.petProfileDetails.petName == null) {
-      WidgetsBinding.instance.addPostFrameCallback(
-        (_) {
-          setState(() {
-            enableHero = false;
-          });
-          askForPetName(
-              context,
-              (value) => setState(() {
-                    _petProfileDetails.petName = value;
-                  }),
-              null);
-        },
-      );
+      WidgetsBinding.instance.addPostFrameCallback((_) => askForPetName(
+          context,
+          (value) => setState(() {
+                _petProfileDetails.petName = value;
+              }),
+          null));
     }
 
     // Setup Scroll Listener dfor AppBarDivider
@@ -87,7 +76,6 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
 
   @override
   Widget build(BuildContext context) {
-    timeDilation = 1;
     return Scaffold(
       appBar: AppBar(
         title: Text('appBarTitleProfileDetails'.tr()),
