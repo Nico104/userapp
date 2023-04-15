@@ -148,64 +148,82 @@ class _MyPetsState extends State<MyPets> {
                     child: SizedBox(
                       width: double.infinity,
                       height: double.infinity,
-                      child: ScrollConfiguration(
-                        behavior: ScrollConfiguration.of(context).copyWith(
-                          dragDevices: {
-                            PointerDeviceKind.touch,
-                            PointerDeviceKind.mouse,
-                          },
-                        ),
-                        child: PageView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          controller: _controller,
-                          pageSnapping: true,
-                          scrollDirection: Axis.vertical,
-                          itemCount: widget.petProfiles.length + 1,
-                          itemBuilder: (context, position) {
-                            if (position == widget.petProfiles.length) {
-                              return PetProfilePreviewPageTransform(
-                                page: pageindex,
-                                position: position,
-                                maxRotation: 15,
-                                minScaling: 0.9,
-                                child: NewPetProfile(
-                                  reloadFuture: () =>
-                                      widget.reloadFuture.call(),
-                                ),
-                              );
-                            } else {
-                              return PetProfilePreviewPageTransform(
-                                page: pageindex,
-                                position: position,
-                                maxRotation: 15,
-                                minScaling: 0.9,
-                                child: PetProfilePreview(
-                                  image: NetworkImage((pageindex.round() == 0)
-                                      ? "https://picsum.photos/600/800"
-                                      : "https://picsum.photos/800"),
-                                  extendedActions: isExtendedIndexActive(
-                                      activeExtendedActions, position),
-                                  petProfileDetails:
-                                      widget.petProfiles.elementAt(position),
-                                  imageAlignmentOffset:
-                                      -getAlignmentOffset(pageindex, position),
-                                  // imageAlignmentOffset: 0,
-                                  reloadFuture: () =>
-                                      widget.reloadFuture.call(),
-                                  switchExtendedActions: () {
-                                    setState(() {
-                                      if (activeExtendedActions != position) {
-                                        activeExtendedActions = position;
-                                      } else {
-                                        activeExtendedActions = null;
-                                      }
-                                    });
-                                  },
-                                ),
-                              );
-                            }
-                          },
-                        ),
+                      child: Stack(
+                        children: [
+                          ScrollConfiguration(
+                            behavior: ScrollConfiguration.of(context).copyWith(
+                              dragDevices: {
+                                PointerDeviceKind.touch,
+                                PointerDeviceKind.mouse,
+                              },
+                            ),
+                            child: PageView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              controller: _controller,
+                              pageSnapping: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: widget.petProfiles.length + 1,
+                              itemBuilder: (context, position) {
+                                if (position == widget.petProfiles.length) {
+                                  return PetProfilePreviewPageTransform(
+                                    page: pageindex,
+                                    position: position,
+                                    maxRotation: 35,
+                                    minScaling: 0.1,
+                                    minOpacity: 0,
+                                    child: NewPetProfile(
+                                      reloadFuture: () =>
+                                          widget.reloadFuture.call(),
+                                    ),
+                                  );
+                                } else {
+                                  return PetProfilePreviewPageTransform(
+                                    page: pageindex,
+                                    position: position,
+                                    maxRotation: 25,
+                                    minScaling: 0.65,
+                                    minOpacity: 0,
+                                    child: PetProfilePreview(
+                                      image: NetworkImage(
+                                          (pageindex.round() == 0)
+                                              ? "https://picsum.photos/600/800"
+                                              : "https://picsum.photos/800"),
+                                      extendedActions: isExtendedIndexActive(
+                                          activeExtendedActions, position),
+                                      petProfileDetails: widget.petProfiles
+                                          .elementAt(position),
+                                      imageAlignmentOffset: -getAlignmentOffset(
+                                          pageindex, position),
+                                      // imageAlignmentOffset: 0,
+                                      reloadFuture: () =>
+                                          widget.reloadFuture.call(),
+                                      switchExtendedActions: () {
+                                        setState(() {
+                                          if (activeExtendedActions !=
+                                              position) {
+                                            activeExtendedActions = position;
+                                          } else {
+                                            activeExtendedActions = null;
+                                          }
+                                        });
+                                      },
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                          ),
+                          ClipRRect(
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                              child: Container(
+                                height: 5,
+                                width: double.infinity,
+                                color: Colors.transparent,
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   ),

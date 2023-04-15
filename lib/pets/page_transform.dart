@@ -10,6 +10,7 @@ class PetProfilePreviewPageTransform extends StatelessWidget {
     required this.child,
     required this.maxRotation,
     required this.minScaling,
+    required this.minOpacity,
   });
 
   final double page;
@@ -18,24 +19,26 @@ class PetProfilePreviewPageTransform extends StatelessWidget {
 
   final double maxRotation;
   final double minScaling;
+  final double minOpacity;
 
   @override
   Widget build(BuildContext context) {
     return Transform.scale(
       scale: getScaling(page, position, minScaling),
-      alignment: Alignment(getAlignmentOffset(page, position), 0),
+      // alignment: Alignment(getAlignmentOffset(page, position), 0),
+      alignment: Alignment.center,
       child: Rotation3d(
-        rotationY: getYRotation(page, position, maxRotation),
+        rotationX: -getRotation(page, position, maxRotation),
         child: child,
       ),
     );
   }
 }
 
-double getYRotation(double page, int index, double maxRotation) {
+double getRotation(double page, int index, double maxRotation) {
   double factor = (page - index);
   double rotation = 0;
-  if (factor <= 1 || factor >= -1) {
+  if (factor <= 1 && factor >= -1) {
     rotation = factor * maxRotation;
   }
   return rotation;
@@ -43,9 +46,12 @@ double getYRotation(double page, int index, double maxRotation) {
 
 double getScaling(double page, int index, double minScaling) {
   double factor = (page - index);
-  double scaling = 0;
-  if (factor <= 1 || factor >= -1) {
-    scaling = 1 - math.sqrt(factor * factor) * (1 - minScaling);
+  double scaling = 1;
+  if (factor <= 1 && factor >= -1) {
+    scaling = 1 * (1 - factor.abs() / 3);
+  }
+  if (scaling < minScaling) {
+    scaling = minScaling;
   }
   return scaling;
 }
