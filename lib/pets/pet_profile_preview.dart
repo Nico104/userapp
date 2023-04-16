@@ -1,6 +1,7 @@
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import '../theme/custom_text_styles.dart';
 import 'profile_details/models/m_pet_profile.dart';
 
 class PetProfilePreview extends StatefulWidget {
@@ -62,8 +63,9 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
         const Duration(milliseconds: 2000),
         () {
           if (widget.extendedActions) {
-            _controller.jumpToPage(0);
-            widget.switchExtendedActions.call();
+            _controller.animateTo(0,
+                curve: Curves.fastOutSlowIn,
+                duration: const Duration(milliseconds: 500));
           }
         },
       );
@@ -81,12 +83,34 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
     return Column(
       children: [
         Expanded(
-          child: Stack(
-            children: [
-              SizedBox(
-                width: double.infinity,
-                height: double.infinity,
-                child: Column(
+          child: SizedBox.expand(
+            child: Stack(
+              children: [
+                SizedBox.expand(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Spacer(flex: 24),
+                      AnimatedOpacity(
+                        duration: _duration,
+                        curve: Curves.fastOutSlowIn,
+                        opacity:
+                            widget.imageAlignmentOffset == 0 && _pageIndex == 0
+                                ? 1
+                                : 0,
+                        child: Text(
+                          "Taco",
+                          style: getCustomTextStyles(context).homePetName,
+                        ),
+                      ),
+                      //For floatingappbar
+                      const Spacer(
+                        flex: 8,
+                      ),
+                    ],
+                  ),
+                ),
+                Column(
                   children: [
                     Expanded(
                       flex: 5,
@@ -97,44 +121,49 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                           scrollDirection: Axis.horizontal,
                           itemCount: 2,
                           itemBuilder: (context, position) {
-                            return AnimatedFractionallySizedBox(
-                              heightFactor: widget.extendedActions ? 0.8 : 0.7,
-                              widthFactor: widget.extendedActions ? 0.8 : 0.7,
-                              duration: _duration,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.circular(borderRadius),
-                                  boxShadow: kElevationToShadow[4],
-                                  // image: DecorationImage(
-                                  //   image: widget.image ??
-                                  //       const NetworkImage(
-                                  //           "https://picsum.photos/600/800"),
-                                  //   fit: BoxFit.cover,
-                                  //   scale: 1.2,
-                                  //   alignment: Alignment(
-                                  //       0, widget.imageAlignmentOffset * 2),
-                                  // ),
-                                ),
-                                child: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.circular(borderRadius),
-                                  child: AnimatedFractionallySizedBox(
-                                    duration: _duration,
-                                    heightFactor:
-                                        widget.extendedActions ? 1 : 1.2,
-                                    alignment: Alignment(
-                                      0,
-                                      widget.imageAlignmentOffset,
-                                    ),
-                                    child: Image(
-                                      image: widget.image ??
-                                          const NetworkImage(
-                                            "https://picsum.photos/600/800",
-                                          ),
-                                      fit: BoxFit.cover,
+                            return Align(
+                              alignment: const Alignment(0, -0.4),
+                              child: AnimatedFractionallySizedBox(
+                                heightFactor:
+                                    widget.extendedActions ? 0.8 : 0.7,
+                                // heightFactor: 1,
+                                widthFactor: widget.extendedActions ? 0.8 : 0.7,
+                                duration: _duration,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.circular(borderRadius),
+                                    boxShadow: kElevationToShadow[4],
+                                    // image: DecorationImage(
+                                    //   image: widget.image ??
+                                    //       const NetworkImage(
+                                    //           "https://picsum.photos/600/800"),
+                                    //   fit: BoxFit.cover,
+                                    //   scale: 1.2,
+                                    //   alignment: Alignment(
+                                    //       0, widget.imageAlignmentOffset * 2),
+                                    // ),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.circular(borderRadius),
+                                    child: AnimatedFractionallySizedBox(
+                                      duration: _duration,
+                                      heightFactor:
+                                          widget.extendedActions ? 1 : 1.2,
                                       alignment: Alignment(
-                                          0, widget.imageAlignmentOffset * 2),
+                                        0,
+                                        widget.imageAlignmentOffset,
+                                      ),
+                                      child: Image(
+                                        image: widget.image ??
+                                            const NetworkImage(
+                                              "https://picsum.photos/600/800",
+                                            ),
+                                        fit: BoxFit.cover,
+                                        alignment: Alignment(
+                                            0, widget.imageAlignmentOffset * 2),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -146,8 +175,8 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                     const Spacer(),
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],

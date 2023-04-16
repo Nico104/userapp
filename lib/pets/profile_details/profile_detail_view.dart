@@ -242,6 +242,29 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
               mainAxisSize: MainAxisSize.min,
               children: [],
             ),
+            images: GridView.builder(
+              itemCount: 10,
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                childAspectRatio: 1,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  // margin: EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    // borderRadius: BorderRadius.circular(14),
+                    // boxShadow: kElevationToShadow[4],
+                    image: DecorationImage(
+                      image: NetworkImage((index.isEven)
+                          ? "https://picsum.photos/600/800"
+                          : "https://picsum.photos/800"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
           const SizedBox(
             height: 16,

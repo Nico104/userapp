@@ -12,16 +12,17 @@ class EditPagesTabComponent extends StatefulWidget {
     required this.petInfo,
     required this.contact,
     required this.document,
+    required this.images,
   });
 
-  final Widget petInfo, contact, document;
+  final Widget petInfo, contact, document, images;
 
   @override
   State<EditPagesTabComponent> createState() => _EditPagesTabComponentState();
 }
 
 class _EditPagesTabComponentState extends State<EditPagesTabComponent> {
-  int index = 0;
+  int index = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,22 @@ class _EditPagesTabComponentState extends State<EditPagesTabComponent> {
         PaddingComponent(
           child: Row(
             children: [
+              //! Text to do
+              TabItem(
+                label: "Pictures",
+                isActive: index == 3,
+                bgColor:
+                    getCustomColors(context).accentLight ?? Colors.transparent,
+                onTap: () {
+                  int myIndex = 3;
+                  if (index != myIndex) {
+                    setState(() {
+                      index = myIndex;
+                    });
+                  }
+                },
+              ),
+              const Spacer(flex: 1),
               TabItem(
                 label: "profileDetailsTabTitlePetInfo".tr(),
                 isActive: index == 0,
@@ -90,8 +107,8 @@ class _EditPagesTabComponentState extends State<EditPagesTabComponent> {
               child: child,
             );
           },
-          child:
-              getPage(index, widget.petInfo, widget.contact, widget.document),
+          child: getPage(index, widget.petInfo, widget.contact, widget.document,
+              widget.images),
         )
       ],
     );
@@ -149,7 +166,8 @@ class TabItem extends StatelessWidget {
   }
 }
 
-Widget getPage(int index, Widget page1, Widget page2, Widget page3) {
+Widget getPage(
+    int index, Widget page1, Widget page2, Widget page3, Widget page4) {
   switch (index) {
     case 0:
       return page1;
@@ -157,6 +175,8 @@ Widget getPage(int index, Widget page1, Widget page2, Widget page3) {
       return page2;
     case 2:
       return page3;
+    case 3:
+      return page4;
     default:
       return page1;
   }

@@ -80,7 +80,7 @@ final ThemeData constLightTheme = ThemeData(
       ),
       homePetName: const TextStyle(
         fontFamily: 'Satisfy',
-        fontSize: 22,
+        fontSize: 38,
         color: Colors.black,
       ),
       homeWelcomeMessage: TextStyle(

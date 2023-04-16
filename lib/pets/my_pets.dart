@@ -5,6 +5,7 @@ import 'package:userapp/language/m_language.dart';
 import 'package:userapp/pets/pet_profile_preview_extended_actions.dart';
 import 'package:userapp/pets/profile_details/g_profile_detail_globals.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
+import 'package:userapp/theme/custom_text_styles.dart';
 import 'my_pets_navbar.dart';
 import 'new_pet_profile.dart';
 import 'page_transform.dart';
@@ -213,6 +214,7 @@ class _MyPetsState extends State<MyPets> {
                               },
                             ),
                           ),
+                          //Blurs outgoung profile
                           ClipRRect(
                             child: BackdropFilter(
                               filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
@@ -239,6 +241,13 @@ class _MyPetsState extends State<MyPets> {
               reloadFuture: () {},
             ),
           ),
+          // Align(
+          //   alignment: Alignment.topLeft,
+          //   child: Text(
+          //     "Taco",
+          //     style: getCustomTextStyles(context).homePetName,
+          //   ),
+          // ),
         ],
       ),
     );
