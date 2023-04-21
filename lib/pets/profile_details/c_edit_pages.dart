@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/c_component_padding.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../styles/text_styles.dart';
 import '../../theme/custom_colors.dart';
@@ -29,71 +30,79 @@ class _EditPagesTabComponentState extends State<EditPagesTabComponent> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        PaddingComponent(
-          child: Row(
-            children: [
-              //! Text to do
-              TabItem(
-                label: "Pictures",
-                isActive: index == 3,
-                bgColor:
-                    getCustomColors(context).accentLight ?? Colors.transparent,
-                onTap: () {
-                  int myIndex = 3;
-                  if (index != myIndex) {
-                    setState(() {
-                      index = myIndex;
-                    });
-                  }
-                },
-              ),
-              const Spacer(flex: 1),
-              TabItem(
-                label: "profileDetailsTabTitlePetInfo".tr(),
-                isActive: index == 0,
-                bgColor:
-                    getCustomColors(context).accentLight ?? Colors.transparent,
-                onTap: () {
-                  int myIndex = 0;
-                  if (index != myIndex) {
-                    setState(() {
-                      index = myIndex;
-                    });
-                  }
-                },
-              ),
-              const Spacer(flex: 1),
-              TabItem(
-                label: "profileDetailsTabTitleContact".tr(),
-                isActive: index == 1,
-                bgColor:
-                    getCustomColors(context).accentLight ?? Colors.transparent,
-                onTap: () {
-                  int myIndex = 1;
-                  if (index != myIndex) {
-                    setState(() {
-                      index = myIndex;
-                    });
-                  }
-                },
-              ),
-              const Spacer(flex: 1),
-              TabItem(
-                label: "profileDetailsTabTitleDocument".tr(),
-                isActive: index == 2,
-                bgColor:
-                    getCustomColors(context).accentLight ?? Colors.transparent,
-                onTap: () {
-                  int myIndex = 2;
-                  if (index != myIndex) {
-                    setState(() {
-                      index = myIndex;
-                    });
-                  }
-                },
-              ),
-              const Spacer(flex: 8),
-            ],
+        VisibilityDetector(
+          key: const Key('scoll-edit-tabs'),
+          onVisibilityChanged: (visibilityInfo) {
+            var visiblePercentage = visibilityInfo.visibleFraction * 100;
+            debugPrint(
+                'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+          },
+          child: PaddingComponent(
+            child: Row(
+              children: [
+                //! Text to do
+                TabItem(
+                  label: "Pictures",
+                  isActive: index == 3,
+                  bgColor: getCustomColors(context).accentLight ??
+                      Colors.transparent,
+                  onTap: () {
+                    int myIndex = 3;
+                    if (index != myIndex) {
+                      setState(() {
+                        index = myIndex;
+                      });
+                    }
+                  },
+                ),
+                const Spacer(flex: 1),
+                TabItem(
+                  label: "profileDetailsTabTitlePetInfo".tr(),
+                  isActive: index == 0,
+                  bgColor: getCustomColors(context).accentLight ??
+                      Colors.transparent,
+                  onTap: () {
+                    int myIndex = 0;
+                    if (index != myIndex) {
+                      setState(() {
+                        index = myIndex;
+                      });
+                    }
+                  },
+                ),
+                const Spacer(flex: 1),
+                TabItem(
+                  label: "profileDetailsTabTitleContact".tr(),
+                  isActive: index == 1,
+                  bgColor: getCustomColors(context).accentLight ??
+                      Colors.transparent,
+                  onTap: () {
+                    int myIndex = 1;
+                    if (index != myIndex) {
+                      setState(() {
+                        index = myIndex;
+                      });
+                    }
+                  },
+                ),
+                const Spacer(flex: 1),
+                TabItem(
+                  label: "profileDetailsTabTitleDocument".tr(),
+                  isActive: index == 2,
+                  bgColor: getCustomColors(context).accentLight ??
+                      Colors.transparent,
+                  onTap: () {
+                    int myIndex = 2;
+                    if (index != myIndex) {
+                      setState(() {
+                        index = myIndex;
+                      });
+                    }
+                  },
+                ),
+                const Spacer(flex: 8),
+              ],
+            ),
           ),
         ),
         AnimatedSwitcher(

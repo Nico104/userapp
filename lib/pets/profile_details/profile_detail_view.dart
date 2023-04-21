@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/c_pet_name.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 import '../../pet_color/u_pet_colors.dart';
 import '../../styles/text_styles.dart';
 import '../../theme/custom_colors.dart';
@@ -40,6 +42,7 @@ class PetProfileDetailView extends StatefulWidget {
 
 class _PetProfileDetailViewState extends State<PetProfileDetailView> {
   late PetProfileDetails _petProfileDetails;
+  List<Uint8List> newPictures = List<Uint8List>.empty(growable: true);
 
   bool isScrollTop = true;
   final _scrollSontroller = ScrollController();
@@ -154,17 +157,6 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 PaddingComponent(
-                  ignoreLeftPadding: true,
-                  child: PetPicturesComponent(
-                    imageHeight: 178,
-                    imageWidth: 178,
-                    imageBorderRadius: 14,
-                    imageSpacing: 20,
-                    petPictures: _petProfileDetails.petPictures,
-                    setPetPictures: (value) => _petProfileDetails.petPictures,
-                  ),
-                ),
-                PaddingComponent(
                   child: OnelineSimpleInput(
                     flex: 7,
                     value: _petProfileDetails.petChipId ?? "",
@@ -242,28 +234,50 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
               mainAxisSize: MainAxisSize.min,
               children: [],
             ),
-            images: GridView.builder(
-              itemCount: 10,
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 1,
+            // images: GridView.builder(
+            //   itemCount: 10,
+            //   shrinkWrap: true,
+            //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //     crossAxisCount: 3,
+            //     childAspectRatio: 1,
+            //   ),
+            //   itemBuilder: (BuildContext context, int index) {
+            //     return Container(
+            //       // margin: EdgeInsets.all(4),
+            //       decoration: BoxDecoration(
+            //         // borderRadius: BorderRadius.circular(14),
+            //         // boxShadow: kElevationToShadow[4],
+            //         image: DecorationImage(
+            //           image: NetworkImage((index.isEven)
+            //               ? "https://picsum.photos/600/800"
+            //               : "https://picsum.photos/800"),
+            //           fit: BoxFit.cover,
+            //         ),
+            //       ),
+            //     );
+            //   },
+            // ),
+            images: PaddingComponent(
+              ignoreLeftPadding: true,
+              child: PetPicturesComponent(
+                imageHeight: 178,
+                imageWidth: 178,
+                imageBorderRadius: 14,
+                imageSpacing: 20,
+                petPictures: _petProfileDetails.petPictures,
+                setPetPictures: (value) => _petProfileDetails.petPictures,
+                newPetPictures: newPictures,
+                addPetPicture: (value) {
+                  setState(() {
+                    newPictures.add(value);
+                  });
+                },
+                removePetPicture: (value) {
+                  setState(() {
+                    newPictures.removeAt(value);
+                  });
+                },
               ),
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  // margin: EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    // borderRadius: BorderRadius.circular(14),
-                    // boxShadow: kElevationToShadow[4],
-                    image: DecorationImage(
-                      image: NetworkImage((index.isEven)
-                          ? "https://picsum.photos/600/800"
-                          : "https://picsum.photos/800"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                );
-              },
             ),
           ),
           const SizedBox(

@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/language/m_language.dart';
@@ -185,6 +186,8 @@ class _MyPetsState extends State<MyPets> {
                                     minScaling: 0.65,
                                     minOpacity: 0,
                                     child: PetProfilePreview(
+                                      // dotCount: widget.petProfiles.length,
+                                      // dotPosition: position.toDouble(),
                                       image: NetworkImage(
                                           (pageindex.round() == 0)
                                               ? "https://picsum.photos/600/800"
@@ -214,6 +217,20 @@ class _MyPetsState extends State<MyPets> {
                               },
                             ),
                           ),
+                          // isExtendedIndexActive(
+                          //         activeExtendedActions, pageindex.round())
+                          //     ? Align(
+                          //         alignment: const Alignment(1, 1),
+                          //         child: DotsIndicator(
+                          //           dotsCount: widget.petProfiles.length,
+                          //           position: pageindex,
+                          //           decorator: const DotsDecorator(
+                          //             color: Colors.black87, // Inactive color
+                          //             activeColor: Colors.redAccent,
+                          //           ),
+                          //         ),
+                          //       )
+                          //     : const SizedBox.shrink(),
                           //Blurs outgoung profile
                           ClipRRect(
                             child: BackdropFilter(
@@ -237,7 +254,8 @@ class _MyPetsState extends State<MyPets> {
             alignment: Alignment.bottomCenter,
             child: ExtendedSettingsContainer(
               isActive: isInteger(pageindex),
-              petProfileDetails: widget.petProfiles.first,
+              petProfileDetails:
+                  widget.petProfiles.elementAt(pageindex.round()),
               reloadFuture: () {},
             ),
           ),

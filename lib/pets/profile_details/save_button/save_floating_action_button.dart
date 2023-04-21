@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:userapp/pets/profile_details/u_profile_details.dart';
 
 import '../../../theme/custom_colors.dart';
@@ -27,22 +28,29 @@ class SaveFloatingActionButton extends StatelessWidget {
       backgroundColor: getCustomColors(context).accent,
       tooltip: "Click to save changes",
       onPressed: () async {
-        showDialog(
-          context: context,
-          builder: (_) => SaveButtonDialog(),
-          barrierDismissible: false,
-          barrierColor: Theme.of(context).primaryColor.withOpacity(0.35),
+        // showDialog(
+        //   context: context,
+        //   builder: (_) => SaveButtonDialog(),
+        //   barrierDismissible: false,
+        //   barrierColor: Theme.of(context).primaryColor.withOpacity(0.35),
+        // );
+        // if (_petProfileDetails.tag.isNotEmpty) {
+        //   await handlePetProfileDetailsSave(
+        //           _petProfileDetails, oldPetProfileDetails)
+        //       .then(
+        //     (value) {
+        //       // Navigator.pop(context);
+        //       reloadFuture.call();
+        //     },
+        //   );
+        // }
+        uploadPicture(
+          _petProfileDetails.profileId!,
+          (await rootBundle.load('assets/tmp/2d_paw_blue.png'))
+              .buffer
+              .asUint8List(),
+          () {},
         );
-        if (_petProfileDetails.tag.isNotEmpty) {
-          await handlePetProfileDetailsSave(
-                  _petProfileDetails, oldPetProfileDetails)
-              .then(
-            (value) {
-              // Navigator.pop(context);
-              reloadFuture.call();
-            },
-          );
-        }
       },
       child: Icon(
         Icons.save,

@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
 import 'package:userapp/network_globals.dart';
@@ -8,6 +10,7 @@ import 'package:userapp/pets/profile_details/models/m_important_information.dart
 import '../../auth/u_auth.dart';
 import 'models/m_pet_profile.dart';
 import 'models/m_tag.dart';
+import 'package:http_parser/http_parser.dart';
 
 ///Handle Pet Profile Save by either create or update
 Future<void> handlePetProfileDetailsSave(PetProfileDetails petProfileDetails,
@@ -18,6 +21,37 @@ Future<void> handlePetProfileDetailsSave(PetProfileDetails petProfileDetails,
   } else {
     await updatePetProfile(petProfileDetails, petProfileDetailsOld);
   }
+}
+
+Future<void> uploadPicture(
+  int profile_id,
+  Uint8List picture,
+  Function() callback,
+) async {
+  var url = Uri.parse('$baseURL/pet/uploadPicture/$profile_id');
+  print("URL: " + url.toString());
+  String? token = await getToken();
+
+  var request = http.MultipartRequest('POST', url);
+
+  request.headers['Authorization'] = 'Bearer $token';
+
+  request.files.add(http.MultipartFile.fromBytes('picture', picture,
+      filename: "thumbnailname", contentType: MediaType('image', 'png')));
+
+  callback.call();
+
+  await request.send().then((result) async {
+    http.Response.fromStream(result).then((response) {
+      if (response.statusCode == 201) {
+        print("Uploaded! ");
+      }
+    });
+  }).catchError((err) {
+    print('error : ' + err.toString());
+  }).whenComplete(() {
+    print("upload fertig1");
+  });
 }
 
 Future<void> updatePetProfile(PetProfileDetails petProfileDetails,
