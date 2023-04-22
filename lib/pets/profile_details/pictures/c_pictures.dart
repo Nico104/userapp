@@ -34,7 +34,9 @@ class PetPicturesComponent extends StatefulWidget {
   final ValueSetter<List<PetPicture>> setPetPictures;
 
   final List<Uint8List> newPetPictures;
-  final ValueSetter<Uint8List> addPetPicture;
+
+  // final ValueSetter<Uint8List> addPetPicture;
+  final Future<void> Function(Uint8List) addPetPicture;
   //Param index
   final ValueSetter<int> removePetPicture;
 
@@ -90,9 +92,19 @@ class _PetPicturesComponentState extends State<PetPicturesComponent> {
             removePetPicture: () {
               widget.removePetPicture.call(index);
             },
-            // image: const NetworkImage("https://picsum.photos/600/800"),
-            image: NetworkImage(
-                s3BaseUrl + widget.petPictures.elementAt(index).petPictureLink),
+            imageUrl:
+                s3BaseUrl + widget.petPictures.elementAt(index).petPictureLink,
+            // image: ,
+            // image: CachedNetworkImage(
+            //   imageUrl: "http://via.placeholder.com/350x150",
+            //   placeholder: (context, url) => CircularProgressIndicator(),
+            //   errorWidget: (context, url, error) => GestureDetector(
+            //       onTap: () {
+            //         // handle your reload and setState/ state management here
+            //       },
+            //       child: Icon(Icons.error) // the placeholder/error image,
+            //       ),
+            // ),
           );
         } else {
           // print("I am a New");
@@ -103,11 +115,8 @@ class _PetPicturesComponentState extends State<PetPicturesComponent> {
                   imageHeight: widget.imageHeight,
                   imageBorderRadius: widget.imageBorderRadius,
                   closeBorderRadius: widget.closeBorderRadius,
-                  addNewImage: (image) {
-                    // setState(() {
-                    //   widget.newPictures.add(image);
-                    // });
-                    widget.addPetPicture.call(image);
+                  addPetPicture: (image) async {
+                    await widget.addPetPicture(image);
                   },
                 )
               : NewPicture(
@@ -199,8 +208,8 @@ class SinglePicture extends StatefulWidget {
     required this.imageHeight,
     required this.imageBorderRadius,
     required this.closeBorderRadius,
-    required this.image,
     required this.removePetPicture,
+    required this.imageUrl,
   });
 
   final double imageOffsetRight;
@@ -210,7 +219,7 @@ class SinglePicture extends StatefulWidget {
   final double closeBorderRadius;
   //Param index
   final VoidCallback removePetPicture;
-  final ImageProvider<Object> image;
+  final String imageUrl;
 
   @override
   State<SinglePicture> createState() => _SinglePictureState();
@@ -224,13 +233,24 @@ class _SinglePictureState extends State<SinglePicture> {
       context: context,
       builder: (_) => ExtendedPicture(
         key: extended,
-        image: widget.image,
+        imageUrl: widget.imageUrl,
         removePetPicture: () => widget.removePetPicture(),
+        errorBuilder: (context, error, stackTrace) =>
+            errorBuilder(context, error, stackTrace),
       ),
     );
   }
 
   void endExtendedPicture(BuildContext context) {}
+
+  Widget errorBuilder(
+      BuildContext context, Object error, StackTrace? stackTrace) {
+    print(error);
+    Future.delayed(Duration(milliseconds: 500)).then((value) {
+      setState(() {});
+    });
+    return CircularProgressIndicator();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -249,21 +269,27 @@ class _SinglePictureState extends State<SinglePicture> {
         print("cancel");
         setState(() {});
       },
-      child: Container(
-        // margin: EdgeInsets.only(
-        //     top: imageOffsetRight / 1.2, right: imageOffsetRight, bottom: 8),
-        // width: imageWidth,
-        // height: imageHeight,
-        decoration: BoxDecoration(
-          // borderRadius: BorderRadius.circular(imageBorderRadius),
-          // boxShadow: kElevationToShadow[2],
-          image: DecorationImage(
-            image: widget.image,
-            fit: BoxFit.cover,
-            alignment: Alignment.center,
-          ),
-        ),
+      child: Image.network(
+        widget.imageUrl,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) =>
+            errorBuilder(context, error, stackTrace),
       ),
+      // child: Container(
+      //   // margin: EdgeInsets.only(
+      //   //     top: imageOffsetRight / 1.2, right: imageOffsetRight, bottom: 8),
+      //   // width: imageWidth,
+      //   // height: imageHeight,
+      //   decoration: BoxDecoration(
+      //     // borderRadius: BorderRadius.circular(imageBorderRadius),
+      //     // boxShadow: kElevationToShadow[2],
+      //     image: DecorationImage(
+      //       image: widget.image,
+      //       fit: BoxFit.cover,
+      //       alignment: Alignment.center,
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

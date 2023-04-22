@@ -19,7 +19,8 @@ class NewPictureWeb extends StatefulWidget {
     required this.imageHeight,
     required this.imageBorderRadius,
     required this.closeBorderRadius,
-    required this.addNewImage,
+    // required this.addNewImage,
+    required this.addPetPicture,
   });
 
   final double imageOffsetRight;
@@ -28,13 +29,16 @@ class NewPictureWeb extends StatefulWidget {
   final double imageBorderRadius;
   final double closeBorderRadius;
 
-  final Function(Uint8List) addNewImage;
+  // final Function(Uint8List) addNewImage;
+  final Future<void> Function(Uint8List) addPetPicture;
 
   @override
   State<NewPictureWeb> createState() => _NewPictureWebState();
 }
 
 class _NewPictureWebState extends State<NewPictureWeb> {
+  bool _loading = false;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -54,7 +58,10 @@ class _NewPictureWebState extends State<NewPictureWeb> {
               pickAndCropImage(imageSource).then(
                 (image) {
                   if (image != null) {
-                    widget.addNewImage.call(image);
+                    setState(() {
+                      _loading = true;
+                    });
+                    widget.addPetPicture.call(image);
                   }
                 },
               );
@@ -62,22 +69,33 @@ class _NewPictureWebState extends State<NewPictureWeb> {
           },
         );
       },
-      child: Container(
-        // margin: EdgeInsets.only(
-        //     top: widget.imageOffsetRight / 1.2, right: widget.imageOffsetRight),
-        // width: widget.imageWidth,
-        // height: widget.imageHeight,
-        margin: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-            border: Border.all(
-              width: 0.5,
-              color: getCustomColors(context).lightBorder ?? Colors.transparent,
+      child: _loading
+          ? Container(
+              // margin: EdgeInsets.only(
+              //     top: widget.imageOffsetRight / 1.2, right: widget.imageOffsetRight),
+              // width: widget.imageWidth,
+              // height: widget.imageHeight,
+              margin: const EdgeInsets.all(24),
+
+              child: const CircularProgressIndicator(),
+            )
+          : Container(
+              // margin: EdgeInsets.only(
+              //     top: widget.imageOffsetRight / 1.2, right: widget.imageOffsetRight),
+              // width: widget.imageWidth,
+              // height: widget.imageHeight,
+              margin: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 0.5,
+                    color: getCustomColors(context).lightBorder ??
+                        Colors.transparent,
+                  ),
+                  // borderRadius: BorderRadius.circular(widget.imageBorderRadius),
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(16)),
+              child: const Icon(Icons.add),
             ),
-            // borderRadius: BorderRadius.circular(widget.imageBorderRadius),
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.circular(16)),
-        child: const Icon(Icons.add),
-      ),
     );
   }
 }

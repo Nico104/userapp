@@ -158,6 +158,11 @@ class _MyTagTileState extends State<MyTagTile> {
                                                           reloadFuture: () {
                                                             setState(() {});
                                                           },
+                                                          getProfileDetails:
+                                                              () {
+                                                            return widget
+                                                                .petProfileDetails!;
+                                                          },
                                                         ),
                                                       );
                                                     }

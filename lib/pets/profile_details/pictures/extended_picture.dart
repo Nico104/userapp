@@ -5,10 +5,15 @@ import 'package:sizer/sizer.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
 
 class ExtendedPicture extends StatefulWidget {
-  const ExtendedPicture(
-      {super.key, required this.image, required this.removePetPicture});
+  const ExtendedPicture({
+    super.key,
+    required this.imageUrl,
+    required this.removePetPicture,
+    required this.errorBuilder,
+  });
 
-  final ImageProvider<Object> image;
+  final String imageUrl;
+  final Widget Function(BuildContext, Object, StackTrace?) errorBuilder;
   //Param index
   final VoidCallback removePetPicture;
 
@@ -37,7 +42,11 @@ class _ExtendedPictureState extends State<ExtendedPicture> {
                 bottomLeft: Radius.circular(0),
                 bottomRight: Radius.circular(0),
               ),
-              child: Image(image: widget.image),
+              child: Image.network(
+                widget.imageUrl,
+                errorBuilder: (context, error, stackTrace) =>
+                    widget.errorBuilder(context, error, stackTrace),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -52,6 +61,7 @@ class _ExtendedPictureState extends State<ExtendedPicture> {
                   GestureDetector(
                     onTap: () {
                       widget.removePetPicture.call();
+                      Navigator.pop(context);
                     },
                     child: Icon(
                       CustomIcons.delete,

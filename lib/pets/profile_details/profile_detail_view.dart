@@ -30,17 +30,20 @@ class PetProfileDetailView extends StatefulWidget {
     super.key,
     required this.petProfileDetails,
     required this.reloadFuture,
+    required this.getProfileDetails,
   });
 
   final PetProfileDetails petProfileDetails;
 
   final VoidCallback reloadFuture;
 
+  final PetProfileDetails Function() getProfileDetails;
+
   @override
-  State<PetProfileDetailView> createState() => _PetProfileDetailViewState();
+  State<PetProfileDetailView> createState() => PetProfileDetailViewState();
 }
 
-class _PetProfileDetailViewState extends State<PetProfileDetailView> {
+class PetProfileDetailViewState extends State<PetProfileDetailView> {
   late PetProfileDetails _petProfileDetails;
   List<Uint8List> newPictures = List<Uint8List>.empty(growable: true);
 
@@ -48,6 +51,29 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
   final _scrollSontroller = ScrollController();
 
   bool enableHero = true;
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    print("${widget.getProfileDetails().petPictures.length} Pictures2");
+  }
+
+  @override
+  void didUpdateWidget(covariant PetProfileDetailView oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+    print("${widget.petProfileDetails.petPictures.length} Pictures3");
+  }
+
+  void refresh() {
+    print("refresh");
+    if (mounted) {
+      print("mounted");
+      setState(() {});
+      print("${widget.getProfileDetails().petPictures.length} Pictures22");
+    }
+  }
 
   @override
   void initState() {
@@ -264,30 +290,36 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
                 imageWidth: 178,
                 imageBorderRadius: 14,
                 imageSpacing: 20,
-                petPictures: widget.petProfileDetails.petPictures,
+                petPictures: widget.getProfileDetails().petPictures,
                 setPetPictures: (value) => _petProfileDetails.petPictures,
                 newPetPictures: newPictures,
-                addPetPicture: (value) {
+                addPetPicture: (value) async {
                   // setState(() {
                   //   newPictures.add(value);
                   // });
-                  uploadPicture(
+                  await uploadPicture(
                     _petProfileDetails.profileId!,
                     value,
-                    () async {
+                    () {
                       print("uplaoded");
                       // setState(() {});
                       // await Future.delayed(Duration(seconds: 8));
                       widget.reloadFuture.call();
                       //TODO update UI
+                      //hekps against 403 from server
+                      Future.delayed(Duration(milliseconds: 850))
+                          .then((value) => refresh());
                     },
                   );
                 },
-                removePetPicture: (index) {
-                  deletePicture(
-                          widget.petProfileDetails.petPictures.elementAt(index))
-                      .then((value) => widget.reloadFuture.call());
+                removePetPicture: (index) async {
+                  await deletePicture(
+                      widget.getProfileDetails().petPictures.elementAt(index));
                   //TODO update UI
+                  //hekps against 403 from server
+                  widget.reloadFuture.call();
+                  Future.delayed(Duration(milliseconds: 100))
+                      .then((value) => refresh());
                 },
               ),
             ),

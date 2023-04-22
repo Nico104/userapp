@@ -120,7 +120,8 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                           controller: _controller,
                           pageSnapping: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: 2,
+                          itemCount:
+                              widget.petProfileDetails.petPictures.length,
                           itemBuilder: (context, position) {
                             return Align(
                               alignment: const Alignment(0, -0.4),
@@ -156,14 +157,30 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                                         0,
                                         widget.imageAlignmentOffset,
                                       ),
-                                      child: Image(
-                                        image: widget.image ??
-                                            const NetworkImage(
-                                              "https://picsum.photos/600/800",
-                                            ),
+                                      // child: Image(
+                                      //   image: widget.image ??
+                                      //       const NetworkImage(
+                                      //         "https://picsum.photos/600/800",
+                                      //       ),
+                                      //   fit: BoxFit.cover,
+                                      //   alignment: Alignment(
+                                      //       0, widget.imageAlignmentOffset * 2),
+                                      // ),
+                                      child: Image.network(
+                                        widget.petProfileDetails.petPictures
+                                            .elementAt(0)
+                                            .petPictureLink,
                                         fit: BoxFit.cover,
                                         alignment: Alignment(
                                             0, widget.imageAlignmentOffset * 2),
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          print(error);
+                                          return Image(
+                                            image: NetworkImage(
+                                                "https://picsum.photos/600/800"),
+                                          );
+                                        },
                                       ),
                                     ),
                                   ),

@@ -37,6 +37,8 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
 
   double _width = 0;
 
+  final GlobalKey<PetProfileDetailViewState> _globalKey = GlobalKey();
+
   @override
   void initState() {
     super.initState();
@@ -48,8 +50,12 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
       context,
       MaterialPageRoute(
         builder: (context) => PetProfileDetailView(
+          key: _globalKey,
           petProfileDetails: widget.petProfileDetails,
           reloadFuture: widget.reloadFuture,
+          getProfileDetails: () {
+            return widget.petProfileDetails;
+          },
         ),
       ),
     );

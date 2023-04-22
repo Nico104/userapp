@@ -44,10 +44,10 @@ class _MyPetsState extends State<MyPets> {
 
   int? activeExtendedActions;
 
-  List<NetworkImage> bgList = [
-    NetworkImage("https://picsum.photos/600/800"),
-    NetworkImage("https://picsum.photos/800"),
-  ];
+  // List<NetworkImage> bgList = [
+  //   NetworkImage("https://picsum.photos/600/800"),
+  //   NetworkImage("https://picsum.photos/800"),
+  // ];
 
   @override
   void initState() {
@@ -73,6 +73,7 @@ class _MyPetsState extends State<MyPets> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     precacheImages();
+    // print("${widget.petProfiles.first.petPictures.length} Pictures5");
   }
 
   @override
@@ -96,9 +97,9 @@ class _MyPetsState extends State<MyPets> {
   }
 
   void precacheImages() {
-    for (var img in bgList) {
-      precacheImage(img, context);
-    }
+    // for (var img in bgList) {
+    //   precacheImage(img, context);
+    // }
   }
 
   @override
