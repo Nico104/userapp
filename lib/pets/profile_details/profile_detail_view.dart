@@ -106,11 +106,11 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
               )
             : null,
       ),
-      floatingActionButton: SaveFloatingActionButton(
-        petProfileDetails: _petProfileDetails,
-        oldPetProfileDetails: widget.petProfileDetails,
-        reloadFuture: () => widget.reloadFuture.call(),
-      ),
+      // floatingActionButton: SaveFloatingActionButton(
+      //   petProfileDetails: _petProfileDetails,
+      //   oldPetProfileDetails: widget.petProfileDetails,
+      //   reloadFuture: () => widget.reloadFuture.call(),
+      // ),
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: true,
       body: ListView(
@@ -264,18 +264,30 @@ class _PetProfileDetailViewState extends State<PetProfileDetailView> {
                 imageWidth: 178,
                 imageBorderRadius: 14,
                 imageSpacing: 20,
-                petPictures: _petProfileDetails.petPictures,
+                petPictures: widget.petProfileDetails.petPictures,
                 setPetPictures: (value) => _petProfileDetails.petPictures,
                 newPetPictures: newPictures,
                 addPetPicture: (value) {
-                  setState(() {
-                    newPictures.add(value);
-                  });
+                  // setState(() {
+                  //   newPictures.add(value);
+                  // });
+                  uploadPicture(
+                    _petProfileDetails.profileId!,
+                    value,
+                    () async {
+                      print("uplaoded");
+                      // setState(() {});
+                      // await Future.delayed(Duration(seconds: 8));
+                      widget.reloadFuture.call();
+                      //TODO update UI
+                    },
+                  );
                 },
-                removePetPicture: (value) {
-                  setState(() {
-                    newPictures.removeAt(value);
-                  });
+                removePetPicture: (index) {
+                  deletePicture(
+                          widget.petProfileDetails.petPictures.elementAt(index))
+                      .then((value) => widget.reloadFuture.call());
+                  //TODO update UI
                 },
               ),
             ),

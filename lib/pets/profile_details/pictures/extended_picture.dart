@@ -5,9 +5,12 @@ import 'package:sizer/sizer.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
 
 class ExtendedPicture extends StatefulWidget {
-  const ExtendedPicture({super.key, required this.image});
+  const ExtendedPicture(
+      {super.key, required this.image, required this.removePetPicture});
 
   final ImageProvider<Object> image;
+  //Param index
+  final VoidCallback removePetPicture;
 
   @override
   State<ExtendedPicture> createState() => _ExtendedPictureState();
@@ -40,15 +43,20 @@ class _ExtendedPictureState extends State<ExtendedPicture> {
               padding: const EdgeInsets.all(16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Icon(
+                children: [
+                  const Icon(
                     // Icons.share,
                     CustomIcons.share_thin,
                     size: 34,
                   ),
-                  Icon(
-                    CustomIcons.delete,
-                    size: 34,
+                  GestureDetector(
+                    onTap: () {
+                      widget.removePetPicture.call();
+                    },
+                    child: Icon(
+                      CustomIcons.delete,
+                      size: 34,
+                    ),
                   ),
                 ],
               ),

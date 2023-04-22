@@ -71,8 +71,8 @@ class _PetPicturesComponentState extends State<PetPicturesComponent> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      //Lenght of petPictures + newPictures + 1 for new Image
-      itemCount: widget.petPictures.length + widget.newPetPictures.length + 1,
+      //Lenght of petPictures + 1 for new Image
+      itemCount: widget.petPictures.length + 1,
       // itemCount: 10,
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -80,38 +80,19 @@ class _PetPicturesComponentState extends State<PetPicturesComponent> {
         childAspectRatio: 1,
       ),
       itemBuilder: (BuildContext context, int index) {
-        // int position = index;
         if (index < widget.petPictures.length) {
-          // print("I am a Path");
           return SinglePicture(
             imageOffsetRight: widget.imageOffset,
             imageWidth: widget.imageWidth,
             imageHeight: widget.imageHeight,
             imageBorderRadius: widget.imageBorderRadius,
             closeBorderRadius: widget.closeBorderRadius,
-            deleteImage: () {},
+            removePetPicture: () {
+              widget.removePetPicture.call(index);
+            },
             // image: const NetworkImage("https://picsum.photos/600/800"),
             image: NetworkImage(
                 s3BaseUrl + widget.petPictures.elementAt(index).petPictureLink),
-          );
-        } else if (index <
-            widget.petPictures.length + widget.newPetPictures.length) {
-          // print("I am a File");
-          return SinglePicture(
-            imageOffsetRight: widget.imageOffset,
-            imageWidth: widget.imageWidth,
-            imageHeight: widget.imageHeight,
-            imageBorderRadius: widget.imageBorderRadius,
-            closeBorderRadius: widget.closeBorderRadius,
-            deleteImage: () {
-              setState(() {
-                widget.newPetPictures
-                    .removeAt(index - widget.petPictures.length);
-              });
-            },
-            // image: FileImage(newPictures.elementAt(index - petPictureLenght)),
-            image: MemoryImage(widget.newPetPictures
-                .elementAt(index - widget.petPictures.length)),
           );
         } else {
           // print("I am a New");
@@ -219,7 +200,7 @@ class SinglePicture extends StatefulWidget {
     required this.imageBorderRadius,
     required this.closeBorderRadius,
     required this.image,
-    required this.deleteImage,
+    required this.removePetPicture,
   });
 
   final double imageOffsetRight;
@@ -227,7 +208,8 @@ class SinglePicture extends StatefulWidget {
   final double imageHeight;
   final double imageBorderRadius;
   final double closeBorderRadius;
-  final VoidCallback deleteImage;
+  //Param index
+  final VoidCallback removePetPicture;
   final ImageProvider<Object> image;
 
   @override
@@ -243,6 +225,7 @@ class _SinglePictureState extends State<SinglePicture> {
       builder: (_) => ExtendedPicture(
         key: extended,
         image: widget.image,
+        removePetPicture: () => widget.removePetPicture(),
       ),
     );
   }

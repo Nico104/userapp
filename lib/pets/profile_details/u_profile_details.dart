@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:userapp/network_globals.dart';
 import 'package:userapp/pets/profile_details/models/m_description.dart';
 import 'package:userapp/pets/profile_details/models/m_important_information.dart';
+import 'package:userapp/pets/profile_details/models/m_pet_picture.dart';
 
 import '../../auth/u_auth.dart';
 import 'models/m_pet_profile.dart';
@@ -24,11 +25,11 @@ Future<void> handlePetProfileDetailsSave(PetProfileDetails petProfileDetails,
 }
 
 Future<void> uploadPicture(
-  int profile_id,
+  int profileId,
   Uint8List picture,
   Function() callback,
 ) async {
-  var url = Uri.parse('$baseURL/pet/uploadPicture/$profile_id');
+  var url = Uri.parse('$baseURL/pet/uploadPicture/$profileId');
   print("URL: " + url.toString());
   String? token = await getToken();
 
@@ -38,8 +39,6 @@ Future<void> uploadPicture(
 
   request.files.add(http.MultipartFile.fromBytes('picture', picture,
       filename: "thumbnailname", contentType: MediaType('image', 'png')));
-
-  callback.call();
 
   await request.send().then((result) async {
     http.Response.fromStream(result).then((response) {
@@ -52,6 +51,34 @@ Future<void> uploadPicture(
   }).whenComplete(() {
     print("upload fertig1");
   });
+  callback.call();
+}
+
+Future<void> deletePicture(PetPicture petPicture) async {
+  Uri url = Uri.parse('$baseURL/pet/deletePicture');
+  String? token = await getToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: json.encode({
+      "pet_picture_id": petPicture.petPictureId,
+      "pet_picture_link": petPicture.petPictureLink,
+      "profile_id": petPicture.petProfileId,
+    }),
+  );
+
+  print(response.statusCode);
+
+  if (response.statusCode == 201) {
+    return;
+  } else {
+    throw Exception('Failed to delete Picture.');
+  }
 }
 
 Future<void> updatePetProfile(PetProfileDetails petProfileDetails,

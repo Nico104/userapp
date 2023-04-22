@@ -256,7 +256,7 @@ class _MyPetsState extends State<MyPets> {
               isActive: isInteger(pageindex),
               petProfileDetails:
                   widget.petProfiles.elementAt(pageindex.round()),
-              reloadFuture: () {},
+              reloadFuture: () => widget.reloadFuture(),
             ),
           ),
           // Align(
