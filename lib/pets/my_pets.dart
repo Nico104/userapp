@@ -3,6 +3,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/language/m_language.dart';
+import 'package:userapp/network_globals.dart';
 import 'package:userapp/pets/pet_profile_preview_extended_actions.dart';
 import 'package:userapp/pets/profile_details/g_profile_detail_globals.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
@@ -43,6 +44,7 @@ class _MyPetsState extends State<MyPets> {
   // late Color backgroundColor;
 
   int? activeExtendedActions;
+  ImageProvider<Object>? _bgImage;
 
   // List<NetworkImage> bgList = [
   //   NetworkImage("https://picsum.photos/600/800"),
@@ -102,28 +104,47 @@ class _MyPetsState extends State<MyPets> {
     // }
   }
 
+  String getBGPictureLink() {
+    if (widget.petProfiles
+        .elementAt(pageindex.round())
+        .petPictures
+        .isNotEmpty) {
+      return s3BaseUrl +
+          widget.petProfiles
+              .elementAt(pageindex.round())
+              .petPictures
+              .first
+              .petPictureLink;
+    } else {
+      //TODO reserve doggo pic
+      return "https://picsum.photos/600/800";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           AnimatedSwitcher(
-            duration: const Duration(milliseconds: 350),
+            duration: const Duration(milliseconds: 80),
             switchInCurve: Curves.fastOutSlowIn,
             switchOutCurve: Curves.fastOutSlowIn,
             child: Container(
               key: ValueKey(pageindex.round()),
               // height: double.infinity,
               width: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage((pageindex.round() == 0)
-                      ? "https://picsum.photos/600/800"
-                      : "https://picsum.photos/800"),
-                  fit: BoxFit.cover,
-                  scale: 1.2,
-                ),
-              ),
+              decoration: pageindex.round() < widget.petProfiles.length
+                  ? BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          getBGPictureLink(),
+                        ),
+                        fit: BoxFit.cover,
+                        scale: 1.2,
+                      ),
+                    )
+                  : null,
               child: BackdropFilter(
                 filter: ImageFilter.blur(
                   sigmaX: 15,
@@ -251,15 +272,17 @@ class _MyPetsState extends State<MyPets> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: ExtendedSettingsContainer(
-              isActive: isInteger(pageindex),
-              petProfileDetails:
-                  widget.petProfiles.elementAt(pageindex.round()),
-              reloadFuture: () => widget.reloadFuture(),
-            ),
-          ),
+          pageindex.round() < widget.petProfiles.length
+              ? Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ExtendedSettingsContainer(
+                    isActive: isInteger(pageindex),
+                    petProfileDetails:
+                        widget.petProfiles.elementAt(pageindex.round()),
+                    reloadFuture: () => widget.reloadFuture(),
+                  ),
+                )
+              : const SizedBox.shrink(),
           // Align(
           //   alignment: Alignment.topLeft,
           //   child: Text(

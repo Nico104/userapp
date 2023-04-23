@@ -2,6 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:userapp/network_globals.dart';
 import '../theme/custom_text_styles.dart';
 import 'profile_details/models/m_pet_profile.dart';
 
@@ -48,6 +49,9 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
   @override
   void initState() {
     super.initState();
+
+    print(widget.petProfileDetails.petPictures.toString());
+
     _controller.addListener(() {
       setState(() {
         _pageIndex = _controller.page ?? 0;
@@ -121,7 +125,9 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                           pageSnapping: true,
                           scrollDirection: Axis.horizontal,
                           itemCount:
-                              widget.petProfileDetails.petPictures.length,
+                              widget.petProfileDetails.petPictures.isNotEmpty
+                                  ? widget.petProfileDetails.petPictures.length
+                                  : 1,
                           itemBuilder: (context, position) {
                             return Align(
                               alignment: const Alignment(0, -0.4),
@@ -168,19 +174,28 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                                       // ),
                                       child: Image.network(
                                         widget.petProfileDetails.petPictures
-                                            .elementAt(0)
-                                            .petPictureLink,
+                                                .isNotEmpty
+                                            ? s3BaseUrl +
+                                                widget.petProfileDetails
+                                                    .petPictures
+                                                    .elementAt(position)
+                                                    .petPictureLink
+                                            : "https://picsum.photos/600/800",
                                         fit: BoxFit.cover,
                                         alignment: Alignment(
                                             0, widget.imageAlignmentOffset * 2),
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                          print(error);
-                                          return Image(
-                                            image: NetworkImage(
-                                                "https://picsum.photos/600/800"),
-                                          );
-                                        },
+                                        // errorBuilder:
+                                        //     (context, error, stackTrace) {
+                                        //   print(error);
+                                        //   print(widget
+                                        //       .petProfileDetails.petPictures
+                                        //       .elementAt(position)
+                                        //       .petPictureLink);
+                                        //   return Image(
+                                        //     image: NetworkImage(
+                                        //         "https://picsum.photos/600/800"),
+                                        //   );
+                                        // },
                                       ),
                                     ),
                                   ),
