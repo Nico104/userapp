@@ -24,6 +24,8 @@ Future<void> handlePetProfileDetailsSave(PetProfileDetails petProfileDetails,
   }
 }
 
+//Pictures
+
 Future<void> uploadPicture(
   int profileId,
   Uint8List picture,
@@ -79,6 +81,56 @@ Future<void> deletePicture(PetPicture petPicture) async {
   } else {
     throw Exception('Failed to delete Picture.');
   }
+}
+
+//Documents
+
+Future<void> uploadDocuments(
+  int profileId,
+  Uint8List document,
+  String documentName,
+  String documentType,
+  String contentType,
+  Function() callback,
+) async {
+  var url = Uri.parse('$baseURL/pet/uploadDocument/$profileId');
+  print("URL: " + url.toString());
+  String? token = await getToken();
+
+  var request = http.MultipartRequest('POST', url);
+
+  final data = {
+    'document_name': documentName,
+    'document_type': documentType,
+    'content_type': contentType,
+  };
+
+  request = jsonToFormData(request, data);
+
+  request.headers['X-Requested-With'] = "XMLHttpRequest";
+  request.headers['Authorization'] = 'Bearer $token';
+
+  request.files.add(http.MultipartFile.fromBytes('document', document));
+
+  await request.send().then((result) async {
+    http.Response.fromStream(result).then((response) {
+      if (response.statusCode == 201) {
+        print("Uploaded");
+      }
+    });
+  }).catchError((err) {
+    print('error : ' + err.toString());
+  }).whenComplete(() {
+    print("upload fertig2");
+  });
+  callback.call();
+}
+
+jsonToFormData(http.MultipartRequest request, Map<String, dynamic> data) {
+  for (var key in data.keys) {
+    request.fields[key] = data[key].toString();
+  }
+  return request;
 }
 
 Future<void> updatePetProfile(PetProfileDetails petProfileDetails,

@@ -50,21 +50,8 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
   bool isScrollTop = true;
   final _scrollSontroller = ScrollController();
 
-  bool enableHero = true;
-
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-    print("${widget.getProfileDetails().petPictures.length} Pictures2");
-  }
-
-  @override
-  void didUpdateWidget(covariant PetProfileDetailView oldWidget) {
-    // TODO: implement didUpdateWidget
-    super.didUpdateWidget(oldWidget);
-    print("${widget.petProfileDetails.petPictures.length} Pictures3");
-  }
+  int _index = 0;
+  bool _enableTopTabBar = false;
 
   void refresh() {
     print("refresh");
@@ -78,13 +65,11 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
   @override
   void initState() {
     super.initState();
+
     _petProfileDetails = widget.petProfileDetails.clone();
     if (widget.petProfileDetails.petName == null) {
       WidgetsBinding.instance.addPostFrameCallback(
         (_) {
-          setState(() {
-            enableHero = false;
-          });
           askForPetName(
               context,
               (value) => setState(() {
@@ -117,219 +102,286 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
   @override
   Widget build(BuildContext context) {
     timeDilation = 1;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('appBarTitleProfileDetails'.tr()),
-        flexibleSpace: !isScrollTop
-            ? ClipRect(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-                  child: Container(
-                    color: Colors.transparent,
-                    height: double.infinity,
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('appBarTitleProfileDetails'.tr()),
+          flexibleSpace: !isScrollTop
+              ? ClipRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+                    child: Container(
+                      color: Colors.transparent,
+                      height: double.infinity,
+                    ),
                   ),
-                ),
-              )
-            : null,
-      ),
-      // floatingActionButton: SaveFloatingActionButton(
-      //   petProfileDetails: _petProfileDetails,
-      //   oldPetProfileDetails: widget.petProfileDetails,
-      //   reloadFuture: () => widget.reloadFuture.call(),
-      // ),
-      extendBodyBehindAppBar: true,
-      resizeToAvoidBottomInset: true,
-      body: ListView(
-        shrinkWrap: true,
-        controller: _scrollSontroller,
-        children: [
-          const SizedBox(height: 28),
-          PaddingComponent(
-            ignoreLeftPadding: true,
-            child: Center(
-              child: Container(
-                width: 90.w,
-                height: 90.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                  boxShadow: kElevationToShadow[4],
-                  image: const DecorationImage(
-                    image: NetworkImage("https://picsum.photos/512"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          //Name and Tag
-          PaddingComponent(
-            child: PetNameComponent(
-              petProfileId: _petProfileDetails.profileId,
-              petName: _petProfileDetails.petName,
-              setPetName: (value) => setState(() {
-                _petProfileDetails.petName = value;
-              }),
-              gender: _petProfileDetails.petGender,
-              tag: _petProfileDetails.tag,
-              setTags: (value) => setState(() {
-                _petProfileDetails.tag = value;
-              }),
-              collardimension: 120,
-            ),
-          ),
-          EditPagesTabComponent(
-            petInfo: Column(
-              key: const ValueKey("PetInfo"),
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                PaddingComponent(
-                  child: OnelineSimpleInput(
-                    flex: 7,
-                    value: _petProfileDetails.petChipId ?? "",
-                    emptyValuePlaceholder: "977200000000000",
-                    title: "profileDetailsComponentTitleChipNumber".tr(),
-                    saveValue: (val) async {
-                      _petProfileDetails.petChipId = val;
-                    },
-                  ),
-                ),
-                PaddingComponent(
-                  child: PetGenderComponent(
-                    gender: _petProfileDetails.petGender,
-                    setGender: (value) => setState(() {
-                      _petProfileDetails.petGender = value;
-                    }),
-                  ),
-                ),
-                PaddingComponent(
-                  child: PetImportantInformation(
-                    //Pass by reference
-                    imortantInformations:
-                        _petProfileDetails.petImportantInformation,
-                  ),
-                ),
-                PaddingComponent(
-                  child: PetDescriptionComponent(
-                    //Pass by reference
-                    descriptions: _petProfileDetails.petDescription,
-                  ),
-                ),
-              ],
-            ),
-            contact: Column(
-              key: const ValueKey("Contact"),
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                PaddingComponent(
-                  child: OnelineSimpleInput(
-                    flex: 6,
-                    value: "",
-                    emptyValuePlaceholder: "Schlongus Longus",
-                    title: "profileDetailsComponentTitleOwnersName".tr(),
-                    saveValue: (_) async {},
-                  ),
-                ),
-                PaddingComponent(
-                  child: OnelineSimpleInput(
-                    flex: 8,
-                    value: "Mainstreet 20A, Vienna, Austria",
-                    emptyValuePlaceholder: "Mainstreet 20A, Vienna, Austria",
-                    title: "profileDetailsComponentTitleHomeAddress".tr(),
-                    saveValue: (_) async {},
-                  ),
-                ),
-                PaddingComponent(
-                  child: PetPhoneNumbersComponent(
-                    phoneNumbers: _petProfileDetails.petOwnerTelephoneNumbers,
-                    petProfileId: _petProfileDetails.profileId,
-                  ),
-                ),
-                PaddingComponent(
-                  child: SocialMediaComponent(
-                    title: "profileDetailsComponentTitleSocialMedia".tr(),
-                    facebook: _petProfileDetails.petOwnerFacebook ?? "",
-                    saveFacebook: (value) {},
-                    instagram: _petProfileDetails.petOwnerInstagram ?? "",
-                    saveInstagram: (value) {},
-                  ),
-                ),
-              ],
-            ),
-            document: Column(
-              key: const ValueKey("Documents"),
-              mainAxisSize: MainAxisSize.min,
-              children: [],
-            ),
-            // images: GridView.builder(
-            //   itemCount: 10,
-            //   shrinkWrap: true,
-            //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            //     crossAxisCount: 3,
-            //     childAspectRatio: 1,
-            //   ),
-            //   itemBuilder: (BuildContext context, int index) {
-            //     return Container(
-            //       // margin: EdgeInsets.all(4),
-            //       decoration: BoxDecoration(
-            //         // borderRadius: BorderRadius.circular(14),
-            //         // boxShadow: kElevationToShadow[4],
-            //         image: DecorationImage(
-            //           image: NetworkImage((index.isEven)
-            //               ? "https://picsum.photos/600/800"
-            //               : "https://picsum.photos/800"),
-            //           fit: BoxFit.cover,
-            //         ),
-            //       ),
-            //     );
-            //   },
-            // ),
-            images: PaddingComponent(
+                )
+              : null,
+          bottom: _enableTopTabBar
+              ? TabBar(
+                  tabs: const [
+                    Tab(icon: Icon(Icons.directions_car)),
+                    Tab(icon: Icon(Icons.directions_transit)),
+                    Tab(icon: Icon(Icons.directions_bike)),
+                    Tab(icon: Icon(Icons.directions_bike)),
+                  ],
+                  onTap: (value) {
+                    // print(value);
+                    setState(() {
+                      _index = value;
+                    });
+                  },
+                )
+              : null,
+        ),
+        // floatingActionButton: SaveFloatingActionButton(
+        //   petProfileDetails: _petProfileDetails,
+        //   oldPetProfileDetails: widget.petProfileDetails,
+        //   reloadFuture: () => widget.reloadFuture.call(),
+        // ),
+        extendBodyBehindAppBar: false,
+        extendBody: true,
+        resizeToAvoidBottomInset: true,
+        body: ListView(
+          shrinkWrap: true,
+          controller: _scrollSontroller,
+          children: [
+            const SizedBox(height: 28),
+            PaddingComponent(
               ignoreLeftPadding: true,
-              child: PetPicturesComponent(
-                imageHeight: 178,
-                imageWidth: 178,
-                imageBorderRadius: 14,
-                imageSpacing: 20,
-                petPictures: widget.getProfileDetails().petPictures,
-                setPetPictures: (value) => _petProfileDetails.petPictures,
-                newPetPictures: newPictures,
-                addPetPicture: (value) async {
-                  // setState(() {
-                  //   newPictures.add(value);
-                  // });
-                  await uploadPicture(
-                    _petProfileDetails.profileId!,
-                    value,
-                    () {
-                      print("uplaoded");
-                      // setState(() {});
-                      // await Future.delayed(Duration(seconds: 8));
-                      widget.reloadFuture.call();
-                      //TODO update UI
-                      //hekps against 403 from server
-                      Future.delayed(Duration(milliseconds: 850))
-                          .then((value) => refresh());
-                    },
-                  );
-                },
-                removePetPicture: (index) async {
-                  await deletePicture(
-                      widget.getProfileDetails().petPictures.elementAt(index));
-                  //TODO update UI
-                  //hekps against 403 from server
-                  widget.reloadFuture.call();
-                  Future.delayed(Duration(milliseconds: 100))
-                      .then((value) => refresh());
+              child: Center(
+                child: Container(
+                  width: 90.w,
+                  height: 90.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(14),
+                    boxShadow: kElevationToShadow[4],
+                    image: const DecorationImage(
+                      image: NetworkImage("https://picsum.photos/512"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            //Name and Tag
+            PaddingComponent(
+              child: PetNameComponent(
+                petProfileId: _petProfileDetails.profileId,
+                petName: _petProfileDetails.petName,
+                setPetName: (value) => setState(() {
+                  _petProfileDetails.petName = value;
+                }),
+                gender: _petProfileDetails.petGender,
+                tag: _petProfileDetails.tag,
+                setTags: (value) => setState(() {
+                  _petProfileDetails.tag = value;
+                }),
+                collardimension: 120,
+              ),
+            ),
+
+            //Pages
+            VisibilityDetector(
+              key: const Key('scoll-edit-tabs'),
+              onVisibilityChanged: (visibilityInfo) {
+                var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                debugPrint(
+                    'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+                if (visiblePercentage == 100) {
+                  setState(() {
+                    _enableTopTabBar = false;
+                  });
+                } else {
+                  setState(() {
+                    _enableTopTabBar = true;
+                  });
+                }
+              },
+              child: TabBar(
+                tabs: const [
+                  Tab(icon: Icon(Icons.directions_car)),
+                  Tab(icon: Icon(Icons.directions_transit)),
+                  Tab(icon: Icon(Icons.directions_bike)),
+                  Tab(icon: Icon(Icons.directions_bike)),
+                ],
+                onTap: (value) {
+                  // print(value);
+                  setState(() {
+                    _index = value;
+                  });
                 },
               ),
             ),
-          ),
-          const SizedBox(
-            height: 16,
-          )
-          //Wait for connection to Server for important info, maybe you can reuse the Description Model
-        ],
+            const SizedBox(height: 16),
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 0),
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return SlideTransition(
+                  position: Tween(
+                    begin: const Offset(1, 0),
+                    end: const Offset(0, 0),
+                  ).animate(animation),
+                  child: child,
+                );
+              },
+              child: getPage(_index, getImagesPage(), getProfileInfoPage(),
+                  getContactPage(), getDocumentsPage()),
+            ),
+            const SizedBox(
+              height: 16,
+            )
+            //Wait for connection to Server for important info, maybe you can reuse the Description Model
+          ],
+        ),
       ),
     );
+  }
+
+  Widget getImagesPage() {
+    return PaddingComponent(
+      ignoreLeftPadding: true,
+      child: PetPicturesComponent(
+        imageHeight: 178,
+        imageWidth: 178,
+        imageBorderRadius: 14,
+        imageSpacing: 20,
+        petPictures: widget.getProfileDetails().petPictures,
+        setPetPictures: (value) => _petProfileDetails.petPictures,
+        newPetPictures: newPictures,
+        addPetPicture: (value) async {
+          await uploadPicture(
+            _petProfileDetails.profileId!,
+            value,
+            () {
+              print("uplaoded");
+              // setState(() {});
+              // await Future.delayed(Duration(seconds: 8));
+              widget.reloadFuture.call();
+              //TODO update UI
+              //hekps against 403 from server
+              Future.delayed(Duration(milliseconds: 850))
+                  .then((value) => refresh());
+            },
+          );
+        },
+        removePetPicture: (index) async {
+          await deletePicture(
+              widget.getProfileDetails().petPictures.elementAt(index));
+          //TODO update UI
+          //hekps against 403 from server
+          widget.reloadFuture.call();
+          Future.delayed(Duration(milliseconds: 100))
+              .then((value) => refresh());
+        },
+      ),
+    );
+  }
+
+  Widget getProfileInfoPage() {
+    return Column(
+      key: const ValueKey("PetInfo"),
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        PaddingComponent(
+          child: OnelineSimpleInput(
+            flex: 7,
+            value: _petProfileDetails.petChipId ?? "",
+            emptyValuePlaceholder: "977200000000000",
+            title: "profileDetailsComponentTitleChipNumber".tr(),
+            saveValue: (val) async {
+              _petProfileDetails.petChipId = val;
+            },
+          ),
+        ),
+        PaddingComponent(
+          child: PetGenderComponent(
+            gender: _petProfileDetails.petGender,
+            setGender: (value) => setState(() {
+              _petProfileDetails.petGender = value;
+            }),
+          ),
+        ),
+        PaddingComponent(
+          child: PetImportantInformation(
+            //Pass by reference
+            imortantInformations: _petProfileDetails.petImportantInformation,
+          ),
+        ),
+        PaddingComponent(
+          child: PetDescriptionComponent(
+            //Pass by reference
+            descriptions: _petProfileDetails.petDescription,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget getContactPage() {
+    return Column(
+      key: const ValueKey("Contact"),
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        PaddingComponent(
+          child: OnelineSimpleInput(
+            flex: 6,
+            value: "",
+            emptyValuePlaceholder: "Schlongus Longus",
+            title: "profileDetailsComponentTitleOwnersName".tr(),
+            saveValue: (_) async {},
+          ),
+        ),
+        PaddingComponent(
+          child: OnelineSimpleInput(
+            flex: 8,
+            value: "Mainstreet 20A, Vienna, Austria",
+            emptyValuePlaceholder: "Mainstreet 20A, Vienna, Austria",
+            title: "profileDetailsComponentTitleHomeAddress".tr(),
+            saveValue: (_) async {},
+          ),
+        ),
+        PaddingComponent(
+          child: PetPhoneNumbersComponent(
+            phoneNumbers: _petProfileDetails.petOwnerTelephoneNumbers,
+            petProfileId: _petProfileDetails.profileId,
+          ),
+        ),
+        PaddingComponent(
+          child: SocialMediaComponent(
+            title: "profileDetailsComponentTitleSocialMedia".tr(),
+            facebook: _petProfileDetails.petOwnerFacebook ?? "",
+            saveFacebook: (value) {},
+            instagram: _petProfileDetails.petOwnerInstagram ?? "",
+            saveInstagram: (value) {},
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget getDocumentsPage() {
+    return Column(
+      key: const ValueKey("Documents"),
+      mainAxisSize: MainAxisSize.min,
+      children: [],
+    );
+  }
+}
+
+Widget getPage(
+    int index, Widget page1, Widget page2, Widget page3, Widget page4) {
+  switch (index) {
+    case 0:
+      return page1;
+    case 1:
+      return page2;
+    case 2:
+      return page3;
+    case 3:
+      return page4;
+    default:
+      return page1;
   }
 }
