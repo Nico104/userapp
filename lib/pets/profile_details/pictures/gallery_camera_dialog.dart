@@ -4,16 +4,11 @@ import '../../../styles/text_styles.dart';
 
 ///Lets USer choose between camera and gallery
 ///returns 1 if Camera has been chosen or 0 if Gallery has been chosen
-class GalleryCameraDialog extends StatefulWidget {
+class GalleryCameraDialog extends StatelessWidget {
   const GalleryCameraDialog({
     super.key,
   });
 
-  @override
-  State<GalleryCameraDialog> createState() => _GalleryCameraDialogState();
-}
-
-class _GalleryCameraDialogState extends State<GalleryCameraDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(

@@ -17,6 +17,8 @@ import 'c_important_information.dart';
 import 'c_one_line_simple_input.dart';
 import 'c_pet_gender.dart';
 import 'c_phone_number.dart';
+import 'fabs/upload_document_fab.dart';
+import 'fabs/upload_image_fab.dart';
 import 'pictures/c_pictures.dart';
 import 'c_section_title.dart';
 import 'c_social_media.dart';
@@ -135,6 +137,7 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
                 )
               : null,
         ),
+        floatingActionButton: getFloatingActionButton(_index),
         // floatingActionButton: SaveFloatingActionButton(
         //   petProfileDetails: _petProfileDetails,
         //   oldPetProfileDetails: widget.petProfileDetails,
@@ -201,11 +204,12 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
               },
               child: TabBar(
                 tabs: const [
-                  Tab(icon: Icon(Icons.directions_car)),
-                  Tab(icon: Icon(Icons.directions_transit)),
-                  Tab(icon: Icon(Icons.directions_bike)),
-                  Tab(icon: Icon(Icons.directions_bike)),
+                  Tab(icon: Icon(Icons.image)),
+                  Tab(icon: Icon(Icons.info_outline)),
+                  Tab(icon: Icon(Icons.phone)),
+                  Tab(icon: Icon(Icons.edit_document)),
                 ],
+                indicatorColor: getCustomColors(context).accent,
                 onTap: (value) {
                   // print(value);
                   setState(() {
@@ -367,6 +371,54 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
       mainAxisSize: MainAxisSize.min,
       children: [],
     );
+  }
+
+  Widget? getFloatingActionButton(int index) {
+    switch (index) {
+      case 0:
+        return UploadImageFab(
+          addPetPicture: (value) async {
+            await uploadPicture(
+              _petProfileDetails.profileId!,
+              value,
+              () {
+                print("uplaoded");
+                // setState(() {});
+                // await Future.delayed(Duration(seconds: 8));
+                widget.reloadFuture.call();
+                //TODO update UI
+                //hekps against 403 from server
+                Future.delayed(Duration(milliseconds: 850))
+                    .then((value) => refresh());
+              },
+            );
+          },
+        );
+      case 3:
+        return UploadDocumentFab(
+          addDocument: (value) async {
+            await uploadDocuments(
+              _petProfileDetails.profileId!,
+              value,
+              'documentName',
+              'documentType',
+              'contentType',
+              () {
+                print("uplaoded");
+                // setState(() {});
+                // await Future.delayed(Duration(seconds: 8));
+                widget.reloadFuture.call();
+                //TODO update UI
+                //hekps against 403 from server
+                Future.delayed(Duration(milliseconds: 850))
+                    .then((value) => refresh());
+              },
+            );
+          },
+        );
+      default:
+        return null;
+    }
   }
 }
 
