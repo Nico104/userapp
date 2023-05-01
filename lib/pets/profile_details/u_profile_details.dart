@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:userapp/network_globals.dart';
 import 'package:userapp/pets/profile_details/models/m_description.dart';
+import 'package:userapp/pets/profile_details/models/m_document.dart';
 import 'package:userapp/pets/profile_details/models/m_important_information.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_picture.dart';
 
@@ -107,10 +108,11 @@ Future<void> uploadDocuments(
 
   request = jsonToFormData(request, data);
 
-  request.headers['X-Requested-With'] = "XMLHttpRequest";
+  // request.headers['X-Requested-With'] = "XMLHttpRequest";
   request.headers['Authorization'] = 'Bearer $token';
 
-  request.files.add(http.MultipartFile.fromBytes('document', document));
+  request.files.add(
+      http.MultipartFile.fromBytes('document', document, filename: "document"));
 
   await request.send().then((result) async {
     http.Response.fromStream(result).then((response) {
@@ -124,6 +126,33 @@ Future<void> uploadDocuments(
     print("upload fertig2");
   });
   callback.call();
+}
+
+Future<void> deleteDocument(Document petDocuemnt) async {
+  Uri url = Uri.parse('$baseURL/pet/deleteDocument');
+  String? token = await getToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: json.encode({
+      "pet_document_id": petDocuemnt.documentId,
+      "pet_document_link": petDocuemnt.documentLink,
+      "profile_id": petDocuemnt.petProfileId,
+    }),
+  );
+
+  print(response.statusCode);
+
+  if (response.statusCode == 201) {
+    return;
+  } else {
+    throw Exception('Failed to delete Picture.');
+  }
 }
 
 jsonToFormData(http.MultipartRequest request, Map<String, dynamic> data) {

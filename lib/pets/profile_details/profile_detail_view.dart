@@ -11,6 +11,7 @@ import '../../pet_color/u_pet_colors.dart';
 import '../../styles/text_styles.dart';
 import '../../theme/custom_colors.dart';
 import 'c_component_padding.dart';
+import 'c_component_title.dart';
 import 'c_description.dart';
 import 'c_edit_pages.dart';
 import 'c_important_information.dart';
@@ -19,6 +20,7 @@ import 'c_pet_gender.dart';
 import 'c_phone_number.dart';
 import 'fabs/upload_document_fab.dart';
 import 'fabs/upload_image_fab.dart';
+import 'models/m_document.dart';
 import 'pictures/c_pictures.dart';
 import 'c_section_title.dart';
 import 'c_social_media.dart';
@@ -366,10 +368,79 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
   }
 
   Widget getDocumentsPage() {
+    List<Document> allergies = _petProfileDetails.petDocuments
+        .where((i) => i.documentLink.contains('allergies'))
+        .toList();
+
+    List<Document> dewormers = _petProfileDetails.petDocuments
+        .where((i) => i.documentLink.contains('dewormers'))
+        .toList();
+
+    List<Document> health = _petProfileDetails.petDocuments
+        .where((i) => i.documentLink.contains('health'))
+        .toList();
+
+    List<Document> medicine = _petProfileDetails.petDocuments
+        .where((i) => i.documentLink.contains('medicine'))
+        .toList();
+
     return Column(
       key: const ValueKey("Documents"),
       mainAxisSize: MainAxisSize.min,
-      children: [],
+      children: [
+        PaddingComponent(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 28),
+              const ComponentTitle(text: "Allergies"),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: allergies.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(allergies.elementAt(index).documentName),
+                  );
+                },
+              ),
+              const SizedBox(height: 28),
+              const ComponentTitle(text: "Dewormers"),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: dewormers.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(dewormers.elementAt(index).documentName),
+                  );
+                },
+              ),
+              const SizedBox(height: 28),
+              const ComponentTitle(text: "Health"),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: health.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(health.elementAt(index).documentName),
+                  );
+                },
+              ),
+              const SizedBox(height: 28),
+              const ComponentTitle(text: "Medicine"),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: medicine.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(medicine.elementAt(index).documentName),
+                  );
+                },
+              ),
+              const SizedBox(height: 28),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -396,13 +467,13 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
         );
       case 3:
         return UploadDocumentFab(
-          addDocument: (value) async {
+          addDocument: (value, filename, documentType, contentType) async {
             await uploadDocuments(
               _petProfileDetails.profileId!,
               value,
-              'documentName',
-              'documentType',
-              'contentType',
+              filename,
+              documentType,
+              contentType,
               () {
                 print("uplaoded");
                 // setState(() {});

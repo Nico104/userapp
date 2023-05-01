@@ -1,20 +1,15 @@
-import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
-
+import 'package:userapp/pets/profile_details/widgets/custom_textformfield.dart';
 import '../../../theme/custom_colors.dart';
-import '../pictures/gallery_camera_dialog.dart';
-import '../pictures/new_picture.dart';
+import '../../../theme/custom_text_styles.dart';
 
 class UploadDocumentFab extends StatelessWidget {
   const UploadDocumentFab({super.key, required this.addDocument});
 
-  final Future<void> Function(Uint8List) addDocument;
+  final Future<void> Function(Uint8List, String, String, String) addDocument;
 
   @override
   Widget build(BuildContext context) {
@@ -26,23 +21,16 @@ class UploadDocumentFab extends StatelessWidget {
       backgroundColor: getCustomColors(context).accent,
       tooltip: "Click to upload document",
       onPressed: () async {
-        // pickDocument().then((value) => {
-        //       showDialog(
-        //         context: context,
-        //         builder: (_) => const DocumentDialog(),
-        //       )
-        //     });
-        showDialog(
-          context: context,
-          builder: (_) => const DocumentDialog(),
-        ).then((value) {
-          pickDocument().then((value) {
-            showDialog(
-              context: context,
-              builder: (_) => const DocumentDialog(),
-            );
-          });
-        });
+        pickDocument().then((value) => {
+              if (value != null)
+                {
+                  showDialog(
+                    context: context,
+                    builder: (_) => DocumentDialog(
+                        pickedDocument: value, addDocument: addDocument),
+                  )
+                }
+            });
       },
       child: Icon(
         Icons.post_add_rounded,
@@ -52,25 +40,69 @@ class UploadDocumentFab extends StatelessWidget {
   }
 }
 
-Future<Uint8List?> pickDocument() async {
+Future<PickedDocument?> pickDocument() async {
   FilePickerResult? result = await FilePicker.platform.pickFiles(
     type: FileType.custom,
-    allowedExtensions: ["jpg", "jpeg", 'png', 'pdf', 'doc', 'mp3', 'm4a'],
+    // allowedExtensions: ["jpg", "jpeg", 'png', 'pdf', 'doc', 'mp3', 'm4a'],
+    allowedExtensions: ["jpg", "jpeg", 'png', 'pdf'],
     allowMultiple: false,
   );
 
   if (result != null && result.files.isNotEmpty) {
     String fileExtension = result.files.first.extension!;
-    Uint8List pictureBytes = result.files.first.bytes!;
-    return pictureBytes;
+    Uint8List fileBytes = result.files.first.bytes!;
+
+    String fileName = result.files.first.name.split('.').first;
+    print("File Name: " + fileName);
+    return PickedDocument(fileExtension, fileBytes, fileName);
   }
   return null;
 }
 
-class DocumentTypeDialog extends StatelessWidget {
-  const DocumentTypeDialog({
+class PickedDocument {
+  final String fileExtension;
+  final String fileName;
+  final Uint8List fileBytes;
+
+  PickedDocument(this.fileExtension, this.fileBytes, this.fileName);
+}
+
+//Consider Dopng a new page insteat of a dialog, espeally for uploading waiting times
+class DocumentDialog extends StatefulWidget {
+  const DocumentDialog({
     super.key,
+    required this.pickedDocument,
+    required this.addDocument,
   });
+
+  final PickedDocument pickedDocument;
+  final Future<void> Function(Uint8List, String, String, String) addDocument;
+
+  @override
+  State<DocumentDialog> createState() => _DocumentDialogState();
+}
+
+class _DocumentDialogState extends State<DocumentDialog> {
+  late DocumentType selectedUser;
+  List<DocumentType> users = <DocumentType>[
+    const DocumentType('allergies', 'Allergies'),
+    const DocumentType('dewormers', 'dewormers'),
+    const DocumentType('health', 'health'),
+    const DocumentType('medicine', 'medicine'),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    selectedUser = users[0];
+  }
+
+  String getContentType() {
+    print(widget.pickedDocument.fileExtension.toLowerCase());
+    return widget.pickedDocument.fileExtension.toLowerCase() == 'pdf'
+        ? 'pdf'
+        : 'image';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,34 +120,72 @@ class DocumentTypeDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "Choose Doucment Type",
+                "Upload Doucment",
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 28),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () => Navigator.pop(context, 0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Icon(Icons.browse_gallery),
-                        Text("Image"),
-                      ],
-                    ),
+              getContentType() != 'pdf'
+                  ? Image.memory(widget.pickedDocument.fileBytes)
+                  : Text("pdf document"),
+              const SizedBox(height: 28),
+              CustomTextFormField(
+                initialValue: widget.pickedDocument.fileName,
+                labelText: "Document Name",
+              ),
+              const SizedBox(height: 28),
+              Container(
+                width: 70.h,
+                alignment: Alignment.centerLeft,
+                child: DropdownButton<DocumentType>(
+                  focusColor: Colors.transparent,
+                  value: selectedUser,
+                  onChanged: (DocumentType? newValue) {
+                    if (newValue != null) {
+                      setState(() {
+                        selectedUser = newValue;
+                      });
+                    }
+                  },
+                  items: users.map((DocumentType user) {
+                    return DropdownMenuItem<DocumentType>(
+                      value: user,
+                      child: Text(
+                        user.value,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+              const SizedBox(height: 28),
+              OutlinedButton(
+                onPressed: () {
+                  widget
+                      .addDocument(
+                        widget.pickedDocument.fileBytes,
+                        widget.pickedDocument.fileName,
+                        selectedUser.key,
+                        getContentType(),
+                      )
+                      .then((value) => Navigator.pop(context));
+                },
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
+                  backgroundColor: getCustomColors(context).accent,
+                  side: BorderSide(
+                    width: 0.5,
+                    color: getCustomColors(context).lightBorder ??
+                        Colors.transparent,
                   ),
-                  GestureDetector(
-                    onTap: () => Navigator.pop(context, 1),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Icon(Icons.camera),
-                        Text("Camera"),
-                      ],
-                    ),
-                  )
-                ],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text(
+                  "Upload",
+                  style: getCustomTextStyles(context)
+                      .dataEditDialogButtonSaveStyle,
+                ),
               )
             ],
           ),
@@ -125,60 +195,9 @@ class DocumentTypeDialog extends StatelessWidget {
   }
 }
 
-class DocumentDialog extends StatelessWidget {
-  const DocumentDialog({
-    super.key,
-  });
+class DocumentType {
+  const DocumentType(this.key, this.value);
 
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(14),
-      ),
-      elevation: 16,
-      child: SizedBox(
-        width: 80.w,
-        child: Padding(
-          padding:
-              const EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                "Choose Doucment with",
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              const SizedBox(height: 28),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () => Navigator.pop(context, 0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Icon(Icons.browse_gallery),
-                        Text("Gallery"),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => Navigator.pop(context, 1),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Icon(Icons.camera),
-                        Text("Camera"),
-                      ],
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  final String value;
+  final String key;
 }
