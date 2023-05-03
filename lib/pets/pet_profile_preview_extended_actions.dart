@@ -178,7 +178,11 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const ActionButtons(),
+                  ActionButtons(
+                    goToDetails: () {
+                      goToDetails();
+                    },
+                  ),
                   AnimatedContainer(
                     duration: (bottomPadding <= bottomPaddingDefaultValue)
                         ? Duration(
@@ -202,7 +206,10 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
 class ActionButtons extends StatelessWidget {
   const ActionButtons({
     super.key,
+    required this.goToDetails,
   });
+
+  final VoidCallback goToDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -218,6 +225,22 @@ class ActionButtons extends StatelessWidget {
             child: const Center(
               child: Icon(
                 CustomIcons.share_thin,
+                size: 32,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 32),
+        GestureDetector(
+          onTap: () {
+            goToDetails();
+          },
+          child: Container(
+            //To trigger the Hit Box
+            color: Colors.transparent,
+            child: const Center(
+              child: Icon(
+                CustomIcons.edit,
                 size: 32,
               ),
             ),
@@ -241,20 +264,6 @@ class ActionButtons extends StatelessWidget {
               child: Icon(
                 // CustomIcons.edit_square,
                 CustomIcons.qr_code_9,
-                size: 32,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(width: 32),
-        GestureDetector(
-          onTap: () {},
-          child: Container(
-            //To trigger the Hit Box
-            color: Colors.transparent,
-            child: const Center(
-              child: Icon(
-                CustomIcons.edit,
                 size: 32,
               ),
             ),

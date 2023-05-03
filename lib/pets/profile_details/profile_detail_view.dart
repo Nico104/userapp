@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/c_pet_name.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
@@ -48,6 +49,7 @@ class PetProfileDetailView extends StatefulWidget {
 }
 
 class PetProfileDetailViewState extends State<PetProfileDetailView> {
+  //TODO prob. not needed
   late PetProfileDetails _petProfileDetails;
   List<Uint8List> newPictures = List<Uint8List>.empty(growable: true);
 
@@ -103,12 +105,74 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
     });
   }
 
+  ShapeBorder? bottomBarShape = const RoundedRectangleBorder(
+      // borderRadius: BorderRadius.all(Radius.circular(25)),
+      );
+  SnakeBarBehaviour snakeBarStyle = SnakeBarBehaviour.pinned;
+  // EdgeInsets padding = const EdgeInsets.all(12);
+  EdgeInsets padding = const EdgeInsets.all(0);
+
+  // int _selectedItemPosition = 2;
+  SnakeShape snakeShape = SnakeShape.indicator;
+
+  bool showSelectedLabels = false;
+  bool showUnselectedLabels = false;
+
+  Color selectedColor = Colors.black;
+  // Color unselectedColor = Colors.blueGrey;
+
+  // Gradient selectedGradient =
+  // const LinearGradient(colors: [Colors.red, Colors.amber]);
+  // Gradient unselectedGradient =
+  // const LinearGradient(colors: [Colors.red, Colors.blueGrey]);
+
+  // Color? containerColor;
+  // List<Color> containerColors = [
+  //   const Color(0xFFFDE1D7),
+  //   const Color(0xFFE4EDF5),
+  //   const Color(0xFFE7EEED),
+  //   const Color(0xFFF4E4CE),
+  // ];
+
   @override
   Widget build(BuildContext context) {
     timeDilation = 1;
     return DefaultTabController(
-      length: 4,
+      length: 2,
       child: Scaffold(
+        bottomNavigationBar: SnakeNavigationBar.color(
+          behaviour: snakeBarStyle,
+          snakeShape: snakeShape,
+          shape: bottomBarShape,
+          padding: padding,
+          elevation: 16,
+
+          ///configuration for SnakeNavigationBar.color
+          snakeViewColor: selectedColor,
+          selectedItemColor:
+              snakeShape == SnakeShape.indicator ? selectedColor : null,
+          unselectedItemColor: Colors.blueGrey,
+
+          ///configuration for SnakeNavigationBar.gradient
+          //snakeViewGradient: selectedGradient,
+          //selectedItemGradient: snakeShape == SnakeShape.indicator ? selectedGradient : null,
+          //unselectedItemGradient: unselectedGradient,
+
+          showUnselectedLabels: showUnselectedLabels,
+          showSelectedLabels: showSelectedLabels,
+
+          currentIndex: _index,
+          onTap: (index) => setState(() => _index = index),
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.notifications), label: 'tickets'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.calendar_month), label: 'calendar'),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.safety_check), label: 'microphone'),
+          ],
+        ),
         appBar: AppBar(
           title: Text('appBarTitleProfileDetails'.tr()),
           flexibleSpace: !isScrollTop
@@ -153,73 +217,79 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
           controller: _scrollSontroller,
           children: [
             const SizedBox(height: 28),
-            PaddingComponent(
-              ignoreLeftPadding: true,
-              child: Center(
-                child: Container(
-                  width: 90.w,
-                  height: 90.w,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14),
-                    boxShadow: kElevationToShadow[4],
-                    image: const DecorationImage(
-                      image: NetworkImage("https://picsum.photos/512"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            //Name and Tag
-            PaddingComponent(
-              child: PetNameComponent(
-                petProfileId: _petProfileDetails.profileId,
-                petName: _petProfileDetails.petName,
-                setPetName: (value) => setState(() {
-                  _petProfileDetails.petName = value;
-                }),
-                gender: _petProfileDetails.petGender,
-                tag: _petProfileDetails.tag,
-                setTags: (value) => setState(() {
-                  _petProfileDetails.tag = value;
-                }),
-                collardimension: 120,
-              ),
-            ),
+            // Row(
+            //   children: [
+            //     //Name and Tag
+            //     Expanded(
+            //       child: PaddingComponent(
+            //         child: PetNameComponent(
+            //           petProfileId: _petProfileDetails.profileId,
+            //           petName: _petProfileDetails.petName,
+            //           setPetName: (value) => setState(() {
+            //             _petProfileDetails.petName = value;
+            //           }),
+            //           gender: _petProfileDetails.petGender,
+            //           tag: _petProfileDetails.tag,
+            //           setTags: (value) => setState(() {
+            //             _petProfileDetails.tag = value;
+            //           }),
+            //           collardimension: 120,
+            //         ),
+            //       ),
+            //     ),
+            //     PaddingComponent(
+            //       ignoreLeftPadding: true,
+            //       child: Center(
+            //         child: Container(
+            //           width: 20.w,
+            //           height: 20.w,
+            //           decoration: BoxDecoration(
+            //             borderRadius: BorderRadius.circular(14),
+            //             boxShadow: kElevationToShadow[4],
+            //             image: const DecorationImage(
+            //               image: NetworkImage("https://picsum.photos/512"),
+            //               fit: BoxFit.cover,
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
 
             //Pages
-            VisibilityDetector(
-              key: const Key('scoll-edit-tabs'),
-              onVisibilityChanged: (visibilityInfo) {
-                var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                debugPrint(
-                    'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-                if (visiblePercentage == 100) {
-                  setState(() {
-                    _enableTopTabBar = false;
-                  });
-                } else {
-                  setState(() {
-                    _enableTopTabBar = true;
-                  });
-                }
-              },
-              child: TabBar(
-                tabs: const [
-                  Tab(icon: Icon(Icons.image)),
-                  Tab(icon: Icon(Icons.info_outline)),
-                  Tab(icon: Icon(Icons.phone)),
-                  Tab(icon: Icon(Icons.edit_document)),
-                ],
-                indicatorColor: getCustomColors(context).accent,
-                onTap: (value) {
-                  // print(value);
-                  setState(() {
-                    _index = value;
-                  });
-                },
-              ),
-            ),
+            // VisibilityDetector(
+            //   key: const Key('scoll-edit-tabs'),
+            //   onVisibilityChanged: (visibilityInfo) {
+            //     var visiblePercentage = visibilityInfo.visibleFraction * 100;
+            //     debugPrint(
+            //         'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+            //     if (visiblePercentage == 100) {
+            //       setState(() {
+            //         _enableTopTabBar = false;
+            //       });
+            //     } else {
+            //       setState(() {
+            //         _enableTopTabBar = true;
+            //       });
+            //     }
+            //   },
+            //   child: TabBar(
+            //     tabs: const [
+            //       Tab(icon: Icon(Icons.image)),
+            //       Tab(icon: Icon(Icons.info_outline)),
+            //       Tab(icon: Icon(Icons.phone)),
+            //       Tab(icon: Icon(Icons.edit_document)),
+            //     ],
+            //     indicatorColor: getCustomColors(context).accent,
+            //     onTap: (value) {
+            //       // print(value);
+            //       setState(() {
+            //         _index = value;
+            //       });
+            //     },
+            //   ),
+            // ),
             const SizedBox(height: 16),
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 0),
@@ -246,42 +316,102 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
   }
 
   Widget getImagesPage() {
-    return PaddingComponent(
-      ignoreLeftPadding: true,
-      child: PetPicturesComponent(
-        imageHeight: 178,
-        imageWidth: 178,
-        imageBorderRadius: 14,
-        imageSpacing: 20,
-        petPictures: widget.getProfileDetails().petPictures,
-        setPetPictures: (value) => _petProfileDetails.petPictures,
-        newPetPictures: newPictures,
-        addPetPicture: (value) async {
-          await uploadPicture(
-            _petProfileDetails.profileId!,
-            value,
-            () {
-              print("uplaoded");
-              // setState(() {});
-              // await Future.delayed(Duration(seconds: 8));
-              widget.reloadFuture.call();
+    ShapeBorder? _bottomBarShape = const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(8)),
+    );
+    SnakeBarBehaviour _snakeBarStyle = SnakeBarBehaviour.pinned;
+    EdgeInsets _padding = const EdgeInsets.all(0);
+
+    // int _selectedItemPosition = 2;
+    SnakeShape _snakeShape = SnakeShape.circle;
+
+    bool _showSelectedLabels = false;
+    bool _showUnselectedLabels = false;
+
+    Color _selectedColor = Colors.black;
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        PaddingComponent(
+          ignoreLeftPadding: true,
+          child: Center(
+            child: Container(
+              width: 90.w,
+              height: 90.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+                boxShadow: kElevationToShadow[4],
+                image: const DecorationImage(
+                  image: NetworkImage("https://picsum.photos/512"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+        ),
+        // SnakeNavigationBar.color(
+        //   behaviour: _snakeBarStyle,
+        //   snakeShape: _snakeShape,
+        //   shape: _bottomBarShape,
+        //   padding: _padding,
+        //   elevation: 4,
+
+        //   ///configuration for SnakeNavigationBar.color
+        //   snakeViewColor: _selectedColor,
+        //   selectedItemColor:
+        //       _snakeShape == SnakeShape.indicator ? _selectedColor : null,
+        //   unselectedItemColor: Colors.blueGrey,
+
+        //   ///configuration for SnakeNavigationBar.gradient
+        //   //snakeViewGradient: selectedGradient,
+        //   //selectedItemGradient: snakeShape == SnakeShape.indicator ? selectedGradient : null,
+        //   //unselectedItemGradient: unselectedGradient,
+
+        //   // showUnselectedLabels: _showUnselectedLabels,
+        //   // showSelectedLabels: _showSelectedLabels,
+
+        //   currentIndex: _index,
+        //   // onTap: (index) => setState(() => _index = index),
+        //   items: const [
+        //     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
+        //     BottomNavigationBarItem(
+        //         icon: Icon(Icons.safety_check), label: 'microphone'),
+        //   ],
+        // ),
+        TabBar(
+          dividerColor: Colors.grey.shade400,
+          indicatorColor: Colors.black,
+          tabs: [
+            Tab(icon: Icon(Icons.directions_car)),
+            Tab(icon: Icon(Icons.directions_bike)),
+          ],
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        PaddingComponent(
+          ignoreLeftPadding: true,
+          child: PetPicturesComponent(
+            imageHeight: 178,
+            imageWidth: 178,
+            imageBorderRadius: 14,
+            imageSpacing: 20,
+            petPictures: widget.getProfileDetails().petPictures,
+            setPetPictures: (value) => _petProfileDetails.petPictures,
+            newPetPictures: newPictures,
+            removePetPicture: (index) async {
+              await deletePicture(
+                  widget.getProfileDetails().petPictures.elementAt(index));
               //TODO update UI
               //hekps against 403 from server
-              Future.delayed(Duration(milliseconds: 850))
+              widget.reloadFuture.call();
+              Future.delayed(Duration(milliseconds: 100))
                   .then((value) => refresh());
             },
-          );
-        },
-        removePetPicture: (index) async {
-          await deletePicture(
-              widget.getProfileDetails().petPictures.elementAt(index));
-          //TODO update UI
-          //hekps against 403 from server
-          widget.reloadFuture.call();
-          Future.delayed(Duration(milliseconds: 100))
-              .then((value) => refresh());
-        },
-      ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -291,6 +421,25 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
       mainAxisSize: MainAxisSize.min,
       children: [
         PaddingComponent(
+          child: PetNameComponent(
+            petProfileId: _petProfileDetails.profileId,
+            petName: _petProfileDetails.petName,
+            setPetName: (value) {
+              setState(() {
+                _petProfileDetails.petName = value;
+                widget.petProfileDetails.petName = value;
+              });
+              updatePetProfileCore(widget.petProfileDetails);
+            },
+            gender: _petProfileDetails.petGender,
+            tag: _petProfileDetails.tag,
+            setTags: (value) => setState(() {
+              _petProfileDetails.tag = value;
+            }),
+            collardimension: 120,
+          ),
+        ),
+        PaddingComponent(
           child: OnelineSimpleInput(
             flex: 7,
             value: _petProfileDetails.petChipId ?? "",
@@ -298,15 +447,21 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
             title: "profileDetailsComponentTitleChipNumber".tr(),
             saveValue: (val) async {
               _petProfileDetails.petChipId = val;
+              widget.petProfileDetails.petChipId = val;
+              updatePetProfileCore(widget.petProfileDetails);
             },
           ),
         ),
         PaddingComponent(
           child: PetGenderComponent(
             gender: _petProfileDetails.petGender,
-            setGender: (value) => setState(() {
-              _petProfileDetails.petGender = value;
-            }),
+            setGender: (value) {
+              setState(() {
+                _petProfileDetails.petGender = value;
+                widget.petProfileDetails.petGender = value;
+              });
+              updatePetProfileCore(widget.petProfileDetails);
+            },
           ),
         ),
         PaddingComponent(
@@ -333,19 +488,26 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
         PaddingComponent(
           child: OnelineSimpleInput(
             flex: 6,
-            value: "",
+            value: widget.petProfileDetails.petOwnerName ?? "",
             emptyValuePlaceholder: "Schlongus Longus",
             title: "profileDetailsComponentTitleOwnersName".tr(),
-            saveValue: (_) async {},
+            saveValue: (val) async {
+              widget.petProfileDetails.petOwnerName = val;
+              print(widget.petProfileDetails.petOwnerName);
+              updatePetProfileCore(widget.petProfileDetails);
+            },
           ),
         ),
         PaddingComponent(
           child: OnelineSimpleInput(
             flex: 8,
-            value: "Mainstreet 20A, Vienna, Austria",
+            value: widget.petProfileDetails.petOwnerLivingPlace ?? "",
             emptyValuePlaceholder: "Mainstreet 20A, Vienna, Austria",
             title: "profileDetailsComponentTitleHomeAddress".tr(),
-            saveValue: (_) async {},
+            saveValue: (val) async {
+              widget.petProfileDetails.petOwnerLivingPlace = val;
+              updatePetProfileCore(widget.petProfileDetails);
+            },
           ),
         ),
         PaddingComponent(
@@ -357,10 +519,18 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
         PaddingComponent(
           child: SocialMediaComponent(
             title: "profileDetailsComponentTitleSocialMedia".tr(),
-            facebook: _petProfileDetails.petOwnerFacebook ?? "",
-            saveFacebook: (value) {},
-            instagram: _petProfileDetails.petOwnerInstagram ?? "",
-            saveInstagram: (value) {},
+            facebook: widget.petProfileDetails.petOwnerFacebook ?? "",
+            saveFacebook: (val) async {
+              print(widget.petProfileDetails.petOwnerFacebook);
+              widget.petProfileDetails.petOwnerFacebook = val;
+              print(widget.petProfileDetails.petOwnerFacebook);
+              updatePetProfileCore(widget.petProfileDetails);
+            },
+            instagram: widget.petProfileDetails.petOwnerInstagram ?? "",
+            saveInstagram: (val) async {
+              widget.petProfileDetails.petOwnerInstagram = val;
+              updatePetProfileCore(widget.petProfileDetails);
+            },
           ),
         ),
       ],

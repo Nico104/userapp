@@ -115,7 +115,7 @@ String getPetTitle(Gender gender) {
   }
 }
 
-void askForPetName(BuildContext context, ValueSetter<String> setPetName,
+Future<void> askForPetName(BuildContext context, ValueSetter<String> setPetName,
     String? currentPetName) async {
   await showDialog(
     context: context,

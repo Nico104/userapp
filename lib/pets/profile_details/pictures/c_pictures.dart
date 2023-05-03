@@ -24,7 +24,7 @@ class PetPicturesComponent extends StatefulWidget {
     required this.petPictures,
     required this.setPetPictures,
     required this.newPetPictures,
-    required this.addPetPicture,
+    // required this.addPetPicture,
     required this.removePetPicture,
   });
 
@@ -36,7 +36,7 @@ class PetPicturesComponent extends StatefulWidget {
   final List<Uint8List> newPetPictures;
 
   // final ValueSetter<Uint8List> addPetPicture;
-  final Future<void> Function(Uint8List) addPetPicture;
+  // final Future<void> Function(Uint8List) addPetPicture;
   //Param index
   final ValueSetter<int> removePetPicture;
 
@@ -74,7 +74,7 @@ class _PetPicturesComponentState extends State<PetPicturesComponent> {
   Widget build(BuildContext context) {
     return GridView.builder(
       //Lenght of petPictures + 1 for new Image
-      itemCount: widget.petPictures.length + 1,
+      itemCount: widget.petPictures.length,
       // itemCount: 10,
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -106,34 +106,35 @@ class _PetPicturesComponentState extends State<PetPicturesComponent> {
             //       ),
             // ),
           );
-        } else {
-          // print("I am a New");
-          return kIsWeb
-              ? NewPictureWeb(
-                  imageOffsetRight: widget.imageOffset,
-                  imageWidth: widget.imageWidth,
-                  imageHeight: widget.imageHeight,
-                  imageBorderRadius: widget.imageBorderRadius,
-                  closeBorderRadius: widget.closeBorderRadius,
-                  addPetPicture: (image) async {
-                    await widget.addPetPicture(image);
-                  },
-                )
-              : NewPicture(
-                  imageOffsetRight: widget.imageOffset,
-                  imageWidth: widget.imageWidth,
-                  imageHeight: widget.imageHeight,
-                  imageBorderRadius: widget.imageBorderRadius,
-                  closeBorderRadius: widget.closeBorderRadius,
-                  addNewImage: (image) {
-                    // setState(() {
-                    //   //TODO change returnType from File to Bytes
-                    //   widget.newPictures.add(image.readAsBytesSync());
-                    // });
-                    widget.addPetPicture.call(image.readAsBytesSync());
-                  },
-                );
         }
+        // else {
+        //   // print("I am a New");
+        //   return kIsWeb
+        //       ? NewPictureWeb(
+        //           imageOffsetRight: widget.imageOffset,
+        //           imageWidth: widget.imageWidth,
+        //           imageHeight: widget.imageHeight,
+        //           imageBorderRadius: widget.imageBorderRadius,
+        //           closeBorderRadius: widget.closeBorderRadius,
+        //           addPetPicture: (image) async {
+        //             await widget.addPetPicture(image);
+        //           },
+        //         )
+        //       : NewPicture(
+        //           imageOffsetRight: widget.imageOffset,
+        //           imageWidth: widget.imageWidth,
+        //           imageHeight: widget.imageHeight,
+        //           imageBorderRadius: widget.imageBorderRadius,
+        //           closeBorderRadius: widget.closeBorderRadius,
+        //           addNewImage: (image) {
+        //             // setState(() {
+        //             //   //TODO change returnType from File to Bytes
+        //             //   widget.newPictures.add(image.readAsBytesSync());
+        //             // });
+        //             widget.addPetPicture.call(image.readAsBytesSync());
+        //           },
+        //         );
+        // }
       },
     );
   }
