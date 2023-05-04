@@ -29,9 +29,18 @@ class ProfileDetailsImagePage extends StatefulWidget {
       _ProfileDetailsImagePageState();
 }
 
-class _ProfileDetailsImagePageState extends State<ProfileDetailsImagePage> {
+class _ProfileDetailsImagePageState extends State<ProfileDetailsImagePage>
+    with SingleTickerProviderStateMixin {
   bool _enableTopTabBar = false;
-  int _imageView = 0;
+
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(vsync: this, length: 2);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +49,7 @@ class _ProfileDetailsImagePageState extends State<ProfileDetailsImagePage> {
         scrolledUnderElevation: 8,
         bottom: _enableTopTabBar
             ? TabBar(
+                controller: _tabController,
                 dividerColor: Colors.grey.shade400,
                 indicatorColor: Colors.black,
                 tabs: const [
@@ -47,31 +57,11 @@ class _ProfileDetailsImagePageState extends State<ProfileDetailsImagePage> {
                   Tab(icon: Icon(Icons.directions_bike)),
                 ],
                 onTap: (value) {
-                  setState(() {
-                    _imageView = value;
-                  });
+                  setState(() {});
                 },
               )
             : null,
       ),
-      // floatingActionButton: UploadImageFab(
-      //   addPetPicture: (value) async {
-      //     // await uploadPicture(
-      //     //   widget.getProfileDetails().profileId!,
-      //     //   value,
-      //     //   () {
-      //     //     print("uplaoded");
-      //     //     // setState(() {});
-      //     //     // await Future.delayed(Duration(seconds: 8));
-      //     //     widget.reloadFuture.call();
-      //     //     //TODO update UI
-      //     //     //hekps against 403 from server
-      //     //     Future.delayed(Duration(milliseconds: 850))
-      //     //         .then((value) => refresh());
-      //     //   },
-      //     // );
-      //   },
-      // ),
       body: SingleChildScrollView(
         controller: widget.scrollController,
         child: Column(
@@ -140,6 +130,7 @@ class _ProfileDetailsImagePageState extends State<ProfileDetailsImagePage> {
                 }
               },
               child: TabBar(
+                controller: _tabController,
                 dividerColor: Colors.grey.shade400,
                 indicatorColor: Colors.black,
                 tabs: [
@@ -147,9 +138,7 @@ class _ProfileDetailsImagePageState extends State<ProfileDetailsImagePage> {
                   Tab(icon: Icon(Icons.directions_bike)),
                 ],
                 onTap: (value) {
-                  setState(() {
-                    _imageView = value;
-                  });
+                  setState(() {});
                 },
               ),
             ),
@@ -163,7 +152,7 @@ class _ProfileDetailsImagePageState extends State<ProfileDetailsImagePage> {
                 removePetPicture: (value) {
                   widget.removePetPicture(value);
                 },
-                imageView: _imageView,
+                imageView: _tabController.index,
               ),
             ),
           ],
