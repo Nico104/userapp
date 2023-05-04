@@ -48,14 +48,8 @@ class _ProfileDetailsImagePageState extends State<ProfileDetailsImagePage>
         title: Text('appBarTitleProfileDetails'.tr()),
         scrolledUnderElevation: 8,
         bottom: _enableTopTabBar
-            ? TabBar(
-                controller: _tabController,
-                dividerColor: Colors.grey.shade400,
-                indicatorColor: Colors.black,
-                tabs: const [
-                  Tab(icon: Icon(Icons.directions_car)),
-                  Tab(icon: Icon(Icons.directions_bike)),
-                ],
+            ? ImagesTabBar(
+                tabController: _tabController,
                 onTap: (value) {
                   setState(() {});
                 },
@@ -67,6 +61,7 @@ class _ProfileDetailsImagePageState extends State<ProfileDetailsImagePage>
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            const SizedBox(height: 36),
             PaddingComponent(
               ignoreLeftPadding: true,
               child: Center(
@@ -119,24 +114,18 @@ class _ProfileDetailsImagePageState extends State<ProfileDetailsImagePage>
                 var visiblePercentage = visibilityInfo.visibleFraction * 100;
                 debugPrint(
                     'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-                if (visiblePercentage == 100) {
-                  setState(() {
-                    _enableTopTabBar = false;
-                  });
-                } else {
+                if (visiblePercentage == 0) {
                   setState(() {
                     _enableTopTabBar = true;
                   });
+                } else {
+                  setState(() {
+                    _enableTopTabBar = false;
+                  });
                 }
               },
-              child: TabBar(
-                controller: _tabController,
-                dividerColor: Colors.grey.shade400,
-                indicatorColor: Colors.black,
-                tabs: [
-                  Tab(icon: Icon(Icons.directions_car)),
-                  Tab(icon: Icon(Icons.directions_bike)),
-                ],
+              child: ImagesTabBar(
+                tabController: _tabController,
                 onTap: (value) {
                   setState(() {});
                 },
@@ -145,19 +134,47 @@ class _ProfileDetailsImagePageState extends State<ProfileDetailsImagePage>
             const SizedBox(
               height: 16,
             ),
-            PaddingComponent(
-              ignoreLeftPadding: true,
-              child: PetPicturesComponent(
-                petPictures: widget.getProfileDetails().petPictures,
-                removePetPicture: (value) {
-                  widget.removePetPicture(value);
-                },
-                imageView: _tabController.index,
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 80),
+              child: PaddingComponent(
+                key: ValueKey(_tabController.index),
+                ignoreLeftPadding: true,
+                child: PetPicturesComponent(
+                  petPictures: widget.getProfileDetails().petPictures,
+                  removePetPicture: (value) {
+                    widget.removePetPicture(value);
+                  },
+                  imageView: _tabController.index,
+                ),
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class ImagesTabBar extends StatelessWidget implements PreferredSizeWidget {
+  const ImagesTabBar({super.key, required this.tabController, this.onTap});
+
+  final TabController tabController;
+  final void Function(int)? onTap;
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  @override
+  Widget build(BuildContext context) {
+    return TabBar(
+      controller: tabController,
+      dividerColor: Colors.grey.shade400,
+      indicatorColor: Colors.black,
+      tabs: const [
+        Tab(icon: Icon(Icons.image)),
+        Tab(icon: Icon(Icons.list)),
+      ],
+      onTap: onTap,
     );
   }
 }

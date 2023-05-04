@@ -37,6 +37,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
           key: const ValueKey("PetInfo"),
           mainAxisSize: MainAxisSize.min,
           children: [
+            const SizedBox(height: 36),
             PaddingComponent(
               child: PetNameComponent(
                 petProfileId: widget.petProfileDetails.profileId,

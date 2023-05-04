@@ -93,20 +93,20 @@ Future<File?> pickAndCropImage(ImageSource imageSource) async {
 Future<CroppedFile?> cropFile(String path) async {
   return await ImageCropper().cropImage(
     sourcePath: path,
-    aspectRatio: const CropAspectRatio(ratioX: 9, ratioY: 16),
+    // aspectRatio: const CropAspectRatio(ratioX: 9, ratioY: 16),
     uiSettings: [
       //TODO set Colors
       AndroidUiSettings(
         showCropGrid: false,
         toolbarTitle: 'Cropper',
-        toolbarColor: HexColor("FFFF8F"),
+        toolbarColor: Colors.grey,
         toolbarWidgetColor: Colors.black,
         activeControlsWidgetColor: Colors.black,
         backgroundColor: Colors.black,
-        cropFrameColor: HexColor("FFFF8F"),
+        cropFrameColor: Colors.grey,
         cropFrameStrokeWidth: 6,
         hideBottomControls: true,
-        lockAspectRatio: true,
+        // lockAspectRatio: true,
       ),
       IOSUiSettings(
         title: 'Cropper',

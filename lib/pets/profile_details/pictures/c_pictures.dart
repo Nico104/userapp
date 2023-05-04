@@ -36,23 +36,6 @@ class PetPicturesComponent extends StatefulWidget {
 }
 
 class _PetPicturesComponentState extends State<PetPicturesComponent> {
-  // List<Uint8List> newPictures = List<Uint8List>.empty(growable: true);
-  // late int petPictureLenght;
-  // late int newPetPictureLenght;
-
-  @override
-  void initState() {
-    super.initState();
-    // petPictureLenght = widget.petPictures.length;
-    // newPetPictureLenght = widget.newPictures.length;
-    for (var element in widget.petPictures) {
-      print(element.petPictureId.toString() +
-          ": " +
-          s3BaseUrl +
-          element.petPictureLink);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     if (widget.imageView == 0) {

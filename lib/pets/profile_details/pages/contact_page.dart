@@ -35,6 +35,7 @@ class _ContactPageState extends State<ContactPage> {
           key: const ValueKey("Contact"),
           mainAxisSize: MainAxisSize.min,
           children: [
+            const SizedBox(height: 36),
             PaddingComponent(
               child: OnelineSimpleInput(
                 flex: 6,

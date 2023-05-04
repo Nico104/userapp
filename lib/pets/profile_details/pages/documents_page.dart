@@ -66,6 +66,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
           key: const ValueKey("Documents"),
           mainAxisSize: MainAxisSize.min,
           children: [
+            const SizedBox(height: 36),
             PaddingComponent(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
