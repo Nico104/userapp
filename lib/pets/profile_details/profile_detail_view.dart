@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
-import 'package:userapp/pets/profile_details/c_pet_name.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/pets/profile_details/pages/contact_page.dart';
 import 'package:userapp/pets/profile_details/pages/documents_page.dart';
 import 'package:userapp/pets/profile_details/pages/images_page.dart';
 import 'package:userapp/pets/profile_details/pages/profile_info_page.dart';
+import 'package:userapp/pets/profile_details/pictures/upload_picture_dialog.dart';
 import 'fabs/upload_document_fab.dart';
 import 'fabs/upload_image_fab.dart';
 import 'u_profile_details.dart';
@@ -52,18 +52,18 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
       });
     });
 
-    if (widget.petProfileDetails.petName == null) {
-      WidgetsBinding.instance.addPostFrameCallback(
-        (_) {
-          askForPetName(
-              context,
-              (value) => setState(() {
-                    widget.petProfileDetails.petName = value;
-                  }),
-              null);
-        },
-      );
-    }
+    // if (widget.petProfileDetails.petName == null) {
+    //   WidgetsBinding.instance.addPostFrameCallback(
+    //     (_) {
+    //       askForPetName(
+    //           context,
+    //           (value) => setState(() {
+    //                 widget.petProfileDetails.petName = value;
+    //               }),
+    //           null);
+    //     },
+    //   );
+    // }
   }
 
   ShapeBorder? bottomBarShape = const RoundedRectangleBorder();
@@ -157,16 +157,26 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
       case 0:
         return UploadImageFab(
           addPetPicture: (value) async {
+            BuildContext? dialogContext;
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                dialogContext = context;
+                return const UploadPictureDialog();
+              },
+            );
             await uploadPicture(
               widget.petProfileDetails.profileId!,
               value,
-              () {
+              () async {
                 print("uplaoded");
                 widget.reloadFuture.call();
                 //TODO update UI
                 //hekps against 403 from server
-                Future.delayed(Duration(milliseconds: 850))
+                await Future.delayed(const Duration(milliseconds: 2000))
                     .then((value) => refresh());
+                Navigator.pop(dialogContext!);
               },
             );
           },

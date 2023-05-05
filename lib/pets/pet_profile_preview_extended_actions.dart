@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
-import 'package:userapp/utils/widgets/blurry_container.dart';
 
 import '../theme/custom_colors.dart';
-import '../utils/util_methods.dart';
 import 'profile_details/profile_detail_view.dart';
 
 class ExtendedSettingsContainer extends StatefulWidget {
@@ -37,8 +35,6 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
 
   double _width = 0;
 
-  final GlobalKey<PetProfileDetailViewState> _globalKey = GlobalKey();
-
   @override
   void initState() {
     super.initState();
@@ -50,7 +46,6 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
       context,
       MaterialPageRoute(
         builder: (context) => PetProfileDetailView(
-          key: _globalKey,
           petProfileDetails: widget.petProfileDetails,
           reloadFuture: widget.reloadFuture,
           getProfileDetails: () {

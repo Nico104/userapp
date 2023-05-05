@@ -2,6 +2,7 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
+import 'package:userapp/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/pets/profile_details/widgets/custom_textformfield.dart';
 import 'package:userapp/pets/tag/tags.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
@@ -113,20 +114,6 @@ String getPetTitle(Gender gender) {
     case Gender.none:
       return "";
   }
-}
-
-Future<void> askForPetName(BuildContext context, ValueSetter<String> setPetName,
-    String? currentPetName) async {
-  await showDialog(
-    context: context,
-    builder: (_) => PetNameDialog(
-      initialValue: currentPetName,
-    ),
-  ).then((value) {
-    if (value != null) {
-      setPetName(value);
-    }
-  });
 }
 
 class PetNameDialog extends StatefulWidget {

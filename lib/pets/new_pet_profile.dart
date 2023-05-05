@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:userapp/pets/profile_details/c_pet_name.dart';
+import 'package:userapp/pets/profile_details/u_profile_details.dart';
 
 import 'profile_details/models/m_pet_profile.dart';
 import 'profile_details/models/m_tag.dart';
@@ -42,6 +44,30 @@ class NewPetProfile extends StatelessWidget {
         //     }
         //   }
         // });
+        showDialog(
+          context: context,
+          builder: (_) => const PetNameDialog(),
+        ).then((value) async {
+          if (value != null && value.isNotEmpty) {
+            PetProfileDetails petProfileDetails =
+                await createNewPetProfile(value);
+            if (context.mounted) {
+              print("yo");
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PetProfileDetailView(
+                    petProfileDetails: petProfileDetails,
+                    reloadFuture: reloadFuture,
+                    getProfileDetails: () {
+                      return petProfileDetails;
+                    },
+                  ),
+                ),
+              );
+            }
+          }
+        });
       },
       child: Container(
         height: double.infinity,

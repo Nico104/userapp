@@ -405,6 +405,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.5"
+  scrollable_positioned_list:
+    dependency: "direct main"
+    description:
+      name: scrollable_positioned_list
+      sha256: "3806b84fa3da65e47146252061d20d12ce254560a6ad098d24b6bad19e079e5d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.7"
   shared_preferences:
     dependency: "direct main"
     description:

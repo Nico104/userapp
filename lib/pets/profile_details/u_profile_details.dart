@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:userapp/network_globals.dart';
 import 'package:userapp/pets/profile_details/models/m_description.dart';
@@ -10,6 +11,7 @@ import 'package:userapp/pets/profile_details/models/m_important_information.dart
 import 'package:userapp/pets/profile_details/models/m_pet_picture.dart';
 
 import '../../auth/u_auth.dart';
+import 'c_pet_name.dart';
 import 'models/m_pet_profile.dart';
 import 'models/m_tag.dart';
 import 'package:http_parser/http_parser.dart';
@@ -19,7 +21,8 @@ Future<void> handlePetProfileDetailsSave(PetProfileDetails petProfileDetails,
     PetProfileDetails petProfileDetailsOld) async {
   //petProfileDetails.profileId and petProfileDetailsOld.profileId should be equal since the Id doesnt get changed, but is null for new Objects
   if (petProfileDetails.profileId == null) {
-    await createNewPetProfile(petProfileDetails, petProfileDetailsOld);
+    //Profile id is not gonna be null since the profile is created before
+    // await createNewPetProfile(petProfileDetails, petProfileDetailsOld);
   } else {
     await updatePetProfile(petProfileDetails, petProfileDetailsOld);
   }
@@ -194,44 +197,44 @@ Future<void> updatePetProfile(PetProfileDetails petProfileDetails,
   }
 }
 
-Future<void> createNewPetProfile(PetProfileDetails petProfileDetails,
-    PetProfileDetails petProfileDetailsOld) async {
-  //Create Core
-  PetProfileDetails createdPetProfile =
-      await createPetProfileDetailsCore(petProfileDetails);
+// Future<void> createNewPetProfile(PetProfileDetails petProfileDetails,
+//     PetProfileDetails petProfileDetailsOld) async {
+//   //Create Core
+//   PetProfileDetails createdPetProfile =
+//       await createPetProfileDetailsCore(petProfileDetails);
 
-  //Connect Tags
-  for (Tag tag in petProfileDetails.tag) {
-    await connectTagFromPetProfile(
-        createdPetProfile.profileId!, tag.collarTagId);
-  }
+//   //Connect Tags
+//   for (Tag tag in petProfileDetails.tag) {
+//     await connectTagFromPetProfile(
+//         createdPetProfile.profileId!, tag.collarTagId);
+//   }
 
-  //Update Description
-  for (Description description in upsertableDescriptions(
-      petProfileDetails.petDescription, petProfileDetailsOld.petDescription)) {
-    await upsertDescription(description, createdPetProfile.profileId!);
-  }
-  for (Description description in deletableDescriptions(
-      petProfileDetails.petDescription, petProfileDetailsOld.petDescription)) {
-    await deleteDescription(description, createdPetProfile.profileId!);
-  }
+//   //Update Description
+//   for (Description description in upsertableDescriptions(
+//       petProfileDetails.petDescription, petProfileDetailsOld.petDescription)) {
+//     await upsertDescription(description, createdPetProfile.profileId!);
+//   }
+//   for (Description description in deletableDescriptions(
+//       petProfileDetails.petDescription, petProfileDetailsOld.petDescription)) {
+//     await deleteDescription(description, createdPetProfile.profileId!);
+//   }
 
-  //Update ImportantInformation
-  for (ImportantInformation importantInformation
-      in upsertableImportantInformations(
-          petProfileDetails.petImportantInformation,
-          petProfileDetailsOld.petImportantInformation)) {
-    await upsertImportantInformation(
-        importantInformation, createdPetProfile.profileId!);
-  }
-  for (ImportantInformation importantInformation
-      in deletableImportantInformations(
-          petProfileDetails.petImportantInformation,
-          petProfileDetailsOld.petImportantInformation)) {
-    await deleteImportantInformation(
-        importantInformation, createdPetProfile.profileId!);
-  }
-}
+//   //Update ImportantInformation
+//   for (ImportantInformation importantInformation
+//       in upsertableImportantInformations(
+//           petProfileDetails.petImportantInformation,
+//           petProfileDetailsOld.petImportantInformation)) {
+//     await upsertImportantInformation(
+//         importantInformation, createdPetProfile.profileId!);
+//   }
+//   for (ImportantInformation importantInformation
+//       in deletableImportantInformations(
+//           petProfileDetails.petImportantInformation,
+//           petProfileDetailsOld.petImportantInformation)) {
+//     await deleteImportantInformation(
+//         importantInformation, createdPetProfile.profileId!);
+//   }
+// }
 
 Future<void> handleTagChange(
   List<Tag> newTags,
@@ -247,22 +250,53 @@ Future<void> handleTagChange(
 }
 
 ///Creates all fixed Value for the Profile, without Descriptions and Uploads and returns created PetModel
-Future<PetProfileDetails> createPetProfileDetailsCore(
-    PetProfileDetails petProfileDetails) async {
+// Future<PetProfileDetails> createPetProfileDetailsCore(
+//     PetProfileDetails petProfileDetails) async {
+//   Uri url = Uri.parse('$baseURL/pet/createPet');
+//   String? token = await getToken();
+
+//   final response = await http.post(
+//     url,
+//     headers: {
+//       'Content-Type': 'application/json; charset=UTF-8',
+//       'Accept': 'application/json',
+//       'Authorization': 'Bearer $token',
+//     },
+//     body: jsonEncode(petProfileDetails.toJson()),
+//   );
+
+//   print(response.body);
+
+//   if (response.statusCode == 201) {
+//     // If the server did return a 201 CREATED response,
+//     // then parse the JSON.
+//     return PetProfileDetails.fromJson(jsonDecode(response.body));
+//   } else {
+//     // If the server did not return a 201 CREATED response,
+//     // then throw an exception.
+//     throw Exception('Failed to create PetPofile.');
+//   }
+// }
+
+Future<PetProfileDetails> createNewPetProfile(String petName) async {
+  print("yo");
   Uri url = Uri.parse('$baseURL/pet/createPet');
   String? token = await getToken();
 
   final response = await http.post(
     url,
     headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
+      // 'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     },
-    body: jsonEncode(petProfileDetails.toJson()),
+    body: {
+      'pet_name': petName,
+      'pet_is_Lost': false.toString(),
+    },
   );
 
-  print(response.body);
+  print(response.statusCode);
 
   if (response.statusCode == 201) {
     // If the server did return a 201 CREATED response,
@@ -271,7 +305,7 @@ Future<PetProfileDetails> createPetProfileDetailsCore(
   } else {
     // If the server did not return a 201 CREATED response,
     // then throw an exception.
-    throw Exception('Failed to create PetPofile.');
+    throw Exception('Failed to create new PetPofile.');
   }
 }
 
@@ -567,4 +601,18 @@ List<Tag> disconnectableTags(List<Tag> newList, List<Tag> oldList) {
   }
 
   return list;
+}
+
+Future<void> askForPetName(BuildContext context, ValueSetter<String> setPetName,
+    String? currentPetName) async {
+  showDialog(
+    context: context,
+    builder: (_) => PetNameDialog(
+      initialValue: currentPetName,
+    ),
+  ).then((value) {
+    if (value != null) {
+      setPetName(value);
+    }
+  });
 }

@@ -152,13 +152,17 @@ class PetProfileDetails {
       };
 }
 
-Gender parseGenderFromString(String value) {
-  if (value.toUpperCase() == "MALE") {
-    return Gender.male;
-  } else if (value.toUpperCase() == "FEMALE") {
-    return Gender.female;
-  } else {
+Gender parseGenderFromString(String? value) {
+  if (value == null) {
     return Gender.none;
+  } else {
+    if (value.toUpperCase() == "MALE") {
+      return Gender.male;
+    } else if (value.toUpperCase() == "FEMALE") {
+      return Gender.female;
+    } else {
+      return Gender.none;
+    }
   }
 }
 

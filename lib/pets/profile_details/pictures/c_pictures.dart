@@ -4,6 +4,8 @@ import 'package:userapp/network_globals.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_picture.dart';
 
 import '../../../styles/custom_icons_icons.dart';
+import '../../../utils/util_methods.dart';
+import '../pages/images_list.dart';
 import 'extended_picture.dart';
 
 class PetPicturesComponent extends StatefulWidget {
@@ -13,7 +15,7 @@ class PetPicturesComponent extends StatefulWidget {
     // required this.setPetPictures,
     // required this.newPetPictures,
     required this.removePetPicture,
-    required this.imageView,
+    // required this.imageView,
   });
 
   //Pictures
@@ -29,7 +31,7 @@ class PetPicturesComponent extends StatefulWidget {
   final double closeBorderRadius = 8;
 
   //0 Grid 1 List
-  final int imageView;
+  // final int imageView;
 
   @override
   State<PetPicturesComponent> createState() => _PetPicturesComponentState();
@@ -38,77 +40,87 @@ class PetPicturesComponent extends StatefulWidget {
 class _PetPicturesComponentState extends State<PetPicturesComponent> {
   @override
   Widget build(BuildContext context) {
-    if (widget.imageView == 0) {
-      return GridView.builder(
-        //Lenght of petPictures + 1 for new Image
-        itemCount: widget.petPictures.length,
-        // itemCount: 10,
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          childAspectRatio: 1,
-        ),
-        itemBuilder: (BuildContext context, int index) {
-          if (index < widget.petPictures.length) {
-            return SinglePicture(
-              removePetPicture: () {
-                widget.removePetPicture.call(index);
-              },
-              imageUrl: s3BaseUrl +
-                  widget.petPictures.elementAt(index).petPictureLink,
+    // if (widget.imageView == 0) {
+    return GridView.builder(
+      //Lenght of petPictures + 1 for new Image
+      itemCount: widget.petPictures.length,
+      // itemCount: 10,
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        childAspectRatio: 1,
+      ),
+      itemBuilder: (BuildContext context, int index) {
+        return GestureDetector(
+          onTap: () {
+            navigatePerSlide(
+              context,
+              PictureList(
+                petPictures: widget.petPictures,
+                removePetPicture: widget.removePetPicture,
+                scrollToImageposition: index,
+              ),
             );
-          }
-        },
-      );
-    } else {
-      return ListView.builder(
-        //Lenght of petPictures + 1 for new Image
-        itemCount: widget.petPictures.length,
-        // itemCount: 10,
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemBuilder: (BuildContext context, int index) {
-          if (index < widget.petPictures.length) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SinglePicture(
-                  removePetPicture: () {
-                    widget.removePetPicture.call(index);
-                  },
-                  imageUrl: s3BaseUrl +
-                      widget.petPictures.elementAt(index).petPictureLink,
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 38),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const Icon(
-                        // Icons.share,
-                        CustomIcons.share_thin,
-                        size: 24,
-                      ),
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     // widget.removePetPicture.call();
-                      //     Navigator.pop(context);
-                      //   },
-                      //   child: const Icon(
-                      //     CustomIcons.delete,
-                      //     size: 34,
-                      //   ),
-                      // ),
-                    ],
-                  ),
-                )
-              ],
-            );
-          }
-        },
-      );
-    }
+          },
+          child: SinglePicture(
+            removePetPicture: () {
+              widget.removePetPicture.call(index);
+            },
+            imageUrl:
+                s3BaseUrl + widget.petPictures.elementAt(index).petPictureLink,
+          ),
+        );
+      },
+    );
+    // } else {
+    //   return ListView.builder(
+    //     //Lenght of petPictures + 1 for new Image
+    //     itemCount: widget.petPictures.length,
+    //     // itemCount: 10,
+    //     physics: const NeverScrollableScrollPhysics(),
+    //     shrinkWrap: true,
+    //     itemBuilder: (BuildContext context, int index) {
+    //       if (index < widget.petPictures.length) {
+    //         return Column(
+    //           mainAxisSize: MainAxisSize.min,
+    //           children: [
+    //             SinglePicture(
+    //               removePetPicture: () {
+    //                 widget.removePetPicture.call(index);
+    //               },
+    //               imageUrl: s3BaseUrl +
+    //                   widget.petPictures.elementAt(index).petPictureLink,
+    //             ),
+    //             Padding(
+    //               padding: const EdgeInsets.fromLTRB(16, 16, 16, 38),
+    //               child: Row(
+    //                 mainAxisAlignment: MainAxisAlignment.end,
+    //                 children: [
+    //                   const Icon(
+    //                     // Icons.share,
+    //                     CustomIcons.share_thin,
+    //                     size: 24,
+    //                   ),
+    //                   // GestureDetector(
+    //                   //   onTap: () {
+    //                   //     // widget.removePetPicture.call();
+    //                   //     Navigator.pop(context);
+    //                   //   },
+    //                   //   child: const Icon(
+    //                   //     CustomIcons.delete,
+    //                   //     size: 34,
+    //                   //   ),
+    //                   // ),
+    //                 ],
+    //               ),
+    //             )
+    //           ],
+    //         );
+    //       }
+    //     },
+    //   );
+    // }
   }
 }
 
@@ -135,20 +147,20 @@ class SinglePicture extends StatefulWidget {
 class _SinglePictureState extends State<SinglePicture> {
   final GlobalKey extended = GlobalKey();
 
-  void showExtendedPicture(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (_) => ExtendedPicture(
-        key: extended,
-        imageUrl: widget.imageUrl,
-        removePetPicture: () => widget.removePetPicture(),
-        errorBuilder: (context, error, stackTrace) =>
-            errorBuilder(context, error, stackTrace),
-      ),
-    );
-  }
+  // void showExtendedPicture(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (_) => ExtendedPicture(
+  //       key: extended,
+  //       imageUrl: widget.imageUrl,
+  //       removePetPicture: () => widget.removePetPicture(),
+  //       errorBuilder: (context, error, stackTrace) =>
+  //           errorBuilder(context, error, stackTrace),
+  //     ),
+  //   );
+  // }
 
-  void endExtendedPicture(BuildContext context) {}
+  // void endExtendedPicture(BuildContext context) {}
 
   Widget errorBuilder(
       BuildContext context, Object error, StackTrace? stackTrace) {
@@ -161,42 +173,11 @@ class _SinglePictureState extends State<SinglePicture> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        showExtendedPicture(context);
-      },
-      onLongPress: () {
-        showExtendedPicture(context);
-      },
-      onLongPressEnd: (_) {
-        print("end");
-        setState(() {});
-      },
-      onLongPressCancel: () {
-        print("cancel");
-        setState(() {});
-      },
-      child: Image.network(
-        widget.imageUrl,
-        fit: BoxFit.cover,
-        errorBuilder: (context, error, stackTrace) =>
-            errorBuilder(context, error, stackTrace),
-      ),
-      // child: Container(
-      //   // margin: EdgeInsets.only(
-      //   //     top: imageOffsetRight / 1.2, right: imageOffsetRight, bottom: 8),
-      //   // width: imageWidth,
-      //   // height: imageHeight,
-      //   decoration: BoxDecoration(
-      //     // borderRadius: BorderRadius.circular(imageBorderRadius),
-      //     // boxShadow: kElevationToShadow[2],
-      //     image: DecorationImage(
-      //       image: widget.image,
-      //       fit: BoxFit.cover,
-      //       alignment: Alignment.center,
-      //     ),
-      //   ),
-      // ),
+    return Image.network(
+      widget.imageUrl,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) =>
+          errorBuilder(context, error, stackTrace),
     );
   }
 }

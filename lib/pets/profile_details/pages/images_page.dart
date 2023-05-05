@@ -31,15 +31,15 @@ class ProfileDetailsImagePage extends StatefulWidget {
 
 class _ProfileDetailsImagePageState extends State<ProfileDetailsImagePage>
     with SingleTickerProviderStateMixin {
-  bool _enableTopTabBar = false;
+  // bool _enableTopTabBar = false;
 
-  late TabController _tabController;
+  // late TabController _tabController;
 
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(vsync: this, length: 2);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _tabController = TabController(vsync: this, length: 2);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -47,14 +47,14 @@ class _ProfileDetailsImagePageState extends State<ProfileDetailsImagePage>
       appBar: AppBar(
         title: Text('appBarTitleProfileDetails'.tr()),
         scrolledUnderElevation: 8,
-        bottom: _enableTopTabBar
-            ? ImagesTabBar(
-                tabController: _tabController,
-                onTap: (value) {
-                  setState(() {});
-                },
-              )
-            : null,
+        // bottom: _enableTopTabBar
+        //     ? ImagesTabBar(
+        //         tabController: _tabController,
+        //         onTap: (value) {
+        //           setState(() {});
+        //         },
+        //       )
+        //     : null,
       ),
       body: SingleChildScrollView(
         controller: widget.scrollController,
@@ -108,45 +108,51 @@ class _ProfileDetailsImagePageState extends State<ProfileDetailsImagePage>
             //         icon: Icon(Icons.safety_check), label: 'microphone'),
             //   ],
             // ),
-            VisibilityDetector(
-              key: const Key('scoll-edit-tabs'),
-              onVisibilityChanged: (visibilityInfo) {
-                var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                debugPrint(
-                    'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-                if (visiblePercentage == 0) {
-                  setState(() {
-                    _enableTopTabBar = true;
-                  });
-                } else {
-                  setState(() {
-                    _enableTopTabBar = false;
-                  });
-                }
-              },
-              child: ImagesTabBar(
-                tabController: _tabController,
-                onTap: (value) {
-                  setState(() {});
-                },
-              ),
-            ),
+            // VisibilityDetector(
+            //   key: const Key('scoll-edit-tabs'),
+            //   onVisibilityChanged: (visibilityInfo) {
+            //     var visiblePercentage = visibilityInfo.visibleFraction * 100;
+            //     debugPrint(
+            //         'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
+            //     if (visiblePercentage == 0) {
+            //       setState(() {
+            //         _enableTopTabBar = true;
+            //       });
+            //     } else {
+            //       setState(() {
+            //         _enableTopTabBar = false;
+            //       });
+            //     }
+            //   },
+            //   child: ImagesTabBar(
+            //     tabController: _tabController,
+            //     onTap: (value) {
+            //       setState(() {});
+            //     },
+            //   ),
+            // ),
             const SizedBox(
               height: 16,
             ),
-            AnimatedSwitcher(
-              duration: const Duration(milliseconds: 80),
-              child: PaddingComponent(
-                key: ValueKey(_tabController.index),
-                ignoreLeftPadding: true,
-                child: PetPicturesComponent(
-                  petPictures: widget.getProfileDetails().petPictures,
-                  removePetPicture: (value) {
-                    widget.removePetPicture(value);
-                  },
-                  imageView: _tabController.index,
-                ),
-              ),
+            // AnimatedSwitcher(
+            //   duration: const Duration(milliseconds: 80),
+            //   child: PaddingComponent(
+            //     key: ValueKey(_tabController.index),
+            //     ignoreLeftPadding: true,
+            //     child: PetPicturesComponent(
+            //       petPictures: widget.getProfileDetails().petPictures,
+            //       removePetPicture: (value) {
+            //         widget.removePetPicture(value);
+            //       },
+            //       imageView: _tabController.index,
+            //     ),
+            //   ),
+            // ),
+            PetPicturesComponent(
+              petPictures: widget.getProfileDetails().petPictures,
+              removePetPicture: (value) {
+                widget.removePetPicture(value);
+              },
             ),
           ],
         ),
