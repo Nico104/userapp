@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/models/m_description.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
 import 'package:userapp/theme/custom_colors.dart';
-
 import '../../language/m_language.dart';
-import '../../styles/text_styles.dart';
 import 'c_component_title.dart';
 import '../../language/c_language_selection.dart';
 import 'widgets/custom_textformfield.dart';
@@ -35,7 +33,14 @@ class _PetDescriptionComponentState extends State<PetDescriptionComponent> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ComponentTitle(text: "profileDetailsComponentTitleDescription".tr()),
+        ComponentTitle(
+          text: "profileDetailsComponentTitleDescription".tr(),
+          suffix: Container(
+            width: 46,
+            height: 32,
+            color: Colors.redAccent,
+          ),
+        ),
         ListView.builder(
           itemCount: widget.descriptions.length + 1,
           shrinkWrap: true,

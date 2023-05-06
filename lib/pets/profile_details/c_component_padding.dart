@@ -4,16 +4,19 @@ import 'g_profile_detail_globals.dart';
 
 class PaddingComponent extends StatelessWidget {
   const PaddingComponent(
-      {super.key, required this.child, this.ignoreLeftPadding = false});
+      {super.key, required this.child, this.ignorePadding = false});
 
   final Widget child;
-  final bool ignoreLeftPadding;
+  final bool ignorePadding;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-          bottom: 34.0, left: ignoreLeftPadding ? 0 : profileDetailLeftPadding),
+        bottom: 34.0,
+        left: ignorePadding ? 0 : profileDetailLeftPadding,
+        right: ignorePadding ? 0 : profileDetailLeftPadding,
+      ),
       child: child,
     );
   }

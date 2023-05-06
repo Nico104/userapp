@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:userapp/theme/theme_provider.dart';
 import '../../../theme/custom_colors.dart';
@@ -23,6 +24,8 @@ class CustomTextFormField extends StatefulWidget {
     this.thickUnfocusedBorder = false,
     this.showSuffix = true,
     this.expands = false,
+    this.prefix,
+    this.inputFormatters,
   });
 
   final String? initialValue;
@@ -45,6 +48,9 @@ class CustomTextFormField extends StatefulWidget {
   final TextEditingController? textEditingController;
   //TODO Breaks shadow when showing error for some reason
   final bool ignoreBoxShadow;
+
+  final Widget? prefix;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -108,17 +114,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             boxShadow: (_isFocused && !widget.ignoreBoxShadow)
                 ? kElevationToShadow[2]
                 : kElevationToShadow[0],
-            // boxShadow: [
-            //   BoxShadow(
-            //     color: _isFocused
-            //         ? getCustomColors(context).shadow ?? Colors.transparent
-            //         : getCustomColors(context).lightShadow ?? Colors.transparent,
-            //     blurRadius: _isFocused ? 8 : 6,
-            //     offset: const Offset(1, 3), // changes position of shadow
-            //   ),
-            // ],
           ),
           child: TextFormField(
+            inputFormatters: widget.inputFormatters,
             expands: widget.expands,
             textAlignVertical: widget.expands ? TextAlignVertical.top : null,
             obscureText: _obscureText,
@@ -169,6 +167,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                           });
                         } else {
                           _textEditingController.clear();
+                          if (widget.onChanged != null) {
+                            widget.onChanged!("");
+                          }
                         }
                       },
                       child: Icon(
@@ -176,6 +177,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                       ),
                     )
                   : null,
+              prefixIcon: widget.prefix,
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(2),
                 borderSide: BorderSide(

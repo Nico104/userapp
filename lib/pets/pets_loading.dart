@@ -31,10 +31,10 @@ class _PetsLoadingState extends State<PetsLoading> {
       ]),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.hasData) {
-          List<PetProfileDetails> petProfiles = snapshot.data[0]
-              .where((PetProfileDetails content) => content.tag.isNotEmpty)
-              .toList();
-          print("Lenght: " + petProfiles.length.toString());
+          // List<PetProfileDetails> petProfiles = snapshot.data[0]
+          //     .where((PetProfileDetails content) => content.tag.isNotEmpty)
+          //     .toList();
+          // print("Lenght: " + petProfiles.length.toString());
           // if (petProfiles.isNotEmpty) {
           //   return MyPets(
           //     petProfiles: petProfiles,
@@ -47,7 +47,8 @@ class _PetsLoadingState extends State<PetsLoading> {
           //   return const Center(child: Text("No Pets, create?"));
           // }
           return MyPets(
-            petProfiles: petProfiles,
+            // petProfiles: petProfiles,
+            petProfiles: snapshot.data[0],
             // setAppBarNotchColor: widget.setAppBarNotchColor,
             availableLanguages: snapshot.data[1],
             reloadFuture: () => rebuildFuture.call(),

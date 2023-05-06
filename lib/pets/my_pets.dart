@@ -35,10 +35,7 @@ class MyPets extends StatefulWidget {
 }
 
 class _MyPetsState extends State<MyPets> {
-  final PageController _controller = PageController(
-      // viewportFraction: 0.87,
-      // viewportFraction: 1,
-      );
+  final PageController _controller = PageController();
 
   double pageindex = 0;
   // late Color backgroundColor;
@@ -67,14 +64,16 @@ class _MyPetsState extends State<MyPets> {
       // widsget.setAppBarNotchColor(getColor(widget.petProfiles, pageindex));
     });
 
+    print("Lenght: " + widget.petProfiles.length.toString());
+
     // backgroundColor = getColor(widget.petProfiles, pageindex);
-    WidgetsBinding.instance.addPostFrameCallback((_) => precacheImages());
+    // WidgetsBinding.instance.addPostFrameCallback((_) => precacheImages());
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    precacheImages();
+    // precacheImages();
     // print("${widget.petProfiles.first.petPictures.length} Pictures5");
   }
 
@@ -98,11 +97,11 @@ class _MyPetsState extends State<MyPets> {
     }
   }
 
-  void precacheImages() {
-    // for (var img in bgList) {
-    //   precacheImage(img, context);
-    // }
-  }
+  // void precacheImages() {
+  //   // for (var img in bgList) {
+  //   //   precacheImage(img, context);
+  //   // }
+  // }
 
   String getBGPictureLink() {
     if (widget.petProfiles
@@ -279,7 +278,7 @@ class _MyPetsState extends State<MyPets> {
                     isActive: isInteger(pageindex),
                     petProfileDetails:
                         widget.petProfiles.elementAt(pageindex.round()),
-                    reloadFuture: () => widget.reloadFuture(),
+                    reloadFuture: () => widget.reloadFuture.call(),
                   ),
                 )
               : const SizedBox.shrink(),
@@ -298,7 +297,7 @@ class _MyPetsState extends State<MyPets> {
 
 String getPetName(List<PetProfileDetails> petProfiles, index) {
   if (index < petProfiles.length) {
-    return petProfiles.elementAt(index).petName ?? "";
+    return petProfiles.elementAt(index).petName;
   } else {
     return "";
   }

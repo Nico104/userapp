@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 
-import '../../styles/text_styles.dart';
-
 class ComponentTitle extends StatelessWidget {
-  const ComponentTitle({super.key, required this.text});
+  const ComponentTitle({super.key, required this.text, this.suffix});
 
   final String text;
+  final Widget? suffix;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          text,
-          style: Theme.of(context).textTheme.titleMedium,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              text,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            suffix ?? const SizedBox(),
+          ],
         ),
         const SizedBox(
           height: 22,

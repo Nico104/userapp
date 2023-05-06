@@ -9,9 +9,9 @@ import 'm_tag.dart';
 enum Gender { male, female, none }
 
 class PetProfileDetails {
-  final int? profileId;
+  final int profileId;
   final DateTime? profileCreationDateTime;
-  String? petName;
+  String petName;
   Gender petGender;
   String? petChipId;
   List<Description> petDescription;
@@ -118,25 +118,25 @@ class PetProfileDetails {
             : [];
 
   //New PetProfileDetails Object for creatring new Profile
-  PetProfileDetails.createNewEmptyProfile(this.tag)
-      : profileId = null,
-        profileCreationDateTime = null,
-        petName = null,
-        petGender = Gender.none,
-        petChipId = null,
-        petOwnerName = null,
-        petOwnerEmail = null,
-        petOwnerLivingPlace = null,
-        petOwnerFacebook = null,
-        petOwnerInstagram = null,
-        petIsLost = false,
-        petDescription = List<Description>.empty(growable: true),
-        petImportantInformation =
-            List<ImportantInformation>.empty(growable: true),
-        petOwnerTelephoneNumbers = List<PhoneNumber>.empty(growable: true),
-        petDocuments = List<Document>.empty(growable: true),
-        petPictures = List<PetPicture>.empty(growable: true),
-        petProfileScans = List<Scan>.empty(growable: false);
+  // PetProfileDetails.createNewEmptyProfile(this.tag)
+  //     : profileId = null,
+  //       profileCreationDateTime = null,
+  //       petName = null,
+  //       petGender = Gender.none,
+  //       petChipId = null,
+  //       petOwnerName = null,
+  //       petOwnerEmail = null,
+  //       petOwnerLivingPlace = null,
+  //       petOwnerFacebook = null,
+  //       petOwnerInstagram = null,
+  //       petIsLost = false,
+  //       petDescription = List<Description>.empty(growable: true),
+  //       petImportantInformation =
+  //           List<ImportantInformation>.empty(growable: true),
+  //       petOwnerTelephoneNumbers = List<PhoneNumber>.empty(growable: true),
+  //       petDocuments = List<Document>.empty(growable: true),
+  //       petPictures = List<PetPicture>.empty(growable: true),
+  //       petProfileScans = List<Scan>.empty(growable: false);
 
   Map<String, dynamic> toJson() => {
         'profile_id': profileId,

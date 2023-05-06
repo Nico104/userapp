@@ -63,7 +63,7 @@ class _ProfileDetailsImagePageState extends State<ProfileDetailsImagePage>
           children: [
             const SizedBox(height: 36),
             PaddingComponent(
-              ignoreLeftPadding: true,
+              ignorePadding: true,
               child: Center(
                 child: Container(
                   width: 90.w,

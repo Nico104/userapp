@@ -53,7 +53,7 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
           },
         ),
       ),
-    );
+    ).then((value) => widget.reloadFuture.call());
     resetHandle();
   }
 

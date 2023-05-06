@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../c_component_padding.dart';
 import '../c_component_title.dart';
 import '../c_one_line_simple_input.dart';
-import '../c_phone_number.dart';
+import '../phone_numbers/c_phone_number.dart';
 import '../c_social_media.dart';
 import '../models/m_document.dart';
 import '../models/m_pet_profile.dart';

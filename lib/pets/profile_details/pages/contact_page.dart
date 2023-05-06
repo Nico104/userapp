@@ -1,8 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/pets/profile_details/phone_numbers/c_phone_number.dart';
+import 'package:userapp/utils/util_methods.dart';
 import '../c_component_padding.dart';
 import '../c_one_line_simple_input.dart';
-import '../c_phone_number.dart';
 import '../c_social_media.dart';
 import '../models/m_pet_profile.dart';
 import '../u_profile_details.dart';

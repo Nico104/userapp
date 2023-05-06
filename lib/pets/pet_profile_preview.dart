@@ -104,7 +104,7 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                                 ? 1
                                 : 0,
                         child: Text(
-                          "Taco",
+                          widget.petProfileDetails.petName,
                           style: getCustomTextStyles(context).homePetName,
                         ),
                       ),

@@ -128,13 +128,13 @@ final ThemeData constLightTheme = ThemeData(
       textFormFieldHint: TextStyle(
         fontFamily: 'Promt',
         fontWeight: FontWeight.w400,
-        fontSize: 18,
+        fontSize: 16,
         color: Colors.black.withOpacity(0.16),
       ),
       textFormFieldLabel: TextStyle(
         fontFamily: 'Promt',
         fontWeight: FontWeight.w400,
-        fontSize: 18,
+        fontSize: 16,
         color: Colors.black.withOpacity(0.38),
       ),
       authRegisterNowAction: TextStyle(

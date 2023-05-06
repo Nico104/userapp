@@ -3,7 +3,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../../network_globals.dart';
 import '../../../styles/custom_icons_icons.dart';
 import '../models/m_pet_picture.dart';
-import '../pictures/c_pictures.dart';
+import 'c_pictures.dart';
 
 class PictureList extends StatefulWidget {
   const PictureList({

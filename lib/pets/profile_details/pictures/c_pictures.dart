@@ -5,7 +5,7 @@ import 'package:userapp/pets/profile_details/models/m_pet_picture.dart';
 
 import '../../../styles/custom_icons_icons.dart';
 import '../../../utils/util_methods.dart';
-import '../pages/images_list.dart';
+import 'images_list.dart';
 import 'extended_picture.dart';
 
 class PetPicturesComponent extends StatefulWidget {

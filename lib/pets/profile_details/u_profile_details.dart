@@ -9,6 +9,7 @@ import 'package:userapp/pets/profile_details/models/m_description.dart';
 import 'package:userapp/pets/profile_details/models/m_document.dart';
 import 'package:userapp/pets/profile_details/models/m_important_information.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_picture.dart';
+import 'package:userapp/pets/profile_details/models/m_phone_number.dart';
 
 import '../../auth/u_auth.dart';
 import 'c_pet_name.dart';
@@ -173,11 +174,11 @@ Future<void> updatePetProfile(PetProfileDetails petProfileDetails,
   //Update Description
   for (Description description in upsertableDescriptions(
       petProfileDetails.petDescription, petProfileDetailsOld.petDescription)) {
-    upsertDescription(description, petProfileDetails.profileId!);
+    upsertDescription(description, petProfileDetails.profileId);
   }
   for (Description description in deletableDescriptions(
       petProfileDetails.petDescription, petProfileDetailsOld.petDescription)) {
-    deleteDescription(description, petProfileDetails.profileId!);
+    deleteDescription(description, petProfileDetails.profileId);
   }
 
   //Update ImportantInformation
@@ -186,14 +187,14 @@ Future<void> updatePetProfile(PetProfileDetails petProfileDetails,
           petProfileDetails.petImportantInformation,
           petProfileDetailsOld.petImportantInformation)) {
     upsertImportantInformation(
-        importantInformation, petProfileDetails.profileId!);
+        importantInformation, petProfileDetails.profileId);
   }
   for (ImportantInformation importantInformation
       in deletableImportantInformations(
           petProfileDetails.petImportantInformation,
           petProfileDetailsOld.petImportantInformation)) {
     deleteImportantInformation(
-        importantInformation, petProfileDetails.profileId!);
+        importantInformation, petProfileDetails.profileId);
   }
 }
 
@@ -333,6 +334,97 @@ Future<PetProfileDetails> updatePetProfileCore(
   }
 }
 
+//Phone Number
+Future<PhoneNumber> updatePhoneNumber(PhoneNumber phoneNumber) async {
+  Uri url = Uri.parse('$baseURL/pet/updatePhoneNumber');
+  String? token = await getToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: jsonEncode(phoneNumber.toJson(phoneNumber.petProfileId)),
+  );
+
+  print(response.body);
+
+  if (response.statusCode == 201) {
+    // If the server did return a 201 CREATED response,
+    // then parse the JSON.
+    return PhoneNumber.fromJson(json.decode(response.body));
+  } else {
+    // If the server did not return a 201 CREATED response,
+    // then throw an exception.
+    throw Exception(
+        'Failed to update Phone Number with phoneNumberId ${phoneNumber.phoneNumberId}.');
+  }
+}
+
+Future<PhoneNumber> createPhoneNumber(
+  int petProfileId,
+  String languageKey,
+  String phoneNumber,
+) async {
+  Uri url = Uri.parse('$baseURL/pet/createPhoneNumber');
+  String? token = await getToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: jsonEncode({
+      'petProfile_id': petProfileId,
+      'language_key': languageKey,
+      'phone_number': phoneNumber,
+    }),
+  );
+
+  print(response.body);
+
+  if (response.statusCode == 201) {
+    // If the server did return a 201 CREATED response,
+    // then parse the JSON.
+    return PhoneNumber.fromJson(json.decode(response.body));
+  } else {
+    // If the server did not return a 201 CREATED response,
+    // then throw an exception.
+    throw Exception('Failed to create Phone Number with  $phoneNumber.');
+  }
+}
+
+Future<void> deletePhoneNumber(PhoneNumber phoneNumber) async {
+  Uri url = Uri.parse('$baseURL/pet/deletePhoneNumber');
+  String? token = await getToken();
+
+  final response = await http.delete(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: jsonEncode(phoneNumber.toJson(phoneNumber.petProfileId)),
+  );
+
+  print(response.statusCode);
+
+  if (response.statusCode == 200) {
+    // If the server did return a 201 CREATED response,
+    // then parse the JSON.
+  } else {
+    // If the server did not return a 201 CREATED response,
+    // then throw an exception.
+    throw Exception('Failed to delete Description.');
+  }
+}
+
+//Description
 Future<void> upsertDescription(
     Description description, int petProfileId) async {
   Uri url = Uri.parse('$baseURL/pet/upsertDescription');

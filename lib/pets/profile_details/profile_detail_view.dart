@@ -167,7 +167,7 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
               },
             );
             await uploadPicture(
-              widget.petProfileDetails.profileId!,
+              widget.petProfileDetails.profileId,
               value,
               () async {
                 print("uplaoded");
@@ -185,7 +185,7 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
         return UploadDocumentFab(
           addDocument: (value, filename, documentType, contentType) async {
             await uploadDocuments(
-              widget.petProfileDetails.profileId!,
+              widget.petProfileDetails.profileId,
               value,
               filename,
               documentType,
