@@ -17,6 +17,8 @@ Future<List<PetProfileDetails>> fetchUserPets() async {
     'Authorization': 'Bearer $token',
   });
 
+  print(response.body);
+
   if (response.statusCode == 200) {
     return (jsonDecode(response.body) as List)
         .map((t) => PetProfileDetails.fromJson(t))
@@ -34,7 +36,19 @@ Future<List<Language>> fetchAvailableLanguages() async {
         .map((t) => Language.fromJson(t))
         .toList();
   } else {
-    throw Exception('Failed to load PetProfileDetails');
+    throw Exception('Failed to load Languages');
+  }
+}
+
+Future<List<Country>> fetchAvailableCountries() async {
+  final response = await http.get(Uri.parse('$baseURL/pet/getCountries'));
+
+  if (response.statusCode == 200) {
+    return (jsonDecode(response.body) as List)
+        .map((t) => Country.fromJson(t))
+        .toList();
+  } else {
+    throw Exception('Failed to load Countries');
   }
 }
 

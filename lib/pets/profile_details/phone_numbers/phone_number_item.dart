@@ -27,6 +27,7 @@ class SinglePhonerNumber extends StatefulWidget {
   State<SinglePhonerNumber> createState() => _SinglePhonerNumberState();
 }
 
+//? Stateless widget?
 class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
   void _updatePhoneNumber() {
     EasyDebounce.debounce(
@@ -65,10 +66,11 @@ class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
             builder: (_) => const PrefixPickerDialogComponent(),
           ).then((value) {
             if (value != null) {
-              if (value is Language) {
+              if (value is Country) {
                 setState(() {
-                  widget.number.language = value;
+                  widget.number.country = value;
                 });
+                _updatePhoneNumber();
               }
             }
           });
@@ -86,7 +88,7 @@ class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
                   width: 8,
                 ),
                 Text(
-                  widget.number.language.languagePrefix,
+                  widget.number.country.countryPhonePrefix,
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
                 const SizedBox(

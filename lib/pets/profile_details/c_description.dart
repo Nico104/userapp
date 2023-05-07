@@ -1,24 +1,23 @@
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/language/c_language_selection.dart';
 import 'package:userapp/pets/profile_details/models/m_description.dart';
-import 'package:userapp/styles/custom_icons_icons.dart';
-import 'package:userapp/theme/custom_colors.dart';
+import 'package:userapp/pets/profile_details/u_profile_details.dart';
+import '../../language/d_translation_selection.dart';
 import '../../language/m_language.dart';
 import 'c_component_title.dart';
-import '../../language/c_language_selection.dart';
 import 'widgets/custom_textformfield.dart';
 
 class PetDescriptionComponent extends StatefulWidget {
   const PetDescriptionComponent({
     super.key,
     required this.descriptions,
-    // required this.addDescription,
-    // required this.removeDescription,
+    required this.petProfileId,
   });
 
-  //Pictures
   final List<Description> descriptions;
+  final int petProfileId;
 
   @override
   State<PetDescriptionComponent> createState() =>
@@ -26,7 +25,60 @@ class PetDescriptionComponent extends StatefulWidget {
 }
 
 class _PetDescriptionComponentState extends State<PetDescriptionComponent> {
-  // final ValueSetter<Description> addDescription;
+  late Language _currentLanguage;
+
+  bool autofocus = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.descriptions.isNotEmpty) {
+      //TODO check if default language is in
+      _currentLanguage = widget.descriptions.first.language;
+    } else {
+      //TODO check if default language is in
+      _currentLanguage = Language('Deutsch', 'de', false);
+    }
+  }
+
+  Description? getDescriptionFromLanguage(Language language) {
+    for (Description description in widget.descriptions) {
+      if (description.language.languageKey == language.languageKey) {
+        return description;
+      }
+    }
+    return null;
+  }
+
+  Widget getDescriptionWidget() {
+    if (getDescriptionFromLanguage(_currentLanguage) != null) {
+      return DescriptionTranslation(
+        //Pass by reference
+        description: getDescriptionFromLanguage(_currentLanguage)!,
+        removeDescriptionFromList: () {
+          setState(() {
+            widget.descriptions
+                .remove(getDescriptionFromLanguage(_currentLanguage)!);
+            autofocus = true;
+          });
+        },
+        autofocus: autofocus,
+      );
+    } else {
+      return NewDescriptionTranslation(
+        petProfileId: widget.petProfileId,
+        language: _currentLanguage,
+        addNewDescriptionInList: (description) {
+          setState(() {
+            widget.descriptions.add(description);
+            autofocus = true;
+          });
+        },
+        autofocus: autofocus,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -35,39 +87,32 @@ class _PetDescriptionComponentState extends State<PetDescriptionComponent> {
       children: [
         ComponentTitle(
           text: "profileDetailsComponentTitleDescription".tr(),
-          suffix: Container(
-            width: 46,
-            height: 32,
-            color: Colors.redAccent,
+          suffix: GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (_) => TranslationPicker(
+                  availableTranslations:
+                      isolateLanguagesFromDescription(widget.descriptions),
+                ),
+              ).then((value) {
+                if (value is Language) {
+                  print(value);
+                  setState(() {
+                    _currentLanguage = value;
+                  });
+                }
+              });
+            },
+            child: Container(
+              width: 46,
+              height: 32,
+              color: Colors.redAccent,
+              child: Text(_currentLanguage.languageLabel),
+            ),
           ),
         ),
-        ListView.builder(
-          itemCount: widget.descriptions.length + 1,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (BuildContext context, int index) {
-            if (index == widget.descriptions.length) {
-              return NewDescriptionTranslation(
-                descriptions: widget.descriptions,
-                addNewDescription: (text, language) {
-                  setState(() {
-                    widget.descriptions.add(Description(text, language));
-                  });
-                },
-              );
-            } else {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: DescriptionTranslation(
-                  //Pass by reference
-                  description: widget.descriptions.elementAt(index),
-                  descriptions: widget.descriptions,
-                  index: index,
-                ),
-              );
-            }
-          },
-        ),
+        getDescriptionWidget(),
       ],
     );
   }
@@ -76,164 +121,87 @@ class _PetDescriptionComponentState extends State<PetDescriptionComponent> {
 class DescriptionTranslation extends StatelessWidget {
   const DescriptionTranslation({
     super.key,
-    required this.index,
     required this.description,
-    required this.descriptions,
+    required this.removeDescriptionFromList,
+    required this.autofocus,
   });
 
   final Description description;
-  final List<Description> descriptions;
-  final int index;
+  final VoidCallback removeDescriptionFromList;
+  final bool autofocus;
+
+  void _updateDescription() {
+    EasyDebounce.debounce(
+      'updateDescription',
+      const Duration(milliseconds: 250),
+      () {
+        if (description.text.isEmpty) {
+          deleteDescription(description)
+              .then((value) => removeDescriptionFromList());
+        } else {
+          upsertDescription(description);
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: CustomTextFormField(
-            initialValue: description.text,
-            hintText: "Enter Description",
-            maxLines: null,
-            keyboardType: TextInputType.multiline,
-            onChanged: (val) {
-              description.text = val;
-            },
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8, right: 16),
-          child: GestureDetector(
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (_) => LanguagePickerDialogComponent(
-                  excludeLanguageCodes:
-                      isolateLanguageCodesFromDescription(descriptions),
-                ),
-              ).then((value) {
-                if (value != null) {
-                  if (value is Language) {
-                    description.language = value;
-                  }
-                }
-              });
-            },
-            child: Container(
-              height: 50,
-              width: 60,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                    color: getCustomColors(context).lightBorder ??
-                        Colors.transparent,
-                    width: 1),
-                color: Theme.of(context).primaryColor,
-              ),
-              child: Center(
-                  child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: NetworkImage("https://picsum.photos/60"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              )),
-            ),
-          ),
-        )
-      ],
+    return CustomTextFormField(
+      autofocus: autofocus,
+      initialValue: description.text,
+      hintText: "Enter Description",
+      maxLines: null,
+      keyboardType: TextInputType.multiline,
+      onChanged: (val) {
+        description.text = val;
+        _updateDescription();
+      },
     );
   }
 }
 
-class NewDescriptionTranslation extends StatefulWidget {
+class NewDescriptionTranslation extends StatelessWidget {
   const NewDescriptionTranslation({
     super.key,
-    required this.addNewDescription,
-    required this.descriptions,
+    required this.addNewDescriptionInList,
+    required this.language,
+    required this.petProfileId,
+    required this.autofocus,
   });
 
-  final List<Description> descriptions;
-  final Function(String text, Language language) addNewDescription;
+  final Function(Description description) addNewDescriptionInList;
+  final Language language;
+  final int petProfileId;
+  final bool autofocus;
 
-  @override
-  State<NewDescriptionTranslation> createState() =>
-      _NewDescriptionTranslationState();
-}
-
-class _NewDescriptionTranslationState extends State<NewDescriptionTranslation> {
-  String _text = "";
+  void _addDescription(String text) {
+    EasyDebounce.debounce(
+      'newDescription',
+      const Duration(milliseconds: 500),
+      () {
+        if (text.isNotEmpty) {
+          // createPhoneNumber(widget.petProfileId, _language.languageKey, number)
+          //     .then((value) => widget.addNewPhoneNumber(value));
+          Description newDescription =
+              Description(text, language, petProfileId);
+          upsertDescription(newDescription)
+              .then((value) => addNewDescriptionInList(newDescription));
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: CustomTextFormField(
-            hintText:
-                "My Dog is Child friendly, loves to be kicked in his left ball",
-            maxLines: null,
-            keyboardType: TextInputType.multiline,
-            onChanged: (val) {
-              EasyDebounce.debounce(
-                'newDescriptionTranslation',
-                const Duration(milliseconds: 500),
-                () {
-                  setState(() {
-                    _text = val;
-                  });
-                },
-              );
-            },
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8, right: 16),
-          child: GestureDetector(
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (_) => LanguagePickerDialogComponent(
-                  excludeLanguageCodes:
-                      isolateLanguageCodesFromDescription(widget.descriptions),
-                ),
-              ).then((value) {
-                if (value != null) {
-                  widget.addNewDescription(_text, value);
-                }
-              });
-            },
-            child: Container(
-              height: 50,
-              width: 60,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: getCustomColors(context).lightBorder ??
-                      Colors.transparent,
-                  width: 1,
-                ),
-                color: Theme.of(context).primaryColor,
-              ),
-              child: const Center(
-                  child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: SizedBox.expand(
-                  child: FittedBox(
-                    child: Icon(CustomIcons.globe_5),
-                  ),
-                ),
-              )),
-            ),
-          ),
-        )
-      ],
+    return CustomTextFormField(
+      autofocus: autofocus,
+      hintText: "My Dog is Child friendly, loves to be kicked in his left ball",
+      maxLines: null,
+      keyboardType: TextInputType.multiline,
+      onChanged: (value) {
+        _addDescription(value);
+      },
     );
   }
 }

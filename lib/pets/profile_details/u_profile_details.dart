@@ -18,16 +18,16 @@ import 'models/m_tag.dart';
 import 'package:http_parser/http_parser.dart';
 
 ///Handle Pet Profile Save by either create or update
-Future<void> handlePetProfileDetailsSave(PetProfileDetails petProfileDetails,
-    PetProfileDetails petProfileDetailsOld) async {
-  //petProfileDetails.profileId and petProfileDetailsOld.profileId should be equal since the Id doesnt get changed, but is null for new Objects
-  if (petProfileDetails.profileId == null) {
-    //Profile id is not gonna be null since the profile is created before
-    // await createNewPetProfile(petProfileDetails, petProfileDetailsOld);
-  } else {
-    await updatePetProfile(petProfileDetails, petProfileDetailsOld);
-  }
-}
+// Future<void> handlePetProfileDetailsSave(PetProfileDetails petProfileDetails,
+//     PetProfileDetails petProfileDetailsOld) async {
+//   //petProfileDetails.profileId and petProfileDetailsOld.profileId should be equal since the Id doesnt get changed, but is null for new Objects
+//   if (petProfileDetails.profileId == null) {
+//     //Profile id is not gonna be null since the profile is created before
+//     // await createNewPetProfile(petProfileDetails, petProfileDetailsOld);
+//   } else {
+//     await updatePetProfile(petProfileDetails, petProfileDetailsOld);
+//   }
+// }
 
 //Pictures
 
@@ -166,37 +166,37 @@ jsonToFormData(http.MultipartRequest request, Map<String, dynamic> data) {
   return request;
 }
 
-Future<void> updatePetProfile(PetProfileDetails petProfileDetails,
-    PetProfileDetails petProfileDetailsOld) async {
-  //Update ProfileCore
-  updatePetProfileCore(petProfileDetails);
+// Future<void> updatePetProfile(PetProfileDetails petProfileDetails,
+//     PetProfileDetails petProfileDetailsOld) async {
+//   //Update ProfileCore
+//   updatePetProfileCore(petProfileDetails);
 
-  //Update Description
-  for (Description description in upsertableDescriptions(
-      petProfileDetails.petDescription, petProfileDetailsOld.petDescription)) {
-    upsertDescription(description, petProfileDetails.profileId);
-  }
-  for (Description description in deletableDescriptions(
-      petProfileDetails.petDescription, petProfileDetailsOld.petDescription)) {
-    deleteDescription(description, petProfileDetails.profileId);
-  }
+//   //Update Description
+//   for (Description description in upsertableDescriptions(
+//       petProfileDetails.petDescription, petProfileDetailsOld.petDescription)) {
+//     upsertDescription(description, petProfileDetails.profileId);
+//   }
+//   for (Description description in deletableDescriptions(
+//       petProfileDetails.petDescription, petProfileDetailsOld.petDescription)) {
+//     deleteDescription(description, petProfileDetails.profileId);
+//   }
 
-  //Update ImportantInformation
-  for (ImportantInformation importantInformation
-      in upsertableImportantInformations(
-          petProfileDetails.petImportantInformation,
-          petProfileDetailsOld.petImportantInformation)) {
-    upsertImportantInformation(
-        importantInformation, petProfileDetails.profileId);
-  }
-  for (ImportantInformation importantInformation
-      in deletableImportantInformations(
-          petProfileDetails.petImportantInformation,
-          petProfileDetailsOld.petImportantInformation)) {
-    deleteImportantInformation(
-        importantInformation, petProfileDetails.profileId);
-  }
-}
+//   //Update ImportantInformation
+//   for (ImportantInformation importantInformation
+//       in upsertableImportantInformations(
+//           petProfileDetails.petImportantInformation,
+//           petProfileDetailsOld.petImportantInformation)) {
+//     upsertImportantInformation(
+//         importantInformation, petProfileDetails.profileId);
+//   }
+//   for (ImportantInformation importantInformation
+//       in deletableImportantInformations(
+//           petProfileDetails.petImportantInformation,
+//           petProfileDetailsOld.petImportantInformation)) {
+//     deleteImportantInformation(
+//         importantInformation, petProfileDetails.profileId);
+//   }
+// }
 
 // Future<void> createNewPetProfile(PetProfileDetails petProfileDetails,
 //     PetProfileDetails petProfileDetailsOld) async {
@@ -346,7 +346,7 @@ Future<PhoneNumber> updatePhoneNumber(PhoneNumber phoneNumber) async {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     },
-    body: jsonEncode(phoneNumber.toJson(phoneNumber.petProfileId)),
+    body: jsonEncode(phoneNumber.toJson()),
   );
 
   print(response.body);
@@ -365,7 +365,7 @@ Future<PhoneNumber> updatePhoneNumber(PhoneNumber phoneNumber) async {
 
 Future<PhoneNumber> createPhoneNumber(
   int petProfileId,
-  String languageKey,
+  String countryKey,
   String phoneNumber,
 ) async {
   Uri url = Uri.parse('$baseURL/pet/createPhoneNumber');
@@ -380,7 +380,7 @@ Future<PhoneNumber> createPhoneNumber(
     },
     body: jsonEncode({
       'petProfile_id': petProfileId,
-      'language_key': languageKey,
+      'country_key': countryKey,
       'phone_number': phoneNumber,
     }),
   );
@@ -409,7 +409,7 @@ Future<void> deletePhoneNumber(PhoneNumber phoneNumber) async {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     },
-    body: jsonEncode(phoneNumber.toJson(phoneNumber.petProfileId)),
+    body: jsonEncode(phoneNumber.toJson()),
   );
 
   print(response.statusCode);
@@ -425,8 +425,7 @@ Future<void> deletePhoneNumber(PhoneNumber phoneNumber) async {
 }
 
 //Description
-Future<void> upsertDescription(
-    Description description, int petProfileId) async {
+Future<void> upsertDescription(Description description) async {
   Uri url = Uri.parse('$baseURL/pet/upsertDescription');
   String? token = await getToken();
 
@@ -437,7 +436,7 @@ Future<void> upsertDescription(
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     },
-    body: jsonEncode(description.toJson(petProfileId)),
+    body: jsonEncode(description.toJson()),
   );
 
   print(response.body);
@@ -453,7 +452,8 @@ Future<void> upsertDescription(
 }
 
 Future<void> deleteDescription(
-    Description description, int petProfileId) async {
+  Description description,
+) async {
   Uri url = Uri.parse('$baseURL/pet/deleteDescription');
   String? token = await getToken();
 
@@ -464,7 +464,7 @@ Future<void> deleteDescription(
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     },
-    body: jsonEncode(description.toJson(petProfileId)),
+    body: jsonEncode(description.toJson()),
   );
 
   print(response.statusCode);

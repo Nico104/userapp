@@ -24,13 +24,14 @@ class NewPhonerNumber extends StatefulWidget {
 }
 
 class _NewPhonerNumberState extends State<NewPhonerNumber> {
-  late Language _language;
+  late Country _country;
 
   @override
   void initState() {
     super.initState();
     //TODO get user country prefix
-    _language = Language('Deutsch', '/german', 'de', 'Germany', '+49', false);
+    _country =
+        Country('de', '/germany', '+49', Language('Deutsch', 'de', false));
   }
 
   void addPhoneNumber(String number) {
@@ -39,7 +40,7 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
       const Duration(milliseconds: 500),
       () {
         if (number.isNotEmpty) {
-          createPhoneNumber(widget.petProfileId, _language.languageKey, number)
+          createPhoneNumber(widget.petProfileId, _country.countryKey, number)
               .then((value) => widget.addNewPhoneNumber(value));
         }
       },
@@ -66,10 +67,10 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
               builder: (_) => const PrefixPickerDialogComponent(),
             ).then((value) {
               if (value != null) {
-                if (value is Language) {
+                if (value is Country) {
                   setState(() {
                     // widget.number.language = value;
-                    _language = value;
+                    _country = value;
                   });
                 }
               }
@@ -91,7 +92,7 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
                     width: 8,
                   ),
                   Text(
-                    _language.languagePrefix,
+                    _country.countryPhonePrefix,
                     style: Theme.of(context).textTheme.labelMedium,
                   ),
                   const SizedBox(

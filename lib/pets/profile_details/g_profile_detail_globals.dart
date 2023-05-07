@@ -6,3 +6,4 @@ import 'package:userapp/language/m_language.dart';
 const double profileDetailLeftPadding = 16;
 
 List<Language> availableLanguages = List.empty(growable: false);
+List<Country> availableCountries = List.empty(growable: false);

@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/g_profile_detail_globals.dart';
-
-import '../styles/text_styles.dart';
 import 'm_language.dart';
 
+//? id this file even needed?
 class LanguagePickerDialogComponent extends StatelessWidget {
   const LanguagePickerDialogComponent({
     super.key,
-    required this.excludeLanguageCodes,
+    required this.excludeLanguages,
   });
 
-  final List<String> excludeLanguageCodes;
+  final List<Language> excludeLanguages;
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +41,9 @@ class LanguagePickerDialogComponent extends StatelessWidget {
                     children: [
                       AvailableLanguage(
                         language: availableLanguages.elementAt(index),
-                        isActive: !(excludeLanguageCodes.contains(
-                            availableLanguages.elementAt(index).languageKey)),
+                        //TODO Object object comparison doesnt work
+                        isActive: !(excludeLanguages
+                            .contains(availableLanguages.elementAt(index))),
                       ),
                       (index != availableLanguages.length - 1)
                           ? const Divider()

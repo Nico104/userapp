@@ -5,14 +5,14 @@ class PhoneNumber {
   final int petProfileId;
   String phoneNumber;
   int priority;
-  Language language;
+  Country country;
 
   PhoneNumber(
     this.phoneNumberId,
     this.petProfileId,
     this.phoneNumber,
     this.priority,
-    this.language,
+    this.country,
   );
 
   PhoneNumber clone() => PhoneNumber(
@@ -20,7 +20,7 @@ class PhoneNumber {
         petProfileId,
         phoneNumber,
         priority,
-        language,
+        country,
       );
 
   PhoneNumber.fromJson(Map<String, dynamic> json)
@@ -28,11 +28,11 @@ class PhoneNumber {
         petProfileId = json['petProfile_id'],
         phoneNumber = json['phone_number'],
         priority = json['phone_number_priority'],
-        language = Language.fromJson(json['phone_number_Language']);
+        country = Country.fromJson(json['Country']);
 
-  Map<String, dynamic> toJson(int? petProfileId) => {
+  Map<String, dynamic> toJson() => {
         'petProfile_id': petProfileId,
-        'language_key': language.languageKey,
+        'country_key': country.countryKey,
         'phone_number': phoneNumber,
         'phone_number_id': phoneNumberId,
         'phone_number_priority': priority,

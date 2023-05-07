@@ -103,20 +103,20 @@ class ImportantInformationTranslation extends StatelessWidget {
           padding: const EdgeInsets.only(left: 8, right: 16),
           child: GestureDetector(
             onTap: () {
-              showDialog(
-                context: context,
-                builder: (_) => LanguagePickerDialogComponent(
-                  excludeLanguageCodes:
-                      isolateLanguageCodesFromImportantInformation(
-                          importantInformations),
-                ),
-              ).then((value) {
-                if (value != null) {
-                  if (value is Language) {
-                    importantInformation.language = value;
-                  }
-                }
-              });
+              // showDialog(
+              //   context: context,
+              //   builder: (_) => LanguagePickerDialogComponent(
+              //     excludeLanguages:
+              //         isolateLanguageCodesFromImportantInformation(
+              //             importantInformations),
+              //   ),
+              // ).then((value) {
+              //   if (value != null) {
+              //     if (value is Language) {
+              //       importantInformation.language = value;
+              //     }
+              //   }
+              // });
             },
             child: Container(
               height: 50,
@@ -197,18 +197,18 @@ class _NewImportantInformationTranslationState
           padding: const EdgeInsets.only(left: 8, right: 16),
           child: GestureDetector(
             onTap: () {
-              showDialog(
-                context: context,
-                builder: (_) => LanguagePickerDialogComponent(
-                  excludeLanguageCodes:
-                      isolateLanguageCodesFromImportantInformation(
-                          widget.importantInformation),
-                ),
-              ).then((value) {
-                if (value != null) {
-                  widget.addImportantInformation(_text, value);
-                }
-              });
+              // showDialog(
+              //   context: context,
+              //   builder: (_) => LanguagePickerDialogComponent(
+              //     excludeLanguageCodes:
+              //         isolateLanguageCodesFromImportantInformation(
+              //             widget.importantInformation),
+              //   ),
+              // ).then((value) {
+              //   if (value != null) {
+              //     widget.addImportantInformation(_text, value);
+              //   }
+              // });
             },
             child: Container(
               height: 50,

@@ -88,6 +88,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
             ),
             PaddingComponent(
               child: PetDescriptionComponent(
+                petProfileId: widget.petProfileDetails.profileId,
                 //Pass by reference
                 descriptions: widget.petProfileDetails.petDescription,
               ),

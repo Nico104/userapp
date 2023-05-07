@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:userapp/language/m_language.dart';
 import 'package:userapp/pets/my_pets.dart';
-import 'profile_details/models/m_pet_profile.dart';
 import 'u_pets.dart';
 
 class PetsLoading extends StatefulWidget {
@@ -28,29 +26,14 @@ class _PetsLoadingState extends State<PetsLoading> {
       future: Future.wait([
         fetchUserPets(),
         fetchAvailableLanguages(),
+        fetchAvailableCountries(),
       ]),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.hasData) {
-          // List<PetProfileDetails> petProfiles = snapshot.data[0]
-          //     .where((PetProfileDetails content) => content.tag.isNotEmpty)
-          //     .toList();
-          // print("Lenght: " + petProfiles.length.toString());
-          // if (petProfiles.isNotEmpty) {
-          //   return MyPets(
-          //     petProfiles: petProfiles,
-          //     setAppBarNotchColor: widget.setAppBarNotchColor,
-          //     // availableLanguages: snapshot.data[1],
-          //     availableLanguages: snapshot.data[1],
-          //     reloadFuture: () => rebuildFuture.call(),
-          //   );
-          // } else {
-          //   return const Center(child: Text("No Pets, create?"));
-          // }
           return MyPets(
-            // petProfiles: petProfiles,
             petProfiles: snapshot.data[0],
-            // setAppBarNotchColor: widget.setAppBarNotchColor,
             availableLanguages: snapshot.data[1],
+            availableCountries: snapshot.data[2],
             reloadFuture: () => rebuildFuture.call(),
           );
         } else if (snapshot.hasError) {

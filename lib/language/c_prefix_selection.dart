@@ -29,15 +29,15 @@ class PrefixPickerDialogComponent extends StatelessWidget {
               ),
               const SizedBox(height: 28),
               ListView.builder(
-                itemCount: availableLanguages.length,
+                itemCount: availableCountries.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   return Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       SinglePrefix(
-                          language: availableLanguages.elementAt(index)),
-                      (index != availableLanguages.length - 1)
+                          country: availableCountries.elementAt(index)),
+                      (index != availableCountries.length - 1)
                           ? const Divider()
                           : const SizedBox(height: 20),
                     ],
@@ -55,15 +55,15 @@ class PrefixPickerDialogComponent extends StatelessWidget {
 class SinglePrefix extends StatelessWidget {
   const SinglePrefix({
     super.key,
-    required this.language,
+    required this.country,
   });
 
-  final Language language;
+  final Country country;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.pop(context, language),
+      onTap: () => Navigator.pop(context, country),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -83,8 +83,8 @@ class SinglePrefix extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 36),
-              Text(language.languageLabel),
-              Text("+(${language.languagePrefix})"),
+              Text(country.countryKey),
+              Text("+(${country.countryPhonePrefix})"),
               const Spacer(
                 flex: 3,
               ),

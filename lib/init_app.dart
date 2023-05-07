@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:userapp/auth/sign_up_screen/sign_up_screen.dart';
-import 'package:userapp/home.dart';
 import 'auth/login_screen.dart';
 import 'auth/u_auth.dart';
 import 'pets/pets_loading.dart';
@@ -45,7 +44,6 @@ class _InitAppState extends State<InitApp> {
         if (snapshot.hasData) {
           if ((snapshot.data[0] as bool)) {
             //TODO refresh Token...just saying
-            // return const HomeScreen();
             return const PetsLoading();
           } else if ((snapshot.data[2] as bool)) {
             return LoginScreen(

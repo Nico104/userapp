@@ -5,7 +5,8 @@ import 'package:sizer/sizer.dart';
 import 'package:userapp/language/m_language.dart';
 import 'package:userapp/network_globals.dart';
 import 'package:userapp/pets/pet_profile_preview_extended_actions.dart';
-import 'package:userapp/pets/profile_details/g_profile_detail_globals.dart';
+import 'package:userapp/pets/profile_details/g_profile_detail_globals.dart'
+    as globals;
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/theme/custom_text_styles.dart';
 import 'my_pets_navbar.dart';
@@ -21,12 +22,13 @@ class MyPets extends StatefulWidget {
     // required this.setAppBarNotchColor,
     required this.availableLanguages,
     required this.reloadFuture,
+    required this.availableCountries,
   });
 
   final List<PetProfileDetails> petProfiles;
-  // final ValueSetter<Color> setAppBarNotchColor;
 
   final List<Language> availableLanguages;
+  final List<Country> availableCountries;
 
   final VoidCallback reloadFuture;
 
@@ -41,7 +43,6 @@ class _MyPetsState extends State<MyPets> {
   // late Color backgroundColor;
 
   int? activeExtendedActions;
-  ImageProvider<Object>? _bgImage;
 
   // List<NetworkImage> bgList = [
   //   NetworkImage("https://picsum.photos/600/800"),
@@ -51,36 +52,23 @@ class _MyPetsState extends State<MyPets> {
   @override
   void initState() {
     super.initState();
-    //InitAvailableLanguages
-    availableLanguages = List.from(widget.availableLanguages);
+    //InitAvailableLanguages and Countries
+    globals.availableLanguages = List.from(widget.availableLanguages);
+    globals.availableCountries = List.from(widget.availableCountries);
 
     _controller.addListener(() {
       setState(() {
         pageindex = _controller.page ?? 0;
-        // backgroundColor = getColor(widget.petProfiles, pageindex);
         _closeExtendedActions();
-        // print(pageindex);
       });
-      // widsget.setAppBarNotchColor(getColor(widget.petProfiles, pageindex));
     });
-
-    print("Lenght: " + widget.petProfiles.length.toString());
-
-    // backgroundColor = getColor(widget.petProfiles, pageindex);
-    // WidgetsBinding.instance.addPostFrameCallback((_) => precacheImages());
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // precacheImages();
-    // print("${widget.petProfiles.first.petPictures.length} Pictures5");
   }
 
   @override
   void didUpdateWidget(covariant MyPets oldWidget) {
     super.didUpdateWidget(oldWidget);
-    availableLanguages = List.from(widget.availableLanguages);
+    globals.availableLanguages = List.from(widget.availableLanguages);
+    globals.availableCountries = List.from(widget.availableCountries);
   }
 
   @override
