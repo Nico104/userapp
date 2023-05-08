@@ -36,7 +36,17 @@ class _DocumentsPageState extends State<DocumentsPage> {
   @override
   void initState() {
     super.initState();
+    setDocumentCategories();
+  }
 
+  @override
+  void didUpdateWidget(covariant DocumentsPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    //Needed since docuemnts dont get accessed directly so updating it has effect
+    setDocumentCategories();
+  }
+
+  void setDocumentCategories() {
     allergies = widget.documents
         .where((i) => i.documentLink.contains('allergies'))
         .toList();
@@ -95,8 +105,13 @@ class _DocumentsPageState extends State<DocumentsPage> {
                     shrinkWrap: true,
                     itemCount: dewormers.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(dewormers.elementAt(index).documentName),
+                      return DocumentItem(
+                        document: dewormers.elementAt(index),
+                        removeDocumentFromList: () {
+                          setState(() {
+                            dewormers.removeAt(index);
+                          });
+                        },
                       );
                     },
                   ),
@@ -106,8 +121,13 @@ class _DocumentsPageState extends State<DocumentsPage> {
                     shrinkWrap: true,
                     itemCount: health.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(health.elementAt(index).documentName),
+                      return DocumentItem(
+                        document: health.elementAt(index),
+                        removeDocumentFromList: () {
+                          setState(() {
+                            health.removeAt(index);
+                          });
+                        },
                       );
                     },
                   ),
@@ -117,8 +137,13 @@ class _DocumentsPageState extends State<DocumentsPage> {
                     shrinkWrap: true,
                     itemCount: medicine.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(medicine.elementAt(index).documentName),
+                      return DocumentItem(
+                        document: medicine.elementAt(index),
+                        removeDocumentFromList: () {
+                          setState(() {
+                            medicine.removeAt(index);
+                          });
+                        },
                       );
                     },
                   ),

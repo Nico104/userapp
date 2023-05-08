@@ -52,6 +52,7 @@ dependencies:
   file_picker: ^5.2.10
   flutter_snake_navigationbar: ^0.6.1
   scrollable_positioned_list: ^0.3.7
+  salomon_bottom_bar: ^3.3.2
 
 dev_dependencies:
   flutter_test:

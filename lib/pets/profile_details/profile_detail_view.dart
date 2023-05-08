@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/pets/profile_details/pages/contact_page.dart';
 import 'package:userapp/pets/profile_details/pages/documents_page.dart';
@@ -83,36 +84,98 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        bottomNavigationBar: SnakeNavigationBar.color(
-          behaviour: snakeBarStyle,
-          snakeShape: snakeShape,
-          shape: bottomBarShape,
-          padding: padding,
-          elevation: 16,
+        //TODO remvoe snakebar package
+        // bottomNavigationBar: SnakeNavigationBar.color(
+        //   behaviour: snakeBarStyle,
+        //   snakeShape: snakeShape,
+        //   shape: bottomBarShape,
+        //   padding: padding,
+        //   elevation: 16,
 
-          ///configuration for SnakeNavigationBar.color
-          snakeViewColor: selectedColor,
-          selectedItemColor:
-              snakeShape == SnakeShape.indicator ? selectedColor : null,
-          unselectedItemColor: Colors.blueGrey,
-          showUnselectedLabels: showUnselectedLabels,
-          showSelectedLabels: showSelectedLabels,
-          currentIndex: pageindex.round(),
-          onTap: (value) {
-            _pageController.jumpToPage(value);
-            _scrollControllers.elementAt(value).animateTo(0,
-                duration: const Duration(milliseconds: 125),
-                curve: Curves.fastOutSlowIn);
-          },
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.notifications), label: 'tickets'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.calendar_month), label: 'calendar'),
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.safety_check), label: 'microphone'),
-          ],
+        //   ///configuration for SnakeNavigationBar.color
+        //   snakeViewColor: selectedColor,
+        //   selectedItemColor:
+        //       snakeShape == SnakeShape.indicator ? selectedColor : null,
+        //   unselectedItemColor: Colors.blueGrey,
+        //   showUnselectedLabels: showUnselectedLabels,
+        //   showSelectedLabels: showSelectedLabels,
+        //   currentIndex: pageindex.round(),
+        //   onTap: (value) {
+        //     _pageController.jumpToPage(value);
+        //     _scrollControllers.elementAt(value).animateTo(0,
+        //         duration: const Duration(milliseconds: 125),
+        //         curve: Curves.fastOutSlowIn);
+        //   },
+        //   items: const [
+        //     BottomNavigationBarItem(
+        //         icon: Icon(Icons.notifications), label: 'tickets'),
+        //     BottomNavigationBarItem(
+        //         icon: Icon(Icons.calendar_month), label: 'calendar'),
+        //     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
+        //     BottomNavigationBarItem(
+        //         icon: Icon(Icons.safety_check), label: 'microphone'),
+        //   ],
+        // ),
+        // bottomNavigationBar: DotNavigationBar(
+        //   currentIndex: pageindex.round(),
+        //   onTap: (value) {
+        //     _pageController.jumpToPage(value);
+        //     _scrollControllers.elementAt(value).animateTo(0,
+        //         duration: const Duration(milliseconds: 125),
+        //         curve: Curves.fastOutSlowIn);
+        //   },
+        //   dotIndicatorColor: Colors.black,
+        //   selectedItemColor: Colors.black,
+        //   unselectedItemColor: Colors.grey,
+        //   boxShadow: kElevationToShadow[2]!,
+        //   enableFloatingNavBar: true,
+        //   items: [
+        //     DotNavigationBarItem(icon: Icon(Icons.image)),
+        //     DotNavigationBarItem(icon: Icon(Icons.pets)),
+        //     DotNavigationBarItem(icon: Icon(Icons.phone)),
+        //     DotNavigationBarItem(icon: Icon(Icons.file_copy)),
+        //   ],
+        // ),
+        bottomNavigationBar: Material(
+          elevation: 16,
+          child: SalomonBottomBar(
+            currentIndex: pageindex.round(),
+            onTap: (value) {
+              _pageController.jumpToPage(value);
+              _scrollControllers.elementAt(value).animateTo(0,
+                  duration: const Duration(milliseconds: 125),
+                  curve: Curves.fastOutSlowIn);
+            },
+            items: [
+              /// Home
+              SalomonBottomBarItem(
+                icon: Icon(Icons.image),
+                title: Text("Images"),
+                selectedColor: Colors.purple,
+              ),
+
+              /// Likes
+              SalomonBottomBarItem(
+                icon: Icon(Icons.pets),
+                title: Text("Pet Info"),
+                selectedColor: Colors.pink,
+              ),
+
+              /// Search
+              SalomonBottomBarItem(
+                icon: Icon(Icons.phone),
+                title: Text("Contact Info"),
+                selectedColor: Colors.orange,
+              ),
+
+              /// Profile
+              SalomonBottomBarItem(
+                icon: Icon(Icons.file_copy),
+                title: Text("Documents"),
+                selectedColor: Colors.teal,
+              ),
+            ],
+          ),
         ),
         floatingActionButton: getFloatingActionButton(pageindex.round()),
         extendBodyBehindAppBar: false,
@@ -144,8 +207,8 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
             ),
             DocumentsPage(
               scrollController: _scrollControllers.elementAt(3),
-              // petProfileDetails: widget.petProfileDetails,
-              documents: widget.petProfileDetails.petDocuments,
+              //?For some reason getProfileDetails() updates document list when new ones come but the variable petProfileDetails itslef doesnt
+              documents: widget.getProfileDetails().petDocuments,
             ),
           ],
         ),
@@ -187,7 +250,7 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
       case 3:
         return UploadDocumentFab(
           addDocument: (value, filename, documentType, contentType) async {
-            //Loading Dialog Thingy
+            // Loading Dialog Thingy
             BuildContext? dialogContext;
             showDialog(
               context: context,
@@ -208,7 +271,7 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
                 widget.reloadFuture.call();
                 //TODO update UI
                 //hekps against 403 from server
-                await Future.delayed(Duration(milliseconds: 2000))
+                await Future.delayed(const Duration(milliseconds: 2000))
                     .then((value) => refresh());
                 //Close Loading Dialog Thingy
                 Navigator.pop(dialogContext!);

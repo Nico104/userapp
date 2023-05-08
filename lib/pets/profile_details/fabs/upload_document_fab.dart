@@ -160,14 +160,21 @@ class _DocumentDialogState extends State<DocumentDialog> {
               const SizedBox(height: 28),
               OutlinedButton(
                 onPressed: () {
-                  widget
-                      .addDocument(
-                        widget.pickedDocument.fileBytes,
-                        widget.pickedDocument.fileName,
-                        selectedUser.key,
-                        getContentType(),
-                      )
-                      .then((value) => Navigator.pop(context));
+                  // widget
+                  //     .addDocument(
+                  //       widget.pickedDocument.fileBytes,
+                  //       widget.pickedDocument.fileName,
+                  //       selectedUser.key,
+                  //       getContentType(),
+                  //     )
+                  //     .then((value) => Navigator.pop(context));
+                  Navigator.pop(context);
+                  widget.addDocument(
+                    widget.pickedDocument.fileBytes,
+                    widget.pickedDocument.fileName,
+                    selectedUser.key,
+                    getContentType(),
+                  );
                 },
                 style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
