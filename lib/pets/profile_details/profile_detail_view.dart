@@ -144,7 +144,8 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
             ),
             DocumentsPage(
               scrollController: _scrollControllers.elementAt(3),
-              petProfileDetails: widget.petProfileDetails,
+              // petProfileDetails: widget.petProfileDetails,
+              documents: widget.petProfileDetails.petDocuments,
             ),
           ],
         ),
@@ -157,6 +158,7 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
       case 0:
         return UploadImageFab(
           addPetPicture: (value) async {
+            //Loading Dialog Thingy
             BuildContext? dialogContext;
             showDialog(
               context: context,
@@ -176,6 +178,7 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
                 //hekps against 403 from server
                 await Future.delayed(const Duration(milliseconds: 2000))
                     .then((value) => refresh());
+                //Close Loading Dialog Thingy
                 Navigator.pop(dialogContext!);
               },
             );
@@ -184,19 +187,31 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
       case 3:
         return UploadDocumentFab(
           addDocument: (value, filename, documentType, contentType) async {
+            //Loading Dialog Thingy
+            BuildContext? dialogContext;
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                dialogContext = context;
+                return const UploadPictureDialog();
+              },
+            );
             await uploadDocuments(
               widget.petProfileDetails.profileId,
               value,
               filename,
               documentType,
               contentType,
-              () {
+              () async {
                 print("uplaoded");
                 widget.reloadFuture.call();
                 //TODO update UI
                 //hekps against 403 from server
-                Future.delayed(Duration(milliseconds: 850))
+                await Future.delayed(Duration(milliseconds: 2000))
                     .then((value) => refresh());
+                //Close Loading Dialog Thingy
+                Navigator.pop(dialogContext!);
               },
             );
           },

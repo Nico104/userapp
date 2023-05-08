@@ -80,9 +80,10 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
               ),
             ),
             PaddingComponent(
-              child: PetImportantInformation(
+              child: PetImportantInformationComponent(
+                petProfileId: widget.petProfileDetails.profileId,
                 //Pass by reference
-                imortantInformations:
+                importantInformation:
                     widget.petProfileDetails.petImportantInformation,
               ),
             ),

@@ -9,9 +9,11 @@ class TranslationPicker extends StatelessWidget {
   const TranslationPicker({
     super.key,
     required this.availableTranslations,
+    required this.currentTranslation,
   });
 
   final List<Language> availableTranslations;
+  final Language currentTranslation;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +45,8 @@ class TranslationPicker extends StatelessWidget {
                     children: [
                       AvailableTranslation(
                         language: availableTranslations.elementAt(index),
+                        isActive: !(currentTranslation.languageKey ==
+                            availableTranslations.elementAt(index).languageKey),
                       ),
                       (index != availableTranslations.length - 1)
                           ? const Divider()
@@ -94,44 +98,52 @@ class AvailableTranslation extends StatelessWidget {
   const AvailableTranslation({
     super.key,
     required this.language,
+    required this.isActive,
   });
 
   final Language language;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: () {
-        Navigator.pop(context, language);
+        if (isActive) {
+          Navigator.pop(context, language);
+        }
       },
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Spacer(),
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: NetworkImage("https://picsum.photos/60"),
-                    fit: BoxFit.cover,
+      child: Opacity(
+        opacity: isActive ? 1 : 0.5,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Spacer(),
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: NetworkImage("https://picsum.photos/60"),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(width: 42),
-              Text(language.languageLabel),
-              const Spacer(
-                flex: 5,
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-        ],
+                SizedBox(width: 42),
+                Text(language.languageLabel),
+                const Spacer(
+                  flex: 5,
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+          ],
+        ),
       ),
     );
   }

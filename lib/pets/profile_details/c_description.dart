@@ -53,6 +53,8 @@ class _PetDescriptionComponentState extends State<PetDescriptionComponent> {
   Widget getDescriptionWidget() {
     if (getDescriptionFromLanguage(_currentLanguage) != null) {
       return DescriptionTranslation(
+        //Key needed so the widget switch to other value
+        key: ValueKey(_currentLanguage.languageKey),
         //Pass by reference
         description: getDescriptionFromLanguage(_currentLanguage)!,
         removeDescriptionFromList: () {
@@ -92,6 +94,7 @@ class _PetDescriptionComponentState extends State<PetDescriptionComponent> {
               showDialog(
                 context: context,
                 builder: (_) => TranslationPicker(
+                  currentTranslation: _currentLanguage,
                   availableTranslations:
                       isolateLanguagesFromDescription(widget.descriptions),
                 ),
@@ -181,8 +184,6 @@ class NewDescriptionTranslation extends StatelessWidget {
       const Duration(milliseconds: 500),
       () {
         if (text.isNotEmpty) {
-          // createPhoneNumber(widget.petProfileId, _language.languageKey, number)
-          //     .then((value) => widget.addNewPhoneNumber(value));
           Description newDescription =
               Description(text, language, petProfileId);
           upsertDescription(newDescription)

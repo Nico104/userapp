@@ -88,8 +88,8 @@ class PetProfileDetails {
                 .map((t) => Description.fromJson(t))
                 .toList()
             : [],
-        petImportantInformation = json['pet_important_inforation'] != null
-            ? (json['pet_important_inforation'] as List)
+        petImportantInformation = json['pet_important_information'] != null
+            ? (json['pet_important_information'] as List)
                 .map((t) => ImportantInformation.fromJson(t))
                 .toList()
             : [],

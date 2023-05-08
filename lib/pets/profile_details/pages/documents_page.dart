@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/styles/custom_icons_icons.dart';
 import '../c_component_padding.dart';
 import '../c_component_title.dart';
 import '../c_one_line_simple_input.dart';
@@ -12,11 +13,11 @@ import '../u_profile_details.dart';
 class DocumentsPage extends StatefulWidget {
   const DocumentsPage({
     super.key,
-    required this.petProfileDetails,
     required this.scrollController,
+    required this.documents,
   });
 
-  final PetProfileDetails petProfileDetails;
+  final List<Document> documents;
   final ScrollController scrollController;
 
   @override
@@ -36,19 +37,19 @@ class _DocumentsPageState extends State<DocumentsPage> {
   void initState() {
     super.initState();
 
-    List<Document> allergies = widget.petProfileDetails.petDocuments
+    allergies = widget.documents
         .where((i) => i.documentLink.contains('allergies'))
         .toList();
 
-    List<Document> dewormers = widget.petProfileDetails.petDocuments
+    dewormers = widget.documents
         .where((i) => i.documentLink.contains('dewormers'))
         .toList();
 
-    List<Document> health = widget.petProfileDetails.petDocuments
+    health = widget.documents
         .where((i) => i.documentLink.contains('health'))
         .toList();
 
-    List<Document> medicine = widget.petProfileDetails.petDocuments
+    medicine = widget.documents
         .where((i) => i.documentLink.contains('medicine'))
         .toList();
   }
@@ -74,11 +75,17 @@ class _DocumentsPageState extends State<DocumentsPage> {
                   const SizedBox(height: 28),
                   const ComponentTitle(text: "Allergies"),
                   ListView.builder(
+                    key: Key(allergies.length.toString()),
                     shrinkWrap: true,
                     itemCount: allergies.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(allergies.elementAt(index).documentName),
+                      return DocumentItem(
+                        document: allergies.elementAt(index),
+                        removeDocumentFromList: () {
+                          setState(() {
+                            allergies.removeAt(index);
+                          });
+                        },
                       );
                     },
                   ),
@@ -122,6 +129,34 @@ class _DocumentsPageState extends State<DocumentsPage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class DocumentItem extends StatelessWidget {
+  const DocumentItem({
+    super.key,
+    required this.document,
+    required this.removeDocumentFromList,
+  });
+
+  final Document document;
+  final VoidCallback removeDocumentFromList;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(document.documentName),
+        IconButton(
+          onPressed: () {
+            //TODO delete document
+            deleteDocument(document).then((value) => removeDocumentFromList());
+          },
+          icon: const Icon(CustomIcons.delete),
+        ),
+      ],
     );
   }
 }

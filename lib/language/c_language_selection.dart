@@ -41,9 +41,8 @@ class LanguagePickerDialogComponent extends StatelessWidget {
                     children: [
                       AvailableLanguage(
                         language: availableLanguages.elementAt(index),
-                        //TODO Object object comparison doesnt work
-                        isActive: !(excludeLanguages
-                            .contains(availableLanguages.elementAt(index))),
+                        isActive: !listContainsLanguage(excludeLanguages,
+                            availableLanguages.elementAt(index)),
                       ),
                       (index != availableLanguages.length - 1)
                           ? const Divider()

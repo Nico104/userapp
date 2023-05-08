@@ -20,9 +20,15 @@ Future<List<PetProfileDetails>> fetchUserPets() async {
   print(response.body);
 
   if (response.statusCode == 200) {
-    return (jsonDecode(response.body) as List)
+    List<PetProfileDetails> list = (jsonDecode(response.body) as List)
         .map((t) => PetProfileDetails.fromJson(t))
         .toList();
+    // list.forEach((element) {
+    //   element.petDocuments.forEach((element) {
+    //     print(element.documentName);
+    //   });
+    // });
+    return list;
   } else {
     throw Exception('Failed to load PetProfileDetails');
   }

@@ -480,7 +480,7 @@ Future<void> deleteDescription(
 }
 
 Future<void> upsertImportantInformation(
-    ImportantInformation importantInformation, int petProfileId) async {
+    ImportantInformation importantInformation) async {
   Uri url = Uri.parse('$baseURL/pet/upsertImportantInformation');
   String? token = await getToken();
 
@@ -491,7 +491,7 @@ Future<void> upsertImportantInformation(
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     },
-    body: jsonEncode(importantInformation.toJson(petProfileId)),
+    body: jsonEncode(importantInformation.toJson()),
   );
 
   print(response.body);
@@ -507,7 +507,7 @@ Future<void> upsertImportantInformation(
 }
 
 Future<void> deleteImportantInformation(
-    ImportantInformation importantInformation, int petProfileId) async {
+    ImportantInformation importantInformation) async {
   Uri url = Uri.parse('$baseURL/pet/deleteImportantInformation');
   String? token = await getToken();
 
@@ -518,7 +518,7 @@ Future<void> deleteImportantInformation(
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     },
-    body: jsonEncode(importantInformation.toJson(petProfileId)),
+    body: jsonEncode(importantInformation.toJson()),
   );
 
   print(response.statusCode);

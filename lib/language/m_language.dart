@@ -25,6 +25,15 @@ class Language {
             json['language_isAvailableForAppTranslation'];
 }
 
+bool listContainsLanguage(List<Language> list, Language language) {
+  for (Language item in list) {
+    if (item.languageKey == language.languageKey) {
+      return true;
+    }
+  }
+  return false;
+}
+
 class Country {
   final String countryKey;
   final String countryFlagImagePath;
