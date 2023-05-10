@@ -42,11 +42,14 @@ class UploadDocumentFab extends StatelessWidget {
 
 Future<PickedDocument?> pickDocument() async {
   FilePickerResult? result = await FilePicker.platform.pickFiles(
+    withData: true,
     type: FileType.custom,
     // allowedExtensions: ["jpg", "jpeg", 'png', 'pdf', 'doc', 'mp3', 'm4a'],
     allowedExtensions: ["jpg", "jpeg", 'png', 'pdf'],
     allowMultiple: false,
   );
+
+  print("Result: " + result.toString());
 
   if (result != null && result.files.isNotEmpty) {
     String fileExtension = result.files.first.extension!;

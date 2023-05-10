@@ -156,34 +156,6 @@ class _PetNameDialogState extends State<PetNameDialog> {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 28),
-              // TextFormField(
-              //   autofocus: true,
-              //   controller: _controller,
-              //   cursorColor: Colors.black.withOpacity(0.74),
-              //   decoration: InputDecoration(
-              //     hintText: "Enter Description",
-              //     fillColor: Colors.white,
-              //     suffixIconColor: Colors.grey,
-              //     suffixIcon: GestureDetector(
-              //       onTap: () => _controller.clear(),
-              //       child: const Icon(Icons.delete),
-              //     ),
-              //     focusedBorder: OutlineInputBorder(
-              //       borderRadius: BorderRadius.circular(8),
-              //       borderSide: const BorderSide(
-              //         color: Colors.black,
-              //         width: 1.5,
-              //       ),
-              //     ),
-              //     enabledBorder: OutlineInputBorder(
-              //       borderRadius: BorderRadius.circular(10),
-              //       borderSide: const BorderSide(
-              //         color: Colors.grey,
-              //         width: 0.75,
-              //       ),
-              //     ),
-              //   ),
-              // ),
               CustomTextFormField(
                 autofocus: true,
                 initialValue: text,

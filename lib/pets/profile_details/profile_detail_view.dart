@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
+// import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/pets/profile_details/pages/contact_page.dart';
@@ -67,11 +67,11 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
     // }
   }
 
-  ShapeBorder? bottomBarShape = const RoundedRectangleBorder();
-  SnakeBarBehaviour snakeBarStyle = SnakeBarBehaviour.pinned;
-  EdgeInsets padding = const EdgeInsets.all(0);
+  // ShapeBorder? bottomBarShape = const RoundedRectangleBorder();
+  // SnakeBarBehaviour snakeBarStyle = SnakeBarBehaviour.pinned;
+  // EdgeInsets padding = const EdgeInsets.all(0);
 
-  SnakeShape snakeShape = SnakeShape.indicator;
+  // SnakeShape snakeShape = SnakeShape.indicator;
 
   bool showSelectedLabels = false;
   bool showUnselectedLabels = false;
@@ -149,29 +149,29 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
             items: [
               /// Home
               SalomonBottomBarItem(
-                icon: Icon(Icons.image),
-                title: Text("Images"),
+                icon: const Icon(Icons.image),
+                title: const Text("Images"),
                 selectedColor: Colors.purple,
               ),
 
               /// Likes
               SalomonBottomBarItem(
-                icon: Icon(Icons.pets),
-                title: Text("Pet Info"),
+                icon: const Icon(Icons.pets),
+                title: const Text("Pet Info"),
                 selectedColor: Colors.pink,
               ),
 
               /// Search
               SalomonBottomBarItem(
-                icon: Icon(Icons.phone),
-                title: Text("Contact Info"),
+                icon: const Icon(Icons.phone),
+                title: const Text("Contact Info"),
                 selectedColor: Colors.orange,
               ),
 
               /// Profile
               SalomonBottomBarItem(
-                icon: Icon(Icons.file_copy),
-                title: Text("Documents"),
+                icon: const Icon(Icons.file_copy),
+                title: const Text("Documents"),
                 selectedColor: Colors.teal,
               ),
             ],
@@ -193,7 +193,7 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
                 //TODO update UI
                 //hekps against 403 from server
                 widget.reloadFuture.call();
-                Future.delayed(Duration(milliseconds: 100))
+                Future.delayed(const Duration(milliseconds: 100))
                     .then((value) => refresh());
               },
             ),

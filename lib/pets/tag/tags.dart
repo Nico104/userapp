@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:userapp/pets/tag/tag_single.dart';
 
 import '../profile_details/models/m_tag.dart';
+import 'empty_tag.dart';
 
 class Tags extends StatelessWidget {
   const Tags({super.key, required this.tag, required this.collardimension});
@@ -11,15 +12,20 @@ class Tags extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: _buildTags(tag, collardimension),
-    );
+    if (tag.isNotEmpty) {
+      return Stack(
+        children: _buildTags(tag, collardimension),
+      );
+    } else {
+      return EmptyTag(
+        dimension: collardimension,
+      );
+    }
   }
 }
 
 List<Widget> _buildTags(List<Tag> list, double collardimension) {
   List<Widget> tags = [];
-
   for (int i = 0; i < list.length; i++) {
     int index = list.length - 1 - i;
     Tag tag = list.elementAt(index);
@@ -27,8 +33,9 @@ List<Widget> _buildTags(List<Tag> list, double collardimension) {
       Padding(
         padding: EdgeInsets.only(left: (30 * index).toDouble()),
         child: TagSingle(
-            collardimension: collardimension,
-            tagPersonalisation: tag.collarTagPersonalisation),
+          collardimension: collardimension,
+          tagPersonalisation: tag.collarTagPersonalisation,
+        ),
       ),
     );
   }
