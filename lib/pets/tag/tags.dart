@@ -34,7 +34,8 @@ List<Widget> _buildTags(List<Tag> list, double collardimension) {
         padding: EdgeInsets.only(left: (30 * index).toDouble()),
         child: TagSingle(
           collardimension: collardimension,
-          tagPersonalisation: tag.collarTagPersonalisation,
+          // tagPersonalisation: tag.collarTagPersonalisation,
+          picturePath: tag.picturePath,
         ),
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void navigatePerSlide(BuildContext context, Widget naviagteTo,
-    [int durationMilliseconds = 125]) {
+    {int durationMilliseconds = 125, VoidCallback? callback}) {
   Navigator.push(
     context,
     PageRouteBuilder(
@@ -20,5 +20,9 @@ void navigatePerSlide(BuildContext context, Widget naviagteTo,
         );
       },
     ),
-  );
+  ).then((value) {
+    if (callback != null) {
+      callback.call();
+    }
+  });
 }

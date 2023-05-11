@@ -6,29 +6,31 @@ import 'package:userapp/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/pets/profile_details/widgets/custom_textformfield.dart';
 import 'package:userapp/pets/tag/tags.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
+import 'package:userapp/utils/util_methods.dart';
 
-import '../../styles/text_styles.dart';
 import '../../theme/custom_colors.dart';
 import '../../theme/custom_text_styles.dart';
+import '../tag/tag_selection/tag_selection_page.dart';
+import '../u_pets.dart';
 import 'models/m_tag.dart';
 
 class PetNameComponent extends StatefulWidget {
   const PetNameComponent({
     super.key,
-    required this.petProfileId,
     required this.setPetName,
-    this.petName,
+    required this.petName,
     required this.gender,
     required this.tag,
     required this.setTags,
     required this.collardimension,
+    required this.petProfile,
+    // required this.refresh,
   });
 
-  //profileId of Profile for Hero Animation
-  final int? petProfileId;
+  final PetProfileDetails petProfile;
 
   //Name
-  final String? petName;
+  final String petName;
   final ValueSetter<String> setPetName;
 
   //Gender
@@ -39,14 +41,26 @@ class PetNameComponent extends StatefulWidget {
   final ValueSetter<List<Tag>> setTags;
   final double collardimension;
 
+  // final VoidCallback refresh;
+
   @override
   State<PetNameComponent> createState() => _PetNameComponentState();
 }
 
 class _PetNameComponentState extends State<PetNameComponent> {
+  late List<Tag> userProfileTags;
+
   @override
   void initState() {
     super.initState();
+    userProfileTags = widget.tag;
+  }
+
+  Future<void> reloadTags() async {
+    List<Tag> newTags = await getUserProfileTags(widget.petProfile.profileId);
+    setState(() {
+      userProfileTags = newTags;
+    });
   }
 
   @override
@@ -54,12 +68,19 @@ class _PetNameComponentState extends State<PetNameComponent> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        // const Spacer(
-        //   flex: 2,
-        // ),
-        Tags(collardimension: widget.collardimension, tag: widget.tag),
-        // Tags(collardimension: widget.collardimension, tag: widget.tag),
-        // const SizedBox(width: 32),
+        GestureDetector(
+          onTap: () {
+            navigatePerSlide(
+              context,
+              TagSelectionPage(
+                petProfile: widget.petProfile,
+              ),
+              callback: () => reloadTags(),
+            );
+          },
+          child: Tags(
+              collardimension: widget.collardimension, tag: userProfileTags),
+        ),
         const Spacer(
           flex: 3,
         ),
@@ -73,7 +94,7 @@ class _PetNameComponentState extends State<PetNameComponent> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  widget.petName ?? "Unamed",
+                  widget.petName,
                   style: getCustomTextStyles(context).profileDetailsPetName,
                 ),
                 GestureDetector(

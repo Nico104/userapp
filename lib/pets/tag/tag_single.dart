@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:userapp/network_globals.dart';
 import 'dart:math' as math;
 
 import '../../styles/text_styles.dart';
@@ -8,61 +9,20 @@ class TagSingle extends StatelessWidget {
   const TagSingle({
     super.key,
     required this.collardimension,
-    required this.tagPersonalisation,
+    required this.picturePath,
   });
 
   //width and height
   final double collardimension;
-  final TagPersonalisation tagPersonalisation;
+  // final TagPersonalisation tagPersonalisation;
+  final String picturePath;
 
   @override
   Widget build(BuildContext context) {
-    // return Stack(
-    //   alignment: Alignment.center,
-    //   children: [
-    //     Padding(
-    //       padding: EdgeInsets.all(
-    //           (collardimension - getSideLenght(collardimension)) / 2),
-    //       child: Transform.rotate(
-    //         angle: math.pi / 4,
-    //         child: Container(
-    //           decoration: BoxDecoration(
-    //             gradient: RadialGradient(
-    //               radius: 0.7,
-    //               focal: Alignment.center,
-    //               colors: [
-    //                 tagPersonalisation.secondaryColor,
-    //                 tagPersonalisation.primaryColor,
-    //               ],
-    //             ),
-    //             borderRadius: const BorderRadius.all(Radius.circular(4)),
-    //             border: Border.all(
-    //                 width: 2.5, strokeAlign: BorderSide.strokeAlignCenter),
-    //             boxShadow: const [
-    //               BoxShadow(
-    //                 color: Colors.black,
-    //                 spreadRadius: 0,
-    //                 blurRadius: 0,
-    //                 offset: Offset(3.5, 0), // changes position of shadow
-    //               ),
-    //             ],
-    //           ),
-    //           width: getSideLenght(collardimension),
-    //           height: getSideLenght(collardimension),
-    //         ),
-    //       ),
-    //     ),
-    //     DefaultTextStyle(
-    //       style: defaultTagLetterStyle,
-    //       child: Text(
-    //         tagPersonalisation.letter,
-    //       ),
-    //     )
-    //   ],
-    // );
     //Bilder direct mit shadow zeichnen
-    return Image.asset(
-      "assets/tmp/2d_paw_blue.png",
+    return Image.network(
+      // "assets/tmp/2d_paw_blue.png",
+      s3BaseUrl + picturePath,
       width: collardimension,
       height: collardimension,
       fit: BoxFit.contain,

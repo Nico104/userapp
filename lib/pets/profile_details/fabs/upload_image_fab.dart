@@ -68,7 +68,7 @@ class UploadImageFab extends StatelessWidget {
 
 Future<Uint8List?> pickAndCropImageWeb() async {
   FilePickerResult? result = await FilePicker.platform
-      .pickFiles(type: FileType.image, allowMultiple: false);
+      .pickFiles(type: FileType.image, allowMultiple: false, withData: true);
 
   if (result != null && result.files.isNotEmpty) {
     Uint8List pictureBytes = result.files.first.bytes!;

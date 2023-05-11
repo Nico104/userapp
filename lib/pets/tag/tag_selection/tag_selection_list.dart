@@ -1,63 +1,65 @@
 import 'package:flutter/material.dart';
+import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
+import 'package:userapp/pets/tag/tag_selection/tag_selection_items/tag_selection_item_in_use.dart';
 import '../../profile_details/models/m_tag.dart';
-import 'tag_selection_item.dart';
+import 'tag_selection_items/tag_selection_item.dart';
 
 enum TagSelection {
   available,
   selected,
-  inUse,
+  inUseByOtherPet,
 }
 
 class TagSelectionList extends StatefulWidget {
   const TagSelectionList({
     super.key,
     required this.userTags,
-    required this.currentTags,
-    required this.returnTags,
+    required this.petProfile,
+    required this.reloadUserTags,
   });
 
   final List<Tag> userTags;
-  final List<Tag> currentTags;
-  final Function(List<Tag>) returnTags;
+  final PetProfileDetails petProfile;
+  final VoidCallback reloadUserTags;
 
   @override
   State<TagSelectionList> createState() => _TagSelectionListState();
 }
 
 class _TagSelectionListState extends State<TagSelectionList> {
-  late final Map<Tag, bool> tagSelection;
-
-  @override
-  void initState() {
-    super.initState();
-    tagSelection = {
-      for (Tag tag in widget.userTags)
-        tag: getTagActiveness(tag, widget.currentTags)
-    };
-
-    WidgetsBinding.instance.addPostFrameCallback(
-        (_) => widget.returnTags(getSelectedTagsFromMap(tagSelection)));
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: tagSelection.length,
+      itemCount: widget.userTags.length,
       itemBuilder: (BuildContext context, int index) {
-        return TagSelectionItem(
-          tag: tagSelection.keys.elementAt(index),
-          tagSelection: getTagSelection(
-              tagSelection.keys.elementAt(index),
-              tagSelection[tagSelection.keys.elementAt(index)]!,
-              widget.currentTags),
-          toggleSelectedValue: () {
-            //setStae gets called in Parent in returnTags
-            tagSelection[tagSelection.keys.elementAt(index)] =
-                !tagSelection[tagSelection.keys.elementAt(index)]!;
-            widget.returnTags(getSelectedTagsFromMap(tagSelection));
-          },
-        );
+        switch (getTagSelection(
+          widget.userTags.elementAt(index),
+          widget.petProfile.profileId,
+        )) {
+          case TagSelection.available:
+            return TagSelectionItem(
+              tag: widget.userTags.elementAt(index),
+              tagSelection: getTagSelection(widget.userTags.elementAt(index),
+                  widget.petProfile.profileId),
+              petProfileId: widget.petProfile.profileId,
+              reloadUserTags: widget.reloadUserTags,
+            );
+          case TagSelection.selected:
+            return TagSelectionItem(
+              tag: widget.userTags.elementAt(index),
+              tagSelection: getTagSelection(widget.userTags.elementAt(index),
+                  widget.petProfile.profileId),
+              petProfileId: widget.petProfile.profileId,
+              reloadUserTags: widget.reloadUserTags,
+            );
+          case TagSelection.inUseByOtherPet:
+            return TagSelectionItemInUseByOtherPet(
+              tag: widget.userTags.elementAt(index),
+              petProfile: widget.petProfile,
+              reloadUserTags: widget.reloadUserTags,
+            );
+        }
       },
     );
   }
@@ -76,13 +78,11 @@ int countSelected(Map<Tag, bool> tagSelection) {
   return tagSelection.entries.where((e) => e.value == true).length;
 }
 
-TagSelection getTagSelection(Tag tag, bool isSelected, List<Tag> currentTags) {
-  if ((tag.petProfileId != null) &&
-      !isSelected &&
-      !getTagActiveness(tag, currentTags)) {
-    return TagSelection.inUse;
-  } else if (isSelected) {
+TagSelection getTagSelection(Tag tag, int petprofileId) {
+  if (tag.petProfileId == petprofileId) {
     return TagSelection.selected;
+  } else if (tag.petProfileId != null) {
+    return TagSelection.inUseByOtherPet;
   } else {
     return TagSelection.available;
   }

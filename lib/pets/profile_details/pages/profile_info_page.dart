@@ -14,10 +14,13 @@ class ProfileInfoPage extends StatefulWidget {
     super.key,
     required this.petProfileDetails,
     required this.scrollController,
+    // required this.refresh,
   });
 
   final PetProfileDetails petProfileDetails;
   final ScrollController scrollController;
+
+  // final VoidCallback refresh;
 
   @override
   State<ProfileInfoPage> createState() => _ProfileInfoPageState();
@@ -40,7 +43,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
             const SizedBox(height: 36),
             PaddingComponent(
               child: PetNameComponent(
-                petProfileId: widget.petProfileDetails.profileId,
+                petProfile: widget.petProfileDetails,
                 petName: widget.petProfileDetails.petName,
                 setPetName: (value) {
                   setState(() {
@@ -54,6 +57,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
                   widget.petProfileDetails.tag = value;
                 }),
                 collardimension: 120,
+                // refresh: widget.refresh,
               ),
             ),
             PaddingComponent(

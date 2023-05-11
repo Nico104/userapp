@@ -2,7 +2,7 @@
 // import 'package:sizer/sizer.dart';
 // import 'package:userapp/pets/u_pets.dart';
 
-// import '../../../../../pet_color/pet_colors.dart';
+// // import '../../../../../pet_color/pet_colors.dart';
 // import '../../../../../styles/text_styles.dart';
 // import '../../profile_details/models/m_tag.dart';
 // import 'tag_selection_list.dart';
@@ -46,7 +46,7 @@
 //             children: [
 //               Text(
 //                 "Select Finma's",
-//                 style: pickerDialogTitleStyle,
+//                 // style: pickerDialogTitleStyle,
 //               ),
 //               const SizedBox(height: 28),
 //               Expanded(
@@ -120,7 +120,7 @@
 //                     ),
 //                     child: Text(
 //                       "Cancel",
-//                       style: dataEditDialogButtonCancelStyle,
+//                       // style: dataEditDialogButtonCancelStyle,
 //                     ),
 //                   ),
 //                   OutlinedButton(
@@ -131,9 +131,9 @@
 //                     },
 //                     style: OutlinedButton.styleFrom(
 //                       padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-//                       backgroundColor: (selectedTags.isNotEmpty)
-//                           ? dataEditDialogButtonSave
-//                           : Colors.white,
+//                       // backgroundColor: (selectedTags.isNotEmpty)
+//                       //     ? dataEditDialogButtonSave
+//                       //     : Colors.white,
 //                       side: BorderSide(
 //                           width: 1,
 //                           color: (selectedTags.isNotEmpty)
@@ -145,9 +145,9 @@
 //                     ),
 //                     child: Text(
 //                       "Save ahead",
-//                       style: (selectedTags.isNotEmpty)
-//                           ? dataEditDialogButtonSaveStyle
-//                           : dataEditDialogButtonCancelStyle,
+//                       // style: (selectedTags.isNotEmpty)
+//                       //     ? dataEditDialogButtonSaveStyle
+//                       //     : dataEditDialogButtonCancelStyle,
 //                     ),
 //                   ),
 //                 ],

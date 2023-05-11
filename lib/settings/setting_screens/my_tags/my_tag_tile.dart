@@ -198,7 +198,7 @@ class _MyTagTileState extends State<MyTagTile> {
                       ),
                       child: TagSingle(
                         collardimension: _collardimension,
-                        tagPersonalisation: widget.tag.collarTagPersonalisation,
+                        picturePath: widget.tag.picturePath,
                       ),
                     )
                   ],

@@ -38,6 +38,7 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
       List.filled(4, ScrollController());
 
   void refresh() {
+    print("Tags: " + widget.getProfileDetails().tag.length.toString());
     if (mounted) {
       setState(() {});
     }
@@ -199,7 +200,9 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
             ),
             ProfileInfoPage(
               scrollController: _scrollControllers.elementAt(1),
-              petProfileDetails: widget.petProfileDetails,
+              // petProfileDetails: widget.petProfileDetails,
+              petProfileDetails: widget.getProfileDetails(),
+              // refresh: () => refresh(),
             ),
             ContactPage(
               scrollController: _scrollControllers.elementAt(2),
