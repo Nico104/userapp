@@ -64,9 +64,9 @@ class _PetPicturesComponentState extends State<PetPicturesComponent> {
             );
           },
           child: SinglePicture(
-            removePetPicture: () {
-              widget.removePetPicture.call(index);
-            },
+            // removePetPicture: () {
+            //   widget.removePetPicture.call(index);
+            // },
             imageUrl:
                 s3BaseUrl + widget.petPictures.elementAt(index).petPictureLink,
           ),
@@ -127,7 +127,7 @@ class _PetPicturesComponentState extends State<PetPicturesComponent> {
 class SinglePicture extends StatefulWidget {
   const SinglePicture({
     super.key,
-    required this.removePetPicture,
+    // required this.removePetPicture,
     required this.imageUrl,
   });
 
@@ -137,7 +137,7 @@ class SinglePicture extends StatefulWidget {
   // final double imageBorderRadius;
   // final double closeBorderRadius;
   //Param index
-  final VoidCallback removePetPicture;
+  // final VoidCallback removePetPicture;
   final String imageUrl;
 
   @override

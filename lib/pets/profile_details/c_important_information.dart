@@ -7,6 +7,7 @@ import 'package:userapp/pets/profile_details/u_profile_details.dart';
 import '../../language/d_translation_selection.dart';
 import '../../language/m_language.dart';
 import 'c_component_title.dart';
+import 'd_confirm_delete.dart';
 import 'models/m_important_information.dart';
 import 'widgets/custom_textformfield.dart';
 
@@ -164,6 +165,8 @@ class ImportantInformationTranslation extends StatelessWidget {
         importantInformation.text = val;
         _updateImportantInformation();
       },
+      confirmDeleteDialog:
+          const ConfirmDeleteDialog(label: "Important Information Translation"),
     );
   }
 }

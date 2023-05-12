@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
 import '../c_component_padding.dart';
 import '../c_component_title.dart';
-import '../c_one_line_simple_input.dart';
-import '../phone_numbers/c_phone_number.dart';
-import '../c_social_media.dart';
+import '../documents/documents_list_item.dart';
 import '../models/m_document.dart';
-import '../models/m_pet_profile.dart';
 import '../u_profile_details.dart';
 
 class DocumentsPage extends StatefulWidget {
@@ -154,34 +151,6 @@ class _DocumentsPageState extends State<DocumentsPage> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class DocumentItem extends StatelessWidget {
-  const DocumentItem({
-    super.key,
-    required this.document,
-    required this.removeDocumentFromList,
-  });
-
-  final Document document;
-  final VoidCallback removeDocumentFromList;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(document.documentName),
-        IconButton(
-          onPressed: () {
-            //TODO delete document
-            deleteDocument(document).then((value) => removeDocumentFromList());
-          },
-          icon: const Icon(CustomIcons.delete),
-        ),
-      ],
     );
   }
 }

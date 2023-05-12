@@ -5,6 +5,7 @@ import 'package:userapp/pets/profile_details/models/m_phone_number.dart';
 
 import '../../../language/c_prefix_selection.dart';
 import '../../../language/m_language.dart';
+import '../d_confirm_delete.dart';
 import '../u_profile_details.dart';
 import '../widgets/custom_textformfield.dart';
 import 'c_phone_number.dart';
@@ -103,6 +104,7 @@ class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
           ),
         ),
       ),
+      confirmDeleteDialog: const ConfirmDeleteDialog(label: "Phone Number"),
     );
   }
 }

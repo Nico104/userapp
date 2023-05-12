@@ -7,6 +7,7 @@ import 'package:userapp/pets/profile_details/u_profile_details.dart';
 import '../../language/d_translation_selection.dart';
 import '../../language/m_language.dart';
 import 'c_component_title.dart';
+import 'd_confirm_delete.dart';
 import 'widgets/custom_textformfield.dart';
 
 class PetDescriptionComponent extends StatefulWidget {
@@ -160,6 +161,8 @@ class DescriptionTranslation extends StatelessWidget {
         description.text = val;
         _updateDescription();
       },
+      confirmDeleteDialog:
+          const ConfirmDeleteDialog(label: "Description Translation"),
     );
   }
 }

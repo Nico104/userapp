@@ -26,6 +26,7 @@ class CustomTextFormField extends StatefulWidget {
     this.expands = false,
     this.prefix,
     this.inputFormatters,
+    this.confirmDeleteDialog,
   });
 
   final String? initialValue;
@@ -51,6 +52,8 @@ class CustomTextFormField extends StatefulWidget {
 
   final Widget? prefix;
   final List<TextInputFormatter>? inputFormatters;
+
+  final Widget? confirmDeleteDialog;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -94,6 +97,13 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         });
       }
     });
+  }
+
+  void clearTextInput() {
+    _textEditingController.clear();
+    if (widget.onChanged != null) {
+      widget.onChanged!("");
+    }
   }
 
   @override
@@ -166,9 +176,19 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                             _obscureText = !_obscureText;
                           });
                         } else {
-                          _textEditingController.clear();
-                          if (widget.onChanged != null) {
-                            widget.onChanged!("");
+                          if (widget.confirmDeleteDialog != null) {
+                            showDialog(
+                              context: context,
+                              builder: (_) => widget.confirmDeleteDialog!,
+                            ).then((value) {
+                              if (value != null && value is bool) {
+                                if (value == true) {
+                                  clearTextInput();
+                                }
+                              }
+                            });
+                          } else {
+                            clearTextInput();
                           }
                         }
                       },

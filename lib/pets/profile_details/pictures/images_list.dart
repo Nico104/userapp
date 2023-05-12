@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../../network_globals.dart';
 import '../../../styles/custom_icons_icons.dart';
+import '../d_confirm_delete.dart';
 import '../models/m_pet_picture.dart';
 import 'c_pictures.dart';
 
@@ -50,6 +51,71 @@ class _PictureListState extends State<PictureList> {
   //   super.dispose();
   // }
 
+  // void _showPopupMenu() async {
+  //   await showMenu(
+  //     context: context,
+  //     position: RelativeRect.fromLTRB(100, 100, 100, 100),
+  //     items: [
+  //       PopupMenuItem<String>(child: const Text('Doge'), value: 'Doge'),
+  //       PopupMenuItem<String>(child: const Text('Lion'), value: 'Lion'),
+  //     ],
+  //     elevation: 8.0,
+  //   );
+  // }
+
+  void _showPopupMenu({
+    required Offset offset,
+    required int pictureIndex,
+  }) async {
+    double left = offset.dx;
+    double top = offset.dy;
+    await showMenu(
+      context: context,
+      position: RelativeRect.fromLTRB(left, top, 0, 0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      items: [
+        PopupMenuItem(
+          value: 'Delete',
+          onTap: () {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              showDialog(
+                context: context,
+                builder: (_) => const ConfirmDeleteDialog(label: "Picture"),
+              ).then((value) {
+                if (value != null && value is bool) {
+                  if (value == true) {
+                    widget.removePetPicture(pictureIndex);
+                    //Doesnt update since its a new page / Navigator.push (navugatePerSlide) in c_pictures
+                    setState(() {
+                      widget.petPictures.removeAt(pictureIndex);
+                    });
+                  }
+                }
+              });
+            });
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: const [
+              Icon(
+                CustomIcons.delete,
+                color: Colors.black,
+              ),
+              Text("Delete"),
+            ],
+          ),
+        ),
+        // PopupMenuItem(
+        //   child: const Text('Lion'),
+        //   value: 'Lion',
+        // ),
+      ],
+      elevation: 8.0,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,9 +133,9 @@ class _PictureListState extends State<PictureList> {
               children: [
                 const SizedBox(height: 38),
                 SinglePicture(
-                  removePetPicture: () {
-                    widget.removePetPicture.call(index);
-                  },
+                  // removePetPicture: () {
+                  //   widget.removePetPicture.call(index);
+                  // },
                   imageUrl: s3BaseUrl +
                       widget.petPictures.elementAt(index).petPictureLink,
                 ),
@@ -77,12 +143,47 @@ class _PictureListState extends State<PictureList> {
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [
-                      Icon(
-                        // Icons.share,
+                    children: [
+                      const Icon(
                         CustomIcons.share_thin,
                         size: 24,
                       ),
+                      GestureDetector(
+                        onTapDown: (TapDownDetails details) {
+                          _showPopupMenu(
+                            offset: details.globalPosition,
+                            pictureIndex: index,
+                          );
+                        },
+                        child: const Icon(
+                          Icons.more_horiz,
+                          size: 24,
+                        ),
+                      ),
+                      // PopupMenuButton(
+                      //   // onSelected: (value) {
+                      //   //   _onMenuItemSelected(value as int);
+                      //   // },
+                      //   // offset: Offset(0.0, appBarHeight),
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.only(
+                      //       bottomLeft: Radius.circular(8.0),
+                      //       bottomRight: Radius.circular(8.0),
+                      //       topLeft: Radius.circular(8.0),
+                      //       topRight: Radius.circular(8.0),
+                      //     ),
+                      //   ),
+                      //   child: const Icon(
+                      //     Icons.more_horiz,
+                      //     size: 24,
+                      //   ),
+                      //   itemBuilder: (ctx) => [
+                      //     _buildPopupMenuItem('Search', Icons.search, 0),
+                      //     _buildPopupMenuItem('Upload', Icons.upload, 1),
+                      //     _buildPopupMenuItem('Copy', Icons.copy, 2),
+                      //     _buildPopupMenuItem('Exit', Icons.exit_to_app, 3),
+                      //   ],
+                      // )
                     ],
                   ),
                 )
@@ -93,54 +194,26 @@ class _PictureListState extends State<PictureList> {
           itemPositionsListener: itemPositionsListener,
           scrollOffsetListener: scrollOffsetListener,
         ),
-        // child: ListView.builder(
-        //   //Lenght of petPictures + 1 for new Image
-        //   itemCount: widget.petPictures.length,
-        //   // shrinkWrap: true,
-        //   controller: scrollController,
-        //   itemBuilder: (BuildContext context, int index) {
-        //     if (index < widget.petPictures.length) {
-        //       return Column(
-        //         mainAxisSize: MainAxisSize.min,
-        //         children: [
-        //           SinglePicture(
-        //             //scroll To
-        //             key: index == widget.scrollToImageposition ? key : null,
-        //             removePetPicture: () {
-        //               widget.removePetPicture.call(index);
-        //             },
-        //             imageUrl: s3BaseUrl +
-        //                 widget.petPictures.elementAt(index).petPictureLink,
-        //           ),
-        //           Padding(
-        //             padding: const EdgeInsets.fromLTRB(16, 16, 16, 38),
-        //             child: Row(
-        //               mainAxisAlignment: MainAxisAlignment.end,
-        //               children: const [
-        //                 Icon(
-        //                   // Icons.share,
-        //                   CustomIcons.share_thin,
-        //                   size: 24,
-        //                 ),
-        //                 // GestureDetector(
-        //                 //   onTap: () {
-        //                 //     // widget.removePetPicture.call();
-        //                 //     Navigator.pop(context);
-        //                 //   },
-        //                 //   child: const Icon(
-        //                 //     CustomIcons.delete,
-        //                 //     size: 34,
-        //                 //   ),
-        //                 // ),
-        //               ],
-        //             ),
-        //           )
-        //         ],
-        //       );
-        //     }
-        //   },
-        // ),
       ),
     );
   }
 }
+
+
+
+// PopupMenuItem _buildPopupMenuItem(
+//     String title, IconData iconData, int position) {
+//   return PopupMenuItem(
+//     value: position,
+//     child: Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceAround,
+//       children: [
+//         Icon(
+//           iconData,
+//           color: Colors.black,
+//         ),
+//         Text(title),
+//       ],
+//     ),
+//   );
+// }

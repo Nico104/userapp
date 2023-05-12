@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
+import 'package:userapp/pets/scans/scans_page.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
 
 import '../theme/custom_colors.dart';
@@ -54,6 +55,19 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
         ),
       ),
     ).then((value) => widget.reloadFuture.call());
+    resetHandle();
+  }
+
+  void goToScans() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ScansPage(
+          petName: widget.petProfileDetails.petName,
+          scans: widget.petProfileDetails.petProfileScans,
+        ),
+      ),
+    );
     resetHandle();
   }
 
