@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/language/m_language.dart';
@@ -43,6 +44,8 @@ class _MyPetsState extends State<MyPets> {
   // late Color backgroundColor;
 
   int? activeExtendedActions;
+
+  // int _pictureIndex = 0;
 
   // List<NetworkImage> bgList = [
   //   NetworkImage("https://picsum.photos/600/800"),
@@ -108,6 +111,8 @@ class _MyPetsState extends State<MyPets> {
     }
   }
 
+  // String _bgPictureLink = "https://picsum.photos/600/800";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,6 +131,7 @@ class _MyPetsState extends State<MyPets> {
                       image: DecorationImage(
                         image: NetworkImage(
                           getBGPictureLink(),
+                          // _bgPictureLink,
                         ),
                         fit: BoxFit.cover,
                         scale: 1.2,
@@ -195,12 +201,6 @@ class _MyPetsState extends State<MyPets> {
                                     minScaling: 0.65,
                                     minOpacity: 0,
                                     child: PetProfilePreview(
-                                      // dotCount: widget.petProfiles.length,
-                                      // dotPosition: position.toDouble(),
-                                      image: NetworkImage(
-                                          (pageindex.round() == 0)
-                                              ? "https://picsum.photos/600/800"
-                                              : "https://picsum.photos/800"),
                                       extendedActions: isExtendedIndexActive(
                                           activeExtendedActions, position),
                                       petProfileDetails: widget.petProfiles
@@ -219,6 +219,25 @@ class _MyPetsState extends State<MyPets> {
                                             activeExtendedActions = null;
                                           }
                                         });
+                                      },
+                                      setPictureLink: (bgPictureLink) {
+                                        // if (_bgPictureLink != bgPictureLink) {
+                                        //   // print("PicturIndex: " +
+                                        //   //     pictueIndex.toString());
+                                        //   EasyDebounce.debounce(
+                                        //     'emailLogwwinPage',
+                                        //     const Duration(milliseconds: 250),
+                                        //     () {
+                                        //       WidgetsBinding.instance
+                                        //           .addPostFrameCallback((_) {
+                                        //         setState(() {
+                                        //           _bgPictureLink =
+                                        //               bgPictureLink;
+                                        //         });
+                                        //       });
+                                        //     },
+                                        //   );
+                                        // }
                                       },
                                     ),
                                   );

@@ -6,6 +6,7 @@ import 'package:userapp/styles/custom_icons_icons.dart';
 
 import '../theme/custom_colors.dart';
 import 'profile_details/profile_detail_view.dart';
+import 'share/share_pet_profile_page.dart';
 
 class ExtendedSettingsContainer extends StatefulWidget {
   const ExtendedSettingsContainer({
@@ -65,6 +66,18 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
         builder: (context) => ScansPage(
           petName: widget.petProfileDetails.petName,
           scans: widget.petProfileDetails.petProfileScans,
+        ),
+      ),
+    );
+    resetHandle();
+  }
+
+  void goToShare() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SharePetProfilePage(
+          petProfileDetails: widget.petProfileDetails,
         ),
       ),
     );
@@ -188,9 +201,9 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
                   ),
                   const SizedBox(height: 16),
                   ActionButtons(
-                    goToDetails: () {
-                      goToDetails();
-                    },
+                    goToDetails: () => goToDetails(),
+                    goToScans: () => goToScans(),
+                    goToShare: () => goToShare(),
                   ),
                   AnimatedContainer(
                     duration: (bottomPadding <= bottomPaddingDefaultValue)
@@ -216,18 +229,24 @@ class ActionButtons extends StatelessWidget {
   const ActionButtons({
     super.key,
     required this.goToDetails,
+    required this.goToScans,
+    required this.goToShare,
   });
 
   final VoidCallback goToDetails;
+  final VoidCallback goToScans;
+  final VoidCallback goToShare;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        SizedBox(width: 32),
+        const SizedBox(width: 32),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            goToShare();
+          },
           child: Container(
             //To trigger the Hit Box
             color: Colors.transparent,
@@ -239,7 +258,7 @@ class ActionButtons extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width: 32),
+        const SizedBox(width: 32),
         GestureDetector(
           onTap: () {
             goToDetails();
@@ -255,17 +274,11 @@ class ActionButtons extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width: 32),
+        const SizedBox(width: 32),
         GestureDetector(
-          // onTap: () {
-          //   navigatePerSlide(
-          //     context,
-          //     PetProfileDetailView(
-          //       petProfileDetails: widget.petProfileDetails,
-          //       reloadFuture: widget.reloadFuture,
-          //     ),
-          //   );
-          // },
+          onTap: () {
+            goToScans();
+          },
           child: Container(
             //To trigger the Hit Box
             color: Colors.transparent,
@@ -278,7 +291,7 @@ class ActionButtons extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width: 32),
+        const SizedBox(width: 32),
       ],
     );
   }

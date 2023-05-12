@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
 
+import '../auth/u_auth.dart';
 import '../settings/setting_screen.dart';
 import '../styles/text_styles.dart';
 import '../theme/custom_text_styles.dart';
@@ -26,15 +27,36 @@ class MyPetsNavbar extends StatelessWidget {
           'welcomeMsg'.tr(),
           style: getCustomTextStyles(context).homeWelcomeMessage,
         ),
-        Text(
-          " $username",
-          style: getCustomTextStyles(context).homeWelcomeUser,
+        FutureBuilder<List<String>>(
+          future: getSavedCredentails(),
+          builder:
+              (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+            if (snapshot.hasData) {
+              return Text(
+                " ${snapshot.data!.first}",
+                style: getCustomTextStyles(context).homeWelcomeUser,
+              );
+            } else if (snapshot.hasError) {
+              print(snapshot);
+              return Text(
+                " dog whisperer",
+                style: getCustomTextStyles(context).homeWelcomeUser,
+              );
+            } else {
+              //Loading
+              return Text(
+                " mucho mucho bro",
+                style: getCustomTextStyles(context).homeWelcomeUser,
+              );
+            }
+          },
         ),
+
         const Spacer(),
-        const Icon(
-          CustomIcons.notification,
-          size: 28,
-        ),
+        // const Icon(
+        //   CustomIcons.notification,
+        //   size: 28,
+        // ),
         const SizedBox(width: 16),
         GestureDetector(
           onTap: () {

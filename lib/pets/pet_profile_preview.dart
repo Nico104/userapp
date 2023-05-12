@@ -1,4 +1,3 @@
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -14,7 +13,7 @@ class PetProfilePreview extends StatefulWidget {
     required this.reloadFuture,
     required this.extendedActions,
     required this.switchExtendedActions,
-    this.image,
+    required this.setPictureLink,
   });
 
   final PetProfileDetails petProfileDetails;
@@ -22,8 +21,7 @@ class PetProfilePreview extends StatefulWidget {
   final VoidCallback reloadFuture;
   final bool extendedActions;
   final VoidCallback switchExtendedActions;
-
-  final ImageProvider<Object>? image;
+  final Function(String) setPictureLink;
 
   @override
   State<PetProfilePreview> createState() => PetProfilePreviewState();
@@ -50,12 +48,12 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
   void initState() {
     super.initState();
 
-    print(widget.petProfileDetails.petPictures.toString());
-
     _controller.addListener(() {
       setState(() {
         _pageIndex = _controller.page ?? 0;
       });
+
+      // widget.setPictureIndex((_controller.page ?? 0).round());
 
       if (_pageIndex > 0 && !widget.extendedActions) {
         widget.switchExtendedActions.call();
@@ -63,24 +61,45 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
         widget.switchExtendedActions.call();
       }
 
-      EasyDebounce.debounce(
-        widget.petProfileDetails.profileId.toString(),
-        const Duration(milliseconds: 2000),
-        () {
-          if (widget.extendedActions) {
-            _controller.animateTo(0,
-                curve: Curves.fastOutSlowIn,
-                duration: const Duration(milliseconds: 500));
-          }
-        },
-      );
+      resetPicture();
     });
+  }
+
+  // @override
+  // void didUpdateWidget(covariant PetProfilePreview oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+  //   resetPicture();
+  // }
+
+  void resetPicture() {
+    EasyDebounce.debounce(
+      widget.petProfileDetails.profileId.toString(),
+      const Duration(milliseconds: 2000),
+      () {
+        if (widget.extendedActions) {
+          _controller.animateTo(0,
+              curve: Curves.fastOutSlowIn,
+              duration: const Duration(milliseconds: 500));
+        }
+      },
+    );
   }
 
   @override
   void dispose() {
     super.dispose();
     _controller.dispose();
+  }
+
+  String getPictureLink(int position) {
+    String pictureLink = widget.petProfileDetails.petPictures.isNotEmpty
+        ? s3BaseUrl +
+            widget.petProfileDetails.petPictures
+                .elementAt(position)
+                .petPictureLink
+        : "https://picsum.photos/600/800";
+    widget.setPictureLink(pictureLink);
+    return pictureLink;
   }
 
   @override
@@ -99,10 +118,11 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                       AnimatedOpacity(
                         duration: _duration,
                         curve: Curves.fastOutSlowIn,
-                        opacity:
-                            widget.imageAlignmentOffset == 0 && _pageIndex == 0
-                                ? 1
-                                : 0,
+                        // opacity:
+                        //     widget.imageAlignmentOffset == 0 && _pageIndex == 0
+                        //         ? 1
+                        //         : 0,
+                        opacity: !widget.extendedActions ? 1 : 0,
                         child: Text(
                           widget.petProfileDetails.petName,
                           style: getCustomTextStyles(context).homePetName,
@@ -173,14 +193,15 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                                       //       0, widget.imageAlignmentOffset * 2),
                                       // ),
                                       child: Image.network(
-                                        widget.petProfileDetails.petPictures
-                                                .isNotEmpty
-                                            ? s3BaseUrl +
-                                                widget.petProfileDetails
-                                                    .petPictures
-                                                    .elementAt(position)
-                                                    .petPictureLink
-                                            : "https://picsum.photos/600/800",
+                                        // widget.petProfileDetails.petPictures
+                                        //         .isNotEmpty
+                                        //     ? s3BaseUrl +
+                                        //         widget.petProfileDetails
+                                        //             .petPictures
+                                        //             .elementAt(position)
+                                        //             .petPictureLink
+                                        //     : "https://picsum.photos/600/800",
+                                        getPictureLink(position),
                                         fit: BoxFit.cover,
                                         alignment: Alignment(
                                             0, widget.imageAlignmentOffset * 2),
