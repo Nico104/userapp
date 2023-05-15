@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
-import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
-import 'package:userapp/pets/profile_details/pages/contact_page.dart';
-import 'package:userapp/pets/profile_details/pages/documents_page.dart';
-import 'package:userapp/pets/profile_details/pages/images_page.dart';
-import 'package:userapp/pets/profile_details/pages/profile_info_page.dart';
+import 'package:userapp/pets/profile_details/pages/pet_page.dart';
 import 'package:userapp/pets/profile_details/pictures/upload_picture_dialog.dart';
+import 'package:userapp/styles/custom_icons_icons.dart';
 import 'fabs/upload_document_fab.dart';
 import 'fabs/upload_image_fab.dart';
 import 'u_profile_details.dart';
-import 'package:flutter/scheduler.dart' show timeDilation;
 
 class PetProfileDetailView extends StatefulWidget {
   const PetProfileDetailView({
@@ -30,13 +27,8 @@ class PetProfileDetailView extends StatefulWidget {
   State<PetProfileDetailView> createState() => PetProfileDetailViewState();
 }
 
-class PetProfileDetailViewState extends State<PetProfileDetailView> {
-  final PageController _pageController = PageController();
-  double pageindex = 0;
-
-  final List<ScrollController> _scrollControllers =
-      List.filled(4, ScrollController());
-
+class PetProfileDetailViewState extends State<PetProfileDetailView>
+    with TickerProviderStateMixin {
   void refresh() {
     print("Tags: " + widget.getProfileDetails().tag.length.toString());
     if (mounted) {
@@ -44,178 +36,119 @@ class PetProfileDetailViewState extends State<PetProfileDetailView> {
     }
   }
 
+  late TabController tabController;
   @override
   void initState() {
     super.initState();
-
-    _pageController.addListener(() {
-      setState(() {
-        pageindex = _pageController.page ?? 0;
-      });
-    });
-
-    // if (widget.petProfileDetails.petName == null) {
-    //   WidgetsBinding.instance.addPostFrameCallback(
-    //     (_) {
-    //       askForPetName(
-    //           context,
-    //           (value) => setState(() {
-    //                 widget.petProfileDetails.petName = value;
-    //               }),
-    //           null);
-    //     },
-    //   );
-    // }
+    tabController = TabController(
+      initialIndex: 0,
+      length: 2,
+      vsync: this,
+    );
   }
 
-  // ShapeBorder? bottomBarShape = const RoundedRectangleBorder();
-  // SnakeBarBehaviour snakeBarStyle = SnakeBarBehaviour.pinned;
-  // EdgeInsets padding = const EdgeInsets.all(0);
-
-  // SnakeShape snakeShape = SnakeShape.indicator;
-
-  bool showSelectedLabels = false;
-  bool showUnselectedLabels = false;
-
-  Color selectedColor = Colors.black;
+  final double _borderRadius = 42;
 
   @override
   Widget build(BuildContext context) {
-    timeDilation = 1;
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        //TODO remvoe snakebar package
-        // bottomNavigationBar: SnakeNavigationBar.color(
-        //   behaviour: snakeBarStyle,
-        //   snakeShape: snakeShape,
-        //   shape: bottomBarShape,
-        //   padding: padding,
-        //   elevation: 16,
-
-        //   ///configuration for SnakeNavigationBar.color
-        //   snakeViewColor: selectedColor,
-        //   selectedItemColor:
-        //       snakeShape == SnakeShape.indicator ? selectedColor : null,
-        //   unselectedItemColor: Colors.blueGrey,
-        //   showUnselectedLabels: showUnselectedLabels,
-        //   showSelectedLabels: showSelectedLabels,
-        //   currentIndex: pageindex.round(),
-        //   onTap: (value) {
-        //     _pageController.jumpToPage(value);
-        //     _scrollControllers.elementAt(value).animateTo(0,
-        //         duration: const Duration(milliseconds: 125),
-        //         curve: Curves.fastOutSlowIn);
-        //   },
-        //   items: const [
-        //     BottomNavigationBarItem(
-        //         icon: Icon(Icons.notifications), label: 'tickets'),
-        //     BottomNavigationBarItem(
-        //         icon: Icon(Icons.calendar_month), label: 'calendar'),
-        //     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
-        //     BottomNavigationBarItem(
-        //         icon: Icon(Icons.safety_check), label: 'microphone'),
-        //   ],
-        // ),
-        // bottomNavigationBar: DotNavigationBar(
-        //   currentIndex: pageindex.round(),
-        //   onTap: (value) {
-        //     _pageController.jumpToPage(value);
-        //     _scrollControllers.elementAt(value).animateTo(0,
-        //         duration: const Duration(milliseconds: 125),
-        //         curve: Curves.fastOutSlowIn);
-        //   },
-        //   dotIndicatorColor: Colors.black,
-        //   selectedItemColor: Colors.black,
-        //   unselectedItemColor: Colors.grey,
-        //   boxShadow: kElevationToShadow[2]!,
-        //   enableFloatingNavBar: true,
-        //   items: [
-        //     DotNavigationBarItem(icon: Icon(Icons.image)),
-        //     DotNavigationBarItem(icon: Icon(Icons.pets)),
-        //     DotNavigationBarItem(icon: Icon(Icons.phone)),
-        //     DotNavigationBarItem(icon: Icon(Icons.file_copy)),
-        //   ],
-        // ),
-        bottomNavigationBar: Material(
-          elevation: 16,
-          child: SalomonBottomBar(
-            currentIndex: pageindex.round(),
-            onTap: (value) {
-              _pageController.jumpToPage(value);
-              _scrollControllers.elementAt(value).animateTo(0,
-                  duration: const Duration(milliseconds: 125),
-                  curve: Curves.fastOutSlowIn);
-            },
-            items: [
-              /// Home
-              SalomonBottomBarItem(
-                icon: const Icon(Icons.image),
-                title: const Text("Images"),
-                selectedColor: Colors.purple,
-              ),
-
-              /// Likes
-              SalomonBottomBarItem(
-                icon: const Icon(Icons.pets),
-                title: const Text("Pet Info"),
-                selectedColor: Colors.pink,
-              ),
-
-              /// Search
-              SalomonBottomBarItem(
-                icon: const Icon(Icons.phone),
-                title: const Text("Contact Info"),
-                selectedColor: Colors.orange,
-              ),
-
-              /// Profile
-              SalomonBottomBarItem(
-                icon: const Icon(Icons.file_copy),
-                title: const Text("Documents"),
-                selectedColor: Colors.teal,
-              ),
-            ],
-          ),
-        ),
-        floatingActionButton: getFloatingActionButton(pageindex.round()),
-        extendBodyBehindAppBar: false,
-        extendBody: false,
-        resizeToAvoidBottomInset: true,
-        body: PageView(
-          controller: _pageController,
+    return Stack(
+      children: [
+        TabBarView(
+          controller: tabController,
           children: [
-            ProfileDetailsImagePage(
-              scrollController: _scrollControllers.elementAt(0),
+            PetPage(
               getProfileDetails: widget.getProfileDetails,
-              removePetPicture: (index) async {
-                await deletePicture(
-                    widget.getProfileDetails().petPictures.elementAt(index));
-                //TODO update UI
-                //hekps against 403 from server
-                widget.reloadFuture.call();
-                Future.delayed(const Duration(milliseconds: 100))
-                    .then((value) => refresh());
-              },
             ),
-            ProfileInfoPage(
-              scrollController: _scrollControllers.elementAt(1),
-              // petProfileDetails: widget.petProfileDetails,
-              petProfileDetails: widget.getProfileDetails(),
-              // refresh: () => refresh(),
-            ),
-            ContactPage(
-              scrollController: _scrollControllers.elementAt(2),
-              petProfileDetails: widget.petProfileDetails,
-            ),
-            DocumentsPage(
-              scrollController: _scrollControllers.elementAt(3),
-              //?For some reason getProfileDetails() updates document list when new ones come but the variable petProfileDetails itslef doesnt
-              documents: widget.getProfileDetails().petDocuments,
-            ),
+            Container(
+              color: Colors.blue,
+              width: 100.w,
+              height: 100.h,
+            )
           ],
         ),
-      ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+            child: Container(
+              // height: 110,
+              // width: double.infinity,
+              // height: 80,
+              // blur: 7,
+              // width: 100,
+              // elevation: 2,
+              // padding: const EdgeInsets.all(16),
+              // borderRadius: BorderRadius.all(Radius.circular(_borderRadius)),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(_borderRadius)),
+                boxShadow: kElevationToShadow[4],
+                color: Theme.of(context).primaryColor.withOpacity(1),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(width: 32),
+                      GestureDetector(
+                        onTap: () {
+                          tabController.animateTo(
+                            0,
+                            duration: const Duration(milliseconds: 80),
+                            curve: Curves.fastOutSlowIn,
+                          );
+                          setState(() {});
+                        },
+                        child: Container(
+                          //To trigger the Hit Box
+                          color: Colors.transparent,
+                          child: Center(
+                            child: Icon(
+                              CustomIcons.edit,
+                              color: tabController.index == 0
+                                  ? Colors.blue
+                                  : Colors.black,
+                              size: 32,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 32),
+                      GestureDetector(
+                        onTap: () {
+                          tabController.animateTo(
+                            1,
+                            duration: const Duration(milliseconds: 80),
+                            curve: Curves.fastOutSlowIn,
+                          );
+                          setState(() {});
+                        },
+                        child: Container(
+                          //To trigger the Hit Box
+                          color: Colors.transparent,
+                          child: Center(
+                            child: Icon(
+                              CustomIcons.call,
+                              color: tabController.index == 1
+                                  ? Colors.blue
+                                  : Colors.black,
+                              size: 32,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 32),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 

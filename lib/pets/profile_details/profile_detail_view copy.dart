@@ -1,32 +1,15 @@
-// import 'dart:typed_data';
-// import 'dart:ui';
-
-// import 'package:easy_localization/easy_localization.dart';
 // import 'package:flutter/material.dart';
-// import 'package:sizer/sizer.dart';
-// import 'package:userapp/pets/profile_details/c_pet_name.dart';
+// // import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
+// import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 // import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
-// import 'package:visibility_detector/visibility_detector.dart';
-// import '../../pet_color/u_pet_colors.dart';
-// import '../../styles/text_styles.dart';
-// import '../../theme/custom_colors.dart';
-// import 'c_component_padding.dart';
-// import 'c_component_title.dart';
-// import 'c_description.dart';
-// import 'c_edit_pages.dart';
-// import 'c_important_information.dart';
-// import 'c_one_line_simple_input.dart';
-// import 'c_pet_gender.dart';
-// import 'c_phone_number.dart';
+// import 'package:userapp/pets/profile_details/pages/contact_page.dart';
+// import 'package:userapp/pets/profile_details/pages/documents_page.dart';
+// import 'package:userapp/pets/profile_details/pages/images_page.dart';
+// import 'package:userapp/pets/profile_details/pages/profile_info_page.dart';
+// import 'package:userapp/pets/profile_details/pictures/upload_picture_dialog.dart';
 // import 'fabs/upload_document_fab.dart';
 // import 'fabs/upload_image_fab.dart';
-// import 'models/m_document.dart';
-// import 'pictures/c_pictures.dart';
-// import 'c_section_title.dart';
-// import 'c_social_media.dart';
-// import 'save_button/save_floating_action_button.dart';
 // import 'u_profile_details.dart';
-
 // import 'package:flutter/scheduler.dart' show timeDilation;
 
 // class PetProfileDetailView extends StatefulWidget {
@@ -48,21 +31,16 @@
 // }
 
 // class PetProfileDetailViewState extends State<PetProfileDetailView> {
-//   late PetProfileDetails _petProfileDetails;
-//   List<Uint8List> newPictures = List<Uint8List>.empty(growable: true);
+//   final PageController _pageController = PageController();
+//   double pageindex = 0;
 
-//   bool isScrollTop = true;
-//   final _scrollSontroller = ScrollController();
-
-//   int _index = 0;
-//   bool _enableTopTabBar = false;
+//   final List<ScrollController> _scrollControllers =
+//       List.filled(4, ScrollController());
 
 //   void refresh() {
-//     print("refresh");
+//     print("Tags: " + widget.getProfileDetails().tag.length.toString());
 //     if (mounted) {
-//       print("mounted");
 //       setState(() {});
-//       print("${widget.getProfileDetails().petPictures.length} Pictures22");
 //     }
 //   }
 
@@ -70,377 +48,174 @@
 //   void initState() {
 //     super.initState();
 
-//     _petProfileDetails = widget.petProfileDetails.clone();
-//     if (widget.petProfileDetails.petName == null) {
-//       WidgetsBinding.instance.addPostFrameCallback(
-//         (_) {
-//           askForPetName(
-//               context,
-//               (value) => setState(() {
-//                     _petProfileDetails.petName = value;
-//                   }),
-//               null);
-//         },
-//       );
-//     }
-
-//     // Setup Scroll Listener dfor AppBarDivider
-//     _scrollSontroller.addListener(() {
-//       bool isTop = _scrollSontroller.position.pixels == 0;
-//       if (isTop) {
-//         if (!isScrollTop) {
-//           setState(() {
-//             isScrollTop = true;
-//           });
-//         }
-//       } else {
-//         if (isScrollTop) {
-//           setState(() {
-//             isScrollTop = false;
-//           });
-//         }
-//       }
+//     _pageController.addListener(() {
+//       setState(() {
+//         pageindex = _pageController.page ?? 0;
+//       });
 //     });
+
+//     // if (widget.petProfileDetails.petName == null) {
+//     //   WidgetsBinding.instance.addPostFrameCallback(
+//     //     (_) {
+//     //       askForPetName(
+//     //           context,
+//     //           (value) => setState(() {
+//     //                 widget.petProfileDetails.petName = value;
+//     //               }),
+//     //           null);
+//     //     },
+//     //   );
+//     // }
 //   }
+
+//   // ShapeBorder? bottomBarShape = const RoundedRectangleBorder();
+//   // SnakeBarBehaviour snakeBarStyle = SnakeBarBehaviour.pinned;
+//   // EdgeInsets padding = const EdgeInsets.all(0);
+
+//   // SnakeShape snakeShape = SnakeShape.indicator;
+
+//   bool showSelectedLabels = false;
+//   bool showUnselectedLabels = false;
+
+//   Color selectedColor = Colors.black;
 
 //   @override
 //   Widget build(BuildContext context) {
 //     timeDilation = 1;
 //     return DefaultTabController(
-//       length: 4,
+//       length: 2,
 //       child: Scaffold(
-//         appBar: AppBar(
-//           title: Text('appBarTitleProfileDetails'.tr()),
-//           flexibleSpace: !isScrollTop
-//               ? ClipRect(
-//                   child: BackdropFilter(
-//                     filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-//                     child: Container(
-//                       color: Colors.transparent,
-//                       height: double.infinity,
-//                     ),
-//                   ),
-//                 )
-//               : null,
-//           bottom: _enableTopTabBar
-//               ? TabBar(
-//                   tabs: const [
-//                     Tab(icon: Icon(Icons.directions_car)),
-//                     Tab(icon: Icon(Icons.directions_transit)),
-//                     Tab(icon: Icon(Icons.directions_bike)),
-//                     Tab(icon: Icon(Icons.directions_bike)),
-//                   ],
-//                   onTap: (value) {
-//                     // print(value);
-//                     setState(() {
-//                       _index = value;
-//                     });
-//                   },
-//                 )
-//               : null,
-//         ),
-//         floatingActionButton: getFloatingActionButton(_index),
-//         // floatingActionButton: SaveFloatingActionButton(
-//         //   petProfileDetails: _petProfileDetails,
-//         //   oldPetProfileDetails: widget.petProfileDetails,
-//         //   reloadFuture: () => widget.reloadFuture.call(),
+//         //TODO remvoe snakebar package
+//         // bottomNavigationBar: SnakeNavigationBar.color(
+//         //   behaviour: snakeBarStyle,
+//         //   snakeShape: snakeShape,
+//         //   shape: bottomBarShape,
+//         //   padding: padding,
+//         //   elevation: 16,
+
+//         //   ///configuration for SnakeNavigationBar.color
+//         //   snakeViewColor: selectedColor,
+//         //   selectedItemColor:
+//         //       snakeShape == SnakeShape.indicator ? selectedColor : null,
+//         //   unselectedItemColor: Colors.blueGrey,
+//         //   showUnselectedLabels: showUnselectedLabels,
+//         //   showSelectedLabels: showSelectedLabels,
+//         //   currentIndex: pageindex.round(),
+//         //   onTap: (value) {
+//         //     _pageController.jumpToPage(value);
+//         //     _scrollControllers.elementAt(value).animateTo(0,
+//         //         duration: const Duration(milliseconds: 125),
+//         //         curve: Curves.fastOutSlowIn);
+//         //   },
+//         //   items: const [
+//         //     BottomNavigationBarItem(
+//         //         icon: Icon(Icons.notifications), label: 'tickets'),
+//         //     BottomNavigationBarItem(
+//         //         icon: Icon(Icons.calendar_month), label: 'calendar'),
+//         //     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
+//         //     BottomNavigationBarItem(
+//         //         icon: Icon(Icons.safety_check), label: 'microphone'),
+//         //   ],
 //         // ),
-//         extendBodyBehindAppBar: false,
-//         extendBody: true,
-//         resizeToAvoidBottomInset: true,
-//         body: ListView(
-//           shrinkWrap: true,
-//           controller: _scrollSontroller,
-//           children: [
-//             const SizedBox(height: 28),
-//             PaddingComponent(
-//               ignoreLeftPadding: true,
-//               child: Center(
-//                 child: Container(
-//                   width: 90.w,
-//                   height: 90.w,
-//                   decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(14),
-//                     boxShadow: kElevationToShadow[4],
-//                     image: const DecorationImage(
-//                       image: NetworkImage("https://picsum.photos/512"),
-//                       fit: BoxFit.cover,
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//             //Name and Tag
-//             PaddingComponent(
-//               child: PetNameComponent(
-//                 petProfileId: _petProfileDetails.profileId,
-//                 petName: _petProfileDetails.petName,
-//                 setPetName: (value) => setState(() {
-//                   _petProfileDetails.petName = value;
-//                 }),
-//                 gender: _petProfileDetails.petGender,
-//                 tag: _petProfileDetails.tag,
-//                 setTags: (value) => setState(() {
-//                   _petProfileDetails.tag = value;
-//                 }),
-//                 collardimension: 120,
-//               ),
-//             ),
-
-//             //Pages
-//             VisibilityDetector(
-//               key: const Key('scoll-edit-tabs'),
-//               onVisibilityChanged: (visibilityInfo) {
-//                 var visiblePercentage = visibilityInfo.visibleFraction * 100;
-//                 debugPrint(
-//                     'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
-//                 if (visiblePercentage == 100) {
-//                   setState(() {
-//                     _enableTopTabBar = false;
-//                   });
-//                 } else {
-//                   setState(() {
-//                     _enableTopTabBar = true;
-//                   });
-//                 }
-//               },
-//               child: TabBar(
-//                 tabs: const [
-//                   Tab(icon: Icon(Icons.image)),
-//                   Tab(icon: Icon(Icons.info_outline)),
-//                   Tab(icon: Icon(Icons.phone)),
-//                   Tab(icon: Icon(Icons.edit_document)),
-//                 ],
-//                 indicatorColor: getCustomColors(context).accent,
-//                 onTap: (value) {
-//                   // print(value);
-//                   setState(() {
-//                     _index = value;
-//                   });
-//                 },
-//               ),
-//             ),
-//             const SizedBox(height: 16),
-//             AnimatedSwitcher(
-//               duration: const Duration(milliseconds: 0),
-//               transitionBuilder: (Widget child, Animation<double> animation) {
-//                 return SlideTransition(
-//                   position: Tween(
-//                     begin: const Offset(1, 0),
-//                     end: const Offset(0, 0),
-//                   ).animate(animation),
-//                   child: child,
-//                 );
-//               },
-//               child: getPage(_index, getImagesPage(), getProfileInfoPage(),
-//                   getContactPage(), getDocumentsPage()),
-//             ),
-//             const SizedBox(
-//               height: 16,
-//             )
-//             //Wait for connection to Server for important info, maybe you can reuse the Description Model
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
-//   Widget getImagesPage() {
-//     return PaddingComponent(
-//       ignoreLeftPadding: true,
-//       child: PetPicturesComponent(
-//         imageHeight: 178,
-//         imageWidth: 178,
-//         imageBorderRadius: 14,
-//         imageSpacing: 20,
-//         petPictures: widget.getProfileDetails().petPictures,
-//         setPetPictures: (value) => _petProfileDetails.petPictures,
-//         newPetPictures: newPictures,
-//         addPetPicture: (value) async {
-//           await uploadPicture(
-//             _petProfileDetails.profileId!,
-//             value,
-//             () {
-//               print("uplaoded");
-//               // setState(() {});
-//               // await Future.delayed(Duration(seconds: 8));
-//               widget.reloadFuture.call();
-//               //TODO update UI
-//               //hekps against 403 from server
-//               Future.delayed(Duration(milliseconds: 850))
-//                   .then((value) => refresh());
+//         // bottomNavigationBar: DotNavigationBar(
+//         //   currentIndex: pageindex.round(),
+//         //   onTap: (value) {
+//         //     _pageController.jumpToPage(value);
+//         //     _scrollControllers.elementAt(value).animateTo(0,
+//         //         duration: const Duration(milliseconds: 125),
+//         //         curve: Curves.fastOutSlowIn);
+//         //   },
+//         //   dotIndicatorColor: Colors.black,
+//         //   selectedItemColor: Colors.black,
+//         //   unselectedItemColor: Colors.grey,
+//         //   boxShadow: kElevationToShadow[2]!,
+//         //   enableFloatingNavBar: true,
+//         //   items: [
+//         //     DotNavigationBarItem(icon: Icon(Icons.image)),
+//         //     DotNavigationBarItem(icon: Icon(Icons.pets)),
+//         //     DotNavigationBarItem(icon: Icon(Icons.phone)),
+//         //     DotNavigationBarItem(icon: Icon(Icons.file_copy)),
+//         //   ],
+//         // ),
+//         bottomNavigationBar: Material(
+//           elevation: 16,
+//           child: SalomonBottomBar(
+//             currentIndex: pageindex.round(),
+//             onTap: (value) {
+//               _pageController.jumpToPage(value);
+//               _scrollControllers.elementAt(value).animateTo(0,
+//                   duration: const Duration(milliseconds: 125),
+//                   curve: Curves.fastOutSlowIn);
 //             },
-//           );
-//         },
-//         removePetPicture: (index) async {
-//           await deletePicture(
-//               widget.getProfileDetails().petPictures.elementAt(index));
-//           //TODO update UI
-//           //hekps against 403 from server
-//           widget.reloadFuture.call();
-//           Future.delayed(Duration(milliseconds: 100))
-//               .then((value) => refresh());
-//         },
-//       ),
-//     );
-//   }
-
-//   Widget getProfileInfoPage() {
-//     return Column(
-//       key: const ValueKey("PetInfo"),
-//       mainAxisSize: MainAxisSize.min,
-//       children: [
-//         PaddingComponent(
-//           child: OnelineSimpleInput(
-//             flex: 7,
-//             value: _petProfileDetails.petChipId ?? "",
-//             emptyValuePlaceholder: "977200000000000",
-//             title: "profileDetailsComponentTitleChipNumber".tr(),
-//             saveValue: (val) async {
-//               _petProfileDetails.petChipId = val;
-//             },
-//           ),
-//         ),
-//         PaddingComponent(
-//           child: PetGenderComponent(
-//             gender: _petProfileDetails.petGender,
-//             setGender: (value) => setState(() {
-//               _petProfileDetails.petGender = value;
-//             }),
-//           ),
-//         ),
-//         PaddingComponent(
-//           child: PetImportantInformation(
-//             //Pass by reference
-//             imortantInformations: _petProfileDetails.petImportantInformation,
-//           ),
-//         ),
-//         PaddingComponent(
-//           child: PetDescriptionComponent(
-//             //Pass by reference
-//             descriptions: _petProfileDetails.petDescription,
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-
-//   Widget getContactPage() {
-//     return Column(
-//       key: const ValueKey("Contact"),
-//       mainAxisSize: MainAxisSize.min,
-//       children: [
-//         PaddingComponent(
-//           child: OnelineSimpleInput(
-//             flex: 6,
-//             value: "",
-//             emptyValuePlaceholder: "Schlongus Longus",
-//             title: "profileDetailsComponentTitleOwnersName".tr(),
-//             saveValue: (_) async {},
-//           ),
-//         ),
-//         PaddingComponent(
-//           child: OnelineSimpleInput(
-//             flex: 8,
-//             value: "Mainstreet 20A, Vienna, Austria",
-//             emptyValuePlaceholder: "Mainstreet 20A, Vienna, Austria",
-//             title: "profileDetailsComponentTitleHomeAddress".tr(),
-//             saveValue: (_) async {},
-//           ),
-//         ),
-//         PaddingComponent(
-//           child: PetPhoneNumbersComponent(
-//             phoneNumbers: _petProfileDetails.petOwnerTelephoneNumbers,
-//             petProfileId: _petProfileDetails.profileId,
-//           ),
-//         ),
-//         PaddingComponent(
-//           child: SocialMediaComponent(
-//             title: "profileDetailsComponentTitleSocialMedia".tr(),
-//             facebook: _petProfileDetails.petOwnerFacebook ?? "",
-//             saveFacebook: (value) {},
-//             instagram: _petProfileDetails.petOwnerInstagram ?? "",
-//             saveInstagram: (value) {},
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-
-//   Widget getDocumentsPage() {
-//     List<Document> allergies = _petProfileDetails.petDocuments
-//         .where((i) => i.documentLink.contains('allergies'))
-//         .toList();
-
-//     List<Document> dewormers = _petProfileDetails.petDocuments
-//         .where((i) => i.documentLink.contains('dewormers'))
-//         .toList();
-
-//     List<Document> health = _petProfileDetails.petDocuments
-//         .where((i) => i.documentLink.contains('health'))
-//         .toList();
-
-//     List<Document> medicine = _petProfileDetails.petDocuments
-//         .where((i) => i.documentLink.contains('medicine'))
-//         .toList();
-
-//     return Column(
-//       key: const ValueKey("Documents"),
-//       mainAxisSize: MainAxisSize.min,
-//       children: [
-//         PaddingComponent(
-//           child: Column(
-//             mainAxisSize: MainAxisSize.min,
-//             children: [
-//               const SizedBox(height: 28),
-//               const ComponentTitle(text: "Allergies"),
-//               ListView.builder(
-//                 shrinkWrap: true,
-//                 itemCount: allergies.length,
-//                 itemBuilder: (context, index) {
-//                   return ListTile(
-//                     title: Text(allergies.elementAt(index).documentName),
-//                   );
-//                 },
+//             items: [
+//               /// Home
+//               SalomonBottomBarItem(
+//                 icon: const Icon(Icons.image),
+//                 title: const Text("Images"),
+//                 selectedColor: Colors.purple,
 //               ),
-//               const SizedBox(height: 28),
-//               const ComponentTitle(text: "Dewormers"),
-//               ListView.builder(
-//                 shrinkWrap: true,
-//                 itemCount: dewormers.length,
-//                 itemBuilder: (context, index) {
-//                   return ListTile(
-//                     title: Text(dewormers.elementAt(index).documentName),
-//                   );
-//                 },
+
+//               /// Likes
+//               SalomonBottomBarItem(
+//                 icon: const Icon(Icons.pets),
+//                 title: const Text("Pet Info"),
+//                 selectedColor: Colors.pink,
 //               ),
-//               const SizedBox(height: 28),
-//               const ComponentTitle(text: "Health"),
-//               ListView.builder(
-//                 shrinkWrap: true,
-//                 itemCount: health.length,
-//                 itemBuilder: (context, index) {
-//                   return ListTile(
-//                     title: Text(health.elementAt(index).documentName),
-//                   );
-//                 },
+
+//               /// Search
+//               SalomonBottomBarItem(
+//                 icon: const Icon(Icons.phone),
+//                 title: const Text("Contact Info"),
+//                 selectedColor: Colors.orange,
 //               ),
-//               const SizedBox(height: 28),
-//               const ComponentTitle(text: "Medicine"),
-//               ListView.builder(
-//                 shrinkWrap: true,
-//                 itemCount: medicine.length,
-//                 itemBuilder: (context, index) {
-//                   return ListTile(
-//                     title: Text(medicine.elementAt(index).documentName),
-//                   );
-//                 },
+
+//               /// Profile
+//               SalomonBottomBarItem(
+//                 icon: const Icon(Icons.file_copy),
+//                 title: const Text("Documents"),
+//                 selectedColor: Colors.teal,
 //               ),
-//               const SizedBox(height: 28),
 //             ],
 //           ),
 //         ),
-//       ],
+//         floatingActionButton: getFloatingActionButton(pageindex.round()),
+//         extendBodyBehindAppBar: false,
+//         extendBody: false,
+//         resizeToAvoidBottomInset: true,
+//         body: PageView(
+//           controller: _pageController,
+//           children: [
+//             ProfileDetailsImagePage(
+//               scrollController: _scrollControllers.elementAt(0),
+//               getProfileDetails: widget.getProfileDetails,
+//               removePetPicture: (index) async {
+//                 await deletePicture(
+//                     widget.getProfileDetails().petPictures.elementAt(index));
+//                 //TODO update UI
+//                 //hekps against 403 from server
+//                 widget.reloadFuture.call();
+//                 Future.delayed(const Duration(milliseconds: 100))
+//                     .then((value) => refresh());
+//               },
+//             ),
+//             ProfileInfoPage(
+//               scrollController: _scrollControllers.elementAt(1),
+//               // petProfileDetails: widget.petProfileDetails,
+//               petProfileDetails: widget.getProfileDetails(),
+//               // refresh: () => refresh(),
+//             ),
+//             ContactPage(
+//               scrollController: _scrollControllers.elementAt(2),
+//               petProfileDetails: widget.petProfileDetails,
+//             ),
+//             DocumentsPage(
+//               scrollController: _scrollControllers.elementAt(3),
+//               //?For some reason getProfileDetails() updates document list when new ones come but the variable petProfileDetails itslef doesnt
+//               documents: widget.getProfileDetails().petDocuments,
+//             ),
+//           ],
+//         ),
+//       ),
 //     );
 //   }
 
@@ -449,18 +224,28 @@
 //       case 0:
 //         return UploadImageFab(
 //           addPetPicture: (value) async {
+//             //Loading Dialog Thingy
+//             BuildContext? dialogContext;
+//             showDialog(
+//               context: context,
+//               barrierDismissible: false,
+//               builder: (BuildContext context) {
+//                 dialogContext = context;
+//                 return const UploadPictureDialog();
+//               },
+//             );
 //             await uploadPicture(
-//               _petProfileDetails.profileId!,
+//               widget.petProfileDetails.profileId,
 //               value,
-//               () {
+//               () async {
 //                 print("uplaoded");
-//                 // setState(() {});
-//                 // await Future.delayed(Duration(seconds: 8));
 //                 widget.reloadFuture.call();
 //                 //TODO update UI
 //                 //hekps against 403 from server
-//                 Future.delayed(Duration(milliseconds: 850))
+//                 await Future.delayed(const Duration(milliseconds: 2000))
 //                     .then((value) => refresh());
+//                 //Close Loading Dialog Thingy
+//                 Navigator.pop(dialogContext!);
 //               },
 //             );
 //           },
@@ -468,21 +253,31 @@
 //       case 3:
 //         return UploadDocumentFab(
 //           addDocument: (value, filename, documentType, contentType) async {
+//             // Loading Dialog Thingy
+//             BuildContext? dialogContext;
+//             showDialog(
+//               context: context,
+//               barrierDismissible: false,
+//               builder: (BuildContext context) {
+//                 dialogContext = context;
+//                 return const UploadPictureDialog();
+//               },
+//             );
 //             await uploadDocuments(
-//               _petProfileDetails.profileId!,
+//               widget.petProfileDetails.profileId,
 //               value,
 //               filename,
 //               documentType,
 //               contentType,
-//               () {
+//               () async {
 //                 print("uplaoded");
-//                 // setState(() {});
-//                 // await Future.delayed(Duration(seconds: 8));
 //                 widget.reloadFuture.call();
 //                 //TODO update UI
 //                 //hekps against 403 from server
-//                 Future.delayed(Duration(milliseconds: 850))
+//                 await Future.delayed(const Duration(milliseconds: 2000))
 //                     .then((value) => refresh());
+//                 //Close Loading Dialog Thingy
+//                 Navigator.pop(dialogContext!);
 //               },
 //             );
 //           },

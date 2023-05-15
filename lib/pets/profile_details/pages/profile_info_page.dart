@@ -9,98 +9,84 @@ import '../c_pet_name.dart';
 import '../models/m_pet_profile.dart';
 import '../u_profile_details.dart';
 
-class ProfileInfoPage extends StatefulWidget {
-  const ProfileInfoPage({
+class ProfileInfoTab extends StatefulWidget {
+  const ProfileInfoTab({
     super.key,
     required this.petProfileDetails,
-    required this.scrollController,
-    // required this.refresh,
   });
 
   final PetProfileDetails petProfileDetails;
-  final ScrollController scrollController;
-
-  // final VoidCallback refresh;
 
   @override
-  State<ProfileInfoPage> createState() => _ProfileInfoPageState();
+  State<ProfileInfoTab> createState() => _ProfileInfoTabState();
 }
 
-class _ProfileInfoPageState extends State<ProfileInfoPage> {
+class _ProfileInfoTabState extends State<ProfileInfoTab> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('appBarTitleProfileDetails'.tr()),
-        scrolledUnderElevation: 8,
-      ),
-      body: SingleChildScrollView(
-        controller: widget.scrollController,
-        child: Column(
-          key: const ValueKey("PetInfo"),
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 36),
-            PaddingComponent(
-              child: PetNameComponent(
-                petProfile: widget.petProfileDetails,
-                petName: widget.petProfileDetails.petName,
-                setPetName: (value) {
-                  setState(() {
-                    widget.petProfileDetails.petName = value;
-                  });
-                  updatePetProfileCore(widget.petProfileDetails);
-                },
-                gender: widget.petProfileDetails.petGender,
-                tag: widget.petProfileDetails.tag,
-                setTags: (value) => setState(() {
-                  widget.petProfileDetails.tag = value;
-                }),
-                collardimension: 120,
-                // refresh: widget.refresh,
-              ),
-            ),
-            PaddingComponent(
-              child: OnelineSimpleInput(
-                flex: 7,
-                value: widget.petProfileDetails.petChipId ?? "",
-                emptyValuePlaceholder: "977200000000000",
-                title: "profileDetailsComponentTitleChipNumber".tr(),
-                saveValue: (val) async {
-                  widget.petProfileDetails.petChipId = val;
-                  updatePetProfileCore(widget.petProfileDetails);
-                },
-              ),
-            ),
-            PaddingComponent(
-              child: PetGenderComponent(
-                gender: widget.petProfileDetails.petGender,
-                setGender: (value) {
-                  setState(() {
-                    widget.petProfileDetails.petGender = value;
-                  });
-                  updatePetProfileCore(widget.petProfileDetails);
-                },
-              ),
-            ),
-            PaddingComponent(
-              child: PetImportantInformationComponent(
-                petProfileId: widget.petProfileDetails.profileId,
-                //Pass by reference
-                importantInformation:
-                    widget.petProfileDetails.petImportantInformation,
-              ),
-            ),
-            PaddingComponent(
-              child: PetDescriptionComponent(
-                petProfileId: widget.petProfileDetails.profileId,
-                //Pass by reference
-                descriptions: widget.petProfileDetails.petDescription,
-              ),
-            ),
-          ],
+    return Column(
+      key: const ValueKey("PetInfo"),
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // const SizedBox(height: 36),
+        // PaddingComponent(
+        //   child: PetNameComponent(
+        //     petProfile: widget.petProfileDetails,
+        //     petName: widget.petProfileDetails.petName,
+        //     setPetName: (value) {
+        //       setState(() {
+        //         widget.petProfileDetails.petName = value;
+        //       });
+        //       updatePetProfileCore(widget.petProfileDetails);
+        //     },
+        //     gender: widget.petProfileDetails.petGender,
+        //     tag: widget.petProfileDetails.tag,
+        //     setTags: (value) => setState(() {
+        //       widget.petProfileDetails.tag = value;
+        //     }),
+        //     collardimension: 120,
+        //     // refresh: widget.refresh,
+        //   ),
+        // ),
+        PaddingComponent(
+          child: OnelineSimpleInput(
+            flex: 7,
+            value: widget.petProfileDetails.petChipId ?? "",
+            emptyValuePlaceholder: "977200000000000",
+            title: "profileDetailsComponentTitleChipNumber".tr(),
+            saveValue: (val) async {
+              widget.petProfileDetails.petChipId = val;
+              updatePetProfileCore(widget.petProfileDetails);
+            },
+          ),
         ),
-      ),
+        PaddingComponent(
+          child: PetGenderComponent(
+            gender: widget.petProfileDetails.petGender,
+            setGender: (value) {
+              setState(() {
+                widget.petProfileDetails.petGender = value;
+              });
+              updatePetProfileCore(widget.petProfileDetails);
+            },
+          ),
+        ),
+        PaddingComponent(
+          child: PetImportantInformationComponent(
+            petProfileId: widget.petProfileDetails.profileId,
+            //Pass by reference
+            importantInformation:
+                widget.petProfileDetails.petImportantInformation,
+          ),
+        ),
+        PaddingComponent(
+          child: PetDescriptionComponent(
+            petProfileId: widget.petProfileDetails.profileId,
+            //Pass by reference
+            descriptions: widget.petProfileDetails.petDescription,
+          ),
+        ),
+      ],
     );
   }
 }

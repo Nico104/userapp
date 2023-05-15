@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
+import 'package:userapp/pets/profile_details/pages/pet_page.dart';
 import 'package:userapp/pets/scans/scans_page.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
 
@@ -60,12 +61,22 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
   }
 
   void goToScans() {
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => ScansPage(
+    //       petName: widget.petProfileDetails.petName,
+    //       scans: widget.petProfileDetails.petProfileScans,
+    //     ),
+    //   ),
+    // );
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ScansPage(
-          petName: widget.petProfileDetails.petName,
-          scans: widget.petProfileDetails.petProfileScans,
+        builder: (context) => PetPage(
+          getProfileDetails: () {
+            return widget.petProfileDetails;
+          },
         ),
       ),
     );
