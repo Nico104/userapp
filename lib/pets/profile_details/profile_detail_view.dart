@@ -29,14 +29,15 @@ class PetProfileDetailView extends StatefulWidget {
 
 class PetProfileDetailViewState extends State<PetProfileDetailView>
     with TickerProviderStateMixin {
-  void refresh() {
-    print("Tags: " + widget.getProfileDetails().tag.length.toString());
-    if (mounted) {
-      setState(() {});
-    }
-  }
+  // void refresh() {
+  //   print("Tags: " + widget.getProfileDetails().tag.length.toString());
+  //   if (mounted) {
+  //     setState(() {});
+  //   }
+  // }
 
   late TabController tabController;
+
   @override
   void initState() {
     super.initState();
@@ -48,6 +49,7 @@ class PetProfileDetailViewState extends State<PetProfileDetailView>
   }
 
   final double _borderRadius = 42;
+  bool _showBottomNavBar = true;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +60,20 @@ class PetProfileDetailViewState extends State<PetProfileDetailView>
           children: [
             PetPage(
               getProfileDetails: widget.getProfileDetails,
+              showBottomNavBar: (show) {
+                if (mounted && show != _showBottomNavBar) {
+                  setState(() {
+                    _showBottomNavBar = show;
+                  });
+                }
+              },
+              reloadFuture: widget.reloadFuture,
+              setPetName: (newName) {
+                setState(() {
+                  widget.petProfileDetails.petName = newName;
+                });
+                updatePetProfileCore(widget.petProfileDetails);
+              },
             ),
             Container(
               color: Colors.blue,
@@ -66,8 +82,12 @@ class PetProfileDetailViewState extends State<PetProfileDetailView>
             )
           ],
         ),
-        Align(
-          alignment: Alignment.bottomCenter,
+        AnimatedAlign(
+          alignment: _showBottomNavBar
+              ? const Alignment(0.0, 1.0)
+              : const Alignment(0.0, 3.0),
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.fastOutSlowIn,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
             child: Container(
@@ -150,74 +170,6 @@ class PetProfileDetailViewState extends State<PetProfileDetailView>
         ),
       ],
     );
-  }
-
-  Widget? getFloatingActionButton(int index) {
-    switch (index) {
-      case 0:
-        return UploadImageFab(
-          addPetPicture: (value) async {
-            //Loading Dialog Thingy
-            BuildContext? dialogContext;
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (BuildContext context) {
-                dialogContext = context;
-                return const UploadPictureDialog();
-              },
-            );
-            await uploadPicture(
-              widget.petProfileDetails.profileId,
-              value,
-              () async {
-                print("uplaoded");
-                widget.reloadFuture.call();
-                //TODO update UI
-                //hekps against 403 from server
-                await Future.delayed(const Duration(milliseconds: 2000))
-                    .then((value) => refresh());
-                //Close Loading Dialog Thingy
-                Navigator.pop(dialogContext!);
-              },
-            );
-          },
-        );
-      case 3:
-        return UploadDocumentFab(
-          addDocument: (value, filename, documentType, contentType) async {
-            // Loading Dialog Thingy
-            BuildContext? dialogContext;
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (BuildContext context) {
-                dialogContext = context;
-                return const UploadPictureDialog();
-              },
-            );
-            await uploadDocuments(
-              widget.petProfileDetails.profileId,
-              value,
-              filename,
-              documentType,
-              contentType,
-              () async {
-                print("uplaoded");
-                widget.reloadFuture.call();
-                //TODO update UI
-                //hekps against 403 from server
-                await Future.delayed(const Duration(milliseconds: 2000))
-                    .then((value) => refresh());
-                //Close Loading Dialog Thingy
-                Navigator.pop(dialogContext!);
-              },
-            );
-          },
-        );
-      default:
-        return null;
-    }
   }
 }
 

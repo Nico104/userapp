@@ -61,22 +61,12 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
   }
 
   void goToScans() {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => ScansPage(
-    //       petName: widget.petProfileDetails.petName,
-    //       scans: widget.petProfileDetails.petProfileScans,
-    //     ),
-    //   ),
-    // );
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => PetPage(
-          getProfileDetails: () {
-            return widget.petProfileDetails;
-          },
+        builder: (context) => ScansPage(
+          petName: widget.petProfileDetails.petName,
+          scans: widget.petProfileDetails.petProfileScans,
         ),
       ),
     );
