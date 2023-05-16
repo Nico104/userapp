@@ -9,10 +9,10 @@ class PetPhoneNumbersComponent extends StatefulWidget {
   const PetPhoneNumbersComponent({
     super.key,
     required this.phoneNumbers,
-    required this.petProfileId,
+    required this.contactId,
   });
 
-  final int petProfileId;
+  final int contactId;
   //Pass by reference
   final List<PhoneNumber> phoneNumbers;
 
@@ -43,7 +43,7 @@ class _PetPhoneNumbersComponentState extends State<PetPhoneNumbersComponent> {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: NewPhonerNumber(
-                  petProfileId: widget.petProfileId,
+                  contactId: widget.contactId,
                   addNewPhoneNumber: (number) {
                     setState(() {
                       widget.phoneNumbers.add(number);
@@ -58,7 +58,7 @@ class _PetPhoneNumbersComponentState extends State<PetPhoneNumbersComponent> {
                 child: SinglePhonerNumber(
                   //Pass by reference
                   number: widget.phoneNumbers.elementAt(index),
-                  petProfileId: widget.petProfileId,
+                  petProfileId: widget.contactId,
                   removePhoneNumber: () {
                     setState(() {
                       widget.phoneNumbers.removeAt(index);

@@ -334,94 +334,94 @@ Future<PetProfileDetails> updatePetProfileCore(
 }
 
 //Phone Number
-Future<PhoneNumber> updatePhoneNumber(PhoneNumber phoneNumber) async {
-  Uri url = Uri.parse('$baseURL/pet/updatePhoneNumber');
-  String? token = await getToken();
+// Future<PhoneNumber> updatePhoneNumber(PhoneNumber phoneNumber) async {
+//   Uri url = Uri.parse('$baseURL/pet/updatePhoneNumber');
+//   String? token = await getToken();
 
-  final response = await http.post(
-    url,
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    },
-    body: jsonEncode(phoneNumber.toJson()),
-  );
+//   final response = await http.post(
+//     url,
+//     headers: {
+//       'Content-Type': 'application/json; charset=UTF-8',
+//       'Accept': 'application/json',
+//       'Authorization': 'Bearer $token',
+//     },
+//     body: jsonEncode(phoneNumber.toJson()),
+//   );
 
-  print(response.body);
+//   print(response.body);
 
-  if (response.statusCode == 201) {
-    // If the server did return a 201 CREATED response,
-    // then parse the JSON.
-    return PhoneNumber.fromJson(json.decode(response.body));
-  } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
-    throw Exception(
-        'Failed to update Phone Number with phoneNumberId ${phoneNumber.phoneNumberId}.');
-  }
-}
+//   if (response.statusCode == 201) {
+//     // If the server did return a 201 CREATED response,
+//     // then parse the JSON.
+//     return PhoneNumber.fromJson(json.decode(response.body));
+//   } else {
+//     // If the server did not return a 201 CREATED response,
+//     // then throw an exception.
+//     throw Exception(
+//         'Failed to update Phone Number with phoneNumberId ${phoneNumber.phoneNumberId}.');
+//   }
+// }
 
-Future<PhoneNumber> createPhoneNumber(
-  int petProfileId,
-  String countryKey,
-  String phoneNumber,
-) async {
-  Uri url = Uri.parse('$baseURL/pet/createPhoneNumber');
-  String? token = await getToken();
+// Future<PhoneNumber> createPhoneNumber(
+//   int petProfileId,
+//   String countryKey,
+//   String phoneNumber,
+// ) async {
+//   Uri url = Uri.parse('$baseURL/pet/createPhoneNumber');
+//   String? token = await getToken();
 
-  final response = await http.post(
-    url,
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    },
-    body: jsonEncode({
-      'petProfile_id': petProfileId,
-      'country_key': countryKey,
-      'phone_number': phoneNumber,
-    }),
-  );
+//   final response = await http.post(
+//     url,
+//     headers: {
+//       'Content-Type': 'application/json; charset=UTF-8',
+//       'Accept': 'application/json',
+//       'Authorization': 'Bearer $token',
+//     },
+//     body: jsonEncode({
+//       'petProfile_id': petProfileId,
+//       'country_key': countryKey,
+//       'phone_number': phoneNumber,
+//     }),
+//   );
 
-  print(response.body);
+//   print(response.body);
 
-  if (response.statusCode == 201) {
-    // If the server did return a 201 CREATED response,
-    // then parse the JSON.
-    return PhoneNumber.fromJson(json.decode(response.body));
-  } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
-    throw Exception('Failed to create Phone Number with  $phoneNumber.');
-  }
-}
+//   if (response.statusCode == 201) {
+//     // If the server did return a 201 CREATED response,
+//     // then parse the JSON.
+//     return PhoneNumber.fromJson(json.decode(response.body));
+//   } else {
+//     // If the server did not return a 201 CREATED response,
+//     // then throw an exception.
+//     throw Exception('Failed to create Phone Number with  $phoneNumber.');
+//   }
+// }
 
-Future<void> deletePhoneNumber(PhoneNumber phoneNumber) async {
-  Uri url = Uri.parse('$baseURL/pet/deletePhoneNumber');
-  String? token = await getToken();
+// Future<void> deletePhoneNumber(PhoneNumber phoneNumber) async {
+//   Uri url = Uri.parse('$baseURL/pet/deletePhoneNumber');
+//   String? token = await getToken();
 
-  final response = await http.delete(
-    url,
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    },
-    body: jsonEncode(phoneNumber.toJson()),
-  );
+//   final response = await http.delete(
+//     url,
+//     headers: {
+//       'Content-Type': 'application/json; charset=UTF-8',
+//       'Accept': 'application/json',
+//       'Authorization': 'Bearer $token',
+//     },
+//     body: jsonEncode(phoneNumber.toJson()),
+//   );
 
-  print(response.statusCode);
+//   print(response.statusCode);
 
-  if (response.statusCode == 200) {
-    // If the server did return a 201 CREATED response,
-    // then parse the JSON.
-  } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
-    throw Exception('Failed to delete Description.');
-  }
-}
+//   if (response.statusCode == 200) {
+//     // If the server did return a 201 CREATED response,
+//     // then parse the JSON.
+//   } else {
+//     // If the server did not return a 201 CREATED response,
+//     // then throw an exception.
+//     throw Exception('Failed to delete Description.');
+//   }
+// }
 
 //Description
 Future<void> upsertDescription(Description description) async {
@@ -698,8 +698,10 @@ Future<void> askForPetName(BuildContext context, ValueSetter<String> setPetName,
     String? currentPetName) async {
   showDialog(
     context: context,
-    builder: (_) => PetNameDialog(
+    builder: (_) => EnterNameDialog(
       initialValue: currentPetName,
+      label: "Pet Name",
+      confirmLabel: "Save ahead",
     ),
   ).then((value) {
     if (value != null) {

@@ -71,7 +71,6 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
   }
 
   void _handleNavBarShown() {
-    print("scrol");
     //hideBar
     widget.showBottomNavBar(false);
     EasyDebounce.debounce(
@@ -114,7 +113,7 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
 
   void refresh() {
     if (mounted) {
-      refresh();
+      setState(() {});
     }
   }
 
@@ -318,9 +317,7 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
               widget.getProfileDetails().profileId,
               value,
               () async {
-                print("uplaoded");
                 widget.reloadFuture.call();
-                //TODO update UI
                 //hekps against 403 from server
                 await Future.delayed(const Duration(milliseconds: 2000))
                     .then((value) => refresh());
@@ -350,9 +347,7 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
               documentType,
               contentType,
               () async {
-                print("uplaoded");
                 widget.reloadFuture.call();
-                //TODO update UI
                 //hekps against 403 from server
                 await Future.delayed(const Duration(milliseconds: 2000))
                     .then((value) => refresh());

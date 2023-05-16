@@ -1,7 +1,9 @@
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
+import 'package:userapp/pets/profile_details/contact/contacts_page.dart';
 import 'package:userapp/pets/profile_details/pages/pet_page.dart';
 import 'package:userapp/pets/profile_details/pictures/upload_picture_dialog.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
@@ -46,6 +48,12 @@ class PetProfileDetailViewState extends State<PetProfileDetailView>
       length: 2,
       vsync: this,
     );
+    //Tom update on Tab Swipe
+    tabController.addListener(_tabListener);
+  }
+
+  void _tabListener() {
+    setState(() {});
   }
 
   final double _borderRadius = 42;
@@ -75,11 +83,16 @@ class PetProfileDetailViewState extends State<PetProfileDetailView>
                 updatePetProfileCore(widget.petProfileDetails);
               },
             ),
-            Container(
-              color: Colors.blue,
-              width: 100.w,
-              height: 100.h,
-            )
+            ContactPage(
+              petProfileDetails: widget.getProfileDetails(),
+              showBottomNavBar: (show) {
+                if (mounted && show != _showBottomNavBar) {
+                  setState(() {
+                    _showBottomNavBar = show;
+                  });
+                }
+              },
+            ),
           ],
         ),
         AnimatedAlign(

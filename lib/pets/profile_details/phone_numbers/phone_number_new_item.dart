@@ -5,6 +5,7 @@ import 'package:userapp/pets/profile_details/models/m_phone_number.dart';
 
 import '../../../language/c_prefix_selection.dart';
 import '../../../language/m_language.dart';
+import '../contact/u_contact.dart';
 import '../u_profile_details.dart';
 import '../widgets/custom_textformfield.dart';
 import 'c_phone_number.dart';
@@ -13,11 +14,11 @@ class NewPhonerNumber extends StatefulWidget {
   const NewPhonerNumber({
     super.key,
     required this.addNewPhoneNumber,
-    required this.petProfileId,
+    required this.contactId,
   });
 
   final Function(PhoneNumber number) addNewPhoneNumber;
-  final int petProfileId;
+  final int contactId;
 
   @override
   State<NewPhonerNumber> createState() => _NewPhonerNumberState();
@@ -40,7 +41,7 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
       const Duration(milliseconds: 500),
       () {
         if (number.isNotEmpty) {
-          createPhoneNumber(widget.petProfileId, _country.countryKey, number)
+          createPhoneNumber(widget.contactId, _country.countryKey, number)
               .then((value) => widget.addNewPhoneNumber(value));
         }
       },

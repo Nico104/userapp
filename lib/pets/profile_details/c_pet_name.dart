@@ -137,16 +137,23 @@ String getPetTitle(Gender gender) {
   }
 }
 
-class PetNameDialog extends StatefulWidget {
-  const PetNameDialog({super.key, this.initialValue});
+class EnterNameDialog extends StatefulWidget {
+  const EnterNameDialog({
+    super.key,
+    this.initialValue,
+    required this.label,
+    required this.confirmLabel,
+  });
 
   final String? initialValue;
+  final String label;
+  final String confirmLabel;
 
   @override
-  State<PetNameDialog> createState() => _PetNameDialogState();
+  State<EnterNameDialog> createState() => _EnterNameDialogState();
 }
 
-class _PetNameDialogState extends State<PetNameDialog> {
+class _EnterNameDialogState extends State<EnterNameDialog> {
   String text = "";
 
   @override
@@ -173,17 +180,17 @@ class _PetNameDialogState extends State<PetNameDialog> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "Select Pet Name",
+                "Select ${widget.label}",
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 28),
               CustomTextFormField(
                 autofocus: true,
                 initialValue: text,
-                hintText: "Enter Pet Name",
+                hintText: "Enter ${widget.label}",
                 onChanged: (val) {
                   EasyDebounce.debounce(
-                    'petName',
+                    'nameselect',
                     const Duration(milliseconds: 50),
                     () {
                       setState(() {
@@ -232,7 +239,7 @@ class _PetNameDialogState extends State<PetNameDialog> {
                       ),
                     ),
                     child: Text(
-                      "Save ahead",
+                      widget.confirmLabel,
                       style: getCustomTextStyles(context)
                           .dataEditDialogButtonSaveStyle,
                     ),

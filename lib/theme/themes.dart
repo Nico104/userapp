@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:userapp/theme/custom_colors.dart';
 import '../pet_color/hex_color.dart';
 import 'custom_text_styles.dart';
@@ -16,6 +17,9 @@ final ThemeData constLightTheme = ThemeData(
       fontFamily: 'LibreBaskerville',
       fontSize: 20,
       color: Colors.black,
+    ),
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
     ),
   ),
   //Used e.p. for SocialMediaContainer

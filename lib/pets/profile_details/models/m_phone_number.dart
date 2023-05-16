@@ -2,14 +2,14 @@ import '../../../language/m_language.dart';
 
 class PhoneNumber {
   final int phoneNumberId;
-  final int petProfileId;
+  final int contactId;
   String phoneNumber;
   int priority;
   Country country;
 
   PhoneNumber(
     this.phoneNumberId,
-    this.petProfileId,
+    this.contactId,
     this.phoneNumber,
     this.priority,
     this.country,
@@ -17,7 +17,7 @@ class PhoneNumber {
 
   PhoneNumber clone() => PhoneNumber(
         phoneNumberId,
-        petProfileId,
+        contactId,
         phoneNumber,
         priority,
         country,
@@ -25,13 +25,13 @@ class PhoneNumber {
 
   PhoneNumber.fromJson(Map<String, dynamic> json)
       : phoneNumberId = json['phone_number_id'],
-        petProfileId = json['petProfile_id'],
+        contactId = json['contactContact_id'],
         phoneNumber = json['phone_number'],
         priority = json['phone_number_priority'],
         country = Country.fromJson(json['Country']);
 
   Map<String, dynamic> toJson() => {
-        'petProfile_id': petProfileId,
+        'contactContact_id': contactId,
         'country_key': country.countryKey,
         'phone_number': phoneNumber,
         'phone_number_id': phoneNumberId,
