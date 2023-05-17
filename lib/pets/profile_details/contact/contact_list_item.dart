@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:userapp/network_globals.dart';
+import 'package:userapp/pets/profile_details/models/m_contact_descripton.dart';
 import 'package:userapp/utils/util_methods.dart';
+import '../../../pet_color/hex_color.dart';
 import '../models/m_contact.dart';
 import 'contact_details_page.dart';
 
 class ContactListItem extends StatelessWidget {
-  const ContactListItem({super.key, required this.contact});
+  const ContactListItem(
+      {super.key, required this.contact, required this.refresh});
 
   final Contact contact;
-
   final double _borderRadius = 32;
+  final VoidCallback refresh;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +26,7 @@ class ContactListItem extends StatelessWidget {
             ContactDetailsPage(
               contact: contact,
             ),
+            callback: () => refresh(),
           );
         },
         child: Container(
@@ -36,31 +40,7 @@ class ContactListItem extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Material(
-                elevation: 1,
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(28),
-                  bottomRight: Radius.circular(28),
-                ),
-                child: Container(
-                  height: 5,
-                  width: 35,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(28),
-                      bottomRight: Radius.circular(28),
-                    ),
-                    color: Colors.green,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                "Owner",
-                style: TextStyle(
-                  color: Colors.green,
-                ),
-              ),
+              _getContactDescriptionWidget(contact.contactDescription),
               const SizedBox(height: 24),
               Text(contact.contactName,
                   style: Theme.of(context).textTheme.titleMedium),
@@ -96,6 +76,45 @@ class ContactListItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _getContactDescriptionWidget(ContactDescription? contactDescription) {
+    if (contactDescription != null) {
+      print(contactDescription.contactDescriptionHex);
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Material(
+            elevation: 1,
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(28),
+              bottomRight: Radius.circular(28),
+            ),
+            child: Container(
+              height: 5,
+              width: 35,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(28),
+                  bottomRight: Radius.circular(28),
+                ),
+                color: HexColor(contactDescription.contactDescriptionHex),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            contactDescription.contactDescriptionLabel,
+            style: TextStyle(
+              color: HexColor(contactDescription.contactDescriptionHex),
+            ),
+          ),
+        ],
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
   }
 
   String _getProfilePictureLink() {

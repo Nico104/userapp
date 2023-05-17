@@ -1,3 +1,4 @@
+import 'package:userapp/pets/profile_details/models/m_contact_descripton.dart';
 import 'm_phone_number.dart';
 
 class Contact {
@@ -6,7 +7,7 @@ class Contact {
   final DateTime contactCreationDateTime;
   String contactName;
   String? contactPictureLink;
-  String? contactDescription;
+  ContactDescription? contactDescription;
   String? contactEmail;
   String? contactAddress;
   String? contactFacebook;
@@ -34,7 +35,9 @@ class Contact {
             DateTime.parse(json['contact_creation_DateTime']),
         contactName = json['contact_name'],
         contactPictureLink = json['contact_picture_link'],
-        contactDescription = json['contact_description'],
+        contactDescription = json['contact_description'] != null
+            ? ContactDescription.fromJson(json['contact_description'])
+            : null,
         contactEmail = json['contact_email'],
         contactAddress = json['contact_address'],
         contactFacebook = json['contact_facebook'],
