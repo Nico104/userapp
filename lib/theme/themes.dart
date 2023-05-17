@@ -20,6 +20,10 @@ final ThemeData constLightTheme = ThemeData(
     ),
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
+      // systemNavigationBarIconBrightness: Brightness.light,
+      // statusBarIconBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.dark,
+      // statusBarBrightness: Brightness.dark,
     ),
   ),
   //Used e.p. for SocialMediaContainer

@@ -38,7 +38,6 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
             automaticallyImplyLeading: false,
             expandedHeight: 400,
             stretch: true,
-            // pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               collapseMode: CollapseMode.pin,
               background: Container(

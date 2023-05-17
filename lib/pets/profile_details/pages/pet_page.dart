@@ -121,21 +121,27 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       // Persistent AppBar that never scrolls
-      appBar: !_scrollTop
-          ? AppBar(
-              title: _scrollTop
-                  ? null
-                  : Text("${widget.getProfileDetails().petName}'s Profile"),
-              scrolledUnderElevation: getScrolledUnderElevation(),
-            )
-          : const BackButton(),
-      extendBodyBehindAppBar: _scrollTop ? true : false,
+      // appBar: !_scrollTop
+      //     ? AppBar(
+      //         title: _scrollTop
+      //             ? null
+      //             : Text("${widget.getProfileDetails().petName}'s Profile"),
+      //         scrolledUnderElevation: getScrolledUnderElevation(),
+      //       )
+      //     : const BackButton(),
+      appBar: AppBar(
+        title: Text("${widget.getProfileDetails().petName}'s Profile"),
+        scrolledUnderElevation: getScrolledUnderElevation(),
+      ),
+      // extendBodyBehindAppBar: _scrollTop ? true : false,
       floatingActionButton: getFloatingActionButton(tabController.index),
+
       body: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: NestedScrollView(
           key: globalKey,
           controller: _scrollController,
+          physics: BouncingScrollPhysics(),
           // allows you to build a list of elements that would be scrolled away till the body reached the top
           headerSliverBuilder: (context, _) {
             return [
@@ -143,15 +149,39 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
                 delegate: SliverChildListDelegate(
                   [
                     //Picture Tag
-                    Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        Container(
-                          width: 100.w,
-                          height: 100.w,
-                          margin: EdgeInsets.only(bottom: tagDimension * 0.69),
-                          decoration: const BoxDecoration(
-                            // borderRadius: BorderRadius.circular(14),
+                    // Stack(
+                    //   alignment: Alignment.bottomCenter,
+                    //   children: [
+                    //     Container(
+                    //       width: 100.w,
+                    //       height: 100.w,
+                    //       margin: EdgeInsets.only(bottom: tagDimension * 0.69),
+                    //       decoration: const BoxDecoration(
+                    //         // borderRadius: BorderRadius.circular(14),
+                    //         // boxShadow: kElevationToShadow[4],
+                    //         image: DecorationImage(
+                    //           image: NetworkImage("https://picsum.photos/512"),
+                    //           fit: BoxFit.cover,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     Tags(
+                    //         collardimension: tagDimension,
+                    //         tag: widget.getProfileDetails().tag),
+                    //   ],
+                    // ),
+                    const SizedBox(height: 36),
+                    Center(
+                      child: Material(
+                        elevation: 4,
+                        borderRadius: BorderRadius.circular(14),
+                        child: Container(
+                          width: 90.w,
+                          height: 90.w,
+                          // margin: EdgeInsets.only(bottom: tagDimension * 0.69),
+                          // margin: EdgeInsets.all(32),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
                             // boxShadow: kElevationToShadow[4],
                             image: DecorationImage(
                               image: NetworkImage("https://picsum.photos/512"),
@@ -159,10 +189,13 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
                             ),
                           ),
                         ),
-                        Tags(
-                            collardimension: tagDimension,
-                            tag: widget.getProfileDetails().tag),
-                      ],
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Center(
+                      child: Tags(
+                          collardimension: tagDimension,
+                          tag: widget.getProfileDetails().tag),
                     ),
                     const SizedBox(height: 20),
                     //Name
@@ -373,23 +406,25 @@ class BackButton extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      padding: const EdgeInsets.all(8),
-      child: InkWell(
-        onTap: () {
-          Navigator.pop(context);
-        },
-        child: Material(
-          borderRadius: BorderRadius.circular(borderRadius),
-          elevation: 8,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(borderRadius),
-              color: Theme.of(context).primaryColor,
+    return SafeArea(
+      child: Container(
+        alignment: Alignment.centerLeft,
+        padding: const EdgeInsets.all(8),
+        child: InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Material(
+            borderRadius: BorderRadius.circular(borderRadius),
+            elevation: 8,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(borderRadius),
+                color: Theme.of(context).primaryColor,
+              ),
+              padding: const EdgeInsets.all(8),
+              child: const Icon(Icons.arrow_back),
             ),
-            padding: const EdgeInsets.all(8),
-            child: const Icon(Icons.arrow_back),
           ),
         ),
       ),
