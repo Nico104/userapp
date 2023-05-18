@@ -6,6 +6,7 @@ import 'package:userapp/styles/custom_icons_icons.dart';
 
 import '../../../../theme/custom_colors.dart';
 import '../../../../theme/custom_text_styles.dart';
+import '../../d_confirm_delete.dart';
 import '../../models/m_contact_descripton.dart';
 import '../../widgets/custom_textformfield.dart';
 import '../u_contact.dart';
@@ -69,8 +70,19 @@ class _ContactDescriptionEditDialogState
                   ),
                   InkWell(
                     onTap: () {
-                      widget.onDelete();
-                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (_) => const ConfirmDeleteDialog(
+                          label: "Contact Description",
+                        ),
+                      ).then((value) {
+                        if (value != null) {
+                          if (value == true) {
+                            widget.onDelete();
+                            Navigator.pop(context);
+                          }
+                        }
+                      });
                     },
                     child: const Icon(CustomIcons.delete),
                   ),

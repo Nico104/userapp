@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
-import 'package:userapp/pets/profile_details/contact/contacts_page.dart';
+import 'package:userapp/pets/profile_details/contact/contacts_list_page.dart';
 import 'package:userapp/pets/profile_details/pages/pet_page.dart';
 import 'package:userapp/pets/profile_details/pictures/upload_picture_dialog.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
@@ -15,15 +15,15 @@ class PetProfileDetailView extends StatefulWidget {
   const PetProfileDetailView({
     super.key,
     required this.petProfileDetails,
-    required this.reloadFuture,
-    required this.getProfileDetails,
+    // required this.reloadFuture,
+    // required this.getProfileDetails,
   });
 
   final PetProfileDetails petProfileDetails;
 
-  final VoidCallback reloadFuture;
+  // final VoidCallback reloadFuture;
 
-  final PetProfileDetails Function() getProfileDetails;
+  // final PetProfileDetails Function() getProfileDetails;
 
   @override
   State<PetProfileDetailView> createState() => PetProfileDetailViewState();
@@ -67,7 +67,8 @@ class PetProfileDetailViewState extends State<PetProfileDetailView>
           controller: tabController,
           children: [
             PetPage(
-              getProfileDetails: widget.getProfileDetails,
+              // getProfileDetails: widget.getProfileDetails,
+              petProfileDetails: widget.petProfileDetails,
               showBottomNavBar: (show) {
                 if (mounted && show != _showBottomNavBar) {
                   setState(() {
@@ -75,7 +76,7 @@ class PetProfileDetailViewState extends State<PetProfileDetailView>
                   });
                 }
               },
-              reloadFuture: widget.reloadFuture,
+              // reloadFuture: widget.reloadFuture,
               setPetName: (newName) {
                 setState(() {
                   widget.petProfileDetails.petName = newName;
@@ -84,7 +85,8 @@ class PetProfileDetailViewState extends State<PetProfileDetailView>
               },
             ),
             ContactPage(
-              petProfileDetails: widget.getProfileDetails(),
+              // petProfileDetails: widget.getProfileDetails(),
+              petProfileDetails: widget.petProfileDetails,
               showBottomNavBar: (show) {
                 if (mounted && show != _showBottomNavBar) {
                   setState(() {

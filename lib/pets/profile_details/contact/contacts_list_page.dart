@@ -1,6 +1,7 @@
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/contact/u_contact.dart';
+import '../../../utils/util_methods.dart';
 import '../c_pet_name.dart';
 import '../models/m_contact.dart';
 import '../models/m_pet_profile.dart';
@@ -48,7 +49,7 @@ class _ContactPageState extends State<ContactPage> {
     );
   }
 
-  Future<void> refreshContracts() async {
+  Future<void> refreshContacts() async {
     List<Contact> contracts =
         await fetchPetContracts(widget.petProfileDetails.profileId);
     setState(() {
@@ -85,21 +86,19 @@ class _ContactPageState extends State<ContactPage> {
                       ),
                     ).then((value) async {
                       if (value != null && value.isNotEmpty) {
-                        Contact newcontact = await createNewPetContact(
+                        Contact contact = await createNewPetContact(
                           petProfileId: widget.petProfileDetails.profileId,
                           contactName: value,
                         );
+                        // refreshContacts();
                         if (context.mounted) {
-                          Navigator.push(
+                          navigatePerSlide(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => ContactDetailsPage(
-                                contact: newcontact,
-                              ),
+                            ContactDetailsPage(
+                              contact: contact,
                             ),
-                          ).then((value) {
-                            refreshContracts();
-                          });
+                            callback: () => refreshContacts(),
+                          );
                         }
                       }
                     });
@@ -135,7 +134,7 @@ class _ContactPageState extends State<ContactPage> {
                 contact:
                     widget.petProfileDetails.petContacts.elementAt(index - 1),
                 refreshContacts: () {
-                  refreshContracts();
+                  refreshContacts();
                 },
               ),
             );

@@ -50,10 +50,10 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
       MaterialPageRoute(
         builder: (context) => PetProfileDetailView(
           petProfileDetails: widget.petProfileDetails,
-          reloadFuture: widget.reloadFuture,
-          getProfileDetails: () {
-            return widget.petProfileDetails;
-          },
+          // reloadFuture: widget.reloadFuture,
+          // getProfileDetails: () {
+          //   return widget.petProfileDetails;
+          // },
         ),
       ),
     ).then((value) => widget.reloadFuture.call());

@@ -6,13 +6,30 @@ import '../../../pet_color/hex_color.dart';
 import '../models/m_contact.dart';
 import 'contact_details_page.dart';
 
-class ContactListItem extends StatelessWidget {
-  const ContactListItem(
-      {super.key, required this.contact, required this.refreshContacts});
+class ContactListItem extends StatefulWidget {
+  const ContactListItem({
+    super.key,
+    required this.contact,
+    required this.refreshContacts,
+  });
 
   final Contact contact;
-  final double _borderRadius = 32;
   final VoidCallback refreshContacts;
+
+  @override
+  State<ContactListItem> createState() => _ContactListItemState();
+}
+
+class _ContactListItemState extends State<ContactListItem> {
+  final double _borderRadius = 32;
+
+  String _getProfilePictureLink() {
+    if (widget.contact.contactPictureLink != null) {
+      return s3BaseUrl + widget.contact.contactPictureLink!;
+    } else {
+      return "https://picsum.photos/264";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +41,14 @@ class ContactListItem extends StatelessWidget {
           navigatePerSlide(
             context,
             ContactDetailsPage(
-              contact: contact,
+              contact: widget.contact,
+              // getContact: () {
+              //   print(widget.contact.contactPictureLink);
+              //   return widget.contact;
+              // },
+              // reloadFuture: () => widget.refreshContacts(),
             ),
-            callback: () => refreshContacts(),
+            callback: () => widget.refreshContacts(),
           );
         },
         child: Container(
@@ -40,9 +62,9 @@ class ContactListItem extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _getContactDescriptionWidget(contact.contactDescription),
+              _getContactDescriptionWidget(widget.contact.contactDescription),
               const SizedBox(height: 24),
-              Text(contact.contactName,
+              Text(widget.contact.contactName,
                   style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: 24),
               Row(
@@ -53,7 +75,6 @@ class ContactListItem extends StatelessWidget {
                     height: 70,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      // borderRadius: BorderRadius.circular(28),
                       image: DecorationImage(
                         image: NetworkImage(_getProfilePictureLink()),
                         fit: BoxFit.cover,
@@ -116,42 +137,34 @@ class ContactListItem extends StatelessWidget {
     }
   }
 
-  String _getProfilePictureLink() {
-    if (contact.contactPictureLink != null) {
-      return s3BaseUrl + contact.contactPictureLink!;
-    } else {
-      return "https://picsum.photos/264";
-    }
-  }
-
   List<Widget> _getDescriptionText() {
     List<Widget> list = List.empty(growable: true);
 
-    if (contact.contactTelephoneNumbers.isNotEmpty) {
-      if (contact.contactTelephoneNumbers.length > 1) {
+    if (widget.contact.contactTelephoneNumbers.isNotEmpty) {
+      if (widget.contact.contactTelephoneNumbers.length > 1) {
         Text phoneNumber = Text(
-            "${contact.contactTelephoneNumbers.first.country.countryPhonePrefix} ${contact.contactTelephoneNumbers.first.phoneNumber} and ${contact.contactTelephoneNumbers.length - 1} others");
+            "${widget.contact.contactTelephoneNumbers.first.country.countryPhonePrefix} ${widget.contact.contactTelephoneNumbers.first.phoneNumber} and ${widget.contact.contactTelephoneNumbers.length - 1} others");
         list.add(phoneNumber);
       } else {
         Text phoneNumber =
-            Text(contact.contactTelephoneNumbers.first.phoneNumber);
+            Text(widget.contact.contactTelephoneNumbers.first.phoneNumber);
         list.add(phoneNumber);
       }
     }
-    if (contact.contactEmail != null) {
-      Text contactEmail = Text(contact.contactEmail!);
+    if (widget.contact.contactEmail != null) {
+      Text contactEmail = Text(widget.contact.contactEmail!);
       list.add(contactEmail);
     }
-    if (list.length < 2 && contact.contactAddress != null) {
-      Text contactAddress = Text(contact.contactAddress!);
+    if (list.length < 2 && widget.contact.contactAddress != null) {
+      Text contactAddress = Text(widget.contact.contactAddress!);
       list.add(contactAddress);
     }
-    if (list.length < 2 && contact.contactFacebook != null) {
-      Text contactFacebook = Text(contact.contactFacebook!);
+    if (list.length < 2 && widget.contact.contactFacebook != null) {
+      Text contactFacebook = Text(widget.contact.contactFacebook!);
       list.add(contactFacebook);
     }
-    if (list.length < 2 && contact.contactInstagram != null) {
-      Text contactInstagram = Text(contact.contactInstagram!);
+    if (list.length < 2 && widget.contact.contactInstagram != null) {
+      Text contactInstagram = Text(widget.contact.contactInstagram!);
       list.add(contactInstagram);
     }
 

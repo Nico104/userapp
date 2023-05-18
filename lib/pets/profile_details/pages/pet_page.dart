@@ -10,10 +10,12 @@ import 'package:visibility_detector/visibility_detector.dart';
 import '../../../styles/custom_icons_icons.dart';
 import '../../../theme/custom_text_styles.dart';
 import '../../../utils/util_methods.dart';
+import '../../../utils/widgets/more_button.dart';
 import '../../tag/tag_selection/tag_selection_page.dart';
 import '../../tag/tags.dart';
 import '../../u_pets.dart';
 import '../c_pet_name.dart';
+import '../d_confirm_delete.dart';
 import '../fabs/upload_image_fab.dart';
 import '../models/m_tag.dart';
 import '../pictures/upload_picture_dialog.dart';
@@ -23,16 +25,18 @@ import 'images_page.dart';
 class PetPage extends StatefulWidget {
   const PetPage({
     super.key,
-    required this.getProfileDetails,
+    // required this.getProfileDetails,
     required this.showBottomNavBar,
-    required this.reloadFuture,
+    // required this.reloadFuture,
     required this.setPetName,
+    required this.petProfileDetails,
   });
 
-  // final PetProfileDetails petProfileDetails;
-  final PetProfileDetails Function() getProfileDetails;
+  //? Maybe Variable and fetchFrromServer when needed Updated a la Contact
+  final PetProfileDetails petProfileDetails;
+  // final PetProfileDetails Function() getProfileDetails;
   final void Function(bool) showBottomNavBar;
-  final VoidCallback reloadFuture;
+  // final VoidCallback reloadFuture;
 
   final ValueSetter<String> setPetName;
 
@@ -41,6 +45,8 @@ class PetPage extends StatefulWidget {
 }
 
 class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
+  late PetProfileDetails _petProfileDetails;
+
   final double tagDimension = 160;
 
   bool _headerVisible = true;
@@ -55,6 +61,8 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+
+    _petProfileDetails = widget.petProfileDetails;
 
     tabController = TabController(
       initialIndex: 0,
@@ -115,34 +123,59 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
     }
   }
 
-  void refresh() {
+  // void refresh() {
+  //   if (mounted) {
+  //     setState(() {});
+  //   }
+  // }
+  void reloadPetProfileDetails() async {
+    _petProfileDetails = await getPet(_petProfileDetails.profileId);
     if (mounted) {
       setState(() {});
     }
   }
 
   Future<void> reloadTags() async {
-    List<Tag> newTags =
-        await getUserProfileTags(widget.getProfileDetails().profileId);
+    List<Tag> newTags = await getUserProfileTags(_petProfileDetails.profileId);
     setState(() {
-      widget.getProfileDetails().tag = newTags;
+      _petProfileDetails.tag = newTags;
     });
+  }
+
+  Widget _getMoreButton() {
+    return MoreButton(
+      moreOptions: [
+        ListTile(
+          leading: Icon(CustomIcons.delete),
+          title: Text("Delete Pet Profile"),
+          onTap: () {
+            Navigator.pop(context);
+            showDialog(
+              context: context,
+              builder: (_) => const ConfirmDeleteDialog(
+                label: "Pet Profile",
+              ),
+            ).then((value) {
+              if (value != null) {
+                if (value == true) {
+                  //TODO test delete from settings menu because of the refresh Profiles on pop()
+                  deletePetProfile(_petProfileDetails).then((value) {
+                    Navigator.pop(context);
+                  });
+                }
+              }
+            });
+          },
+        ),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Persistent AppBar that never scrolls
-      // appBar: !_scrollTop
-      //     ? AppBar(
-      //         title: _scrollTop
-      //             ? null
-      //             : Text("${widget.getProfileDetails().petName}'s Profile"),
-      //         scrolledUnderElevation: getScrolledUnderElevation(),
-      //       )
-      //     : const BackButton(),
       appBar: AppBar(
-        title: Text("${widget.getProfileDetails().petName}'s Profile"),
+        title: Text("${_petProfileDetails.petName}'s Profile"),
         scrolledUnderElevation: getScrolledUnderElevation(),
       ),
       // extendBodyBehindAppBar: _scrollTop ? true : false,
@@ -153,35 +186,13 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
         child: NestedScrollView(
           key: globalKey,
           controller: _scrollController,
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           // allows you to build a list of elements that would be scrolled away till the body reached the top
           headerSliverBuilder: (context, _) {
             return [
               SliverList(
                 delegate: SliverChildListDelegate(
                   [
-                    //Picture Tag
-                    // Stack(
-                    //   alignment: Alignment.bottomCenter,
-                    //   children: [
-                    //     Container(
-                    //       width: 100.w,
-                    //       height: 100.w,
-                    //       margin: EdgeInsets.only(bottom: tagDimension * 0.69),
-                    //       decoration: const BoxDecoration(
-                    //         // borderRadius: BorderRadius.circular(14),
-                    //         // boxShadow: kElevationToShadow[4],
-                    //         image: DecorationImage(
-                    //           image: NetworkImage("https://picsum.photos/512"),
-                    //           fit: BoxFit.cover,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     Tags(
-                    //         collardimension: tagDimension,
-                    //         tag: widget.getProfileDetails().tag),
-                    //   ],
-                    // ),
                     const SizedBox(height: 36),
                     Center(
                       child: Material(
@@ -210,14 +221,14 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
                           navigatePerSlide(
                             context,
                             TagSelectionPage(
-                              petProfile: widget.getProfileDetails(),
+                              petProfile: _petProfileDetails,
                             ),
                             callback: () => reloadTags(),
                           );
                         },
                         child: Tags(
                             collardimension: tagDimension,
-                            tag: widget.getProfileDetails().tag),
+                            tag: _petProfileDetails.tag),
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -227,21 +238,20 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
                       // mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Spacer(),
+                        const Spacer(flex: 2),
                         Column(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              widget.getProfileDetails().petName,
+                              _petProfileDetails.petName,
                               style: getCustomTextStyles(context)
                                   .profileDetailsPetName,
                             ),
-                            widget.getProfileDetails().petGender != Gender.none
+                            _petProfileDetails.petGender != Gender.none
                                 ? Text(
-                                    getPetTitle(
-                                        widget.getProfileDetails().petGender),
+                                    getPetTitle(_petProfileDetails.petGender),
                                     style:
                                         Theme.of(context).textTheme.labelSmall,
                                   )
@@ -255,7 +265,7 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
                               onTap: () => askForPetName(
                                   context,
                                   widget.setPetName,
-                                  widget.getProfileDetails().petName),
+                                  _petProfileDetails.petName),
                               child: const Padding(
                                 padding: EdgeInsets.only(
                                     left: 14, bottom: 14, right: 14),
@@ -266,7 +276,16 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
                               ),
                             ),
                           ),
-                        )
+                        ),
+                        Flexible(
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 05.w),
+                              child: _getMoreButton(),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     VisibilityDetector(
@@ -320,29 +339,29 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
                   controller: tabController,
                   children: [
                     ProfileInfoTab(
-                      petProfileDetails: widget.getProfileDetails(),
+                      petProfileDetails: _petProfileDetails,
                       setGender: (value) {
                         setState(() {
-                          widget.getProfileDetails().petGender = value;
+                          _petProfileDetails.petGender = value;
                         });
-                        updatePetProfileCore(widget.getProfileDetails());
+                        updatePetProfileCore(_petProfileDetails);
                       },
                     ),
                     ProfileDetailsImageTab(
-                      getProfileDetails: widget.getProfileDetails,
+                      // getProfileDetails: widget.getProfileDetails,
+                      profileDetails: _petProfileDetails,
                       removePetPicture: (index) async {
-                        await deletePicture(widget
-                            .getProfileDetails()
-                            .petPictures
-                            .elementAt(index));
+                        await deletePicture(
+                            _petProfileDetails.petPictures.elementAt(index));
                         //hekps against 403 from server
-                        widget.reloadFuture.call();
-                        Future.delayed(const Duration(milliseconds: 100))
-                            .then((value) => refresh());
+                        // widget.reloadFuture.call();
+                        // Future.delayed(const Duration(milliseconds: 100))
+                        //     .then((value) => refresh());
+                        reloadPetProfileDetails();
                       },
                     ),
                     DocumentsTab(
-                      documents: widget.getProfileDetails().petDocuments,
+                      documents: _petProfileDetails.petDocuments,
                     ),
                   ],
                 ),
@@ -370,13 +389,13 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
               },
             );
             await uploadPicture(
-              widget.getProfileDetails().profileId,
+              _petProfileDetails.profileId,
               value,
               () async {
-                widget.reloadFuture.call();
+                // widget.reloadFuture.call();
                 //hekps against 403 from server
                 await Future.delayed(const Duration(milliseconds: 2000))
-                    .then((value) => refresh());
+                    .then((value) => reloadPetProfileDetails());
                 //Close Loading Dialog Thingy
                 Navigator.pop(dialogContext!);
               },
@@ -397,16 +416,16 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
               },
             );
             await uploadDocuments(
-              widget.getProfileDetails().profileId,
+              _petProfileDetails.profileId,
               value,
               filename,
               documentType,
               contentType,
               () async {
-                widget.reloadFuture.call();
+                // widget.reloadFuture.call();
                 //hekps against 403 from server
                 await Future.delayed(const Duration(milliseconds: 2000))
-                    .then((value) => refresh());
+                    .then((value) => reloadPetProfileDetails());
                 //Close Loading Dialog Thingy
                 Navigator.pop(dialogContext!);
               },
@@ -416,41 +435,5 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
       default:
         return null;
     }
-  }
-}
-
-class BackButton extends StatelessWidget implements PreferredSizeWidget {
-  const BackButton({super.key});
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-
-  final double borderRadius = 12;
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.all(8),
-        child: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Material(
-            borderRadius: BorderRadius.circular(borderRadius),
-            elevation: 8,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(borderRadius),
-                color: Theme.of(context).primaryColor,
-              ),
-              padding: const EdgeInsets.all(8),
-              child: const Icon(Icons.arrow_back),
-            ),
-          ),
-        ),
-      ),
-    ); // Your custom widget implementation.
   }
 }

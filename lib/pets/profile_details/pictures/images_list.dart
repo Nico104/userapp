@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../../network_globals.dart';
 import '../../../styles/custom_icons_icons.dart';
+import '../../../utils/widgets/more_button.dart';
 import '../d_confirm_delete.dart';
 import '../models/m_pet_picture.dart';
 import 'c_pictures.dart';
@@ -116,6 +117,36 @@ class _PictureListState extends State<PictureList> {
     );
   }
 
+  Widget _getMoreButton(int pictureIndex) {
+    return MoreButton(
+      moreOptions: [
+        ListTile(
+          leading: const Icon(CustomIcons.delete),
+          title: const Text("Delete Picture"),
+          onTap: () {
+            Navigator.pop(context);
+            showDialog(
+              context: context,
+              builder: (_) => const ConfirmDeleteDialog(
+                label: "Picture",
+              ),
+            ).then((value) {
+              if (value != null) {
+                if (value == true) {
+                  widget.removePetPicture(pictureIndex);
+                  //Doesnt update since its a new page / Navigator.push (navugatePerSlide) in c_pictures
+                  setState(() {
+                    widget.petPictures.removeAt(pictureIndex);
+                  });
+                }
+              }
+            });
+          },
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -148,18 +179,19 @@ class _PictureListState extends State<PictureList> {
                         CustomIcons.share_thin,
                         size: 24,
                       ),
-                      GestureDetector(
-                        onTapDown: (TapDownDetails details) {
-                          _showPopupMenu(
-                            offset: details.globalPosition,
-                            pictureIndex: index,
-                          );
-                        },
-                        child: const Icon(
-                          Icons.more_horiz,
-                          size: 24,
-                        ),
-                      ),
+                      _getMoreButton(index),
+                      // GestureDetector(
+                      //   onTapDown: (TapDownDetails details) {
+                      //     _showPopupMenu(
+                      //       offset: details.globalPosition,
+                      //       pictureIndex: index,
+                      //     );
+                      //   },
+                      //   child: const Icon(
+                      //     Icons.more_horiz,
+                      //     size: 24,
+                      //   ),
+                      // ),
                       // PopupMenuButton(
                       //   // onSelected: (value) {
                       //   //   _onMenuItemSelected(value as int);

@@ -55,6 +55,7 @@ dependencies:
   salomon_bottom_bar: ^3.3.2
   share_plus: ^7.0.0
   flutter_colorpicker: ^1.0.3
+  photo_view: ^0.14.0
 
 dev_dependencies:
   flutter_test:

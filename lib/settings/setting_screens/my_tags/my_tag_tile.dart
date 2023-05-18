@@ -155,14 +155,14 @@ class _MyTagTileState extends State<MyTagTile> {
                                                         PetProfileDetailView(
                                                           petProfileDetails: widget
                                                               .petProfileDetails!,
-                                                          reloadFuture: () {
-                                                            setState(() {});
-                                                          },
-                                                          getProfileDetails:
-                                                              () {
-                                                            return widget
-                                                                .petProfileDetails!;
-                                                          },
+                                                          // reloadFuture: () {
+                                                          //   setState(() {});
+                                                          // },
+                                                          // getProfileDetails:
+                                                          //     () {
+                                                          //   return widget
+                                                          //       .petProfileDetails!;
+                                                          // },
                                                         ),
                                                       );
                                                     }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:userapp/network_globals.dart';
 import 'package:userapp/pet_color/hex_color.dart';
@@ -6,6 +7,7 @@ import 'package:userapp/pets/profile_details/models/m_contact.dart';
 import 'package:userapp/pets/profile_details/models/m_contact_descripton.dart';
 import 'package:userapp/pets/profile_details/models/m_phone_number.dart';
 import '../../../auth/u_auth.dart';
+import 'package:http_parser/http_parser.dart';
 
 Future<List<Contact>> fetchPetContracts(int petProfileId) async {
   Uri url = Uri.parse('$baseURL/contact/getPetContacts/$petProfileId');
@@ -26,6 +28,26 @@ Future<List<Contact>> fetchPetContracts(int petProfileId) async {
     return (jsonDecode(response.body) as List)
         .map((t) => Contact.fromJson(t))
         .toList();
+  } else {
+    throw Exception('Failed to load Pet Contracts');
+  }
+}
+
+Future<Contact> getPetContact(int contactId) async {
+  Uri url = Uri.parse('$baseURL/contact/getContact/$contactId');
+  String? token = await getToken();
+
+  final response = await http.get(
+    url,
+    headers: {
+      // 'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+  );
+
+  if (response.statusCode == 200) {
+    return Contact.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to load Pet Contracts');
   }
@@ -82,6 +104,32 @@ Future<Contact> updateContact(Contact contact) async {
     return Contact.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to update Contact.');
+  }
+}
+
+Future<void> deleteContact(Contact contact) async {
+  Uri url = Uri.parse('$baseURL/contact/deleteContact');
+  String? token = await getToken();
+
+  final response = await http.delete(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: jsonEncode(contact.toJson()),
+  );
+
+  print(response.statusCode);
+
+  if (response.statusCode == 200) {
+    // If the server did return a 201 CREATED response,
+    // then parse the JSON.
+  } else {
+    // If the server did not return a 201 CREATED response,
+    // then throw an exception.
+    throw Exception('Failed to delete Contact.');
   }
 }
 
@@ -348,4 +396,64 @@ bool isContactDescriptionSelected(
   }
 
   return false;
+}
+
+//Contact Picture
+Future<void> uploadContactPicture(
+  int contactId,
+  Uint8List picture,
+  Function() callback,
+) async {
+  var url = Uri.parse('$baseURL/contact/uploadContactPicture/$contactId');
+  // print("URL: " + url.toString());
+  String? token = await getToken();
+
+  var request = http.MultipartRequest('POST', url);
+
+  request.headers['Authorization'] = 'Bearer $token';
+
+  request.files.add(http.MultipartFile.fromBytes('picture', picture,
+      filename: "thumbnailname", contentType: MediaType('image', 'png')));
+
+  await request.send().then((result) async {
+    http.Response.fromStream(result).then((response) {
+      if (response.statusCode == 201) {
+        print("Uploaded! ");
+      }
+    });
+  }).catchError((err) {
+    print('error : ' + err.toString());
+  }).whenComplete(() {
+    print("upload fertig1");
+  });
+  callback.call();
+}
+
+Future<void> deleteContactPicture(
+  int contactId,
+  String contactPictureLink,
+) async {
+  Uri url = Uri.parse('$baseURL/contact/deleteContactPicture');
+  String? token = await getToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: json.encode({
+      "contact_id": contactId,
+      "contact_picture_link": contactPictureLink,
+    }),
+  );
+
+  print(response.statusCode);
+
+  if (response.statusCode == 201) {
+    return;
+  } else {
+    throw Exception('Failed to delete Contact Picture.');
+  }
 }

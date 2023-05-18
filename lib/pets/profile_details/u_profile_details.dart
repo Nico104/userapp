@@ -12,21 +12,10 @@ import 'package:userapp/pets/profile_details/models/m_phone_number.dart';
 
 import '../../auth/u_auth.dart';
 import 'c_pet_name.dart';
+import 'contact/u_contact.dart';
 import 'models/m_pet_profile.dart';
 import 'models/m_tag.dart';
 import 'package:http_parser/http_parser.dart';
-
-///Handle Pet Profile Save by either create or update
-// Future<void> handlePetProfileDetailsSave(PetProfileDetails petProfileDetails,
-//     PetProfileDetails petProfileDetailsOld) async {
-//   //petProfileDetails.profileId and petProfileDetailsOld.profileId should be equal since the Id doesnt get changed, but is null for new Objects
-//   if (petProfileDetails.profileId == null) {
-//     //Profile id is not gonna be null since the profile is created before
-//     // await createNewPetProfile(petProfileDetails, petProfileDetailsOld);
-//   } else {
-//     await updatePetProfile(petProfileDetails, petProfileDetailsOld);
-//   }
-// }
 
 //Pictures
 
@@ -165,77 +154,6 @@ jsonToFormData(http.MultipartRequest request, Map<String, dynamic> data) {
   return request;
 }
 
-// Future<void> updatePetProfile(PetProfileDetails petProfileDetails,
-//     PetProfileDetails petProfileDetailsOld) async {
-//   //Update ProfileCore
-//   updatePetProfileCore(petProfileDetails);
-
-//   //Update Description
-//   for (Description description in upsertableDescriptions(
-//       petProfileDetails.petDescription, petProfileDetailsOld.petDescription)) {
-//     upsertDescription(description, petProfileDetails.profileId);
-//   }
-//   for (Description description in deletableDescriptions(
-//       petProfileDetails.petDescription, petProfileDetailsOld.petDescription)) {
-//     deleteDescription(description, petProfileDetails.profileId);
-//   }
-
-//   //Update ImportantInformation
-//   for (ImportantInformation importantInformation
-//       in upsertableImportantInformations(
-//           petProfileDetails.petImportantInformation,
-//           petProfileDetailsOld.petImportantInformation)) {
-//     upsertImportantInformation(
-//         importantInformation, petProfileDetails.profileId);
-//   }
-//   for (ImportantInformation importantInformation
-//       in deletableImportantInformations(
-//           petProfileDetails.petImportantInformation,
-//           petProfileDetailsOld.petImportantInformation)) {
-//     deleteImportantInformation(
-//         importantInformation, petProfileDetails.profileId);
-//   }
-// }
-
-// Future<void> createNewPetProfile(PetProfileDetails petProfileDetails,
-//     PetProfileDetails petProfileDetailsOld) async {
-//   //Create Core
-//   PetProfileDetails createdPetProfile =
-//       await createPetProfileDetailsCore(petProfileDetails);
-
-//   //Connect Tags
-//   for (Tag tag in petProfileDetails.tag) {
-//     await connectTagFromPetProfile(
-//         createdPetProfile.profileId!, tag.collarTagId);
-//   }
-
-//   //Update Description
-//   for (Description description in upsertableDescriptions(
-//       petProfileDetails.petDescription, petProfileDetailsOld.petDescription)) {
-//     await upsertDescription(description, createdPetProfile.profileId!);
-//   }
-//   for (Description description in deletableDescriptions(
-//       petProfileDetails.petDescription, petProfileDetailsOld.petDescription)) {
-//     await deleteDescription(description, createdPetProfile.profileId!);
-//   }
-
-//   //Update ImportantInformation
-//   for (ImportantInformation importantInformation
-//       in upsertableImportantInformations(
-//           petProfileDetails.petImportantInformation,
-//           petProfileDetailsOld.petImportantInformation)) {
-//     await upsertImportantInformation(
-//         importantInformation, createdPetProfile.profileId!);
-//   }
-//   for (ImportantInformation importantInformation
-//       in deletableImportantInformations(
-//           petProfileDetails.petImportantInformation,
-//           petProfileDetailsOld.petImportantInformation)) {
-//     await deleteImportantInformation(
-//         importantInformation, createdPetProfile.profileId!);
-//   }
-// }
-
 Future<void> handleTagChange(
   List<Tag> newTags,
   List<Tag> oldTags,
@@ -248,35 +166,6 @@ Future<void> handleTagChange(
     await connectTagFromPetProfile(profileId, tag.collarTagId);
   }
 }
-
-///Creates all fixed Value for the Profile, without Descriptions and Uploads and returns created PetModel
-// Future<PetProfileDetails> createPetProfileDetailsCore(
-//     PetProfileDetails petProfileDetails) async {
-//   Uri url = Uri.parse('$baseURL/pet/createPet');
-//   String? token = await getToken();
-
-//   final response = await http.post(
-//     url,
-//     headers: {
-//       'Content-Type': 'application/json; charset=UTF-8',
-//       'Accept': 'application/json',
-//       'Authorization': 'Bearer $token',
-//     },
-//     body: jsonEncode(petProfileDetails.toJson()),
-//   );
-
-//   print(response.body);
-
-//   if (response.statusCode == 201) {
-//     // If the server did return a 201 CREATED response,
-//     // then parse the JSON.
-//     return PetProfileDetails.fromJson(jsonDecode(response.body));
-//   } else {
-//     // If the server did not return a 201 CREATED response,
-//     // then throw an exception.
-//     throw Exception('Failed to create PetPofile.');
-//   }
-// }
 
 Future<PetProfileDetails> createNewPetProfile(String petName) async {
   print("yo");
@@ -306,6 +195,43 @@ Future<PetProfileDetails> createNewPetProfile(String petName) async {
     // If the server did not return a 201 CREATED response,
     // then throw an exception.
     throw Exception('Failed to create new PetPofile.');
+  }
+}
+
+Future<void> deletePetProfile(PetProfileDetails petProfileDetails) async {
+  //Delete all Picture, Documents and Contacts (Probelms doing that from the Server)
+  for (var element in petProfileDetails.petPictures) {
+    await deletePicture(element);
+  }
+  for (var element in petProfileDetails.petDocuments) {
+    await deleteDocument(element);
+  }
+  for (var element in petProfileDetails.petContacts) {
+    await deleteContact(element);
+  }
+
+  Uri url = Uri.parse('$baseURL/pet/deletePet');
+  String? token = await getToken();
+
+  final response = await http.delete(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: jsonEncode(petProfileDetails.toJson()),
+  );
+
+  print(response.statusCode);
+
+  if (response.statusCode == 200) {
+    // If the server did return a 201 CREATED response,
+    // then parse the JSON.
+  } else {
+    // If the server did not return a 201 CREATED response,
+    // then throw an exception.
+    throw Exception('Failed to delete PetProfile.');
   }
 }
 

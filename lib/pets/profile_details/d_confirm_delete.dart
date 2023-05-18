@@ -5,6 +5,7 @@ import 'package:userapp/styles/custom_icons_icons.dart';
 import '../../../theme/custom_colors.dart';
 import '../../../theme/custom_text_styles.dart';
 
+//Returns true if confirmation to delete
 class ConfirmDeleteDialog extends StatefulWidget {
   const ConfirmDeleteDialog({
     super.key,
@@ -56,7 +57,7 @@ class _ConfirmDeleteDialogState extends State<ConfirmDeleteDialog> {
               ),
               const SizedBox(height: 12),
               Text(
-                "Your will delete this ${widget.label}",
+                "You will delete this ${widget.label}",
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               Text(

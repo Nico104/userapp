@@ -14,12 +14,14 @@ import '../u_profile_details.dart';
 class ProfileDetailsImageTab extends StatefulWidget {
   const ProfileDetailsImageTab({
     super.key,
-    required this.getProfileDetails,
+    // required this.getProfileDetails,
     required this.removePetPicture,
+    required this.profileDetails,
     // required this.scrollController,
   });
 
-  final PetProfileDetails Function() getProfileDetails;
+  // final PetProfileDetails Function() getProfileDetails;
+  final PetProfileDetails profileDetails;
   final void Function(int) removePetPicture;
 
   // final ScrollController scrollController;
@@ -38,7 +40,7 @@ class _ProfileDetailsImageTabState extends State<ProfileDetailsImageTab> {
         children: [
           const SizedBox(height: 36),
           PetPicturesComponent(
-            petPictures: widget.getProfileDetails().petPictures,
+            petPictures: widget.profileDetails.petPictures,
             removePetPicture: (value) {
               widget.removePetPicture(value);
             },

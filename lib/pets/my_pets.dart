@@ -189,9 +189,9 @@ class _MyPetsState extends State<MyPets> {
                                     minScaling: 0.1,
                                     minOpacity: 0,
                                     child: NewPetProfile(
-                                      reloadFuture: () =>
-                                          widget.reloadFuture.call(),
-                                    ),
+                                        // reloadFuture: () =>
+                                        //     widget.reloadFuture.call(),
+                                        ),
                                   );
                                 } else {
                                   return PetProfilePreviewPageTransform(
