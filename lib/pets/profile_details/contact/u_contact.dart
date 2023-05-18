@@ -1,10 +1,35 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:userapp/network_globals.dart';
+import 'package:userapp/pet_color/hex_color.dart';
 import 'package:userapp/pets/profile_details/models/m_contact.dart';
 import 'package:userapp/pets/profile_details/models/m_contact_descripton.dart';
 import 'package:userapp/pets/profile_details/models/m_phone_number.dart';
 import '../../../auth/u_auth.dart';
+
+Future<List<Contact>> fetchPetContracts(int petProfileId) async {
+  Uri url = Uri.parse('$baseURL/contact/getPetContacts/$petProfileId');
+  String? token = await getToken();
+
+  final response = await http.get(
+    url,
+    headers: {
+      // 'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+  );
+
+  print(response.statusCode);
+
+  if (response.statusCode == 200) {
+    return (jsonDecode(response.body) as List)
+        .map((t) => Contact.fromJson(t))
+        .toList();
+  } else {
+    throw Exception('Failed to load Pet Contracts');
+  }
+}
 
 Future<Contact> createNewPetContact(
     {required int petProfileId, required String contactName}) async {
@@ -229,6 +254,35 @@ Future<void> disconnectContactDescription(
     // return ContactDescription.fromJson(json.decode(response.body));
   } else {
     throw Exception('Failed to disconnect ContactDescription.');
+  }
+}
+
+Future<ContactDescription> createContactDescription(int contactId) async {
+  Uri url = Uri.parse('$baseURL/contact/createContactDescription');
+  String? token = await getToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: jsonEncode({
+      'contact_id': contactId,
+      'contact_description_hex': getDefaultColor().toHexTriplet(),
+      'contact_description_label': getDefaultLabel(),
+    }),
+  );
+
+  print(response.statusCode);
+
+  if (response.statusCode == 201) {
+    return ContactDescription.fromJson(json.decode(response.body));
+  } else {
+    // If the server did not return a 201 CREATED response,
+    // then throw an exception.
+    throw Exception('Failed to update ContactDescription.');
   }
 }
 

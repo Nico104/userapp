@@ -58,3 +58,11 @@ List<Color> getAvailableContactDescriptionColors() {
   ];
   return _defaultColors;
 }
+
+Color getDefaultColor() {
+  return Colors.purple;
+}
+
+String getDefaultLabel() {
+  return "Other";
+}

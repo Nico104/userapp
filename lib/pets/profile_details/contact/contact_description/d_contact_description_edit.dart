@@ -2,6 +2,7 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:userapp/pet_color/hex_color.dart';
+import 'package:userapp/styles/custom_icons_icons.dart';
 
 import '../../../../theme/custom_colors.dart';
 import '../../../../theme/custom_text_styles.dart';
@@ -13,9 +14,13 @@ class ContactDescriptionEditDialog extends StatefulWidget {
   const ContactDescriptionEditDialog({
     super.key,
     required this.contactDescription,
+    required this.onDelete,
+    required this.onSave,
   });
 
   final ContactDescription contactDescription;
+  final VoidCallback onSave;
+  final VoidCallback onDelete;
 
   @override
   State<ContactDescriptionEditDialog> createState() =>
@@ -55,9 +60,21 @@ class _ContactDescriptionEditDialogState
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Edit",
-                style: Theme.of(context).textTheme.titleMedium,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Edit",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      widget.onDelete();
+                      Navigator.pop(context);
+                    },
+                    child: const Icon(CustomIcons.delete),
+                  ),
+                ],
               ),
               const SizedBox(height: 28),
               CustomTextFormField(
@@ -132,6 +149,7 @@ class _ContactDescriptionEditDialogState
                         widget.contactDescription.contactDescriptionHex =
                             pickerColor.toHexTriplet();
                         updateContactDescription(widget.contactDescription);
+                        widget.onSave();
                         Navigator.pop(context);
                       },
                       style: OutlinedButton.styleFrom(

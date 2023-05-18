@@ -48,6 +48,14 @@ class _ContactPageState extends State<ContactPage> {
     );
   }
 
+  Future<void> refreshContracts() async {
+    List<Contact> contracts =
+        await fetchPetContracts(widget.petProfileDetails.profileId);
+    setState(() {
+      widget.petProfileDetails.petContacts = contracts;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +98,7 @@ class _ContactPageState extends State<ContactPage> {
                               ),
                             ),
                           ).then((value) {
-                            setState(() {});
+                            refreshContracts();
                           });
                         }
                       }
@@ -126,8 +134,8 @@ class _ContactPageState extends State<ContactPage> {
               child: ContactListItem(
                 contact:
                     widget.petProfileDetails.petContacts.elementAt(index - 1),
-                refresh: () {
-                  setState(() {});
+                refreshContacts: () {
+                  refreshContracts();
                 },
               ),
             );

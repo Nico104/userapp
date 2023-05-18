@@ -13,12 +13,14 @@ class ContactDescriptionListItem extends StatelessWidget {
     required this.isSelected,
     required this.onSelected,
     required this.onSaveEdit,
+    required this.onDelete,
   });
 
   final ContactDescription contactDescription;
   final bool isSelected;
   final VoidCallback onSelected;
   final VoidCallback onSaveEdit;
+  final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +35,11 @@ class ContactDescriptionListItem extends StatelessWidget {
           showDialog(
             context: context,
             builder: (_) => ContactDescriptionEditDialog(
-                contactDescription: contactDescription),
-          ).then((value) => onSaveEdit());
+              contactDescription: contactDescription,
+              onDelete: () => onDelete(),
+              onSave: () => onSaveEdit(),
+            ),
+          );
         },
         child: const Icon(CustomIcons.edit),
       ),

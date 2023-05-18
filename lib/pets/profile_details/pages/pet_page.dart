@@ -9,9 +9,13 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../styles/custom_icons_icons.dart';
 import '../../../theme/custom_text_styles.dart';
+import '../../../utils/util_methods.dart';
+import '../../tag/tag_selection/tag_selection_page.dart';
 import '../../tag/tags.dart';
+import '../../u_pets.dart';
 import '../c_pet_name.dart';
 import '../fabs/upload_image_fab.dart';
+import '../models/m_tag.dart';
 import '../pictures/upload_picture_dialog.dart';
 import 'documents_page.dart';
 import 'images_page.dart';
@@ -117,6 +121,14 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
     }
   }
 
+  Future<void> reloadTags() async {
+    List<Tag> newTags =
+        await getUserProfileTags(widget.getProfileDetails().profileId);
+    setState(() {
+      widget.getProfileDetails().tag = newTags;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -193,9 +205,20 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
                     ),
                     const SizedBox(height: 20),
                     Center(
-                      child: Tags(
-                          collardimension: tagDimension,
-                          tag: widget.getProfileDetails().tag),
+                      child: GestureDetector(
+                        onTap: () {
+                          navigatePerSlide(
+                            context,
+                            TagSelectionPage(
+                              petProfile: widget.getProfileDetails(),
+                            ),
+                            callback: () => reloadTags(),
+                          );
+                        },
+                        child: Tags(
+                            collardimension: tagDimension,
+                            tag: widget.getProfileDetails().tag),
+                      ),
                     ),
                     const SizedBox(height: 20),
                     //Name

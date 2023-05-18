@@ -8,11 +8,11 @@ import 'contact_details_page.dart';
 
 class ContactListItem extends StatelessWidget {
   const ContactListItem(
-      {super.key, required this.contact, required this.refresh});
+      {super.key, required this.contact, required this.refreshContacts});
 
   final Contact contact;
   final double _borderRadius = 32;
-  final VoidCallback refresh;
+  final VoidCallback refreshContacts;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class ContactListItem extends StatelessWidget {
             ContactDetailsPage(
               contact: contact,
             ),
-            callback: () => refresh(),
+            callback: () => refreshContacts(),
           );
         },
         child: Container(
@@ -80,7 +80,6 @@ class ContactListItem extends StatelessWidget {
 
   Widget _getContactDescriptionWidget(ContactDescription? contactDescription) {
     if (contactDescription != null) {
-      print(contactDescription.contactDescriptionHex);
       return Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
