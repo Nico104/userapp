@@ -11,9 +11,9 @@ import '../theme/custom_text_styles.dart';
 import '../utils/util_methods.dart';
 
 class MyPetsNavbar extends StatelessWidget {
-  const MyPetsNavbar({super.key});
+  const MyPetsNavbar({super.key, required this.reloadFuture});
 
-  final String username = "Musta";
+  final VoidCallback reloadFuture;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,11 @@ class MyPetsNavbar extends StatelessWidget {
         const SizedBox(width: 16),
         GestureDetector(
           onTap: () {
-            navigatePerSlide(context, const Settings());
+            navigatePerSlide(
+              context,
+              const Settings(),
+              callback: () => reloadFuture(),
+            );
             // Navigator.push(
             //   context,
             //   MaterialPageRoute(

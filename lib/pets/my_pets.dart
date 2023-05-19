@@ -159,7 +159,9 @@ class _MyPetsState extends State<MyPets> {
               child: Column(
                 children: [
                   const SizedBox(height: 28),
-                  const MyPetsNavbar(),
+                  MyPetsNavbar(
+                    reloadFuture: widget.reloadFuture,
+                  ),
                   const SizedBox(height: 36),
                   Expanded(
                     child: SizedBox(

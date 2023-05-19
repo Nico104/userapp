@@ -5,11 +5,16 @@ import '../../../pets/profile_details/models/m_tag.dart';
 import '../../../pets/tag/tag_single.dart';
 import '../../../pets/u_pets.dart';
 import '../../../theme/custom_colors.dart';
-import 'my_tag_tile.dart';
+import 'my_tags_list_item.dart';
 
-class MyTagsSettings extends StatelessWidget {
+class MyTagsSettings extends StatefulWidget {
   const MyTagsSettings({super.key});
 
+  @override
+  State<MyTagsSettings> createState() => _MyTagsSettingsState();
+}
+
+class _MyTagsSettingsState extends State<MyTagsSettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +34,7 @@ class MyTagsSettings extends StatelessWidget {
                 snapshot.data?.last as List<PetProfileDetails>;
             return ListView.builder(
               //+1 to give initialPadding
-              itemCount: tags.length + 1 + 10,
+              itemCount: tags.length + 1,
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
                 if (index == 0) {
@@ -40,14 +45,15 @@ class MyTagsSettings extends StatelessWidget {
                     ],
                   );
                 } else {
-                  // int position = index - 1;
-                  int position = 0;
                   PetProfileDetails? petProfileDetails = getPetAssignedToTag(
-                      petProfiles, tags.elementAt(position));
+                      petProfiles, tags.elementAt(index - 1));
 
-                  return MyTagTile(
-                    tag: tags.elementAt(position),
+                  return MyTagListItem(
+                    tag: tags.elementAt(index - 1),
                     petProfileDetails: petProfileDetails,
+                    reloadTags: () {
+                      setState(() {});
+                    },
                   );
                 }
               },

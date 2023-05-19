@@ -10,9 +10,11 @@ class ConfirmDeleteDialog extends StatefulWidget {
   const ConfirmDeleteDialog({
     super.key,
     required this.label,
+    this.remove = false,
   });
 
   final String label;
+  final bool remove;
 
   @override
   State<ConfirmDeleteDialog> createState() => _ConfirmDeleteDialogState();
@@ -52,12 +54,14 @@ class _ConfirmDeleteDialogState extends State<ConfirmDeleteDialog> {
               ),
               const SizedBox(height: 20),
               Text(
-                "Delete?",
+                widget.remove ? "Remove?" : "Delete?",
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 12),
               Text(
-                "You will delete this ${widget.label}",
+                widget.remove
+                    ? "You will remove this ${widget.label}"
+                    : "You will delete this ${widget.label}",
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               Text(

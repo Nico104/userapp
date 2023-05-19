@@ -13,7 +13,7 @@ import '../styles/text_styles.dart';
 import '../theme/theme_provider.dart';
 import '../utils/util_methods.dart';
 import 'setting_screens/account_settings/account_settings.dart';
-import 'setting_screens/my_tags/my_tags_screen.dart';
+import 'setting_screens/my_tags/my_tags_page.dart';
 import 'widgets/settings_widgets.dart';
 
 class Settings extends StatefulWidget {
