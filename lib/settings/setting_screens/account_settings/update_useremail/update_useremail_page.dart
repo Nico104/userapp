@@ -2,13 +2,16 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/auth/auth_widgets.dart';
-import 'package:userapp/styles/text_styles.dart';
+import '../../../../pets/profile_details/widgets/custom_textformfield.dart';
 
-import '../../../pet_color/hex_color.dart';
-import '../../../pets/profile_details/widgets/custom_textformfield.dart';
+///1. You present the editable section where the user can update the email address.
+///2.  Once the user changes the email, a confirmation email is sent to the new email address which contains a link to verify the email address. Note that you don't update the email address in database till now.
+///3. Once the user verifies the email using the link sent to the new email address (Or a code whichever floats your boat), you update the email address in your backend. Also, note that the link has an expiry time. Beyond the expiry time, the link becomes useless.
+///4. As a security measure, you send an email to the old email address which contains a message about the action which is performed recently. Along with the message, you share a help/support link for the user to contact you in case of the action was not performed by him.
+///5. If the user contacts you about the unauthorized action in his account, you verify the critical information related to the user and then takes necessary action.
 
-class EditPasswordPage extends StatefulWidget {
-  const EditPasswordPage({
+class UpdateUseremailPage extends StatefulWidget {
+  const UpdateUseremailPage({
     super.key,
     required this.currentPassword,
   });
@@ -16,15 +19,37 @@ class EditPasswordPage extends StatefulWidget {
   final String currentPassword;
 
   @override
-  State<EditPasswordPage> createState() => _EditPasswordPageState();
+  State<UpdateUseremailPage> createState() => _UpdateUseremailPageState();
 }
 
-class _EditPasswordPageState extends State<EditPasswordPage> {
+class _UpdateUseremailPageState extends State<UpdateUseremailPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String currentPassword = "";
-  String password = "";
-  String passwordRepeat = "";
+  String _currentPassword = "";
+  String _password = "";
+  String _passwordRepeat = "";
+
+  // bool _isDissmissable = false;
+
+  void _updatePassword() {
+    // showModalBottomSheet(
+    //     // enableDrag: _isDissmissable,
+    //     // isDismissible: _isDissmissable,
+    //     context: context,
+    //     backgroundColor: Colors.transparent,
+    //     builder: (context) {
+    //       return UpdatePasswordStatus(
+    //         newPassword: _passwordRepeat,
+    //         // makeDissmissable: () {
+    //         //   setState(() {
+    //         //     _isDissmissable = true;
+    //         //   });
+    //         // },
+    //       );
+    //     }).then((value) {
+    //   Navigator.pop(context);
+    // });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,15 +81,15 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                     'currentPassword',
                     const Duration(milliseconds: 250),
                     () async {
-                      if (currentPassword != value) {
+                      if (_currentPassword != value) {
                         setState(() {
-                          currentPassword = value;
+                          _currentPassword = value;
                         });
                       }
                     },
                   );
                 },
-                labelText: "New Password",
+                labelText: "Current Password",
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'I cannot be empty mate';
@@ -85,9 +110,9 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                     'currentPassword',
                     const Duration(milliseconds: 250),
                     () async {
-                      if (password != value) {
+                      if (_password != value) {
                         setState(() {
-                          password = value;
+                          _password = value;
                         });
                       }
                     },
@@ -99,6 +124,8 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                     return 'I cannot be empty mate';
                   } else if (value.length < 8) {
                     return 'I must be at least 8 characters mate';
+                  } else if (value == widget.currentPassword) {
+                    return 'Password is too similar to your current Password my pawsome friend';
                   } else {
                     return null;
                   }
@@ -112,9 +139,9 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                     'currentPassword',
                     const Duration(milliseconds: 250),
                     () async {
-                      if (passwordRepeat != value) {
+                      if (_passwordRepeat != value) {
                         setState(() {
-                          passwordRepeat = value;
+                          _passwordRepeat = value;
                         });
                       }
                     },
@@ -124,7 +151,7 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'I cannot be empty mate';
-                  } else if (value != password) {
+                  } else if (value != _password) {
                     return 'I must be the equal to the other password mate';
                   } else {
                     return null;
@@ -138,7 +165,8 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                   label: "Change Password",
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
+                      _updatePassword();
                     }
                   },
                 ),

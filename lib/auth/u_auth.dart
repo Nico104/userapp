@@ -205,7 +205,7 @@ Future<bool> isUseremailAvailable(String email) async {
 ///LoginMethod
 ///Sotres credentials only when login successfull
 Future<bool> login(
-    String useremail, String password, bool storeCredentials) async {
+    String useremail, String password, bool shouldStoreCredentials) async {
   var url = Uri.parse('$baseURL/login');
   var response =
       await http.post(url, body: {'username': useremail, 'password': password});
@@ -222,9 +222,13 @@ Future<bool> login(
     //https://ipgeolocation.io/ip-location/78.104.182.53
 
     //Save Credentials
-    if (storeCredentials) {
-      await prefs.setString('useremail', useremail);
-      await prefs.setString('userpassword', password);
+    if (shouldStoreCredentials) {
+      // await prefs.setString('useremail', useremail);
+      // await prefs.setString('userpassword', password);
+      await storeCredentials(
+        useremail: useremail,
+        password: password,
+      );
     }
 
     setLoggedInOnce(true);
@@ -233,6 +237,19 @@ Future<bool> login(
   }
 
   return false;
+}
+
+Future<void> storeCredentials({
+  String? useremail,
+  String? password,
+}) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  if (useremail != null && useremail.isNotEmpty) {
+    await prefs.setString('useremail', useremail);
+  }
+  if (password != null && password.isNotEmpty) {
+    await prefs.setString('userpassword', password);
+  }
 }
 
 Future<bool> loginWithSavedCredentials() async {
@@ -272,4 +289,37 @@ Future<bool> signUpUser(
   } else {
     return false;
   }
+}
+
+///Returns 0 chanign Password was successfull, otherwise throws Exception
+Future<int> updateUserPassword(String newPassword) async {
+  var url = Uri.parse('$baseURL/user/updateUserPassword');
+  String? token = await getToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: jsonEncode({
+      "userpassword": newPassword,
+    }),
+  );
+
+  await responsiveFeelGoodWait(1250);
+
+  if (response.statusCode == 201) {
+    await storeCredentials(
+      password: newPassword,
+    );
+    return 0;
+  } else {
+    throw Exception("Error updating Password");
+  }
+}
+
+Future<void> responsiveFeelGoodWait(int milliseconds) async {
+  await Future.delayed(Duration(milliseconds: milliseconds));
 }

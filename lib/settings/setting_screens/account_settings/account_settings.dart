@@ -6,7 +6,7 @@ import '../../../pet_color/hex_color.dart';
 import '../../../styles/text_styles.dart';
 import '../../../utils/util_methods.dart';
 import '../../widgets/settings_widgets.dart';
-import 'edit_password.dart';
+import 'update_password/update_password_page.dart';
 
 class AccountSettings extends StatefulWidget {
   const AccountSettings({super.key});
@@ -67,9 +67,13 @@ class _AccountSettingsState extends State<AccountSettings> {
                         onTap: () {
                           navigatePerSlide(
                             context,
-                            EditPasswordPage(
+                            UpdatePasswordPage(
                               currentPassword: snapshot.data!.elementAt(1),
                             ),
+                            callback: () {
+                              //reload Current Password
+                              setState(() {});
+                            },
                           );
                         },
                       ),
