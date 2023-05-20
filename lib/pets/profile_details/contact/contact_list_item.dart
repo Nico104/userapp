@@ -3,7 +3,9 @@ import 'package:userapp/network_globals.dart';
 import 'package:userapp/pets/profile_details/models/m_contact_descripton.dart';
 import 'package:userapp/utils/util_methods.dart';
 import '../../../pet_color/hex_color.dart';
+import '../../u_pets.dart';
 import '../models/m_contact.dart';
+import '../models/m_pet_profile.dart';
 import 'contact_details_page.dart';
 
 class ContactListItem extends StatefulWidget {
@@ -11,10 +13,15 @@ class ContactListItem extends StatefulWidget {
     super.key,
     required this.contact,
     required this.refreshContacts,
+    this.showConnectedToPets = false,
+    this.petProfileDetails,
   });
 
   final Contact contact;
   final VoidCallback refreshContacts;
+
+  final bool showConnectedToPets;
+  final PetProfileDetails? petProfileDetails;
 
   @override
   State<ContactListItem> createState() => _ContactListItemState();
@@ -42,13 +49,18 @@ class _ContactListItemState extends State<ContactListItem> {
             context,
             ContactDetailsPage(
               contact: widget.contact,
+              petProfileDetails: widget.petProfileDetails,
               // getContact: () {
               //   print(widget.contact.contactPictureLink);
               //   return widget.contact;
               // },
               // reloadFuture: () => widget.refreshContacts(),
             ),
-            callback: () => widget.refreshContacts(),
+            callback: () {
+              widget.refreshContacts();
+              //To reload PetProfiles
+              setState(() {});
+            },
           );
         },
         child: Container(
@@ -92,11 +104,51 @@ class _ContactListItemState extends State<ContactListItem> {
                   ),
                 ],
               ),
+
+              //Connected To Pets
+              widget.showConnectedToPets
+                  ? FutureBuilder<List<PetProfileDetails>>(
+                      future: getPetsFromContact(widget.contact.contactId),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<PetProfileDetails>> snapshot) {
+                        if (snapshot.hasData) {
+                          if (snapshot.data!.isNotEmpty) {
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: 24),
+                                Wrap(
+                                  direction: Axis.horizontal,
+                                  children:
+                                      _getConnectedToPetsList(snapshot.data!),
+                                ),
+                              ],
+                            );
+                          }
+                        }
+                        return const SizedBox();
+                      },
+                    )
+                  : const SizedBox(),
             ],
           ),
         ),
       ),
     );
+  }
+
+  List<Widget> _getConnectedToPetsList(List<PetProfileDetails> pets) {
+    List<Widget> list = [
+      const Text("Connected to "),
+    ];
+    for (int i = 0; i < pets.length; i++) {
+      list.add(Text(pets.elementAt(i).petName));
+      if (i < pets.length - 1) {
+        list.add(const Text(', '));
+      }
+    }
+    return list;
   }
 
   Widget _getContactDescriptionWidget(ContactDescription? contactDescription) {

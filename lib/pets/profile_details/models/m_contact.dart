@@ -3,7 +3,7 @@ import 'm_phone_number.dart';
 
 class Contact {
   final int contactId;
-  final int petProfileId;
+  // final int petProfileId;
   final DateTime contactCreationDateTime;
   String contactName;
   String? contactPictureLink;
@@ -16,7 +16,7 @@ class Contact {
 
   Contact(
     this.contactId,
-    this.petProfileId,
+    // this.petProfileId,
     this.contactCreationDateTime,
     this.contactName,
     this.contactPictureLink,
@@ -30,7 +30,7 @@ class Contact {
 
   Contact.fromJson(Map<String, dynamic> json)
       : contactId = json['contact_id'],
-        petProfileId = json['petProfile_id'],
+        // petProfileId = json['petProfile_id'],
         contactCreationDateTime =
             DateTime.parse(json['contact_creation_DateTime']),
         contactName = json['contact_name'],
@@ -50,7 +50,7 @@ class Contact {
 
   Map<String, dynamic> toJson() => {
         'contact_id': contactId,
-        'petProfile_id': petProfileId,
+        // 'petProfile_id': petProfileId,
         'contact_name': contactName,
         'contact_description': contactDescription,
         'contact_email': contactEmail,

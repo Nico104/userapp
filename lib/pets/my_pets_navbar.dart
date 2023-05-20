@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/pets/profile_details/contact/contacts_all_list_page.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
 import '../auth/u_auth.dart';
 import '../settings/setting_screen.dart';
@@ -57,15 +58,24 @@ class MyPetsNavbar extends StatelessWidget {
           onTap: () {
             navigatePerSlide(
               context,
+              const AllContactsPage(),
+              //? callback needed?
+              callback: () => reloadFuture(),
+            );
+          },
+          child: const Icon(
+            Icons.people_outline_rounded,
+            size: 28,
+          ),
+        ),
+        const SizedBox(width: 16),
+        GestureDetector(
+          onTap: () {
+            navigatePerSlide(
+              context,
               const Settings(),
               callback: () => reloadFuture(),
             );
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => const Settings(),
-            //   ),
-            // );
           },
           child: const Icon(
             CustomIcons.setting,

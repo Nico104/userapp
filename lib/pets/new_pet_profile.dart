@@ -11,7 +11,7 @@ import 'tag/tag_selection/d_tag_selection.dart';
 class NewPetProfile extends StatelessWidget {
   NewPetProfile({
     super.key,
-    // required this.reloadFuture,
+    required this.reloadFuture,
   });
 
   final double marginhorizontal = 06.w;
@@ -19,7 +19,7 @@ class NewPetProfile extends StatelessWidget {
   final double topOffset = 28;
   final double collardimension = 130;
   final double collaroffset = 10;
-  // final VoidCallback reloadFuture;
+  final VoidCallback reloadFuture;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,9 @@ class NewPetProfile extends StatelessWidget {
                     // },
                   ),
                 ),
-              );
+              ).then((value) {
+                reloadFuture();
+              });
             }
           }
         });

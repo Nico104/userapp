@@ -1,9 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/pets/profile_details/phone_numbers/c_phone_number.dart';
+import 'package:userapp/pets/profile_details/profile_detail_view.dart';
+import 'package:userapp/utils/util_methods.dart';
 import '../../../styles/custom_icons_icons.dart';
 import '../../../theme/custom_text_styles.dart';
 import '../../../utils/widgets/more_button.dart';
+import '../../u_pets.dart';
 import '../c_component_padding.dart';
 import '../c_one_line_simple_input.dart';
 import '../c_pet_name.dart';
@@ -19,56 +23,139 @@ class ContactDetailsPage extends StatefulWidget {
   const ContactDetailsPage({
     super.key,
     required this.contact,
+    this.petProfileDetails,
   });
 
   final Contact contact;
+  final PetProfileDetails? petProfileDetails;
 
   @override
   State<ContactDetailsPage> createState() => _ContactDetailsPageState();
 }
 
 class _ContactDetailsPageState extends State<ContactDetailsPage> {
-  late Contact contact;
+  late Contact _contact;
+  List<PetProfileDetails> _connectedPetProfiles = List.empty();
 
   @override
   void initState() {
     super.initState();
-    contact = widget.contact;
+    _contact = widget.contact;
+    loadConnectedPets();
   }
 
   void reloadContact() async {
-    contact = await getPetContact(widget.contact.contactId);
+    _contact = await getContact(widget.contact.contactId);
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  void loadConnectedPets() async {
+    _connectedPetProfiles = await getPetsFromContact(widget.contact.contactId);
     if (mounted) {
       setState(() {});
     }
   }
 
   Widget _getMoreButton() {
-    return MoreButton(
-      moreOptions: [
-        ListTile(
-          leading: Icon(CustomIcons.delete),
-          title: Text("Delete Contact"),
-          onTap: () {
-            Navigator.pop(context);
-            showDialog(
-              context: context,
-              builder: (_) => const ConfirmDeleteDialog(
-                label: "Contact",
-              ),
-            ).then((value) {
-              if (value != null) {
-                if (value == true) {
-                  deleteContact(contact).then((value) {
-                    Navigator.pop(context);
-                  });
+    if (widget.petProfileDetails != null) {
+      return MoreButton(
+        moreOptions: [
+          ListTile(
+            leading: const Icon(Icons.remove_circle_outline),
+            title: Text(
+                "Disconnect Contact from ${widget.petProfileDetails!.petName}"),
+            onTap: () {
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (_) => const ConfirmDeleteDialog(
+                  label: "Contact",
+                  remove: true,
+                ),
+              ).then((value) {
+                if (value != null) {
+                  if (value == true) {
+                    // deleteContact(contact).then((value) {
+                    //   Navigator.pop(context);
+                    // });
+                    disconnectContactFromPet(
+                            contactId: _contact.contactId,
+                            petProfileId: widget.petProfileDetails!.profileId)
+                        .then((value) {
+                      Navigator.pop(context);
+                    });
+                  }
                 }
-              }
-            });
-          },
-        ),
-      ],
-    );
+              });
+            },
+          ),
+          ListTile(
+            leading: const Icon(CustomIcons.delete),
+            title: const Text("Delete Contact"),
+            onTap: () {
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (_) => const ConfirmDeleteDialog(
+                  label: "Contact",
+                ),
+              ).then((value) {
+                if (value != null) {
+                  if (value == true) {
+                    deleteContact(_contact).then((value) {
+                      Navigator.pop(context);
+                    });
+                  }
+                }
+              });
+            },
+          ),
+        ],
+      );
+    } else {
+      return MoreButton(
+        moreOptions: [
+          for (PetProfileDetails petProfile in _connectedPetProfiles)
+            ListTile(
+              leading: const Icon(Icons.pets),
+              title: Text("Go to ${petProfile.petName}'s Profile"),
+              onTap: () {
+                Navigator.pop(context);
+                navigatePerSlide(
+                  context,
+                  PetProfileDetailView(petProfileDetails: petProfile),
+                  callback: () {
+                    Navigator.pop(context);
+                  },
+                );
+              },
+            ),
+          ListTile(
+            leading: const Icon(CustomIcons.delete),
+            title: const Text("Delete Contact"),
+            onTap: () {
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (_) => const ConfirmDeleteDialog(
+                  label: "Contact",
+                ),
+              ).then((value) {
+                if (value != null) {
+                  if (value == true) {
+                    deleteContact(_contact).then((value) {
+                      Navigator.pop(context);
+                    });
+                  }
+                }
+              });
+            },
+          ),
+        ],
+      );
+    }
   }
 
   @override
@@ -76,7 +163,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
     return Scaffold(
       appBar: AppBar(
         // title: Text('appBarTitleProfileDetails'.tr()),
-        title: Text("${contact.contactName}'s Contact Details"),
+        title: Text("${_contact.contactName}'s Contact Details"),
         scrolledUnderElevation: 8,
       ),
       body: ScrollConfiguration(
@@ -100,7 +187,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                         flex: 2,
                       ),
                       ContactPicture(
-                        contactPictureLink: contact.contactPictureLink,
+                        contactPictureLink: _contact.contactPictureLink,
                         addContactPicture: (value) async {
                           //Loading Dialog Thingy
                           BuildContext? dialogContext;
@@ -113,7 +200,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                             },
                           );
                           await uploadContactPicture(
-                            contact.contactId,
+                            _contact.contactId,
                             value,
                             () async {
                               // widget.reloadFuture.call();
@@ -129,10 +216,10 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                           );
                         },
                         onDelete: () {
-                          if (contact.contactPictureLink != null) {
+                          if (_contact.contactPictureLink != null) {
                             deleteContactPicture(
-                              contact.contactId,
-                              contact.contactPictureLink!,
+                              _contact.contactId,
+                              _contact.contactPictureLink!,
                             ).then((value) {
                               // widget.reloadFuture.call();
                               // refresh();
@@ -153,7 +240,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                         children: [
                           const Spacer(),
                           Text(
-                            contact.contactName,
+                            _contact.contactName,
                             style: getCustomTextStyles(context)
                                 .profileDetailsPetName,
                           ),
@@ -165,14 +252,14 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                                   showDialog(
                                     context: context,
                                     builder: (_) => EnterNameDialog(
-                                      initialValue: contact.contactName,
+                                      initialValue: _contact.contactName,
                                       label: "Contact Name",
                                       confirmLabel: "Save ahead",
                                     ),
                                   ).then((value) {
                                     if (value != null) {
-                                      contact.contactName = value;
-                                      updateContact(contact);
+                                      _contact.contactName = value;
+                                      updateContact(_contact);
                                       setState(() {});
                                     }
                                   });
@@ -198,7 +285,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                         children: [
                           const Spacer(),
                           ContactDescriptionComponent(
-                            contact: contact,
+                            contact: _contact,
                           ),
                           Flexible(
                             child: Align(
@@ -225,46 +312,46 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                   PaddingComponent(
                     child: OnelineSimpleInput(
                       flex: 8,
-                      value: contact.contactAddress ?? "",
+                      value: _contact.contactAddress ?? "",
                       emptyValuePlaceholder: "Mainstreet 20A, Vienna, Austria",
                       title: "profileDetailsComponentTitleHomeAddress".tr(),
                       saveValue: (val) async {
-                        contact.contactAddress = val;
-                        updateContact(contact);
+                        _contact.contactAddress = val;
+                        updateContact(_contact);
                       },
                     ),
                   ),
                   PaddingComponent(
                     child: OnelineSimpleInput(
                       flex: 8,
-                      value: contact.contactEmail ?? "",
+                      value: _contact.contactEmail ?? "",
                       emptyValuePlaceholder: "Email",
                       // title: "profileDetailsComponentTitleOwnerEmail".tr(),
                       title: "Email",
                       saveValue: (val) async {
-                        contact.contactEmail = val;
-                        updateContact(contact);
+                        _contact.contactEmail = val;
+                        updateContact(_contact);
                       },
                     ),
                   ),
                   PaddingComponent(
                     child: PetPhoneNumbersComponent(
-                      phoneNumbers: contact.contactTelephoneNumbers,
-                      contactId: contact.contactId,
+                      phoneNumbers: _contact.contactTelephoneNumbers,
+                      contactId: _contact.contactId,
                     ),
                   ),
                   PaddingComponent(
                     child: SocialMediaComponent(
                       title: "profileDetailsComponentTitleSocialMedia".tr(),
-                      facebook: contact.contactFacebook ?? "",
+                      facebook: _contact.contactFacebook ?? "",
                       saveFacebook: (val) async {
-                        contact.contactFacebook = val;
-                        updateContact(contact);
+                        _contact.contactFacebook = val;
+                        updateContact(_contact);
                       },
-                      instagram: contact.contactInstagram ?? "",
+                      instagram: _contact.contactInstagram ?? "",
                       saveInstagram: (val) async {
-                        contact.contactInstagram = val;
-                        updateContact(contact);
+                        _contact.contactInstagram = val;
+                        updateContact(_contact);
                       },
                     ),
                   ),

@@ -190,10 +190,10 @@ class _MyPetsState extends State<MyPets> {
                                     maxRotation: 35,
                                     minScaling: 0.1,
                                     minOpacity: 0,
+                                    //TODO set pageindex 1 after coming back to home
                                     child: NewPetProfile(
-                                        // reloadFuture: () =>
-                                        //     widget.reloadFuture.call(),
-                                        ),
+                                      reloadFuture: widget.reloadFuture,
+                                    ),
                                   );
                                 } else {
                                   return PetProfilePreviewPageTransform(

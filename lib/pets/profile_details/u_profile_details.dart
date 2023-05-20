@@ -206,9 +206,6 @@ Future<void> deletePetProfile(PetProfileDetails petProfileDetails) async {
   for (var element in petProfileDetails.petDocuments) {
     await deleteDocument(element);
   }
-  for (var element in petProfileDetails.petContacts) {
-    await deleteContact(element);
-  }
 
   Uri url = Uri.parse('$baseURL/pet/deletePet');
   String? token = await getToken();

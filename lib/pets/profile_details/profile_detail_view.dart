@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
-import 'package:userapp/pets/profile_details/contact/contacts_list_page.dart';
+import 'package:userapp/pets/profile_details/contact/contacts_pet_list_page.dart';
 import 'package:userapp/pets/profile_details/pages/pet_page.dart';
 import 'package:userapp/pets/profile_details/pictures/upload_picture_dialog.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';

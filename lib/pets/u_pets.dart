@@ -34,6 +34,25 @@ Future<List<PetProfileDetails>> fetchUserPets() async {
   }
 }
 
+Future<List<PetProfileDetails>> getPetsFromContact(int contactId) async {
+  Uri url = Uri.parse('$baseURL/pet/getPetsFromContact/$contactId');
+  String? token = await getToken();
+
+  final response = await http.get(url, headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': 'Bearer $token',
+  });
+
+  if (response.statusCode == 200) {
+    return (jsonDecode(response.body) as List)
+        .map((t) => PetProfileDetails.fromJson(t))
+        .toList();
+  } else {
+    throw Exception('Failed to load PetProfileDetails From Contact');
+  }
+}
+
 Future<List<Language>> fetchAvailableLanguages() async {
   final response = await http.get(Uri.parse('$baseURL/pet/getLanguages'));
 

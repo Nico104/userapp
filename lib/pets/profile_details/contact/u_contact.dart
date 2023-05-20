@@ -9,6 +9,28 @@ import 'package:userapp/pets/profile_details/models/m_phone_number.dart';
 import '../../../auth/u_auth.dart';
 import 'package:http_parser/http_parser.dart';
 
+Future<List<Contact>> fetchUserContracts() async {
+  Uri url = Uri.parse('$baseURL/contact/getUserContacts');
+  String? token = await getToken();
+
+  final response = await http.get(
+    url,
+    headers: {
+      // 'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+  );
+
+  if (response.statusCode == 200) {
+    return (jsonDecode(response.body) as List)
+        .map((t) => Contact.fromJson(t))
+        .toList();
+  } else {
+    throw Exception('Failed to load User Contracts');
+  }
+}
+
 Future<List<Contact>> fetchPetContracts(int petProfileId) async {
   Uri url = Uri.parse('$baseURL/contact/getPetContacts/$petProfileId');
   String? token = await getToken();
@@ -33,7 +55,7 @@ Future<List<Contact>> fetchPetContracts(int petProfileId) async {
   }
 }
 
-Future<Contact> getPetContact(int contactId) async {
+Future<Contact> getContact(int contactId) async {
   Uri url = Uri.parse('$baseURL/contact/getContact/$contactId');
   String? token = await getToken();
 
@@ -49,12 +71,11 @@ Future<Contact> getPetContact(int contactId) async {
   if (response.statusCode == 200) {
     return Contact.fromJson(jsonDecode(response.body));
   } else {
-    throw Exception('Failed to load Pet Contracts');
+    throw Exception('Failed to load Contract');
   }
 }
 
-Future<Contact> createNewPetContact(
-    {required int petProfileId, required String contactName}) async {
+Future<Contact> createNewContact({required String contactName}) async {
   Uri url = Uri.parse('$baseURL/contact/createContact');
   String? token = await getToken();
 
@@ -66,21 +87,68 @@ Future<Contact> createNewPetContact(
       'Authorization': 'Bearer $token',
     },
     body: jsonEncode({
-      'pet_profile_id': petProfileId,
       'contact_name': contactName,
     }),
   );
 
-  print(response.statusCode);
-
   if (response.statusCode == 201) {
-    // If the server did return a 201 CREATED response,
-    // then parse the JSON.
     return Contact.fromJson(jsonDecode(response.body));
   } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
     throw Exception('Failed to create new Contact.');
+  }
+}
+
+Future<Contact> connectContactToPet({
+  required int contactId,
+  required int petProfileId,
+}) async {
+  Uri url = Uri.parse('$baseURL/contact/connectContactToPet');
+  String? token = await getToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: jsonEncode({
+      'pet_profile_id': petProfileId,
+      'contact_id': contactId,
+    }),
+  );
+
+  if (response.statusCode == 201) {
+    return Contact.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to connect Contact.');
+  }
+}
+
+Future<Contact> disconnectContactFromPet({
+  required int contactId,
+  required int petProfileId,
+}) async {
+  Uri url = Uri.parse('$baseURL/contact/disconnectContactFromPet');
+  String? token = await getToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: jsonEncode({
+      'pet_profile_id': petProfileId,
+      'contact_id': contactId,
+    }),
+  );
+
+  if (response.statusCode == 201) {
+    return Contact.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to disconnect Contact.');
   }
 }
 

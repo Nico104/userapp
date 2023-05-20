@@ -7,6 +7,7 @@ import '../models/m_contact.dart';
 import '../models/m_pet_profile.dart';
 import 'contact_details_page.dart';
 import 'contact_list_item.dart';
+import 'contacts_selection_ist_page.dart';
 
 class ContactPage extends StatefulWidget {
   const ContactPage({
@@ -57,6 +58,79 @@ class _ContactPageState extends State<ContactPage> {
     });
   }
 
+  void addNewContact() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return Container(
+          margin: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            borderRadius: BorderRadius.circular(28),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.list),
+                title: const Text("Add exisitng Contact"),
+                onTap: () {
+                  Navigator.pop(context);
+                  navigatePerSlide(
+                    context,
+                    SelectionContactsPage(
+                      alreadyConnectedContacts:
+                          widget.petProfileDetails.petContacts,
+                      petProfileDetails: widget.petProfileDetails,
+                    ),
+                    callback: () => refreshContacts(),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.add),
+                title: const Text("Create New Contact"),
+                onTap: () {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (_) => const EnterNameDialog(
+                      label: "Contact Name",
+                      confirmLabel: "Create",
+                    ),
+                  ).then((value) async {
+                    if (value != null && value.isNotEmpty) {
+                      Contact contact = await createNewContact(
+                        contactName: value,
+                      );
+                      await connectContactToPet(
+                        contactId: contact.contactId,
+                        petProfileId: widget.petProfileDetails.profileId,
+                      );
+                      // refreshContacts();
+                      if (context.mounted) {
+                        navigatePerSlide(
+                          context,
+                          ContactDetailsPage(
+                            contact: contact,
+                            petProfileDetails: widget.petProfileDetails,
+                          ),
+                          callback: () => refreshContacts(),
+                        );
+                      }
+                    }
+                  });
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,35 +147,13 @@ class _ContactPageState extends State<ContactPage> {
           itemCount: widget.petProfileDetails.petContacts.length + 2,
           itemBuilder: (context, index) {
             if (index == widget.petProfileDetails.petContacts.length + 1) {
+              //New Contact
               return Padding(
                 padding: const EdgeInsets.fromLTRB(14, 24, 24, 180),
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (_) => const EnterNameDialog(
-                        label: "Contact Name",
-                        confirmLabel: "Create",
-                      ),
-                    ).then((value) async {
-                      if (value != null && value.isNotEmpty) {
-                        Contact contact = await createNewPetContact(
-                          petProfileId: widget.petProfileDetails.profileId,
-                          contactName: value,
-                        );
-                        // refreshContacts();
-                        if (context.mounted) {
-                          navigatePerSlide(
-                            context,
-                            ContactDetailsPage(
-                              contact: contact,
-                            ),
-                            callback: () => refreshContacts(),
-                          );
-                        }
-                      }
-                    });
+                    addNewContact();
                   },
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -133,6 +185,7 @@ class _ContactPageState extends State<ContactPage> {
               child: ContactListItem(
                 contact:
                     widget.petProfileDetails.petContacts.elementAt(index - 1),
+                petProfileDetails: widget.petProfileDetails,
                 refreshContacts: () {
                   refreshContacts();
                 },
