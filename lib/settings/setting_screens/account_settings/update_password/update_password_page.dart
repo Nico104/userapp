@@ -24,22 +24,13 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
   String _password = "";
   String _passwordRepeat = "";
 
-  // bool _isDissmissable = false;
-
   void _updatePassword() {
     showModalBottomSheet(
-        // enableDrag: _isDissmissable,
-        // isDismissible: _isDissmissable,
         context: context,
         backgroundColor: Colors.transparent,
         builder: (context) {
           return UpdatePasswordStatus(
             newPassword: _passwordRepeat,
-            // makeDissmissable: () {
-            //   setState(() {
-            //     _isDissmissable = true;
-            //   });
-            // },
           );
         }).then((value) {
       Navigator.pop(context);

@@ -141,7 +141,7 @@ Future<PetProfileDetails> getPet(int petProfileId) async {
     // 'Authorization': 'Bearer $token',
   });
 
-  // print(response.body);
+  print(response.body);
 
   if (response.statusCode == 200) {
     return PetProfileDetails.fromJson(jsonDecode(response.body));

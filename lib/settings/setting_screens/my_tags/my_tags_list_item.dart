@@ -4,9 +4,11 @@ import 'package:userapp/pets/tag/tag_single.dart';
 import 'package:userapp/settings/setting_screens/my_tags/try_delete.dart';
 import 'package:userapp/theme/custom_colors.dart';
 
+import '../../../pets/profile_details/c_pet_name.dart';
 import '../../../pets/profile_details/d_confirm_delete.dart';
 import '../../../pets/profile_details/models/m_pet_profile.dart';
 import '../../../pets/profile_details/profile_detail_view.dart';
+import '../../../pets/profile_details/u_profile_details.dart';
 import '../../../styles/custom_icons_icons.dart';
 import '../../../utils/util_methods.dart';
 import '../../../utils/widgets/more_button.dart';
@@ -35,6 +37,54 @@ class _MyTagListItemState extends State<MyTagListItem> {
   Widget _getMoreButton() {
     return MoreButton(
       moreOptions: [
+        widget.petProfileDetails != null
+            ? ListTile(
+                leading: const Icon(CustomIcons.edit),
+                title: Text(
+                    "Go to ${widget.petProfileDetails!.petName}'s Profile"),
+                onTap: () {
+                  Navigator.pop(context);
+                  navigatePerSlide(
+                    context,
+                    PetProfileDetailView(
+                        petProfileDetails: widget.petProfileDetails!),
+                    callback: () => widget.reloadTags(),
+                  );
+                },
+              )
+            : ListTile(
+                leading: const Icon(CustomIcons.edit),
+                title: const Text("Create a Profile for this Finma Tag"),
+                onTap: () {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (_) => const EnterNameDialog(
+                      label: "Pet Name",
+                      confirmLabel: "Create",
+                    ),
+                  ).then((value) async {
+                    if (value != null && value.isNotEmpty) {
+                      PetProfileDetails newPetProfileDetails =
+                          await createNewPetProfile(value);
+                      await connectTagFromPetProfile(
+                        newPetProfileDetails.profileId,
+                        widget.tag.collarTagId,
+                      );
+                      newPetProfileDetails.tag.add(widget.tag);
+                      if (context.mounted) {
+                        navigatePerSlide(
+                          context,
+                          PetProfileDetailView(
+                            petProfileDetails: newPetProfileDetails,
+                          ),
+                          callback: () => widget.reloadTags(),
+                        );
+                      }
+                    }
+                  });
+                },
+              ),
         ListTile(
           leading: const Icon(CustomIcons.delete),
           title: const Text("Remove Finma Tag"),
@@ -57,22 +107,6 @@ class _MyTagListItemState extends State<MyTagListItem> {
             });
           },
         ),
-        widget.petProfileDetails != null
-            ? ListTile(
-                leading: const Icon(CustomIcons.edit),
-                title: Text(
-                    "Go to ${widget.petProfileDetails!.petName}'s Profile"),
-                onTap: () {
-                  Navigator.pop(context);
-                  navigatePerSlide(
-                    context,
-                    PetProfileDetailView(
-                        petProfileDetails: widget.petProfileDetails!),
-                    callback: () => widget.reloadTags(),
-                  );
-                },
-              )
-            : SizedBox(),
       ],
     );
   }

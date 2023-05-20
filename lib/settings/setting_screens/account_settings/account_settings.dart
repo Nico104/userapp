@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/auth/u_auth.dart';
+import 'package:userapp/settings/setting_screens/account_settings/update_name/update_name_page.dart';
+import 'package:userapp/settings/setting_screens/account_settings/update_useremail/update_useremail_page.dart';
 
 import '../../../pet_color/hex_color.dart';
 import '../../../styles/text_styles.dart';
@@ -30,8 +32,11 @@ class _AccountSettingsState extends State<AccountSettings> {
         title: Text("appBarAccountSettings".tr()),
       ),
       body: FutureBuilder(
-        future: getSavedCredentails(),
-        builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+        future: Future.wait([
+          getSavedCredentails(),
+          getName(),
+        ]),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
             return ListView(
               children: [
@@ -46,10 +51,37 @@ class _AccountSettingsState extends State<AccountSettings> {
                       ),
                       const SizedBox(height: 28),
                       SettingsItem(
+                        label: "Name",
+                        leading: const Icon(Icons.person),
+                        suffix: const Icon(Icons.keyboard_arrow_right),
+                        suffixText: snapshot.data[1],
+                        onTap: () {
+                          navigatePerSlide(
+                            context,
+                            const UpdateNamePage(),
+                            callback: () {
+                              //reload Current Name
+                              setState(() {});
+                            },
+                          );
+                        },
+                      ),
+                      const SizedBox(height: settingItemSpacing),
+                      SettingsItem(
                         label: "Email",
                         leading: const Icon(Icons.email_outlined),
                         suffix: const Icon(Icons.keyboard_arrow_right),
-                        suffixText: snapshot.data?.elementAt(0),
+                        suffixText: snapshot.data[0].elementAt(0),
+                        onTap: () {
+                          navigatePerSlide(
+                            context,
+                            UpdateUseremailPage(),
+                            callback: () {
+                              //reload Current Password
+                              setState(() {});
+                            },
+                          );
+                        },
                       ),
                       const SizedBox(height: settingItemSpacing),
                       //?Adding Phone
@@ -68,7 +100,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                           navigatePerSlide(
                             context,
                             UpdatePasswordPage(
-                              currentPassword: snapshot.data!.elementAt(1),
+                              currentPassword: snapshot.data[0].elementAt(1),
                             ),
                             callback: () {
                               //reload Current Password

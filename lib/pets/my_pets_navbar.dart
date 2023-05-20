@@ -1,12 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
-
 import '../auth/u_auth.dart';
 import '../settings/setting_screen.dart';
-import '../styles/text_styles.dart';
 import '../theme/custom_text_styles.dart';
 import '../utils/util_methods.dart';
 
@@ -27,13 +23,12 @@ class MyPetsNavbar extends StatelessWidget {
           'welcomeMsg'.tr(),
           style: getCustomTextStyles(context).homeWelcomeMessage,
         ),
-        FutureBuilder<List<String>>(
-          future: getSavedCredentails(),
-          builder:
-              (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+        FutureBuilder<String>(
+          future: getName(),
+          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
             if (snapshot.hasData) {
               return Text(
-                " ${snapshot.data!.first}",
+                " ${snapshot.data}",
                 style: getCustomTextStyles(context).homeWelcomeUser,
               );
             } else if (snapshot.hasError) {

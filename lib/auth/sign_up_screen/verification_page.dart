@@ -35,7 +35,7 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
   @override
   void initState() {
     super.initState();
-    // createPendingAccount(widget.useremail);
+    createPendingAccount(widget.useremail);
   }
 
   void checkVerificationCode(String code) {

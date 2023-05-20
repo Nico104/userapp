@@ -16,10 +16,31 @@ Future<bool> isAuthenticated() async {
   return response.statusCode == 200;
 }
 
+Future<String> getName() async {
+  var url = Uri.parse('$baseURL/user/getName');
+  String? token = await getToken();
+
+  final response = await http.get(url, headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': 'Bearer $token',
+  });
+
+  if (response.statusCode == 200) {
+    return response.body;
+  } else {
+    throw Exception("Couldnt get Name form logged in User");
+  }
+}
+
 ///Return the current saved Access Token
 Future<String?> getToken() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   return prefs.getString('access_token');
+}
+
+Future<void> responsiveFeelGoodWait(int milliseconds) async {
+  await Future.delayed(Duration(milliseconds: milliseconds));
 }
 
 // ///Returns the Username associated with the, if available, currently saved AccessToken
@@ -320,6 +341,104 @@ Future<int> updateUserPassword(String newPassword) async {
   }
 }
 
-Future<void> responsiveFeelGoodWait(int milliseconds) async {
-  await Future.delayed(Duration(milliseconds: milliseconds));
+//Change email
+Future<void> sendVerificationEmail(String? email) async {
+  var url = Uri.parse('$baseURL/user/sendVerificationEmail');
+  String? token = await getToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: jsonEncode({
+      "email": email,
+    }),
+  );
+
+  if (response.statusCode == 201) {
+    return;
+  } else {
+    throw Exception("Error sneding Email");
+  }
+}
+
+Future<bool> checkVerificationCode(String? email, String code) async {
+  var url = Uri.parse('$baseURL/user/checkVerificationCode');
+  String? token = await getToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: jsonEncode({
+      "email": email,
+      "code": code,
+    }),
+  );
+
+  if (response.statusCode == 201) {
+    return response.body == 'true';
+  } else {
+    throw Exception("Error sneding Email");
+  }
+}
+
+Future<bool> checkVerificationCodeUpdateEmail(String email, String code) async {
+  var url = Uri.parse('$baseURL/user/checkVerificationCodeUpdateEmail');
+  String? token = await getToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: jsonEncode({
+      "email": email,
+      "code": code,
+    }),
+  );
+
+  if (response.statusCode == 201) {
+    await storeCredentials(
+      useremail: email,
+    );
+    return response.body == 'true';
+  } else {
+    throw Exception("Error sneding Email");
+  }
+}
+
+///Returns 0 if changing Name was successfull, otherwise throws Exception
+Future<int> updateName(String name) async {
+  var url = Uri.parse('$baseURL/user/updateName');
+  String? token = await getToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: jsonEncode({
+      "name": name,
+    }),
+  );
+
+  print(response.body);
+  await responsiveFeelGoodWait(1250);
+
+  if (response.statusCode == 201) {
+    return 0;
+  } else {
+    throw Exception("Error updating Name");
+  }
 }
