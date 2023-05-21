@@ -296,12 +296,17 @@ Future<List<String>> getSavedCredentails() async {
 }
 
 //LoginMethod
-Future<bool> signUpUser(
-    String useremail, String password, String verificationCode) async {
+Future<bool> signUpUser({
+  required String useremail,
+  required String password,
+  required String name,
+  required String verificationCode,
+}) async {
   var url = Uri.parse('$baseURL/user/signupUser');
   var response = await http.post(url, body: {
     'useremail': useremail,
     'userpassword': password,
+    'name': name,
     'verificationCode': verificationCode,
   });
 
@@ -440,5 +445,51 @@ Future<int> updateName(String name) async {
     return 0;
   } else {
     throw Exception("Error updating Name");
+  }
+}
+
+Future<void> connectDeviceTokenToUser(String deviceToken) async {
+  var url = Uri.parse('$baseURL/user/connectDeviceTokenToUser');
+  String? token = await getToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: jsonEncode({
+      "token": deviceToken,
+    }),
+  );
+
+  if (response.statusCode == 201) {
+    return;
+  } else {
+    throw Exception("Error connecting DeviceToken");
+  }
+}
+
+Future<void> deleteDeviceToken(String deviceToken) async {
+  var url = Uri.parse('$baseURL/user/deleteDeviceToken');
+  String? token = await getToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: jsonEncode({
+      "token": deviceToken,
+    }),
+  );
+
+  if (response.statusCode == 201) {
+    return;
+  } else {
+    throw Exception("Error deleting DeviceToken");
   }
 }

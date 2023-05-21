@@ -1,4 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_messaging/firebase_messaging.dart'
+    as firebaseMessaging;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:userapp/init_app.dart';
@@ -15,6 +17,9 @@ import '../utils/util_methods.dart';
 import 'setting_screens/account_settings/account_settings.dart';
 import 'setting_screens/my_tags/my_tags_page.dart';
 import 'widgets/settings_widgets.dart';
+
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -202,7 +207,19 @@ class _SettingsState extends State<Settings> {
                 color: Colors.red,
               ),
               suffix: const Icon(Icons.keyboard_arrow_right),
-              onTap: () {
+              onTap: () async {
+                if (!kIsWeb) {
+                  if (Platform.isAndroid || Platform.isIOS) {
+                    firebaseMessaging.FirebaseMessaging messaging =
+                        firebaseMessaging.FirebaseMessaging.instance;
+                    await messaging.getToken().then((fcmToken) async {
+                      if (fcmToken != null) {
+                        await deleteDeviceToken(fcmToken);
+                      }
+                    });
+                  }
+                }
+
                 logout().then(
                   (value) {
                     Navigator.pushAndRemoveUntil(
