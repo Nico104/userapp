@@ -13,7 +13,10 @@ import '../../../../auth/auth_widgets.dart';
 class UpdateNamePage extends StatefulWidget {
   const UpdateNamePage({
     super.key,
+    required this.currentName,
   });
+
+  final String currentName;
 
   @override
   State<UpdateNamePage> createState() => _UpdateNamePageState();
@@ -21,7 +24,7 @@ class UpdateNamePage extends StatefulWidget {
 
 class _UpdateNamePageState extends State<UpdateNamePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController textEditingController = TextEditingController();
+  late TextEditingController textEditingController;
 
   void _updateName() {
     showModalBottomSheet(
@@ -34,6 +37,12 @@ class _UpdateNamePageState extends State<UpdateNamePage> {
         }).then((value) {
       Navigator.pop(context);
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    textEditingController = TextEditingController(text: widget.currentName);
   }
 
   @override
@@ -50,10 +59,12 @@ class _UpdateNamePageState extends State<UpdateNamePage> {
             SizedBox(height: 05.h),
             CustomTextFormField(
               textEditingController: textEditingController,
-              labelText: "Naya Carr",
+              labelText: "Name",
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'I cannot be empty mate';
+                } else if (value == widget.currentName) {
+                  return 'You are already called ${widget.currentName}';
                 } else {
                   return null;
                 }

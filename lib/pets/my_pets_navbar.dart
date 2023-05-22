@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/contact/contacts_all_list_page.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
 import '../auth/u_auth.dart';
+import '../notifications/notifications_icon_widget.dart';
+import '../notifications/notifications_page.dart';
 import '../settings/setting_screen.dart';
 import '../theme/custom_text_styles.dart';
 import '../utils/util_methods.dart';
@@ -47,13 +49,14 @@ class MyPetsNavbar extends StatelessWidget {
             }
           },
         ),
-
         const Spacer(),
-        // const Icon(
-        //   CustomIcons.notification,
-        //   size: 28,
-        // ),
-        const SizedBox(width: 16),
+        const NotificationsIcon(
+          icon: Icon(
+            CustomIcons.notification,
+            size: 28,
+          ),
+        ),
+        const SizedBox(width: 15),
         GestureDetector(
           onTap: () {
             navigatePerSlide(

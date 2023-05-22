@@ -72,10 +72,10 @@ final ThemeData constLightTheme = ThemeData(
     ),
     // Used for Button Labels
     labelLarge: const TextStyle(
-      fontFamily: 'Lora',
+      fontFamily: 'Promt',
       fontWeight: FontWeight.w600,
       fontSize: 20,
-      color: Colors.white,
+      color: Colors.black,
     ),
   ),
   extensions: <ThemeExtension<dynamic>>[

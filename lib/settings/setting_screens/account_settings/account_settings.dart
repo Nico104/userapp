@@ -58,7 +58,9 @@ class _AccountSettingsState extends State<AccountSettings> {
                         onTap: () {
                           navigatePerSlide(
                             context,
-                            const UpdateNamePage(),
+                            UpdateNamePage(
+                              currentName: snapshot.data[1],
+                            ),
                             callback: () {
                               //reload Current Name
                               setState(() {});

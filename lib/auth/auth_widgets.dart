@@ -34,7 +34,12 @@ class CustomBigButton extends StatelessWidget {
         child: Center(
             child: Text(
           label,
-          style: Theme.of(context).textTheme.labelLarge,
+          style: const TextStyle(
+            fontFamily: 'Lora',
+            fontWeight: FontWeight.w600,
+            fontSize: 20,
+            color: Colors.white,
+          ),
         )),
       ),
     );
