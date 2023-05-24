@@ -127,31 +127,35 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: CustomBigButton(
                         label: "Sign In",
                         onTap: () {
-                          login(emailText, passwordText, _rememberMe).then(
-                            (value) {
-                              if (value) {
-                                setState(() {
-                                  _emailErrorMsg = null;
-                                  _passwordErrorMsg = null;
-                                });
-                                Navigator.of(context)
-                                    .popUntil((route) => route.isFirst);
-                                widget.reloadInitApp.call();
-                              } else {
-                                print("wrong credentials");
-                                setState(() {
-                                  _emailErrorMsg = "This doesnt seem right";
-                                  _passwordErrorMsg =
-                                      "Are you sure? Cause I am not";
-                                });
-                              }
-                            },
-                          );
+                          // login(emailText, passwordText, _rememberMe).then(
+                          //   (value) {
+                          //     if (value) {
+                          //       setState(() {
+                          //         _emailErrorMsg = null;
+                          //         _passwordErrorMsg = null;
+                          //       });
+                          //       Navigator.of(context)
+                          //           .popUntil((route) => route.isFirst);
+                          //       widget.reloadInitApp.call();
+                          //     } else {
+                          //       print("wrong credentials");
+                          //       setState(() {
+                          //         _emailErrorMsg = "This doesnt seem right";
+                          //         _passwordErrorMsg =
+                          //             "Are you sure? Cause I am not";
+                          //       });
+                          //     }
+                          //   },
+                          // );
+                          signInWithEmailPassword(
+                              email: emailText, password: passwordText);
                         },
                       ),
                     ),
                     SizedBox(height: 05.h),
-                    const ContinueWithSocialMedia(),
+                    ContinueWithSocialMedia(
+                      reloadInitApp: widget.reloadInitApp,
+                    ),
                     const Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

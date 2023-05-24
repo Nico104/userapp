@@ -12,24 +12,27 @@ import 'package:firebase_auth/firebase_auth.dart' as firebaseAuth;
 ///Return true if the User is Authenticated
 Future<bool> isAuthenticated() async {
   var url = Uri.parse('$baseURL/protected');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.get(url, headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Authorization': 'Bearer $token',
+    'Authorization': '$token',
   });
+
+  print("Is Authed: " + (response.statusCode == 200).toString());
+
   return response.statusCode == 200;
 }
 
 Future<String> getName() async {
   var url = Uri.parse('$baseURL/user/getName');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.get(url, headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Authorization': 'Bearer $token',
+    'Authorization': '$token',
   });
 
   if (response.statusCode == 200) {
@@ -40,10 +43,10 @@ Future<String> getName() async {
 }
 
 ///Return the current saved Access Token
-Future<String?> getToken() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.getString('access_token');
-}
+// Future<String?> getToken() async {
+//   SharedPreferences prefs = await SharedPreferences.getInstance();
+//   return prefs.getString('access_token');
+// }
 
 Future<void> responsiveFeelGoodWait(int milliseconds) async {
   await Future.delayed(Duration(milliseconds: milliseconds));
@@ -52,12 +55,12 @@ Future<void> responsiveFeelGoodWait(int milliseconds) async {
 // ///Returns the Username associated with the, if available, currently saved AccessToken
 // Future<String?> getMyUsername(http.Client client) async {
 //   var url = Uri.parse(baseURL + 'user/getMyUsername');
-//   String? token = await getToken();
+//   String? token = await getIdToken();
 
 //   final response = await client.get(url, headers: {
 //     'Content-Type': 'application/json',
 //     'Accept': 'application/json',
-//     'Authorization': 'Bearer $token',
+//     'Authorization': '$token',
 //   });
 
 //   print('Response status: ${response.statusCode}');
@@ -76,13 +79,13 @@ Future<void> responsiveFeelGoodWait(int milliseconds) async {
 // ///takes in the new Password as a String for [password]
 // Future<int> changePassword(String password, http.Client client) async {
 //   var url = Uri.parse(baseURL + 'user/updateUserPassword');
-//   String? token = await getToken();
+//   String? token = await getIdToken();
 
 //   final response = await client.patch(url,
 //       headers: {
 //         'Content-Type': 'application/json',
 //         'Accept': 'application/json',
-//         'Authorization': 'Bearer $token',
+//         'Authorization': '$token',
 //       },
 //       body: jsonEncode(<String, String>{"userpassword": password}));
 
@@ -182,7 +185,7 @@ Future<bool> createPendingAccount(String usermail) async {
 //     headers: {
 //       'Content-Type': 'application/json',
 //       'Accept': 'application/json',
-//       // 'Authorization': 'Bearer $token',
+//       // 'Authorization': '$token',
 //     },
 //   );
 
@@ -211,7 +214,7 @@ Future<bool> isUseremailAvailable(String email) async {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        // 'Authorization': 'Bearer $token',
+        // 'Authorization': '$token',
       },
     );
 
@@ -326,14 +329,14 @@ Future<bool> signUpUser({
 ///Returns 0 chanign Password was successfull, otherwise throws Exception
 Future<int> updateUserPassword(String newPassword) async {
   var url = Uri.parse('$baseURL/user/updateUserPassword');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({
       "userpassword": newPassword,
@@ -355,14 +358,14 @@ Future<int> updateUserPassword(String newPassword) async {
 //Change email
 Future<void> sendVerificationEmail(String? email) async {
   var url = Uri.parse('$baseURL/user/sendVerificationEmail');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({
       "email": email,
@@ -378,14 +381,14 @@ Future<void> sendVerificationEmail(String? email) async {
 
 Future<bool> checkVerificationCode(String? email, String code) async {
   var url = Uri.parse('$baseURL/user/checkVerificationCode');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({
       "email": email,
@@ -402,14 +405,14 @@ Future<bool> checkVerificationCode(String? email, String code) async {
 
 Future<bool> checkVerificationCodeUpdateEmail(String email, String code) async {
   var url = Uri.parse('$baseURL/user/checkVerificationCodeUpdateEmail');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({
       "email": email,
@@ -430,14 +433,14 @@ Future<bool> checkVerificationCodeUpdateEmail(String email, String code) async {
 ///Returns 0 if changing Name was successfull, otherwise throws Exception
 Future<int> updateName(String name) async {
   var url = Uri.parse('$baseURL/user/updateName');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({
       "name": name,
@@ -456,14 +459,14 @@ Future<int> updateName(String name) async {
 
 Future<void> connectDeviceTokenToUser(String deviceToken) async {
   var url = Uri.parse('$baseURL/user/connectDeviceTokenToUser');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({
       "token": deviceToken,
@@ -479,14 +482,14 @@ Future<void> connectDeviceTokenToUser(String deviceToken) async {
 
 Future<void> deleteDeviceToken(String deviceToken) async {
   var url = Uri.parse('$baseURL/user/deleteDeviceToken');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({
       "token": deviceToken,
@@ -535,7 +538,7 @@ Future<firebaseAuth.User?> registerWithEmailPassword(
 }
 
 Future<firebaseAuth.User?> signInWithEmailPassword(
-    String email, String password) async {
+    {required String email, required String password}) async {
   firebaseAuth.FirebaseAuth auth = firebaseAuth.FirebaseAuth.instance;
   firebaseAuth.User? user;
 
@@ -551,6 +554,9 @@ Future<firebaseAuth.User?> signInWithEmailPassword(
       // uid = user.uid;
       // userEmail = user.email;
       print(user);
+      user.getIdToken().then((value) {
+        print("Id Token: " + value);
+      });
 
       // SharedPreferences prefs = await SharedPreferences.getInstance();
       // await prefs.setBool('auth', true);
@@ -639,10 +645,24 @@ Future<firebaseAuth.User?> signInWithGoogleWeb() async {
 
     // SharedPreferences prefs = await SharedPreferences.getInstance();
     // prefs.setBool('auth', true);
-    user.getIdToken().then((value) {
-      print("Id Token: " + value);
-    });
+    // user.getIdToken().then((value) {
+    //   print("Id Token: " + value);
+    // });
   }
 
   return user;
+}
+
+// Future<void> setIdToken(String idToken) async {
+//   SharedPreferences prefs = await SharedPreferences.getInstance();
+//   await prefs.setString('IdToken', idToken);
+// }
+
+// Future<String?> getIdToken() async {
+//   SharedPreferences prefs = await SharedPreferences.getInstance();
+//   return prefs.getString('IdToken');
+// }
+
+Future<String?> getIdToken() async {
+  return await firebaseAuth.FirebaseAuth.instance.currentUser!.getIdToken();
 }

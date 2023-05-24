@@ -9,12 +9,12 @@ import 'profile_details/models/m_pet_profile.dart';
 
 Future<List<PetProfileDetails>> fetchUserPets() async {
   Uri url = Uri.parse('$baseURL/pet/getUserPets');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.get(url, headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Authorization': 'Bearer $token',
+    'Authorization': '$token',
   });
 
   print(response.body);
@@ -36,12 +36,12 @@ Future<List<PetProfileDetails>> fetchUserPets() async {
 
 Future<List<PetProfileDetails>> getPetsFromContact(int contactId) async {
   Uri url = Uri.parse('$baseURL/pet/getPetsFromContact/$contactId');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.get(url, headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Authorization': 'Bearer $token',
+    'Authorization': '$token',
   });
 
   if (response.statusCode == 200) {
@@ -79,12 +79,12 @@ Future<List<Country>> fetchAvailableCountries() async {
 
 Future<List<Tag>> getUserTags() async {
   Uri url = Uri.parse('$baseURL/tag/getUserTags');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.get(url, headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Authorization': 'Bearer $token',
+    'Authorization': '$token',
   });
 
   if (response.statusCode == 200) {
@@ -102,12 +102,12 @@ Future<List<Tag>> getUserTags() async {
 Future<List<Tag>> getUserProfileTags(int petProfileId) async {
   Uri url =
       Uri.parse('$baseURL/tag/getUserProfileTags/${petProfileId.toString()}');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.get(url, headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Authorization': 'Bearer $token',
+    'Authorization': '$token',
   });
 
   if (response.statusCode == 200) {
@@ -125,14 +125,14 @@ Future<List<Tag>> getUserProfileTags(int petProfileId) async {
 ///Return true if assign was successfull, false if not
 Future<Tag> assignTagToUser(String activationCode) async {
   Uri url = Uri.parse('$baseURL/tag/assignTagToUser');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({"activationCode": activationCode}),
   );
@@ -152,12 +152,12 @@ Future<Tag> assignTagToUser(String activationCode) async {
 
 Future<PetProfileDetails> getPet(int petProfileId) async {
   Uri url = Uri.parse('$baseURL/pet/getPet/$petProfileId');
-  // String? token = await getToken();
+  // String? token = await getIdToken();
 
   final response = await http.get(url, headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    // 'Authorization': 'Bearer $token',
+    // 'Authorization': '$token',
   });
 
   print(response.body);

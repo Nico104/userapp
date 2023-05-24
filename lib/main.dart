@@ -25,7 +25,7 @@ void main() async {
   // Needs to be called so that we can await for EasyLocalization.ensureInitialized();
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  _initFirebase();
+  await _initFirebase();
 
   runApp(
     EasyLocalization(

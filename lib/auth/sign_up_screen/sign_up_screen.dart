@@ -47,6 +47,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     controller: controller,
                     children: <Widget>[
                       SignUpEmailPage(
+                        reloadInitApp: widget.reloadInitApp,
                         onNext: (useremail) {
                           setState(() {
                             _email = useremail;

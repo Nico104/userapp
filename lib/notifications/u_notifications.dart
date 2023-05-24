@@ -7,14 +7,14 @@ import 'model/m_notification.dart';
 
 Future<List<Notification>> getUserNotifications() async {
   Uri url = Uri.parse('$baseURL/notification/getUserNotifications');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.get(
     url,
     headers: {
       // 'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
   );
 
@@ -32,14 +32,14 @@ Future<List<Notification>> getUserNotifications() async {
 
 Future<int> getUnseenUserNotificationsCount() async {
   Uri url = Uri.parse('$baseURL/notification/getUnseenUserNotificationsCount');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.get(
     url,
     headers: {
       // 'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
   );
 
@@ -54,14 +54,14 @@ Future<int> getUnseenUserNotificationsCount() async {
 
 Future<Notification> seenNotification({required int noticicationId}) async {
   Uri url = Uri.parse('$baseURL/notification/seenNotification');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({
       'notificationId': noticicationId,
@@ -77,14 +77,14 @@ Future<Notification> seenNotification({required int noticicationId}) async {
 
 Future<Notification> unseeNotification({required int noticicationId}) async {
   Uri url = Uri.parse('$baseURL/notification/unseeNotification');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({
       'notificationId': noticicationId,
@@ -100,14 +100,14 @@ Future<Notification> unseeNotification({required int noticicationId}) async {
 
 Future<void> seenAllUserNotifications() async {
   Uri url = Uri.parse('$baseURL/notification/seenAllUserNotifications');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
   );
 
@@ -122,14 +122,14 @@ Future<void> seenAllUserNotifications() async {
 
 Future<Notification> readNotification({required int noticicationId}) async {
   Uri url = Uri.parse('$baseURL/notification/readNotification');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({
       'notificationId': noticicationId,
@@ -145,14 +145,14 @@ Future<Notification> readNotification({required int noticicationId}) async {
 
 Future<void> readAllUserNotifications() async {
   Uri url = Uri.parse('$baseURL/notification/readAllUserNotifications');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
   );
 
@@ -165,14 +165,14 @@ Future<void> readAllUserNotifications() async {
 
 Future<void> deleteNotification(Notification notification) async {
   Uri url = Uri.parse('$baseURL/notification/deleteNotification');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.delete(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode(notification.toJson()),
   );

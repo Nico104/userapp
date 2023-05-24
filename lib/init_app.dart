@@ -1,4 +1,5 @@
 import 'dart:io' show Platform;
+import 'package:firebase_auth/firebase_auth.dart' as firebaseAuth;
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -24,14 +25,14 @@ class _InitAppState extends State<InitApp> {
   void reloadInitApp() {
     print("reload Init App");
     //If not loged in - after login this function gets called and shoudl initialize the messagin correctly
-    _initMessagin();
+    _initMessaging();
     setState(() {});
   }
 
   //Message only working when app is closed
   //When app is open:
   //https://stackoverflow.com/questions/62688519/flutter-push-notification-is-working-only-when-app-is-in-background
-  void _initMessagin() async {
+  void _initMessaging() async {
     bool userIsAuthenticated = await isAuthenticated();
 
     if (!kIsWeb) {
@@ -86,12 +87,35 @@ class _InitAppState extends State<InitApp> {
     });
   }
 
+  void _initFireBaseAuthIdToken() {
+    //     Events are fired when the following occurs:
+
+    // Right after the listener has been registered.
+    // When a user is signed in.
+    // When the current user is signed out.
+    // When there is a change in the current user's token.
+
+    firebaseAuth.FirebaseAuth.instance
+        .idTokenChanges()
+        .listen((firebaseAuth.User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        user.getIdToken().then((String token) async {
+          print('The user ID token is' + token);
+        });
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
 
+    _initFireBaseAuthIdToken();
+
     //Messaging
-    _initMessagin();
+    _initMessaging();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       loginWithSavedCredentials().then((value) {
@@ -108,7 +132,6 @@ class _InitAppState extends State<InitApp> {
       //TODO Figure out what up wiht the http Parameter
       future: Future.wait([
         isAuthenticated(),
-        getToken(),
         getLoggedInOnce(),
       ]),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -116,7 +139,7 @@ class _InitAppState extends State<InitApp> {
           if ((snapshot.data[0] as bool)) {
             //TODO refresh Token...just saying
             return const PetsLoading();
-          } else if ((snapshot.data[2] as bool)) {
+          } else if ((snapshot.data[1] as bool)) {
             return LoginScreen(
               reloadInitApp: () => reloadInitApp(),
             );

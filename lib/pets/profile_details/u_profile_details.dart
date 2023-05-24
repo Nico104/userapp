@@ -26,7 +26,7 @@ Future<void> uploadPicture(
 ) async {
   var url = Uri.parse('$baseURL/pet/uploadPicture/$profileId');
   print("URL: " + url.toString());
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   var request = http.MultipartRequest('POST', url);
 
@@ -51,14 +51,14 @@ Future<void> uploadPicture(
 
 Future<void> deletePicture(PetPicture petPicture) async {
   Uri url = Uri.parse('$baseURL/pet/deletePicture');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: json.encode({
       "pet_picture_id": petPicture.petPictureId,
@@ -88,7 +88,7 @@ Future<void> uploadDocuments(
 ) async {
   var url = Uri.parse('$baseURL/pet/uploadDocument/$profileId');
   print("URL: " + url.toString());
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   var request = http.MultipartRequest('POST', url);
 
@@ -122,14 +122,14 @@ Future<void> uploadDocuments(
 
 Future<void> deleteDocument(Document petDocuemnt) async {
   Uri url = Uri.parse('$baseURL/pet/deleteDocument');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: json.encode({
       "pet_document_id": petDocuemnt.documentId,
@@ -170,14 +170,14 @@ Future<void> handleTagChange(
 Future<PetProfileDetails> createNewPetProfile(String petName) async {
   print("yo");
   Uri url = Uri.parse('$baseURL/pet/createPet');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       // 'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: {
       'pet_name': petName,
@@ -208,14 +208,14 @@ Future<void> deletePetProfile(PetProfileDetails petProfileDetails) async {
   }
 
   Uri url = Uri.parse('$baseURL/pet/deletePet');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.delete(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode(petProfileDetails.toJson()),
   );
@@ -235,14 +235,14 @@ Future<void> deletePetProfile(PetProfileDetails petProfileDetails) async {
 Future<PetProfileDetails> updatePetProfileCore(
     PetProfileDetails petProfileDetails) async {
   Uri url = Uri.parse('$baseURL/pet/updatePet');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode(petProfileDetails.toJson()),
   );
@@ -259,14 +259,14 @@ Future<PetProfileDetails> updatePetProfileCore(
 //Phone Number
 // Future<PhoneNumber> updatePhoneNumber(PhoneNumber phoneNumber) async {
 //   Uri url = Uri.parse('$baseURL/pet/updatePhoneNumber');
-//   String? token = await getToken();
+//   String? token = await getIdToken();
 
 //   final response = await http.post(
 //     url,
 //     headers: {
 //       'Content-Type': 'application/json; charset=UTF-8',
 //       'Accept': 'application/json',
-//       'Authorization': 'Bearer $token',
+//       'Authorization': '$token',
 //     },
 //     body: jsonEncode(phoneNumber.toJson()),
 //   );
@@ -291,14 +291,14 @@ Future<PetProfileDetails> updatePetProfileCore(
 //   String phoneNumber,
 // ) async {
 //   Uri url = Uri.parse('$baseURL/pet/createPhoneNumber');
-//   String? token = await getToken();
+//   String? token = await getIdToken();
 
 //   final response = await http.post(
 //     url,
 //     headers: {
 //       'Content-Type': 'application/json; charset=UTF-8',
 //       'Accept': 'application/json',
-//       'Authorization': 'Bearer $token',
+//       'Authorization': '$token',
 //     },
 //     body: jsonEncode({
 //       'petProfile_id': petProfileId,
@@ -322,14 +322,14 @@ Future<PetProfileDetails> updatePetProfileCore(
 
 // Future<void> deletePhoneNumber(PhoneNumber phoneNumber) async {
 //   Uri url = Uri.parse('$baseURL/pet/deletePhoneNumber');
-//   String? token = await getToken();
+//   String? token = await getIdToken();
 
 //   final response = await http.delete(
 //     url,
 //     headers: {
 //       'Content-Type': 'application/json; charset=UTF-8',
 //       'Accept': 'application/json',
-//       'Authorization': 'Bearer $token',
+//       'Authorization': '$token',
 //     },
 //     body: jsonEncode(phoneNumber.toJson()),
 //   );
@@ -349,14 +349,14 @@ Future<PetProfileDetails> updatePetProfileCore(
 //Description
 Future<void> upsertDescription(Description description) async {
   Uri url = Uri.parse('$baseURL/pet/upsertDescription');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode(description.toJson()),
   );
@@ -377,14 +377,14 @@ Future<void> deleteDescription(
   Description description,
 ) async {
   Uri url = Uri.parse('$baseURL/pet/deleteDescription');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.delete(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode(description.toJson()),
   );
@@ -404,14 +404,14 @@ Future<void> deleteDescription(
 Future<void> upsertImportantInformation(
     ImportantInformation importantInformation) async {
   Uri url = Uri.parse('$baseURL/pet/upsertImportantInformation');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode(importantInformation.toJson()),
   );
@@ -431,14 +431,14 @@ Future<void> upsertImportantInformation(
 Future<void> deleteImportantInformation(
     ImportantInformation importantInformation) async {
   Uri url = Uri.parse('$baseURL/pet/deleteImportantInformation');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.delete(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode(importantInformation.toJson()),
   );
@@ -457,14 +457,14 @@ Future<void> deleteImportantInformation(
 
 Future<void> connectTagFromPetProfile(int profileId, String collarTagId) async {
   Uri url = Uri.parse('$baseURL/pet/connectTagFromPetProfile');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({"profileId": profileId, "collarTagId": collarTagId}),
   );
@@ -480,14 +480,14 @@ Future<void> connectTagFromPetProfile(int profileId, String collarTagId) async {
 Future<void> disconnectTagFromPetProfile(
     int profileId, String collarTagId) async {
   Uri url = Uri.parse('$baseURL/pet/disconnectTagFromPetProfile');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({"profileId": profileId, "collarTagId": collarTagId}),
   );

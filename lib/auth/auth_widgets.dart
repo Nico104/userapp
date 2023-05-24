@@ -52,7 +52,10 @@ class CustomBigButton extends StatelessWidget {
 class ContinueWithSocialMedia extends StatelessWidget {
   const ContinueWithSocialMedia({
     super.key,
+    required this.reloadInitApp,
   });
+
+  final VoidCallback reloadInitApp;
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +89,11 @@ class ContinueWithSocialMedia extends StatelessWidget {
               GestureDetector(
                 onTap: () async {
                   if (kIsWeb) {
-                    await signInWithGoogleWeb();
+                    await signInWithGoogleWeb()
+                        .then((value) => reloadInitApp());
                   } else {
-                    await signInWithGoogle(context: context);
+                    signInWithGoogle(context: context)
+                        .then((value) => reloadInitApp());
                   }
                 },
                 child: const SocialMediaContainer(),

@@ -11,14 +11,14 @@ import 'package:http_parser/http_parser.dart';
 
 Future<List<Contact>> fetchUserContracts() async {
   Uri url = Uri.parse('$baseURL/contact/getUserContacts');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.get(
     url,
     headers: {
       // 'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
   );
 
@@ -33,14 +33,14 @@ Future<List<Contact>> fetchUserContracts() async {
 
 Future<List<Contact>> fetchPetContracts(int petProfileId) async {
   Uri url = Uri.parse('$baseURL/contact/getPetContacts/$petProfileId');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.get(
     url,
     headers: {
       // 'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
   );
 
@@ -57,14 +57,14 @@ Future<List<Contact>> fetchPetContracts(int petProfileId) async {
 
 Future<Contact> getContact(int contactId) async {
   Uri url = Uri.parse('$baseURL/contact/getContact/$contactId');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.get(
     url,
     headers: {
       // 'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
   );
 
@@ -77,14 +77,14 @@ Future<Contact> getContact(int contactId) async {
 
 Future<Contact> createNewContact({required String contactName}) async {
   Uri url = Uri.parse('$baseURL/contact/createContact');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({
       'contact_name': contactName,
@@ -103,14 +103,14 @@ Future<Contact> connectContactToPet({
   required int petProfileId,
 }) async {
   Uri url = Uri.parse('$baseURL/contact/connectContactToPet');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({
       'pet_profile_id': petProfileId,
@@ -130,14 +130,14 @@ Future<Contact> disconnectContactFromPet({
   required int petProfileId,
 }) async {
   Uri url = Uri.parse('$baseURL/contact/disconnectContactFromPet');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({
       'pet_profile_id': petProfileId,
@@ -154,14 +154,14 @@ Future<Contact> disconnectContactFromPet({
 
 Future<Contact> updateContact(Contact contact) async {
   Uri url = Uri.parse('$baseURL/contact/updateContact');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode(contact.toJson()),
   );
@@ -177,14 +177,14 @@ Future<Contact> updateContact(Contact contact) async {
 
 Future<void> deleteContact(Contact contact) async {
   Uri url = Uri.parse('$baseURL/contact/deleteContact');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.delete(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode(contact.toJson()),
   );
@@ -204,14 +204,14 @@ Future<void> deleteContact(Contact contact) async {
 //Phone Number
 Future<PhoneNumber> updatePhoneNumber(PhoneNumber phoneNumber) async {
   Uri url = Uri.parse('$baseURL/contact/updatePhoneNumber');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode(phoneNumber.toJson()),
   );
@@ -236,14 +236,14 @@ Future<PhoneNumber> createPhoneNumber(
   String phoneNumber,
 ) async {
   Uri url = Uri.parse('$baseURL/contact/createPhoneNumber');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({
       'contact_id': contactId,
@@ -267,14 +267,14 @@ Future<PhoneNumber> createPhoneNumber(
 
 Future<void> deletePhoneNumber(PhoneNumber phoneNumber) async {
   Uri url = Uri.parse('$baseURL/contact/deletePhoneNumber');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.delete(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode(phoneNumber.toJson()),
   );
@@ -295,14 +295,14 @@ Future<void> deletePhoneNumber(PhoneNumber phoneNumber) async {
 
 Future<List<ContactDescription>> fetchAvailableContactDescription() async {
   Uri url = Uri.parse('$baseURL/contact/getUserContactDescriptions');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.get(
     url,
     headers: {
       // 'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
   );
 
@@ -322,14 +322,14 @@ Future<void> connectContactDescription(
   int contactDescriptionId,
 ) async {
   Uri url = Uri.parse('$baseURL/contact/connectContactDescription');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({
       'contact_id': contactId,
@@ -350,14 +350,14 @@ Future<void> disconnectContactDescription(
   int contactId,
 ) async {
   Uri url = Uri.parse('$baseURL/contact/disconnectContactDescription');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({
       'contact_id': contactId,
@@ -375,14 +375,14 @@ Future<void> disconnectContactDescription(
 
 Future<ContactDescription> createContactDescription(int contactId) async {
   Uri url = Uri.parse('$baseURL/contact/createContactDescription');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode({
       'contact_id': contactId,
@@ -405,14 +405,14 @@ Future<ContactDescription> createContactDescription(int contactId) async {
 Future<ContactDescription> updateContactDescription(
     ContactDescription contactDescription) async {
   Uri url = Uri.parse('$baseURL/contact/updateContactDescription');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode(contactDescription.toJson()),
   );
@@ -431,14 +431,14 @@ Future<ContactDescription> updateContactDescription(
 Future<ContactDescription> deleteContactDescription(
     ContactDescription contactDescription) async {
   Uri url = Uri.parse('$baseURL/contact/deleteContactDescription');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.delete(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: jsonEncode(contactDescription.toJson()),
   );
@@ -474,7 +474,7 @@ Future<void> uploadContactPicture(
 ) async {
   var url = Uri.parse('$baseURL/contact/uploadContactPicture/$contactId');
   // print("URL: " + url.toString());
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   var request = http.MultipartRequest('POST', url);
 
@@ -502,14 +502,14 @@ Future<void> deleteContactPicture(
   String contactPictureLink,
 ) async {
   Uri url = Uri.parse('$baseURL/contact/deleteContactPicture');
-  String? token = await getToken();
+  String? token = await getIdToken();
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     },
     body: json.encode({
       "contact_id": contactId,
