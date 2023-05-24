@@ -68,12 +68,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       SignUpPasswordPage(
                         onNext: (userpassword) {
-                          setState(() {
-                            _password = userpassword;
-                          });
-                          controller.animateToPage(3,
-                              duration: const Duration(milliseconds: 250),
-                              curve: Curves.fastOutSlowIn);
+                          // setState(() {
+                          //   _password = userpassword;
+                          // });
+                          // controller.animateToPage(3,
+                          //     duration: const Duration(milliseconds: 250),
+                          //     curve: Curves.fastOutSlowIn);
+
+                          registerWithEmailPassword(
+                            email: _email!,
+                            password: userpassword,
+                          ).then((value) => print(value));
                         },
                       ),
                       //Sends Code on init Verification Page

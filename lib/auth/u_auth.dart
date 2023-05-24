@@ -1,7 +1,13 @@
 import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:userapp/network_globals.dart';
+
+import 'package:firebase_auth/firebase_auth.dart' as firebaseAuth;
 
 ///Return true if the User is Authenticated
 Future<bool> isAuthenticated() async {
@@ -492,4 +498,151 @@ Future<void> deleteDeviceToken(String deviceToken) async {
   } else {
     throw Exception("Error deleting DeviceToken");
   }
+}
+
+//FireBase Auth - https://blog.codemagic.io/flutter-web-firebase-authentication-and-google-sign-in/
+
+Future<firebaseAuth.User?> registerWithEmailPassword(
+    {required String email, required String password}) async {
+  firebaseAuth.FirebaseAuth auth = firebaseAuth.FirebaseAuth.instance;
+  firebaseAuth.User? user;
+
+  try {
+    firebaseAuth.UserCredential userCredential =
+        await auth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+
+    user = userCredential.user;
+
+    if (user != null) {
+      // uid = user.uid;
+      // userEmail = user.email;
+      print(user);
+    }
+  } on firebaseAuth.FirebaseAuthException catch (e) {
+    if (e.code == 'weak-password') {
+      print('The password provided is too weak.');
+    } else if (e.code == 'email-already-in-use') {
+      print('An account already exists for that email.');
+    }
+  } catch (e) {
+    print(e);
+  }
+
+  return user;
+}
+
+Future<firebaseAuth.User?> signInWithEmailPassword(
+    String email, String password) async {
+  firebaseAuth.FirebaseAuth auth = firebaseAuth.FirebaseAuth.instance;
+  firebaseAuth.User? user;
+
+  try {
+    firebaseAuth.UserCredential userCredential =
+        await auth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    user = userCredential.user;
+
+    if (user != null) {
+      // uid = user.uid;
+      // userEmail = user.email;
+      print(user);
+
+      // SharedPreferences prefs = await SharedPreferences.getInstance();
+      // await prefs.setBool('auth', true);
+    }
+  } on firebaseAuth.FirebaseAuthException catch (e) {
+    if (e.code == 'user-not-found') {
+      print('No user found for that email.');
+    } else if (e.code == 'wrong-password') {
+      print('Wrong password provided.');
+    }
+  }
+
+  return user;
+}
+
+//Google
+
+Future<firebaseAuth.User?> signInWithGoogle(
+    {required BuildContext context}) async {
+  firebaseAuth.FirebaseAuth auth = firebaseAuth.FirebaseAuth.instance;
+  firebaseAuth.User? user;
+
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+
+  final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+
+  if (googleSignInAccount != null) {
+    final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+
+    final firebaseAuth.AuthCredential credential =
+        firebaseAuth.GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+
+    try {
+      final firebaseAuth.UserCredential userCredential =
+          await auth.signInWithCredential(credential);
+
+      user = userCredential.user;
+      print(user);
+    } on firebaseAuth.FirebaseAuthException catch (e) {
+      if (e.code == 'account-exists-with-different-credential') {
+        // handle the error here
+        print("Error:  ->  " + e.toString());
+      } else if (e.code == 'invalid-credential') {
+        // handle the error here
+        print("Error:  ->  " + e.toString());
+      }
+    } catch (e) {
+      // handle the error here
+      print("Error:  ->  " + e.toString());
+    }
+  } else {
+    print("Error:  ->  google sign in is null");
+  }
+
+  return user;
+}
+
+Future<firebaseAuth.User?> signInWithGoogleWeb() async {
+  // Initialize Firebase
+  // await  firebaseAuth.Firebase.initializeApp();
+  firebaseAuth.FirebaseAuth auth = firebaseAuth.FirebaseAuth.instance;
+  firebaseAuth.User? user;
+
+  // The `GoogleAuthProvider` can only be used while running on the web
+  firebaseAuth.GoogleAuthProvider authProvider =
+      firebaseAuth.GoogleAuthProvider();
+
+  try {
+    final firebaseAuth.UserCredential userCredential =
+        await auth.signInWithPopup(authProvider);
+
+    user = userCredential.user;
+  } catch (e) {
+    print(e);
+  }
+
+  if (user != null) {
+    // uid = user.uid;
+    // name = user.displayName;
+    // userEmail = user.email;
+    // imageUrl = user.photoURL;
+
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // prefs.setBool('auth', true);
+    user.getIdToken().then((value) {
+      print("Id Token: " + value);
+    });
+  }
+
+  return user;
 }

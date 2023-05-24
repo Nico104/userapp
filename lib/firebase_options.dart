@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -49,6 +43,16 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyCHnO1tqFsIk6xBTQN8t1KSbQsp60FjNug',
+    appId: '1:792601770447:web:6df5a9aea81f4178687aba',
+    messagingSenderId: '792601770447',
+    projectId: 'finma-dbc70',
+    authDomain: 'finma-dbc70.firebaseapp.com',
+    storageBucket: 'finma-dbc70.appspot.com',
+    measurementId: 'G-CSNCRPPEWN',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyC5bbQqqZNkWsLDrYGFnJv-3dnvOIf6Syk',
     appId: '1:792601770447:android:707866465beb4575687aba',
@@ -59,10 +63,22 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAOaFfNYux6b4MBN7R_hU-9SY0-8kWjE10',
-    appId: '1:792601770447:ios:306454d6d424756d687aba',
+    appId: '1:792601770447:ios:6334fc3755b14a69687aba',
     messagingSenderId: '792601770447',
     projectId: 'finma-dbc70',
     storageBucket: 'finma-dbc70.appspot.com',
+    androidClientId: '792601770447-e2oq67qse0vnjf5hk57pnpdec4nd1luv.apps.googleusercontent.com',
+    iosClientId: '792601770447-dch7tietave0kbcfton1janfsrm4e3l2.apps.googleusercontent.com',
+    iosBundleId: 'com.example.userapp',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyAOaFfNYux6b4MBN7R_hU-9SY0-8kWjE10',
+    appId: '1:792601770447:ios:6334fc3755b14a69687aba',
+    messagingSenderId: '792601770447',
+    projectId: 'finma-dbc70',
+    storageBucket: 'finma-dbc70.appspot.com',
+    androidClientId: '792601770447-e2oq67qse0vnjf5hk57pnpdec4nd1luv.apps.googleusercontent.com',
     iosClientId: '792601770447-dch7tietave0kbcfton1janfsrm4e3l2.apps.googleusercontent.com',
     iosBundleId: 'com.example.userapp',
   );

@@ -1,6 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:userapp/auth/u_auth.dart';
 
+import '../network_globals.dart';
 import '../theme/custom_colors.dart';
 
 class CustomBigButton extends StatelessWidget {
@@ -79,10 +82,19 @@ class ContinueWithSocialMedia extends StatelessWidget {
           padding: const EdgeInsets.only(left: 36, right: 36),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              SocialMediaContainer(),
-              SocialMediaContainer(),
-              SocialMediaContainer(),
+            children: [
+              GestureDetector(
+                onTap: () async {
+                  if (kIsWeb) {
+                    await signInWithGoogleWeb();
+                  } else {
+                    await signInWithGoogle(context: context);
+                  }
+                },
+                child: const SocialMediaContainer(),
+              ),
+              const SocialMediaContainer(),
+              const SocialMediaContainer(),
             ],
           ),
         ),

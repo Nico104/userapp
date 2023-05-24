@@ -25,13 +25,7 @@ void main() async {
   // Needs to be called so that we can await for EasyLocalization.ensureInitialized();
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  if (!kIsWeb) {
-    if (Platform.isAndroid || Platform.isIOS) {
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
-    }
-  }
+  _initFirebase();
 
   runApp(
     EasyLocalization(
@@ -49,6 +43,19 @@ void main() async {
         child: const MyApp(),
       ),
     ),
+  );
+}
+
+Future<void> _initFirebase() async {
+  // if (!kIsWeb) {
+  //   if (Platform.isAndroid || Platform.isIOS) {
+  //     await Firebase.initializeApp(
+  //       options: DefaultFirebaseOptions.currentPlatform,
+  //     );
+  //   }
+  // }
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
 }
 

@@ -9,12 +9,20 @@
       "client_info": {
         "mobilesdk_app_id": "1:792601770447:android:707866465beb4575687aba",
         "android_client_info": {
-          "package_name": "com.finma.userapp"
+          "package_name": "com.example.userapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "792601770447-pe4jt88o2e6kavtrv6uqfvf0tr6cpvva.apps.googleusercontent.com",
+          "client_id": "792601770447-omkasr6tpscgnk6r9v0v128fvfmh1gg3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.userapp",
+            "certificate_hash": "8a5208d09fdc636e4e3fb6ece9c7f2c8647876ef"
+          }
+        },
+        {
+          "client_id": "792601770447-8q78u5se0up0hv1s50c5mpgcjtbk307b.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,7 +35,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "792601770447-pe4jt88o2e6kavtrv6uqfvf0tr6cpvva.apps.googleusercontent.com",
+              "client_id": "792601770447-1kamdr47ep07jiipsa0sg8a8od5fv63e.apps.googleusercontent.com",
               "client_type": 3
             },
             {
