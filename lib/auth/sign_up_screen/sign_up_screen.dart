@@ -60,7 +60,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SignUpNamePage(
                         onNext: (name) {
                           setState(() {
-                            name = name;
+                            _name = name;
                           });
                           controller.animateToPage(2,
                               duration: const Duration(milliseconds: 250),
@@ -76,40 +76,73 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           //     duration: const Duration(milliseconds: 250),
                           //     curve: Curves.fastOutSlowIn);
 
+                          //Loading Dialog Thingy
+                          BuildContext? dialogContext;
+                          showModalBottomSheet(
+                            context: context,
+                            backgroundColor: Colors.transparent,
+                            isDismissible: false,
+                            builder: (buildContext) {
+                              dialogContext = buildContext;
+                              return Container(
+                                margin: const EdgeInsets.all(16),
+                                padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  borderRadius: BorderRadius.circular(28),
+                                ),
+                                child: const SizedBox(
+                                  height: 60,
+                                  width: 60,
+                                  child: CircularProgressIndicator(),
+                                ),
+                              );
+                            },
+                          );
+
                           registerWithEmailPassword(
                             email: _email!,
                             password: userpassword,
-                          ).then((value) => print(value));
-                        },
-                      ),
-                      //Sends Code on init Verification Page
-                      SignUpVerificationPage(
-                        useremail: _email ?? "",
-                        onCodeCorrect: (code) {
-                          print(
-                              _email.toString() + _password.toString() + code);
-                          signUpUser(
-                            useremail: _email!,
-                            password: _password!,
-                            name: _name!,
-                            verificationCode: code,
-                          ).then((successFullSignUp) {
-                            if (successFullSignUp) {
-                              login(_email!, _password!, true).then(
-                                (loginSuccessfull) {
-                                  if (loginSuccessfull) {
-                                    Navigator.of(context)
-                                        .popUntil((route) => route.isFirst);
-                                    widget.reloadInitApp.call();
-                                  } else {
-                                    print("error in SignUp Process");
-                                  }
-                                },
-                              );
+                          ).then((value) {
+                            if (_name != null) {
+                              updateDisplayName(_name!).then((value) {
+                                Navigator.pop(dialogContext!);
+                                Navigator.of(context)
+                                    .popUntil((route) => route.isFirst);
+                                widget.reloadInitApp.call();
+                              });
                             }
                           });
                         },
-                      )
+                      ),
+                      //Sends Code on init Verification Page
+                      // SignUpVerificationPage(
+                      //   useremail: _email ?? "",
+                      //   onCodeCorrect: (code) {
+                      //     print(
+                      //         _email.toString() + _password.toString() + code);
+                      //     signUpUser(
+                      //       useremail: _email!,
+                      //       password: _password!,
+                      //       name: _name!,
+                      //       verificationCode: code,
+                      //     ).then((successFullSignUp) {
+                      //       if (successFullSignUp) {
+                      //         login(_email!, _password!, true).then(
+                      //           (loginSuccessfull) {
+                      //             if (loginSuccessfull) {
+                      //               Navigator.of(context)
+                      //                   .popUntil((route) => route.isFirst);
+                      //               widget.reloadInitApp.call();
+                      //             } else {
+                      //               print("error in SignUp Process");
+                      //             }
+                      //           },
+                      //         );
+                      //       }
+                      //     });
+                      //   },
+                      // )
                     ],
                   ),
                 ),

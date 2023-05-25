@@ -87,6 +87,7 @@ class _InitAppState extends State<InitApp> {
     });
   }
 
+  /*
   void _initFireBaseAuthIdToken() {
     //     Events are fired when the following occurs:
 
@@ -107,12 +108,13 @@ class _InitAppState extends State<InitApp> {
       }
     });
   }
+  */
 
   @override
   void initState() {
     super.initState();
 
-    _initFireBaseAuthIdToken();
+    // _initFireBaseAuthIdToken();
 
     //Messaging
     _initMessaging();

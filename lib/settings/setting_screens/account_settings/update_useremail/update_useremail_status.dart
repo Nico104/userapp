@@ -4,19 +4,19 @@ import 'package:userapp/auth/u_auth.dart';
 import '../../../../theme/custom_colors.dart';
 import '../../../../theme/custom_text_styles.dart';
 
-class UpdatePasswordStatus extends StatelessWidget {
-  const UpdatePasswordStatus({
+class UpdateEmailStatus extends StatelessWidget {
+  const UpdateEmailStatus({
     super.key,
-    required this.newPassword,
     required this.currentPassword,
     required this.onUnexcpectedError,
     required this.onWrongPassword,
     required this.onSuccess,
+    required this.newEmail,
     // required this.makeDissmissable,
   });
 
   final String currentPassword;
-  final String newPassword;
+  final String newEmail;
   final VoidCallback onUnexcpectedError;
   final VoidCallback onWrongPassword;
   final VoidCallback onSuccess;
@@ -31,7 +31,7 @@ class UpdatePasswordStatus extends StatelessWidget {
         borderRadius: BorderRadius.circular(28),
       ),
       child: FutureBuilder(
-        future: changePassword(currentPassword, newPassword),
+        future: changeEmail(currentPassword, newEmail),
         builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
           if (snapshot.hasData) {
             switch (snapshot.data) {
@@ -40,7 +40,7 @@ class UpdatePasswordStatus extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text("Password updates successfully mate"),
+                    const Text("Email updated successfully mate"),
                     const SizedBox(height: 16),
                     OutlinedButton(
                       onPressed: () {
@@ -103,6 +103,69 @@ class UpdatePasswordStatus extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text("Too many failed requests. Try again later bro"),
+                    const SizedBox(height: 16),
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.pop(context, 2);
+                      },
+                      style: OutlinedButton.styleFrom(
+                        padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
+                        backgroundColor: getCustomColors(context).accent,
+                        side: BorderSide(
+                          width: 0.5,
+                          color: getCustomColors(context).lightBorder ??
+                              Colors.transparent,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text(
+                        "Got it",
+                        style: getCustomTextStyles(context)
+                            .dataEditDialogButtonSaveStyle,
+                      ),
+                    ),
+                  ],
+                );
+              case 4:
+                onUnexcpectedError();
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text("Your new Email provided is invalid bruv"),
+                    const SizedBox(height: 16),
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.pop(context, 2);
+                      },
+                      style: OutlinedButton.styleFrom(
+                        padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
+                        backgroundColor: getCustomColors(context).accent,
+                        side: BorderSide(
+                          width: 0.5,
+                          color: getCustomColors(context).lightBorder ??
+                              Colors.transparent,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text(
+                        "Got it",
+                        style: getCustomTextStyles(context)
+                            .dataEditDialogButtonSaveStyle,
+                      ),
+                    ),
+                  ],
+                );
+              case 5:
+                onUnexcpectedError();
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                        "Your new Email provided is already in use bruv. Who are you?"),
                     const SizedBox(height: 16),
                     OutlinedButton(
                       onPressed: () {

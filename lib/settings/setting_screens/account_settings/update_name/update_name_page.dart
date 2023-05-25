@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/widgets/custom_textformfield.dart';
 import 'package:userapp/settings/setting_screens/account_settings/update_name/update_name_status.dart';
-import 'package:userapp/settings/setting_screens/account_settings/update_useremail/update_useremail_check_current_email_code.dart';
-import 'package:userapp/settings/setting_screens/account_settings/update_useremail/update_useremail_check_new_email_code.dart';
-import 'package:userapp/settings/setting_screens/account_settings/update_useremail/update_useremail_success.dart';
-import 'package:userapp/settings/setting_screens/account_settings/update_useremail/update_useremail_verify_current_email.dart';
-import 'package:userapp/settings/setting_screens/account_settings/update_useremail/update_useremail_verify_new_email.dart';
 
 import '../../../../auth/auth_widgets.dart';
 
@@ -32,7 +27,7 @@ class _UpdateNamePageState extends State<UpdateNamePage> {
         backgroundColor: Colors.transparent,
         builder: (context) {
           return UpdateNameStatus(
-            name: textEditingController.text,
+            displayName: textEditingController.text,
           );
         }).then((value) {
       Navigator.pop(context);

@@ -30,7 +30,7 @@ Future<void> uploadPicture(
 
   var request = http.MultipartRequest('POST', url);
 
-  request.headers['Authorization'] = 'Bearer $token';
+  request.headers['Authorization'] = '$token';
 
   request.files.add(http.MultipartFile.fromBytes('picture', picture,
       filename: "thumbnailname", contentType: MediaType('image', 'png')));
@@ -101,7 +101,7 @@ Future<void> uploadDocuments(
   request = jsonToFormData(request, data);
 
   // request.headers['X-Requested-With'] = "XMLHttpRequest";
-  request.headers['Authorization'] = 'Bearer $token';
+  request.headers['Authorization'] = '$token';
 
   request.files.add(
       http.MultipartFile.fromBytes('document', document, filename: "document"));

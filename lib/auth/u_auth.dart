@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -7,22 +8,52 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:userapp/network_globals.dart';
 
-import 'package:firebase_auth/firebase_auth.dart' as firebaseAuth;
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+
+Future<String?> getIdToken() async {
+  firebase_auth.User? loggedInUser =
+      firebase_auth.FirebaseAuth.instance.currentUser;
+  if (loggedInUser != null) {
+    return await loggedInUser.getIdToken();
+  } else {
+    return null;
+  }
+}
 
 ///Return true if the User is Authenticated
 Future<bool> isAuthenticated() async {
   var url = Uri.parse('$baseURL/protected');
   String? token = await getIdToken();
+  if (token == null) {
+    return false;
+  }
+
+  //? Could potentially put Name in here
 
   final response = await http.get(url, headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Authorization': '$token',
+    'Authorization': token,
   });
 
-  print("Is Authed: " + (response.statusCode == 200).toString());
+  print("Auth");
 
-  return response.statusCode == 200;
+  if (response.statusCode == 200) {
+    await setDisplayName(await getName());
+    return true;
+  } else {
+    return false;
+  }
+}
+
+Future<void> setDisplayName(String name) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setString('DisplayName', name);
+}
+
+Future<String> getDisplayName() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('DisplayName') ?? "cool Person";
 }
 
 Future<String> getName() async {
@@ -35,10 +66,14 @@ Future<String> getName() async {
     'Authorization': '$token',
   });
 
-  if (response.statusCode == 200) {
+  print("Name " + response.body);
+
+  if (response.statusCode == 200 && response.body.isNotEmpty) {
     return response.body;
+  } else if (response.statusCode == 200 && response.body.isEmpty) {
+    return "Default Name";
   } else {
-    throw Exception("Couldnt get Name form logged in User");
+    throw Exception("Couldnt get Name from logged in User");
   }
 }
 
@@ -102,9 +137,8 @@ Future<void> responsiveFeelGoodWait(int milliseconds) async {
 ///deletes the currently saved Access Token
 Future<void> logout() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.remove('access_token');
-  prefs.remove('useremail');
-  prefs.remove('userpassword');
+  prefs.remove('DisplayName');
+  await firebase_auth.FirebaseAuth.instance.signOut();
 }
 
 Future<void> setLoggedInOnce(bool val) async {
@@ -327,32 +361,117 @@ Future<bool> signUpUser({
 }
 
 ///Returns 0 chanign Password was successfull, otherwise throws Exception
-Future<int> updateUserPassword(String newPassword) async {
-  var url = Uri.parse('$baseURL/user/updateUserPassword');
-  String? token = await getIdToken();
+// Future<int> updateUserPassword(String newPassword) async {
+//   var url = Uri.parse('$baseURL/user/updateUserPassword');
+//   String? token = await getIdToken();
 
-  final response = await http.post(
-    url,
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': '$token',
-    },
-    body: jsonEncode({
-      "userpassword": newPassword,
-    }),
-  );
+//   final response = await http.post(
+//     url,
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Accept': 'application/json',
+//       'Authorization': '$token',
+//     },
+//     body: jsonEncode({
+//       "userpassword": newPassword,
+//     }),
+//   );
 
-  await responsiveFeelGoodWait(1250);
+//   await responsiveFeelGoodWait(1250);
 
-  if (response.statusCode == 201) {
-    await storeCredentials(
-      password: newPassword,
-    );
-    return 0;
+//   if (response.statusCode == 201) {
+//     await storeCredentials(
+//       password: newPassword,
+//     );
+//     return 0;
+//   } else {
+//     throw Exception("Error updating Password");
+//   }
+// }
+
+///Returns 0 on success
+///Returns 1 on no user logged in or any unexpected error
+///Returns 2 on wrong password
+///Returns 3 on too many failed requests, try again later
+Future<int> changePassword(String currentPassword, String newPassword) async {
+  final user = getCurrentFirebaseUser();
+
+  if (user != null && user.email != null) {
+    final cred = firebase_auth.EmailAuthProvider.credential(
+        email: user.email!, password: currentPassword);
+
+    try {
+      await user.reauthenticateWithCredential(cred);
+      await user.updatePassword(newPassword);
+      print("success");
+      return 0;
+    } on firebase_auth.FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+        return 1;
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided.');
+        return 2;
+      } else if (e.code == 'too-many-requests') {
+        print('too-many-requests');
+        return 3;
+      } else {
+        print(e);
+        return 1;
+      }
+    }
   } else {
-    throw Exception("Error updating Password");
+    return 1;
   }
+}
+
+///Returns 0 on success
+///Returns 1 on no user logged in or any unexpected error
+///Returns 2 on wrong password
+///Returns 3 on too many failed requests, try again later
+///Returns 4 on email invalid
+///Returns 5 on emal already in use
+Future<int> changeEmail(String currentPassword, String newEmail) async {
+  final user = getCurrentFirebaseUser();
+
+  if (user != null && user.email != null) {
+    final cred = firebase_auth.EmailAuthProvider.credential(
+        email: user.email!, password: currentPassword);
+
+    try {
+      await user.reauthenticateWithCredential(cred);
+      //TODO verify
+      await user.updateEmail(newEmail);
+      print("success");
+      return 0;
+    } on firebase_auth.FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+        return 1;
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided.');
+        return 2;
+      } else if (e.code == 'too-many-requests') {
+        print('too-many-requests');
+        return 3;
+      } else if (e.code == 'invalid-email') {
+        print('invalid-email');
+        return 4;
+      } else if (e.code == 'email-already-in-use') {
+        print('email-already-in-use');
+        return 5;
+      } else {
+        print(e);
+        return 1;
+      }
+    }
+  } else {
+    return 1;
+  }
+}
+
+firebase_auth.User? getCurrentFirebaseUser() {
+  return firebase_auth.FirebaseAuth.instance.currentUser;
 }
 
 //Change email
@@ -431,8 +550,8 @@ Future<bool> checkVerificationCodeUpdateEmail(String email, String code) async {
 }
 
 ///Returns 0 if changing Name was successfull, otherwise throws Exception
-Future<int> updateName(String name) async {
-  var url = Uri.parse('$baseURL/user/updateName');
+Future<int> updateDisplayName(String displayName) async {
+  var url = Uri.parse('$baseURL/user/updateDisplayName');
   String? token = await getIdToken();
 
   final response = await http.post(
@@ -443,14 +562,15 @@ Future<int> updateName(String name) async {
       'Authorization': '$token',
     },
     body: jsonEncode({
-      "name": name,
+      "displayName": displayName,
     }),
   );
 
   print(response.body);
-  await responsiveFeelGoodWait(1250);
+  await responsiveFeelGoodWait(650);
 
   if (response.statusCode == 201) {
+    await setDisplayName(displayName);
     return 0;
   } else {
     throw Exception("Error updating Name");
@@ -505,13 +625,24 @@ Future<void> deleteDeviceToken(String deviceToken) async {
 
 //FireBase Auth - https://blog.codemagic.io/flutter-web-firebase-authentication-and-google-sign-in/
 
-Future<firebaseAuth.User?> registerWithEmailPassword(
+firebase_auth.User? getLoggedInUser() {
+  firebase_auth.User? loggedInUser =
+      firebase_auth.FirebaseAuth.instance.currentUser;
+  return loggedInUser;
+}
+
+//PAssword SignIn
+
+//verification https://stackoverflow.com/questions/62640699/how-to-verify-email-and-password-flutter-firebase
+Future<firebase_auth.User?> registerWithEmailPassword(
     {required String email, required String password}) async {
-  firebaseAuth.FirebaseAuth auth = firebaseAuth.FirebaseAuth.instance;
-  firebaseAuth.User? user;
+  firebase_auth.FirebaseAuth auth = firebase_auth.FirebaseAuth.instance;
+  firebase_auth.User? user;
+
+  print(email);
 
   try {
-    firebaseAuth.UserCredential userCredential =
+    firebase_auth.UserCredential userCredential =
         await auth.createUserWithEmailAndPassword(
       email: email,
       password: password,
@@ -524,7 +655,7 @@ Future<firebaseAuth.User?> registerWithEmailPassword(
       // userEmail = user.email;
       print(user);
     }
-  } on firebaseAuth.FirebaseAuthException catch (e) {
+  } on firebase_auth.FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {
       print('The password provided is too weak.');
     } else if (e.code == 'email-already-in-use') {
@@ -537,13 +668,13 @@ Future<firebaseAuth.User?> registerWithEmailPassword(
   return user;
 }
 
-Future<firebaseAuth.User?> signInWithEmailPassword(
+Future<firebase_auth.User?> signInWithEmailPassword(
     {required String email, required String password}) async {
-  firebaseAuth.FirebaseAuth auth = firebaseAuth.FirebaseAuth.instance;
-  firebaseAuth.User? user;
+  firebase_auth.FirebaseAuth auth = firebase_auth.FirebaseAuth.instance;
+  firebase_auth.User? user;
 
   try {
-    firebaseAuth.UserCredential userCredential =
+    firebase_auth.UserCredential userCredential =
         await auth.signInWithEmailAndPassword(
       email: email,
       password: password,
@@ -561,7 +692,7 @@ Future<firebaseAuth.User?> signInWithEmailPassword(
       // SharedPreferences prefs = await SharedPreferences.getInstance();
       // await prefs.setBool('auth', true);
     }
-  } on firebaseAuth.FirebaseAuthException catch (e) {
+  } on firebase_auth.FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
       print('No user found for that email.');
     } else if (e.code == 'wrong-password') {
@@ -574,10 +705,10 @@ Future<firebaseAuth.User?> signInWithEmailPassword(
 
 //Google
 
-Future<firebaseAuth.User?> signInWithGoogle(
+Future<firebase_auth.User?> signInWithGoogle(
     {required BuildContext context}) async {
-  firebaseAuth.FirebaseAuth auth = firebaseAuth.FirebaseAuth.instance;
-  firebaseAuth.User? user;
+  firebase_auth.FirebaseAuth auth = firebase_auth.FirebaseAuth.instance;
+  firebase_auth.User? user;
 
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
@@ -587,19 +718,19 @@ Future<firebaseAuth.User?> signInWithGoogle(
     final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount.authentication;
 
-    final firebaseAuth.AuthCredential credential =
-        firebaseAuth.GoogleAuthProvider.credential(
+    final firebase_auth.AuthCredential credential =
+        firebase_auth.GoogleAuthProvider.credential(
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
     );
 
     try {
-      final firebaseAuth.UserCredential userCredential =
+      final firebase_auth.UserCredential userCredential =
           await auth.signInWithCredential(credential);
 
       user = userCredential.user;
       print(user);
-    } on firebaseAuth.FirebaseAuthException catch (e) {
+    } on firebase_auth.FirebaseAuthException catch (e) {
       if (e.code == 'account-exists-with-different-credential') {
         // handle the error here
         print("Error:  ->  " + e.toString());
@@ -618,18 +749,18 @@ Future<firebaseAuth.User?> signInWithGoogle(
   return user;
 }
 
-Future<firebaseAuth.User?> signInWithGoogleWeb() async {
+Future<firebase_auth.User?> signInWithGoogleWeb() async {
   // Initialize Firebase
   // await  firebaseAuth.Firebase.initializeApp();
-  firebaseAuth.FirebaseAuth auth = firebaseAuth.FirebaseAuth.instance;
-  firebaseAuth.User? user;
+  firebase_auth.FirebaseAuth auth = firebase_auth.FirebaseAuth.instance;
+  firebase_auth.User? user;
 
   // The `GoogleAuthProvider` can only be used while running on the web
-  firebaseAuth.GoogleAuthProvider authProvider =
-      firebaseAuth.GoogleAuthProvider();
+  firebase_auth.GoogleAuthProvider authProvider =
+      firebase_auth.GoogleAuthProvider();
 
   try {
-    final firebaseAuth.UserCredential userCredential =
+    final firebase_auth.UserCredential userCredential =
         await auth.signInWithPopup(authProvider);
 
     user = userCredential.user;
@@ -651,18 +782,4 @@ Future<firebaseAuth.User?> signInWithGoogleWeb() async {
   }
 
   return user;
-}
-
-// Future<void> setIdToken(String idToken) async {
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   await prefs.setString('IdToken', idToken);
-// }
-
-// Future<String?> getIdToken() async {
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   return prefs.getString('IdToken');
-// }
-
-Future<String?> getIdToken() async {
-  return await firebaseAuth.FirebaseAuth.instance.currentUser!.getIdToken();
 }

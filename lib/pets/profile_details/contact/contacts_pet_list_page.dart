@@ -62,12 +62,12 @@ class _ContactPageState extends State<ContactPage> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (context) {
+      builder: (buildContext) {
         return Container(
           margin: const EdgeInsets.all(16),
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(buildContext).primaryColor,
             borderRadius: BorderRadius.circular(28),
           ),
           child: Column(
@@ -77,7 +77,7 @@ class _ContactPageState extends State<ContactPage> {
                 leading: const Icon(Icons.list),
                 title: const Text("Add exisitng Contact"),
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.pop(buildContext);
                   navigatePerSlide(
                     context,
                     SelectionContactsPage(
@@ -93,7 +93,7 @@ class _ContactPageState extends State<ContactPage> {
                 leading: const Icon(Icons.add),
                 title: const Text("Create New Contact"),
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.pop(buildContext);
                   showDialog(
                     context: context,
                     builder: (_) => const EnterNameDialog(

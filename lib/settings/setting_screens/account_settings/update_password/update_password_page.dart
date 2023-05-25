@@ -8,10 +8,7 @@ import 'update_password_status.dart';
 class UpdatePasswordPage extends StatefulWidget {
   const UpdatePasswordPage({
     super.key,
-    required this.currentPassword,
   });
-
-  final String currentPassword;
 
   @override
   State<UpdatePasswordPage> createState() => _UpdatePasswordPageState();
@@ -20,9 +17,11 @@ class UpdatePasswordPage extends StatefulWidget {
 class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String _currentPassword = "";
-  String _password = "";
-  String _passwordRepeat = "";
+  final TextEditingController _currentPassword = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _passwordRepeat = TextEditingController();
+
+  int _statusCode = 0;
 
   void _updatePassword() {
     showModalBottomSheet(
@@ -30,10 +29,32 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
         backgroundColor: Colors.transparent,
         builder: (context) {
           return UpdatePasswordStatus(
-            newPassword: _passwordRepeat,
+            currentPassword: _currentPassword.text,
+            newPassword: _passwordRepeat.text,
+            onUnexcpectedError: () {
+              _statusCode = 1;
+            },
+            onWrongPassword: () {
+              _statusCode = 2;
+            },
+            onSuccess: () {
+              _statusCode = 0;
+            },
           );
         }).then((value) {
-      Navigator.pop(context);
+      if (_statusCode == 1) {
+        setState(() {
+          _currentPassword.text = '';
+          _password.text = '';
+          _passwordRepeat.text = '';
+        });
+      } else if (_statusCode == 2) {
+        setState(() {
+          _currentPassword.text = '';
+        });
+      } else {
+        Navigator.pop(context);
+      }
     });
   }
 
@@ -62,27 +83,26 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
               const Spacer(),
               CustomTextFormField(
                 isPassword: true,
-                onChanged: (value) {
-                  EasyDebounce.debounce(
-                    'currentPassword',
-                    const Duration(milliseconds: 250),
-                    () async {
-                      if (_currentPassword != value) {
-                        setState(() {
-                          _currentPassword = value;
-                        });
-                      }
-                    },
-                  );
-                },
+                // onChanged: (value) {
+                //   EasyDebounce.debounce(
+                //     'currentPassword',
+                //     const Duration(milliseconds: 250),
+                //     () async {
+                //       if (_currentPassword != value) {
+                //         setState(() {
+                //           _currentPassword = value;
+                //         });
+                //       }
+                //     },
+                //   );
+                // },
+                textEditingController: _currentPassword,
                 labelText: "Current Password",
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'I cannot be empty mate';
                   } else if (value.length < 8) {
                     return 'I must be at least 8 characters mate';
-                  } else if (value != widget.currentPassword) {
-                    return 'I am not your current Password mate';
                   } else {
                     return null;
                   }
@@ -91,27 +111,26 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
               SizedBox(height: 04.h),
               CustomTextFormField(
                 isPassword: true,
-                onChanged: (value) {
-                  EasyDebounce.debounce(
-                    'currentPassword',
-                    const Duration(milliseconds: 250),
-                    () async {
-                      if (_password != value) {
-                        setState(() {
-                          _password = value;
-                        });
-                      }
-                    },
-                  );
-                },
+                // onChanged: (value) {
+                //   EasyDebounce.debounce(
+                //     'currentPassword',
+                //     const Duration(milliseconds: 250),
+                //     () async {
+                //       if (_password != value) {
+                //         setState(() {
+                //           _password = value;
+                //         });
+                //       }
+                //     },
+                //   );
+                // },
+                textEditingController: _password,
                 labelText: "New Password",
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'I cannot be empty mate';
                   } else if (value.length < 8) {
                     return 'I must be at least 8 characters mate';
-                  } else if (value == widget.currentPassword) {
-                    return 'Password is too similar to your current Password my pawsome friend';
                   } else {
                     return null;
                   }
@@ -120,24 +139,25 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
               SizedBox(height: 02.h),
               CustomTextFormField(
                 isPassword: true,
-                onChanged: (value) {
-                  EasyDebounce.debounce(
-                    'currentPassword',
-                    const Duration(milliseconds: 250),
-                    () async {
-                      if (_passwordRepeat != value) {
-                        setState(() {
-                          _passwordRepeat = value;
-                        });
-                      }
-                    },
-                  );
-                },
+                // onChanged: (value) {
+                //   EasyDebounce.debounce(
+                //     'currentPassword',
+                //     const Duration(milliseconds: 250),
+                //     () async {
+                //       if (_passwordRepeat != value) {
+                //         setState(() {
+                //           _passwordRepeat = value;
+                //         });
+                //       }
+                //     },
+                //   );
+                // },
+                textEditingController: _passwordRepeat,
                 labelText: "Repeat New Password",
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'I cannot be empty mate';
-                  } else if (value != _password) {
+                  } else if (value != _password.text) {
                     return 'I must be the equal to the other password mate';
                   } else {
                     return null;

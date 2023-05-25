@@ -478,7 +478,7 @@ Future<void> uploadContactPicture(
 
   var request = http.MultipartRequest('POST', url);
 
-  request.headers['Authorization'] = 'Bearer $token';
+  request.headers['Authorization'] = '$token';
 
   request.files.add(http.MultipartFile.fromBytes('picture', picture,
       filename: "thumbnailname", contentType: MediaType('image', 'png')));

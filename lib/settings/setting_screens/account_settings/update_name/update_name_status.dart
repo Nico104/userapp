@@ -7,10 +7,10 @@ import '../../../../theme/custom_text_styles.dart';
 class UpdateNameStatus extends StatelessWidget {
   const UpdateNameStatus({
     super.key,
-    required this.name,
+    required this.displayName,
   });
 
-  final String name;
+  final String displayName;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class UpdateNameStatus extends StatelessWidget {
         borderRadius: BorderRadius.circular(28),
       ),
       child: FutureBuilder(
-        future: updateName(name),
+        future: updateDisplayName(displayName),
         builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
           if (snapshot.hasData) {
             // makeDissmissable();

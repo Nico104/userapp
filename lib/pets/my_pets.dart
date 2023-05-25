@@ -41,16 +41,7 @@ class _MyPetsState extends State<MyPets> {
   final PageController _controller = PageController();
 
   double pageindex = 0;
-  // late Color backgroundColor;
-
   int? activeExtendedActions;
-
-  // int _pictureIndex = 0;
-
-  // List<NetworkImage> bgList = [
-  //   NetworkImage("https://picsum.photos/600/800"),
-  //   NetworkImage("https://picsum.photos/800"),
-  // ];
 
   @override
   void initState() {

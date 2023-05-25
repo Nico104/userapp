@@ -26,6 +26,7 @@ class SignUpEmailPage extends StatefulWidget {
 class _SignUpEmailPageState extends State<SignUpEmailPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _emailAvailable = false;
+  // bool _emailAvailable = true;
   // TextEditingController email = TextEditingController();
 
   String emailText = "";

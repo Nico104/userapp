@@ -36,7 +36,7 @@ class _AllContactsPageState extends State<AllContactsPage> {
     return Scaffold(
       appBar: AppBar(
         title: FutureBuilder<String>(
-          future: getName(),
+          future: getDisplayName(),
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
             if (snapshot.hasData) {
               return Text("${snapshot.data}'s Contacts");

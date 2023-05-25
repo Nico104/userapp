@@ -27,7 +27,7 @@ class MyPetsNavbar extends StatelessWidget {
           style: getCustomTextStyles(context).homeWelcomeMessage,
         ),
         FutureBuilder<String>(
-          future: getName(),
+          future: getDisplayName(),
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
             if (snapshot.hasData) {
               return Text(
