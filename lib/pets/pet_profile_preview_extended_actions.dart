@@ -3,6 +3,7 @@ import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/pets/profile_details/pages/pet_page.dart';
 import 'package:userapp/pets/scans/scans_page.dart';
+import 'package:userapp/pets/share/share_image_generator.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
 
 import '../theme/custom_colors.dart';
@@ -77,7 +78,7 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => SharePetProfilePage(
+        builder: (context) => ShareImageGenerator(
           petProfileDetails: widget.petProfileDetails,
         ),
       ),

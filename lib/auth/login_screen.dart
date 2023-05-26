@@ -11,6 +11,7 @@ import '../pets/profile_details/widgets/custom_textformfield.dart';
 import '../styles/text_styles.dart';
 import '../theme/custom_colors.dart';
 import 'auth_widgets.dart';
+import 'forgot_password/forgot_password_page.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, required this.reloadInitApp});
@@ -28,24 +29,11 @@ class _LoginScreenState extends State<LoginScreen> {
   String? _emailErrorMsg;
   String? _passwordErrorMsg;
 
-  bool _rememberMe = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          // const Align(
-          //   alignment: Alignment(0, 0.97),
-          //   child: SizedBox(
-          //     height: 450,
-          //     child: RiveAnimation.asset(
-          //       'assets/Animations/girl_and_dog.riv',
-          //       fit: BoxFit.cover,
-          //       alignment: Alignment(0.85, 0),
-          //     ),
-          //   ),
-          // ),
           SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
             child: SizedBox(
@@ -104,20 +92,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 02.h),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        const Spacer(),
                         GestureDetector(
-                          behavior: HitTestBehavior.opaque,
                           onTap: () {
-                            setState(() {
-                              _rememberMe = !_rememberMe;
-                            });
+                            navigatePerSlide(
+                              context,
+                              const ForgotPasswordPage(),
+                            );
                           },
-                          child: RememberMe(rememberMe: _rememberMe),
-                        ),
-                        Text(
-                          "Forgot Password",
-                          style: Theme.of(context).textTheme.labelSmall,
+                          child: Text(
+                            "Forgot Password",
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
                         ),
                       ],
                     ),
@@ -127,10 +114,35 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: CustomBigButton(
                         label: "Sign In",
                         onTap: () {
+                          //Loading Dialog Thingy
+                          BuildContext? dialogContext;
+                          showModalBottomSheet(
+                            context: context,
+                            backgroundColor: Colors.transparent,
+                            isDismissible: false,
+                            builder: (buildContext) {
+                              dialogContext = buildContext;
+                              return Container(
+                                margin: const EdgeInsets.all(16),
+                                padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  borderRadius: BorderRadius.circular(28),
+                                ),
+                                child: const SizedBox(
+                                  height: 60,
+                                  width: 60,
+                                  child: CircularProgressIndicator(),
+                                ),
+                              );
+                            },
+                          );
+
                           signInWithEmailPassword(
                                   email: emailText, password: passwordText)
                               .then(
                             (user) {
+                              Navigator.pop(dialogContext!);
                               if (user != null) {
                                 setState(() {
                                   _emailErrorMsg = null;

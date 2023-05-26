@@ -390,6 +390,31 @@ Future<bool> signUpUser({
 // }
 
 ///Returns 0 on success
+///Returns 1 on unexpected error
+///Returns 2 on invalid email
+///Returns 3 on no user found
+Future<int> resetPassword({required String email}) async {
+  firebase_auth.FirebaseAuth auth = firebase_auth.FirebaseAuth.instance;
+
+  try {
+    await auth.sendPasswordResetEmail(email: email);
+    print("success");
+    return 0;
+  } on firebase_auth.FirebaseAuthException catch (e) {
+    if (e.code == 'invalid-email') {
+      print('Invalid Email');
+      return 2;
+    } else if (e.code == 'user-not-found') {
+      print('User not found');
+      return 3;
+    } else {
+      print(e);
+      return 1;
+    }
+  }
+}
+
+///Returns 0 on success
 ///Returns 1 on no user logged in or any unexpected error
 ///Returns 2 on wrong password
 ///Returns 3 on too many failed requests, try again later
