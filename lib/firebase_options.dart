@@ -67,9 +67,11 @@ class DefaultFirebaseOptions {
     messagingSenderId: '792601770447',
     projectId: 'finma-dbc70',
     storageBucket: 'finma-dbc70.appspot.com',
-    androidClientId: '792601770447-e2oq67qse0vnjf5hk57pnpdec4nd1luv.apps.googleusercontent.com',
-    iosClientId: '792601770447-dch7tietave0kbcfton1janfsrm4e3l2.apps.googleusercontent.com',
-    iosBundleId: 'com.example.userapp',
+    androidClientId:
+        '792601770447-e2oq67qse0vnjf5hk57pnpdec4nd1luv.apps.googleusercontent.com',
+    iosClientId:
+        '792601770447-dch7tietave0kbcfton1janfsrm4e3l2.apps.googleusercontent.com',
+    iosBundleId: 'com.finma.userapp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -78,8 +80,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '792601770447',
     projectId: 'finma-dbc70',
     storageBucket: 'finma-dbc70.appspot.com',
-    androidClientId: '792601770447-e2oq67qse0vnjf5hk57pnpdec4nd1luv.apps.googleusercontent.com',
-    iosClientId: '792601770447-dch7tietave0kbcfton1janfsrm4e3l2.apps.googleusercontent.com',
-    iosBundleId: 'com.example.userapp',
+    androidClientId:
+        '792601770447-e2oq67qse0vnjf5hk57pnpdec4nd1luv.apps.googleusercontent.com',
+    iosClientId:
+        '792601770447-dch7tietave0kbcfton1janfsrm4e3l2.apps.googleusercontent.com',
+    iosBundleId: 'com.finma.userapp',
   );
 }

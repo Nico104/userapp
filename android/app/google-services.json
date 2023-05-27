@@ -14,10 +14,62 @@
       },
       "oauth_client": [
         {
+          "client_id": "792601770447-jlu5qi0hlfh786q7nghmj5rjoh8mi8f6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.userapp",
+            "certificate_hash": "519d8110016d9c9f3e196fa6fcc408a2257d886b"
+          }
+        },
+        {
           "client_id": "792601770447-omkasr6tpscgnk6r9v0v128fvfmh1gg3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.userapp",
+            "certificate_hash": "8a5208d09fdc636e4e3fb6ece9c7f2c8647876ef"
+          }
+        },
+        {
+          "client_id": "792601770447-8q78u5se0up0hv1s50c5mpgcjtbk307b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5bbQqqZNkWsLDrYGFnJv-3dnvOIf6Syk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "792601770447-1kamdr47ep07jiipsa0sg8a8od5fv63e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "792601770447-dch7tietave0kbcfton1janfsrm4e3l2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.userapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:792601770447:android:500d0fb7192506cd687aba",
+        "android_client_info": {
+          "package_name": "com.finma.userapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "792601770447-s4sbpvv8uj1fvou576eu9n6s5t4gobcr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.finma.userapp",
             "certificate_hash": "8a5208d09fdc636e4e3fb6ece9c7f2c8647876ef"
           }
         },

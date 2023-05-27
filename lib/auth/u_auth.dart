@@ -10,9 +10,15 @@ import 'package:userapp/network_globals.dart';
 
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
+import 'U_auth_globals.dart';
+
+// final facebookLogin = FacebookLogin();
+final firebase_auth.FirebaseAuth firebaseAuth =
+    firebase_auth.FirebaseAuth.instance;
+final GoogleSignIn googleSignIn = GoogleSignIn();
+
 Future<String?> getIdToken() async {
-  firebase_auth.User? loggedInUser =
-      firebase_auth.FirebaseAuth.instance.currentUser;
+  firebase_auth.User? loggedInUser = firebaseAuth.currentUser;
   if (loggedInUser != null) {
     return await loggedInUser.getIdToken();
   } else {
@@ -138,7 +144,20 @@ Future<void> responsiveFeelGoodWait(int milliseconds) async {
 Future<void> logout() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.remove('DisplayName');
-  await firebase_auth.FirebaseAuth.instance.signOut();
+  // await firebaseAuth.signOut();
+  await firebaseAuth.signOut();
+
+  // SignInProviderId? providerId = getLoggedInUserProviderId();
+  // if (providerId != null && providerId == SignInProviderId.google) {
+  //   // await GoogleSignIn().signOut();
+  //   await googleSignIn.signOut();
+  // }
+  googleSignIn.isSignedIn().then((s) async {
+    if (s) {
+      // signOutWithGoogle();
+      await googleSignIn.signOut();
+    }
+  });
 }
 
 Future<void> setLoggedInOnce(bool val) async {
@@ -394,10 +413,10 @@ Future<bool> signUpUser({
 ///Returns 2 on invalid email
 ///Returns 3 on no user found
 Future<int> resetPassword({required String email}) async {
-  firebase_auth.FirebaseAuth auth = firebase_auth.FirebaseAuth.instance;
+  // firebase_auth.FirebaseAuth auth = firebaseAuth;
 
   try {
-    await auth.sendPasswordResetEmail(email: email);
+    await firebaseAuth.sendPasswordResetEmail(email: email);
     print("success");
     return 0;
   } on firebase_auth.FirebaseAuthException catch (e) {
@@ -496,7 +515,7 @@ Future<int> changeEmail(String currentPassword, String newEmail) async {
 }
 
 firebase_auth.User? getCurrentFirebaseUser() {
-  return firebase_auth.FirebaseAuth.instance.currentUser;
+  return firebaseAuth.currentUser;
 }
 
 //Change email
@@ -641,6 +660,8 @@ Future<void> deleteDeviceToken(String deviceToken) async {
     }),
   );
 
+  print(response.body);
+
   if (response.statusCode == 201) {
     return;
   } else {
@@ -651,8 +672,7 @@ Future<void> deleteDeviceToken(String deviceToken) async {
 //FireBase Auth - https://blog.codemagic.io/flutter-web-firebase-authentication-and-google-sign-in/
 
 firebase_auth.User? getLoggedInUser() {
-  firebase_auth.User? loggedInUser =
-      firebase_auth.FirebaseAuth.instance.currentUser;
+  firebase_auth.User? loggedInUser = firebaseAuth.currentUser;
   return loggedInUser;
 }
 
@@ -661,14 +681,14 @@ firebase_auth.User? getLoggedInUser() {
 //verification https://stackoverflow.com/questions/62640699/how-to-verify-email-and-password-flutter-firebase
 Future<firebase_auth.User?> registerWithEmailPassword(
     {required String email, required String password}) async {
-  firebase_auth.FirebaseAuth auth = firebase_auth.FirebaseAuth.instance;
+  // firebase_auth.FirebaseAuth auth = firebaseAuth;
   firebase_auth.User? user;
 
   print(email);
 
   try {
     firebase_auth.UserCredential userCredential =
-        await auth.createUserWithEmailAndPassword(
+        await firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
@@ -695,12 +715,12 @@ Future<firebase_auth.User?> registerWithEmailPassword(
 
 Future<firebase_auth.User?> signInWithEmailPassword(
     {required String email, required String password}) async {
-  firebase_auth.FirebaseAuth auth = firebase_auth.FirebaseAuth.instance;
+  // firebase_auth.FirebaseAuth auth = firebaseAuth;
   firebase_auth.User? user;
 
   try {
     firebase_auth.UserCredential userCredential =
-        await auth.signInWithEmailAndPassword(
+        await firebaseAuth.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
@@ -732,11 +752,12 @@ Future<firebase_auth.User?> signInWithEmailPassword(
 
 Future<firebase_auth.User?> signInWithGoogle(
     {required BuildContext context}) async {
-  firebase_auth.FirebaseAuth auth = firebase_auth.FirebaseAuth.instance;
+  // firebase_auth.FirebaseAuth auth = firebaseAuth;
   firebase_auth.User? user;
 
-  final GoogleSignIn googleSignIn = GoogleSignIn();
+  // final GoogleSignIn googleSignIn = GoogleSignIn();
 
+  // final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
   final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
 
   if (googleSignInAccount != null) {
@@ -751,7 +772,7 @@ Future<firebase_auth.User?> signInWithGoogle(
 
     try {
       final firebase_auth.UserCredential userCredential =
-          await auth.signInWithCredential(credential);
+          await firebaseAuth.signInWithCredential(credential);
 
       user = userCredential.user;
       print(user);
@@ -777,7 +798,7 @@ Future<firebase_auth.User?> signInWithGoogle(
 Future<firebase_auth.User?> signInWithGoogleWeb() async {
   // Initialize Firebase
   // await  firebaseAuth.Firebase.initializeApp();
-  firebase_auth.FirebaseAuth auth = firebase_auth.FirebaseAuth.instance;
+  // firebase_auth.FirebaseAuth auth = firebaseAuth;
   firebase_auth.User? user;
 
   // The `GoogleAuthProvider` can only be used while running on the web
@@ -786,7 +807,7 @@ Future<firebase_auth.User?> signInWithGoogleWeb() async {
 
   try {
     final firebase_auth.UserCredential userCredential =
-        await auth.signInWithPopup(authProvider);
+        await firebaseAuth.signInWithPopup(authProvider);
 
     user = userCredential.user;
   } catch (e) {
@@ -807,4 +828,23 @@ Future<firebase_auth.User?> signInWithGoogleWeb() async {
   }
 
   return user;
+}
+
+enum SignInProviderId {
+  google,
+  password,
+}
+
+SignInProviderId? getLoggedInUserProviderId() {
+  firebase_auth.User? loggedInUser = getLoggedInUser();
+
+  if (loggedInUser != null) {
+    switch (loggedInUser.providerData.first.providerId) {
+      case 'google.com':
+        return SignInProviderId.google;
+      case 'password':
+        return SignInProviderId.password;
+    }
+  }
+  return null;
 }

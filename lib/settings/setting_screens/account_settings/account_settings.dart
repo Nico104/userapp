@@ -35,12 +35,11 @@ class AccountSettings extends StatefulWidget {
 
 class _AccountSettingsState extends State<AccountSettings> {
   Widget _getAccountSettings() {
-    firebase_auth.User? loggedInUser =
-        firebase_auth.FirebaseAuth.instance.currentUser;
+    SignInProviderId? loggedInUserProviderId = getLoggedInUserProviderId();
 
-    if (loggedInUser != null) {
-      switch (loggedInUser.providerData.first.providerId) {
-        case 'google.com':
+    if (loggedInUserProviderId != null) {
+      switch (loggedInUserProviderId) {
+        case SignInProviderId.google:
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -50,12 +49,12 @@ class _AccountSettingsState extends State<AccountSettings> {
                 icon: Icon(Icons.alternate_email),
               ),
               const SizedBox(height: settingItemSpacing),
-              if (loggedInUser.email != null)
+              if (getLoggedInUser()!.email != null)
                 Text(
-                    "You are signed in whith your Google Account with the assigned email address: ${loggedInUser.email!}"),
+                    "You are signed in whith your Google Account with the assigned email address: ${getLoggedInUser()!.email}"),
             ],
           );
-        case 'password':
+        case SignInProviderId.password:
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
