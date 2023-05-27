@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/language/m_language.dart';
 import 'package:userapp/network_globals.dart';
+import 'package:userapp/pet_color/hex_color.dart';
 import 'package:userapp/pets/pet_profile_preview_extended_actions.dart';
 import 'package:userapp/pets/profile_details/g_profile_detail_globals.dart'
     as globals;
@@ -128,17 +129,29 @@ class _MyPetsState extends State<MyPets> {
                         scale: 1.2,
                       ),
                     )
+                  : BoxDecoration(
+                      color: HexColor("ebebd3"),
+                      image: const DecorationImage(
+                        image: AssetImage(
+                          "assets/new_pet_bg/dog_1.png",
+                        ),
+                        fit: BoxFit.contain,
+                        alignment: Alignment.bottomCenter,
+                        scale: 1,
+                      ),
+                    ),
+              child: pageindex.round() < widget.petProfiles.length
+                  ? BackdropFilter(
+                      filter: ImageFilter.blur(
+                        sigmaX: 15,
+                        sigmaY: 15,
+                      ),
+                      child: Container(
+                        color: Theme.of(context).canvasColor.withOpacity(0.60),
+                        // color: Theme.of(context).canvasColor.withOpacity(0.0),
+                      ),
+                    )
                   : null,
-              child: BackdropFilter(
-                filter: ImageFilter.blur(
-                  sigmaX: 15,
-                  sigmaY: 15,
-                ),
-                child: Container(
-                  color: Theme.of(context).canvasColor.withOpacity(0.60),
-                  // color: Theme.of(context).canvasColor.withOpacity(0.0),
-                ),
-              ),
             ),
           ),
           SafeArea(
