@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../../network_globals.dart';
 import '../../../styles/custom_icons_icons.dart';
@@ -158,18 +159,28 @@ class _PictureListState extends State<PictureList> {
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: ScrollablePositionedList.builder(
           itemCount: widget.petPictures.length,
+          // shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 const SizedBox(height: 38),
                 SinglePicture(
-                  // removePetPicture: () {
-                  //   widget.removePetPicture.call(index);
-                  // },
                   imageUrl: s3BaseUrl +
                       widget.petPictures.elementAt(index).petPictureLink,
                 ),
+                // Expanded(
+                //   child: PhotoView(
+                //     backgroundDecoration: BoxDecoration(
+                //       color: Theme.of(context).canvasColor,
+                //     ),
+                //     imageProvider: NetworkImage(s3BaseUrl +
+                //         widget.petPictures.elementAt(index).petPictureLink),
+                //     // minScale: PhotoViewComputedScale.contained * 0.8,
+                //     // maxScale: PhotoViewComputedScale.covered * 1.8,
+                //     initialScale: PhotoViewComputedScale.contained,
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                   child: Row(
@@ -180,42 +191,6 @@ class _PictureListState extends State<PictureList> {
                         size: 24,
                       ),
                       _getMoreButton(index),
-                      // GestureDetector(
-                      //   onTapDown: (TapDownDetails details) {
-                      //     _showPopupMenu(
-                      //       offset: details.globalPosition,
-                      //       pictureIndex: index,
-                      //     );
-                      //   },
-                      //   child: const Icon(
-                      //     Icons.more_horiz,
-                      //     size: 24,
-                      //   ),
-                      // ),
-                      // PopupMenuButton(
-                      //   // onSelected: (value) {
-                      //   //   _onMenuItemSelected(value as int);
-                      //   // },
-                      //   // offset: Offset(0.0, appBarHeight),
-                      //   shape: RoundedRectangleBorder(
-                      //     borderRadius: BorderRadius.only(
-                      //       bottomLeft: Radius.circular(8.0),
-                      //       bottomRight: Radius.circular(8.0),
-                      //       topLeft: Radius.circular(8.0),
-                      //       topRight: Radius.circular(8.0),
-                      //     ),
-                      //   ),
-                      //   child: const Icon(
-                      //     Icons.more_horiz,
-                      //     size: 24,
-                      //   ),
-                      //   itemBuilder: (ctx) => [
-                      //     _buildPopupMenuItem('Search', Icons.search, 0),
-                      //     _buildPopupMenuItem('Upload', Icons.upload, 1),
-                      //     _buildPopupMenuItem('Copy', Icons.copy, 2),
-                      //     _buildPopupMenuItem('Exit', Icons.exit_to_app, 3),
-                      //   ],
-                      // )
                     ],
                   ),
                 )

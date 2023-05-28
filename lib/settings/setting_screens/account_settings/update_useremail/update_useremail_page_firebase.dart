@@ -105,7 +105,7 @@ class _UpdateUseremailFirebasePageState
             SizedBox(height: 04.h),
             CustomTextFormField(
               textEditingController: _email,
-              labelText: "Code",
+              labelText: "New Email",
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'I cannot be empty mate';

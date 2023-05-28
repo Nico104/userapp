@@ -54,7 +54,8 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
 
   final ScrollController _scrollController = ScrollController();
 
-  final GlobalKey<NestedScrollViewState> globalKey = GlobalKey();
+  final GlobalKey<NestedScrollViewState> nestedScrolViewKey = GlobalKey();
+  final tabBarKey = GlobalKey();
 
   late TabController tabController;
 
@@ -72,7 +73,7 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       //For Nested Scroll Views
-      globalKey.currentState!.innerController.addListener(() {
+      nestedScrolViewKey.currentState!.innerController.addListener(() {
         _handleNavBarShown();
       });
       _scrollController.addListener(() {
@@ -181,192 +182,202 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
       // extendBodyBehindAppBar: _scrollTop ? true : false,
       floatingActionButton: getFloatingActionButton(tabController.index),
 
-      body: ScrollConfiguration(
-        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-        child: NestedScrollView(
-          key: globalKey,
-          controller: _scrollController,
-          physics: const BouncingScrollPhysics(),
-          // allows you to build a list of elements that would be scrolled away till the body reached the top
-          headerSliverBuilder: (context, _) {
-            return [
-              SliverList(
-                delegate: SliverChildListDelegate(
-                  [
-                    const SizedBox(height: 36),
-                    Center(
-                      child: Material(
-                        elevation: 4,
-                        borderRadius: BorderRadius.circular(14),
-                        child: Container(
-                          width: 90.w,
-                          height: 90.w,
-                          // margin: EdgeInsets.only(bottom: tagDimension * 0.69),
-                          // margin: EdgeInsets.all(32),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                            // boxShadow: kElevationToShadow[4],
-                            image: DecorationImage(
-                              image: NetworkImage("https://picsum.photos/512"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          navigatePerSlide(
-                            context,
-                            TagSelectionPage(
-                              petProfile: _petProfileDetails,
-                            ),
-                            callback: () => reloadTags(),
-                          );
-                        },
-                        child: Tags(
-                            collardimension: tagDimension,
-                            tag: _petProfileDetails.tag),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    //Name
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      // mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Spacer(flex: 2),
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              _petProfileDetails.petName,
-                              style: getCustomTextStyles(context)
-                                  .profileDetailsPetName,
-                            ),
-                            _petProfileDetails.petGender != Gender.none
-                                ? Text(
-                                    getPetTitle(_petProfileDetails.petGender),
-                                    style:
-                                        Theme.of(context).textTheme.labelSmall,
-                                  )
-                                : const SizedBox(),
-                          ],
-                        ),
-                        Expanded(
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: GestureDetector(
-                              onTap: () => askForPetName(
-                                  context,
-                                  widget.setPetName,
-                                  _petProfileDetails.petName),
-                              child: const Padding(
-                                padding: EdgeInsets.only(
-                                    left: 14, bottom: 14, right: 14),
-                                child: Icon(
-                                  CustomIcons.edit_square,
-                                  size: 18,
-                                ),
+      body: GestureDetector(
+        onTap: () {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: ScrollConfiguration(
+          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+          child: NestedScrollView(
+            key: nestedScrolViewKey,
+            controller: _scrollController,
+            physics: const BouncingScrollPhysics(),
+            // allows you to build a list of elements that would be scrolled away till the body reached the top
+            headerSliverBuilder: (context, _) {
+              return [
+                SliverList(
+                  delegate: SliverChildListDelegate(
+                    [
+                      const SizedBox(height: 36),
+                      Center(
+                        child: Material(
+                          elevation: 4,
+                          borderRadius: BorderRadius.circular(14),
+                          child: Container(
+                            width: 90.w,
+                            height: 90.w,
+                            // margin: EdgeInsets.only(bottom: tagDimension * 0.69),
+                            // margin: EdgeInsets.all(32),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              // boxShadow: kElevationToShadow[4],
+                              image: DecorationImage(
+                                image:
+                                    NetworkImage("https://picsum.photos/512"),
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
                         ),
-                        Flexible(
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Padding(
-                              padding: EdgeInsets.only(right: 05.w),
-                              child: _getMoreButton(),
+                      ),
+                      const SizedBox(height: 20),
+                      Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            navigatePerSlide(
+                              context,
+                              TagSelectionPage(
+                                petProfile: _petProfileDetails,
+                              ),
+                              callback: () => reloadTags(),
+                            );
+                          },
+                          child: Tags(
+                              collardimension: tagDimension,
+                              tag: _petProfileDetails.tag),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      //Name
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        // mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Spacer(flex: 2),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                _petProfileDetails.petName,
+                                style: getCustomTextStyles(context)
+                                    .profileDetailsPetName,
+                              ),
+                              _petProfileDetails.petGender != Gender.none
+                                  ? Text(
+                                      getPetTitle(_petProfileDetails.petGender),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelSmall,
+                                    )
+                                  : const SizedBox(),
+                            ],
+                          ),
+                          Expanded(
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: GestureDetector(
+                                onTap: () => askForPetName(
+                                    context,
+                                    widget.setPetName,
+                                    _petProfileDetails.petName),
+                                child: const Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 14, bottom: 14, right: 14),
+                                  child: Icon(
+                                    CustomIcons.edit_square,
+                                    size: 18,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    VisibilityDetector(
-                      key: const Key('petpagetabs'),
-                      onVisibilityChanged: (visibilityInfo) {
-                        var visiblePercentage =
-                            visibilityInfo.visibleFraction * 100;
-                        // debugPrint(
-                        //     'Widget ${visibilityInfo.key} is $visiblePercentage% visible');
-                        if (visiblePercentage == 0) {
-                          if (mounted) {
-                            setState(() {
-                              _headerVisible = false;
-                            });
+                          Flexible(
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Padding(
+                                padding: EdgeInsets.only(right: 05.w),
+                                child: _getMoreButton(),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      VisibilityDetector(
+                        key: const Key('petpagetabs'),
+                        onVisibilityChanged: (visibilityInfo) {
+                          var visiblePercentage =
+                              visibilityInfo.visibleFraction * 100;
+                          // debugPrint(
+                          //     'Widget ${visibilityInfo.key} is $visiblePercentage% visible');
+                          if (visiblePercentage == 0) {
+                            if (mounted) {
+                              setState(() {
+                                _headerVisible = false;
+                              });
+                            }
+                          } else {
+                            if (mounted) {
+                              setState(() {
+                                _headerVisible = true;
+                              });
+                            }
                           }
-                        } else {
-                          if (mounted) {
-                            setState(() {
-                              _headerVisible = true;
-                            });
-                          }
-                        }
-                      },
-                      child: const SizedBox(height: 36),
-                    ),
-                  ],
+                        },
+                        child: const SizedBox(height: 36),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ];
-          },
-          // You tab view goes here
-          body: Column(
-            children: <Widget>[
-              Material(
-                elevation: _headerVisible ? 0 : 8,
-                child: TabBar(
-                  controller: tabController,
-                  onTap: (value) {
-                    //to refresh currentIndex for FloatingActionButton
-                    setState(() {});
-                  },
-                  tabs: const [
-                    Tab(icon: Icon(Icons.pets)),
-                    Tab(icon: Icon(Icons.image)),
-                    Tab(icon: Icon(Icons.file_copy)),
-                  ],
+              ];
+            },
+            // You tab view goes here
+            body: Column(
+              children: <Widget>[
+                Material(
+                  elevation: _headerVisible ? 0 : 4,
+                  child: TabBar(
+                    key: tabBarKey,
+                    controller: tabController,
+                    onTap: (value) {
+                      //to refresh currentIndex for FloatingActionButton
+                      setState(() {});
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      Scrollable.ensureVisible(tabBarKey.currentContext!);
+                    },
+                    tabs: const [
+                      Tab(icon: Icon(Icons.pets)),
+                      Tab(icon: Icon(Icons.image)),
+                      Tab(icon: Icon(Icons.file_copy)),
+                    ],
+                  ),
                 ),
-              ),
-              Expanded(
-                child: TabBarView(
-                  controller: tabController,
-                  children: [
-                    ProfileInfoTab(
-                      petProfileDetails: _petProfileDetails,
-                      setGender: (value) {
-                        setState(() {
-                          _petProfileDetails.petGender = value;
-                        });
-                        updatePetProfileCore(_petProfileDetails);
-                      },
-                    ),
-                    ProfileDetailsImageTab(
-                      // getProfileDetails: widget.getProfileDetails,
-                      profileDetails: _petProfileDetails,
-                      removePetPicture: (index) async {
-                        await deletePicture(
-                            _petProfileDetails.petPictures.elementAt(index));
-                        //hekps against 403 from server
-                        // widget.reloadFuture.call();
-                        // Future.delayed(const Duration(milliseconds: 100))
-                        //     .then((value) => refresh());
-                        reloadPetProfileDetails();
-                      },
-                    ),
-                    DocumentsTab(
-                      documents: _petProfileDetails.petDocuments,
-                    ),
-                  ],
+                Expanded(
+                  child: TabBarView(
+                    controller: tabController,
+                    children: [
+                      ProfileInfoTab(
+                        petProfileDetails: _petProfileDetails,
+                        setGender: (value) {
+                          setState(() {
+                            _petProfileDetails.petGender = value;
+                          });
+                          updatePetProfileCore(_petProfileDetails);
+                        },
+                      ),
+                      ProfileDetailsImageTab(
+                        // getProfileDetails: widget.getProfileDetails,
+                        profileDetails: _petProfileDetails,
+                        removePetPicture: (index) async {
+                          await deletePicture(
+                              _petProfileDetails.petPictures.elementAt(index));
+                          //hekps against 403 from server
+                          // widget.reloadFuture.call();
+                          // Future.delayed(const Duration(milliseconds: 100))
+                          //     .then((value) => refresh());
+                          reloadPetProfileDetails();
+                        },
+                      ),
+                      DocumentsTab(
+                        documents: _petProfileDetails.petDocuments,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

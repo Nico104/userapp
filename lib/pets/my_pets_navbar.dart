@@ -27,9 +27,9 @@ class MyPetsNavbar extends StatelessWidget {
             alignment: WrapAlignment.start,
             children: [
               Text(
-                // "Welcome back ",
                 "${'welcomeMsg'.tr()} ",
                 style: getCustomTextStyles(context).homeWelcomeMessage,
+                // overflow: TextOverflow.visible,
               ),
               FutureBuilder<String>(
                 future: getDisplayName(),
@@ -58,14 +58,14 @@ class MyPetsNavbar extends StatelessWidget {
             ],
           ),
         ),
-        const Spacer(),
+        const SizedBox(width: 16),
         const NotificationsIcon(
           icon: Icon(
             CustomIcons.notification,
             size: 28,
           ),
         ),
-        const SizedBox(width: 15),
+        const SizedBox(width: 16),
         GestureDetector(
           onTap: () {
             navigatePerSlide(

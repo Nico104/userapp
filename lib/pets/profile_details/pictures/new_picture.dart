@@ -106,7 +106,7 @@ Future<CroppedFile?> cropFile(String path) async {
         cropFrameColor: Colors.grey,
         cropFrameStrokeWidth: 6,
         hideBottomControls: true,
-        // lockAspectRatio: true,
+        lockAspectRatio: false,
       ),
       IOSUiSettings(
         title: 'Cropper',

@@ -19,23 +19,60 @@ class DocumentItem extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(document.documentName),
-        IconButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (_) => const ConfirmDeleteDialog(label: "Document"),
-            ).then((value) {
-              if (value != null && value is bool) {
-                if (value == true) {
-                  deleteDocument(document)
-                      .then((value) => removeDocumentFromList());
-                }
-              }
-            });
-          },
-          icon: const Icon(CustomIcons.delete),
+        Flexible(
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: Container(
+              margin: EdgeInsets.all(12),
+              padding: EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.grey, width: 1),
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.lightGreen,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.grey, width: 1),
+                ),
+                child: const Text("cont"),
+              ),
+            ),
+          ),
         ),
+        Expanded(
+          child: Text(
+            document.documentName,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        VerticalDivider(
+          endIndent: 6,
+          indent: 6,
+          color: Colors.grey,
+        ),
+        GestureDetector(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(Icons.more_vert),
+          ),
+        ),
+        // IconButton(
+        //   onPressed: () {
+        //     showDialog(
+        //       context: context,
+        //       builder: (_) => const ConfirmDeleteDialog(label: "Document"),
+        //     ).then((value) {
+        //       if (value != null && value is bool) {
+        //         if (value == true) {
+        //           deleteDocument(document)
+        //               .then((value) => removeDocumentFromList());
+        //         }
+        //       }
+        //     });
+        //   },
+        //   icon: const Icon(CustomIcons.delete),
+        // ),
       ],
     );
   }

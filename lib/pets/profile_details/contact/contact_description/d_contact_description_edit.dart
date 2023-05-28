@@ -54,139 +54,150 @@ class _ContactDescriptionEditDialogState
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: IntrinsicWidth(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: GestureDetector(
+        onTap: () {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: SingleChildScrollView(
+            child: IntrinsicWidth(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Edit",
-                    style: Theme.of(context).textTheme.titleMedium,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Edit",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (_) => const ConfirmDeleteDialog(
+                              label: "Contact Description",
+                            ),
+                          ).then((value) {
+                            if (value != null) {
+                              if (value == true) {
+                                widget.onDelete();
+                                Navigator.pop(context);
+                              }
+                            }
+                          });
+                        },
+                        child: const Icon(CustomIcons.delete),
+                      ),
+                    ],
                   ),
-                  InkWell(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (_) => const ConfirmDeleteDialog(
-                          label: "Contact Description",
-                        ),
-                      ).then((value) {
-                        if (value != null) {
-                          if (value == true) {
-                            widget.onDelete();
-                            Navigator.pop(context);
-                          }
-                        }
-                      });
+                  const SizedBox(height: 28),
+                  CustomTextFormField(
+                    initialValue: text,
+                    hintText: "Enter Contact Description",
+                    onChanged: (val) {
+                      EasyDebounce.debounce(
+                        'ContactDescription',
+                        const Duration(milliseconds: 50),
+                        () {
+                          setState(() {
+                            text = val;
+                          });
+                        },
+                      );
                     },
-                    child: const Icon(CustomIcons.delete),
                   ),
-                ],
-              ),
-              const SizedBox(height: 28),
-              CustomTextFormField(
-                initialValue: text,
-                hintText: "Enter Contact Description",
-                onChanged: (val) {
-                  EasyDebounce.debounce(
-                    'ContactDescription',
-                    const Duration(milliseconds: 50),
-                    () {
-                      setState(() {
-                        text = val;
-                      });
-                    },
-                  );
-                },
-              ),
-              const SizedBox(height: 28),
-              BlockPicker(
-                pickerColor: currentColor,
-                onColorChanged: changeColor,
-                availableColors: getAvailableContactDescriptionColors(),
-                layoutBuilder: (context, colors, child) {
-                  Orientation orientation = MediaQuery.of(context).orientation;
+                  const SizedBox(height: 28),
+                  BlockPicker(
+                    pickerColor: currentColor,
+                    onColorChanged: changeColor,
+                    availableColors: getAvailableContactDescriptionColors(),
+                    layoutBuilder: (context, colors, child) {
+                      Orientation orientation =
+                          MediaQuery.of(context).orientation;
 
-                  return SizedBox(
-                    width: 300,
-                    // height: orientation == Orientation.portrait ? 360 : 200,
-                    height: orientation == Orientation.portrait ? 380 : 200,
-                    child: GridView.count(
-                      crossAxisCount:
-                          orientation == Orientation.portrait ? 4 : 6,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 5,
-                      children: [for (Color color in colors) child(color)],
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(height: 28),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  const SizedBox(width: 8),
-                  //Todo remove Outlined Button and stay with Containers to keep it the same everywhere - Extract Cancel Widget and Save Widget
-                  OutlinedButton(
-                    onPressed: () => Navigator.pop(context),
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                      side: BorderSide(
-                        width: 0.5,
-                        color: getCustomColors(context).lightBorder ??
-                            Colors.transparent,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: Text(
-                      "Cancel",
-                      style: getCustomTextStyles(context)
-                          .dataEditDialogButtonCancelStyle,
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  DisableWidget(
-                    disabled: text.isEmpty,
-                    child: OutlinedButton(
-                      onPressed: () {
-                        widget.contactDescription.contactDescriptionLabel =
-                            text;
-                        widget.contactDescription.contactDescriptionHex =
-                            pickerColor.toHexTriplet();
-                        updateContactDescription(widget.contactDescription);
-                        widget.onSave();
-                        Navigator.pop(context);
-                      },
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                        backgroundColor: getCustomColors(context).accent,
-                        side: BorderSide(
-                          width: 0.5,
-                          color: getCustomColors(context).lightBorder ??
-                              Colors.transparent,
+                      return SizedBox(
+                        width: 300,
+                        // height: orientation == Orientation.portrait ? 360 : 200,
+                        height: orientation == Orientation.portrait ? 380 : 200,
+                        child: GridView.count(
+                          physics: const NeverScrollableScrollPhysics(),
+                          crossAxisCount:
+                              orientation == Orientation.portrait ? 4 : 6,
+                          crossAxisSpacing: 5,
+                          mainAxisSpacing: 5,
+                          children: [
+                            for (Color color in colors) child(color),
+                          ],
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 28),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const SizedBox(width: 8),
+                      //Todo remove Outlined Button and stay with Containers to keep it the same everywhere - Extract Cancel Widget and Save Widget
+                      OutlinedButton(
+                        onPressed: () => Navigator.pop(context),
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
+                          side: BorderSide(
+                            width: 0.5,
+                            color: getCustomColors(context).lightBorder ??
+                                Colors.transparent,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Text(
+                          "Cancel",
+                          style: getCustomTextStyles(context)
+                              .dataEditDialogButtonCancelStyle,
                         ),
                       ),
-                      child: Text(
-                        "Save",
-                        style: getCustomTextStyles(context)
-                            .dataEditDialogButtonSaveStyle,
+                      const SizedBox(width: 16),
+                      DisableWidget(
+                        disabled: text.isEmpty,
+                        child: OutlinedButton(
+                          onPressed: () {
+                            widget.contactDescription.contactDescriptionLabel =
+                                text;
+                            widget.contactDescription.contactDescriptionHex =
+                                pickerColor.toHexTriplet();
+                            updateContactDescription(widget.contactDescription);
+                            widget.onSave();
+                            Navigator.pop(context);
+                          },
+                          style: OutlinedButton.styleFrom(
+                            padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
+                            backgroundColor: getCustomColors(context).accent,
+                            side: BorderSide(
+                              width: 0.5,
+                              color: getCustomColors(context).lightBorder ??
+                                  Colors.transparent,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          child: Text(
+                            "Save",
+                            style: getCustomTextStyles(context)
+                                .dataEditDialogButtonSaveStyle,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
+                      const SizedBox(width: 8),
+                    ],
+                  )
                 ],
-              )
-            ],
+              ),
+            ),
           ),
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import '../c_component_padding.dart';
 import '../c_component_title.dart';
@@ -56,6 +57,16 @@ class _DocumentsTabState extends State<DocumentsTab> {
         .toList();
   }
 
+  int? _acitveTile;
+
+  bool _isExpanded(int index) {
+    if (_acitveTile != null && _acitveTile == index) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -68,72 +79,183 @@ class _DocumentsTabState extends State<DocumentsTab> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const SizedBox(height: 28),
-                const ComponentTitle(text: "Allergies"),
-                ListView.builder(
-                  key: Key(allergies.length.toString()),
-                  shrinkWrap: true,
-                  itemCount: allergies.length,
-                  itemBuilder: (context, index) {
-                    return DocumentItem(
-                      document: allergies.elementAt(index),
-                      removeDocumentFromList: () {
-                        setState(() {
-                          allergies.removeAt(index);
-                        });
-                      },
-                    );
-                  },
+                // const SizedBox(height: 28),
+                // const ComponentTitle(text: "Allergies"),
+                // ListView.builder(
+                //   key: Key(allergies.length.toString()),
+                //   shrinkWrap: true,
+                //   itemCount: allergies.length,
+                //   itemBuilder: (context, index) {
+                //     return DocumentItem(
+                //       document: allergies.elementAt(index),
+                //       removeDocumentFromList: () {
+                //         setState(() {
+                //           allergies.removeAt(index);
+                //         });
+                //       },
+                //     );
+                //   },
+                // ),
+                // ExpansionTileCard(
+                //   title: Text("Allergies"),
+                //   children: List<Widget>.generate(
+                //     allergies.length,
+                //     (index) => DocumentItem(
+                //       document: allergies.elementAt(index),
+                //       removeDocumentFromList: () {
+                //         setState(
+                //           () {
+                //             allergies.removeAt(index);
+                //           },
+                //         );
+                //       },
+                //     ),
+                //   ),
+                // ),
+                Material(
+                  borderRadius: BorderRadius.circular(14),
+                  elevation: _isExpanded(0) ? 8 : 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(14),
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    padding: const EdgeInsets.all(12),
+                    // margin: const EdgeInsets.all(16),
+                    child: Theme(
+                      data: Theme.of(context)
+                          .copyWith(dividerColor: Colors.transparent),
+                      child: ExpansionTile(
+                        title: const Text(
+                          "Allergies",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        childrenPadding: const EdgeInsets.all(8),
+                        children: List<Widget>.generate(
+                          allergies.length,
+                          (index) => DocumentItem(
+                            document: allergies.elementAt(index),
+                            removeDocumentFromList: () {
+                              setState(
+                                () {
+                                  allergies.removeAt(index);
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                        onExpansionChanged: (value) {
+                          if (value) {
+                            setState(() {
+                              _acitveTile = 0;
+                            });
+                          } else {
+                            setState(() {
+                              _acitveTile = null;
+                            });
+                          }
+                        },
+                      ),
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 28),
-                const ComponentTitle(text: "Dewormers"),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: dewormers.length,
-                  itemBuilder: (context, index) {
-                    return DocumentItem(
+                ExpansionTile(
+                  title: const Text("Dewormers"),
+                  children: List<Widget>.generate(
+                    dewormers.length,
+                    (index) => DocumentItem(
                       document: dewormers.elementAt(index),
                       removeDocumentFromList: () {
-                        setState(() {
-                          dewormers.removeAt(index);
-                        });
+                        setState(
+                          () {
+                            dewormers.removeAt(index);
+                          },
+                        );
                       },
-                    );
-                  },
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 28),
-                const ComponentTitle(text: "Health"),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: health.length,
-                  itemBuilder: (context, index) {
-                    return DocumentItem(
+                ExpansionTile(
+                  title: const Text("Health"),
+                  children: List<Widget>.generate(
+                    health.length,
+                    (index) => DocumentItem(
                       document: health.elementAt(index),
                       removeDocumentFromList: () {
-                        setState(() {
-                          health.removeAt(index);
-                        });
+                        setState(
+                          () {
+                            health.removeAt(index);
+                          },
+                        );
                       },
-                    );
-                  },
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 28),
-                const ComponentTitle(text: "Medicine"),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: medicine.length,
-                  itemBuilder: (context, index) {
-                    return DocumentItem(
+                ExpansionTile(
+                  title: const Text("Medicine"),
+                  children: List<Widget>.generate(
+                    medicine.length,
+                    (index) => DocumentItem(
                       document: medicine.elementAt(index),
                       removeDocumentFromList: () {
-                        setState(() {
-                          medicine.removeAt(index);
-                        });
+                        setState(
+                          () {
+                            medicine.removeAt(index);
+                          },
+                        );
                       },
-                    );
-                  },
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 28),
+                // const ComponentTitle(text: "Dewormers"),
+                // ListView.builder(
+                //   shrinkWrap: true,
+                //   itemCount: dewormers.length,
+                //   itemBuilder: (context, index) {
+                //     return DocumentItem(
+                //       document: dewormers.elementAt(index),
+                //       removeDocumentFromList: () {
+                //         setState(() {
+                //           dewormers.removeAt(index);
+                //         });
+                //       },
+                //     );
+                //   },
+                // ),
+                // const SizedBox(height: 28),
+                // const ComponentTitle(text: "Health"),
+                // ListView.builder(
+                //   shrinkWrap: true,
+                //   itemCount: health.length,
+                //   itemBuilder: (context, index) {
+                //     return DocumentItem(
+                //       document: health.elementAt(index),
+                //       removeDocumentFromList: () {
+                //         setState(() {
+                //           health.removeAt(index);
+                //         });
+                //       },
+                //     );
+                //   },
+                // ),
+                // const SizedBox(height: 28),
+                // const ComponentTitle(text: "Medicine"),
+                // ListView.builder(
+                //   shrinkWrap: true,
+                //   itemCount: medicine.length,
+                //   itemBuilder: (context, index) {
+                //     return DocumentItem(
+                //       document: medicine.elementAt(index),
+                //       removeDocumentFromList: () {
+                //         setState(() {
+                //           medicine.removeAt(index);
+                //         });
+                //       },
+                //     );
+                //   },
+                // ),
+                // const SizedBox(height: 28),
               ],
             ),
           ),

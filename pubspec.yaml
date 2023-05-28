@@ -67,6 +67,7 @@ dependencies:
   google_sign_in_web: ^0.12.0
   qr_flutter: ^4.0.0
   screenshot: 1.2.3
+  expansion_tile_card: ^3.0.0
 
 dev_dependencies:
   flutter_test:
