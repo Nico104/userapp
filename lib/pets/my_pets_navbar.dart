@@ -17,37 +17,46 @@ class MyPetsNavbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(
           width: 28,
         ),
-        Text(
-          // "Welcome back ",
-          'welcomeMsg'.tr(),
-          style: getCustomTextStyles(context).homeWelcomeMessage,
-        ),
-        FutureBuilder<String>(
-          future: getDisplayName(),
-          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-            if (snapshot.hasData) {
-              return Text(
-                " ${snapshot.data}",
-                style: getCustomTextStyles(context).homeWelcomeUser,
-              );
-            } else if (snapshot.hasError) {
-              print(snapshot);
-              return Text(
-                " dog whisperer",
-                style: getCustomTextStyles(context).homeWelcomeUser,
-              );
-            } else {
-              //Loading
-              return Text(
-                " mucho mucho bro",
-                style: getCustomTextStyles(context).homeWelcomeUser,
-              );
-            }
-          },
+        Expanded(
+          child: Wrap(
+            alignment: WrapAlignment.start,
+            children: [
+              Text(
+                // "Welcome back ",
+                "${'welcomeMsg'.tr()} ",
+                style: getCustomTextStyles(context).homeWelcomeMessage,
+              ),
+              FutureBuilder<String>(
+                future: getDisplayName(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<String> snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(
+                      "${snapshot.data}",
+                      style: getCustomTextStyles(context).homeWelcomeUser,
+                    );
+                  } else if (snapshot.hasError) {
+                    print(snapshot);
+                    return Text(
+                      "dog whisperer",
+                      style: getCustomTextStyles(context).homeWelcomeUser,
+                    );
+                  } else {
+                    //Loading
+                    return Text(
+                      "mucho mucho bro",
+                      style: getCustomTextStyles(context).homeWelcomeUser,
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
         ),
         const Spacer(),
         const NotificationsIcon(

@@ -48,36 +48,40 @@ class _UpdateNamePageState extends State<UpdateNamePage> {
       ),
       body: Form(
         key: _formKey,
-        child: Column(
-          children: [
-            Text("Suddenly a new Name, huh?"),
-            SizedBox(height: 05.h),
-            CustomTextFormField(
-              textEditingController: textEditingController,
-              labelText: "Name",
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'I cannot be empty mate';
-                } else if (value == widget.currentName) {
-                  return 'You are already called ${widget.currentName}';
-                } else {
-                  return null;
-                }
-              },
-            ),
-            SizedBox(height: 05.h),
-            Padding(
-              padding: const EdgeInsets.only(left: 36, right: 36),
-              child: CustomBigButton(
-                label: "Change Name",
-                onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    _updateName();
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Text("Suddenly a new Name, huh?"),
+              SizedBox(height: 05.h),
+              CustomTextFormField(
+                textEditingController: textEditingController,
+                maxLenght: 18,
+                labelText: "Name",
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'I cannot be empty mate';
+                  } else if (value == widget.currentName) {
+                    return 'You are already called ${widget.currentName}';
+                  } else {
+                    return null;
                   }
                 },
               ),
-            ),
-          ],
+              SizedBox(height: 05.h),
+              Padding(
+                padding: const EdgeInsets.only(left: 36, right: 36),
+                child: CustomBigButton(
+                  label: "Change Name",
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      _updateName();
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

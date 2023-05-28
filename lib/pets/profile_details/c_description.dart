@@ -28,7 +28,8 @@ class PetDescriptionComponent extends StatefulWidget {
 class _PetDescriptionComponentState extends State<PetDescriptionComponent> {
   late Language _currentLanguage;
 
-  bool autofocus = false;
+  final FocusNode _descFocusNodes = FocusNode();
+  final FocusNode _newDescFocusNodes = FocusNode();
 
   @override
   void initState() {
@@ -40,6 +41,13 @@ class _PetDescriptionComponentState extends State<PetDescriptionComponent> {
       //TODO check if default language is in
       _currentLanguage = Language('Deutsch', 'de', false);
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _descFocusNodes.dispose();
+    _newDescFocusNodes.dispose();
   }
 
   Description? getDescriptionFromLanguage(Language language) {
@@ -62,10 +70,10 @@ class _PetDescriptionComponentState extends State<PetDescriptionComponent> {
           setState(() {
             widget.descriptions
                 .remove(getDescriptionFromLanguage(_currentLanguage)!);
-            autofocus = true;
           });
+          _newDescFocusNodes.requestFocus();
         },
-        autofocus: autofocus,
+        focusNode: _descFocusNodes,
       );
     } else {
       return NewDescriptionTranslation(
@@ -74,10 +82,10 @@ class _PetDescriptionComponentState extends State<PetDescriptionComponent> {
         addNewDescriptionInList: (description) {
           setState(() {
             widget.descriptions.add(description);
-            autofocus = true;
           });
+          _descFocusNodes.requestFocus();
         },
-        autofocus: autofocus,
+        focusNode: _newDescFocusNodes,
       );
     }
   }
@@ -127,12 +135,12 @@ class DescriptionTranslation extends StatelessWidget {
     super.key,
     required this.description,
     required this.removeDescriptionFromList,
-    required this.autofocus,
+    required this.focusNode,
   });
 
   final Description description;
   final VoidCallback removeDescriptionFromList;
-  final bool autofocus;
+  final FocusNode focusNode;
 
   void _updateDescription() {
     EasyDebounce.debounce(
@@ -152,7 +160,7 @@ class DescriptionTranslation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
-      autofocus: autofocus,
+      focusNode: focusNode,
       initialValue: description.text,
       hintText: "Enter Description",
       maxLines: null,
@@ -173,13 +181,13 @@ class NewDescriptionTranslation extends StatelessWidget {
     required this.addNewDescriptionInList,
     required this.language,
     required this.petProfileId,
-    required this.autofocus,
+    required this.focusNode,
   });
 
   final Function(Description description) addNewDescriptionInList;
   final Language language;
   final int petProfileId;
-  final bool autofocus;
+  final FocusNode focusNode;
 
   void _addDescription(String text) {
     EasyDebounce.debounce(
@@ -199,7 +207,7 @@ class NewDescriptionTranslation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
-      autofocus: autofocus,
+      focusNode: focusNode,
       hintText: "My Dog is Child friendly, loves to be kicked in his left ball",
       maxLines: null,
       keyboardType: TextInputType.multiline,

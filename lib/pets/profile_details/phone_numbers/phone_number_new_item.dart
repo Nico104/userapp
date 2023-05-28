@@ -15,10 +15,13 @@ class NewPhonerNumber extends StatefulWidget {
     super.key,
     required this.addNewPhoneNumber,
     required this.contactId,
+    required this.focusNode,
   });
 
   final Function(PhoneNumber number) addNewPhoneNumber;
   final int contactId;
+
+  final FocusNode focusNode;
 
   @override
   State<NewPhonerNumber> createState() => _NewPhonerNumberState();
@@ -53,6 +56,7 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
     return Opacity(
       opacity: 0.8,
       child: CustomTextFormField(
+        focusNode: widget.focusNode,
         keyboardType: TextInputType.number,
         hintText: "Add new Phone number...",
         ignoreBoxShadow: true,
@@ -87,7 +91,7 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
                 children: [
                   Opacity(
                     opacity: 0.5,
-                    child: PrefixBlock(),
+                    child: prefixBlock(),
                   ),
                   const SizedBox(
                     width: 8,

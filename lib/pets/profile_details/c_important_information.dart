@@ -1,8 +1,6 @@
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:userapp/language/c_language_selection.dart';
-import 'package:userapp/pets/profile_details/models/m_description.dart';
 import 'package:userapp/pets/profile_details/u_profile_details.dart';
 import '../../language/d_translation_selection.dart';
 import '../../language/m_language.dart';
@@ -11,7 +9,6 @@ import 'd_confirm_delete.dart';
 import 'models/m_important_information.dart';
 import 'widgets/custom_textformfield.dart';
 
-//TODO why doesnt show??
 class PetImportantInformationComponent extends StatefulWidget {
   const PetImportantInformationComponent({
     super.key,
@@ -31,7 +28,16 @@ class _PetImportantInformationComponentState
     extends State<PetImportantInformationComponent> {
   late Language _currentLanguage;
 
-  bool autofocus = false;
+  // bool autofocus = false;
+
+  // late List<FocusNode> focusNodes;
+  final FocusNode _impInfoFocusNodes = FocusNode();
+  final FocusNode _newImpInfoFocusNodes = FocusNode();
+
+  // void generateFocusNodes() {
+  //   focusNodes = List.generate(
+  //       widget.importantInformation.length, (index) => FocusNode());
+  // }
 
   @override
   void initState() {
@@ -43,6 +49,14 @@ class _PetImportantInformationComponentState
       //TODO check if default language is in
       _currentLanguage = Language('Deutsch', 'de', false);
     }
+    // generateFocusNodes();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _impInfoFocusNodes.dispose();
+    _newImpInfoFocusNodes.dispose();
   }
 
   ImportantInformation? getImportantInformationFromLanguage(Language language) {
@@ -66,10 +80,18 @@ class _PetImportantInformationComponentState
           setState(() {
             widget.importantInformation
                 .remove(getImportantInformationFromLanguage(_currentLanguage)!);
-            autofocus = true;
+            // autofocus = true;
           });
+          // generateFocusNodes();
+          // if (focusNodes.isNotEmpty) {
+          //   focusNodes.last.requestFocus();
+          // } else {
+          //   newImpInfoFocusNodes.requestFocus();
+          // }
+          _newImpInfoFocusNodes.requestFocus();
         },
-        autofocus: autofocus,
+        focusNode: _impInfoFocusNodes,
+        // autofocus: autofocus,
       );
     } else {
       return NewImportantInformationTranslation(
@@ -78,10 +100,14 @@ class _PetImportantInformationComponentState
         addNewImportantInformationInList: (description) {
           setState(() {
             widget.importantInformation.add(description);
-            autofocus = true;
+            // autofocus = true;
           });
+          // generateFocusNodes();
+          // focusNodes.last.requestFocus();
+          _impInfoFocusNodes.requestFocus();
         },
-        autofocus: autofocus,
+        focusNode: _newImpInfoFocusNodes,
+        // autofocus: autofocus,
       );
     }
   }
@@ -131,12 +157,13 @@ class ImportantInformationTranslation extends StatelessWidget {
     super.key,
     required this.importantInformation,
     required this.removeImportantInformationFromList,
-    required this.autofocus,
+    required this.focusNode,
   });
 
   final ImportantInformation importantInformation;
   final VoidCallback removeImportantInformationFromList;
-  final bool autofocus;
+  // final bool autofocus;
+  final FocusNode focusNode;
 
   void _updateImportantInformation() {
     EasyDebounce.debounce(
@@ -156,7 +183,8 @@ class ImportantInformationTranslation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
-      autofocus: autofocus,
+      // autofocus: autofocus,
+      focusNode: focusNode,
       initialValue: importantInformation.text,
       hintText: "Enter ImportantInformation",
       maxLines: null,
@@ -177,14 +205,15 @@ class NewImportantInformationTranslation extends StatelessWidget {
     required this.addNewImportantInformationInList,
     required this.language,
     required this.petProfileId,
-    required this.autofocus,
+    required this.focusNode,
   });
 
   final Function(ImportantInformation description)
       addNewImportantInformationInList;
   final Language language;
   final int petProfileId;
-  final bool autofocus;
+  // final bool autofocus;
+  final FocusNode focusNode;
 
   void _addImportantInformation(String text) {
     EasyDebounce.debounce(
@@ -204,7 +233,8 @@ class NewImportantInformationTranslation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
-      autofocus: autofocus,
+      // autofocus: autofocus,
+      focusNode: focusNode,
       hintText: "My Dog is Child friendly, loves to be kicked in his left ball",
       maxLines: null,
       keyboardType: TextInputType.multiline,

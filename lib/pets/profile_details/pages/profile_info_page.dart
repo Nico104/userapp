@@ -28,30 +28,10 @@ class _ProfileInfoTabState extends State<ProfileInfoTab> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        // physics: NeverScrollableScrollPhysics(),
         key: const ValueKey("PetInfo"),
         mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: 36),
-          // PaddingComponent(
-          //   child: PetNameComponent(
-          //     petProfile: widget.petProfileDetails,
-          //     petName: widget.petProfileDetails.petName,
-          //     setPetName: (value) {
-          //       setState(() {
-          //         widget.petProfileDetails.petName = value;
-          //       });
-          //       updatePetProfileCore(widget.petProfileDetails);
-          //     },
-          //     gender: widget.petProfileDetails.petGender,
-          //     tag: widget.petProfileDetails.tag,
-          //     setTags: (value) => setState(() {
-          //       widget.petProfileDetails.tag = value;
-          //     }),
-          //     collardimension: 120,
-          //     // refresh: widget.refresh,
-          //   ),
-          // ),
           PaddingComponent(
             child: OnelineSimpleInput(
               flex: 7,

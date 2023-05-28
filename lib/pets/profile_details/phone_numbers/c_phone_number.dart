@@ -24,7 +24,30 @@ class PetPhoneNumbersComponent extends StatefulWidget {
 class _PetPhoneNumbersComponentState extends State<PetPhoneNumbersComponent> {
   // final ValueSetter<Description> addDescription;
 
-  bool autofocusLastElement = false;
+  // bool autofocusLastElement = false;
+
+  late List<FocusNode> _focusNodes;
+  final FocusNode _newNumberFocusNodes = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    generateFocusNodes();
+  }
+
+  void generateFocusNodes() {
+    _focusNodes =
+        List.generate(widget.phoneNumbers.length, (index) => FocusNode());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _newNumberFocusNodes.dispose();
+    for (var element in _focusNodes) {
+      element.dispose();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +70,14 @@ class _PetPhoneNumbersComponentState extends State<PetPhoneNumbersComponent> {
                   addNewPhoneNumber: (number) {
                     setState(() {
                       widget.phoneNumbers.add(number);
-                      autofocusLastElement = true;
                     });
+                    generateFocusNodes();
+                    _focusNodes.last.requestFocus();
+                    // setState(() {
+                    //   autofocusLastElement = true;
+                    // });
                   },
+                  focusNode: _newNumberFocusNodes,
                 ),
               );
             } else {
@@ -62,11 +90,18 @@ class _PetPhoneNumbersComponentState extends State<PetPhoneNumbersComponent> {
                   removePhoneNumber: () {
                     setState(() {
                       widget.phoneNumbers.removeAt(index);
-                      autofocusLastElement = false;
+                      // autofocusLastElement = false;
                     });
+                    generateFocusNodes();
+                    if (_focusNodes.isNotEmpty) {
+                      _focusNodes.last.requestFocus();
+                    } else {
+                      _newNumberFocusNodes.requestFocus();
+                    }
                   },
-                  autofocus: (autofocusLastElement &&
-                      index == widget.phoneNumbers.length - 1),
+                  // autofocus: (autofocusLastElement &&
+                  //     index == widget.phoneNumbers.length - 1),
+                  focusNode: _focusNodes.elementAt(index),
                 ),
               );
             }
@@ -77,7 +112,7 @@ class _PetPhoneNumbersComponentState extends State<PetPhoneNumbersComponent> {
   }
 }
 
-Container PrefixBlock() {
+Container prefixBlock() {
   return Container(
     // height: double.infinity,
     width: 36,

@@ -18,12 +18,15 @@ class SinglePhonerNumber extends StatefulWidget {
     required this.petProfileId,
     required this.removePhoneNumber,
     this.autofocus = false,
+    required this.focusNode,
   });
 
   final PhoneNumber number;
   final int petProfileId;
   final VoidCallback removePhoneNumber;
   final bool autofocus;
+
+  final FocusNode focusNode;
 
   @override
   State<SinglePhonerNumber> createState() => _SinglePhonerNumberState();
@@ -50,6 +53,7 @@ class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
+      focusNode: widget.focusNode,
       autofocus: widget.autofocus,
       keyboardType: TextInputType.number,
       initialValue: widget.number.phoneNumber,
@@ -85,7 +89,7 @@ class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                PrefixBlock(),
+                prefixBlock(),
                 const SizedBox(
                   width: 8,
                 ),

@@ -27,11 +27,14 @@ class CustomTextFormField extends StatefulWidget {
     this.prefix,
     this.inputFormatters,
     this.confirmDeleteDialog,
+    this.focusNode,
+    this.maxLenght,
   });
 
   final String? initialValue;
   final String? hintText;
   final int? maxLines;
+  final int? maxLenght;
   final TextInputAction? textInputAction;
   final Function(String)? onChanged;
   final TextInputType? keyboardType;
@@ -54,6 +57,8 @@ class CustomTextFormField extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
 
   final Widget? confirmDeleteDialog;
+
+  final FocusNode? focusNode;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -78,7 +83,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   }
 
   void initFocusNodes() {
-    _focusNode = FocusNode();
+    if (widget.focusNode != null) {
+      _focusNode = widget.focusNode!;
+    } else {
+      _focusNode = FocusNode();
+    }
     if (widget.textEditingController != null) {
       _textEditingController =
           widget.textEditingController ?? TextEditingController();
@@ -109,7 +118,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   void dispose() {
     super.dispose();
-    _focusNode.dispose();
+    if (widget.focusNode == null) {
+      _focusNode.dispose();
+    }
     _textEditingController.dispose();
   }
 
@@ -117,112 +128,122 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   Widget build(BuildContext context) {
     return Consumer<ThemeNotifier>(
       builder: (context, theme, _) {
-        return AnimatedContainer(
-          duration: const Duration(milliseconds: 125),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(2),
-            boxShadow: (_isFocused && !widget.ignoreBoxShadow)
-                ? kElevationToShadow[2]
-                : kElevationToShadow[0],
-          ),
-          child: TextFormField(
-            inputFormatters: widget.inputFormatters,
-            expands: widget.expands,
-            textAlignVertical: widget.expands ? TextAlignVertical.top : null,
-            obscureText: _obscureText,
-            validator: widget.validator,
-            autofocus: widget.autofocus,
-            keyboardType: widget.keyboardType,
-            maxLines: widget.isPassword ? 1 : widget.maxLines,
-            textInputAction: widget.textInputAction,
-            focusNode: _focusNode,
-            controller: _textEditingController,
-            cursorColor: getCustomColors(context).hardBorder,
-            style: Theme.of(context).textTheme.labelMedium,
-            decoration: InputDecoration(
-              alignLabelWithHint: widget.expands ? true : null,
-              errorText: widget.errorText,
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(6),
-                borderSide: const BorderSide(
-                  color: Colors.red,
-                  width: 0.5,
-                ),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(6),
-                borderSide: const BorderSide(
-                  color: Colors.red,
-                  width: 1,
-                ),
-              ),
-              hintText: (widget.hintText != null && widget.labelText == null)
-                  ? widget.hintText
-                  : null,
-              labelText: (widget.hintText == null && widget.labelText != null)
-                  ? widget.labelText
-                  : null,
-              hintStyle: getCustomTextStyles(context).textFormFieldHint,
-              labelStyle: getCustomTextStyles(context).textFormFieldLabel,
-              fillColor: Theme.of(context).primaryColor,
-              filled: true,
-              //TODO suffixColor
-              suffixIconColor: getCustomColors(context).hardBorder,
-              suffixIcon: (_isFocused && widget.showSuffix)
-                  ? GestureDetector(
-                      onTap: () {
-                        if (widget.isPassword) {
-                          setState(() {
-                            _obscureText = !_obscureText;
-                          });
-                        } else {
-                          if (widget.confirmDeleteDialog != null) {
-                            showDialog(
-                              context: context,
-                              builder: (_) => widget.confirmDeleteDialog!,
-                            ).then((value) {
-                              if (value != null && value is bool) {
-                                if (value == true) {
-                                  clearTextInput();
-                                }
-                              }
-                            });
-                          } else {
-                            clearTextInput();
-                          }
-                        }
-                      },
-                      child: Icon(
-                        _getSuffix(widget.isPassword, _obscureText),
-                      ),
-                    )
-                  : null,
-              prefixIcon: widget.prefix,
-              focusedBorder: OutlineInputBorder(
+        return Stack(
+          children: [
+            AnimatedContainer(
+              // height: ,
+              duration: const Duration(milliseconds: 125),
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2),
-                borderSide: BorderSide(
-                  color:
-                      getCustomColors(context).hardBorder ?? Colors.transparent,
-                  width: (theme.getTheme().brightness == Brightness.dark)
-                      ? 2.5
-                      : 1,
-                ),
+                boxShadow: (_isFocused && !widget.ignoreBoxShadow)
+                    ? kElevationToShadow[2]
+                    : kElevationToShadow[0],
               ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(
-                  color: widget.thickUnfocusedBorder
-                      ? (getCustomColors(context).hardBorder ??
-                              Colors.transparent)
-                          .withOpacity(0.5)
-                      : getCustomColors(context).lightBorder ??
-                          Colors.transparent,
-                  width: widget.thickUnfocusedBorder ? 1 : 0.5,
-                ),
+              child: TextFormField(
+                enabled: false,
               ),
             ),
-            onChanged: widget.onChanged,
-          ),
+            TextFormField(
+              inputFormatters: widget.inputFormatters,
+              expands: widget.expands,
+              textAlignVertical: widget.expands ? TextAlignVertical.top : null,
+              obscureText: _obscureText,
+              validator: widget.validator,
+              autofocus: widget.autofocus,
+              keyboardType: widget.keyboardType,
+              maxLines: widget.isPassword ? 1 : widget.maxLines,
+              maxLength: widget.maxLenght,
+              textInputAction: widget.textInputAction,
+              // focusNode: widget.focusNode,
+              focusNode: _focusNode,
+              controller: _textEditingController,
+              cursorColor: getCustomColors(context).hardBorder,
+              style: Theme.of(context).textTheme.labelMedium,
+              decoration: InputDecoration(
+                alignLabelWithHint: widget.expands ? true : null,
+                errorText: widget.errorText,
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(6),
+                  borderSide: const BorderSide(
+                    color: Colors.red,
+                    width: 0.5,
+                  ),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(6),
+                  borderSide: const BorderSide(
+                    color: Colors.red,
+                    width: 1,
+                  ),
+                ),
+                hintText: (widget.hintText != null && widget.labelText == null)
+                    ? widget.hintText
+                    : null,
+                labelText: (widget.hintText == null && widget.labelText != null)
+                    ? widget.labelText
+                    : null,
+                hintStyle: getCustomTextStyles(context).textFormFieldHint,
+                labelStyle: getCustomTextStyles(context).textFormFieldLabel,
+                fillColor: Theme.of(context).primaryColor,
+                filled: true,
+                //TODO suffixColor
+                suffixIconColor: getCustomColors(context).hardBorder,
+                suffixIcon: (_isFocused && widget.showSuffix)
+                    ? GestureDetector(
+                        onTap: () {
+                          if (widget.isPassword) {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          } else {
+                            if (widget.confirmDeleteDialog != null) {
+                              showDialog(
+                                context: context,
+                                builder: (_) => widget.confirmDeleteDialog!,
+                              ).then((value) {
+                                if (value != null && value is bool) {
+                                  if (value == true) {
+                                    clearTextInput();
+                                  }
+                                }
+                              });
+                            } else {
+                              clearTextInput();
+                            }
+                          }
+                        },
+                        child: Icon(
+                          _getSuffix(widget.isPassword, _obscureText),
+                        ),
+                      )
+                    : null,
+                prefixIcon: widget.prefix,
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(2),
+                  borderSide: BorderSide(
+                    color: getCustomColors(context).hardBorder ??
+                        Colors.transparent,
+                    width: (theme.getTheme().brightness == Brightness.dark)
+                        ? 2.5
+                        : 1,
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(
+                    color: widget.thickUnfocusedBorder
+                        ? (getCustomColors(context).hardBorder ??
+                                Colors.transparent)
+                            .withOpacity(0.5)
+                        : getCustomColors(context).lightBorder ??
+                            Colors.transparent,
+                    width: widget.thickUnfocusedBorder ? 1 : 0.5,
+                  ),
+                ),
+              ),
+              onChanged: widget.onChanged,
+            ),
+          ],
         );
       },
     );
