@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "792601770447-of6tso1iintvl364autgir0kgbc3o3os.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.userapp",
+            "certificate_hash": "b5b2fd93c853bf25ce06ec41a533368ab0f556ed"
+          }
+        },
+        {
           "client_id": "792601770447-omkasr6tpscgnk6r9v0v128fvfmh1gg3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -65,6 +73,22 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "792601770447-4k06sqv7620mguj05va9u9ckocgsqssn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.finma.userapp",
+            "certificate_hash": "519d8110016d9c9f3e196fa6fcc408a2257d886b"
+          }
+        },
+        {
+          "client_id": "792601770447-8tqk9k5hdnr64obnirq9gjm84336rukb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.finma.userapp",
+            "certificate_hash": "b5b2fd93c853bf25ce06ec41a533368ab0f556ed"
+          }
+        },
         {
           "client_id": "792601770447-s4sbpvv8uj1fvou576eu9n6s5t4gobcr.apps.googleusercontent.com",
           "client_type": 1,

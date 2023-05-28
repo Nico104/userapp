@@ -5,6 +5,7 @@ import 'package:userapp/auth/sign_up_screen/verification_page.dart';
 import 'package:userapp/auth/u_auth.dart';
 import 'package:userapp/utils/util_methods.dart';
 
+import '../../init_app.dart';
 import '../../theme/custom_text_styles.dart';
 import 'email_page.dart';
 import 'name_page.dart';
@@ -13,10 +14,10 @@ import 'password_page.dart';
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({
     super.key,
-    required this.reloadInitApp,
+    // required this.reloadInitApp,
   });
 
-  final VoidCallback reloadInitApp;
+  // final VoidCallback reloadInitApp;
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -47,7 +48,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     controller: controller,
                     children: <Widget>[
                       SignUpEmailPage(
-                        reloadInitApp: widget.reloadInitApp,
+                        // reloadInitApp: widget.reloadInitApp,
                         onNext: (useremail) {
                           setState(() {
                             _email = useremail;
@@ -109,7 +110,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 Navigator.pop(dialogContext!);
                                 Navigator.of(context)
                                     .popUntil((route) => route.isFirst);
-                                widget.reloadInitApp.call();
+                                navigateReplacePerSlide(
+                                    context, const InitApp());
                               });
                             }
                           });
@@ -157,11 +159,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        navigatePerSlide(
+                        Navigator.of(context)
+                            .popUntil((route) => route.isFirst);
+                        navigateReplacePerSlide(
                           context,
-                          LoginScreen(
-                            reloadInitApp: () => widget.reloadInitApp(),
-                          ),
+                          const LoginScreen(
+                              // reloadInitApp: () => widget.reloadInitApp(),
+                              ),
                         );
                         // Navigator.push(
                         //   context,

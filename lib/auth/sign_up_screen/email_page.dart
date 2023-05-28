@@ -12,11 +12,11 @@ import '../u_auth.dart';
 class SignUpEmailPage extends StatefulWidget {
   const SignUpEmailPage({
     super.key,
-    required this.reloadInitApp,
+    // required this.reloadInitApp,
     required this.onNext,
   });
 
-  final VoidCallback reloadInitApp;
+  // final VoidCallback reloadInitApp;
   final Function(String) onNext;
 
   @override
@@ -103,7 +103,7 @@ class _SignUpEmailPageState extends State<SignUpEmailPage> {
             ),
           ),
           SizedBox(height: 05.h),
-          ContinueWithSocialMedia(reloadInitApp: widget.reloadInitApp),
+          const ContinueWithSocialMedia(),
         ],
       ),
     );

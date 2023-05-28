@@ -7,6 +7,7 @@ import 'package:userapp/pet_color/hex_color.dart';
 import 'package:userapp/theme/custom_text_styles.dart';
 import 'package:userapp/utils/util_methods.dart';
 
+import '../init_app.dart';
 import '../pets/profile_details/widgets/custom_textformfield.dart';
 import '../styles/text_styles.dart';
 import '../theme/custom_colors.dart';
@@ -14,9 +15,9 @@ import 'auth_widgets.dart';
 import 'forgot_password/forgot_password_page.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key, required this.reloadInitApp});
+  const LoginScreen({super.key});
 
-  final VoidCallback reloadInitApp;
+  // final VoidCallback reloadInitApp;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -150,7 +151,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 });
                                 Navigator.of(context)
                                     .popUntil((route) => route.isFirst);
-                                widget.reloadInitApp.call();
+                                navigateReplacePerSlide(
+                                    context, const InitApp());
                               } else {
                                 print("wrong credentials");
                                 setState(() {
@@ -166,9 +168,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 05.h),
                     ContinueWithSocialMedia(
-                      reloadInitApp: widget.reloadInitApp,
-                    ),
+                        // reloadInitApp: widget.reloadInitApp,
+                        ),
                     const Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Version: 1.0.0+27",
+                          style: Theme.of(context).textTheme.labelSmall,
+                        ),
+                      ],
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -186,11 +197,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             //     ),
                             //   ),
                             // );
-                            navigatePerSlide(
+                            Navigator.of(context)
+                                .popUntil((route) => route.isFirst);
+                            navigateReplacePerSlide(
                               context,
                               SignUpScreen(
-                                reloadInitApp: () => widget.reloadInitApp(),
-                              ),
+                                  // reloadInitApp: () => widget.reloadInitApp(),
+                                  ),
                             );
                           },
                           child: Text(

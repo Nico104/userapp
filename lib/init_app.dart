@@ -1,5 +1,4 @@
 import 'dart:io' show Platform;
-import 'package:firebase_auth/firebase_auth.dart' as firebaseAuth;
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -22,12 +21,12 @@ class _InitAppState extends State<InitApp> {
   //Messaging
   late FirebaseMessaging messaging;
 
-  void reloadInitApp() {
-    print("reload Init App");
-    //If not loged in - after login this function gets called and shoudl initialize the messagin correctly
-    _initMessaging();
-    setState(() {});
-  }
+  // void reloadInitApp() {
+  //   print("reload Init App");
+  //   //If not loged in - after login this function gets called and shoudl initialize the messagin correctly
+  //   _initMessaging();
+  //   setState(() {});
+  // }
 
   //Message only working when app is closed
   //When app is open:
@@ -119,13 +118,13 @@ class _InitAppState extends State<InitApp> {
     //Messaging
     _initMessaging();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      loginWithSavedCredentials().then((value) {
-        if (value) {
-          reloadInitApp.call();
-        }
-      });
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   loginWithSavedCredentials().then((value) {
+    //     if (value) {
+    //       reloadInitApp.call();
+    //     }
+    //   });
+    // });
   }
 
   @override
@@ -143,12 +142,12 @@ class _InitAppState extends State<InitApp> {
             return const PetsLoading();
           } else if ((snapshot.data[1] as bool)) {
             return LoginScreen(
-              reloadInitApp: () => reloadInitApp(),
-            );
+                // reloadInitApp: () => reloadInitApp(),
+                );
           } else {
             return SignUpScreen(
-              reloadInitApp: () => reloadInitApp(),
-            );
+                // reloadInitApp: () => reloadInitApp(),
+                );
           }
         } else if (snapshot.hasError) {
           print(snapshot);

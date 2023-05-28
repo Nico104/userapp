@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/auth/u_auth.dart';
+import 'package:userapp/init_app.dart';
+import 'package:userapp/utils/util_methods.dart';
 
 import '../network_globals.dart';
 import '../theme/custom_colors.dart';
@@ -52,10 +54,10 @@ class CustomBigButton extends StatelessWidget {
 class ContinueWithSocialMedia extends StatelessWidget {
   const ContinueWithSocialMedia({
     super.key,
-    required this.reloadInitApp,
+    // required this.reloadInitApp,
   });
 
-  final VoidCallback reloadInitApp;
+  // final VoidCallback reloadInitApp;
 
   @override
   Widget build(BuildContext context) {
@@ -87,13 +89,29 @@ class ContinueWithSocialMedia extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                onTap: () async {
+                onTap: () {
                   if (kIsWeb) {
-                    await signInWithGoogleWeb()
-                        .then((value) => reloadInitApp());
+                    signInWithGoogleWeb().then((value) {
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                      navigateReplacePerSlide(context, const InitApp());
+                    });
                   } else {
-                    signInWithGoogle(context: context)
-                        .then((value) => reloadInitApp());
+                    try {
+                      signInWithGoogle(context: context).then((value) {
+                        Navigator.of(context)
+                            .popUntil((route) => route.isFirst);
+                        navigateReplacePerSlide(context, const InitApp());
+                      });
+                    } catch (e) {
+                      // showDialog(
+                      //   context: context,
+                      //   builder: (context) {
+                      //     return Dialog(
+                      //       child: Text(e.toString()),
+                      //     );
+                      //   },
+                      // );
+                    }
                   }
                 },
                 child: const SocialMediaContainer(),

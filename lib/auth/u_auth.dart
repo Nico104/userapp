@@ -780,16 +780,20 @@ Future<firebase_auth.User?> signInWithGoogle(
       if (e.code == 'account-exists-with-different-credential') {
         // handle the error here
         print("Error:  ->  " + e.toString());
+        throw Exception(e);
       } else if (e.code == 'invalid-credential') {
         // handle the error here
         print("Error:  ->  " + e.toString());
+        throw Exception(e);
       }
     } catch (e) {
       // handle the error here
       print("Error:  ->  " + e.toString());
+      throw Exception(e);
     }
   } else {
     print("Error:  ->  google sign in is null");
+    throw Exception("google sign in is null");
   }
 
   return user;

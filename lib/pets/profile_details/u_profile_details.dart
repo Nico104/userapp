@@ -147,6 +147,37 @@ Future<void> deleteDocument(Document petDocuemnt) async {
   }
 }
 
+Future<Document> updateDocument({
+  required int documentId,
+  required String documentName,
+  required String documentType,
+}) async {
+  Uri url = Uri.parse('$baseURL/pet/updateDocument');
+  String? token = await getIdToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': '$token',
+    },
+    body: jsonEncode({
+      "document_id": documentId,
+      "document_name": documentName,
+      "document_type": documentType,
+    }),
+  );
+
+  print(response.body);
+
+  if (response.statusCode == 201) {
+    return Document.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to update Document.');
+  }
+}
+
 jsonToFormData(http.MultipartRequest request, Map<String, dynamic> data) {
   for (var key in data.keys) {
     request.fields[key] = data[key].toString();

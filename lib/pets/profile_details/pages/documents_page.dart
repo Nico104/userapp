@@ -40,20 +40,36 @@ class _DocumentsTabState extends State<DocumentsTab> {
   }
 
   void setDocumentCategories() {
+    // allergies = widget.documents
+    //     .where((i) => i.documentLink.contains('allergies'))
+    //     .toList();
+
+    // dewormers = widget.documents
+    //     .where((i) => i.documentLink.contains('dewormers'))
+    //     .toList();
+
+    // health = widget.documents
+    //     .where((i) => i.documentLink.contains('health'))
+    //     .toList();
+
+    // medicine = widget.documents
+    //     .where((i) => i.documentLink.contains('medicine'))
+    //     .toList();
+
     allergies = widget.documents
-        .where((i) => i.documentLink.contains('allergies'))
+        .where((i) => i.documentType.toLowerCase() == 'allergies')
         .toList();
 
     dewormers = widget.documents
-        .where((i) => i.documentLink.contains('dewormers'))
+        .where((i) => i.documentType.toLowerCase() == 'dewormers')
         .toList();
 
     health = widget.documents
-        .where((i) => i.documentLink.contains('health'))
+        .where((i) => i.documentType.toLowerCase() == 'health')
         .toList();
 
     medicine = widget.documents
-        .where((i) => i.documentLink.contains('medicine'))
+        .where((i) => i.documentType.toLowerCase() == 'medicine')
         .toList();
   }
 
@@ -126,22 +142,30 @@ class _DocumentsTabState extends State<DocumentsTab> {
                       data: Theme.of(context)
                           .copyWith(dividerColor: Colors.transparent),
                       child: ExpansionTile(
+                        // key: PageStorageKey(
+                        //     "${DateTime.now().millisecondsSinceEpoch}"),
+                        // initiallyExpanded: _isExpanded(0),
                         title: const Text(
                           "Allergies",
                           style: TextStyle(color: Colors.black),
                         ),
-                        childrenPadding: const EdgeInsets.all(8),
+                        // childrenPadding:
+                        //     const EdgeInsets.fromLTRB(8, 16, 8, 16),
                         children: List<Widget>.generate(
                           allergies.length,
-                          (index) => DocumentItem(
-                            document: allergies.elementAt(index),
-                            removeDocumentFromList: () {
-                              setState(
-                                () {
-                                  allergies.removeAt(index);
-                                },
-                              );
-                            },
+                          (index) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: DocumentItem(
+                              document: allergies.elementAt(index),
+                              docTypeKey: 'allergies',
+                              removeDocumentFromList: () {
+                                setState(
+                                  () {
+                                    allergies.removeAt(index);
+                                  },
+                                );
+                              },
+                            ),
                           ),
                         ),
                         onExpansionChanged: (value) {
@@ -159,54 +183,223 @@ class _DocumentsTabState extends State<DocumentsTab> {
                     ),
                   ),
                 ),
-                ExpansionTile(
-                  title: const Text("Dewormers"),
-                  children: List<Widget>.generate(
-                    dewormers.length,
-                    (index) => DocumentItem(
-                      document: dewormers.elementAt(index),
-                      removeDocumentFromList: () {
-                        setState(
-                          () {
-                            dewormers.removeAt(index);
-                          },
-                        );
-                      },
+                const SizedBox(height: 12),
+                // ExpansionTile(
+                //   title: const Text("Dewormers"),
+                //   children: List<Widget>.generate(
+                //     dewormers.length,
+                //     (index) => DocumentItem(
+                //       document: dewormers.elementAt(index),
+                //       removeDocumentFromList: () {
+                //         setState(
+                //           () {
+                //             dewormers.removeAt(index);
+                //           },
+                //         );
+                //       },
+                //     ),
+                //   ),
+                // ),
+                Material(
+                  borderRadius: BorderRadius.circular(14),
+                  elevation: _isExpanded(1) ? 8 : 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(14),
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    padding: const EdgeInsets.all(12),
+                    // margin: const EdgeInsets.all(16),
+                    child: Theme(
+                      data: Theme.of(context)
+                          .copyWith(dividerColor: Colors.transparent),
+                      child: ExpansionTile(
+                        // key: PageStorageKey(
+                        //     "${DateTime.now().millisecondsSinceEpoch}"),
+                        // initiallyExpanded: _isExpanded(1),
+                        title: const Text(
+                          "Dewormers",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        // childrenPadding:
+                        //     const EdgeInsets.fromLTRB(8, 16, 8, 16),
+                        children: List<Widget>.generate(
+                          dewormers.length,
+                          (index) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: DocumentItem(
+                              document: dewormers.elementAt(index),
+                              docTypeKey: 'dewormers',
+                              removeDocumentFromList: () {
+                                setState(
+                                  () {
+                                    dewormers.removeAt(index);
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        onExpansionChanged: (value) {
+                          if (value) {
+                            setState(() {
+                              _acitveTile = 1;
+                            });
+                          } else {
+                            setState(() {
+                              _acitveTile = null;
+                            });
+                          }
+                        },
+                      ),
                     ),
                   ),
                 ),
-                ExpansionTile(
-                  title: const Text("Health"),
-                  children: List<Widget>.generate(
-                    health.length,
-                    (index) => DocumentItem(
-                      document: health.elementAt(index),
-                      removeDocumentFromList: () {
-                        setState(
-                          () {
-                            health.removeAt(index);
-                          },
-                        );
-                      },
+                const SizedBox(height: 12),
+                // ExpansionTile(
+                //   title: const Text("Health"),
+                //   children: List<Widget>.generate(
+                //     health.length,
+                //     (index) => DocumentItem(
+                //       document: health.elementAt(index),
+                //       removeDocumentFromList: () {
+                //         setState(
+                //           () {
+                //             health.removeAt(index);
+                //           },
+                //         );
+                //       },
+                //     ),
+                //   ),
+                // ),
+                Material(
+                  borderRadius: BorderRadius.circular(14),
+                  elevation: _isExpanded(2) ? 8 : 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(14),
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    padding: const EdgeInsets.all(12),
+                    // margin: const EdgeInsets.all(16),
+                    child: Theme(
+                      data: Theme.of(context)
+                          .copyWith(dividerColor: Colors.transparent),
+                      child: ExpansionTile(
+                        // key: PageStorageKey(
+                        //     "${DateTime.now().millisecondsSinceEpoch}"),
+                        // initiallyExpanded: _isExpanded(2),
+                        title: const Text(
+                          "Health",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        // childrenPadding:
+                        //     const EdgeInsets.fromLTRB(8, 16, 8, 16),
+                        children: List<Widget>.generate(
+                          health.length,
+                          (index) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: DocumentItem(
+                              document: health.elementAt(index),
+                              docTypeKey: 'health',
+                              removeDocumentFromList: () {
+                                setState(
+                                  () {
+                                    health.removeAt(index);
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        onExpansionChanged: (value) {
+                          if (value) {
+                            setState(() {
+                              _acitveTile = 2;
+                            });
+                          } else {
+                            setState(() {
+                              _acitveTile = null;
+                            });
+                          }
+                        },
+                      ),
                     ),
                   ),
                 ),
-                ExpansionTile(
-                  title: const Text("Medicine"),
-                  children: List<Widget>.generate(
-                    medicine.length,
-                    (index) => DocumentItem(
-                      document: medicine.elementAt(index),
-                      removeDocumentFromList: () {
-                        setState(
-                          () {
-                            medicine.removeAt(index);
-                          },
-                        );
-                      },
+                const SizedBox(height: 12),
+                // ExpansionTile(
+                //   title: const Text("Medicine"),
+                //   children: List<Widget>.generate(
+                //     medicine.length,
+                //     (index) => DocumentItem(
+                //       document: medicine.elementAt(index),
+                //       removeDocumentFromList: () {
+                //         setState(
+                //           () {
+                //             medicine.removeAt(index);
+                //           },
+                //         );
+                //       },
+                //     ),
+                //   ),
+                // ),
+                Material(
+                  borderRadius: BorderRadius.circular(14),
+                  elevation: _isExpanded(3) ? 8 : 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(14),
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    padding: const EdgeInsets.all(12),
+                    // margin: const EdgeInsets.all(16),
+                    child: Theme(
+                      data: Theme.of(context)
+                          .copyWith(dividerColor: Colors.transparent),
+                      child: ExpansionTile(
+                        // key: PageStorageKey(
+                        //     "${DateTime.now().millisecondsSinceEpoch}"),
+                        // initiallyExpanded: _isExpanded(3),
+                        title: const Text(
+                          "Medicine",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        // childrenPadding:
+                        //     const EdgeInsets.fromLTRB(8, 16, 8, 16),
+                        children: List<Widget>.generate(
+                          medicine.length,
+                          (index) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: DocumentItem(
+                              document: medicine.elementAt(index),
+                              docTypeKey: 'medicine',
+                              removeDocumentFromList: () {
+                                setState(
+                                  () {
+                                    medicine.removeAt(index);
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        onExpansionChanged: (value) {
+                          if (value) {
+                            setState(() {
+                              _acitveTile = 3;
+                            });
+                          } else {
+                            setState(() {
+                              _acitveTile = null;
+                            });
+                          }
+                        },
+                      ),
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 28),
                 // const ComponentTitle(text: "Dewormers"),
                 // ListView.builder(
