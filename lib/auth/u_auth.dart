@@ -145,6 +145,7 @@ Future<void> logout() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.remove('DisplayName');
   // await firebaseAuth.signOut();
+  // await googleSignIn.disconnect();
   await firebaseAuth.signOut();
 
   // SignInProviderId? providerId = getLoggedInUserProviderId();
@@ -152,8 +153,11 @@ Future<void> logout() async {
   //   // await GoogleSignIn().signOut();
   //   await googleSignIn.signOut();
   // }
-  googleSignIn.isSignedIn().then((s) async {
+  // print("sssss");
+  await googleSignIn.isSignedIn().then((s) async {
     if (s) {
+      // print("Is signed in" + s.toString());
+      // await Future.delayed(Duration(seconds: 5));
       // signOutWithGoogle();
       await googleSignIn.signOut();
     }

@@ -371,7 +371,8 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
                         },
                       ),
                       DocumentsTab(
-                        documents: _petProfileDetails.petDocuments,
+                        initialDocuments: _petProfileDetails.petDocuments,
+                        petProfileId: widget.petProfileDetails.profileId,
                       ),
                     ],
                   ),

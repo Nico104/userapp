@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:userapp/language/m_language.dart';
 import 'package:userapp/network_globals.dart';
+import 'package:userapp/pets/profile_details/models/m_document.dart';
 import 'package:userapp/pets/profile_details/models/m_tag.dart';
 
 import '../auth/u_auth.dart';
@@ -166,5 +167,28 @@ Future<PetProfileDetails> getPet(int petProfileId) async {
     return PetProfileDetails.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to load Pet');
+  }
+}
+
+Future<List<Document>> getPetDocuments(int petProfileId) async {
+  Uri url = Uri.parse('$baseURL/pet/getPetDocuments/$petProfileId');
+  String? token = await getIdToken();
+
+  final response = await http.get(url, headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': '$token',
+  });
+
+  // print(response.body);
+  // print("o yeah");
+
+  if (response.statusCode == 200) {
+    List<Document> list = (jsonDecode(response.body) as List)
+        .map((t) => Document.fromJson(t))
+        .toList();
+    return list;
+  } else {
+    throw Exception('Failed to load PetProfileDetails');
   }
 }

@@ -1,5 +1,6 @@
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/auth/sign_up_screen/sign_up_screen.dart';
 import 'package:userapp/auth/u_auth.dart';
@@ -167,18 +168,37 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(height: 05.h),
-                    ContinueWithSocialMedia(
+                    const ContinueWithSocialMedia(
                         // reloadInitApp: widget.reloadInitApp,
                         ),
                     const Spacer(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Version: 1.0.0+27",
-                          style: Theme.of(context).textTheme.labelSmall,
-                        ),
-                      ],
+                    FutureBuilder<PackageInfo>(
+                      future: PackageInfo.fromPlatform(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<PackageInfo> snapshot) {
+                        if (snapshot.hasData) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Version: ${snapshot.data!.version}",
+                                style: Theme.of(context).textTheme.labelSmall,
+                              ),
+                            ],
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text(
+                            "error loading version",
+                            style: Theme.of(context).textTheme.labelSmall,
+                          );
+                        } else {
+                          //Loading
+                          return Text(
+                            "Loading Version",
+                            style: Theme.of(context).textTheme.labelSmall,
+                          );
+                        }
+                      },
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -201,7 +221,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 .popUntil((route) => route.isFirst);
                             navigateReplacePerSlide(
                               context,
-                              SignUpScreen(
+                              const SignUpScreen(
                                   // reloadInitApp: () => widget.reloadInitApp(),
                                   ),
                             );

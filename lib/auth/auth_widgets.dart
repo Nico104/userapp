@@ -89,15 +89,15 @@ class ContinueWithSocialMedia extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                onTap: () {
+                onTap: () async {
                   if (kIsWeb) {
-                    signInWithGoogleWeb().then((value) {
+                    await signInWithGoogleWeb().then((value) {
                       Navigator.of(context).popUntil((route) => route.isFirst);
                       navigateReplacePerSlide(context, const InitApp());
                     });
                   } else {
                     try {
-                      signInWithGoogle(context: context).then((value) {
+                      await signInWithGoogle(context: context).then((value) {
                         Navigator.of(context)
                             .popUntil((route) => route.isFirst);
                         navigateReplacePerSlide(context, const InitApp());

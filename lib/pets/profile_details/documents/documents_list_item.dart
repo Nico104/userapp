@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:userapp/network_globals.dart';
 import 'package:userapp/pet_color/hex_color.dart';
 import '../../../styles/custom_icons_icons.dart';
 import '../d_confirm_delete.dart';
@@ -32,11 +35,14 @@ class DocumentItem extends StatefulWidget {
     required this.document,
     required this.removeDocumentFromList,
     required this.docTypeKey,
+    required this.reloadDocumentList,
   });
 
   final Document document;
   final String docTypeKey;
   final VoidCallback removeDocumentFromList;
+
+  final VoidCallback reloadDocumentList;
 
   @override
   State<DocumentItem> createState() => _DocumentItemState();
@@ -62,16 +68,16 @@ class _DocumentItemState extends State<DocumentItem> {
                 leading: const Icon(CustomIcons.share_thin),
                 title: const Text("Share"),
                 onTap: () {
-                  // Navigator.pop(context);
-                  // readNotification(
-                  //   noticicationId: widget.notification.notificationId,
-                  // ).then((value) => widget.reload());
+                  Navigator.pop(context);
+                  Share.share(s3BaseUrl + widget.document.documentLink,
+                      subject: 'Check out ${widget.document.documentName}');
                 },
               ),
               ListTile(
                 leading: const Icon(CustomIcons.edit),
                 title: const Text("Edit"),
                 onTap: () {
+                  Navigator.pop(context);
                   // updateDocument
                   showDialog(
                     context: context,
@@ -79,6 +85,8 @@ class _DocumentItemState extends State<DocumentItem> {
                       document: widget.document,
                       docTypeKey: widget.docTypeKey,
                     ),
+                  ).then(
+                    (value) => widget.reloadDocumentList(),
                   );
                 },
               ),
@@ -112,53 +120,63 @@ class _DocumentItemState extends State<DocumentItem> {
 
   @override
   Widget build(BuildContext context) {
-    return IntrinsicHeight(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const SizedBox(width: 6),
-          Container(
-            width: 50,
-            height: 50,
-            // margin: const EdgeInsets.all(12),
-            padding: const EdgeInsets.all(4),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.grey.shade300, width: 1),
-            ),
-            child: Container(
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        launchUrl(
+          Uri.parse(s3BaseUrl + widget.document.documentLink),
+        );
+      },
+      child: IntrinsicHeight(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const SizedBox(width: 6),
+            Container(
+              width: 50,
+              height: 50,
+              // margin: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: getDocContTypeColor(widget.document),
                 borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.grey.shade300, width: 1),
               ),
-              child: Center(child: Text(getDocContTypeLabel(widget.document))),
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Text(
-              widget.document.documentName,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          const SizedBox(width: 16),
-          VerticalDivider(
-            endIndent: 6,
-            indent: 6,
-            thickness: 1,
-            color: Colors.grey.shade300,
-          ),
-          GestureDetector(
-            onTap: () => _showOptions(),
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.more_vert,
-                size: 28,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: getDocContTypeColor(widget.document),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child:
+                    Center(child: Text(getDocContTypeLabel(widget.document))),
               ),
             ),
-          ),
-        ],
+            const SizedBox(width: 16),
+            Expanded(
+              child: Text(
+                widget.document.documentName,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            const SizedBox(width: 16),
+            VerticalDivider(
+              endIndent: 6,
+              indent: 6,
+              thickness: 1,
+              color: Colors.grey.shade300,
+            ),
+            GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () => _showOptions(),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.more_vert,
+                  size: 28,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
