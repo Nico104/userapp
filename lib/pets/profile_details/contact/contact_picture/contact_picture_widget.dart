@@ -67,7 +67,7 @@ class ContactPicture extends StatelessWidget {
               backgroundColor: Colors.transparent,
               builder: (context) {
                 return Container(
-                  margin: const EdgeInsets.all(16),
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 32),
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,

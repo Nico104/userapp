@@ -1,5 +1,6 @@
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import '../../u_pets.dart';
 import '../c_component_padding.dart';
 import '../c_component_title.dart';
@@ -134,7 +135,34 @@ class _DocumentsTabState extends State<DocumentsTab> {
   }
 
   Widget getNoDocumetsWidget() {
-    return Text("Oops no dpcsuments");
+    // return Text("Oops no dpcsuments");
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(
+            height: 120,
+          ),
+          SizedBox(
+            width: 30.w,
+            child: Image.asset("assets/tmp/documents.png"),
+          ),
+          const SizedBox(height: 32),
+          Text(
+            "No Docuemnts uploaded",
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+          const SizedBox(height: 32),
+          Text(
+            "Upload",
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+          const SizedBox(
+            height: 120,
+          ),
+        ],
+      ),
+    );
   }
 
   @override

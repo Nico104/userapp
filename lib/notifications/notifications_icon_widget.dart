@@ -27,6 +27,7 @@ class _NotificationsIconState extends State<NotificationsIcon> {
           const NotificationPage(),
           //? callback needed?
           callback: () {
+            readAllUserNotifications();
             setState(() {});
           },
         );

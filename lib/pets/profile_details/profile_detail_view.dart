@@ -97,88 +97,92 @@ class PetProfileDetailViewState extends State<PetProfileDetailView>
             ),
           ],
         ),
-        AnimatedAlign(
-          alignment: _showBottomNavBar
-              ? const Alignment(0.0, 1.0)
-              : const Alignment(0.0, 3.0),
-          duration: const Duration(milliseconds: 250),
-          curve: Curves.fastOutSlowIn,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-            child: Container(
-              // height: 110,
-              // width: double.infinity,
-              // height: 80,
-              // blur: 7,
-              // width: 100,
-              // elevation: 2,
-              // padding: const EdgeInsets.all(16),
-              // borderRadius: BorderRadius.all(Radius.circular(_borderRadius)),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(_borderRadius)),
-                boxShadow: kElevationToShadow[4],
-                color: Theme.of(context).primaryColor.withOpacity(1),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const SizedBox(width: 32),
-                      GestureDetector(
-                        onTap: () {
-                          tabController.animateTo(
-                            0,
-                            duration: const Duration(milliseconds: 80),
-                            curve: Curves.fastOutSlowIn,
-                          );
-                          setState(() {});
-                        },
-                        child: Container(
-                          //To trigger the Hit Box
-                          color: Colors.transparent,
-                          child: Center(
-                            child: Icon(
-                              CustomIcons.edit,
-                              color: tabController.index == 0
-                                  ? Colors.blue
-                                  : Colors.black,
-                              size: 32,
+        Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: AnimatedAlign(
+            alignment: _showBottomNavBar
+                ? const Alignment(0.0, 1.0)
+                : const Alignment(0.0, 3.0),
+            duration: const Duration(milliseconds: 250),
+            curve: Curves.fastOutSlowIn,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              child: Container(
+                // height: 110,
+                // width: double.infinity,
+                // height: 80,
+                // blur: 7,
+                // width: 100,
+                // elevation: 2,
+                // padding: const EdgeInsets.all(16),
+                // borderRadius: BorderRadius.all(Radius.circular(_borderRadius)),
+                decoration: BoxDecoration(
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(_borderRadius)),
+                  boxShadow: kElevationToShadow[4],
+                  color: Theme.of(context).primaryColor.withOpacity(1),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const SizedBox(width: 32),
+                        GestureDetector(
+                          onTap: () {
+                            tabController.animateTo(
+                              0,
+                              duration: const Duration(milliseconds: 80),
+                              curve: Curves.fastOutSlowIn,
+                            );
+                            setState(() {});
+                          },
+                          child: Container(
+                            //To trigger the Hit Box
+                            color: Colors.transparent,
+                            child: Center(
+                              child: Icon(
+                                CustomIcons.edit,
+                                color: tabController.index == 0
+                                    ? Colors.blue
+                                    : Colors.black,
+                                size: 32,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 32),
-                      GestureDetector(
-                        onTap: () {
-                          tabController.animateTo(
-                            1,
-                            duration: const Duration(milliseconds: 80),
-                            curve: Curves.fastOutSlowIn,
-                          );
-                          setState(() {});
-                        },
-                        child: Container(
-                          //To trigger the Hit Box
-                          color: Colors.transparent,
-                          child: Center(
-                            child: Icon(
-                              CustomIcons.call,
-                              color: tabController.index == 1
-                                  ? Colors.blue
-                                  : Colors.black,
-                              size: 32,
+                        const SizedBox(width: 32),
+                        GestureDetector(
+                          onTap: () {
+                            tabController.animateTo(
+                              1,
+                              duration: const Duration(milliseconds: 80),
+                              curve: Curves.fastOutSlowIn,
+                            );
+                            setState(() {});
+                          },
+                          child: Container(
+                            //To trigger the Hit Box
+                            color: Colors.transparent,
+                            child: Center(
+                              child: Icon(
+                                CustomIcons.call,
+                                color: tabController.index == 1
+                                    ? Colors.blue
+                                    : Colors.black,
+                                size: 32,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 32),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                ],
+                        const SizedBox(width: 32),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
               ),
             ),
           ),

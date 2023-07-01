@@ -67,7 +67,8 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
       MaterialPageRoute(
         builder: (context) => ScansPage(
           petName: widget.petProfileDetails.petName,
-          scans: widget.petProfileDetails.petProfileScans,
+          // scans: widget.petProfileDetails.petProfileScans,
+          petProfileId: widget.petProfileDetails.profileId,
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/contact/u_contact.dart';
 import '../../../auth/u_auth.dart';
 import '../../../theme/custom_colors.dart';
@@ -22,6 +23,24 @@ class AllContactsPage extends StatefulWidget {
 class _AllContactsPageState extends State<AllContactsPage> {
   final ScrollController _scrollController = ScrollController();
 
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+
+  late List<Contact> _contactsList;
+  late Future<void> _initContact;
+
+  Future<void> _initContacts() async {
+    final List<Contact> contacts = await fetchUserContracts();
+    _contactsList = contacts;
+  }
+
+  Future<void> _refreshContacts() async {
+    final List<Contact> contacts = await fetchUserContracts();
+    setState(() {
+      _contactsList = contacts;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -29,6 +48,8 @@ class _AllContactsPageState extends State<AllContactsPage> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _scrollController.addListener(() {});
     });
+
+    _initContact = _initContacts();
   }
 
   @override
@@ -87,43 +108,66 @@ class _AllContactsPageState extends State<AllContactsPage> {
           color: Theme.of(context).primaryColor,
         ),
       ),
-      body: FutureBuilder<List<Contact>>(
-        future: fetchUserContracts(),
-        builder: (BuildContext context, AsyncSnapshot<List<Contact>> snapshot) {
-          if (snapshot.hasData) {
-            List<Contact> contacts = snapshot.data!;
-            return ScrollConfiguration(
-              behavior:
-                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
-              child: ListView.builder(
-                // shrinkWrap: true,
-                controller: _scrollController,
-                itemCount: contacts.length + 1,
-                itemBuilder: (context, index) {
-                  if (index == 0) {
-                    return const SizedBox(height: 36);
-                  }
-                  return Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: ContactListItem(
-                      showConnectedToPets: true,
-                      contact: contacts.elementAt(index - 1),
-                      refreshContacts: () {
-                        setState(() {});
-                      },
-                    ),
-                  );
-                },
-              ),
-            );
-          } else if (snapshot.hasError) {
-            print(snapshot);
-            return const Text(
-              "Error loading your Contacts",
-            );
-          } else {
-            //Loading
-            return const CircularProgressIndicator();
+      body: FutureBuilder(
+        future: _initContact,
+        builder: (BuildContext context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+            case ConnectionState.active:
+              {
+                return const Center(
+                  child: Text('Loading...'),
+                );
+              }
+            case ConnectionState.done:
+              {
+                return RefreshIndicator(
+                  key: _refreshIndicatorKey,
+                  onRefresh: _refreshContacts,
+                  child: (_contactsList.isNotEmpty)
+                      ? ScrollConfiguration(
+                          behavior: ScrollConfiguration.of(context)
+                              .copyWith(scrollbars: false),
+                          child: ListView.builder(
+                            // shrinkWrap: true,
+                            controller: _scrollController,
+                            itemCount: _contactsList.length + 1,
+                            itemBuilder: (context, index) {
+                              if (index == 0) {
+                                return const SizedBox(height: 36);
+                              }
+                              return Padding(
+                                padding: const EdgeInsets.all(24),
+                                child: ContactListItem(
+                                  showConnectedToPets: true,
+                                  contact: _contactsList.elementAt(index - 1),
+                                  refreshContacts: () {
+                                    setState(() {});
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        )
+                      : Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                width: 30.w,
+                                child: Image.asset("assets/tmp/contacts.png"),
+                              ),
+                              const SizedBox(height: 32),
+                              Text(
+                                "No contacts yet",
+                                style: Theme.of(context).textTheme.labelLarge,
+                              )
+                            ],
+                          ),
+                        ),
+                );
+              }
           }
         },
       ),

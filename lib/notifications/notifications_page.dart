@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:userapp/notifications/u_notifications.dart';
 
 import 'model/m_notification.dart' as models;
@@ -62,39 +63,57 @@ class _NotificationPageState extends State<NotificationPage> {
                 return RefreshIndicator(
                   key: _refreshIndicatorKey,
                   onRefresh: _refreshNotifications,
-                  child: ListView.builder(
-                    itemCount: _notificationsList.length,
-                    itemBuilder: (BuildContext context, index) {
-                      return Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          index == 0
-                              ? Divider(
-                                  color: Colors.grey.shade100,
-                                  thickness: 5,
-                                  height: 5,
-                                )
-                              : const SizedBox(),
-                          _notificationsList[index].read
-                              ? NotificationListItem(
-                                  notification: _notificationsList[index],
-                                  reload: _refreshNotifications,
-                                )
-                              : NotificationListItemNew(
-                                  notification: _notificationsList[index],
-                                  reload: _refreshNotifications,
-                                ),
-                          index < _notificationsList.length - 1
-                              ? Divider(
-                                  color: Colors.grey.shade200,
-                                  height: 1,
-                                  thickness: 1,
-                                )
-                              : const SizedBox(),
-                        ],
-                      );
-                    },
-                  ),
+                  child: (_notificationsList.isNotEmpty)
+                      ? ListView.builder(
+                          itemCount: _notificationsList.length,
+                          itemBuilder: (BuildContext context, index) {
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                index == 0
+                                    ? Divider(
+                                        color: Colors.grey.shade100,
+                                        thickness: 5,
+                                        height: 5,
+                                      )
+                                    : const SizedBox(),
+                                _notificationsList[index].read
+                                    ? NotificationListItem(
+                                        notification: _notificationsList[index],
+                                        reload: _refreshNotifications,
+                                      )
+                                    : NotificationListItemNew(
+                                        notification: _notificationsList[index],
+                                        reload: _refreshNotifications,
+                                      ),
+                                index < _notificationsList.length - 1
+                                    ? Divider(
+                                        color: Colors.grey.shade200,
+                                        height: 1,
+                                        thickness: 1,
+                                      )
+                                    : const SizedBox(),
+                              ],
+                            );
+                          },
+                        )
+                      : Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                width: 30.w,
+                                child:
+                                    Image.asset("assets/tmp/notifications.png"),
+                              ),
+                              const SizedBox(height: 32),
+                              Text(
+                                "No Notifications yet",
+                                style: Theme.of(context).textTheme.labelLarge,
+                              )
+                            ],
+                          ),
+                        ),
                 );
               }
           }

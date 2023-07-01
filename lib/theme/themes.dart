@@ -7,6 +7,7 @@ import 'custom_text_styles.dart';
 ///Light Theme
 final ThemeData constLightTheme = ThemeData(
   brightness: Brightness.light,
+
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.white,
     foregroundColor: Colors.black,
@@ -20,6 +21,7 @@ final ThemeData constLightTheme = ThemeData(
     ),
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
+      systemNavigationBarColor: Colors.white,
       // systemNavigationBarIconBrightness: Brightness.light,
       // statusBarIconBrightness: Brightness.dark,
       statusBarIconBrightness: Brightness.dark,

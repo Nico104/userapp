@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MoreButton extends StatefulWidget {
   const MoreButton({
@@ -18,16 +19,22 @@ class _MoreButtonState extends State<MoreButton> {
       context: context,
       backgroundColor: Colors.transparent,
       builder: (context) {
-        return Container(
-          margin: const EdgeInsets.all(16),
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.circular(28),
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+          value: const SystemUiOverlayStyle(
+            // statusBarColor: Colors.transparent,
+            systemNavigationBarColor: Colors.transparent,
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: widget.moreOptions,
+          child: Container(
+            margin: const EdgeInsets.fromLTRB(16, 16, 16, 32),
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius: BorderRadius.circular(28),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: widget.moreOptions,
+            ),
           ),
         );
       },

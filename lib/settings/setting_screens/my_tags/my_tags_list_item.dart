@@ -126,30 +126,33 @@ class _MyTagListItemState extends State<MyTagListItem> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                // crossAxisAlignment: CrossAxisAlignment.center,
+              // Row(
+              //   // crossAxisAlignment: CrossAxisAlignment.center,
+              //   children: [
+
+              //   ],
+              // ),
+              TagSingle(
+                collardimension: 80,
+                picturePath: widget.tag.picturePath,
+              ),
+              const SizedBox(width: 36),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  TagSingle(
-                    collardimension: 80,
-                    picturePath: widget.tag.picturePath,
+                  Text(
+                    widget.tag.collarTagId,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  const SizedBox(width: 36),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        widget.tag.collarTagId,
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        widget.petProfileDetails != null
-                            ? "Currently on ${widget.petProfileDetails!.petName}"
-                            : "No furry friend has the honor",
-                        style: Theme.of(context).textTheme.labelMedium,
-                      ),
-                    ],
+                  const SizedBox(height: 8),
+                  Text(
+                    widget.petProfileDetails != null
+                        ? "Currently on ${widget.petProfileDetails!.petName}"
+                        : "No furry friend has the honor",
+                    style: Theme.of(context).textTheme.labelMedium,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),

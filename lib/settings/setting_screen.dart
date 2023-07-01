@@ -13,6 +13,7 @@ import '../auth/u_auth.dart';
 import '../pet_color/hex_color.dart';
 import '../styles/text_styles.dart';
 import '../theme/theme_provider.dart';
+import '../utils/coming_soon_page.dart';
 import '../utils/util_methods.dart';
 import 'setting_screens/account_settings/account_settings.dart';
 import 'setting_screens/my_tags/my_tags_page.dart';
@@ -128,6 +129,12 @@ class _SettingsState extends State<Settings> {
                   label: "settingsItemHowToUse".tr(),
                   leading: Icon(Icons.lightbulb_outline),
                   suffix: Icon(Icons.keyboard_arrow_right),
+                  onTap: () {
+                    navigatePerSlide(
+                      context,
+                      const ComingSoonPage(title: "How To Use"),
+                    );
+                  },
                 ),
               ],
             ),
@@ -147,6 +154,12 @@ class _SettingsState extends State<Settings> {
                   label: "settingsItemGoShop".tr(),
                   leading: Icon(CustomIcons.shopping_bag_8),
                   suffix: Icon(Icons.keyboard_arrow_right),
+                  onTap: () {
+                    navigatePerSlide(
+                      context,
+                      const ComingSoonPage(title: "Shop"),
+                    );
+                  },
                 ),
               ],
             ),
@@ -166,14 +179,26 @@ class _SettingsState extends State<Settings> {
                   label: "settingsItemReportBug".tr(),
                   leading: Icon(Icons.warning_amber_rounded),
                   suffix: Icon(Icons.keyboard_arrow_right),
+                  onTap: () {
+                    navigatePerSlide(
+                      context,
+                      const ComingSoonPage(title: "Report Bug"),
+                    );
+                  },
                 ),
                 const SizedBox(height: settingItemSpacing),
                 SettingsItem(
                   label: "settingsItemContactUs".tr(),
                   leading: const Icon(CustomIcons.notification),
                   suffix: const Icon(Icons.keyboard_arrow_right),
+                  // onTap: () {
+                  //   navigatePerSlide(context, const ContactUs());
+                  // },
                   onTap: () {
-                    navigatePerSlide(context, const ContactUs());
+                    navigatePerSlide(
+                      context,
+                      const ComingSoonPage(title: "Contact Us"),
+                    );
                   },
                 ),
                 const SizedBox(height: settingItemSpacing),
@@ -181,18 +206,36 @@ class _SettingsState extends State<Settings> {
                   label: "settingsItemFAQ".tr(),
                   leading: Icon(Icons.question_answer_outlined),
                   suffix: Icon(Icons.keyboard_arrow_right),
+                  onTap: () {
+                    navigatePerSlide(
+                      context,
+                      const ComingSoonPage(title: "FAQ"),
+                    );
+                  },
                 ),
                 const SizedBox(height: settingItemSpacing),
                 SettingsItem(
                   label: "settingsItemPrivacy".tr(),
                   leading: Icon(Icons.privacy_tip_outlined),
                   suffix: Icon(Icons.keyboard_arrow_right),
+                  onTap: () {
+                    navigatePerSlide(
+                      context,
+                      const ComingSoonPage(title: "Privacy"),
+                    );
+                  },
                 ),
                 const SizedBox(height: settingItemSpacing),
                 SettingsItem(
                   label: "settingsItemAbout".tr(),
                   leading: Icon(Icons.question_mark),
                   suffix: Icon(Icons.keyboard_arrow_right),
+                  onTap: () {
+                    navigatePerSlide(
+                      context,
+                      const ComingSoonPage(title: "About"),
+                    );
+                  },
                 ),
               ],
             ),

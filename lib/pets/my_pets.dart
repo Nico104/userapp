@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/language/m_language.dart';
 import 'package:userapp/network_globals.dart';
@@ -15,6 +16,7 @@ import 'my_pets_navbar.dart';
 import 'new_pet_profile.dart';
 import 'page_transform.dart';
 import 'pet_profile_preview.dart';
+import 'package:flutter/services.dart';
 // import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 
 class MyPets extends StatefulWidget {
@@ -107,202 +109,226 @@ class _MyPetsState extends State<MyPets> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 80),
-            switchInCurve: Curves.fastOutSlowIn,
-            switchOutCurve: Curves.fastOutSlowIn,
-            child: Container(
-              key: ValueKey(pageindex.round()),
-              // height: double.infinity,
-              width: double.infinity,
-              decoration: pageindex.round() < widget.petProfiles.length
-                  ? BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          getBGPictureLink(),
-                          // _bgPictureLink,
-                        ),
-                        fit: BoxFit.cover,
-                        scale: 1.2,
-                      ),
-                    )
-                  : BoxDecoration(
-                      color: HexColor("ebebd3"),
-                      image: const DecorationImage(
-                        image: AssetImage(
-                          "assets/new_pet_bg/dog_1.png",
-                        ),
-                        fit: BoxFit.contain,
-                        alignment: Alignment.bottomCenter,
-                        scale: 1,
-                      ),
-                    ),
-              child: pageindex.round() < widget.petProfiles.length
-                  ? BackdropFilter(
-                      filter: ImageFilter.blur(
-                        sigmaX: 15,
-                        sigmaY: 15,
-                      ),
-                      child: Container(
-                        color: Theme.of(context).canvasColor.withOpacity(0.60),
-                        // color: Theme.of(context).canvasColor.withOpacity(0.0),
-                      ),
-                    )
-                  : null,
-            ),
-          ),
-          SafeArea(
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () {
-                _closeExtendedActions();
-              },
-              child: Column(
-                children: [
-                  const SizedBox(height: 28),
-                  MyPetsNavbar(
-                    reloadFuture: widget.reloadFuture,
-                  ),
-                  const SizedBox(height: 36),
-                  Expanded(
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: double.infinity,
-                      child: Stack(
-                        children: [
-                          ScrollConfiguration(
-                            behavior: ScrollConfiguration.of(context).copyWith(
-                              dragDevices: {
-                                PointerDeviceKind.touch,
-                                PointerDeviceKind.mouse,
-                              },
-                            ),
-                            child: PageView.builder(
-                              physics: const BouncingScrollPhysics(),
-                              controller: _controller,
-                              pageSnapping: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount: widget.petProfiles.length + 1,
-                              itemBuilder: (context, position) {
-                                if (position == widget.petProfiles.length) {
-                                  return PetProfilePreviewPageTransform(
-                                    page: pageindex,
-                                    position: position,
-                                    maxRotation: 35,
-                                    minScaling: 0.1,
-                                    minOpacity: 0,
-                                    //TODO set pageindex 1 after coming back to home
-                                    child: NewPetProfile(
-                                      reloadFuture: widget.reloadFuture,
-                                    ),
-                                  );
-                                } else {
-                                  return PetProfilePreviewPageTransform(
-                                    page: pageindex,
-                                    position: position,
-                                    maxRotation: 25,
-                                    minScaling: 0.65,
-                                    minOpacity: 0,
-                                    child: PetProfilePreview(
-                                      extendedActions: isExtendedIndexActive(
-                                          activeExtendedActions, position),
-                                      petProfileDetails: widget.petProfiles
-                                          .elementAt(position),
-                                      imageAlignmentOffset: -getAlignmentOffset(
-                                          pageindex, position),
-                                      // imageAlignmentOffset: 0,
-                                      reloadFuture: () =>
-                                          widget.reloadFuture.call(),
-                                      switchExtendedActions: () {
-                                        setState(() {
-                                          if (activeExtendedActions !=
-                                              position) {
-                                            activeExtendedActions = position;
-                                          } else {
-                                            activeExtendedActions = null;
-                                          }
-                                        });
-                                      },
-                                      setPictureLink: (bgPictureLink) {
-                                        // if (_bgPictureLink != bgPictureLink) {
-                                        //   // print("PicturIndex: " +
-                                        //   //     pictueIndex.toString());
-                                        //   EasyDebounce.debounce(
-                                        //     'emailLogwwinPage',
-                                        //     const Duration(milliseconds: 250),
-                                        //     () {
-                                        //       WidgetsBinding.instance
-                                        //           .addPostFrameCallback((_) {
-                                        //         setState(() {
-                                        //           _bgPictureLink =
-                                        //               bgPictureLink;
-                                        //         });
-                                        //       });
-                                        //     },
-                                        //   );
-                                        // }
-                                      },
-                                    ),
-                                  );
-                                }
-                              },
-                            ),
+    // SystemChrome.setSystemUIOverlayStyle(
+    //   const SystemUiOverlayStyle(
+    //     statusBarColor: Colors.transparent,
+    //     systemNavigationBarColor: Colors.transparent,
+    //   ),
+    // );
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        // statusBarColor: Colors.transparent,
+        systemNavigationBarColor: Colors.transparent,
+      ),
+      child: Scaffold(
+        // appBar: AppBar(
+        //   systemOverlayStyle: SystemUiOverlayStyle(
+        //     systemNavigationBarColor: Colors.blue, // Navigation bar
+        //     statusBarColor: Colors.pink, // Status bar
+        //   ),
+        // ),
+        body: Stack(
+          children: [
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 80),
+              switchInCurve: Curves.fastOutSlowIn,
+              switchOutCurve: Curves.fastOutSlowIn,
+              child: Container(
+                key: ValueKey(pageindex.round()),
+                // height: double.infinity,
+                width: double.infinity,
+                decoration: pageindex.round() < widget.petProfiles.length
+                    ? BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            getBGPictureLink(),
+                            // _bgPictureLink,
                           ),
-                          // isExtendedIndexActive(
-                          //         activeExtendedActions, pageindex.round())
-                          //     ? Align(
-                          //         alignment: const Alignment(1, 1),
-                          //         child: DotsIndicator(
-                          //           dotsCount: widget.petProfiles.length,
-                          //           position: pageindex,
-                          //           decorator: const DotsDecorator(
-                          //             color: Colors.black87, // Inactive color
-                          //             activeColor: Colors.redAccent,
-                          //           ),
-                          //         ),
-                          //       )
-                          //     : const SizedBox.shrink(),
-                          //Blurs outgoung profile
-                          ClipRRect(
-                            child: BackdropFilter(
-                              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                              child: Container(
-                                height: 5,
-                                width: double.infinity,
-                                color: Colors.transparent,
-                              ),
-                            ),
-                          )
-                        ],
+                          fit: BoxFit.cover,
+                          scale: 1.2,
+                        ),
+                      )
+                    : BoxDecoration(
+                        color: HexColor("ebebd3"),
+                        image: const DecorationImage(
+                          image: AssetImage(
+                            "assets/new_pet_bg/dog_1.png",
+                          ),
+                          fit: BoxFit.contain,
+                          alignment: Alignment.bottomCenter,
+                          scale: 1,
+                        ),
                       ),
-                    ),
-                  ),
-                ],
+                child: pageindex.round() < widget.petProfiles.length
+                    ? BackdropFilter(
+                        filter: ImageFilter.blur(
+                          sigmaX: 15,
+                          sigmaY: 15,
+                        ),
+                        child: Container(
+                          color:
+                              Theme.of(context).canvasColor.withOpacity(0.60),
+                          // color: Theme.of(context).canvasColor.withOpacity(0.0),
+                        ),
+                      )
+                    : null,
               ),
             ),
-          ),
-          pageindex.round() < widget.petProfiles.length
-              ? Align(
-                  alignment: Alignment.bottomCenter,
-                  child: ExtendedSettingsContainer(
-                    isActive: isInteger(pageindex),
-                    petProfileDetails:
-                        widget.petProfiles.elementAt(pageindex.round()),
-                    reloadFuture: () => widget.reloadFuture.call(),
-                  ),
-                )
-              : const SizedBox.shrink(),
-          // Align(
-          //   alignment: Alignment.topLeft,
-          //   child: Text(
-          //     "Taco",
-          //     style: getCustomTextStyles(context).homePetName,
-          //   ),
-          // ),
-        ],
+            SafeArea(
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  _closeExtendedActions();
+                },
+                child: Column(
+                  children: [
+                    const SizedBox(height: 28),
+                    MyPetsNavbar(
+                      reloadFuture: widget.reloadFuture,
+                    ),
+                    const SizedBox(height: 36),
+                    Expanded(
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: Stack(
+                          children: [
+                            ScrollConfiguration(
+                              behavior:
+                                  ScrollConfiguration.of(context).copyWith(
+                                dragDevices: {
+                                  PointerDeviceKind.touch,
+                                  PointerDeviceKind.mouse,
+                                },
+                              ),
+                              child: PageView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                controller: _controller,
+                                pageSnapping: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: widget.petProfiles.length + 1,
+                                itemBuilder: (context, position) {
+                                  if (position == widget.petProfiles.length) {
+                                    return PetProfilePreviewPageTransform(
+                                      page: pageindex,
+                                      position: position,
+                                      maxRotation: 35,
+                                      minScaling: 0.1,
+                                      minOpacity: 0,
+                                      //TODO set pageindex 1 after coming back to home
+                                      child: NewPetProfile(
+                                        reloadFuture: widget.reloadFuture,
+                                      ),
+                                    );
+                                  } else {
+                                    return PetProfilePreviewPageTransform(
+                                      page: pageindex,
+                                      position: position,
+                                      maxRotation: 25,
+                                      minScaling: 0.65,
+                                      minOpacity: 0,
+                                      child: PetProfilePreview(
+                                        extendedActions: isExtendedIndexActive(
+                                            activeExtendedActions, position),
+                                        petProfileDetails: widget.petProfiles
+                                            .elementAt(position),
+                                        imageAlignmentOffset:
+                                            -getAlignmentOffset(
+                                                pageindex, position),
+                                        // imageAlignmentOffset: 0,
+                                        reloadFuture: () =>
+                                            widget.reloadFuture.call(),
+                                        switchExtendedActions: () {
+                                          setState(() {
+                                            if (activeExtendedActions !=
+                                                position) {
+                                              activeExtendedActions = position;
+                                            } else {
+                                              activeExtendedActions = null;
+                                            }
+                                          });
+                                        },
+                                        setPictureLink: (bgPictureLink) {
+                                          // if (_bgPictureLink != bgPictureLink) {
+                                          //   // print("PicturIndex: " +
+                                          //   //     pictueIndex.toString());
+                                          //   EasyDebounce.debounce(
+                                          //     'emailLogwwinPage',
+                                          //     const Duration(milliseconds: 250),
+                                          //     () {
+                                          //       WidgetsBinding.instance
+                                          //           .addPostFrameCallback((_) {
+                                          //         setState(() {
+                                          //           _bgPictureLink =
+                                          //               bgPictureLink;
+                                          //         });
+                                          //       });
+                                          //     },
+                                          //   );
+                                          // }
+                                        },
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            ),
+                            // isExtendedIndexActive(
+                            //         activeExtendedActions, pageindex.round())
+                            //     ? Align(
+                            //         alignment: const Alignment(1, 1),
+                            //         child: DotsIndicator(
+                            //           dotsCount: widget.petProfiles.length,
+                            //           position: pageindex,
+                            //           decorator: const DotsDecorator(
+                            //             color: Colors.black87, // Inactive color
+                            //             activeColor: Colors.redAccent,
+                            //           ),
+                            //         ),
+                            //       )
+                            //     : const SizedBox.shrink(),
+                            //Blurs outgoung profile
+                            ClipRRect(
+                              child: BackdropFilter(
+                                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                                child: Container(
+                                  height: 5,
+                                  width: double.infinity,
+                                  color: Colors.transparent,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            pageindex.round() < widget.petProfiles.length
+                ? Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: ExtendedSettingsContainer(
+                        isActive: isInteger(pageindex),
+                        petProfileDetails:
+                            widget.petProfiles.elementAt(pageindex.round()),
+                        reloadFuture: () => widget.reloadFuture.call(),
+                      ),
+                    ),
+                  )
+                : const SizedBox.shrink(),
+            // Align(
+            //   alignment: Alignment.topLeft,
+            //   child: Text(
+            //     "Taco",
+            //     style: getCustomTextStyles(context).homePetName,
+            //   ),
+            // ),
+          ],
+        ),
       ),
     );
   }
