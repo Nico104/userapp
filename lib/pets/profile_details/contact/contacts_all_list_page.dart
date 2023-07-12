@@ -60,7 +60,13 @@ class _AllContactsPageState extends State<AllContactsPage> {
           future: getDisplayName(),
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
             if (snapshot.hasData) {
-              return Text("${snapshot.data}'s Contacts");
+              return Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(child: Text("${snapshot.data}'s")),
+                  const Text(" Contacts"),
+                ],
+              );
             } else {
               return const Text("Contacts");
             }

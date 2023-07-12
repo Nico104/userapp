@@ -53,3 +53,15 @@ void navigateReplacePerSlide(BuildContext context, Widget naviagteTo,
     }
   });
 }
+
+///Checks if String is not null and not empty
+bool isNotNullOrEmpty(String? string) {
+  if (string == null) {
+    return false;
+  } else {
+    if (string.isEmpty) {
+      return false;
+    }
+  }
+  return true;
+}

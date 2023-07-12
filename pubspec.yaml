@@ -70,6 +70,7 @@ dependencies:
   screenshot: 1.2.3
   expansion_tile_card: ^3.0.0
   package_info_plus: ^4.0.2
+  flutter_native_splash: ^2.2.19
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +82,12 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+
+
+flutter_native_splash:
+  color: "#222222"
+  image: assets/tmp/scans.png
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

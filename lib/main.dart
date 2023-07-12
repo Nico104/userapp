@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +31,8 @@ void main() async {
 
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
+  FlutterNativeSplash.removeAfter(initialization);
+
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en', 'US')],
@@ -47,6 +50,11 @@ void main() async {
       ),
     ),
   );
+}
+
+Future initialization(BuildContext? context) async {
+  /// Load resources
+  await Future.delayed(const Duration(seconds: 3));
 }
 
 Future<void> _initFirebase() async {

@@ -126,6 +126,18 @@ class _SettingsState extends State<Settings> {
                 ),
                 const SizedBox(height: settingItemSpacing),
                 SettingsItem(
+                  label: "Language",
+                  leading: const Icon(Icons.translate),
+                  suffix: const Icon(Icons.keyboard_arrow_right),
+                  onTap: () {
+                    navigatePerSlide(
+                      context,
+                      const ComingSoonPage(title: "Language"),
+                    );
+                  },
+                ),
+                const SizedBox(height: settingItemSpacing),
+                SettingsItem(
                   label: "settingsItemHowToUse".tr(),
                   leading: Icon(Icons.lightbulb_outline),
                   suffix: Icon(Icons.keyboard_arrow_right),

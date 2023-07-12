@@ -93,13 +93,14 @@ class _ContactListItemState extends State<ContactListItem> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(32, 8, 0, 8),
-                    child: Column(
-                      // mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: _getDescriptionText(),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(32, 8, 0, 8),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: _getDescriptionText(),
+                      ),
                     ),
                   ),
                 ],
@@ -121,7 +122,7 @@ class _ContactListItemState extends State<ContactListItem> {
                                 Wrap(
                                   direction: Axis.horizontal,
                                   children:
-                                      _getConnectedToPetsList(snapshot.data!),
+                                      _getAssignedToPetsList(snapshot.data!),
                                 ),
                               ],
                             );
@@ -138,9 +139,9 @@ class _ContactListItemState extends State<ContactListItem> {
     );
   }
 
-  List<Widget> _getConnectedToPetsList(List<PetProfileDetails> pets) {
+  List<Widget> _getAssignedToPetsList(List<PetProfileDetails> pets) {
     List<Widget> list = [
-      const Text("Connected to "),
+      const Text("Assigned to "),
     ];
     for (int i = 0; i < pets.length; i++) {
       list.add(Text(pets.elementAt(i).petName));
@@ -203,26 +204,34 @@ class _ContactListItemState extends State<ContactListItem> {
         list.add(phoneNumber);
       }
     }
-    if (widget.contact.contactEmail != null) {
+    if (isNotNullOrEmpty(widget.contact.contactEmail)) {
       Text contactEmail = Text(widget.contact.contactEmail!);
       list.add(contactEmail);
     }
-    if (list.length < 2 && widget.contact.contactAddress != null) {
+    if (list.length < 2 && isNotNullOrEmpty(widget.contact.contactAddress)) {
       Text contactAddress = Text(widget.contact.contactAddress!);
       list.add(contactAddress);
     }
-    if (list.length < 2 && widget.contact.contactFacebook != null) {
+    if (list.length < 2 && isNotNullOrEmpty(widget.contact.contactFacebook)) {
       Text contactFacebook = Text(widget.contact.contactFacebook!);
       list.add(contactFacebook);
     }
-    if (list.length < 2 && widget.contact.contactInstagram != null) {
+    if (list.length < 2 && isNotNullOrEmpty(widget.contact.contactInstagram)) {
       Text contactInstagram = Text(widget.contact.contactInstagram!);
       list.add(contactInstagram);
     }
 
     if (list.isEmpty) {
-      Text nothingadded =
-          const Text("Uups it seems this contact isnt contactable");
+      Widget nothingadded = Row(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          Flexible(
+            child: Text(
+              "Uups it seems this contact isnt contactable",
+            ),
+          ),
+        ],
+      );
       list.add(nothingadded);
     }
 
