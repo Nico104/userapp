@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/network_globals.dart';
 import 'package:userapp/pets/profile_details/models/m_contact_descripton.dart';
@@ -224,10 +225,10 @@ class _ContactListItemState extends State<ContactListItem> {
     if (list.isEmpty) {
       Widget nothingadded = Row(
         mainAxisSize: MainAxisSize.min,
-        children: const [
+        children: [
           Flexible(
             child: Text(
-              "Uups it seems this contact isnt contactable",
+              "petContactListNotContactable".tr(),
             ),
           ),
         ],

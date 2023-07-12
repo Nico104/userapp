@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -123,13 +124,13 @@ class _PictureListState extends State<PictureList> {
       moreOptions: [
         ListTile(
           leading: const Icon(CustomIcons.delete),
-          title: const Text("Delete Picture"),
+          title: Text("pictureOptionsDeletePicture".tr()),
           onTap: () {
             Navigator.pop(context);
             showDialog(
               context: context,
-              builder: (_) => const ConfirmDeleteDialog(
-                label: "Picture",
+              builder: (_) => ConfirmDeleteDialog(
+                label: "deletePictureDialogLabel".tr(),
               ),
             ).then((value) {
               if (value != null) {
@@ -152,7 +153,7 @@ class _PictureListState extends State<PictureList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Images"),
+        title: Text("appBarImages".tr()),
         scrolledUnderElevation: 8,
       ),
       body: ScrollConfiguration(

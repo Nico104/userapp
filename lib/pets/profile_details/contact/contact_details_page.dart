@@ -93,13 +93,13 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
           ),
           ListTile(
             leading: const Icon(CustomIcons.delete),
-            title: const Text("Delete Contact"),
+            title: Text("contactMenuDeleteContact".tr()),
             onTap: () {
               Navigator.pop(context);
               showDialog(
                 context: context,
-                builder: (_) => const ConfirmDeleteDialog(
-                  label: "Contact",
+                builder: (_) => ConfirmDeleteDialog(
+                  label: "contactMenuDeleteContactDialogLabel".tr(),
                 ),
               ).then((value) {
                 if (value != null) {
@@ -162,8 +162,8 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // title: Text('appBarTitleProfileDetails'.tr()),
-        title: Text("${_contact.contactName}'s Contact Details"),
+        title: Text('appBarContactDetails'
+            .tr(namedArgs: {'contactName': _contact.contactName})),
         scrolledUnderElevation: 8,
       ),
       body: GestureDetector(
@@ -257,8 +257,12 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                                       context: context,
                                       builder: (_) => EnterNameDialog(
                                         initialValue: _contact.contactName,
-                                        label: "Contact Name",
-                                        confirmLabel: "Save ahead",
+                                        label:
+                                            "contactDetailsChangeContactNameLabel"
+                                                .tr(),
+                                        confirmLabel:
+                                            "contactDetailsSaveContactNameLabel"
+                                                .tr(),
                                       ),
                                     ).then((value) {
                                       if (value != null) {

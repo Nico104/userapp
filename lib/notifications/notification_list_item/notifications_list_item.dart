@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:timeago/timeago.dart' as timeago;
@@ -100,7 +101,7 @@ class _NotificationListItemState extends State<NotificationListItem> {
             children: [
               ListTile(
                 leading: const Icon(Icons.visibility_off_outlined),
-                title: const Text("Unsee Notification"),
+                title: Text("notificationMenuUnseeNotification".tr()),
                 onTap: () {
                   Navigator.pop(context);
                   unseeNotification(
@@ -110,7 +111,7 @@ class _NotificationListItemState extends State<NotificationListItem> {
               ),
               ListTile(
                 leading: const Icon(CustomIcons.delete),
-                title: const Text("Delete Notification"),
+                title: Text("notificationMenuDeleteNotification".tr()),
                 onTap: () {
                   Navigator.pop(context);
                   showDialog(

@@ -38,5 +38,8 @@
     "settingsItemPrivacy": "Privacy Contract",
     "settingsItemAbout": "About",
     "settingsItemLogout": "Logout",
-    "createNewProfile": "Create New Profile"
+    "createNewProfile": "Create New Profile",
+    "petProfileTitle": "{petName}'s Profile",
+    "genderLabelMale": "Good boy",
+    "genderLabelFemale": "Good girl"
 }

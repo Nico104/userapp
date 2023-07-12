@@ -82,7 +82,7 @@ class _DocumentEditDialogState extends State<DocumentEditDialog> {
                   labelText: "Document Name",
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'I cannot be empty mate';
+                      return "textInputErrorEmpty".tr();
                     } else {
                       return null;
                     }

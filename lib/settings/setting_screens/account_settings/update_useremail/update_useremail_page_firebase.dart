@@ -94,7 +94,7 @@ class _UpdateUseremailFirebasePageState
               labelText: "Current Password",
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'I cannot be empty mate';
+                  return "textInputErrorEmpty".tr();
                 } else if (value.length < 8) {
                   return 'I must be at least 8 characters mate';
                 } else {
@@ -108,7 +108,7 @@ class _UpdateUseremailFirebasePageState
               labelText: "New Email",
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'I cannot be empty mate';
+                  return "textInputErrorEmpty".tr();
                 } else {
                   return null;
                 }

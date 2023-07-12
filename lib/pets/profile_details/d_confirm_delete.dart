@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/styles/custom_icons_icons.dart';
@@ -54,18 +55,22 @@ class _ConfirmDeleteDialogState extends State<ConfirmDeleteDialog> {
               ),
               const SizedBox(height: 20),
               Text(
-                widget.remove ? "Remove?" : "Delete?",
+                widget.remove
+                    ? "deleteAlerDialogRemove".tr()
+                    : "deleteAlerDialogDelete".tr(),
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 12),
               Text(
                 widget.remove
-                    ? "You will remove this ${widget.label}"
-                    : "You will delete this ${widget.label}",
+                    ? 'deleteAlerDialogInfoTextRemove'
+                        .tr(namedArgs: {'label': widget.label})
+                    : 'deleteAlerDialogInfoTextDelete'
+                        .tr(namedArgs: {'label': widget.label}),
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               Text(
-                "Are you sure?",
+                "deleteAlerDialogConfirmationText".tr(),
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               const SizedBox(height: 28),
@@ -87,7 +92,7 @@ class _ConfirmDeleteDialogState extends State<ConfirmDeleteDialog> {
                       ),
                     ),
                     child: Text(
-                      "Cancel",
+                      "deleteAlerDialogCancelButton".tr(),
                       style: getCustomTextStyles(context)
                           .dataEditDialogButtonCancelStyle,
                     ),
@@ -107,7 +112,7 @@ class _ConfirmDeleteDialogState extends State<ConfirmDeleteDialog> {
                       ),
                     ),
                     child: Text(
-                      "Delete",
+                      "deleteAlerDialogDeleteButton".tr(),
                       style: getCustomTextStyles(context)
                           .dataEditDialogButtonSaveStyle,
                     ),

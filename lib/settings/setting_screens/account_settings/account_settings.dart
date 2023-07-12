@@ -59,7 +59,7 @@ class _AccountSettingsState extends State<AccountSettings> {
             mainAxisSize: MainAxisSize.min,
             children: [
               SettingsItem(
-                label: "Email",
+                label: "settingsAccountInformationEmail".tr(),
                 leading: const Icon(Icons.email_outlined),
                 suffix: const Icon(Icons.keyboard_arrow_right),
                 suffixText: getCurrentFirebaseUser()?.email,
@@ -76,7 +76,7 @@ class _AccountSettingsState extends State<AccountSettings> {
               ),
               const SizedBox(height: settingItemSpacing),
               SettingsItem(
-                label: "Password",
+                label: "settingsAccountInformationPassword".tr(),
                 leading: const Icon(Icons.password_outlined),
                 suffix: const Icon(Icons.keyboard_arrow_right),
                 onTap: () {
@@ -120,12 +120,12 @@ class _AccountSettingsState extends State<AccountSettings> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Account Information",
+                        "settingsAccountInformationTitle".tr(),
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 28),
                       SettingsItem(
-                        label: "Name",
+                        label: "settingsAccountInformationName".tr(),
                         leading: const Icon(Icons.person),
                         suffix: const Icon(Icons.keyboard_arrow_right),
                         suffixText: snapshot.data[0],
@@ -149,7 +149,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                 ),
                 SettingsContainer(
                   child: SettingsItem(
-                    label: "Delete Account",
+                    label: "settingsAccountInformationDeleteAccount".tr(),
                     leading: Icon(
                       Icons.heart_broken_sharp,
                       color: Colors.red.shade700,

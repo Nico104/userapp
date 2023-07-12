@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
@@ -132,7 +133,7 @@ class _ShareImageGeneratorState extends State<ShareImageGenerator> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ShareOptionButton(
-                        label: "Share Profile",
+                        label: "shareOptionsShareProfile".tr(),
                         icon: const Icon(
                           CustomIcons.share_thin,
                           size: 28,
@@ -154,7 +155,7 @@ class _ShareImageGeneratorState extends State<ShareImageGenerator> {
                         },
                       ),
                       ShareOptionButton(
-                        label: "Copy Link",
+                        label: "shareOptionsCopyLink".tr(),
                         icon: const Icon(
                           Icons.link,
                           size: 28,

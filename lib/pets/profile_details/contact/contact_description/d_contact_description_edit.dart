@@ -1,4 +1,5 @@
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:userapp/pet_color/hex_color.dart';
@@ -70,7 +71,7 @@ class _ContactDescriptionEditDialogState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Edit",
+                        "contactDescriptionEditTitle".tr(),
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       InkWell(
@@ -155,7 +156,7 @@ class _ContactDescriptionEditDialogState
                           ),
                         ),
                         child: Text(
-                          "Cancel",
+                          "contactDescriptionCancel".tr(),
                           style: getCustomTextStyles(context)
                               .dataEditDialogButtonCancelStyle,
                         ),
@@ -186,7 +187,7 @@ class _ContactDescriptionEditDialogState
                             ),
                           ),
                           child: Text(
-                            "Save",
+                            "contactDescriptionSave".tr(),
                             style: getCustomTextStyles(context)
                                 .dataEditDialogButtonSaveStyle,
                           ),

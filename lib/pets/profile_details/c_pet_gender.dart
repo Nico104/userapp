@@ -40,7 +40,7 @@ class PetGenderComponent extends StatelessWidget {
               onTap: () => handleButtonPress(Gender.male),
               child: GenderButton(
                 isActive: gender == Gender.male,
-                label: "Male",
+                label: "profileDetailsGenderButtonLabelMale".tr(),
                 enabledBoxDecoration: BoxDecoration(
                   color: getCustomColors(context).genderButtonEnabledMale,
                   borderRadius: BorderRadius.circular(_borderradius),
@@ -75,7 +75,7 @@ class PetGenderComponent extends StatelessWidget {
               onTap: () => handleButtonPress(Gender.female),
               child: GenderButton(
                 isActive: gender == Gender.female,
-                label: "Female",
+                label: "profileDetailsGenderButtonLabelFemale".tr(),
                 enabledBoxDecoration: BoxDecoration(
                   color: getCustomColors(context).genderButtonEnabledFemale,
                   borderRadius: BorderRadius.circular(_borderradius),

@@ -1,4 +1,5 @@
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/models/m_pet_profile.dart';
@@ -129,9 +130,9 @@ class _PetNameComponentState extends State<PetNameComponent> {
 String getPetTitle(Gender gender) {
   switch (gender) {
     case Gender.male:
-      return "Good boy";
+      return "genderLabelMale".tr();
     case Gender.female:
-      return "Good girl";
+      return "genderLabelFemale".tr();
     case Gender.none:
       return "";
   }
@@ -180,14 +181,15 @@ class _EnterNameDialogState extends State<EnterNameDialog> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "Select ${widget.label}",
+                'changeNameTitle'.tr(namedArgs: {'label': widget.label}),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 28),
               CustomTextFormField(
                 autofocus: true,
                 initialValue: text,
-                hintText: "Enter ${widget.label}",
+                hintText:
+                    'changeNameHint'.tr(namedArgs: {'label': widget.label}),
                 onChanged: (val) {
                   EasyDebounce.debounce(
                     'nameselect',
@@ -219,7 +221,7 @@ class _EnterNameDialogState extends State<EnterNameDialog> {
                       ),
                     ),
                     child: Text(
-                      "Cancel",
+                      "changeNameCancel".tr(),
                       style: getCustomTextStyles(context)
                           .dataEditDialogButtonCancelStyle,
                     ),

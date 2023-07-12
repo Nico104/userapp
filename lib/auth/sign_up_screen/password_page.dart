@@ -73,7 +73,7 @@ class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
             labelText: "Password",
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'I cannot be empty mate';
+                return "textInputErrorEmpty".tr();
               } else if (value.length < 8) {
                 return 'I must be at least 8 characters mate';
               } else {
@@ -100,7 +100,7 @@ class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
             labelText: "Repeat Password",
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'I cannot be empty mate';
+                return "textInputErrorEmpty".tr();
               } else if (value != password) {
                 return 'I must be the equal to the other password mate';
               } else {

@@ -1,4 +1,5 @@
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/pets/profile_details/contact/u_contact.dart';
 import '../../../utils/util_methods.dart';
@@ -135,8 +136,8 @@ class _ContactPageState extends State<ContactPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // title: Text('appBarTitleProfileDetails'.tr()),
-        title: Text("${widget.petProfileDetails.petName}'s Contacts"),
+        title: Text('appBarPetContactList'
+            .tr(namedArgs: {'name': widget.petProfileDetails.petName})),
         scrolledUnderElevation: 8,
       ),
       body: ScrollConfiguration(
@@ -171,7 +172,7 @@ class _ContactPageState extends State<ContactPage> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      const Text("Add new Contact"),
+                      Text("petContactListAddNewContact".tr()),
                     ],
                   ),
                 ),

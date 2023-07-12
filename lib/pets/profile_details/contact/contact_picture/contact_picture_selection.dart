@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -26,15 +27,17 @@ class ContactPictureSelection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Select Contact Picture",
+              "contactDetailsPictureSelectContactPicture".tr(),
               style: Theme.of(context).textTheme.titleMedium,
             ),
             GestureDetector(
               onTap: () {
                 showDialog(
                   context: context,
-                  builder: (_) => const ConfirmDeleteDialog(
-                    label: "Contact Picture",
+                  builder: (_) => ConfirmDeleteDialog(
+                    label:
+                        "contactDetailsPictureDeleteContactPictureDialogLabel"
+                            .tr(),
                   ),
                 ).then((value) {
                   if (value != null) {
@@ -53,7 +56,7 @@ class ContactPictureSelection extends StatelessWidget {
         Row(
           children: [
             SelectionOption(
-              label: "Camera",
+              label: "contactDetailsPictureCameraLabel".tr(),
               icon: const Icon(Icons.camera_alt_rounded),
               onTap: () {
                 if (kIsWeb) {
@@ -82,7 +85,7 @@ class ContactPictureSelection extends StatelessWidget {
             ),
             const SizedBox(width: 32),
             SelectionOption(
-              label: "Gallery",
+              label: "contactDetailsPictureGalleryLabel".tr(),
               icon: const Icon(Icons.image),
               onTap: () {
                 if (kIsWeb) {
@@ -111,7 +114,7 @@ class ContactPictureSelection extends StatelessWidget {
             ),
             const SizedBox(width: 32),
             SelectionOption(
-              label: "Avatar",
+              label: "contactDetailsPictureAvatarLabel".tr(),
               icon: const Icon(Icons.person_2),
               onTap: () {},
             ),

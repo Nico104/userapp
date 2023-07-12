@@ -42,7 +42,7 @@ class _SignUpNamePageState extends State<SignUpNamePage> {
             labelText: "Name",
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'I cannot be empty mate';
+                return "textInputErrorEmpty".tr();
               } else {
                 return null;
               }

@@ -77,7 +77,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               labelText: "Email",
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'I cannot be empty mate';
+                  return "textInputErrorEmpty".tr();
                 } else {
                   return null;
                 }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -149,12 +150,12 @@ class _DocumentsTabState extends State<DocumentsTab> {
           ),
           const SizedBox(height: 32),
           Text(
-            "No Docuemnts uploaded",
+            "noDocumentsUploaded".tr(),
             style: Theme.of(context).textTheme.labelLarge,
           ),
           const SizedBox(height: 32),
           Text(
-            "Upload",
+            "noDocumentsUploadedUpload".tr(),
             style: Theme.of(context).textTheme.labelLarge,
           ),
           const SizedBox(

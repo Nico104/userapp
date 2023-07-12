@@ -100,7 +100,7 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                 labelText: "Current Password",
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'I cannot be empty mate';
+                    return "textInputErrorEmpty".tr();
                   } else if (value.length < 8) {
                     return 'I must be at least 8 characters mate';
                   } else {
@@ -128,7 +128,7 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                 labelText: "New Password",
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'I cannot be empty mate';
+                    return "textInputErrorEmpty".tr();
                   } else if (value.length < 8) {
                     return 'I must be at least 8 characters mate';
                   } else {
@@ -156,7 +156,7 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                 labelText: "Repeat New Password",
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'I cannot be empty mate';
+                    return "textInputErrorEmpty".tr();
                   } else if (value != _password.text) {
                     return 'I must be the equal to the other password mate';
                   } else {

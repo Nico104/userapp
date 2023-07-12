@@ -60,7 +60,7 @@ class _UpdateUseremailVerifyNewEmailState
             labelText: "New Email",
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'I cannot be empty mate';
+                return "textInputErrorEmpty".tr();
               } else {
                 if (validEmail(value)) {
                   if (_emailAvailable) {

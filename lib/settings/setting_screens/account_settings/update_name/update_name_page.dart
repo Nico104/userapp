@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/widgets/custom_textformfield.dart';
@@ -44,7 +45,7 @@ class _UpdateNamePageState extends State<UpdateNamePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Update Name"),
+        title: Text("appBarSettingsAccountUpdateName".tr()),
       ),
       body: Form(
         key: _formKey,
@@ -52,17 +53,18 @@ class _UpdateNamePageState extends State<UpdateNamePage> {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              Text("Suddenly a new Name, huh?"),
+              Text("settingsAccountUpdateNameInfoText".tr()),
               SizedBox(height: 05.h),
               CustomTextFormField(
                 textEditingController: textEditingController,
                 maxLenght: 18,
-                labelText: "Name",
+                labelText: "settingsAccountUpdateNameInputLabel".tr(),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'I cannot be empty mate';
+                    return "textInputErrorEmpty".tr();
                   } else if (value == widget.currentName) {
-                    return 'You are already called ${widget.currentName}';
+                    return 'settingsAccountUpdateNameInputErrorAlreadyInUse'
+                        .tr(namedArgs: {"name": widget.currentName});
                   } else {
                     return null;
                   }
@@ -72,7 +74,7 @@ class _UpdateNamePageState extends State<UpdateNamePage> {
               Padding(
                 padding: const EdgeInsets.only(left: 36, right: 36),
                 child: CustomBigButton(
-                  label: "Change Name",
+                  label: "settingsAccountUpdateNameSave".tr(),
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
                       _updateName();

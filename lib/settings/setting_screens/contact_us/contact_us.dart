@@ -55,7 +55,7 @@ class _ContactUsState extends State<ContactUs> {
                   labelText: "Send us a Message",
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'I cannot be empty mate';
+                      return "textInputErrorEmpty".tr();
                     } else {
                       return null;
                     }

@@ -1,4 +1,5 @@
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/pets/profile_details/fabs/upload_document_fab.dart';
@@ -176,7 +177,9 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${_petProfileDetails.petName}'s Profile"),
+        // title: Text("${_petProfileDetails.petName}'s Profile"),
+        title: Text('petProfileTitle'
+            .tr(namedArgs: {'petName': _petProfileDetails.petName})),
         scrolledUnderElevation: getScrolledUnderElevation(),
       ),
       // extendBodyBehindAppBar: _scrollTop ? true : false,

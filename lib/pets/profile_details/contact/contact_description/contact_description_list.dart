@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/m_contact.dart';
@@ -31,7 +32,7 @@ class _ContactDescriptionListState extends State<ContactDescriptionList> {
                 // return ContactDescriptionNewListItem();
                 return ListTile(
                   leading: const Icon(Icons.add),
-                  title: const Text("Create new"),
+                  title: Text("contactDescriptionCreateNew".tr()),
                   onTap: () {
                     createContactDescription(widget.contact.contactId)
                         .then((value) {
