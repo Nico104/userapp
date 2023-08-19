@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:sizer/sizer.dart';
-import 'package:userapp/theme/theme_provider.dart';
+import 'package:userapp/general/utils_theme/theme_provider.dart';
 import 'package:provider/provider.dart';
-import 'firebase_options.dart';
+import 'general/utils_firebase/firebase_options.dart';
 import 'init_app.dart';
 
 import 'dart:io' show Platform;
