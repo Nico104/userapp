@@ -4,6 +4,7 @@ import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/c_pet_name.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 
+import '../tag/tag_selection/tag_selection_page.dart';
 import 'profile_details/models/m_pet_profile.dart';
 import 'profile_details/models/m_tag.dart';
 import 'profile_details/profile_detail_view.dart';
@@ -43,20 +44,34 @@ class NewPetProfile extends StatelessWidget {
               PetProfileDetails petProfileDetails =
                   await createNewPetProfile(value);
               if (context.mounted) {
-                print("yo");
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => PetProfileDetailView(
+                //       petProfileDetails: petProfileDetails,
+                //     ),
+                //   ),
+                // ).then((value) {
+                //   reloadFuture();
+                // });
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PetProfileDetailView(
-                      petProfileDetails: petProfileDetails,
-                      // reloadFuture: reloadFuture,
-                      // getProfileDetails: () {
-                      //   return petProfileDetails;
-                      // },
+                    builder: (context) => TagSelectionPage(
+                      petProfile: petProfileDetails,
                     ),
                   ),
                 ).then((value) {
-                  reloadFuture();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PetProfileDetailView(
+                        petProfileDetails: petProfileDetails,
+                      ),
+                    ),
+                  ).then((value) {
+                    reloadFuture();
+                  });
                 });
               }
             }

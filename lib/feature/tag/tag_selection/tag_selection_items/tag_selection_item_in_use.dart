@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../pets/profile_details/models/m_pet_profile.dart';
-import '../../../pets/profile_details/models/m_tag.dart';
-import '../../../pets/profile_details/u_profile_details.dart';
-import '../../../pets/u_pets.dart';
+import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
+import 'package:userapp/feature/pets/profile_details/models/m_tag.dart';
+import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
+import 'package:userapp/feature/pets/u_pets.dart';
 import '../../tag_single.dart';
 import '../d_change_profile.dart';
 

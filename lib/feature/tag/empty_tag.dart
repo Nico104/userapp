@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:userapp/feature/tag/tag_selection/d_tag_selection.dart';
+import '../tag/tag_selection/d_tag_selection.dart';
 
 class EmptyTag extends StatelessWidget {
   const EmptyTag({

@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:userapp/feature/pets/share/m_share_background_style.dart';
+import 'package:userapp/feature/share/m_share_background_style.dart';
 
 Future<Uint8List> generateImage({
   required ShareBackgroundStyle shareBackgroundStyle,

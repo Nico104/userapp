@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
-import 'package:userapp/feature/pets/share/share_button.dart';
-import 'package:userapp/feature/pets/share/share_image_generator.dart';
+import 'package:userapp/feature/share/share_button.dart';
+import 'package:userapp/feature/share/share_image_generator.dart';
 
-import '../../../general/network_globals.dart';
+import '../../general/network_globals.dart';
 
 class SharePetProfilePage extends StatefulWidget {
   const SharePetProfilePage({

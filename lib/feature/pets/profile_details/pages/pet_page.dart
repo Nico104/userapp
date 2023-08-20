@@ -303,7 +303,7 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
                         onVisibilityChanged: (visibilityInfo) {
                           var visiblePercentage =
                               visibilityInfo.visibleFraction * 100;
-                          // debugPrint(
+                          // print(
                           //     'Widget ${visibilityInfo.key} is $visiblePercentage% visible');
                           if (visiblePercentage == 0) {
                             if (mounted) {

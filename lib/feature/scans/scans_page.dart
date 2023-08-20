@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:userapp/feature/pets/scans/scans_list_item.dart';
+import 'package:userapp/feature/scans/scans_list_item.dart';
 
-import '../profile_details/models/m_scan.dart';
-import '../u_pets.dart';
+import '../pets/profile_details/models/m_scan.dart';
+import '../pets/u_pets.dart';
 
 class ScansPage extends StatefulWidget {
   const ScansPage({

@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/auth/auth_widgets.dart';
+import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/feature/pets/profile_details/widgets/custom_textformfield.dart';
+import 'package:userapp/feature/pets/u_pets.dart';
 import 'package:userapp/feature/tag/tag_selection/scan_tag.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
-import 'package:userapp/general/utils_general.dart';
-import '../../pets/profile_details/u_profile_details.dart';
-import '../../pets/u_pets.dart';
 
 class AddFinmaTagPage extends StatefulWidget {
   const AddFinmaTagPage({
@@ -29,6 +28,46 @@ class _AddFinmaTagPageState extends State<AddFinmaTagPage> {
   int activationCodeLength = 16;
 
   String? errorText;
+
+  //Check the Tags activiation code
+  void _checkCode(String code, bool isScannedQr) {
+    assignTagToUser(code).then(
+      (tag) {
+        connectTagFromPetProfile(widget.petProfileId, tag.collarTagId)
+            .then((value) => Navigator.pop(context));
+      },
+    ).onError((error, stackTrace) {
+      if (isScannedQr) {
+        _showScanErrorDialog();
+      } else {
+        setState(() {
+          errorText =
+              "Ups...Something appears to be wrong. MAke sure to check the Activation Code again";
+        });
+      }
+    });
+  }
+
+  Future<void> _showScanErrorDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Wrong Code'),
+          content: Text('No valid Finma Tag was detected. Please retry again.'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +90,15 @@ class _AddFinmaTagPageState extends State<AddFinmaTagPage> {
                   const SizedBox(height: 28),
                   InkWell(
                     onTap: () {
-                      navigatePerSlide(context, const TagScanner());
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const TagScanner()),
+                      ).then((value) {
+                        if (value != null) {
+                          _checkCode(value, true);
+                        }
+                      });
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -127,18 +174,7 @@ class _AddFinmaTagPageState extends State<AddFinmaTagPage> {
                       errorText = null;
                     });
 
-                    assignTagToUser(_textEditingController.text).then(
-                      (tag) {
-                        connectTagFromPetProfile(
-                                widget.petProfileId, tag.collarTagId)
-                            .then((value) => Navigator.pop(context));
-                      },
-                    ).onError((error, stackTrace) {
-                      setState(() {
-                        errorText =
-                            "Ups...Something appears to be wrong. MAke sure to check the Activation Code again";
-                      });
-                    });
+                    _checkCode(_textEditingController.text, false);
                   }
                 },
               ),

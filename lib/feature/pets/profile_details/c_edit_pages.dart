@@ -35,7 +35,7 @@ class _EditPagesTabComponentState extends State<EditPagesTabComponent> {
           key: const Key('scoll-edit-tabs'),
           onVisibilityChanged: (visibilityInfo) {
             var visiblePercentage = visibilityInfo.visibleFraction * 100;
-            debugPrint(
+            print(
                 'Widget ${visibilityInfo.key} is ${visiblePercentage}% visible');
           },
           // child: PaddingComponent(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:userapp/feature/pets/profile_details/models/m_tag.dart';
 import 'package:userapp/feature/tag/tag_single.dart';
-
-import '../pets/profile_details/models/m_tag.dart';
 import 'empty_tag.dart';
 
 class Tags extends StatelessWidget {

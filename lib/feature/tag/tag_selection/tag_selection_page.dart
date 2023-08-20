@@ -40,57 +40,69 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
         },
         child: const Icon(Icons.add),
       ),
-      body: FutureBuilder<List<Tag>>(
-        future: getUserTags(),
-        builder: (BuildContext context, AsyncSnapshot<List<Tag>> snapshot) {
-          if (snapshot.hasData) {
-            return TagSelectionList(
-              userTags: snapshot.data!,
-              petProfile: widget.petProfile,
-              reloadUserTags: () {
-                print("reload user tags");
-                setState(() {});
-              },
-            );
-          } else if (snapshot.hasError) {
-            print(snapshot);
-            //Error
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.error_outline,
-                    color: Colors.red,
-                    size: 60,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: Text('Error: ${snapshot.error}'),
-                  ),
-                ],
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Text(
+            //     "Choose an already existing Finma Tag or simply add a new one"),
+            Flexible(
+              child: FutureBuilder<List<Tag>>(
+                future: getUserTags(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<List<Tag>> snapshot) {
+                  if (snapshot.hasData) {
+                    return TagSelectionList(
+                      userTags: snapshot.data!,
+                      petProfile: widget.petProfile,
+                      reloadUserTags: () {
+                        print("reload user tags");
+                        setState(() {});
+                      },
+                    );
+                  } else if (snapshot.hasError) {
+                    print(snapshot);
+                    //Error
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.error_outline,
+                            color: Colors.red,
+                            size: 60,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 16),
+                            child: Text('Error: ${snapshot.error}'),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    //Loading
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          SizedBox(
+                            width: 60,
+                            height: 60,
+                            child: CircularProgressIndicator(),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 16),
+                            child: Text('Awaiting result...'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                },
               ),
-            );
-          } else {
-            //Loading
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  SizedBox(
-                    width: 60,
-                    height: 60,
-                    child: CircularProgressIndicator(),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 16),
-                    child: Text('Awaiting result...'),
-                  ),
-                ],
-              ),
-            );
-          }
-        },
+            ),
+          ],
+        ),
       ),
     );
   }

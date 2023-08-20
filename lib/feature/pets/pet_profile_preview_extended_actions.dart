@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/feature/pets/profile_details/pages/pet_page.dart';
-import 'package:userapp/feature/pets/scans/scans_page.dart';
-import 'package:userapp/feature/pets/share/share_image_generator.dart';
+import 'package:userapp/feature/scans/scans_page.dart';
+import 'package:userapp/feature/share/share_image_generator.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 
 import '../../general/utils_theme/custom_colors.dart';
 import 'profile_details/profile_detail_view.dart';
-import 'share/share_pet_profile_page.dart';
+import '../share/share_pet_profile_page.dart';
 
 class ExtendedSettingsContainer extends StatefulWidget {
   const ExtendedSettingsContainer({

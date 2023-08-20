@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/feature/tag/tag_selection/tag_selection_items/tag_selection_item_in_use.dart';
+
 import '../../pets/profile_details/models/m_tag.dart';
 import 'tag_selection_items/tag_selection_item.dart';
 
@@ -31,6 +32,7 @@ class _TagSelectionListState extends State<TagSelectionList> {
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: widget.userTags.length,
       itemBuilder: (BuildContext context, int index) {
         switch (getTagSelection(
