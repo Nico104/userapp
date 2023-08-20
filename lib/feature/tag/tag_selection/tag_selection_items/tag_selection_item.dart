@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:userapp/feature/pets/tag/tag_selection/tag_selection_list.dart';
-import '../../../profile_details/models/m_tag.dart';
-import '../../../profile_details/u_profile_details.dart';
+import 'package:userapp/feature/tag/tag_selection/tag_selection_list.dart';
+import '../../../pets/profile_details/models/m_tag.dart';
+import '../../../pets/profile_details/u_profile_details.dart';
 import '../../tag_single.dart';
 import '../d_change_profile.dart';
 

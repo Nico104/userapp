@@ -143,5 +143,6 @@
     "alreadyRegistered?": "Already a member?",
     "logInNow": "Log In now",
     "passwordPagePasswordLabel": "Password",
-    "passwordPageRepeatPasswordLabel": "Repeat Password"
+    "passwordPageRepeatPasswordLabel": "Repeat Password",
+    "addTagAppbarTitle": "Add Finma Tag"
 }

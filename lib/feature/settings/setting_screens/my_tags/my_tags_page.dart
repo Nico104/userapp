@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import '../../../pets/profile_details/models/m_tag.dart';
-import '../../../pets/tag/tag_single.dart';
+import '../../../tag/tag_single.dart';
 import '../../../pets/u_pets.dart';
 import '../../../../general/utils_theme/custom_colors.dart';
 import 'my_tags_list_item.dart';

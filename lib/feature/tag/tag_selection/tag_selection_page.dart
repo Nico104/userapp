@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:userapp/feature/pets/tag/tag_selection/tag_selection_list.dart';
+import 'package:userapp/feature/tag/tag_selection/tag_selection_list.dart';
 import 'package:userapp/general/utils_general.dart';
 
-import '../../profile_details/models/m_pet_profile.dart';
-import '../../profile_details/models/m_tag.dart';
-import '../../u_pets.dart';
+import '../../pets/profile_details/models/m_pet_profile.dart';
+import '../../pets/profile_details/models/m_tag.dart';
+import '../../pets/u_pets.dart';
 import 'add_tag_page.dart';
 
 class TagSelectionPage extends StatefulWidget {

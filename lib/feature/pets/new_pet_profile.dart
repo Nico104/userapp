@@ -7,7 +7,7 @@ import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 import 'profile_details/models/m_pet_profile.dart';
 import 'profile_details/models/m_tag.dart';
 import 'profile_details/profile_detail_view.dart';
-import 'tag/tag_selection/d_tag_selection.dart';
+import '../tag/tag_selection/d_tag_selection.dart';
 
 class NewPetProfile extends StatelessWidget {
   const NewPetProfile({

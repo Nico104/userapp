@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
-import 'package:userapp/feature/pets/tag/tag_selection/tag_selection_items/tag_selection_item_in_use.dart';
-import '../../profile_details/models/m_tag.dart';
+import 'package:userapp/feature/tag/tag_selection/tag_selection_items/tag_selection_item_in_use.dart';
+import '../../pets/profile_details/models/m_tag.dart';
 import 'tag_selection_items/tag_selection_item.dart';
 
 enum TagSelection {

@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../general/utils_theme/custom_colors.dart';
-import '../../../../general/utils_theme/custom_text_styles.dart';
+import '../../../general/utils_theme/custom_colors.dart';
+import '../../../general/utils_theme/custom_text_styles.dart';
 
 class TagChangeProfileAlertDialog extends StatefulWidget {
   const TagChangeProfileAlertDialog({

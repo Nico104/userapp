@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_tag.dart';
-import 'package:userapp/feature/pets/tag/tag_single.dart';
+import 'package:userapp/feature/tag/tag_single.dart';
 import 'package:userapp/feature/settings/setting_screens/my_tags/try_delete.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
 

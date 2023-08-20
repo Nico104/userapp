@@ -5,13 +5,13 @@ import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/feature/pets/profile_details/widgets/custom_textformfield.dart';
-import 'package:userapp/feature/pets/tag/tags.dart';
+import 'package:userapp/feature/tag/tags.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 import 'package:userapp/general/utils_general.dart';
 
 import '../../../general/utils_theme/custom_colors.dart';
 import '../../../general/utils_theme/custom_text_styles.dart';
-import '../tag/tag_selection/tag_selection_page.dart';
+import '../../tag/tag_selection/tag_selection_page.dart';
 import '../u_pets.dart';
 import 'models/m_tag.dart';
 

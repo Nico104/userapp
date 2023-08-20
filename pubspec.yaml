@@ -71,6 +71,7 @@ dependencies:
   expansion_tile_card: ^3.0.0
   package_info_plus: ^4.0.2
   flutter_native_splash: ^2.2.19
+  mobile_scanner: ^3.4.1
 
 dev_dependencies:
   flutter_test:
