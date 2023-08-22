@@ -8,15 +8,19 @@ import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/feature/pets/profile_details/widgets/custom_textformfield.dart';
 import 'package:userapp/feature/pets/u_pets.dart';
 import 'package:userapp/feature/tag/tag_selection/scan_tag.dart';
+import 'package:userapp/feature/tag/tag_selection/tag_selection_page.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
+
+import '../../../general/utils_general.dart';
+import '../../pets/profile_details/models/m_pet_profile.dart';
 
 class AddFinmaTagPage extends StatefulWidget {
   const AddFinmaTagPage({
     super.key,
-    required this.petProfileId,
+    required this.petProfile,
   });
 
-  final int petProfileId;
+  final PetProfileDetails petProfile;
 
   @override
   State<AddFinmaTagPage> createState() => _AddFinmaTagPageState();
@@ -33,7 +37,7 @@ class _AddFinmaTagPageState extends State<AddFinmaTagPage> {
   void _checkCode(String code, bool isScannedQr) {
     assignTagToUser(code).then(
       (tag) {
-        connectTagFromPetProfile(widget.petProfileId, tag.collarTagId)
+        connectTagFromPetProfile(widget.petProfile.profileId, tag.collarTagId)
             .then((value) => Navigator.pop(context));
       },
     ).onError((error, stackTrace) {
@@ -80,6 +84,41 @@ class _AddFinmaTagPageState extends State<AddFinmaTagPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Padding(
+              padding: EdgeInsets.all(32),
+              child: Text(
+                "Choose an already existing Finma Tag or simply add a new one",
+                style: Theme.of(context).textTheme.labelSmall,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            InkWell(
+              onTap: () => navigateReplacePerSlide(
+                  context,
+                  TagSelectionPage(
+                    petProfile: widget.petProfile,
+                  )),
+              child: Container(
+                padding: EdgeInsets.all(12),
+                child: Text(
+                  "Choose from already added Finma Tag",
+                  style: Theme.of(context).textTheme.labelMedium,
+                  textAlign: TextAlign.center,
+                ),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey.shade400),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+            Padding(
+              child: Divider(
+                color: Colors.grey.shade300,
+                thickness: 0.5,
+                height: 0,
+              ),
+              padding: EdgeInsets.all(32),
+            ),
             const SizedBox(height: 28),
             //QR Code only on Mobile because of camera ofc
             if (!kIsWeb)

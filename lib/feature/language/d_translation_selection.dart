@@ -37,28 +37,36 @@ class TranslationPicker extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 28),
-              ListView.builder(
-                itemCount: availableTranslations.length,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      AvailableTranslation(
-                        language: availableTranslations.elementAt(index),
-                        isActive: !(currentTranslation.languageKey ==
-                            availableTranslations.elementAt(index).languageKey),
-                      ),
-                      (index != availableTranslations.length - 1)
-                          ? const Divider()
-                          : const SizedBox(),
-                    ],
-                  );
-                },
-              ),
+              availableTranslations.isNotEmpty
+                  ? ListView.builder(
+                      itemCount: availableTranslations.length,
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            AvailableTranslation(
+                              language: availableTranslations.elementAt(index),
+                              isActive: !(currentTranslation.languageKey ==
+                                  availableTranslations
+                                      .elementAt(index)
+                                      .languageKey),
+                            ),
+                            (index != availableTranslations.length - 1)
+                                ? const Divider()
+                                : const SizedBox(),
+                          ],
+                        );
+                      },
+                    )
+                  : Text(
+                      "Translations are a way for you to make Information of your furred friend available in multiple languages. Give it a go ;)",
+                      style: Theme.of(context).textTheme.labelSmall,
+                      textAlign: TextAlign.center,
+                    ),
               const SizedBox(height: 28),
-              OutlinedButton(
-                onPressed: () {
+              InkWell(
+                onTap: () {
                   showDialog(
                     context: context,
                     builder: (_) => LanguagePickerDialogComponent(
@@ -69,24 +77,49 @@ class TranslationPicker extends StatelessWidget {
                     Navigator.pop(context, value);
                   });
                 },
-                style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                  backgroundColor: getCustomColors(context).accent,
-                  side: BorderSide(
-                    width: 0.5,
-                    color: getCustomColors(context).lightBorder ??
-                        Colors.transparent,
+                child: Container(
+                  padding: EdgeInsets.all(12),
+                  child: Text(
+                    "newTranslationLabel".tr(),
+                    style: Theme.of(context).textTheme.labelMedium,
+                    textAlign: TextAlign.center,
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey.shade400),
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                ),
-                child: Text(
-                  "newTranslationLabel".tr(),
-                  style: getCustomTextStyles(context)
-                      .dataEditDialogButtonSaveStyle,
                 ),
               ),
+              // OutlinedButton(
+              //   onPressed: () {
+              //     showDialog(
+              //       context: context,
+              //       builder: (_) => LanguagePickerDialogComponent(
+              //         excludeLanguages: availableTranslations,
+              //       ),
+              //     ).then((value) {
+              //       //if null just pop and dismiss all dialogs, if Language return Language
+              //       Navigator.pop(context, value);
+              //     });
+              //   },
+              //   style: OutlinedButton.styleFrom(
+              //     padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
+              //     backgroundColor: getCustomColors(context).accent,
+              //     side: BorderSide(
+              //       width: 0.5,
+              //       color: getCustomColors(context).lightBorder ??
+              //           Colors.transparent,
+              //     ),
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(8),
+              //     ),
+              //   ),
+              //   child: Text(
+              //     "newTranslationLabel".tr(),
+              //     style: getCustomTextStyles(context)
+              //         .dataEditDialogButtonSaveStyle,
+              //   ),
+              // ),
             ],
           ),
         ),

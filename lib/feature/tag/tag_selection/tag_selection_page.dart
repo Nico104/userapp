@@ -21,37 +21,82 @@ class TagSelectionPage extends StatefulWidget {
 
 class _TagSelectionPageState extends State<TagSelectionPage> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Select Finma Tag"),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          navigatePerSlide(
-            context,
-            AddFinmaTagPage(
-              petProfileId: widget.petProfile.profileId,
-            ),
-            callback: () {
-              setState(() {});
-            },
-          );
-        },
-        child: const Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     navigatePerSlide(
+      //       context,
+      //       AddFinmaTagPage(
+      //         petProfileId: widget.petProfile.profileId,
+      //       ),
+      //       callback: () {
+      //         setState(() {});
+      //       },
+      //     );
+      //   },
+      //   child: const Icon(Icons.add),
+      // ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Text(
-            //     "Choose an already existing Finma Tag or simply add a new one"),
+            Padding(
+              padding: EdgeInsets.all(32),
+              child: Text(
+                "Choose an already existing Finma Tag or simply add a new one",
+                style: Theme.of(context).textTheme.labelSmall,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            InkWell(
+              onTap: () => navigateReplacePerSlide(
+                  context,
+                  AddFinmaTagPage(
+                    petProfile: widget.petProfile,
+                  )),
+              child: Container(
+                padding: EdgeInsets.all(12),
+                child: Text(
+                  "Add new Finma Tag",
+                  style: Theme.of(context).textTheme.labelMedium,
+                  textAlign: TextAlign.center,
+                ),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey.shade400),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+            Padding(
+              child: Divider(
+                color: Colors.grey.shade300,
+                thickness: 0.5,
+                height: 0,
+              ),
+              padding: EdgeInsets.all(32),
+            ),
             Flexible(
               child: FutureBuilder<List<Tag>>(
                 future: getUserTags(),
                 builder:
                     (BuildContext context, AsyncSnapshot<List<Tag>> snapshot) {
                   if (snapshot.hasData) {
+                    if (snapshot.data != null && snapshot.data!.isEmpty) {
+                      navigateReplacePerSlide(
+                          context,
+                          AddFinmaTagPage(
+                            petProfile: widget.petProfile,
+                          ));
+                    }
                     return TagSelectionList(
                       userTags: snapshot.data!,
                       petProfile: widget.petProfile,
