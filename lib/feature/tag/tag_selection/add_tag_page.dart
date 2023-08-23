@@ -6,13 +6,14 @@ import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/auth/auth_widgets.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/feature/pets/profile_details/widgets/custom_textformfield.dart';
-import 'package:userapp/feature/pets/u_pets.dart';
 import 'package:userapp/feature/tag/tag_selection/scan_tag.dart';
 import 'package:userapp/feature/tag/tag_selection/tag_selection_page.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 
 import '../../../general/utils_general.dart';
 import '../../pets/profile_details/models/m_pet_profile.dart';
+import '../../pets/profile_details/models/m_tag.dart';
+import '../utils/u_tag.dart';
 
 class AddFinmaTagPage extends StatefulWidget {
   const AddFinmaTagPage({
@@ -20,7 +21,8 @@ class AddFinmaTagPage extends StatefulWidget {
     required this.petProfile,
   });
 
-  final PetProfileDetails petProfile;
+  //If has profile it comes from pet optherwise it comes form settings
+  final PetProfileDetails? petProfile;
 
   @override
   State<AddFinmaTagPage> createState() => _AddFinmaTagPageState();
@@ -37,8 +39,14 @@ class _AddFinmaTagPageState extends State<AddFinmaTagPage> {
   void _checkCode(String code, bool isScannedQr) {
     assignTagToUser(code).then(
       (tag) {
-        connectTagFromPetProfile(widget.petProfile.profileId, tag.collarTagId)
-            .then((value) => Navigator.pop(context));
+        if (widget.petProfile != null) {
+          connectTagFromPetProfile(
+                  widget.petProfile!.profileId, tag.collarTagId)
+              .then((value) =>
+                  _showSuccessDialog().then((value) => Navigator.pop(context)));
+        } else {
+          _showSuccessDialog().then((value) => Navigator.pop(context));
+        }
       },
     ).onError((error, stackTrace) {
       if (isScannedQr) {
@@ -73,6 +81,27 @@ class _AddFinmaTagPageState extends State<AddFinmaTagPage> {
     );
   }
 
+  Future<void> _showSuccessDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Success'),
+          content: const Text('YOur Finma Tag was successfully added'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok great!'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,42 +113,50 @@ class _AddFinmaTagPageState extends State<AddFinmaTagPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Padding(
-              padding: EdgeInsets.all(32),
-              child: Text(
-                "Choose an already existing Finma Tag or simply add a new one",
-                style: Theme.of(context).textTheme.labelSmall,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            InkWell(
-              onTap: () => navigateReplacePerSlide(
-                  context,
-                  TagSelectionPage(
-                    petProfile: widget.petProfile,
-                  )),
-              child: Container(
-                padding: EdgeInsets.all(12),
-                child: Text(
-                  "Choose from already added Finma Tag",
-                  style: Theme.of(context).textTheme.labelMedium,
-                  textAlign: TextAlign.center,
-                ),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey.shade400),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
-            Padding(
-              child: Divider(
-                color: Colors.grey.shade300,
-                thickness: 0.5,
-                height: 0,
-              ),
-              padding: EdgeInsets.all(32),
-            ),
-            const SizedBox(height: 28),
+            if (widget.petProfile != null)
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(32),
+                    child: Text(
+                      "Choose an already existing Finma Tag or simply add a new one",
+                      style: Theme.of(context).textTheme.labelSmall,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () => navigateReplacePerSlide(
+                        context,
+                        TagSelectionPage(
+                          petProfile: widget.petProfile!,
+                        )),
+                    child: Container(
+                      padding: EdgeInsets.all(12),
+                      child: Text(
+                        "Choose from already added Finma Tag",
+                        style: Theme.of(context).textTheme.labelMedium,
+                        textAlign: TextAlign.center,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey.shade400),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    child: Divider(
+                      color: Colors.grey.shade300,
+                      thickness: 0.5,
+                      height: 0,
+                    ),
+                    padding: EdgeInsets.all(32),
+                  ),
+                  const SizedBox(height: 28),
+                ],
+              )
+            else
+              const SizedBox.shrink(),
             //QR Code only on Mobile because of camera ofc
             if (!kIsWeb)
               Column(
@@ -133,9 +170,12 @@ class _AddFinmaTagPageState extends State<AddFinmaTagPage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => const TagScanner()),
-                      ).then((value) {
+                      ).then((value) async {
                         if (value != null) {
-                          _checkCode(value, true);
+                          //-Idcode last symbols in link
+                          String tagId = value.substring(value.length - 12);
+                          Tag tag = await getTag(tagId);
+                          _checkCode(tag.activationCode, true);
                         }
                       });
                     },

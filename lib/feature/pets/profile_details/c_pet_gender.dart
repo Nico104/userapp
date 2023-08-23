@@ -22,8 +22,8 @@ class PetGenderComponent extends StatelessWidget {
     }
   }
 
-  final double _borderradius = 12;
-  final double _borderwidth = 1.5;
+  final double _borderradius = 38;
+  final double _borderwidth = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -51,16 +51,7 @@ class PetGenderComponent extends StatelessWidget {
                   ),
                 ),
                 disabledBoxDecoration: BoxDecoration(
-                  color: getCustomColors(context).genderButtonDisabledMale,
-                  borderRadius: BorderRadius.circular(_borderradius),
-                  border: Border.all(
-                    width: _borderwidth,
-                    color: getCustomColors(context).lightBorder ??
-                        Colors.transparent,
-                  ),
-                ),
-                backgroundBoxDecoration: BoxDecoration(
-                  color: getCustomColors(context).genderButtonBackgroundMale,
+                  color: Colors.transparent,
                   borderRadius: BorderRadius.circular(_borderradius),
                   border: Border.all(
                     width: _borderwidth,
@@ -86,16 +77,7 @@ class PetGenderComponent extends StatelessWidget {
                   ),
                 ),
                 disabledBoxDecoration: BoxDecoration(
-                  color: getCustomColors(context).genderButtonDisabledFemale,
-                  borderRadius: BorderRadius.circular(_borderradius),
-                  border: Border.all(
-                    width: _borderwidth,
-                    color: getCustomColors(context).lightBorder ??
-                        Colors.transparent,
-                  ),
-                ),
-                backgroundBoxDecoration: BoxDecoration(
-                  color: getCustomColors(context).genderButtonBackgroundFemale,
+                  color: Colors.transparent,
                   borderRadius: BorderRadius.circular(_borderradius),
                   border: Border.all(
                     width: _borderwidth,
@@ -112,6 +94,84 @@ class PetGenderComponent extends StatelessWidget {
   }
 }
 
+// class GenderButton extends StatefulWidget {
+//   const GenderButton({
+//     super.key,
+//     required this.isActive,
+//     required this.label,
+//     required this.enabledBoxDecoration,
+//     required this.disabledBoxDecoration,
+//     required this.backgroundBoxDecoration,
+//   });
+
+//   final bool isActive;
+//   final String label;
+
+//   final BoxDecoration enabledBoxDecoration;
+//   final BoxDecoration disabledBoxDecoration;
+//   final BoxDecoration backgroundBoxDecoration;
+
+//   @override
+//   State<GenderButton> createState() => _GenderButtonState();
+// }
+
+// class _GenderButtonState extends State<GenderButton> {
+//   final Duration _enableBackgroundDuration = const Duration(milliseconds: 1000);
+//   final Duration _disableBackgroundDuration = const Duration(milliseconds: 250);
+//   final Duration _containerDuration = const Duration(milliseconds: 250);
+
+//   final double _height = 60;
+//   late double _width;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _width = 40.w;
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Stack(
+//       alignment: Alignment.topCenter,
+//       children: [
+//         AnimatedPadding(
+//           padding: EdgeInsets.only(top: widget.isActive ? _height / 7.5 : 0),
+//           duration: widget.isActive
+//               ? _enableBackgroundDuration
+//               : _disableBackgroundDuration,
+//           curve: widget.isActive ? Curves.elasticOut : Curves.linear,
+//           child: AnimatedRotation(
+//             duration: widget.isActive
+//                 ? _enableBackgroundDuration
+//                 : _disableBackgroundDuration,
+//             turns: widget.isActive ? -0.01 : 0,
+//             curve: widget.isActive ? Curves.elasticOut : Curves.linear,
+//             child: Container(
+//               decoration: widget.backgroundBoxDecoration,
+//               height: _height,
+//               width: _width,
+//             ),
+//           ),
+//         ),
+//         AnimatedContainer(
+//           duration: _containerDuration,
+//           decoration: widget.isActive
+//               ? widget.enabledBoxDecoration
+//               : widget.disabledBoxDecoration,
+//           height: _height,
+//           width: _width,
+//           child: Center(
+//             child: Text(
+//               widget.label,
+//               style: getCustomTextStyles(context).profileGenderLabel,
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
+
 class GenderButton extends StatefulWidget {
   const GenderButton({
     super.key,
@@ -119,7 +179,6 @@ class GenderButton extends StatefulWidget {
     required this.label,
     required this.enabledBoxDecoration,
     required this.disabledBoxDecoration,
-    required this.backgroundBoxDecoration,
   });
 
   final bool isActive;
@@ -127,16 +186,13 @@ class GenderButton extends StatefulWidget {
 
   final BoxDecoration enabledBoxDecoration;
   final BoxDecoration disabledBoxDecoration;
-  final BoxDecoration backgroundBoxDecoration;
 
   @override
   State<GenderButton> createState() => _GenderButtonState();
 }
 
 class _GenderButtonState extends State<GenderButton> {
-  final Duration _enableBackgroundDuration = const Duration(milliseconds: 1000);
-  final Duration _disableBackgroundDuration = const Duration(milliseconds: 250);
-  final Duration _containerDuration = const Duration(milliseconds: 250);
+  final Duration _duration = const Duration(milliseconds: 125);
 
   final double _height = 60;
   late double _width;
@@ -149,43 +205,21 @@ class _GenderButtonState extends State<GenderButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.topCenter,
-      children: [
-        AnimatedPadding(
-          padding: EdgeInsets.only(top: widget.isActive ? _height / 7.5 : 0),
-          duration: widget.isActive
-              ? _enableBackgroundDuration
-              : _disableBackgroundDuration,
-          curve: widget.isActive ? Curves.elasticOut : Curves.linear,
-          child: AnimatedRotation(
-            duration: widget.isActive
-                ? _enableBackgroundDuration
-                : _disableBackgroundDuration,
-            turns: widget.isActive ? -0.01 : 0,
-            curve: widget.isActive ? Curves.elasticOut : Curves.linear,
-            child: Container(
-              decoration: widget.backgroundBoxDecoration,
-              height: _height,
-              width: _width,
-            ),
-          ),
+    return AnimatedContainer(
+      duration: _duration,
+      decoration: widget.isActive
+          ? widget.enabledBoxDecoration
+          : widget.disabledBoxDecoration,
+      height: _height,
+      width: _width,
+      child: Center(
+        child: Text(
+          widget.label,
+          style: getCustomTextStyles(context)
+              .profileGenderLabel!
+              .copyWith(color: widget.isActive ? Colors.white : Colors.grey),
         ),
-        AnimatedContainer(
-          duration: _containerDuration,
-          decoration: widget.isActive
-              ? widget.enabledBoxDecoration
-              : widget.disabledBoxDecoration,
-          height: _height,
-          width: _width,
-          child: Center(
-            child: Text(
-              widget.label,
-              style: getCustomTextStyles(context).profileGenderLabel,
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
