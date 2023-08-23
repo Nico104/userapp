@@ -32,6 +32,18 @@ class _ProfileInfoTabState extends State<ProfileInfoTab> {
         mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: 36),
+          Hero(
+            tag: 'pululu',
+            child: Container(
+              height: 200,
+              width: 500,
+              decoration: BoxDecoration(
+                color: Colors.teal,
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          ),
+          const SizedBox(height: 36),
           PaddingComponent(
             child: OnelineSimpleInput(
               flex: 7,

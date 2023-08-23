@@ -1,22 +1,17 @@
 import 'dart:ui';
-import 'package:dots_indicator/dots_indicator.dart';
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sizer/sizer.dart';
 import 'package:userapp/general/network_globals.dart';
 import 'package:userapp/general/utils_color/hex_color.dart';
 import 'package:userapp/feature/pets/pet_profile_preview_extended_actions.dart';
 import 'package:userapp/feature/pets/profile_details/g_profile_detail_globals.dart'
     as globals;
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
-import 'package:userapp/general/utils_theme/custom_text_styles.dart';
 import '../language/m_language.dart';
 import 'my_pets_navbar.dart';
 import 'new_pet_profile.dart';
 import 'page_transform.dart';
 import 'pet_profile_preview.dart';
-import 'package:flutter/services.dart';
 // import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 
 class MyPets extends StatefulWidget {
