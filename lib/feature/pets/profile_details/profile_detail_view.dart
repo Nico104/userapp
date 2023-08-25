@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/feature/pets/profile_details/contact/contacts_pet_list_page.dart';
+import 'package:userapp/feature/pets/profile_details/pages/pet_page%20copy%202.dart';
 import 'package:userapp/feature/pets/profile_details/pages/pet_page.dart';
 import 'package:userapp/feature/pets/profile_details/pictures/upload_picture_dialog.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
@@ -66,7 +67,7 @@ class PetProfileDetailViewState extends State<PetProfileDetailView>
         TabBarView(
           controller: tabController,
           children: [
-            PetPage(
+            PetPage2(
               // getProfileDetails: widget.getProfileDetails,
               petProfileDetails: widget.petProfileDetails,
               showBottomNavBar: (show) {

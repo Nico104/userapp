@@ -12,6 +12,7 @@ import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../../general/utils_custom_icons/custom_icons_icons.dart';
+import '../../../../general/utils_theme/custom_colors.dart';
 import '../../../../general/utils_theme/custom_text_styles.dart';
 import '../../../../general/utils_general.dart';
 import '../../../../general/widgets/more_button.dart';
@@ -25,11 +26,12 @@ import '../d_confirm_delete.dart';
 import '../fabs/upload_image_fab.dart';
 import '../models/m_tag.dart';
 import '../pictures/upload_picture_dialog.dart';
+import 'custom_flexible_space_bar.dart';
 import 'documents_page.dart';
 import 'images_page.dart';
 
-class PetPage extends StatefulWidget {
-  const PetPage({
+class PetPage2 extends StatefulWidget {
+  const PetPage2({
     super.key,
     // required this.getProfileDetails,
     required this.showBottomNavBar,
@@ -47,10 +49,10 @@ class PetPage extends StatefulWidget {
   final ValueSetter<String> setPetName;
 
   @override
-  State<PetPage> createState() => _PetPageState();
+  State<PetPage2> createState() => _PetPage2State();
 }
 
-class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
+class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
   late PetProfileDetails _petProfileDetails;
 
   final double tagDimension = 160;
@@ -194,39 +196,229 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
     );
   }
 
+// [SliverAppBar]s are typically used in [CustomScrollView.slivers], which in
+// turn can be placed in a [Scaffold.body].
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('petProfileTitle'
-            .tr(namedArgs: {'petName': _petProfileDetails.petName})),
-        actions: [
-          Icon(Icons.more_horiz),
-          SizedBox(width: 16),
-        ],
-      ),
-      body: ListView(
-        // shrinkWrap: true,
+      body: CustomScrollView(
         controller: _scrollController,
-        children: [
-          SizedBox(
-            height: 50,
+        physics: BouncingScrollPhysics(),
+        slivers: <Widget>[
+          SliverAppBar(
+            pinned: true,
+            stretch: true,
+            expandedHeight: 140.0,
+            actions: [
+              Icon(Icons.more_horiz),
+              SizedBox(width: 16),
+            ],
+            // automaticallyImplyLeading: false,
+            flexibleSpace: MyFlexibleSpaceBar(
+              titlePaddingTween: EdgeInsetsTween(
+                  begin: EdgeInsets.only(left: 16.0, bottom: 16),
+                  end: EdgeInsets.only(left: 72.0, bottom: 16)),
+              title: Text('petProfileTitle'
+                  .tr(namedArgs: {'petName': _petProfileDetails.petName})),
+              // titlePadding: EdgeInsets.all(0), centerTitle: false,
+              // centerTitle: true,
+              // background: FlutterLogo(),
+            ),
           ),
-          SizedBox(
-            height: 80,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 2,
-              itemBuilder: (context, index) {
-                return Container(
-                  height: 80,
-                  width: 50,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 0.5),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                );
-              },
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                SizedBox(height: 28),
+                Row(
+                  children: [
+                    const GridSpacing(),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          AspectRatio(
+                            aspectRatio: 1,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                border: Border.all(
+                                  width: 0.5,
+                                  color: getCustomColors(context).hardBorder ??
+                                      Colors.transparent,
+                                  // strokeAlign: BorderSide.strokeAlignOutside,
+                                ),
+                                borderRadius: BorderRadius.circular(18),
+                                boxShadow: kElevationToShadow[3],
+                              ),
+                              // child: child,
+                            ),
+                          ),
+                          const GridSpacing(),
+                          AspectRatio(
+                            aspectRatio: 1 / 2,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                border: Border.all(
+                                  width: 0.5,
+                                  color: getCustomColors(context).hardBorder ??
+                                      Colors.transparent,
+                                  // strokeAlign: BorderSide.strokeAlignOutside,
+                                ),
+                                borderRadius: BorderRadius.circular(18),
+                                boxShadow: kElevationToShadow[3],
+                              ),
+                              // child: child,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const GridSpacing(),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          AspectRatio(
+                            aspectRatio: 1 / 2,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                border: Border.all(
+                                  width: 0.5,
+                                  color: getCustomColors(context).hardBorder ??
+                                      Colors.transparent,
+                                  // strokeAlign: BorderSide.strokeAlignOutside,
+                                ),
+                                borderRadius: BorderRadius.circular(18),
+                                boxShadow: kElevationToShadow[3],
+                              ),
+                              // child: child,
+                            ),
+                          ),
+                          const GridSpacing(),
+                          AspectRatio(
+                            aspectRatio: 1,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                border: Border.all(
+                                  width: 0.5,
+                                  color: getCustomColors(context).hardBorder ??
+                                      Colors.transparent,
+                                  // strokeAlign: BorderSide.strokeAlignOutside,
+                                ),
+                                borderRadius: BorderRadius.circular(18),
+                                boxShadow: kElevationToShadow[3],
+                              ),
+                              // child: child,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const GridSpacing(),
+                  ],
+                ),
+                const GridSpacing(),
+                Row(
+                  children: [
+                    const GridSpacing(),
+                    Expanded(
+                      child: AspectRatio(
+                        aspectRatio: 2 / 1,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            border: Border.all(
+                              width: 0.5,
+                              color: getCustomColors(context).hardBorder ??
+                                  Colors.transparent,
+                              // strokeAlign: BorderSide.strokeAlignOutside,
+                            ),
+                            borderRadius: BorderRadius.circular(18),
+                            boxShadow: kElevationToShadow[3],
+                          ),
+                          // child: child,
+                        ),
+                      ),
+                    ),
+                    const GridSpacing(),
+                  ],
+                ),
+                const GridSpacing(),
+                Row(
+                  children: [
+                    const GridSpacing(),
+                    Expanded(
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            border: Border.all(
+                              width: 0.5,
+                              color: getCustomColors(context).hardBorder ??
+                                  Colors.transparent,
+                              // strokeAlign: BorderSide.strokeAlignOutside,
+                            ),
+                            borderRadius: BorderRadius.circular(18),
+                            boxShadow: kElevationToShadow[3],
+                          ),
+                          // child: child,
+                        ),
+                      ),
+                    ),
+                    const GridSpacing(),
+                    Expanded(
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            border: Border.all(
+                              width: 0.5,
+                              color: getCustomColors(context).hardBorder ??
+                                  Colors.transparent,
+                              // strokeAlign: BorderSide.strokeAlignOutside,
+                            ),
+                            borderRadius: BorderRadius.circular(18),
+                            boxShadow: kElevationToShadow[3],
+                          ),
+                          // child: child,
+                        ),
+                      ),
+                    ),
+                    const GridSpacing(),
+                  ],
+                ),
+                const GridSpacing(),
+                Row(
+                  children: [
+                    const GridSpacing(),
+                    Expanded(
+                      child: AspectRatio(
+                        aspectRatio: 2 / 1,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            border: Border.all(
+                              width: 0.5,
+                              color: getCustomColors(context).hardBorder ??
+                                  Colors.transparent,
+                              // strokeAlign: BorderSide.strokeAlignOutside,
+                            ),
+                            borderRadius: BorderRadius.circular(18),
+                            boxShadow: kElevationToShadow[3],
+                          ),
+                          // child: child,
+                        ),
+                      ),
+                    ),
+                    const GridSpacing(),
+                  ],
+                ),
+                const GridSpacing(),
+                const SizedBox(height: 90),
+              ],
             ),
           ),
         ],
@@ -723,6 +915,17 @@ class _PetPageState extends State<PetPage> with TickerProviderStateMixin {
       default:
         return null;
     }
+  }
+}
+
+class GridSpacing extends StatelessWidget {
+  const GridSpacing({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(width: 16, height: 16);
   }
 }
 
