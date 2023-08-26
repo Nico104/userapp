@@ -115,6 +115,19 @@ flutter:
     - assets/tmp/scans.png
     - assets/tmp/scans2.png
     - assets/tmp/documents.png
+    - assets/details_illustartions/contact_1.png
+    - assets/details_illustartions/contact_1_cut.png
+    - assets/details_illustartions/basic_cat_1.png
+    - assets/details_illustartions/basic_cat_1_cut.png
+    - assets/details_illustartions/basic_dog_1.png
+    - assets/details_illustartions/basic_dog_1_cut.png
+    - assets/details_illustartions/medical_1_cut.png
+    - assets/details_illustartions/description_cat_1.png
+    - assets/details_illustartions/description_dog_1.png
+    - assets/details_illustartions/description_cat_2_cut.png
+    - assets/details_illustartions/description_dog_1_cut.png
+    - assets/details_illustartions/documents_cat_1.png
+    - assets/details_illustartions/documents_cat_1_cut.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
