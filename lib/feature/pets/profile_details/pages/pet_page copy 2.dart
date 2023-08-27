@@ -296,18 +296,80 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                               aspectRatio: 1,
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
-                                  border: Border.all(
-                                    width: 0.5,
-                                    color:
-                                        getCustomColors(context).hardBorder ??
-                                            Colors.transparent,
-                                    // strokeAlign: BorderSide.strokeAlignOutside,
-                                  ),
+                                  // color: Theme.of(context).primaryColor,
+                                  color: Colors.blue,
+                                  // border: Border.all(
+                                  //   width: 0,
+                                  //   color:
+                                  //       getCustomColors(context).hardBorder ??
+                                  //           Colors.transparent,
+                                  //   // strokeAlign: BorderSide.strokeAlignOutside,
+                                  // ),
                                   borderRadius: BorderRadius.circular(18),
-                                  boxShadow: kElevationToShadow[3],
+                                  boxShadow: kElevationToShadow[6],
                                 ),
-                                // child: child,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(18),
+                                  child: Stack(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.bottomLeft,
+                                        child: Image.asset(
+                                          "assets/details_illustartions/lost_dog_1_cut.png",
+                                          scale: 2.5,
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.topRight,
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            GridSpacing(),
+                                            Padding(
+                                              padding: const EdgeInsets.all(16),
+                                              child: Text(
+                                                "Tabo is safe",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w800,
+                                                  fontSize: 24,
+                                                  color: Colors.white,
+                                                ),
+                                                textAlign: TextAlign.right,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment(1, -0.35),
+                                        child: Row(
+                                          children: [
+                                            Spacer(
+                                              flex: 3,
+                                            ),
+                                            Expanded(
+                                              flex: 7,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(16),
+                                                child: Text(
+                                                  "Mark Tabo as lost",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w200,
+                                                    fontSize: 16,
+                                                    color: Colors.white
+                                                        .withOpacity(0.54),
+                                                  ),
+                                                  textAlign: TextAlign.right,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                             const GridSpacing(),
@@ -447,18 +509,40 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                               aspectRatio: 1,
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
+                                  // color: Theme.of(context).primaryColor,
+                                  color: Colors.yellow,
                                   border: Border.all(
-                                    width: 0.5,
+                                    width: 0.3,
                                     color:
                                         getCustomColors(context).hardBorder ??
                                             Colors.transparent,
-                                    // strokeAlign: BorderSide.strokeAlignOutside,
+                                    strokeAlign: BorderSide.strokeAlignOutside,
                                   ),
                                   borderRadius: BorderRadius.circular(18),
                                   boxShadow: kElevationToShadow[3],
                                 ),
-                                // child: child,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(18),
+                                  child: Align(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).primaryColor,
+                                        borderRadius: const BorderRadius.only(
+                                          topRight: Radius.circular(18),
+                                        ),
+                                      ),
+                                      padding: EdgeInsets.all(16),
+                                      child: Text(
+                                        "Pictures",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 24,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ],
