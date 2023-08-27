@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:animations/animations.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ import '../../../tag/utils/u_tag.dart';
 import '../../page_transform.dart';
 import '../../u_pets.dart';
 import '../c_pet_name.dart';
+import '../contact/contacts_pet_list_page.dart';
 import '../d_confirm_delete.dart';
 import '../fabs/upload_image_fab.dart';
 import '../models/m_tag.dart';
@@ -328,7 +330,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                             Padding(
                                               padding: const EdgeInsets.all(16),
                                               child: Text(
-                                                "Tabo is safe",
+                                                "Not Lost",
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w800,
                                                   fontSize: 24,
@@ -373,110 +375,123 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                               ),
                             ),
                             const GridSpacing(),
-                            Transform(
-                              alignment: FractionalOffset.center,
-                              transform: perspective.scaled(1.0, 1.0, 1.0)
-                                ..rotateX(_tiltAngle)
-                                ..rotateY(0.0)
-                                ..rotateZ(0.0),
-                              child: AspectRatio(
-                                aspectRatio: 1 / 2,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).primaryColor,
-                                    border: Border.all(
-                                      width: 0.3,
-                                      color:
-                                          getCustomColors(context).hardBorder ??
-                                              Colors.transparent,
-                                      // strokeAlign: BorderSide.strokeAlignOutside,
+                            OpenContainer(
+                              closedBuilder: (context, action) => Transform(
+                                alignment: FractionalOffset.center,
+                                transform: perspective.scaled(1.0, 1.0, 1.0)
+                                  ..rotateX(_tiltAngle)
+                                  ..rotateY(0.0)
+                                  ..rotateZ(0.0),
+                                child: AspectRatio(
+                                  aspectRatio: 1 / 2,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).primaryColor,
+                                      border: Border.all(
+                                        width: 0.3,
+                                        color: getCustomColors(context)
+                                                .hardBorder ??
+                                            Colors.transparent,
+                                        // strokeAlign: BorderSide.strokeAlignOutside,
+                                      ),
+                                      borderRadius: BorderRadius.circular(18),
+                                      boxShadow: kElevationToShadow[3],
                                     ),
-                                    borderRadius: BorderRadius.circular(18),
-                                    boxShadow: kElevationToShadow[3],
-                                  ),
-                                  // padding: const EdgeInsets.all(8.0),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(18),
-                                    child: Stack(
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 8.0),
-                                          child: Align(
-                                            alignment: Alignment.bottomRight,
-                                            child: Image.asset(
-                                                "assets/details_illustartions/contact_1_cut.png"),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: Text(
-                                            "Contact",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 24,
+                                    // padding: const EdgeInsets.all(8.0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(18),
+                                      child: Stack(
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 8.0),
+                                            child: Align(
+                                              alignment: Alignment.bottomRight,
+                                              child: Image.asset(
+                                                  "assets/details_illustartions/contact_1_cut.png"),
                                             ),
                                           ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment(-1, -0.5),
-                                          child: Padding(
+                                          Padding(
                                             padding: const EdgeInsets.all(16),
-                                            child: Row(
-                                              children: [
-                                                Expanded(
-                                                  flex: 5,
-                                                  child: Text(
-                                                    "Add Contact Information to get Tabo home faster",
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w200,
-                                                      fontSize: 16,
-                                                      color: Colors.black
-                                                          .withOpacity(0.28),
+                                            child: Text(
+                                              "Contact",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 24,
+                                              ),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment(-1, -0.5),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(16),
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 5,
+                                                    child: Text(
+                                                      "Add Contact Information to get Tabo home faster",
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w200,
+                                                        fontSize: 16,
+                                                        color: Colors.black
+                                                            .withOpacity(0.28),
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                Spacer(
-                                                  flex: 5,
-                                                ),
-                                              ],
+                                                  Spacer(
+                                                    flex: 5,
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment.bottomLeft,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(16),
-                                            child: Transform.scale(
-                                              scale: 1.7,
-                                              alignment: Alignment.bottomLeft,
-                                              child: Theme(
-                                                data: Theme.of(context)
-                                                    .copyWith(
-                                                        useMaterial3: true),
-                                                child: Switch(
-                                                  value: true,
-                                                  activeColor:
-                                                      getCustomColors(context)
-                                                          .accentDark,
-                                                  inactiveTrackColor:
-                                                      getCustomColors(context)
-                                                          .lightBorder,
-                                                  onChanged: (bool value) {
-                                                    // setState(() {
-                                                    //   _value = value;
-                                                    // });
-                                                  },
+                                          Align(
+                                            alignment: Alignment.bottomLeft,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(16),
+                                              child: Transform.scale(
+                                                scale: 1.7,
+                                                alignment: Alignment.bottomLeft,
+                                                child: Theme(
+                                                  data: Theme.of(context)
+                                                      .copyWith(
+                                                          useMaterial3: true),
+                                                  child: Switch(
+                                                    value: true,
+                                                    activeColor:
+                                                        getCustomColors(context)
+                                                            .accentDark,
+                                                    inactiveTrackColor:
+                                                        getCustomColors(context)
+                                                            .lightBorder,
+                                                    onChanged: (bool value) {
+                                                      // setState(() {
+                                                      //   _value = value;
+                                                      // });
+                                                    },
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
+                              ),
+                              openBuilder: (context, action) => ContactPage(
+                                // petProfileDetails: widget.getProfileDetails(),
+                                petProfileDetails: widget.petProfileDetails,
+                                showBottomNavBar: (show) {
+                                  // if (mounted && show != _showBottomNavBar) {
+                                  //   setState(() {
+                                  //     _showBottomNavBar = show;
+                                  //   });
+                                  // }
+                                },
                               ),
                             ),
                           ],
@@ -501,7 +516,74 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                   borderRadius: BorderRadius.circular(18),
                                   boxShadow: kElevationToShadow[3],
                                 ),
-                                // child: child,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(18),
+                                  child: Stack(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.topRight,
+                                        child: Image.asset(
+                                          "assets/details_illustartions/gem_gold_1_cut.png",
+                                          scale: 8,
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.bottomLeft,
+                                        child: Image.asset(
+                                          "assets/details_illustartions/gem_jade_1_cut.png",
+                                          scale: 9,
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment(-1, -0.3),
+                                        child: Image.asset(
+                                          "assets/details_illustartions/heart_pink_1_cut.png",
+                                          scale: 8,
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16),
+                                          child: Text(
+                                            "Finma Tags",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 24,
+                                            ),
+                                            textAlign: TextAlign.right,
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment(1, 0.6),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16),
+                                          child: Row(
+                                            children: [
+                                              Spacer(
+                                                flex: 5,
+                                              ),
+                                              Expanded(
+                                                flex: 5,
+                                                child: Text(
+                                                  "Assign Finma Tags so Tabo is safe and stylish",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w200,
+                                                    fontSize: 16,
+                                                    color: Colors.black
+                                                        .withOpacity(0.28),
+                                                  ),
+                                                  textAlign: TextAlign.right,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                             const GridSpacing(),
@@ -520,6 +602,11 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                   ),
                                   borderRadius: BorderRadius.circular(18),
                                   boxShadow: kElevationToShadow[3],
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/details_illustartions/dog_picture_tmp.png"),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(18),
@@ -530,6 +617,14 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                         color: Theme.of(context).primaryColor,
                                         borderRadius: const BorderRadius.only(
                                           topRight: Radius.circular(18),
+                                        ),
+                                        border: Border.all(
+                                          width: 0.3,
+                                          color: getCustomColors(context)
+                                                  .hardBorder ??
+                                              Colors.transparent,
+                                          strokeAlign:
+                                              BorderSide.strokeAlignOutside,
                                         ),
                                       ),
                                       padding: EdgeInsets.all(16),
@@ -805,6 +900,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                     ],
                   ),
                   const GridSpacing(),
+                  const GridSpacing(),
                   Text(
                     "Every change gets saved and uploaded automatically",
                     style: TextStyle(
@@ -813,7 +909,9 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                       color: Colors.black.withOpacity(0.36),
                     ),
                   ),
-                  const SizedBox(height: 90),
+                  // const SizedBox(height: 90),
+                  const GridSpacing(),
+                  const GridSpacing(),
                 ],
               ),
             ),

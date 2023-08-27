@@ -72,6 +72,7 @@ dependencies:
   package_info_plus: ^4.0.2
   flutter_native_splash: ^2.2.19
   mobile_scanner: ^3.4.1
+  animations: ^2.0.7
 
 dev_dependencies:
   flutter_test:
@@ -130,6 +131,13 @@ flutter:
     - assets/details_illustartions/documents_cat_1_cut.png
     - assets/details_illustartions/lost_dog_1.png
     - assets/details_illustartions/lost_dog_1_cut.png
+    - assets/details_illustartions/gem_gold_1.png
+    - assets/details_illustartions/gem_jade_1.png
+    - assets/details_illustartions/heart_pink_1.png
+    - assets/details_illustartions/gem_gold_1_cut.png
+    - assets/details_illustartions/gem_jade_1_cut.png
+    - assets/details_illustartions/heart_pink_1_cut.png
+    - assets/details_illustartions/dog_picture_tmp.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
