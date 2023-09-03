@@ -134,7 +134,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               // height: ,
               duration: const Duration(milliseconds: 125),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(2),
+                borderRadius: BorderRadius.circular(10),
                 boxShadow: (_isFocused && !widget.ignoreBoxShadow)
                     ? kElevationToShadow[2]
                     : kElevationToShadow[0],
@@ -163,14 +163,14 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 alignLabelWithHint: widget.expands ? true : null,
                 errorText: widget.errorText,
                 errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(6),
+                  borderRadius: BorderRadius.circular(10),
                   borderSide: const BorderSide(
                     color: Colors.red,
                     width: 0.5,
                   ),
                 ),
                 focusedErrorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(6),
+                  borderRadius: BorderRadius.circular(10),
                   borderSide: const BorderSide(
                     color: Colors.red,
                     width: 1,
@@ -219,17 +219,17 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                     : null,
                 prefixIcon: widget.prefix,
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(2),
+                  borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide(
                     color: getCustomColors(context).hardBorder ??
                         Colors.transparent,
                     width: (theme.getTheme().brightness == Brightness.dark)
-                        ? 2.5
+                        ? 1.5
                         : 1,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide(
                     color: widget.thickUnfocusedBorder
                         ? (getCustomColors(context).hardBorder ??
@@ -259,116 +259,3 @@ IconData _getSuffix(bool isPassword, bool obscureOn) {
     return Icons.delete;
   }
 }
-
-// class CustomTextFormFieldInactive extends StatefulWidget {
-//   const CustomTextFormFieldInactive({
-//     super.key,
-//     this.hintText,
-//     this.maxLines,
-//     this.textInputAction,
-//     this.onChanged,
-//     this.keyboardType,
-//   });
-
-//   final String? hintText;
-//   final int? maxLines;
-//   final TextInputAction? textInputAction;
-//   final Function(String)? onChanged;
-//   final TextInputType? keyboardType;
-
-//   @override
-//   State<CustomTextFormFieldInactive> createState() =>
-//       _CustomTextFormFieldInactiveState();
-// }
-
-// class _CustomTextFormFieldInactiveState
-//     extends State<CustomTextFormFieldInactive> {
-//   late TextEditingController _textEditingController;
-//   late FocusNode _focusNode;
-//   bool _isFocused = false;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     initFocusNodes();
-//   }
-
-//   void initFocusNodes() {
-//     _focusNode = FocusNode();
-//     _textEditingController = TextEditingController();
-//     _focusNode.addListener(() {
-//       if (_focusNode.hasFocus && !_isFocused) {
-//         setState(() {
-//           _isFocused = true;
-//         });
-//       } else if ((!_focusNode.hasFocus && _isFocused)) {
-//         setState(() {
-//           _isFocused = false;
-//         });
-//       }
-//     });
-//   }
-
-//   @override
-//   void dispose() {
-//     super.dispose();
-//     _focusNode.dispose();
-//     _textEditingController.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return AnimatedContainer(
-//       duration: const Duration(milliseconds: 125),
-//       decoration: BoxDecoration(
-//         borderRadius: BorderRadius.circular(2),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.black.withOpacity(_isFocused ? 0.16 : 0.04),
-//             blurRadius: _isFocused ? 8 : 6,
-//             offset: const Offset(1, 3), // changes position of shadow
-//           ),
-//         ],
-//       ),
-//       child: TextFormField(
-//         keyboardType: widget.keyboardType,
-//         maxLines: widget.maxLines,
-//         textInputAction: widget.textInputAction,
-//         focusNode: _focusNode,
-//         controller: _textEditingController,
-//         cursorColor: const Color(0xFF707070).withOpacity(0.28),
-//         style: textFieldText,
-//         decoration: InputDecoration(
-//           hintText: widget.hintText,
-//           hintStyle: textFieldHint,
-//           fillColor: Colors.white,
-//           filled: true,
-//           suffixIconColor: Colors.grey,
-//           suffixIcon: _isFocused
-//               ? GestureDetector(
-//                   onTap: () {
-//                     _textEditingController.clear();
-//                   },
-//                   child: const Icon(Icons.delete),
-//                 )
-//               : null,
-//           focusedBorder: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(2),
-//             borderSide: BorderSide(
-//               color: Colors.black.withOpacity(0.84),
-//               width: 1,
-//             ),
-//           ),
-//           enabledBorder: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(8),
-//             borderSide: BorderSide(
-//               color: Colors.black.withOpacity(0.24),
-//               width: 0.5,
-//             ),
-//           ),
-//         ),
-//         onChanged: widget.onChanged,
-//       ),
-//     );
-//   }
-// }

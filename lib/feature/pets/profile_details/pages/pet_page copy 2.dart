@@ -31,6 +31,8 @@ import '../models/m_tag.dart';
 import '../pictures/upload_picture_dialog.dart';
 import 'custom_flexible_space_bar.dart';
 import 'documents_page.dart';
+import 'edit_detail_pages/basic_information_page.dart';
+import 'edit_detail_pages/description_page.dart';
 import 'images_page.dart';
 import 'dart:math' as math;
 
@@ -651,60 +653,71 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                     children: [
                       const GridSpacing(),
                       Expanded(
-                        child: Transform(
-                          alignment: FractionalOffset.center,
-                          transform: perspective.scaled(1.0, 1.0, 1.0)
-                            ..rotateX(_tiltAngle)
-                            ..rotateY(0.0)
-                            ..rotateZ(0.0),
-                          child: AspectRatio(
-                            aspectRatio: 2 / 1,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                border: Border.all(
-                                  width: 0.3,
-                                  color: getCustomColors(context).hardBorder ??
-                                      Colors.transparent,
-                                  // strokeAlign: BorderSide.strokeAlignOutside,
+                        child: OpenContainer(
+                          closedBuilder: (context, action) => Transform(
+                            alignment: FractionalOffset.center,
+                            transform: perspective.scaled(1.0, 1.0, 1.0)
+                              ..rotateX(_tiltAngle)
+                              ..rotateY(0.0)
+                              ..rotateZ(0.0),
+                            child: AspectRatio(
+                              aspectRatio: 2 / 1,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  border: Border.all(
+                                    width: 0.3,
+                                    color:
+                                        getCustomColors(context).hardBorder ??
+                                            Colors.transparent,
+                                    // strokeAlign: BorderSide.strokeAlignOutside,
+                                  ),
+                                  borderRadius: BorderRadius.circular(18),
+                                  boxShadow: kElevationToShadow[3],
                                 ),
-                                borderRadius: BorderRadius.circular(18),
-                                boxShadow: kElevationToShadow[3],
-                              ),
-                              // padding: const EdgeInsets.all(8.0),
-                              child: Stack(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 16),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(18),
-                                      child: Align(
-                                        alignment: Alignment.bottomRight,
-                                        child: Image.asset(
-                                            "assets/details_illustartions/basic_cat_1_cut.png"),
+                                // padding: const EdgeInsets.all(8.0),
+                                child: Stack(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 16),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(18),
+                                        child: Align(
+                                          alignment: Alignment.bottomRight,
+                                          child: Image.asset(
+                                              "assets/details_illustartions/basic_cat_1_cut.png"),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment(-0.5, 0.99),
-                                    child: Image.asset(
-                                      "assets/details_illustartions/basic_dog_1_cut.png",
-                                      scale: 1.5,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(16),
-                                    child: Text(
-                                      "Basic Information",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 24,
+                                    Align(
+                                      alignment: Alignment(-0.5, 0.99),
+                                      child: Image.asset(
+                                        "assets/details_illustartions/basic_dog_1_cut.png",
+                                        scale: 1.5,
                                       ),
                                     ),
-                                  ),
-                                ],
+                                    Padding(
+                                      padding: const EdgeInsets.all(16),
+                                      child: Text(
+                                        "Basic Information",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 24,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
+                          ),
+                          openBuilder: (context, action) =>
+                              BasicInformationPage(
+                            petProfileDetails: _petProfileDetails,
+                            setGender: (value) {
+                              _petProfileDetails.petGender = value;
+                              updatePetProfileCore(_petProfileDetails);
+                            },
                           ),
                         ),
                       ),
@@ -719,59 +732,65 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                       Expanded(
                         child: Column(
                           children: [
-                            AspectRatio(
-                              aspectRatio: 1,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
-                                  border: Border.all(
-                                    width: 0.3,
-                                    color:
-                                        getCustomColors(context).hardBorder ??
-                                            Colors.transparent,
-                                    // strokeAlign: BorderSide.strokeAlignOutside,
+                            OpenContainer(
+                              closedBuilder: (context, action) => AspectRatio(
+                                aspectRatio: 1,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    border: Border.all(
+                                      width: 0.3,
+                                      color:
+                                          getCustomColors(context).hardBorder ??
+                                              Colors.transparent,
+                                      // strokeAlign: BorderSide.strokeAlignOutside,
+                                    ),
+                                    borderRadius: BorderRadius.circular(18),
+                                    boxShadow: kElevationToShadow[3],
                                   ),
-                                  borderRadius: BorderRadius.circular(18),
-                                  boxShadow: kElevationToShadow[3],
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(18),
-                                  child: Stack(
-                                    children: [
-                                      // Align(
-                                      //   alignment: Alignment.bottomRight,
-                                      //   child: Image.asset(
-                                      //     "assets/details_illustartions/description_dog_1_cut.png",
-                                      //     scale: 1.6,
-                                      //   ),
-                                      // ),
-                                      // Align(
-                                      //   alignment: Alignment.bottomLeft,
-                                      //   child: Image.asset(
-                                      //     "assets/details_illustartions/description_cat_2_cut.png",
-                                      //     scale: 1.9,
-                                      //   ),
-                                      // ),
-                                      Align(
-                                        alignment: Alignment.bottomLeft,
-                                        child: Image.asset(
-                                          "assets/details_illustartions/description_dog_1.png",
-                                          scale: 1.5,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(16),
-                                        child: Text(
-                                          "Description",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 24,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(18),
+                                    child: Stack(
+                                      children: [
+                                        // Align(
+                                        //   alignment: Alignment.bottomRight,
+                                        //   child: Image.asset(
+                                        //     "assets/details_illustartions/description_dog_1_cut.png",
+                                        //     scale: 1.6,
+                                        //   ),
+                                        // ),
+                                        // Align(
+                                        //   alignment: Alignment.bottomLeft,
+                                        //   child: Image.asset(
+                                        //     "assets/details_illustartions/description_cat_2_cut.png",
+                                        //     scale: 1.9,
+                                        //   ),
+                                        // ),
+                                        Align(
+                                          alignment: Alignment.bottomLeft,
+                                          child: Image.asset(
+                                            "assets/details_illustartions/description_dog_1.png",
+                                            scale: 1.5,
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                        Padding(
+                                          padding: const EdgeInsets.all(16),
+                                          child: Text(
+                                            "Description",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 24,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
+                              ),
+                              openBuilder: (context, action) => DescriptionPage(
+                                descriptions: _petProfileDetails.petDescription,
+                                petProfileId: _petProfileDetails.profileId,
                               ),
                             ),
                             const GridSpacing(),

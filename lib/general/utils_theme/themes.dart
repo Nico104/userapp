@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
 import '../utils_color/hex_color.dart';
 import 'custom_text_styles.dart';
@@ -53,10 +54,16 @@ final ThemeData constLightTheme = ThemeData(
       color: Colors.black.withOpacity(0.84),
     ),
     //e.p. Settings Section Title
-    titleMedium: TextStyle(
-      fontFamily: 'Lora',
-      fontSize: 20,
-      color: Colors.black.withOpacity(0.87),
+    // titleMedium: TextStyle(
+    //   fontFamily: 'Segoe UI',
+    //   fontSize: 18,
+    //   fontWeight: FontWeight.w500,
+    //   color: Colors.black.withOpacity(0.87),
+    // ),
+    titleMedium: GoogleFonts.openSans(
+      fontSize: 18,
+      fontWeight: FontWeight.w600,
+      color: Colors.black.withOpacity(0.95),
     ),
     //e.p. Settings Item Label, Extended Actions
     labelMedium: TextStyle(
