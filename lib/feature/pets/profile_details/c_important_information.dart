@@ -47,7 +47,7 @@ class _PetImportantInformationComponentState
       _currentLanguage = widget.importantInformation.first.language;
     } else {
       //TODO check if default language is in
-      _currentLanguage = Language('Deutsch', 'de', false);
+      _currentLanguage = Language('Deutsch', 'de', "", false);
     }
     // generateFocusNodes();
   }

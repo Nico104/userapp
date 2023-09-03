@@ -1,6 +1,8 @@
+import 'package:userapp/feature/pets/profile_details/g_profile_detail_globals.dart';
+
 class Language {
   final String languageLabel;
-  // final String languageImagePath;
+  final String languageImagePath;
   final String languageKey;
   // final String langaugeCountry;
   // final String languagePrefix;
@@ -8,7 +10,7 @@ class Language {
 
   Language(
     this.languageLabel,
-    // this.languageImagePath,
+    this.languageImagePath,
     this.languageKey,
     // this.langaugeCountry,
     // this.languagePrefix,
@@ -17,7 +19,7 @@ class Language {
 
   Language.fromJson(Map<String, dynamic> json)
       : languageLabel = json['language_label'],
-        // languageImagePath = json['language_image_path'],
+        languageImagePath = json['langauge_flag_image_path'],
         languageKey = json['language_key'],
         // langaugeCountry = json['language_country'],
         // languagePrefix = json['language_country_prefix'],
@@ -32,6 +34,15 @@ bool listContainsLanguage(List<Language> list, Language language) {
     }
   }
   return false;
+}
+
+Language? getLanguageFromKey(String languageKey) {
+  for (var element in availableLanguages) {
+    if (element.languageKey == languageKey) {
+      return element;
+    }
+  }
+  return null;
 }
 
 class Country {

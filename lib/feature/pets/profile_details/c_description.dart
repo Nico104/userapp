@@ -38,7 +38,7 @@ class _PetDescriptionComponentState extends State<PetDescriptionComponent> {
       _currentLanguage = widget.descriptions.first.language;
     } else {
       //TODO check if default language is in
-      _currentLanguage = Language('Deutsch', 'de', false);
+      _currentLanguage = Language('Deutsch', 'de', "d", false);
     }
   }
 

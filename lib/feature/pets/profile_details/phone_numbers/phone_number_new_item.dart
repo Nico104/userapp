@@ -35,7 +35,7 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
     super.initState();
     //TODO get user country prefix
     _country =
-        Country('de', '/germany', '+49', Language('Deutsch', 'de', false));
+        Country('de', '/germany', '+49', Language('Deutsch', 'de', "", false));
   }
 
   void addPhoneNumber(String number) {

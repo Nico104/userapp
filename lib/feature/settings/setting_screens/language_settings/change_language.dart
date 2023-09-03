@@ -4,6 +4,7 @@ import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/auth/auth_widgets.dart';
 import 'package:userapp/feature/pets/profile_details/g_profile_detail_globals.dart';
 
+import '../../../../general/network_globals.dart';
 import '../../../pets/profile_details/widgets/custom_textformfield.dart';
 
 class ChangeLanguage extends StatefulWidget {
@@ -23,90 +24,57 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
       appBar: AppBar(
         title: Text("appBarLangaugeSettings".tr()),
       ),
-      // body: Padding(
-      //     padding: const EdgeInsets.only(left: 28, right: 28),
-      //     child: ListView(
-      //       children: [
-      //         Container(
-      //           width: 40,
-      //           height: 40,
-      //           decoration: BoxDecoration(
-      //             shape: BoxShape.circle,
-      //             image: DecorationImage(
-      //               image: NetworkImage("https://picsum.photos/60"),
-      //               fit: BoxFit.cover,
-      //             ),
-      //           ),
-      //         ),
-      //         SizedBox(width: 42),
-      //         Text(language.languageLabel),
-      //         TextButton(
-      //           onPressed: () {
-      //             context.setLocale(Locale('en', 'US'));
-      //           },
-      //           child: Text("English"),
-      //         ),
-      //         TextButton(
-      //           onPressed: () {
-      //             context.setLocale(Locale('de', 'DE'));
-      //           },
-      //           child: Text("Deutsch"),
-      //         ),
-      //       ],
-      //     )),
-      // body: GridView.builder(
-      //   itemCount: availableLanguages.length,
-      //   shrinkWrap: true,
-      //   itemBuilder: (BuildContext context, int index) {
-      //     return Column(
-      //       mainAxisSize: MainAxisSize.min,
-      //       children: [
-      //         Container(
-      //           width: 40,
-      //           height: 40,
-      //           decoration: BoxDecoration(
-      //             shape: BoxShape.circle,
-      //             image: DecorationImage(
-      //               image: NetworkImage("https://picsum.photos/60"),
-      //               fit: BoxFit.cover,
-      //             ),
-      //           ),
-      //         ),
-      //         SizedBox(height: 16),
-      //         Text(availableLanguages.elementAt(index).languageLabel),
-      //       ],
-      //     );
-      //   },
-      // ),
-      body: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            // maxCrossAxisExtent: 200,
-            // // childAspectRatio: 3 / 2,
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 20,
-            crossAxisCount: 2,
-          ),
-          itemCount: availableLanguages.length,
-          itemBuilder: (BuildContext ctx, index) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 100,
-                  height: 100,
+      body: ListView.builder(
+        itemCount: availableLanguages.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.all(22),
+            child: Material(
+              elevation: 4,
+              borderRadius: BorderRadius.circular(16),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    context.setLocale(Locale(
+                        availableLanguages.elementAt(index).languageKey));
+                  });
+                },
+                child: Container(
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: NetworkImage("https://picsum.photos/60"),
-                      fit: BoxFit.cover,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: [
+                        AspectRatio(
+                          aspectRatio: 3 / 2,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Image.network(s3BaseUrl +
+                                availableLanguages
+                                    .elementAt(index)
+                                    .languageImagePath),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            availableLanguages.elementAt(index).languageLabel,
+                            style: Theme.of(context).textTheme.titleMedium,
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                SizedBox(height: 16),
-                Text(availableLanguages.elementAt(index).languageLabel),
-              ],
-            );
-          }),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
