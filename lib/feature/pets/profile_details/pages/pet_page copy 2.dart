@@ -32,7 +32,7 @@ import '../pictures/upload_picture_dialog.dart';
 import 'custom_flexible_space_bar.dart';
 import 'documents_page.dart';
 import 'edit_detail_pages/basic_information_page.dart';
-import 'edit_detail_pages/description_page.dart';
+import 'edit_detail_pages/description_page/description_page.dart';
 import 'images_page.dart';
 import 'dart:math' as math;
 

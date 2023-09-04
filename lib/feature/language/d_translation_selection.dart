@@ -90,36 +90,6 @@ class TranslationPicker extends StatelessWidget {
                   ),
                 ),
               ),
-              // OutlinedButton(
-              //   onPressed: () {
-              //     showDialog(
-              //       context: context,
-              //       builder: (_) => LanguagePickerDialogComponent(
-              //         excludeLanguages: availableTranslations,
-              //       ),
-              //     ).then((value) {
-              //       //if null just pop and dismiss all dialogs, if Language return Language
-              //       Navigator.pop(context, value);
-              //     });
-              //   },
-              //   style: OutlinedButton.styleFrom(
-              //     padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-              //     backgroundColor: getCustomColors(context).accent,
-              //     side: BorderSide(
-              //       width: 0.5,
-              //       color: getCustomColors(context).lightBorder ??
-              //           Colors.transparent,
-              //     ),
-              //     shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(8),
-              //     ),
-              //   ),
-              //   child: Text(
-              //     "newTranslationLabel".tr(),
-              //     style: getCustomTextStyles(context)
-              //         .dataEditDialogButtonSaveStyle,
-              //   ),
-              // ),
             ],
           ),
         ),

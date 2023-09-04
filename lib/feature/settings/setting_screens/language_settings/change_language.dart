@@ -5,6 +5,7 @@ import 'package:userapp/feature/auth/auth_widgets.dart';
 import 'package:userapp/feature/pets/profile_details/g_profile_detail_globals.dart';
 
 import '../../../../general/network_globals.dart';
+import '../../../language/m_language.dart';
 import '../../../pets/profile_details/widgets/custom_textformfield.dart';
 
 class ChangeLanguage extends StatefulWidget {
@@ -15,9 +16,6 @@ class ChangeLanguage extends StatefulWidget {
 }
 
 class _ChangeLanguageState extends State<ChangeLanguage> {
-  final TextEditingController _textEditingController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,15 +31,20 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
               elevation: 4,
               borderRadius: BorderRadius.circular(16),
               child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    context.setLocale(Locale(
-                        availableLanguages.elementAt(index).languageKey));
-                  });
+                onTap: () async {
+                  await context.setLocale(
+                      Locale(availableLanguages.elementAt(index).languageKey));
+                  //Wait otherwise Language doesnt update .tr()
+                  await Future.delayed(Duration(milliseconds: 125));
+                  setState(() {});
                 },
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
+                    border: context.locale.toString() ==
+                            availableLanguages.elementAt(index).languageKey
+                        ? Border.all(color: Colors.black, width: 2)
+                        : null,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(16),
