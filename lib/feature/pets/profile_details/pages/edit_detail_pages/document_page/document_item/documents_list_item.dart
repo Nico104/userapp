@@ -3,10 +3,10 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:userapp/general/network_globals.dart';
 import 'package:userapp/general/utils_color/hex_color.dart';
-import '../../../../general/utils_custom_icons/custom_icons_icons.dart';
-import '../d_confirm_delete.dart';
-import '../models/m_document.dart';
-import '../u_profile_details.dart';
+import '../../../../../../../general/utils_custom_icons/custom_icons_icons.dart';
+import '../../../../d_confirm_delete.dart';
+import '../../../../models/m_document.dart';
+import '../../../../u_profile_details.dart';
 import 'document_edit.dart';
 
 String getDocContTypeLabel(Document doc) {
@@ -34,12 +34,12 @@ class DocumentItem extends StatefulWidget {
     super.key,
     required this.document,
     required this.removeDocumentFromList,
-    required this.docTypeKey,
+    // required this.docTypeKey,
     required this.reloadDocumentList,
   });
 
   final Document document;
-  final String docTypeKey;
+  // final String docTypeKey;
   final VoidCallback removeDocumentFromList;
 
   final VoidCallback reloadDocumentList;
@@ -83,7 +83,6 @@ class _DocumentItemState extends State<DocumentItem> {
                     context: context,
                     builder: (context) => DocumentEditDialog(
                       document: widget.document,
-                      docTypeKey: widget.docTypeKey,
                     ),
                   ).then(
                     (value) => widget.reloadDocumentList(),
@@ -120,62 +119,76 @@ class _DocumentItemState extends State<DocumentItem> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: () {
-        launchUrl(
-          Uri.parse(s3BaseUrl + widget.document.documentLink),
-        );
-      },
-      child: IntrinsicHeight(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const SizedBox(width: 6),
-            Container(
-              width: 50,
-              height: 50,
-              // margin: const EdgeInsets.all(12),
-              padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.grey.shade300, width: 1),
-              ),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: getDocContTypeColor(widget.document),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child:
-                    Center(child: Text(getDocContTypeLabel(widget.document))),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+      child: Material(
+        elevation: 4,
+        borderRadius: BorderRadius.circular(16),
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: Colors.black, width: 0.2),
+          ),
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              launchUrl(
+                Uri.parse(s3BaseUrl + widget.document.documentLink),
+              );
+            },
+            child: IntrinsicHeight(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const SizedBox(width: 6),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    // margin: const EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.grey.shade300, width: 1),
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: getDocContTypeColor(widget.document),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Center(
+                          child: Text(getDocContTypeLabel(widget.document))),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Text(
+                      widget.document.documentName,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  VerticalDivider(
+                    endIndent: 6,
+                    indent: 6,
+                    thickness: 1,
+                    color: Colors.grey.shade300,
+                  ),
+                  GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => _showOptions(),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.more_vert,
+                        size: 28,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Text(
-                widget.document.documentName,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            const SizedBox(width: 16),
-            VerticalDivider(
-              endIndent: 6,
-              indent: 6,
-              thickness: 1,
-              color: Colors.grey.shade300,
-            ),
-            GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () => _showOptions(),
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.more_vert,
-                  size: 28,
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

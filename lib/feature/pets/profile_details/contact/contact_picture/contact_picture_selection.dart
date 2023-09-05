@@ -6,7 +6,7 @@ import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 
 import '../../d_confirm_delete.dart';
 import '../../fabs/upload_image_fab.dart';
-import '../../pictures/picture_selection.dart';
+import '../../pages/edit_detail_pages/pictures_page/picture_selection.dart';
 
 class ContactPictureSelection extends StatelessWidget {
   const ContactPictureSelection({

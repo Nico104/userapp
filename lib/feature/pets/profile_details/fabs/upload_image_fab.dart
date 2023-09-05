@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../general/utils_theme/custom_colors.dart';
-import '../pictures/picture_selection.dart';
+import '../pages/edit_detail_pages/pictures_page/picture_selection.dart';
 
 class UploadImageFab extends StatelessWidget {
   const UploadImageFab({super.key, required this.addPetPicture});

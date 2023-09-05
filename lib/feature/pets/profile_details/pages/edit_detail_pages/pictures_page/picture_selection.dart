@@ -7,7 +7,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 
-import 'new_picture.dart';
+import '../../../pictures/new_picture.dart';
 
 class PictureSelection extends StatelessWidget {
   const PictureSelection({

@@ -3,7 +3,7 @@ class Document {
   final int petProfileId;
   final String documentName;
   final String documentLink;
-  final String documentType;
+  // final String documentType;
   final String contentType;
 
   Document(
@@ -12,7 +12,7 @@ class Document {
     this.documentName,
     this.documentLink,
     this.contentType,
-    this.documentType,
+    // this.documentType,
   );
 
   Document.fromJson(Map<String, dynamic> json)
@@ -20,7 +20,7 @@ class Document {
         petProfileId = json['petProfile_id'],
         documentName = json['document_name'],
         documentLink = json['document_link'],
-        documentType = json['document_type'],
+        // documentType = json['document_type'],
         contentType = json['content_type'];
 
   Map<String, dynamic> toJson() => {

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:userapp/feature/pets/profile_details/models/m_pet_picture.dart';
 import 'package:userapp/general/network_globals.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_document.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_scan.dart';
@@ -118,6 +119,29 @@ Future<List<Document>> getPetDocuments(int petProfileId) async {
     return list;
   } else {
     throw Exception('Failed to load PetProfileDetails');
+  }
+}
+
+Future<List<PetPicture>> getPetPictures(int petProfileId) async {
+  Uri url = Uri.parse('$baseURL/pet/getPetPictures/$petProfileId');
+  String? token = await getIdToken();
+
+  final response = await http.get(url, headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': '$token',
+  });
+
+  // print(response.body);
+  // print("o yeah");
+
+  if (response.statusCode == 200) {
+    List<PetPicture> list = (jsonDecode(response.body) as List)
+        .map((t) => PetPicture.fromJson(t))
+        .toList();
+    return list;
+  } else {
+    throw Exception('Failed to load PetPictures');
   }
 }
 

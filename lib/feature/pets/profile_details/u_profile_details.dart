@@ -83,7 +83,6 @@ Future<void> uploadDocuments(
   int profileId,
   Uint8List document,
   String documentName,
-  String documentType,
   String contentType,
   Function() callback,
 ) async {
@@ -95,7 +94,7 @@ Future<void> uploadDocuments(
 
   final data = {
     'document_name': documentName,
-    'document_type': documentType,
+    // 'document_type': documentType,
     'content_type': contentType,
   };
 
