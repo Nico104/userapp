@@ -100,12 +100,12 @@ class UploadPictureButton extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(
-                            Icons.upload_rounded,
+                            Icons.image,
                             color: Colors.blue,
                           ),
                           SizedBox(width: 8),
                           Text(
-                            "Upload Document",
+                            "Upload Picture",
                             style: GoogleFonts.openSans(
                               fontWeight: FontWeight.w500,
                               fontSize: 18,

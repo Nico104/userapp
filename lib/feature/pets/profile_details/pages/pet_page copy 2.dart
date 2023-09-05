@@ -592,13 +592,18 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                               ),
                             ),
                             const GridSpacing(),
-                            CustomOpenContainer(
-                              openRoute: PicturesPage(
-                                petProfileId: _petProfileDetails.profileId,
-                                initialPetPictures:
-                                    _petProfileDetails.petPictures,
-                              ),
-                              closedContainer: AspectRatio(
+                            GestureDetector(
+                              onTap: () {
+                                navigatePerSlide(
+                                  context,
+                                  PicturesPage(
+                                    petProfileId: _petProfileDetails.profileId,
+                                    initialPetPictures:
+                                        _petProfileDetails.petPictures,
+                                  ),
+                                );
+                              },
+                              child: AspectRatio(
                                 aspectRatio: 1,
                                 child: Container(
                                   decoration: BoxDecoration(

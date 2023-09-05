@@ -6,6 +6,7 @@ import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/document_page/document_item/documents_list_item.dart';
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/document_page/upload_document/upload_document_button.dart';
 
+import '../../../../../../general/widgets/custom_scroll_view.dart';
 import '../../../../u_pets.dart';
 import '../../../models/m_document.dart';
 import '../../custom_flexible_space_bar.dart';
@@ -70,43 +71,28 @@ class _DocumentPageState extends State<DocumentPage> {
   }
 
   Widget getNoDocumetsWidget() {
-    // return Text("Oops no dpcsuments");
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Tabos Documents"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(
-              height: 120,
-            ),
-            SizedBox(
-              width: 30.w,
-              child: Image.asset("assets/tmp/documents.png"),
-            ),
-            const SizedBox(height: 32),
-            Text(
-              "noDocumentsUploaded".tr(),
-              style: Theme.of(context).textTheme.labelLarge,
-            ),
-            const SizedBox(height: 32),
-            UploadDocumentButton(
-              showUploadButton: true,
-              profileId: widget.petProfileId,
-              reloadDocuments: reloadDocuments,
-            ),
-            Text(
-              "noDocumentsUploadedUpload".tr(),
-              style: Theme.of(context).textTheme.labelLarge,
-            ),
-            const SizedBox(
-              height: 120,
-            ),
-          ],
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const SizedBox(
+          height: 120,
         ),
-      ),
+        SizedBox(
+          width: 30.w,
+          child: Image.asset("assets/tmp/documents.png"),
+        ),
+        const SizedBox(height: 32),
+        Text(
+          "No Documents yet",
+          style: Theme.of(context).textTheme.labelLarge,
+        ),
+        const SizedBox(height: 32),
+        UploadDocumentButton(
+          showUploadButton: _showUploadButton,
+          profileId: widget.petProfileId,
+          reloadDocuments: reloadDocuments,
+        ),
+      ],
     );
   }
 
@@ -118,38 +104,69 @@ class _DocumentPageState extends State<DocumentPage> {
     return Scaffold(
       body: Stack(
         children: [
-          ScrollConfiguration(
-            behavior:
-                ScrollConfiguration.of(context).copyWith(scrollbars: false),
-            child: CustomScrollView(
-              // controller: _scrollController,
-              physics: BouncingScrollPhysics(),
-              slivers: <Widget>[
-                SliverAppBar(
-                  pinned: true,
-                  stretch: true,
-                  expandedHeight: 140.0,
-                  actions: [
-                    Icon(Icons.more_horiz),
-                    SizedBox(width: 16),
-                  ],
-                  // automaticallyImplyLeading: false,
-                  flexibleSpace: MyFlexibleSpaceBar(
-                    titlePaddingTween: EdgeInsetsTween(
-                        begin: EdgeInsets.only(left: 16.0, bottom: 16),
-                        end: EdgeInsets.only(left: 72.0, bottom: 16)),
-                    title:
-                        Text('petProfileTitle'.tr(namedArgs: {'petName': "s"})),
-                    // titlePadding: EdgeInsets.all(0), centerTitle: false,
-                    // centerTitle: true,
-                    // background: FlutterLogo(),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 16),
-                      ListView.builder(
+          // ScrollConfiguration(
+          //   behavior:
+          //       ScrollConfiguration.of(context).copyWith(scrollbars: false),
+          //   child: CustomScrollView(
+          //     // controller: _scrollController,
+          //     physics: BouncingScrollPhysics(),
+          //     slivers: <Widget>[
+          //       SliverAppBar(
+          //         pinned: true,
+          //         stretch: true,
+          //         expandedHeight: 140.0,
+          //         actions: [
+          //           Icon(Icons.more_horiz),
+          //           SizedBox(width: 16),
+          //         ],
+          //         // automaticallyImplyLeading: false,
+          //         flexibleSpace: MyFlexibleSpaceBar(
+          //           titlePaddingTween: EdgeInsetsTween(
+          //               begin: EdgeInsets.only(left: 16.0, bottom: 16),
+          //               end: EdgeInsets.only(left: 72.0, bottom: 16)),
+          //           title:
+          //               Text('petProfileTitle'.tr(namedArgs: {'petName': "s"})),
+          //           // titlePadding: EdgeInsets.all(0), centerTitle: false,
+          //           // centerTitle: true,
+          //           // background: FlutterLogo(),
+          //         ),
+          //       ),
+          //       SliverToBoxAdapter(
+          //         child: Column(
+          //           children: [
+          //             const SizedBox(height: 16),
+          //             ListView.builder(
+          //               shrinkWrap: true,
+          //               itemCount: documents.length,
+          //               itemBuilder: (context, index) {
+          //                 return DocumentItem(
+          //                   document: documents.elementAt(index),
+          //                   removeDocumentFromList: () {
+          //                     setState(
+          //                       () {
+          //                         documents.removeAt(index);
+          //                       },
+          //                     );
+          //                   },
+          //                   reloadDocumentList: reloadDocuments,
+          //                 );
+          //               },
+          //             ),
+          //             SizedBox(height: 90.h),
+          //           ],
+          //         ),
+          //       )
+          //     ],
+          //   ),
+          // ),
+          CustomNicoScrollView(
+            onScroll: _handleNavBarShown,
+            title: Text("Tabos Docuemnts"),
+            body: Column(
+              children: [
+                const SizedBox(height: 16),
+                documents.isNotEmpty
+                    ? ListView.builder(
                         shrinkWrap: true,
                         itemCount: documents.length,
                         itemBuilder: (context, index) {
@@ -165,10 +182,9 @@ class _DocumentPageState extends State<DocumentPage> {
                             reloadDocumentList: reloadDocuments,
                           );
                         },
-                      ),
-                    ],
-                  ),
-                )
+                      )
+                    : getNoDocumetsWidget(),
+                SizedBox(height: 90.h),
               ],
             ),
           ),
