@@ -4,6 +4,8 @@ import 'dart:typed_data';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:userapp/feature/pets/profile_details/models/m_behaviour_information.dart';
+import 'package:userapp/feature/pets/profile_details/models/medical/m_medical_information.dart';
 import 'package:userapp/general/network_globals.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_description.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_document.dart';
@@ -17,6 +19,8 @@ import 'contact/u_contact.dart';
 import 'models/m_pet_profile.dart';
 import 'models/m_tag.dart';
 import 'package:http_parser/http_parser.dart';
+
+import 'models/medical/m_health_issue.dart';
 
 //Pictures
 
@@ -78,7 +82,6 @@ Future<void> deletePicture(PetPicture petPicture) async {
 }
 
 //Documents
-
 Future<void> uploadDocuments(
   int profileId,
   Uint8List document,
@@ -663,4 +666,187 @@ Future<void> askForPetName(BuildContext context, ValueSetter<String> setPetName,
       setPetName(value);
     }
   });
+}
+
+//Behaviour
+Future<BehaviourInformation> getBehaviourInformation(int petProfileId) async {
+  Uri url = Uri.parse('$baseURL/pet/getBehaviourInformation/$petProfileId');
+  String? token = await getIdToken();
+
+  final response = await http.get(url, headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': '$token',
+  });
+
+  if (response.statusCode == 200) {
+    return BehaviourInformation.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to load BehaviourInformation');
+  }
+}
+
+Future<BehaviourInformation> updateBehaviourInformation(
+    BehaviourInformation behaviourInformation) async {
+  Uri url = Uri.parse('$baseURL/pet/updateBehaviourInformation');
+  String? token = await getIdToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': '$token',
+    },
+    body: jsonEncode(behaviourInformation.toJson()),
+  );
+
+  print(response.statusCode);
+
+  if (response.statusCode == 201) {
+    return BehaviourInformation.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to update BehaviourInformation.');
+  }
+}
+
+//Medical
+Future<MedicalInformation> getMedicalInformation(int petProfileId) async {
+  Uri url = Uri.parse('$baseURL/pet/getMedicalInformation/$petProfileId');
+  String? token = await getIdToken();
+
+  final response = await http.get(url, headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': '$token',
+  });
+
+  if (response.statusCode == 200) {
+    return MedicalInformation.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to load MedicalInformation');
+  }
+}
+
+Future<MedicalInformation> updateMedicalInformation(
+    MedicalInformation medicalInformation) async {
+  Uri url = Uri.parse('$baseURL/pet/updateMedicalInformation');
+  String? token = await getIdToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': '$token',
+    },
+    body: jsonEncode(medicalInformation.toJson()),
+  );
+
+  print(response.statusCode);
+
+  if (response.statusCode == 201) {
+    return MedicalInformation.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to update MedicalInformation.');
+  }
+}
+
+//HealthIssues
+Future<List<HealthIssue>> getHealthIssues(int medicalInformationId) async {
+  Uri url = Uri.parse('$baseURL/pet/getHealthIssues/$medicalInformationId');
+  String? token = await getIdToken();
+
+  final response = await http.get(url, headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': '$token',
+  });
+
+  if (response.statusCode == 200) {
+    List<HealthIssue> list = (jsonDecode(response.body) as List)
+        .map((t) => HealthIssue.fromJson(t))
+        .toList();
+    return list;
+  } else {
+    throw Exception('Failed to load HealthIssues');
+  }
+}
+
+Future<HealthIssue> upsertHealthIssue(HealthIssue healthIssue) async {
+  Uri url = Uri.parse('$baseURL/pet/upsertHealthIssue');
+  String? token = await getIdToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': '$token',
+    },
+    body: jsonEncode(healthIssue.toJson()),
+  );
+
+  print(response.statusCode);
+
+  if (response.statusCode == 201) {
+    return HealthIssue.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to upsert HealthIssue.');
+  }
+}
+
+Future<HealthIssue> linkDocumentToHealthIssue(
+    int healthIssueId, int documentId) async {
+  Uri url = Uri.parse('$baseURL/pet/linkDocumentToHealthIssue');
+  String? token = await getIdToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': '$token',
+    },
+    body: json.encode({
+      "health_issue_id": healthIssueId,
+      "document_id": documentId,
+    }),
+  );
+
+  print(response.statusCode);
+
+  if (response.statusCode == 201) {
+    return HealthIssue.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to lint Document to HealthIssue.');
+  }
+}
+
+Future<void> deleteHealthIssue(
+  HealthIssue healthIssue,
+) async {
+  Uri url = Uri.parse('$baseURL/pet/deleteHealthIssue');
+  String? token = await getIdToken();
+
+  final response = await http.delete(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': '$token',
+    },
+    body: jsonEncode(healthIssue.toJson()),
+  );
+
+  print(response.statusCode);
+
+  if (response.statusCode == 200) {
+    // If the server did return a 201 CREATED response,
+    // then parse the JSON.
+  } else {
+    // If the server did not return a 201 CREATED response,
+    // then throw an exception.
+    throw Exception('Failed to delete HealthIssue.');
+  }
 }

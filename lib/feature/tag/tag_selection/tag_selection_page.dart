@@ -92,11 +92,11 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
                     (BuildContext context, AsyncSnapshot<List<Tag>> snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data != null && snapshot.data!.isEmpty) {
-                      navigateReplacePerSlide(
-                          context,
-                          AddFinmaTagPage(
-                            petProfile: widget.petProfile,
-                          ));
+                      // navigateReplacePerSlide(
+                      //     context,
+                      //     AddFinmaTagPage(
+                      //       petProfile: widget.petProfile,
+                      //     ));
                     }
                     return TagSelectionList(
                       userTags: snapshot.data!,

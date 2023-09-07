@@ -104,61 +104,6 @@ class _DocumentPageState extends State<DocumentPage> {
     return Scaffold(
       body: Stack(
         children: [
-          // ScrollConfiguration(
-          //   behavior:
-          //       ScrollConfiguration.of(context).copyWith(scrollbars: false),
-          //   child: CustomScrollView(
-          //     // controller: _scrollController,
-          //     physics: BouncingScrollPhysics(),
-          //     slivers: <Widget>[
-          //       SliverAppBar(
-          //         pinned: true,
-          //         stretch: true,
-          //         expandedHeight: 140.0,
-          //         actions: [
-          //           Icon(Icons.more_horiz),
-          //           SizedBox(width: 16),
-          //         ],
-          //         // automaticallyImplyLeading: false,
-          //         flexibleSpace: MyFlexibleSpaceBar(
-          //           titlePaddingTween: EdgeInsetsTween(
-          //               begin: EdgeInsets.only(left: 16.0, bottom: 16),
-          //               end: EdgeInsets.only(left: 72.0, bottom: 16)),
-          //           title:
-          //               Text('petProfileTitle'.tr(namedArgs: {'petName': "s"})),
-          //           // titlePadding: EdgeInsets.all(0), centerTitle: false,
-          //           // centerTitle: true,
-          //           // background: FlutterLogo(),
-          //         ),
-          //       ),
-          //       SliverToBoxAdapter(
-          //         child: Column(
-          //           children: [
-          //             const SizedBox(height: 16),
-          //             ListView.builder(
-          //               shrinkWrap: true,
-          //               itemCount: documents.length,
-          //               itemBuilder: (context, index) {
-          //                 return DocumentItem(
-          //                   document: documents.elementAt(index),
-          //                   removeDocumentFromList: () {
-          //                     setState(
-          //                       () {
-          //                         documents.removeAt(index);
-          //                       },
-          //                     );
-          //                   },
-          //                   reloadDocumentList: reloadDocuments,
-          //                 );
-          //               },
-          //             ),
-          //             SizedBox(height: 90.h),
-          //           ],
-          //         ),
-          //       )
-          //     ],
-          //   ),
-          // ),
           CustomNicoScrollView(
             onScroll: _handleNavBarShown,
             title: Text("Tabos Docuemnts"),

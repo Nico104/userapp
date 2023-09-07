@@ -35,6 +35,7 @@ import 'documents_page.dart';
 import 'edit_detail_pages/basic_information_page.dart';
 import 'edit_detail_pages/description_page/description_page.dart';
 import 'edit_detail_pages/document_page/document_page.dart';
+import 'edit_detail_pages/medical_page/medical_page.dart';
 import 'edit_detail_pages/pictures_page/pictures_page.dart';
 import 'images_page.dart';
 import 'dart:math' as math;
@@ -926,75 +927,87 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                       ),
                       const GridSpacing(),
                       Expanded(
-                        child: AspectRatio(
-                          aspectRatio: 1 / 2 - 8 / 100.w,
-                          child: Transform(
-                            alignment: FractionalOffset.center,
-                            transform: perspective.scaled(1.0, 1.0, 1.0)
-                              ..rotateX(_tiltAngle)
-                              ..rotateY(0.0)
-                              ..rotateZ(0.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                border: Border.all(
-                                  width: 0.5,
-                                  color: getCustomColors(context).hardBorder ??
-                                      Colors.transparent,
-                                  // strokeAlign: BorderSide.strokeAlignOutside,
-                                ),
-                                borderRadius: BorderRadius.circular(18),
-                                boxShadow: kElevationToShadow[3],
+                        child: GestureDetector(
+                          onTap: () {
+                            navigatePerSlide(
+                              context,
+                              MedicalPage(
+                                petProfileDetails: _petProfileDetails,
                               ),
-                              // padding: const EdgeInsets.all(8.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(18),
-                                child: Stack(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: Align(
-                                        alignment: Alignment.bottomRight,
-                                        child: Image.asset(
-                                            "assets/details_illustartions/medical_1_cut.png"),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(16),
-                                      child: Text(
-                                        "Medical",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 24,
+                            );
+                          },
+                          child: AspectRatio(
+                            aspectRatio: 1 / 2 - 8 / 100.w,
+                            child: Transform(
+                              alignment: FractionalOffset.center,
+                              transform: perspective.scaled(1.0, 1.0, 1.0)
+                                ..rotateX(_tiltAngle)
+                                ..rotateY(0.0)
+                                ..rotateZ(0.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  border: Border.all(
+                                    width: 0.5,
+                                    color:
+                                        getCustomColors(context).hardBorder ??
+                                            Colors.transparent,
+                                    // strokeAlign: BorderSide.strokeAlignOutside,
+                                  ),
+                                  borderRadius: BorderRadius.circular(18),
+                                  boxShadow: kElevationToShadow[3],
+                                ),
+                                // padding: const EdgeInsets.all(8.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(18),
+                                  child: Stack(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 8.0),
+                                        child: Align(
+                                          alignment: Alignment.bottomRight,
+                                          child: Image.asset(
+                                              "assets/details_illustartions/medical_1_cut.png"),
                                         ),
                                       ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment(-1, -0.5),
-                                      child: Padding(
+                                      Padding(
                                         padding: const EdgeInsets.all(16),
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              flex: 5,
-                                              child: Text(
-                                                "Add Medical Information to keep Tabo safe",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w200,
-                                                  fontSize: 16,
-                                                  color: Colors.black
-                                                      .withOpacity(0.28),
+                                        child: Text(
+                                          "Medical",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 24,
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment(-1, -0.5),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16),
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 5,
+                                                child: Text(
+                                                  "Add Medical Information to keep Tabo safe",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w200,
+                                                    fontSize: 16,
+                                                    color: Colors.black
+                                                        .withOpacity(0.28),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            Spacer(
-                                              flex: 5,
-                                            ),
-                                          ],
+                                              Spacer(
+                                                flex: 5,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

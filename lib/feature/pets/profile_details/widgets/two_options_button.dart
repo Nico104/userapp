@@ -33,6 +33,7 @@ class TwoOptionButton extends StatefulWidget {
   final String title;
 }
 
+///Returns 0 if inactive, otherwise 1 or 2
 class _TwoOptionButtonState extends State<TwoOptionButton> {
   @override
   Widget build(BuildContext context) {
@@ -43,16 +44,34 @@ class _TwoOptionButtonState extends State<TwoOptionButton> {
         ComponentTitle(text: widget.title),
         Row(
           children: [
-            OptionButton(
-              activeColor: widget.activeColor ?? HexColor("D2042D"),
-              label: widget.optionLabel1,
-              isActive: true,
+            InkWell(
+              onTap: () {
+                if (widget.activeOption == ActiveOption.option1) {
+                  widget.onTap(0);
+                } else {
+                  widget.onTap(1);
+                }
+              },
+              child: OptionButton(
+                activeColor: widget.activeColor ?? HexColor("D2042D"),
+                label: widget.optionLabel1,
+                isActive: widget.activeOption == ActiveOption.option1,
+              ),
             ),
             SizedBox(width: 05.w),
-            OptionButton(
-              activeColor: widget.activeColor ?? HexColor("D2042D"),
-              label: widget.optionLabel2,
-              isActive: false,
+            InkWell(
+              onTap: () {
+                if (widget.activeOption == ActiveOption.option2) {
+                  widget.onTap(0);
+                } else {
+                  widget.onTap(2);
+                }
+              },
+              child: OptionButton(
+                activeColor: widget.activeColor ?? HexColor("D2042D"),
+                label: widget.optionLabel2,
+                isActive: widget.activeOption == ActiveOption.option2,
+              ),
             ),
           ],
         ),
