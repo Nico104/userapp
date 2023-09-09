@@ -9,12 +9,14 @@ class CustomNicoScrollView extends StatefulWidget {
     required this.body,
     required this.onScroll,
     this.actions,
+    this.fillRemaining = false,
   });
 
   final Widget title;
   final Widget body;
   final VoidCallback onScroll;
   final List<Widget>? actions;
+  final bool fillRemaining;
 
   @override
   State<CustomNicoScrollView> createState() => _CustomNicoScrollViewState();
@@ -55,9 +57,14 @@ class _CustomNicoScrollViewState extends State<CustomNicoScrollView> {
               // background: FlutterLogo(),
             ),
           ),
-          SliverToBoxAdapter(
-            child: widget.body,
-          )
+          widget.fillRemaining
+              ? SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: widget.body,
+                )
+              : SliverToBoxAdapter(
+                  child: widget.body,
+                ),
         ],
       ),
     );

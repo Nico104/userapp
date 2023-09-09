@@ -15,8 +15,8 @@ import '../../pets/profile_details/models/m_pet_profile.dart';
 import '../../pets/profile_details/models/m_tag.dart';
 import '../utils/u_tag.dart';
 
-class AddFinmaTagPage extends StatefulWidget {
-  const AddFinmaTagPage({
+class AddFinmaTagHeader extends StatefulWidget {
+  const AddFinmaTagHeader({
     super.key,
     required this.petProfile,
   });
@@ -25,10 +25,10 @@ class AddFinmaTagPage extends StatefulWidget {
   final PetProfileDetails? petProfile;
 
   @override
-  State<AddFinmaTagPage> createState() => _AddFinmaTagPageState();
+  State<AddFinmaTagHeader> createState() => _AddFinmaTagHeaderState();
 }
 
-class _AddFinmaTagPageState extends State<AddFinmaTagPage> {
+class _AddFinmaTagHeaderState extends State<AddFinmaTagHeader> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _textEditingController = TextEditingController();
   int activationCodeLength = 16;
@@ -104,6 +104,91 @@ class _AddFinmaTagPageState extends State<AddFinmaTagPage> {
 
   @override
   Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Expanded(
+                child: CustomTextFormField(
+                  errorText: errorText,
+                  textEditingController: _textEditingController,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(
+                      // activationCodeLength + (activationCodeLength / 4).round() - 1,
+                      activationCodeLength,
+                    ),
+                    // CustomFourGroupedInputFormatter(),
+                  ],
+                  labelText: "Enter 16 Symbol Activation Code",
+                  validator: (val) {
+                    if (val != null) {
+                      if (val.length == 16) {
+                        return null;
+                      }
+                    }
+                    return "Activation Code is 16 Symbols long. lease put ALL of them in here";
+                  },
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TagScanner()),
+                  ).then((value) async {
+                    if (value != null) {
+                      //-Idcode last symbols in link
+                      String tagId = value.substring(value.length - 12);
+                      Tag tag = await getTag(tagId);
+                      _checkCode(tag.activationCode, true);
+                    }
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(48),
+                    color: Colors.blue,
+                  ),
+                  padding: const EdgeInsets.all(24),
+                  child: const Icon(
+                    CustomIcons.qr_code_9,
+                    size: 22,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        _textEditingController.text.length == 16
+            ? Padding(
+                padding: EdgeInsets.all(32),
+                child: Text(
+                  "Choose an already existing Finma Tag or simply add a new one",
+                  style: Theme.of(context).textTheme.labelSmall,
+                  textAlign: TextAlign.center,
+                ),
+              )
+            : Padding(
+                padding: const EdgeInsets.all(32),
+                child: CustomBigButton(
+                  label: "Add Finma Tag",
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      setState(() {
+                        errorText = null;
+                      });
+
+                      _checkCode(_textEditingController.text, false);
+                    }
+                  },
+                ),
+              )
+      ],
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text("addTagAppbarTitle".tr()),

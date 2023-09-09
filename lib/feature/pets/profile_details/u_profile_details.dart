@@ -458,7 +458,7 @@ Future<void> upsertImportantInformation(
   } else {
     // If the server did not return a 201 CREATED response,
     // then throw an exception.
-    throw Exception('Failed to upsert Description.');
+    throw Exception('Failed to upsert ImpInf.');
   }
 }
 
@@ -576,46 +576,46 @@ List<Description> deletableDescriptions(
   return list;
 }
 
-List<ImportantInformation> upsertableImportantInformations(
-    List<ImportantInformation> newList, List<ImportantInformation> oldList) {
-  List<ImportantInformation> list =
-      List<ImportantInformation>.empty(growable: true);
+// List<ImportantInformation> upsertableImportantInformations(
+//     List<ImportantInformation> newList, List<ImportantInformation> oldList) {
+//   List<ImportantInformation> list =
+//       List<ImportantInformation>.empty(growable: true);
 
-  for (ImportantInformation item in newList) {
-    bool addToList = true;
-    for (ImportantInformation oldItem in oldList) {
-      if (item.text == oldItem.text &&
-          item.language.languageKey == oldItem.language.languageKey) {
-        addToList = false;
-      }
-    }
-    if (addToList) {
-      list.add(item);
-    }
-  }
-  return list;
-}
+//   for (ImportantInformation item in newList) {
+//     bool addToList = true;
+//     for (ImportantInformation oldItem in oldList) {
+//       if (item.text == oldItem.text &&
+//           item.language.languageKey == oldItem.language.languageKey) {
+//         addToList = false;
+//       }
+//     }
+//     if (addToList) {
+//       list.add(item);
+//     }
+//   }
+//   return list;
+// }
 
-List<ImportantInformation> deletableImportantInformations(
-    List<ImportantInformation> newList, List<ImportantInformation> oldList) {
-  List<ImportantInformation> list =
-      List<ImportantInformation>.empty(growable: true);
+// List<ImportantInformation> deletableImportantInformations(
+//     List<ImportantInformation> newList, List<ImportantInformation> oldList) {
+//   List<ImportantInformation> list =
+//       List<ImportantInformation>.empty(growable: true);
 
-  for (ImportantInformation oldItem in oldList) {
-    bool addToList = true;
-    for (ImportantInformation item in newList) {
-      if (item.text == oldItem.text &&
-          item.language.languageKey == oldItem.language.languageKey) {
-        addToList = false;
-      }
-    }
-    if (addToList) {
-      list.add(oldItem);
-    }
-  }
+//   for (ImportantInformation oldItem in oldList) {
+//     bool addToList = true;
+//     for (ImportantInformation item in newList) {
+//       if (item.text == oldItem.text &&
+//           item.language.languageKey == oldItem.language.languageKey) {
+//         addToList = false;
+//       }
+//     }
+//     if (addToList) {
+//       list.add(oldItem);
+//     }
+//   }
 
-  return list;
-}
+//   return list;
+// }
 
 List<Tag> connectableTags(List<Tag> newList, List<Tag> oldList) {
   List<Tag> list = List<Tag>.empty(growable: true);
@@ -773,8 +773,8 @@ Future<List<HealthIssue>> getHealthIssues(int medicalInformationId) async {
   }
 }
 
-Future<HealthIssue> upsertHealthIssue(HealthIssue healthIssue) async {
-  Uri url = Uri.parse('$baseURL/pet/upsertHealthIssue');
+Future<HealthIssue> updateHealthIssue(HealthIssue healthIssue) async {
+  Uri url = Uri.parse('$baseURL/pet/updateHealthIssue');
   String? token = await getIdToken();
 
   final response = await http.post(
@@ -785,6 +785,37 @@ Future<HealthIssue> upsertHealthIssue(HealthIssue healthIssue) async {
       'Authorization': '$token',
     },
     body: jsonEncode(healthIssue.toJson()),
+  );
+
+  print(response.statusCode);
+
+  if (response.statusCode == 201) {
+    return HealthIssue.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to upsert HealthIssue.');
+  }
+}
+
+Future<HealthIssue> createHealthIssue({
+  required String healthIssueName,
+  required String healthIssueType,
+  required int medicalId,
+}) async {
+  Uri url = Uri.parse('$baseURL/pet/createHealthIssue');
+  String? token = await getIdToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': '$token',
+    },
+    body: json.encode({
+      "health_issue_name": healthIssueName,
+      "health_issue_type": healthIssueType,
+      "medical_information_id": medicalId,
+    }),
   );
 
   print(response.statusCode);
@@ -820,6 +851,31 @@ Future<HealthIssue> linkDocumentToHealthIssue(
     return HealthIssue.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to lint Document to HealthIssue.');
+  }
+}
+
+Future<HealthIssue> unlinkDocumentFromHealthIssue(int healthIssueId) async {
+  Uri url = Uri.parse('$baseURL/pet/unlinkDocumentFromHealthIssue');
+  String? token = await getIdToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': '$token',
+    },
+    body: json.encode({
+      "health_issue_id": healthIssueId,
+    }),
+  );
+
+  print(response.statusCode);
+
+  if (response.statusCode == 201) {
+    return HealthIssue.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to unlink Document from HealthIssue.');
   }
 }
 

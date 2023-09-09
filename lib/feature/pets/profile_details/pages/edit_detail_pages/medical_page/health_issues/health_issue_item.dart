@@ -6,17 +6,23 @@ import 'health_issue_update_box.dart';
 
 class HealthIssueItem extends StatelessWidget {
   const HealthIssueItem(
-      {super.key, required this.healthIssue, required this.petProfileId});
+      {super.key,
+      required this.healthIssue,
+      required this.petProfileId,
+      required this.refreshHealthIssues});
 
   final HealthIssue healthIssue;
   final int petProfileId;
+
+  final VoidCallback refreshHealthIssues;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         // print("i am a health issue");
-        Navigator.of(context).push(
+        Navigator.of(context)
+            .push(
           PageRouteBuilder(
             opaque: false,
             barrierDismissible: true,
@@ -28,7 +34,10 @@ class HealthIssueItem extends StatelessWidget {
               );
             },
           ),
-        );
+        )
+            .then((value) {
+          refreshHealthIssues.call();
+        });
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

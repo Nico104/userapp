@@ -27,12 +27,19 @@ class MedicalPage extends StatefulWidget {
 }
 
 class _MedicalPageState extends State<MedicalPage> {
-  late final Future<MedicalInformation> future;
+  late Future<MedicalInformation> future;
 
   @override
   void initState() {
     super.initState();
     future = getMedicalInformation(widget.petProfileDetails.profileId);
+  }
+
+  void _refreshMedicalInformation() {
+    setState(() {
+      future = getMedicalInformation(widget.petProfileDetails.profileId);
+    });
+    setState(() {});
   }
 
   @override
@@ -50,16 +57,6 @@ class _MedicalPageState extends State<MedicalPage> {
             return ListView(
               children: [
                 PaddingComponent(
-                  // child: OnelineSimpleInput(
-                  //   flex: 7,
-                  //   value: "",
-                  //   emptyValuePlaceholder: "George the Second",
-                  //   title: "Allergies",
-                  //   saveValue: (val) async {
-                  //     // widget.petProfileDetails.petChipId = val;
-                  //     // updatePetProfileCore(widget.petProfileDetails);
-                  //   },
-                  // ),
                   child: HealthIssueList(
                     list: medicalInformation.healthIssues
                         .where((element) =>
@@ -68,19 +65,15 @@ class _MedicalPageState extends State<MedicalPage> {
                         .toList(),
                     title: "Allergies",
                     petProfileId: widget.petProfileDetails.profileId,
+                    refreshHealthIssues: () {
+                      _refreshMedicalInformation();
+                    },
+                    newName: "New Allergy",
+                    newType: "allergies",
+                    medicalInformationId: snapshot.data!.medicalInformationId,
                   ),
                 ),
                 PaddingComponent(
-                  // child: OnelineSimpleInput(
-                  //   flex: 7,
-                  //   value: "",
-                  //   emptyValuePlaceholder: "George the Second",
-                  //   title: "Mediation",
-                  //   saveValue: (val) async {
-                  //     // widget.petProfileDetails.petChipId = val;
-                  //     // updatePetProfileCore(widget.petProfileDetails);
-                  //   },
-                  // ),
                   child: HealthIssueList(
                     list: medicalInformation.healthIssues
                         .where((element) =>
@@ -89,6 +82,12 @@ class _MedicalPageState extends State<MedicalPage> {
                         .toList(),
                     title: "Medication",
                     petProfileId: widget.petProfileDetails.profileId,
+                    refreshHealthIssues: () {
+                      _refreshMedicalInformation();
+                    },
+                    newName: "New Medication",
+                    newType: "medication",
+                    medicalInformationId: snapshot.data!.medicalInformationId,
                   ),
                 ),
                 PaddingComponent(

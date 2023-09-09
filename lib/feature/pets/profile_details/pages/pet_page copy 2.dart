@@ -32,9 +32,10 @@ import '../models/m_tag.dart';
 import '../pictures/upload_picture_dialog.dart';
 import 'custom_flexible_space_bar.dart';
 import 'documents_page.dart';
-import 'edit_detail_pages/basic_information_page.dart';
+import 'edit_detail_pages/basic_information/basic_information_page.dart';
 import 'edit_detail_pages/description_page/description_page.dart';
 import 'edit_detail_pages/document_page/document_page.dart';
+import 'edit_detail_pages/lost_page/lost_box.dart';
 import 'edit_detail_pages/medical_page/medical_page.dart';
 import 'edit_detail_pages/pictures_page/pictures_page.dart';
 import 'images_page.dart';
@@ -302,80 +303,106 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                           children: [
                             AspectRatio(
                               aspectRatio: 1,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  // color: Theme.of(context).primaryColor,
-                                  color: Colors.blue,
-                                  // border: Border.all(
-                                  //   width: 0,
-                                  //   color:
-                                  //       getCustomColors(context).hardBorder ??
-                                  //           Colors.transparent,
-                                  //   // strokeAlign: BorderSide.strokeAlignOutside,
-                                  // ),
-                                  borderRadius: BorderRadius.circular(18),
-                                  boxShadow: kElevationToShadow[6],
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(18),
-                                  child: Stack(
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.bottomLeft,
-                                        child: Image.asset(
-                                          "assets/details_illustartions/lost_dog_1_cut.png",
-                                          scale: 2.5,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .push(
+                                        PageRouteBuilder(
+                                          opaque: false,
+                                          barrierDismissible: true,
+                                          pageBuilder:
+                                              (BuildContext context, _, __) {
+                                            return LostBox(
+                                              petProfile: _petProfileDetails,
+                                            );
+                                          },
                                         ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.topRight,
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            GridSpacing(),
-                                            Padding(
-                                              padding: const EdgeInsets.all(16),
-                                              child: Text(
-                                                "Not Lost",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w800,
-                                                  fontSize: 24,
-                                                  color: Colors.white,
-                                                ),
-                                                textAlign: TextAlign.right,
-                                              ),
+                                      )
+                                      .then((value) {});
+                                },
+                                child: Hero(
+                                  tag: "lost${_petProfileDetails.profileId}",
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      // color: Theme.of(context).primaryColor,
+                                      color: Colors.blue,
+                                      // border: Border.all(
+                                      //   width: 0,
+                                      //   color:
+                                      //       getCustomColors(context).hardBorder ??
+                                      //           Colors.transparent,
+                                      //   // strokeAlign: BorderSide.strokeAlignOutside,
+                                      // ),
+                                      borderRadius: BorderRadius.circular(18),
+                                      boxShadow: kElevationToShadow[6],
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(18),
+                                      child: Stack(
+                                        children: [
+                                          Align(
+                                            alignment: Alignment.bottomLeft,
+                                            child: Image.asset(
+                                              "assets/details_illustartions/lost_dog_1_cut.png",
+                                              scale: 2.5,
                                             ),
-                                          ],
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment(1, -0.35),
-                                        child: Row(
-                                          children: [
-                                            Spacer(
-                                              flex: 3,
-                                            ),
-                                            Expanded(
-                                              flex: 7,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(16),
-                                                child: Text(
-                                                  "Mark Tabo as lost",
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w200,
-                                                    fontSize: 16,
-                                                    color: Colors.white
-                                                        .withOpacity(0.54),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.topRight,
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                GridSpacing(),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(16),
+                                                  child: Text(
+                                                    "Not Lost",
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      fontSize: 24,
+                                                      color: Colors.white,
+                                                    ),
+                                                    textAlign: TextAlign.right,
                                                   ),
-                                                  textAlign: TextAlign.right,
                                                 ),
-                                              ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment(1, -0.35),
+                                            child: Row(
+                                              children: [
+                                                Spacer(
+                                                  flex: 3,
+                                                ),
+                                                Expanded(
+                                                  flex: 7,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16),
+                                                    child: Text(
+                                                      "Mark Tabo as lost",
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w200,
+                                                        fontSize: 16,
+                                                        color: Colors.white
+                                                            .withOpacity(0.54),
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.right,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -507,87 +534,98 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                       Expanded(
                         child: Column(
                           children: [
-                            AspectRatio(
-                              aspectRatio: 1 / 2,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
-                                  border: Border.all(
-                                    width: 0.5,
-                                    color:
-                                        getCustomColors(context).hardBorder ??
-                                            Colors.transparent,
-                                    // strokeAlign: BorderSide.strokeAlignOutside,
+                            GestureDetector(
+                              onTap: () {
+                                navigatePerSlide(
+                                  context,
+                                  TagSelectionPage(
+                                    petProfile: _petProfileDetails,
                                   ),
-                                  borderRadius: BorderRadius.circular(18),
-                                  boxShadow: kElevationToShadow[3],
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(18),
-                                  child: Stack(
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.topRight,
-                                        child: Image.asset(
-                                          "assets/details_illustartions/gem_gold_1_cut.png",
-                                          scale: 8,
+                                );
+                              },
+                              child: AspectRatio(
+                                aspectRatio: 1 / 2,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    border: Border.all(
+                                      width: 0.5,
+                                      color:
+                                          getCustomColors(context).hardBorder ??
+                                              Colors.transparent,
+                                      // strokeAlign: BorderSide.strokeAlignOutside,
+                                    ),
+                                    borderRadius: BorderRadius.circular(18),
+                                    boxShadow: kElevationToShadow[3],
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(18),
+                                    child: Stack(
+                                      children: [
+                                        Align(
+                                          alignment: Alignment.topRight,
+                                          child: Image.asset(
+                                            "assets/details_illustartions/gem_gold_1_cut.png",
+                                            scale: 8,
+                                          ),
                                         ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.bottomLeft,
-                                        child: Image.asset(
-                                          "assets/details_illustartions/gem_jade_1_cut.png",
-                                          scale: 9,
+                                        Align(
+                                          alignment: Alignment.bottomLeft,
+                                          child: Image.asset(
+                                            "assets/details_illustartions/gem_jade_1_cut.png",
+                                            scale: 9,
+                                          ),
                                         ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment(-1, -0.3),
-                                        child: Image.asset(
-                                          "assets/details_illustartions/heart_pink_1_cut.png",
-                                          scale: 8,
+                                        Align(
+                                          alignment: Alignment(-1, -0.3),
+                                          child: Image.asset(
+                                            "assets/details_illustartions/heart_pink_1_cut.png",
+                                            scale: 8,
+                                          ),
                                         ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.bottomRight,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: Text(
-                                            "Finma Tags",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 24,
+                                        Align(
+                                          alignment: Alignment.bottomRight,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16),
+                                            child: Text(
+                                              "Finma Tags",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 24,
+                                              ),
+                                              textAlign: TextAlign.right,
                                             ),
-                                            textAlign: TextAlign.right,
                                           ),
                                         ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment(1, 0.6),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: Row(
-                                            children: [
-                                              Spacer(
-                                                flex: 5,
-                                              ),
-                                              Expanded(
-                                                flex: 5,
-                                                child: Text(
-                                                  "Assign Finma Tags so Tabo is safe and stylish",
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w200,
-                                                    fontSize: 16,
-                                                    color: Colors.black
-                                                        .withOpacity(0.28),
-                                                  ),
-                                                  textAlign: TextAlign.right,
+                                        Align(
+                                          alignment: Alignment(1, 0.6),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16),
+                                            child: Row(
+                                              children: [
+                                                Spacer(
+                                                  flex: 5,
                                                 ),
-                                              ),
-                                            ],
+                                                Expanded(
+                                                  flex: 5,
+                                                  child: Text(
+                                                    "Assign Finma Tags so Tabo is safe and stylish",
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w200,
+                                                      fontSize: 16,
+                                                      color: Colors.black
+                                                          .withOpacity(0.28),
+                                                    ),
+                                                    textAlign: TextAlign.right,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),

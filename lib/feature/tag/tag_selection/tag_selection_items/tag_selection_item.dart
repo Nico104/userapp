@@ -26,9 +26,24 @@ class TagSelectionItem extends StatefulWidget {
 }
 
 class _TagSelectionItemState extends State<TagSelectionItem> {
+  bool _isSelected = false;
+
   @override
   void initState() {
     super.initState();
+    _isSelected = widget.tagSelection == TagSelection.selected;
+  }
+
+  void _select() {
+    setState(() {
+      _isSelected = true;
+    });
+  }
+
+  void _unselect() {
+    setState(() {
+      _isSelected = false;
+    });
   }
 
   @override
@@ -38,11 +53,13 @@ class _TagSelectionItemState extends State<TagSelectionItem> {
       onTap: () {
         switch (widget.tagSelection) {
           case TagSelection.available:
+            _select();
             connectTagFromPetProfile(
                     widget.petProfileId, widget.tag.collarTagId)
                 .then((value) => widget.reloadUserTags());
             break;
           case TagSelection.selected:
+            _unselect();
             disconnectTagFromPetProfile(
                     widget.petProfileId, widget.tag.collarTagId)
                 .then((value) => widget.reloadUserTags());
@@ -57,6 +74,7 @@ class _TagSelectionItemState extends State<TagSelectionItem> {
             ).then((value) {
               if (value != null && value is bool) {
                 if (value == true) {
+                  _select();
                   connectTagFromPetProfile(
                           widget.petProfileId, widget.tag.collarTagId)
                       .then((value) => widget.reloadUserTags());
@@ -67,26 +85,43 @@ class _TagSelectionItemState extends State<TagSelectionItem> {
         }
       },
       child: Opacity(
-        opacity: widget.tagSelection == TagSelection.available ? 0.45 : 1,
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          margin: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              boxShadow: kElevationToShadow[2],
-              borderRadius: BorderRadius.circular(8)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TagSingle(
-                picturePath: widget.tag.picturePath,
-                collardimension: 95,
+        opacity: _isSelected ? 0.45 : 1,
+        child: Transform.scale(
+          scale: _isSelected ? 0.8 : 1,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Material(
+              elevation: 4,
+              borderRadius: BorderRadius.circular(8),
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: [
+                    const Spacer(
+                      flex: 1,
+                    ),
+                    TagSingle(
+                      picturePath: widget.tag.picturePath,
+                      collardimension: 115,
+                    ),
+                    const Spacer(
+                      flex: 5,
+                    ),
+                    Text(
+                      widget.tag.collarTagId,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const Spacer(
+                      flex: 3,
+                    ),
+                  ],
+                ),
               ),
-              const Spacer(),
-              Text(widget.tag.collarTagId),
-              const Spacer(flex: 8),
-              getSelectionIcon(widget.tagSelection),
-            ],
+            ),
           ),
         ),
       ),

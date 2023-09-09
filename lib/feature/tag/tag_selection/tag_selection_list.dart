@@ -32,7 +32,7 @@ class _TagSelectionListState extends State<TagSelectionList> {
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+      // physics: const NeverScrollableScrollPhysics(),
       itemCount: widget.userTags.length,
       itemBuilder: (BuildContext context, int index) {
         switch (getTagSelection(

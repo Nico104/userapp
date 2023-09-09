@@ -122,6 +122,23 @@ Future<List<Document>> getPetDocuments(int petProfileId) async {
   }
 }
 
+Future<Document> getDocument(int documentId) async {
+  Uri url = Uri.parse('$baseURL/pet/getDocument/$documentId');
+  String? token = await getIdToken();
+
+  final response = await http.get(url, headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': '$token',
+  });
+
+  if (response.statusCode == 200) {
+    return Document.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to load getDocument');
+  }
+}
+
 Future<List<PetPicture>> getPetPictures(int petProfileId) async {
   Uri url = Uri.parse('$baseURL/pet/getPetPictures/$petProfileId');
   String? token = await getIdToken();

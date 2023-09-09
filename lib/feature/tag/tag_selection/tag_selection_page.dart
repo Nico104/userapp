@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/tag/tag_selection/tag_selection_list.dart';
 import 'package:userapp/general/utils_general.dart';
+import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
 import '../../pets/profile_details/models/m_pet_profile.dart';
 import '../../pets/profile_details/models/m_tag.dart';
 import '../../pets/u_pets.dart';
 import '../utils/u_tag.dart';
-import 'add_tag_page.dart';
+import 'add_tag_header.dart';
 
 class TagSelectionPage extends StatefulWidget {
   const TagSelectionPage({
@@ -29,23 +30,93 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: CustomNicoScrollView(
+        // fillRemaining: true,
+        title: Text("Select Finma Tag"),
+        onScroll: () {},
+        body: Column(
+          // mainAxisSize: MainAxisSize.min,
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 16),
+            AddFinmaTagHeader(
+              petProfile: widget.petProfile,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              "Your Finma Tags",
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 8),
+            FutureBuilder<List<Tag>>(
+              future: getUserTags(),
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<Tag>> snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data != null && snapshot.data!.isEmpty) {
+                    // navigateReplacePerSlide(
+                    //     context,
+                    //     AddFinmaTagPage(
+                    //       petProfile: widget.petProfile,
+                    //     ));
+                    return SizedBox.shrink();
+                  }
+                  return TagSelectionList(
+                    userTags: snapshot.data!,
+                    petProfile: widget.petProfile,
+                    reloadUserTags: () {
+                      print("reload user tags");
+                      setState(() {});
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  print(snapshot);
+                  //Error
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.error_outline,
+                          color: Colors.red,
+                          size: 60,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: Text('Error: ${snapshot.error}'),
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  //Loading
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        SizedBox(
+                          width: 60,
+                          height: 60,
+                          child: CircularProgressIndicator(),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 16),
+                          child: Text('Awaiting result...'),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+    return Scaffold(
       appBar: AppBar(
         title: const Text("Select Finma Tag"),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     navigatePerSlide(
-      //       context,
-      //       AddFinmaTagPage(
-      //         petProfileId: widget.petProfile.profileId,
-      //       ),
-      //       callback: () {
-      //         setState(() {});
-      //       },
-      //     );
-      //   },
-      //   child: const Icon(Icons.add),
-      // ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -61,7 +132,7 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
             InkWell(
               onTap: () => navigateReplacePerSlide(
                   context,
-                  AddFinmaTagPage(
+                  AddFinmaTagHeader(
                     petProfile: widget.petProfile,
                   )),
               child: Container(

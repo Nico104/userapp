@@ -17,7 +17,7 @@ class PetProfileDetails {
   Gender petGender;
   String? petChipId;
   List<Description> petDescription;
-  List<ImportantInformation> petImportantInformation;
+  ImportantInformation petImportantInformation;
   // String? petOwnerName;
   // List<PhoneNumber> petOwnerTelephoneNumbers;
   // String? petOwnerEmail;
@@ -93,11 +93,13 @@ class PetProfileDetails {
                 .map((t) => Description.fromJson(t))
                 .toList()
             : [],
-        petImportantInformation = json['pet_important_information'] != null
-            ? (json['pet_important_information'] as List)
-                .map((t) => ImportantInformation.fromJson(t))
-                .toList()
-            : [],
+        // petImportantInformation = json['pet_important_information'] != null
+        //     ? (json['pet_important_information'] as List)
+        //         .map((t) => ImportantInformation.fromJson(t))
+        //         .toList()
+        //     : [],
+        petImportantInformation =
+            ImportantInformation.fromJson(json['pet_important_information']),
         petContacts = json['Contact'] != null
             ? (json['Contact'] as List).map((t) => Contact.fromJson(t)).toList()
             : [],

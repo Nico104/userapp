@@ -1,15 +1,20 @@
 import 'dart:ui';
 
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:userapp/feature/pets/profile_details/models/medical/m_health_issue.dart';
+import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 import 'package:userapp/general/utils_general.dart';
 
+import '../../../../../../../general/network_globals.dart';
 import '../../../../../u_pets.dart';
 import '../../../../c_one_line_simple_input.dart';
+import '../../../../u_profile_details.dart';
 import '../../../../widgets/custom_textformfield.dart';
 import 'health_issues_choose_document.dart';
 
@@ -70,16 +75,31 @@ class _HealthIssueUpdateBoxState extends State<HealthIssueUpdateBox> {
                       ),
                       child: Form(
                         key: _formKey,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
-                              "Edit",
-                              style: GoogleFonts.openSans(
-                                fontSize: 18,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500,
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Edit",
+                                  style: GoogleFonts.openSans(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    deleteHealthIssue(_healthIssue)
+                                        .then((value) {
+                                      Navigator.pop(context);
+                                    });
+                                  },
+                                  icon: const Icon(CustomIcons.delete),
+                                ),
+                              ],
                             ),
                             Flexible(
                               child: Padding(
@@ -90,6 +110,15 @@ class _HealthIssueUpdateBoxState extends State<HealthIssueUpdateBox> {
                                   showSuffix: false,
                                   onChanged: (val) {
                                     _healthIssue.healthIssueName = val;
+                                    EasyDebounce.debounce(
+                                      'healthIssueNameUpdate',
+                                      const Duration(milliseconds: 250),
+                                      () {
+                                        if (val.isNotEmpty) {
+                                          updateHealthIssue(_healthIssue);
+                                        }
+                                      },
+                                    );
                                   },
                                   validator: (p0) {
                                     if (p0 != null && p0.isNotEmpty) {
@@ -181,9 +210,96 @@ class _HealthIssueUpdateBoxState extends State<HealthIssueUpdateBox> {
                                       }
                                     },
                                   )
-                                : Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [],
+                                : FutureBuilder(
+                                    future: getDocument(
+                                        _healthIssue.linkedDocuemntId!),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  launchUrl(
+                                                    Uri.parse(s3BaseUrl +
+                                                        snapshot.data!
+                                                            .documentLink),
+                                                  );
+                                                },
+                                                child: Text(snapshot
+                                                    .data!.documentName),
+                                              ),
+                                              IconButton(
+                                                onPressed: () {
+                                                  BuildContext? dialogContext;
+                                                  showModalBottomSheet(
+                                                    context: context,
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    isDismissible: false,
+                                                    builder: (buildContext) {
+                                                      dialogContext =
+                                                          buildContext;
+                                                      return Container(
+                                                        margin: const EdgeInsets
+                                                                .fromLTRB(
+                                                            16, 16, 16, 32),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(16),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .primaryColor,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(28),
+                                                        ),
+                                                        child: const SizedBox(
+                                                          height: 60,
+                                                          width: 60,
+                                                          child:
+                                                              CircularProgressIndicator(),
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                  unlinkDocumentFromHealthIssue(
+                                                    _healthIssue.healthIssueId,
+                                                  ).then((value) {
+                                                    _healthIssue
+                                                            .linkedDocuemntId =
+                                                        null;
+                                                    Navigator.pop(
+                                                        dialogContext!);
+                                                    setState(() {});
+                                                  });
+                                                },
+                                                icon: const Icon(Icons.close),
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      } else if (snapshot.hasError) {
+                                        return Text(
+                                          "error loading version",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall,
+                                        );
+                                      } else {
+                                        //Loading
+                                        return Text(
+                                          "Loading Version",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall,
+                                        );
+                                      }
+                                    },
                                   ),
                           ],
                         ),
