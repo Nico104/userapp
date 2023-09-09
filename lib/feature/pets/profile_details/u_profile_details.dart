@@ -435,59 +435,59 @@ Future<void> deleteDescription(
   }
 }
 
-Future<void> upsertImportantInformation(
-    ImportantInformation importantInformation) async {
-  Uri url = Uri.parse('$baseURL/pet/upsertImportantInformation');
-  String? token = await getIdToken();
+// Future<void> upsertImportantInformation(
+//     ImportantInformation importantInformation) async {
+//   Uri url = Uri.parse('$baseURL/pet/upsertImportantInformation');
+//   String? token = await getIdToken();
 
-  final response = await http.post(
-    url,
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept': 'application/json',
-      'Authorization': '$token',
-    },
-    body: jsonEncode(importantInformation.toJson()),
-  );
+//   final response = await http.post(
+//     url,
+//     headers: {
+//       'Content-Type': 'application/json; charset=UTF-8',
+//       'Accept': 'application/json',
+//       'Authorization': '$token',
+//     },
+//     body: jsonEncode(importantInformation.toJson()),
+//   );
 
-  print(response.body);
+//   print(response.body);
 
-  if (response.statusCode == 201) {
-    // If the server did return a 201 CREATED response,
-    // then parse the JSON.
-  } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
-    throw Exception('Failed to upsert ImpInf.');
-  }
-}
+//   if (response.statusCode == 201) {
+//     // If the server did return a 201 CREATED response,
+//     // then parse the JSON.
+//   } else {
+//     // If the server did not return a 201 CREATED response,
+//     // then throw an exception.
+//     throw Exception('Failed to upsert ImpInf.');
+//   }
+// }
 
-Future<void> deleteImportantInformation(
-    ImportantInformation importantInformation) async {
-  Uri url = Uri.parse('$baseURL/pet/deleteImportantInformation');
-  String? token = await getIdToken();
+// Future<void> deleteImportantInformation(
+//     ImportantInformation importantInformation) async {
+//   Uri url = Uri.parse('$baseURL/pet/deleteImportantInformation');
+//   String? token = await getIdToken();
 
-  final response = await http.delete(
-    url,
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept': 'application/json',
-      'Authorization': '$token',
-    },
-    body: jsonEncode(importantInformation.toJson()),
-  );
+//   final response = await http.delete(
+//     url,
+//     headers: {
+//       'Content-Type': 'application/json; charset=UTF-8',
+//       'Accept': 'application/json',
+//       'Authorization': '$token',
+//     },
+//     body: jsonEncode(importantInformation.toJson()),
+//   );
 
-  print(response.statusCode);
+//   print(response.statusCode);
 
-  if (response.statusCode == 200) {
-    // If the server did return a 201 CREATED response,
-    // then parse the JSON.
-  } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
-    throw Exception('Failed to delete Description.');
-  }
-}
+//   if (response.statusCode == 200) {
+//     // If the server did return a 201 CREATED response,
+//     // then parse the JSON.
+//   } else {
+//     // If the server did not return a 201 CREATED response,
+//     // then throw an exception.
+//     throw Exception('Failed to delete Description.');
+//   }
+// }
 
 Future<void> connectTagFromPetProfile(int profileId, String collarTagId) async {
   Uri url = Uri.parse('$baseURL/pet/connectTagFromPetProfile');

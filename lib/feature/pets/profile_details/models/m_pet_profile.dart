@@ -17,7 +17,8 @@ class PetProfileDetails {
   Gender petGender;
   String? petChipId;
   List<Description> petDescription;
-  ImportantInformation petImportantInformation;
+  String petIsLostText;
+  // ImportantInformation petImportantInformation;
   // String? petOwnerName;
   // List<PhoneNumber> petOwnerTelephoneNumbers;
   // String? petOwnerEmail;
@@ -67,7 +68,7 @@ class PetProfileDetails {
     this.petContacts,
     this.petIsLost,
     this.petDescription,
-    this.petImportantInformation,
+    this.petIsLostText,
     // this.petOwnerTelephoneNumbers,
     this.petDocuments,
     this.petPictures,
@@ -98,8 +99,7 @@ class PetProfileDetails {
         //         .map((t) => ImportantInformation.fromJson(t))
         //         .toList()
         //     : [],
-        petImportantInformation =
-            ImportantInformation.fromJson(json['pet_important_information']),
+        petIsLostText = json['pet_is_lost_text'],
         petContacts = json['Contact'] != null
             ? (json['Contact'] as List).map((t) => Contact.fromJson(t)).toList()
             : [],
@@ -153,7 +153,8 @@ class PetProfileDetails {
         // 'pet_owner_living_place': petOwnerLivingPlace,
         // 'pet_owner_facebook': petOwnerFacebook,
         // 'pet_owner_instagram': petOwnerInstagram,
-        'pet_is_Lost': petIsLost
+        'pet_is_Lost': petIsLost,
+        'pet_is_lost_text': petIsLostText
       };
 }
 

@@ -70,7 +70,7 @@ class LostBox extends StatelessWidget {
                             Flexible(
                               child: CustomTextFormField(
                                 // focusNode: focusNode,
-                                // initialValue: _getCurrentDescription()?.text,
+                                initialValue: petProfile.petIsLostText,
                                 // textEditingController: _textEditingController,
                                 hintText: "Important Information",
                                 maxLines: null,
@@ -78,12 +78,8 @@ class LostBox extends StatelessWidget {
                                 keyboardType: TextInputType.multiline,
                                 autofocus: false,
                                 onChanged: (val) {
-                                  // description.text = val;
-                                  // _updateDescription();
-                                  // _updateDescription(val);
+                                  petProfile.petIsLostText = val;
                                 },
-                                // confirmDeleteDialog:
-                                //     const ConfirmDeleteDialog(label: "Description Translation"),
                                 showSuffix: false,
                               ),
                             ),
@@ -92,13 +88,7 @@ class LostBox extends StatelessWidget {
                               children: [
                                 //Todo remove Outlined Button and stay with Containers to keep it the same everywhere - Extract Cancel Widget and Save Widget
                                 OutlinedButton(
-                                  onPressed: () {
-                                    petProfile.petIsLost = true;
-                                    updatePetProfileCore(petProfile)
-                                        .then((value) {
-                                      Navigator.pop(context);
-                                    });
-                                  },
+                                  onPressed: () => Navigator.pop(context),
                                   style: OutlinedButton.styleFrom(
                                     padding: const EdgeInsets.fromLTRB(
                                         24, 12, 24, 12),
@@ -119,7 +109,13 @@ class LostBox extends StatelessWidget {
                                   ),
                                 ),
                                 OutlinedButton(
-                                  onPressed: () => Navigator.pop(context),
+                                  onPressed: () {
+                                    petProfile.petIsLost = true;
+                                    updatePetProfileCore(petProfile)
+                                        .then((value) {
+                                      Navigator.pop(context);
+                                    });
+                                  },
                                   style: OutlinedButton.styleFrom(
                                     padding: const EdgeInsets.fromLTRB(
                                         24, 12, 24, 12),
