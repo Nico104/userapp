@@ -10,6 +10,8 @@ class CustomNicoScrollView extends StatefulWidget {
     required this.onScroll,
     this.actions,
     this.fillRemaining = false,
+    this.background,
+    this.expandedHeight = 140,
   });
 
   final Widget title;
@@ -17,6 +19,8 @@ class CustomNicoScrollView extends StatefulWidget {
   final VoidCallback onScroll;
   final List<Widget>? actions;
   final bool fillRemaining;
+  final Widget? background;
+  final double expandedHeight;
 
   @override
   State<CustomNicoScrollView> createState() => _CustomNicoScrollViewState();
@@ -44,7 +48,7 @@ class _CustomNicoScrollViewState extends State<CustomNicoScrollView> {
           SliverAppBar(
             pinned: true,
             stretch: true,
-            expandedHeight: 140.0,
+            expandedHeight: widget.expandedHeight,
             actions: widget.actions,
             // automaticallyImplyLeading: false,
             flexibleSpace: MyFlexibleSpaceBar(
@@ -54,7 +58,7 @@ class _CustomNicoScrollViewState extends State<CustomNicoScrollView> {
               title: widget.title,
               // titlePadding: EdgeInsets.all(0), centerTitle: false,
               // centerTitle: true,
-              // background: FlutterLogo(),
+              background: widget.background,
             ),
           ),
           widget.fillRemaining

@@ -8,6 +8,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /// The part of a material design [AppBar] that expands, collapses, and
 /// stretches.
@@ -316,11 +317,13 @@ class _MyFlexibleSpaceBarState extends State<MyFlexibleSpaceBar> {
 
         final double opacity = settings.toolbarOpacity;
         if (opacity > 0.0) {
+          //Title Style
           TextStyle titleStyle = TextStyle(
             fontFamily: 'LibreBaskerville',
             fontSize: 20,
             color: Colors.black,
           );
+          // TextStyle titleStyle = GoogleFonts.openSans(fontSize: 20, color: Colors.bl);
           titleStyle = titleStyle.copyWith(
               color: titleStyle.color!.withOpacity(opacity));
           final bool? effectiveCenterTitle = _getEffectiveCenterTitle(theme);

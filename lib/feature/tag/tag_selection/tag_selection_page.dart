@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/tag/tag_selection/tag_selection_list.dart';
 import 'package:userapp/general/utils_general.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
@@ -32,7 +34,33 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
     return Scaffold(
       body: CustomNicoScrollView(
         // fillRemaining: true,
-        title: Text("Select Finma Tag"),
+        title: Text("Finma Tag"),
+        expandedHeight: 190,
+        background: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Select",
+                style: GoogleFonts.openSans(
+                    fontWeight: FontWeight.w200,
+                    fontSize: 18 * 1.5,
+                    color: Colors.black),
+              ),
+              SizedBox(height: 12),
+              Text(
+                "Finma Tags",
+                style: TextStyle(
+                  fontFamily: 'LibreBaskerville',
+                  fontSize: 20 * 1.5,
+                  color: Colors.white,
+                ),
+              )
+            ],
+          ),
+        ),
         onScroll: () {},
         body: Column(
           // mainAxisSize: MainAxisSize.min,
@@ -109,6 +137,7 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
                 }
               },
             ),
+            SizedBox(height: 75.h),
           ],
         ),
       ),

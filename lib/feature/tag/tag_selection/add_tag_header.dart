@@ -108,62 +108,83 @@ class _AddFinmaTagHeaderState extends State<AddFinmaTagHeader> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            children: [
-              Expanded(
-                child: CustomTextFormField(
-                  errorText: errorText,
-                  textEditingController: _textEditingController,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(
-                      // activationCodeLength + (activationCodeLength / 4).round() - 1,
-                      activationCodeLength,
-                    ),
-                    // CustomFourGroupedInputFormatter(),
-                  ],
-                  labelText: "Enter 16 Symbol Activation Code",
-                  validator: (val) {
-                    if (val != null) {
-                      if (val.length == 16) {
-                        return null;
+          padding: const EdgeInsets.fromLTRB(16, 32, 0, 16),
+          child: IntrinsicHeight(
+            child: Row(
+              children: [
+                Expanded(
+                  child: CustomTextFormField(
+                    borderRadius: 48,
+                    showSuffix: false,
+                    expands: true,
+                    errorText: errorText,
+                    textEditingController: _textEditingController,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(
+                        // activationCodeLength + (activationCodeLength / 4).round() - 1,
+                        activationCodeLength,
+                      ),
+                      // CustomFourGroupedInputFormatter(),
+                    ],
+                    labelText: "Enter 16 Symbol Activation Code",
+                    validator: (val) {
+                      if (val != null) {
+                        if (val.length == 16) {
+                          return null;
+                        }
                       }
-                    }
-                    return "Activation Code is 16 Symbols long. lease put ALL of them in here";
+                      return "Activation Code is 16 Symbols long. lease put ALL of them in here";
+                    },
+                  ),
+                ),
+                const SizedBox(width: 16),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const TagScanner()),
+                    ).then((value) async {
+                      if (value != null) {
+                        //-Idcode last symbols in link
+                        String tagId = value.substring(value.length - 12);
+                        Tag tag = await getTag(tagId);
+                        _checkCode(tag.activationCode, true);
+                      }
+                    });
                   },
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const TagScanner()),
-                  ).then((value) async {
-                    if (value != null) {
-                      //-Idcode last symbols in link
-                      String tagId = value.substring(value.length - 12);
-                      Tag tag = await getTag(tagId);
-                      _checkCode(tag.activationCode, true);
-                    }
-                  });
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(48),
-                    color: Colors.blue,
+                  child: Material(
+                    elevation: 2,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(48),
+                      topRight: Radius.circular(0),
+                      bottomLeft: Radius.circular(48),
+                      bottomRight: Radius.circular(0),
+                    ),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(48),
+                          topRight: Radius.circular(0),
+                          bottomLeft: Radius.circular(48),
+                          bottomRight: Radius.circular(0),
+                        ),
+                        color: Colors.blue,
+                      ),
+                      padding: const EdgeInsets.all(24),
+                      child: const Icon(
+                        CustomIcons.qr_code_9,
+                        size: 22,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
-                  padding: const EdgeInsets.all(24),
-                  child: const Icon(
-                    CustomIcons.qr_code_9,
-                    size: 22,
-                    color: Colors.white,
-                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-        _textEditingController.text.length == 16
+        _textEditingController.text.length != 16
             ? Padding(
                 padding: EdgeInsets.all(32),
                 child: Text(
