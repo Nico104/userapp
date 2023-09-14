@@ -1,3 +1,4 @@
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:userapp/feature/pets/profile_details/widgets/custom_textformfiel
 import 'package:userapp/feature/tag/tag_selection/scan_tag.dart';
 import 'package:userapp/feature/tag/tag_selection/tag_selection_page.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
+import 'package:userapp/general/utils_theme/custom_colors.dart';
 
 import '../../../general/utils_general.dart';
 import '../../pets/profile_details/models/m_pet_profile.dart';
@@ -108,7 +110,8 @@ class _AddFinmaTagHeaderState extends State<AddFinmaTagHeader> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(16, 32, 0, 16),
+          // padding: const EdgeInsets.fromLTRB(16, 32, 0, 16),
+          padding: const EdgeInsets.fromLTRB(32, 32, 0, 16),
           child: IntrinsicHeight(
             child: Row(
               children: [
@@ -134,6 +137,17 @@ class _AddFinmaTagHeaderState extends State<AddFinmaTagHeader> {
                         }
                       }
                       return "Activation Code is 16 Symbols long. lease put ALL of them in here";
+                    },
+                    onChanged: (p0) {
+                      EasyDebounce.debounce(
+                        'finmaTagActivationCode',
+                        const Duration(milliseconds: 250),
+                        () {
+                          if (mounted) {
+                            setState(() {});
+                          }
+                        },
+                      );
                     },
                   ),
                 ),
@@ -162,14 +176,14 @@ class _AddFinmaTagHeaderState extends State<AddFinmaTagHeader> {
                       bottomRight: Radius.circular(0),
                     ),
                     child: Container(
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(48),
                           topRight: Radius.circular(0),
                           bottomLeft: Radius.circular(48),
                           bottomRight: Radius.circular(0),
                         ),
-                        color: Colors.blue,
+                        color: getCustomColors(context).accent,
                       ),
                       padding: const EdgeInsets.all(24),
                       child: const Icon(

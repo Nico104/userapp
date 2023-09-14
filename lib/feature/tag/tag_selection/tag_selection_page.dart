@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/tag/tag_selection/tag_selection_list.dart';
+import 'package:userapp/general/utils_color/hex_color.dart';
 import 'package:userapp/general/utils_general.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
@@ -51,13 +52,13 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
               ),
               SizedBox(height: 12),
               Text(
-                "Finma Tags",
+                "Finma Tag",
                 style: TextStyle(
                   fontFamily: 'LibreBaskerville',
                   fontSize: 20 * 1.5,
                   color: Colors.white,
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -71,9 +72,15 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
               petProfile: widget.petProfile,
             ),
             const SizedBox(height: 16),
-            Text(
-              "Your Finma Tags",
-              style: Theme.of(context).textTheme.titleMedium,
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Your Finma Tags",
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
             ),
             const SizedBox(height: 8),
             FutureBuilder<List<Tag>>(

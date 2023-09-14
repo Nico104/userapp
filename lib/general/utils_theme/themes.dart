@@ -31,6 +31,7 @@ final ThemeData constLightTheme = ThemeData(
   ),
   //Used e.p. for SocialMediaContainer
   primaryColor: Colors.white,
+  // colorScheme: ColorScheme.fromSwatch().copyWith(secondary: HexColor("FF6B6B")),
   // primaryColorLight: ,
   primaryColorDark: HexColor("f3f3f3"),
   //Used for Scaffold BG e.p.
@@ -162,7 +163,7 @@ final ThemeData constLightTheme = ThemeData(
       ),
     ),
     CustomColors(
-      accent: HexColor("2196F3"),
+      accent: HexColor("ADDFAD"),
       accentLight: HexColor("a9a9ff"),
       accentDark: HexColor("90CAF9"),
       lightBorder: Colors.black.withOpacity(0.16),

@@ -1,5 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/tag/tag_selection/tag_selection_list.dart';
+import 'package:userapp/general/utils_color/hex_color.dart';
+import '../../../../general/network_globals.dart';
 import '../../../pets/profile_details/models/m_tag.dart';
 import '../../../pets/profile_details/u_profile_details.dart';
 import '../../tag_single.dart';
@@ -84,41 +90,92 @@ class _TagSelectionItemState extends State<TagSelectionItem> {
             break;
         }
       },
-      child: Opacity(
-        opacity: _isSelected ? 0.45 : 1,
-        child: Transform.scale(
-          scale: _isSelected ? 0.8 : 1,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Material(
-              elevation: 4,
-              borderRadius: BorderRadius.circular(8),
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  children: [
-                    const Spacer(
-                      flex: 1,
-                    ),
-                    TagSingle(
-                      picturePath: widget.tag.picturePath,
-                      collardimension: 115,
-                    ),
-                    const Spacer(
-                      flex: 5,
-                    ),
-                    Text(
-                      widget.tag.collarTagId,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const Spacer(
-                      flex: 3,
-                    ),
-                  ],
+      child: ClipRRect(
+        child: Opacity(
+          opacity: !_isSelected ? 0.8 : 1,
+          child: Transform.scale(
+            // scale: _isSelected ? 0.8 : 1,
+            scale: 1,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Material(
+                elevation: 0,
+                borderRadius: BorderRadius.circular(8),
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    // color: HexColor("F8C8DC").withOpacity(0.35),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      // const Spacer(
+                      //   flex: 1,
+                      // ),
+                      const SizedBox(height: 32),
+
+                      Stack(
+                        alignment: Alignment.topRight,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 4, right: 2),
+                            child: Opacity(
+                              opacity: 0.2,
+                              child: Image.network(
+                                s3BaseUrl + widget.tag.picturePath,
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.contain,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                            child: Image.network(
+                              s3BaseUrl + widget.tag.picturePath,
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Spacer(
+                        flex: 1,
+                      ),
+                      // const SizedBox(height: 16),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Finma 1 - Heart",
+                            style: GoogleFonts.openSans(
+                              fontSize: 18,
+                              color: Colors.black.withOpacity(0.6),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            widget.tag.collarTagId,
+                            style: GoogleFonts.openSans(
+                              fontSize: 15,
+                              color: Colors.black.withOpacity(0.5),
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ],
+                      ),
+                      // const SizedBox(height: 16),
+                      const Spacer(
+                        flex: 5,
+                      ),
+                      getSelectionIcon(widget.tagSelection),
+                      const SizedBox(height: 32),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -132,36 +189,38 @@ class _TagSelectionItemState extends State<TagSelectionItem> {
 Widget getSelectionIcon(TagSelection tagSelection) {
   switch (tagSelection) {
     case TagSelection.available:
-      return Container(
-        width: 30,
-        height: 30,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
-          border: Border.all(
-            color: Colors.grey.shade300,
-            width: 2,
-          ),
-          color: Colors.transparent,
-        ),
+      return Chip(
+        label: Text("Select"),
+        elevation: 2,
       );
     case TagSelection.selected:
-      return Container(
-        width: 30,
-        height: 30,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
-          border: Border.all(
-            color: const Color(0xFF228B22),
-            width: 3,
-          ),
-          color: const Color(0xFF50C878),
-        ),
-        child: const Icon(
-          Icons.check,
-          color: Color(0xFF228B22),
-        ),
+      return Chip(
+        label: Text("Active"),
+        elevation: 2,
+        backgroundColor: Colors.green,
       );
+    // return Container(
+    //   width: 30,
+    //   height: 30,
+    //   decoration: BoxDecoration(
+    //     borderRadius: BorderRadius.circular(4),
+    //     border: Border.all(
+    //       color: const Color(0xFF228B22),
+    //       width: 3,
+    //     ),
+    //     color: const Color(0xFF50C878),
+    //   ),
+    //   child: const Icon(
+    //     Icons.check,
+    //     color: Color(0xFF228B22),
+    //   ),
+    // );
     case TagSelection.inUseByOtherPet:
+      return Chip(
+        label: Text("In Use"),
+        elevation: 2,
+        backgroundColor: Colors.green,
+      );
       return Container(
         // width: 30,
         height: 30,

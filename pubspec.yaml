@@ -140,6 +140,7 @@ flutter:
     - assets/details_illustartions/gem_jade_1_cut.png
     - assets/details_illustartions/heart_pink_1_cut.png
     - assets/details_illustartions/dog_picture_tmp.png
+    - assets/details_illustartions/tag_papercut.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
