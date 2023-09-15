@@ -17,9 +17,12 @@ class TwoOptionButton extends StatefulWidget {
     required this.optionLabel1,
     required this.optionLabel2,
     required this.activeOption,
-    this.activeColor,
     required this.onTap,
     required this.title,
+    required this.activeColorOption1,
+    required this.inactiveColorOption1,
+    required this.activeColorOption2,
+    required this.inactiveColorOption2,
   });
 
   @override
@@ -28,7 +31,10 @@ class TwoOptionButton extends StatefulWidget {
   final String optionLabel1;
   final String optionLabel2;
   final ActiveOption activeOption;
-  final Color? activeColor;
+  final Color activeColorOption1;
+  final Color inactiveColorOption1;
+  final Color activeColorOption2;
+  final Color inactiveColorOption2;
   final Function(int) onTap;
   final String title;
 }
@@ -37,43 +43,62 @@ class TwoOptionButton extends StatefulWidget {
 class _TwoOptionButtonState extends State<TwoOptionButton> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        ComponentTitle(text: widget.title),
-        Row(
-          children: [
-            InkWell(
-              onTap: () {
-                if (widget.activeOption == ActiveOption.option1) {
-                  widget.onTap(0);
-                } else {
-                  widget.onTap(1);
-                }
-              },
-              child: OptionButton(
-                activeColor: widget.activeColor ?? HexColor("D2042D"),
-                label: widget.optionLabel1,
-                isActive: widget.activeOption == ActiveOption.option1,
-              ),
+        Flexible(
+          child: Text(
+            widget.title,
+            style: GoogleFonts.openSans(
+              fontSize: 17,
+              color: Colors.black.withOpacity(0.46),
+              fontWeight: FontWeight.w400,
             ),
-            SizedBox(width: 05.w),
-            InkWell(
-              onTap: () {
-                if (widget.activeOption == ActiveOption.option2) {
-                  widget.onTap(0);
-                } else {
-                  widget.onTap(2);
-                }
-              },
-              child: OptionButton(
-                activeColor: widget.activeColor ?? HexColor("D2042D"),
-                label: widget.optionLabel2,
-                isActive: widget.activeOption == ActiveOption.option2,
+          ),
+        ),
+        Flexible(
+          child: Row(
+            children: [
+              Spacer(
+                flex: 2,
               ),
-            ),
-          ],
+              Flexible(
+                child: InkWell(
+                  onTap: () {
+                    if (widget.activeOption == ActiveOption.option1) {
+                      widget.onTap(0);
+                    } else {
+                      widget.onTap(1);
+                    }
+                  },
+                  child: OptionButton(
+                    activeColor: widget.activeColorOption1,
+                    inactiveColor: widget.inactiveColorOption1,
+                    label: widget.optionLabel1,
+                    isActive: widget.activeOption == ActiveOption.option1,
+                  ),
+                ),
+              ),
+              SizedBox(width: 05.w),
+              Flexible(
+                child: InkWell(
+                  onTap: () {
+                    if (widget.activeOption == ActiveOption.option2) {
+                      widget.onTap(0);
+                    } else {
+                      widget.onTap(2);
+                    }
+                  },
+                  child: OptionButton(
+                    activeColor: widget.activeColorOption2,
+                    inactiveColor: widget.inactiveColorOption2,
+                    label: widget.optionLabel2,
+                    isActive: widget.activeOption == ActiveOption.option2,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -86,9 +111,11 @@ class OptionButton extends StatefulWidget {
     required this.activeColor,
     required this.label,
     required this.isActive,
+    required this.inactiveColor,
   });
 
   final Color activeColor;
+  final Color inactiveColor;
   final String label;
   final bool isActive;
 
@@ -99,37 +126,40 @@ class OptionButton extends StatefulWidget {
 class _OptionButtonState extends State<OptionButton> {
   final Duration _duration = const Duration(milliseconds: 125);
 
-  final double _height = 55;
-  late double _width;
+  // final double _height = 55;
+  // late double _width;
 
-  @override
-  void initState() {
-    super.initState();
-    _width = 35.w;
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _width = 35.w;
+  // }
 
   final double _borderRardius = 28;
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: widget.isActive ? 6 : 0,
+      elevation: widget.isActive ? 2 : 0,
       borderRadius: BorderRadius.circular(_borderRardius),
       child: AnimatedContainer(
-        height: _height,
-        width: _width,
+        // height: _height,
+        // width: _width,
         duration: _duration,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(_borderRardius),
-          color: widget.isActive
-              ? widget.activeColor
-              : Colors.black.withOpacity(0.06),
-        ),
+            borderRadius: BorderRadius.circular(_borderRardius),
+            color: widget.isActive ? widget.activeColor : Colors.transparent,
+            border: Border.all(
+              color:
+                  widget.isActive ? Colors.transparent : widget.inactiveColor,
+              width: 2,
+            )),
+        padding: EdgeInsets.all(4),
         child: Center(
           child: Text(
             widget.label,
             style: GoogleFonts.openSans(
-              fontSize: 22,
+              fontSize: 18,
               fontWeight: widget.isActive ? FontWeight.w500 : FontWeight.w400,
               color: widget.isActive
                   ? Colors.white.withOpacity(0.95)

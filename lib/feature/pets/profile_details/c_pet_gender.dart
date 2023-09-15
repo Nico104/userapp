@@ -33,22 +33,27 @@ class PetGenderComponent extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: () => handleButtonPress(Gender.male),
-              child: GenderButton(
-                isActive: gender == Gender.male,
-                label: "profileDetailsGenderButtonLabelMale".tr(),
-                activeColor: getCustomColors(context).genderButtonEnabledMale!,
+            Flexible(
+              child: GestureDetector(
+                onTap: () => handleButtonPress(Gender.male),
+                child: GenderButton(
+                  isActive: gender == Gender.male,
+                  label: "profileDetailsGenderButtonLabelMale".tr(),
+                  activeColor:
+                      getCustomColors(context).genderButtonEnabledMale!,
+                ),
               ),
             ),
             SizedBox(width: 06.w),
-            GestureDetector(
-              onTap: () => handleButtonPress(Gender.female),
-              child: GenderButton(
-                isActive: gender == Gender.female,
-                label: "profileDetailsGenderButtonLabelFemale".tr(),
-                activeColor:
-                    getCustomColors(context).genderButtonEnabledFemale!,
+            Flexible(
+              child: GestureDetector(
+                onTap: () => handleButtonPress(Gender.female),
+                child: GenderButton(
+                  isActive: gender == Gender.female,
+                  label: "profileDetailsGenderButtonLabelFemale".tr(),
+                  activeColor:
+                      getCustomColors(context).genderButtonEnabledFemale!,
+                ),
               ),
             ),
           ],
@@ -91,11 +96,11 @@ class _GenderButtonState extends State<GenderButton> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: widget.isActive ? 6 : 0,
+      elevation: widget.isActive ? 4 : 0,
       borderRadius: BorderRadius.circular(_borderRardius),
       child: AnimatedContainer(
-        height: _height,
-        width: _width,
+        // height: _height,
+        // width: _width,
         duration: _duration,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(_borderRardius),
@@ -103,11 +108,12 @@ class _GenderButtonState extends State<GenderButton> {
               ? widget.activeColor
               : Colors.black.withOpacity(0.06),
         ),
+        padding: EdgeInsets.all(12),
         child: Center(
           child: Text(
             widget.label,
             style: GoogleFonts.openSans(
-              fontSize: 22,
+              fontSize: 18,
               fontWeight: widget.isActive ? FontWeight.w500 : FontWeight.w400,
               color: widget.isActive
                   ? Colors.white.withOpacity(0.95)

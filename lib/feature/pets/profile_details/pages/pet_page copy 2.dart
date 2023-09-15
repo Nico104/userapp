@@ -5,6 +5,7 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/page_transofrm_horizontal.dart';
 import 'package:userapp/feature/pets/profile_details/fabs/upload_document_fab.dart';
@@ -210,6 +211,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
 
   Widget _getMoreButton() {
     return MoreButton(
+      child: Icon(Icons.more_horiz),
       moreOptions: [
         ListTile(
           leading: Icon(CustomIcons.delete),
@@ -276,7 +278,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
               stretch: true,
               expandedHeight: 140.0,
               actions: [
-                Icon(Icons.more_horiz),
+                _getMoreButton(),
                 SizedBox(width: 16),
               ],
               // automaticallyImplyLeading: false,
@@ -482,31 +484,79 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                           ),
                                           Align(
                                             alignment: Alignment.bottomLeft,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(16),
-                                              child: Transform.scale(
-                                                scale: 1.7,
-                                                alignment: Alignment.bottomLeft,
-                                                child: Theme(
-                                                  data: Theme.of(context)
-                                                      .copyWith(
-                                                          useMaterial3: true),
-                                                  child: Switch(
-                                                    value: true,
-                                                    activeColor:
-                                                        getCustomColors(context)
-                                                            .accentDark,
-                                                    inactiveTrackColor:
-                                                        getCustomColors(context)
-                                                            .lightBorder,
-                                                    onChanged: (bool value) {
-                                                      // setState(() {
-                                                      //   _value = value;
-                                                      // });
-                                                    },
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    SizedBox(width: 16),
+                                                    Text(
+                                                      "Hide",
+                                                      style:
+                                                          GoogleFonts.openSans(
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontSize: 20,
+                                                        color: Colors.black
+                                                            .withOpacity(0.54),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 6),
+                                                    // Spacer(),
+                                                    InkWell(
+                                                      onTap: () {
+                                                        print("Help");
+                                                      },
+                                                      child: Icon(
+                                                        Icons.help,
+                                                        size: 22,
+                                                        color: Colors.black
+                                                            .withOpacity(0.54),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: FractionallySizedBox(
+                                                    widthFactor: 0.65,
+                                                    alignment:
+                                                        Alignment.bottomLeft,
+                                                    child: FittedBox(
+                                                      child: Theme(
+                                                        data: Theme.of(context)
+                                                            .copyWith(
+                                                          useMaterial3: true,
+                                                        ),
+                                                        child: SizedBox(
+                                                          child: Switch(
+                                                            value: false,
+                                                            activeColor:
+                                                                getCustomColors(
+                                                                        context)
+                                                                    .accentDark,
+                                                            inactiveTrackColor:
+                                                                getCustomColors(
+                                                                        context)
+                                                                    .lightBorder,
+                                                            onChanged:
+                                                                (bool value) {
+                                                              // setState(() {
+                                                              //   _value = value;
+                                                              // });
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
+                                              ],
                                             ),
                                           ),
                                         ],

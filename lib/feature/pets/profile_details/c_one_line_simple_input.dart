@@ -36,7 +36,7 @@ class OnelineSimpleInput extends StatelessWidget {
                 onChanged: (val) {
                   EasyDebounce.debounce(
                     '${title}debounce',
-                    const Duration(milliseconds: 500),
+                    const Duration(milliseconds: 250),
                     () {
                       saveValue.call(val);
                     },

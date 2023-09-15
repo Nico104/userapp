@@ -7,6 +7,7 @@ import '../../../../../../../general/utils_theme/custom_colors.dart';
 import '../../../../../../../general/utils_theme/custom_text_styles.dart';
 import '../../../../fabs/upload_document_fab.dart';
 import '../../../../widgets/custom_textformfield.dart';
+import '../document_page.dart';
 
 //Consider Dopng a new page insteat of a dialog, espeally for uploading waiting times
 class DocumentUploadPage extends StatefulWidget {

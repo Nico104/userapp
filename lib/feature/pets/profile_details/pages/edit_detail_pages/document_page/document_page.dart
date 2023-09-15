@@ -1,14 +1,22 @@
+import 'dart:typed_data';
+
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/document_page/document_item/documents_list_item.dart';
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/document_page/upload_document/upload_document_button.dart';
+import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/document_page/upload_document/upload_document_page.dart';
+import 'package:userapp/feature/pets/profile_details/widgets/shy_upload_button.dart';
 
+import '../../../../../../general/utils_general.dart';
 import '../../../../../../general/widgets/custom_scroll_view.dart';
 import '../../../../u_pets.dart';
 import '../../../models/m_document.dart';
+import '../../../pictures/upload_picture_dialog.dart';
+import '../../../u_profile_details.dart';
 import '../../custom_flexible_space_bar.dart';
 
 class DocumentPage extends StatefulWidget {
@@ -87,13 +95,59 @@ class _DocumentPageState extends State<DocumentPage> {
           style: Theme.of(context).textTheme.labelLarge,
         ),
         const SizedBox(height: 32),
-        UploadDocumentButton(
-          showUploadButton: _showUploadButton,
+        // UploadDocumentButton(
+        //   showUploadButton: _showUploadButton,
+        //   profileId: widget.petProfileId,
+        //   reloadDocuments: reloadDocuments,
+        // ),
+        ShyUploadButton(
           profileId: widget.petProfileId,
-          reloadDocuments: reloadDocuments,
+          showUploadButton: _showUploadButton,
+          label: "Upload Document",
+          onTap: () => _uploadDocument(),
         ),
       ],
     );
+  }
+
+  void _uploadDocument() {
+    pickDocument().then((value) => {
+          if (value != null)
+            {
+              navigatePerSlide(
+                context,
+                DocumentUploadPage(
+                  pickedDocument: value,
+                  addDocument: (value, filename, contentType) async {
+                    // Loading Dialog Thingy
+                    BuildContext? dialogContext;
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        dialogContext = context;
+                        return const UploadPictureDialog();
+                      },
+                    );
+                    await uploadDocuments(
+                      widget.petProfileId,
+                      value,
+                      filename,
+                      contentType,
+                      () async {
+                        // widget.reloadFuture.call();
+                        //hekps against 403 from server
+                        await Future.delayed(const Duration(milliseconds: 2000))
+                            .then((value) => reloadDocuments());
+                        //Close Loading Dialog Thingy
+                        Navigator.pop(dialogContext!);
+                      },
+                    );
+                  },
+                ),
+              )
+            }
+        });
   }
 
   @override
@@ -134,13 +188,44 @@ class _DocumentPageState extends State<DocumentPage> {
             ),
           ),
           //UploadButton
-          UploadDocumentButton(
-            showUploadButton: _showUploadButton,
+          ShyUploadButton(
             profileId: widget.petProfileId,
-            reloadDocuments: reloadDocuments,
+            showUploadButton: _showUploadButton,
+            label: "Upload Document",
+            onTap: () => _uploadDocument(),
           ),
         ],
       ),
     );
   }
+}
+
+Future<PickedDocument?> pickDocument() async {
+  FilePickerResult? result = await FilePicker.platform.pickFiles(
+    withData: true,
+    type: FileType.custom,
+    // allowedExtensions: ["jpg", "jpeg", 'png', 'pdf', 'doc', 'mp3', 'm4a'],
+    allowedExtensions: ["jpg", "jpeg", 'png', 'pdf'],
+    allowMultiple: false,
+  );
+
+  print("Result: " + result.toString());
+
+  if (result != null && result.files.isNotEmpty) {
+    String fileExtension = result.files.first.extension!;
+    Uint8List fileBytes = result.files.first.bytes!;
+
+    String fileName = result.files.first.name.split('.').first;
+    print("File Name: " + fileName);
+    return PickedDocument(fileExtension, fileBytes, fileName);
+  }
+  return null;
+}
+
+class PickedDocument {
+  final String fileExtension;
+  final String fileName;
+  final Uint8List fileBytes;
+
+  PickedDocument(this.fileExtension, this.fileBytes, this.fileName);
 }

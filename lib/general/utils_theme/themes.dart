@@ -163,9 +163,11 @@ final ThemeData constLightTheme = ThemeData(
       ),
     ),
     CustomColors(
-      accent: HexColor("ADDFAD"),
+      // accent: HexColor("#2b4afc"),
+      accent: HexColor("#1e202d"),
       accentLight: HexColor("a9a9ff"),
-      accentDark: HexColor("90CAF9"),
+      // accentDark: HexColor("2642e2"),
+      accentDark: HexColor("1c1f2a"),
       lightBorder: Colors.black.withOpacity(0.16),
       hardBorder: Colors.black,
       shadow: Colors.black.withOpacity(0.16),
