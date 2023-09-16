@@ -75,7 +75,7 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
           style: TextStyle(
             fontFamily: 'Promt',
             fontWeight: FontWeight.w300,
-            fontSize: 24,
+            fontSize: 22,
             color: Colors.black.withOpacity(0.7),
           ),
         ),
@@ -85,7 +85,7 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
           style: TextStyle(
             fontFamily: 'Promt',
             fontWeight: FontWeight.w600,
-            fontSize: 24,
+            fontSize: 22,
             color: Colors.black.withOpacity(1),
           ),
         ),

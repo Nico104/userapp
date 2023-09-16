@@ -15,7 +15,7 @@ import '../../../../u_pets.dart';
 import '../../../models/m_pet_picture.dart';
 import '../../../pictures/upload_picture_dialog.dart';
 import '../../../u_profile_details.dart';
-import '../../../widgets/shy_upload_button.dart';
+import '../../../widgets/shy_button.dart';
 
 class PicturesPage extends StatefulWidget {
   const PicturesPage(
@@ -32,15 +32,12 @@ class PicturesPage extends StatefulWidget {
 
 class _PicturesPageState extends State<PicturesPage> {
   late List<PetPicture> pictures;
-  final ScrollController _scrollController = ScrollController();
+  bool _showShyButton = true;
 
   @override
   void initState() {
     super.initState();
     pictures = widget.initialPetPictures;
-    _scrollController.addListener(() {
-      _handleNavBarShown();
-    });
   }
 
   //TODO getDocuments
@@ -54,25 +51,6 @@ class _PicturesPageState extends State<PicturesPage> {
     super.didUpdateWidget(oldWidget);
     //Needed since docuemnts dont get accessed directly so updating it has effect
     pictures = widget.initialPetPictures;
-  }
-
-  bool _showUploadButton = true;
-
-  void _handleNavBarShown() {
-    //hideBar
-    setState(() {
-      _showUploadButton = false;
-    });
-    EasyDebounce.debounce(
-      'handleUploadPictureBarShown',
-      const Duration(milliseconds: 250),
-      () {
-        //shwoNavbar
-        setState(() {
-          _showUploadButton = true;
-        });
-      },
-    );
   }
 
   Widget getNoPicturesWidget() {
@@ -92,11 +70,14 @@ class _PicturesPageState extends State<PicturesPage> {
           style: Theme.of(context).textTheme.labelLarge,
         ),
         const SizedBox(height: 32),
-        ShyUploadButton(
-          profileId: widget.petProfileId,
+        ShyButton(
           label: "Upload Picture",
-          showUploadButton: _showUploadButton,
+          showUploadButton: _showShyButton,
           onTap: () => _uploadPicture(),
+          icon: Icon(
+            Icons.file_upload_rounded,
+            color: Colors.white,
+          ),
         ),
       ],
     );
@@ -108,7 +89,14 @@ class _PicturesPageState extends State<PicturesPage> {
       body: Stack(
         children: [
           CustomNicoScrollView(
-            onScroll: _handleNavBarShown,
+            // onScroll: _handleNavBarShown,
+            onScroll: () => handleShyButtonShown(
+              setShowShyButton: (p0) {
+                setState(() {
+                  _showShyButton = p0;
+                });
+              },
+            ),
             title: Text("Tabos Pictures"),
             body: Column(
               children: [
@@ -135,11 +123,14 @@ class _PicturesPageState extends State<PicturesPage> {
               ],
             ),
           ),
-          ShyUploadButton(
-            profileId: widget.petProfileId,
+          ShyButton(
             label: "Upload Picture",
-            showUploadButton: _showUploadButton,
+            showUploadButton: _showShyButton,
             onTap: () => _uploadPicture(),
+            icon: Icon(
+              Icons.file_upload_rounded,
+              color: Colors.white,
+            ),
           ),
         ],
       ),

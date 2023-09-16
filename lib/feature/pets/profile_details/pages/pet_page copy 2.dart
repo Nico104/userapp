@@ -410,8 +410,24 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                               ),
                             ),
                             const GridSpacing(),
-                            OpenContainer(
-                              closedBuilder: (context, action) => Transform(
+                            GestureDetector(
+                              onTap: () {
+                                navigatePerSlide(
+                                  context,
+                                  ContactPage(
+                                    // petProfileDetails: widget.getProfileDetails(),
+                                    petProfileDetails: widget.petProfileDetails,
+                                    showBottomNavBar: (show) {
+                                      // if (mounted && show != _showBottomNavBar) {
+                                      //   setState(() {
+                                      //     _showBottomNavBar = show;
+                                      //   });
+                                      // }
+                                    },
+                                  ),
+                                );
+                              },
+                              child: Transform(
                                 alignment: FractionalOffset.center,
                                 transform: perspective.scaled(1.0, 1.0, 1.0)
                                   ..rotateX(_tiltAngle)
@@ -564,17 +580,6 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                     ),
                                   ),
                                 ),
-                              ),
-                              openBuilder: (context, action) => ContactPage(
-                                // petProfileDetails: widget.getProfileDetails(),
-                                petProfileDetails: widget.petProfileDetails,
-                                showBottomNavBar: (show) {
-                                  // if (mounted && show != _showBottomNavBar) {
-                                  //   setState(() {
-                                  //     _showBottomNavBar = show;
-                                  //   });
-                                  // }
-                                },
                               ),
                             ),
                           ],
@@ -821,8 +826,20 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                     children: [
                       const GridSpacing(),
                       Expanded(
-                        child: OpenContainer(
-                          closedBuilder: (context, action) => Transform(
+                        child: GestureDetector(
+                          onTap: () {
+                            navigatePerSlide(
+                              context,
+                              BasicInformationPage(
+                                petProfileDetails: _petProfileDetails,
+                                setGender: (value) {
+                                  _petProfileDetails.petGender = value;
+                                  updatePetProfileCore(_petProfileDetails);
+                                },
+                              ),
+                            );
+                          },
+                          child: Transform(
                             alignment: FractionalOffset.center,
                             transform: perspective.scaled(1.0, 1.0, 1.0)
                               ..rotateX(_tiltAngle)
@@ -879,14 +896,6 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                               ),
                             ),
                           ),
-                          openBuilder: (context, action) =>
-                              BasicInformationPage(
-                            petProfileDetails: _petProfileDetails,
-                            setGender: (value) {
-                              _petProfileDetails.petGender = value;
-                              updatePetProfileCore(_petProfileDetails);
-                            },
-                          ),
                         ),
                       ),
                       const GridSpacing(),
@@ -900,8 +909,18 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                       Expanded(
                         child: Column(
                           children: [
-                            OpenContainer(
-                              closedBuilder: (context, action) => AspectRatio(
+                            GestureDetector(
+                              onTap: () {
+                                navigatePerSlide(
+                                  context,
+                                  DescriptionPage(
+                                    descriptions:
+                                        _petProfileDetails.petDescription,
+                                    petProfileId: _petProfileDetails.profileId,
+                                  ),
+                                );
+                              },
+                              child: AspectRatio(
                                 aspectRatio: 1,
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -956,14 +975,20 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                   ),
                                 ),
                               ),
-                              openBuilder: (context, action) => DescriptionPage(
-                                descriptions: _petProfileDetails.petDescription,
-                                petProfileId: _petProfileDetails.profileId,
-                              ),
                             ),
                             const GridSpacing(),
-                            OpenContainer(
-                              closedBuilder: (context, action) => AspectRatio(
+                            GestureDetector(
+                              onTap: () {
+                                navigatePerSlide(
+                                  context,
+                                  DocumentPage(
+                                    initialDocuments:
+                                        _petProfileDetails.petDocuments,
+                                    petProfileId: _petProfileDetails.profileId,
+                                  ),
+                                );
+                              },
+                              child: AspectRatio(
                                 aspectRatio: 1,
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -1003,11 +1028,6 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                     ),
                                   ),
                                 ),
-                              ),
-                              openBuilder: (context, action) => DocumentPage(
-                                initialDocuments:
-                                    _petProfileDetails.petDocuments,
-                                petProfileId: _petProfileDetails.profileId,
                               ),
                             ),
                           ],

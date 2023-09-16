@@ -9,7 +9,7 @@ import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/document_page/document_item/documents_list_item.dart';
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/document_page/upload_document/upload_document_button.dart';
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/document_page/upload_document/upload_document_page.dart';
-import 'package:userapp/feature/pets/profile_details/widgets/shy_upload_button.dart';
+import 'package:userapp/feature/pets/profile_details/widgets/shy_button.dart';
 
 import '../../../../../../general/utils_general.dart';
 import '../../../../../../general/widgets/custom_scroll_view.dart';
@@ -35,15 +35,12 @@ class DocumentPage extends StatefulWidget {
 
 class _DocumentPageState extends State<DocumentPage> {
   late List<Document> documents;
-  final ScrollController _scrollController = ScrollController();
+  bool _showShyButton = true;
 
   @override
   void initState() {
     super.initState();
     documents = widget.initialDocuments;
-    _scrollController.addListener(() {
-      _handleNavBarShown();
-    });
   }
 
   //TODO getDocuments
@@ -57,25 +54,6 @@ class _DocumentPageState extends State<DocumentPage> {
     super.didUpdateWidget(oldWidget);
     //Needed since docuemnts dont get accessed directly so updating it has effect
     documents = widget.initialDocuments;
-  }
-
-  bool _showUploadButton = true;
-
-  void _handleNavBarShown() {
-    //hideBar
-    setState(() {
-      _showUploadButton = false;
-    });
-    EasyDebounce.debounce(
-      'handleUploadDocuemntBarShown',
-      const Duration(milliseconds: 250),
-      () {
-        //shwoNavbar
-        setState(() {
-          _showUploadButton = true;
-        });
-      },
-    );
   }
 
   Widget getNoDocumetsWidget() {
@@ -100,11 +78,14 @@ class _DocumentPageState extends State<DocumentPage> {
         //   profileId: widget.petProfileId,
         //   reloadDocuments: reloadDocuments,
         // ),
-        ShyUploadButton(
-          profileId: widget.petProfileId,
-          showUploadButton: _showUploadButton,
+        ShyButton(
+          showUploadButton: _showShyButton,
           label: "Upload Document",
           onTap: () => _uploadDocument(),
+          icon: Icon(
+            Icons.file_upload_rounded,
+            color: Colors.white,
+          ),
         ),
       ],
     );
@@ -159,7 +140,14 @@ class _DocumentPageState extends State<DocumentPage> {
       body: Stack(
         children: [
           CustomNicoScrollView(
-            onScroll: _handleNavBarShown,
+            // onScroll: _handleNavBarShown,
+            onScroll: () => handleShyButtonShown(
+              setShowShyButton: (p0) {
+                setState(() {
+                  _showShyButton = p0;
+                });
+              },
+            ),
             title: Text("Tabos Docuemnts"),
             body: Column(
               children: [
@@ -188,11 +176,14 @@ class _DocumentPageState extends State<DocumentPage> {
             ),
           ),
           //UploadButton
-          ShyUploadButton(
-            profileId: widget.petProfileId,
-            showUploadButton: _showUploadButton,
+          ShyButton(
+            showUploadButton: _showShyButton,
             label: "Upload Document",
             onTap: () => _uploadDocument(),
+            icon: Icon(
+              Icons.file_upload_rounded,
+              color: Colors.white,
+            ),
           ),
         ],
       ),

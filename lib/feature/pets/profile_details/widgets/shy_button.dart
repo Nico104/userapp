@@ -1,29 +1,37 @@
-import 'dart:typed_data';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
 
-class ShyUploadButton extends StatelessWidget {
-  const ShyUploadButton({
+class ShyButton extends StatelessWidget {
+  const ShyButton({
     super.key,
-    required this.profileId,
     required this.showUploadButton,
     required this.onTap,
     required this.label,
+    required this.icon,
+    this.bgColor,
+    this.fontColor,
+    this.iconBgColor,
   });
 
   final bool showUploadButton;
-  final int profileId;
   final void Function() onTap;
   final String label;
 
   final double _borderRadius = 32;
   final double _height = 65;
 
+  final Icon icon;
+
+  final Color? bgColor;
+  final Color? iconBgColor;
+  final Color? fontColor;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.only(bottom: 18),
       child: AnimatedAlign(
         alignment: showUploadButton
             ? const Alignment(0.0, 1.0)
@@ -44,7 +52,7 @@ class ShyUploadButton extends StatelessWidget {
                   borderRadius:
                       BorderRadius.all(Radius.circular(_borderRadius)),
                   // color: Theme.of(context).primaryColor.withOpacity(1),
-                  color: getCustomColors(context).accent,
+                  color: bgColor ?? getCustomColors(context).accent,
                 ),
                 child: IntrinsicHeight(
                   child: Row(
@@ -58,7 +66,7 @@ class ShyUploadButton extends StatelessWidget {
                           style: GoogleFonts.openSans(
                             fontWeight: FontWeight.w400,
                             fontSize: 16,
-                            color: Colors.white,
+                            color: fontColor ?? Colors.white,
                           ),
                         ),
                       ),
@@ -70,14 +78,12 @@ class ShyUploadButton extends StatelessWidget {
                             borderRadius: BorderRadius.all(
                                 Radius.circular(_borderRadius)),
                             // color: Theme.of(context).primaryColor.withOpacity(1),
-                            color: getCustomColors(context).accentDark,
+                            color: iconBgColor ??
+                                getCustomColors(context).accentDark,
                           ),
                           padding: EdgeInsets.all(8),
                           child: Center(
-                            child: Icon(
-                              Icons.file_upload_rounded,
-                              color: Colors.white,
-                            ),
+                            child: icon,
                           ),
                         ),
                       ),
@@ -91,4 +97,23 @@ class ShyUploadButton extends StatelessWidget {
       ),
     );
   }
+}
+
+void handleShyButtonShown({required Function(bool) setShowShyButton}) {
+  //hideBar
+  // setState(() {
+  //   _showUploadButton = false;
+  // });
+  setShowShyButton(false);
+  EasyDebounce.debounce(
+    'handleShyButton',
+    const Duration(milliseconds: 200),
+    () {
+      //shwoNavbar
+      // setState(() {
+      //   _showUploadButton = true;
+      // });
+      setShowShyButton(true);
+    },
+  );
 }

@@ -44,6 +44,7 @@ class HealthIssueList extends StatelessWidget {
           ),
         ),
         ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: list.length + 1,
           shrinkWrap: true,
           itemBuilder: (context, index) {

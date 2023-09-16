@@ -30,46 +30,8 @@ class TagSelectionList extends StatefulWidget {
 class _TagSelectionListState extends State<TagSelectionList> {
   @override
   Widget build(BuildContext context) {
-    // return GridView.builder(
-    //   itemCount: widget.userTags.length,
-    //   shrinkWrap: true,
-    //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    //     crossAxisCount: 2,
-    //     // crossAxisCount: 1,
-    //     childAspectRatio: 3 / 5,
-    //   ),
-    //   physics: NeverScrollableScrollPhysics(),
-    //   itemBuilder: (BuildContext context, int index) {
-    //     switch (getTagSelection(
-    //       widget.userTags.elementAt(index),
-    //       widget.petProfile.profileId,
-    //     )) {
-    //       case TagSelection.available:
-    //         return TagSelectionItem(
-    //           tag: widget.userTags.elementAt(index),
-    //           tagSelection: getTagSelection(widget.userTags.elementAt(index),
-    //               widget.petProfile.profileId),
-    //           petProfileId: widget.petProfile.profileId,
-    //           reloadUserTags: widget.reloadUserTags,
-    //         );
-    //       case TagSelection.selected:
-    //         return TagSelectionItem(
-    //           tag: widget.userTags.elementAt(index),
-    //           tagSelection: getTagSelection(widget.userTags.elementAt(index),
-    //               widget.petProfile.profileId),
-    //           petProfileId: widget.petProfile.profileId,
-    //           reloadUserTags: widget.reloadUserTags,
-    //         );
-    //       case TagSelection.inUseByOtherPet:
-    //         return TagSelectionItemInUseByOtherPet(
-    //           tag: widget.userTags.elementAt(index),
-    //           petProfile: widget.petProfile,
-    //           reloadUserTags: widget.reloadUserTags,
-    //         );
-    //     }
-    //   },
-    // );
     return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       // physics: const NeverScrollableScrollPhysics(),
       itemCount: widget.userTags.length,

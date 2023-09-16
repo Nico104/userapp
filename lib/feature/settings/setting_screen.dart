@@ -203,7 +203,7 @@ class _SettingsState extends State<Settings> {
                         onTap: () {
                           navigatePerSlide(
                             context,
-                            const ComingSoonPage(title: "Contact Us"),
+                            const ContactUs(),
                           );
                         },
                       ),
