@@ -10,6 +10,7 @@ import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/page_transofrm_horizontal.dart';
 import 'package:userapp/feature/pets/profile_details/fabs/upload_document_fab.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
+import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/lost_page/lost_page.dart';
 import 'package:userapp/feature/pets/profile_details/pages/profile_info_page.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -314,9 +315,12 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                           barrierDismissible: true,
                                           pageBuilder:
                                               (BuildContext context, _, __) {
-                                            return LostBox(
-                                              petProfile: _petProfileDetails,
-                                            );
+                                            // return LostBox(
+                                            //   petProfile: _petProfileDetails,
+                                            // );
+                                            return LostPage(
+                                                petProfileDetails:
+                                                    _petProfileDetails);
                                           },
                                         ),
                                       )

@@ -33,259 +33,261 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
-    return ScrollConfiguration(
-      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-      child: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: <Widget>[
-          SliverAppBar(
-            pinned: true,
-            stretch: true,
-            expandedHeight: 140,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                "appBarTitleSettings".tr(),
-                style: TextStyle(
-                  fontFamily: 'LibreBaskerville',
-                  fontSize: 20,
-                  color: Colors.black,
+    return Scaffold(
+      body: ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: <Widget>[
+            SliverAppBar(
+              pinned: true,
+              stretch: true,
+              expandedHeight: 140,
+              flexibleSpace: FlexibleSpaceBar(
+                title: Text(
+                  "appBarTitleSettings".tr(),
+                  style: TextStyle(
+                    fontFamily: 'LibreBaskerville',
+                    fontSize: 20,
+                    color: Colors.black,
+                  ),
                 ),
+                centerTitle: true,
               ),
-              centerTitle: true,
             ),
-          ),
-          SliverToBoxAdapter(
-            child: Column(
-              // controller: _scrollSontroller,
-              children: [
-                const SizedBox(height: 42),
-                SettingsContainer(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "settingsSectionTitleGeneral".tr(),
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      const SizedBox(height: 20),
-                      SettingsItem(
-                        label: "settingsItemAccount".tr(),
-                        leading: const Icon(Icons.person_outline),
-                        suffix: const Icon(Icons.keyboard_arrow_right),
-                        onTap: () {
-                          navigatePerSlide(context, const AccountSettings());
-                        },
-                      ),
-                      const SizedBox(height: settingItemSpacing),
-                      SettingsItem(
-                        label: "settingsItemMyTags".tr(),
-                        leading: const Icon(Icons.hexagon_outlined),
-                        suffix: const Icon(Icons.keyboard_arrow_right),
-                        onTap: () {
-                          navigatePerSlide(
-                            context,
-                            const MyTagsSettings(),
-                          );
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => const MyTagsSettings(),
-                          //   ),
-                          // );
-                        },
-                      ),
-                      const SizedBox(height: settingItemSpacing),
-                      SettingsItem(
-                        label: "settingsItemNotifications".tr(),
-                        leading: const Icon(CustomIcons.notification),
-                        suffix: const Icon(Icons.keyboard_arrow_right),
-                        onTap: () {
-                          navigatePerSlide(
-                            context,
-                            const NotificationSettings(),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: settingItemSpacing),
-                      SettingsItem(
-                        label: "settingsItemThemes".tr(),
-                        leading: const Icon(Icons.hexagon_outlined),
-                        suffix: const Icon(Icons.keyboard_arrow_right),
-                        onTap: () {
-                          navigatePerSlide(
-                            context,
-                            const ThemeSettings(),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: settingItemSpacing),
-                      SettingsItem(
-                        label: "settingsItemLangauge".tr(),
-                        leading: const Icon(Icons.translate),
-                        suffix: const Icon(Icons.keyboard_arrow_right),
-                        onTap: () {
-                          navigatePerSlide(
-                            context,
-                            const ChangeLanguage(),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: settingItemSpacing),
-                      SettingsItem(
-                        label: "settingsItemHowToUse".tr(),
-                        leading: Icon(Icons.lightbulb_outline),
-                        suffix: Icon(Icons.keyboard_arrow_right),
-                        onTap: () {
-                          navigatePerSlide(
-                            context,
-                            const ComingSoonPage(title: "How To Use"),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-
-                //Shop
-                SettingsContainer(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "settingsSectionTitleShop".tr(),
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      const SizedBox(height: 20),
-                      SettingsItem(
-                        label: "settingsItemGoShop".tr(),
-                        leading: Icon(CustomIcons.shopping_bag_8),
-                        suffix: Icon(Icons.keyboard_arrow_right),
-                        onTap: () {
-                          navigatePerSlide(
-                            context,
-                            const ComingSoonPage(title: "Shop"),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-
-                //Help and Support
-                SettingsContainer(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "settingsSectionTitleHelp".tr(),
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      const SizedBox(height: 20),
-                      SettingsItem(
-                        label: "settingsItemReportBug".tr(),
-                        leading: Icon(Icons.warning_amber_rounded),
-                        suffix: Icon(Icons.keyboard_arrow_right),
-                        onTap: () {
-                          navigatePerSlide(
-                            context,
-                            const ComingSoonPage(title: "Report Bug"),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: settingItemSpacing),
-                      SettingsItem(
-                        label: "settingsItemContactUs".tr(),
-                        leading: const Icon(CustomIcons.notification),
-                        suffix: const Icon(Icons.keyboard_arrow_right),
-                        // onTap: () {
-                        //   navigatePerSlide(context, const ContactUs());
-                        // },
-                        onTap: () {
-                          navigatePerSlide(
-                            context,
-                            const ContactUs(),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: settingItemSpacing),
-                      SettingsItem(
-                        label: "settingsItemFAQ".tr(),
-                        leading: Icon(Icons.question_answer_outlined),
-                        suffix: Icon(Icons.keyboard_arrow_right),
-                        onTap: () {
-                          navigatePerSlide(
-                            context,
-                            const ComingSoonPage(title: "FAQ"),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: settingItemSpacing),
-                      SettingsItem(
-                        label: "settingsItemPrivacy".tr(),
-                        leading: Icon(Icons.privacy_tip_outlined),
-                        suffix: Icon(Icons.keyboard_arrow_right),
-                        onTap: () {
-                          navigatePerSlide(
-                            context,
-                            const ComingSoonPage(title: "Privacy"),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: settingItemSpacing),
-                      SettingsItem(
-                        label: "settingsItemAbout".tr(),
-                        leading: Icon(Icons.question_mark),
-                        suffix: Icon(Icons.keyboard_arrow_right),
-                        onTap: () {
-                          navigatePerSlide(
-                            context,
-                            const ComingSoonPage(title: "About"),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-
-                //? Vlt in account
-                SettingsContainer(
-                  child: SettingsItem(
-                    label: "settingsItemLogout".tr(),
-                    leading: const Icon(
-                      Icons.logout_outlined,
-                      color: Colors.red,
-                    ),
-                    suffix: const Icon(Icons.keyboard_arrow_right),
-                    onTap: () async {
-                      if (!kIsWeb) {
-                        if (Platform.isAndroid || Platform.isIOS) {
-                          firebaseMessaging.FirebaseMessaging messaging =
-                              firebaseMessaging.FirebaseMessaging.instance;
-                          await messaging.getToken().then((fcmToken) async {
-                            if (fcmToken != null) {
-                              await deleteDeviceToken(fcmToken);
-                            }
-                          });
-                        }
-                      }
-
-                      logout().then(
-                        (value) {
-                          Navigator.pushAndRemoveUntil(
+            SliverToBoxAdapter(
+              child: Column(
+                // controller: _scrollSontroller,
+                children: [
+                  const SizedBox(height: 42),
+                  SettingsContainer(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "settingsSectionTitleGeneral".tr(),
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const SizedBox(height: 20),
+                        SettingsItem(
+                          label: "settingsItemAccount".tr(),
+                          leading: const Icon(Icons.person_outline),
+                          suffix: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            navigatePerSlide(context, const AccountSettings());
+                          },
+                        ),
+                        const SizedBox(height: settingItemSpacing),
+                        SettingsItem(
+                          label: "settingsItemMyTags".tr(),
+                          leading: const Icon(Icons.hexagon_outlined),
+                          suffix: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            navigatePerSlide(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => const InitApp()),
-                              (route) => false);
-                        },
-                      );
-                    },
+                              const MyTagsSettings(),
+                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => const MyTagsSettings(),
+                            //   ),
+                            // );
+                          },
+                        ),
+                        const SizedBox(height: settingItemSpacing),
+                        SettingsItem(
+                          label: "settingsItemNotifications".tr(),
+                          leading: const Icon(CustomIcons.notification),
+                          suffix: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            navigatePerSlide(
+                              context,
+                              const NotificationSettings(),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: settingItemSpacing),
+                        SettingsItem(
+                          label: "settingsItemThemes".tr(),
+                          leading: const Icon(Icons.hexagon_outlined),
+                          suffix: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            navigatePerSlide(
+                              context,
+                              const ThemeSettings(),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: settingItemSpacing),
+                        SettingsItem(
+                          label: "settingsItemLangauge".tr(),
+                          leading: const Icon(Icons.translate),
+                          suffix: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            navigatePerSlide(
+                              context,
+                              const ChangeLanguage(),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: settingItemSpacing),
+                        SettingsItem(
+                          label: "settingsItemHowToUse".tr(),
+                          leading: Icon(Icons.lightbulb_outline),
+                          suffix: Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            navigatePerSlide(
+                              context,
+                              const ComingSoonPage(title: "How To Use"),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 28),
-              ],
+
+                  //Shop
+                  SettingsContainer(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "settingsSectionTitleShop".tr(),
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const SizedBox(height: 20),
+                        SettingsItem(
+                          label: "settingsItemGoShop".tr(),
+                          leading: Icon(CustomIcons.shopping_bag_8),
+                          suffix: Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            navigatePerSlide(
+                              context,
+                              const ComingSoonPage(title: "Shop"),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  //Help and Support
+                  SettingsContainer(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "settingsSectionTitleHelp".tr(),
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const SizedBox(height: 20),
+                        SettingsItem(
+                          label: "settingsItemReportBug".tr(),
+                          leading: Icon(Icons.warning_amber_rounded),
+                          suffix: Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            navigatePerSlide(
+                              context,
+                              const ComingSoonPage(title: "Report Bug"),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: settingItemSpacing),
+                        SettingsItem(
+                          label: "settingsItemContactUs".tr(),
+                          leading: const Icon(CustomIcons.notification),
+                          suffix: const Icon(Icons.keyboard_arrow_right),
+                          // onTap: () {
+                          //   navigatePerSlide(context, const ContactUs());
+                          // },
+                          onTap: () {
+                            navigatePerSlide(
+                              context,
+                              const ContactUs(),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: settingItemSpacing),
+                        SettingsItem(
+                          label: "settingsItemFAQ".tr(),
+                          leading: Icon(Icons.question_answer_outlined),
+                          suffix: Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            navigatePerSlide(
+                              context,
+                              const ComingSoonPage(title: "FAQ"),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: settingItemSpacing),
+                        SettingsItem(
+                          label: "settingsItemPrivacy".tr(),
+                          leading: Icon(Icons.privacy_tip_outlined),
+                          suffix: Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            navigatePerSlide(
+                              context,
+                              const ComingSoonPage(title: "Privacy"),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: settingItemSpacing),
+                        SettingsItem(
+                          label: "settingsItemAbout".tr(),
+                          leading: Icon(Icons.question_mark),
+                          suffix: Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            navigatePerSlide(
+                              context,
+                              const ComingSoonPage(title: "About"),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  //? Vlt in account
+                  SettingsContainer(
+                    child: SettingsItem(
+                      label: "settingsItemLogout".tr(),
+                      leading: const Icon(
+                        Icons.logout_outlined,
+                        color: Colors.red,
+                      ),
+                      suffix: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () async {
+                        if (!kIsWeb) {
+                          if (Platform.isAndroid || Platform.isIOS) {
+                            firebaseMessaging.FirebaseMessaging messaging =
+                                firebaseMessaging.FirebaseMessaging.instance;
+                            await messaging.getToken().then((fcmToken) async {
+                              if (fcmToken != null) {
+                                await deleteDeviceToken(fcmToken);
+                              }
+                            });
+                          }
+                        }
+
+                        logout().then(
+                          (value) {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const InitApp()),
+                                (route) => false);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 28),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
     return Scaffold(

@@ -9,7 +9,7 @@ class ShyButton extends StatelessWidget {
     required this.showUploadButton,
     required this.onTap,
     required this.label,
-    required this.icon,
+    this.icon,
     this.bgColor,
     this.fontColor,
     this.iconBgColor,
@@ -22,7 +22,7 @@ class ShyButton extends StatelessWidget {
   final double _borderRadius = 32;
   final double _height = 65;
 
-  final Icon icon;
+  final Icon? icon;
 
   final Color? bgColor;
   final Color? iconBgColor;
@@ -60,7 +60,9 @@ class ShyButton extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(left: 32, right: 24),
+                        padding: icon != null
+                            ? EdgeInsets.only(left: 32, right: 24)
+                            : EdgeInsets.only(left: 32, right: 32),
                         child: Text(
                           label,
                           style: GoogleFonts.openSans(
@@ -70,23 +72,25 @@ class ShyButton extends StatelessWidget {
                           ),
                         ),
                       ),
-                      AspectRatio(
-                        aspectRatio: 1,
-                        child: Container(
-                          height: _height,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(_borderRadius)),
-                            // color: Theme.of(context).primaryColor.withOpacity(1),
-                            color: iconBgColor ??
-                                getCustomColors(context).accentDark,
-                          ),
-                          padding: EdgeInsets.all(8),
-                          child: Center(
-                            child: icon,
-                          ),
-                        ),
-                      ),
+                      icon != null
+                          ? AspectRatio(
+                              aspectRatio: 1,
+                              child: Container(
+                                height: _height,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(_borderRadius)),
+                                  // color: Theme.of(context).primaryColor.withOpacity(1),
+                                  color: iconBgColor ??
+                                      getCustomColors(context).accentDark,
+                                ),
+                                padding: EdgeInsets.all(8),
+                                child: Center(
+                                  child: icon,
+                                ),
+                              ),
+                            )
+                          : const SizedBox(),
                     ],
                   ),
                 ),

@@ -20,6 +20,7 @@ class MyPetsNavbar extends StatefulWidget {
 
 class _MyPetsNavbarState extends State<MyPetsNavbar> {
   Widget? title;
+  final Duration _duration = const Duration(milliseconds: 1500);
 
   @override
   void initState() {
@@ -65,6 +66,11 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
 
   void initTiteSwitch() async {
     await Future.delayed(const Duration(seconds: 5));
+    // title = const SizedBox.shrink();
+    // if (mounted) {
+    //   setState(() {});
+    // }
+    // await Future.delayed(_duration);
     title = Wrap(
       alignment: WrapAlignment.start,
       // crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,7 +97,9 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
         ),
       ],
     );
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -106,7 +114,7 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
           child: Align(
             alignment: Alignment.centerLeft,
             child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 1500),
+              duration: _duration,
               child: title ?? getWelcomeTitle(),
             ),
           ),

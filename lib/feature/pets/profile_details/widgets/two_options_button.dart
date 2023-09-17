@@ -59,10 +59,7 @@ class _TwoOptionButtonState extends State<TwoOptionButton> {
         Flexible(
           child: Row(
             children: [
-              Spacer(
-                flex: 2,
-              ),
-              Flexible(
+              Expanded(
                 child: InkWell(
                   onTap: () {
                     if (widget.activeOption == ActiveOption.option1) {
@@ -80,7 +77,7 @@ class _TwoOptionButtonState extends State<TwoOptionButton> {
                 ),
               ),
               SizedBox(width: 05.w),
-              Flexible(
+              Expanded(
                 child: InkWell(
                   onTap: () {
                     if (widget.activeOption == ActiveOption.option2) {
