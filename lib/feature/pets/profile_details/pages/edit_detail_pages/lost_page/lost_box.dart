@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -18,14 +19,18 @@ import '../../../../../../../general/network_globals.dart';
 import '../../../../../../general/utils_theme/custom_colors.dart';
 import '../../../../../../general/utils_theme/custom_text_styles.dart';
 import '../../../widgets/custom_textformfield.dart';
+import '../contact_page/contact_page.dart';
 
 class LostBox extends StatelessWidget {
   const LostBox({
     super.key,
     required this.petProfile,
+    required this.goToContacts,
   });
 
   final PetProfileDetails petProfile;
+  final double _borderRadius = 36;
+  final VoidCallback goToContacts;
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +48,10 @@ class LostBox extends StatelessWidget {
             child: Hero(
               tag: "lost${petProfile.profileId}",
               child: Material(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(_borderRadius),
                 elevation: 8,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(_borderRadius),
                   child: Container(
                     color: Theme.of(context).primaryColor,
                     // color: Colors.blue,
@@ -54,11 +59,11 @@ class LostBox extends StatelessWidget {
                       constraints: BoxConstraints(
                         maxWidth: 80.w,
                         minWidth: 40.w,
-                        maxHeight: 50.h,
-                        minHeight: 20.h,
+                        maxHeight: 80.h,
+                        minHeight: 30.h,
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(32),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,6 +72,12 @@ class LostBox extends StatelessWidget {
                               "Mark Tabo as lost",
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
+                            const SizedBox(height: 32),
+                            Text(
+                              "Add Information for People to see first",
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                            const SizedBox(height: 16),
                             Flexible(
                               child: CustomTextFormField(
                                 // focusNode: focusNode,
@@ -83,61 +94,49 @@ class LostBox extends StatelessWidget {
                                 showSuffix: false,
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                //Todo remove Outlined Button and stay with Containers to keep it the same everywhere - Extract Cancel Widget and Save Widget
-                                OutlinedButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  style: OutlinedButton.styleFrom(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        24, 12, 24, 12),
-                                    side: BorderSide(
-                                      width: 0.5,
-                                      color: getCustomColors(context)
-                                              .lightBorder ??
-                                          Colors.transparent,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
+                            const SizedBox(height: 32),
+                            RichText(
+                              text: TextSpan(
+                                style: Theme.of(context).textTheme.labelMedium,
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text:
+                                          'While Tabo is lost his contact information will be set visible, manage contact visibility in '),
+                                  TextSpan(
+                                    text: 'Contacts',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium
+                                        ?.copyWith(color: Colors.blue),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        Navigator.pop(context);
+                                        goToContacts();
+                                      },
                                   ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 32),
+                            Center(
+                              child: Material(
+                                elevation: 2,
+                                borderRadius: BorderRadius.circular(36),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(36),
+                                    color: getCustomColors(context).accent,
+                                  ),
+                                  padding: EdgeInsets.fromLTRB(32, 16, 32, 16),
                                   child: Text(
-                                    "Cancel",
-                                    style: getCustomTextStyles(context)
-                                        .dataEditDialogButtonCancelStyle,
+                                    "Mark as lost",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium
+                                        ?.copyWith(color: Colors.white),
                                   ),
                                 ),
-                                OutlinedButton(
-                                  onPressed: () {
-                                    petProfile.petIsLost = true;
-                                    updatePetProfileCore(petProfile)
-                                        .then((value) {
-                                      Navigator.pop(context);
-                                    });
-                                  },
-                                  style: OutlinedButton.styleFrom(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        24, 12, 24, 12),
-                                    backgroundColor:
-                                        getCustomColors(context).accent,
-                                    side: BorderSide(
-                                      width: 0.5,
-                                      color: getCustomColors(context)
-                                              .lightBorder ??
-                                          Colors.transparent,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    "Mark as Lost",
-                                    style: getCustomTextStyles(context)
-                                        .dataEditDialogButtonSaveStyle,
-                                  ),
-                                ),
-                              ],
+                              ),
                             )
                           ],
                         ),

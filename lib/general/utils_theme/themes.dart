@@ -66,26 +66,41 @@ final ThemeData constLightTheme = ThemeData(
       fontWeight: FontWeight.w600,
       color: Colors.black.withOpacity(0.95),
     ),
+    //BasicInformation SectionTitle
+    titleLarge: GoogleFonts.openSans(
+      fontWeight: FontWeight.w700,
+      fontSize: 24,
+      color: Colors.black87,
+    ),
     //e.p. Settings Item Label, Extended Actions
-    labelMedium: TextStyle(
-      fontFamily: 'Promt',
+    labelMedium: GoogleFonts.prompt(
+      // fontFamily: 'Promt',
       fontWeight: FontWeight.w400,
       fontSize: 16,
       color: Colors.black.withOpacity(0.76),
     ),
+    displaySmall: GoogleFonts.prompt(
+      fontWeight: FontWeight.w200,
+      fontSize: 16,
+      color: Colors.black.withOpacity(0.50),
+    ),
     //Like Settings suffixText or Forgot Password
-    labelSmall: TextStyle(
-      fontFamily: 'Promt',
-      fontWeight: FontWeight.w400,
+    // labelSmall: TextStyle(
+    //   fontFamily: 'Promt',
+    //   fontWeight: FontWeight.w400,
+    //   fontSize: 14,
+    //   color: Colors.black.withOpacity(0.64),
+    // ),
+    labelSmall: GoogleFonts.openSans(
+      fontWeight: FontWeight.w300,
       fontSize: 14,
-      color: Colors.black.withOpacity(0.64),
+      color: Colors.black.withOpacity(0.5),
     ),
     // Used for Button Labels
-    labelLarge: const TextStyle(
-      fontFamily: 'Promt',
-      fontWeight: FontWeight.w600,
+    labelLarge: GoogleFonts.prompt(
+      fontWeight: FontWeight.w300,
       fontSize: 20,
-      color: Colors.black,
+      color: Colors.black.withOpacity(0.54),
     ),
   ),
   extensions: <ThemeExtension<dynamic>>[

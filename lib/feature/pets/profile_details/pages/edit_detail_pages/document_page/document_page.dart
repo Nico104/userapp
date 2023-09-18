@@ -17,7 +17,7 @@ import '../../../../u_pets.dart';
 import '../../../models/m_document.dart';
 import '../../../pictures/upload_picture_dialog.dart';
 import '../../../u_profile_details.dart';
-import '../../custom_flexible_space_bar.dart';
+import '../../../../../../general/widgets/custom_flexible_space_bar.dart';
 
 class DocumentPage extends StatefulWidget {
   const DocumentPage({

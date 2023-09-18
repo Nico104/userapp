@@ -40,17 +40,18 @@ class _LostPageState extends State<LostPage> {
           CustomNicoScrollView(
             title: Text("Tabo is Lost"),
             body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 16),
                 Padding(
                   padding: const EdgeInsets.all(16),
                   child: Text(
-                    "Marking your lost pet as lost is vital because it alerts your community to be on the lookout, increasing the odds of a quicker reunion and reducing the chances of harm or displacement. Without this step, well-intentioned individuals may not know your pet needs help.",
+                    "Mark your lost pet as lost to help your community find them and prevent harm.",
                     style: GoogleFonts.openSans(
                       fontSize: 16,
                       color: Colors.black87,
                     ),
-                    textAlign: TextAlign.center,
+                    // textAlign: TextAlign.center,
                   ),
                 ),
                 Padding(
@@ -61,7 +62,7 @@ class _LostPageState extends State<LostPage> {
                       fontSize: 16,
                       color: Colors.black87,
                     ),
-                    textAlign: TextAlign.center,
+                    // textAlign: TextAlign.center,
                   ),
                 ),
                 PaddingComponent(
@@ -78,30 +79,6 @@ class _LostPageState extends State<LostPage> {
                       // petProfile.petIsLostText = val;
                     },
                     showSuffix: false,
-                  ),
-                ),
-                FractionallySizedBox(
-                  widthFactor: 0.65,
-                  // alignment: Alignment.bottomLeft,
-                  child: FittedBox(
-                    child: Theme(
-                      data: Theme.of(context).copyWith(
-                        useMaterial3: true,
-                      ),
-                      child: SizedBox(
-                        child: Switch(
-                          value: false,
-                          activeColor: getCustomColors(context).accentDark,
-                          inactiveTrackColor:
-                              getCustomColors(context).lightBorder,
-                          onChanged: (bool value) {
-                            // setState(() {
-                            //   _value = value;
-                            // });
-                          },
-                        ),
-                      ),
-                    ),
                   ),
                 ),
                 SizedBox(height: 40.h),

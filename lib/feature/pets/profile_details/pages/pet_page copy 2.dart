@@ -32,9 +32,10 @@ import '../d_confirm_delete.dart';
 import '../fabs/upload_image_fab.dart';
 import '../models/m_tag.dart';
 import '../pictures/upload_picture_dialog.dart';
-import 'custom_flexible_space_bar.dart';
+import '../../../../general/widgets/custom_flexible_space_bar.dart';
 import 'documents_page.dart';
 import 'edit_detail_pages/basic_information/basic_information_page.dart';
+import 'edit_detail_pages/contact_page/contact_page.dart';
 import 'edit_detail_pages/description_page/description_page.dart';
 import 'edit_detail_pages/document_page/document_page.dart';
 import 'edit_detail_pages/lost_page/lost_box.dart';
@@ -315,12 +316,21 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                           barrierDismissible: true,
                                           pageBuilder:
                                               (BuildContext context, _, __) {
-                                            // return LostBox(
-                                            //   petProfile: _petProfileDetails,
-                                            // );
-                                            return LostPage(
-                                                petProfileDetails:
-                                                    _petProfileDetails);
+                                            return LostBox(
+                                              petProfile: _petProfileDetails,
+                                              goToContacts: () {
+                                                navigatePerSlide(
+                                                  context,
+                                                  ContactPage(
+                                                    petProfileDetails: widget
+                                                        .petProfileDetails,
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                            // return LostPage(
+                                            //     petProfileDetails:
+                                            //         _petProfileDetails);
                                           },
                                         ),
                                       )
@@ -363,13 +373,13 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                   padding:
                                                       const EdgeInsets.all(16),
                                                   child: Text(
-                                                    "Not Lost",
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                      fontSize: 24,
-                                                      color: Colors.white,
-                                                    ),
+                                                    "Mark as lost",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleLarge
+                                                        ?.copyWith(
+                                                            color:
+                                                                Colors.white),
                                                     textAlign: TextAlign.right,
                                                   ),
                                                 ),
@@ -390,14 +400,22 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                         const EdgeInsets.all(
                                                             16),
                                                     child: Text(
-                                                      "Mark Tabo as lost",
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w200,
-                                                        fontSize: 16,
-                                                        color: Colors.white
-                                                            .withOpacity(0.54),
-                                                      ),
+                                                      "Help your community find Tabo and prevent harm",
+                                                      // style: TextStyle(
+                                                      //   fontWeight:
+                                                      //       FontWeight.w200,
+                                                      //   fontSize: 16,
+                                                      //   color: Colors.white
+                                                      //       .withOpacity(0.54),
+                                                      // ),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .displaySmall
+                                                          ?.copyWith(
+                                                            color: Colors.white
+                                                                .withOpacity(
+                                                                    0.54),
+                                                          ),
                                                       textAlign:
                                                           TextAlign.right,
                                                     ),
@@ -419,15 +437,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                 navigatePerSlide(
                                   context,
                                   ContactPage(
-                                    // petProfileDetails: widget.getProfileDetails(),
                                     petProfileDetails: widget.petProfileDetails,
-                                    showBottomNavBar: (show) {
-                                      // if (mounted && show != _showBottomNavBar) {
-                                      //   setState(() {
-                                      //     _showBottomNavBar = show;
-                                      //   });
-                                      // }
-                                    },
                                   ),
                                 );
                               },
@@ -470,10 +480,9 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                             padding: const EdgeInsets.all(16),
                                             child: Text(
                                               "Contact",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 24,
-                                              ),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge,
                                             ),
                                           ),
                                           Align(
@@ -486,13 +495,9 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                     flex: 5,
                                                     child: Text(
                                                       "Add Contact Information to get Tabo home faster",
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w200,
-                                                        fontSize: 16,
-                                                        color: Colors.black
-                                                            .withOpacity(0.28),
-                                                      ),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .displaySmall,
                                                     ),
                                                   ),
                                                   Spacer(
@@ -516,14 +521,9 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                     SizedBox(width: 16),
                                                     Text(
                                                       "Hide",
-                                                      style:
-                                                          GoogleFonts.openSans(
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontSize: 20,
-                                                        color: Colors.black
-                                                            .withOpacity(0.54),
-                                                      ),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .labelLarge,
                                                     ),
                                                     const SizedBox(width: 6),
                                                     // Spacer(),
@@ -648,10 +648,9 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                             padding: const EdgeInsets.all(16),
                                             child: Text(
                                               "Finma Tags",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 24,
-                                              ),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge,
                                               textAlign: TextAlign.right,
                                             ),
                                           ),
@@ -669,13 +668,9 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                   flex: 5,
                                                   child: Text(
                                                     "Assign Finma Tags so Tabo is safe and stylish",
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w200,
-                                                      fontSize: 16,
-                                                      color: Colors.black
-                                                          .withOpacity(0.28),
-                                                    ),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .displaySmall,
                                                     textAlign: TextAlign.right,
                                                   ),
                                                 ),
@@ -745,10 +740,9 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                         padding: EdgeInsets.all(16),
                                         child: Text(
                                           "Pictures",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 24,
-                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge,
                                         ),
                                       ),
                                     ),
@@ -756,69 +750,6 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                 ),
                               ),
                             ),
-
-                            // OpenContainer(
-                            //   useRootNavigator: true,
-                            //   closedBuilder: (context, action) => AspectRatio(
-                            //     aspectRatio: 1,
-                            //     child: Container(
-                            //       decoration: BoxDecoration(
-                            //         // color: Theme.of(context).primaryColor,
-                            //         color: Colors.yellow,
-                            //         border: Border.all(
-                            //           width: 0.3,
-                            //           color:
-                            //               getCustomColors(context).hardBorder ??
-                            //                   Colors.transparent,
-                            //           strokeAlign:
-                            //               BorderSide.strokeAlignOutside,
-                            //         ),
-                            //         borderRadius: BorderRadius.circular(18),
-                            //         boxShadow: kElevationToShadow[3],
-                            //         image: DecorationImage(
-                            //           image: AssetImage(
-                            //               "assets/details_illustartions/dog_picture_tmp.png"),
-                            //           fit: BoxFit.cover,
-                            //         ),
-                            //       ),
-                            //       child: ClipRRect(
-                            //         borderRadius: BorderRadius.circular(18),
-                            //         child: Align(
-                            //           alignment: Alignment.bottomLeft,
-                            //           child: Container(
-                            //             decoration: BoxDecoration(
-                            //               color: Theme.of(context).primaryColor,
-                            //               borderRadius: const BorderRadius.only(
-                            //                 topRight: Radius.circular(18),
-                            //               ),
-                            //               border: Border.all(
-                            //                 width: 0.3,
-                            //                 color: getCustomColors(context)
-                            //                         .hardBorder ??
-                            //                     Colors.transparent,
-                            //                 strokeAlign:
-                            //                     BorderSide.strokeAlignOutside,
-                            //               ),
-                            //             ),
-                            //             padding: EdgeInsets.all(16),
-                            //             child: Text(
-                            //               "Pictures",
-                            //               style: TextStyle(
-                            //                 fontWeight: FontWeight.w600,
-                            //                 fontSize: 24,
-                            //               ),
-                            //             ),
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ),
-                            //   ),
-                            //   openBuilder: (context, action) => PicturesPage(
-                            //     petProfileId: _petProfileDetails.profileId,
-                            //     initialPetPictures:
-                            //         _petProfileDetails.petPictures,
-                            //   ),
-                            // ),
                           ],
                         ),
                       ),
@@ -889,10 +820,9 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                       padding: const EdgeInsets.all(16),
                                       child: Text(
                                         "Basic Information",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 24,
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge,
                                       ),
                                     ),
                                   ],
@@ -968,10 +898,9 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                           padding: const EdgeInsets.all(16),
                                           child: Text(
                                             "Description",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 24,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge,
                                           ),
                                         ),
                                       ],
@@ -1022,10 +951,9 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                           padding: const EdgeInsets.all(16),
                                           child: Text(
                                             "Documents",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 24,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge,
                                           ),
                                         ),
                                       ],
@@ -1087,10 +1015,9 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                         padding: const EdgeInsets.all(16),
                                         child: Text(
                                           "Medical",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 24,
-                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge,
                                         ),
                                       ),
                                       Align(
@@ -1103,12 +1030,9 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                 flex: 5,
                                                 child: Text(
                                                   "Add Medical Information to keep Tabo safe",
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w200,
-                                                    fontSize: 16,
-                                                    color: Colors.black
-                                                        .withOpacity(0.28),
-                                                  ),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .displaySmall,
                                                 ),
                                               ),
                                               Spacer(
@@ -1133,11 +1057,13 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                   const GridSpacing(),
                   Text(
                     "Every change gets saved and uploaded automatically",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w200,
-                      fontSize: 14,
-                      color: Colors.black.withOpacity(0.36),
-                    ),
+                    // style: TextStyle(
+                    //   fontWeight: FontWeight.w200,
+                    //   fontSize: 14,
+                    //   color: Colors.black.withOpacity(0.36),
+                    // ),
+                    style: Theme.of(context).textTheme.labelSmall,
+                    textAlign: TextAlign.center,
                   ),
                   // const SizedBox(height: 90),
                   const GridSpacing(),

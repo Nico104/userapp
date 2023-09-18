@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/feature/pets/profile_details/contact/contacts_pet_list_page.dart';
+import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/contact_page/contact_page.dart';
 import 'package:userapp/feature/pets/profile_details/pages/pet_page%20copy%202.dart';
 import 'package:userapp/feature/pets/profile_details/pages/pet_page.dart';
 import 'package:userapp/feature/pets/profile_details/pictures/upload_picture_dialog.dart';
@@ -85,17 +86,17 @@ class PetProfileDetailViewState extends State<PetProfileDetailView>
                 updatePetProfileCore(widget.petProfileDetails);
               },
             ),
-            ContactPage(
-              // petProfileDetails: widget.getProfileDetails(),
-              petProfileDetails: widget.petProfileDetails,
-              showBottomNavBar: (show) {
-                if (mounted && show != _showBottomNavBar) {
-                  setState(() {
-                    _showBottomNavBar = show;
-                  });
-                }
-              },
-            ),
+            // ContactPage(
+            //   // petProfileDetails: widget.getProfileDetails(),
+            //   petProfileDetails: widget.petProfileDetails,
+            //   showBottomNavBar: (show) {
+            //     if (mounted && show != _showBottomNavBar) {
+            //       setState(() {
+            //         _showBottomNavBar = show;
+            //       });
+            //     }
+            //   },
+            // ),
           ],
         ),
         // Padding(

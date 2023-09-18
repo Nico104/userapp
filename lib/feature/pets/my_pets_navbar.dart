@@ -127,21 +127,21 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
           ),
         ),
         const SizedBox(width: 16),
-        GestureDetector(
-          onTap: () {
-            navigatePerSlide(
-              context,
-              const AllContactsPage(),
-              //? callback needed?
-              callback: () => widget.reloadFuture(),
-            );
-          },
-          child: const Icon(
-            Icons.people_outline_rounded,
-            size: 28,
-          ),
-        ),
-        const SizedBox(width: 16),
+        // GestureDetector(
+        //   onTap: () {
+        //     navigatePerSlide(
+        //       context,
+        //       const AllContactsPage(),
+        //       //? callback needed?
+        //       callback: () => widget.reloadFuture(),
+        //     );
+        //   },
+        //   child: const Icon(
+        //     Icons.people_outline_rounded,
+        //     size: 28,
+        //   ),
+        // ),
+        // const SizedBox(width: 16),
         GestureDetector(
           onTap: () {
             navigatePerSlide(

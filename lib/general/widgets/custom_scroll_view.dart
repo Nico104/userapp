@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../feature/pets/profile_details/pages/custom_flexible_space_bar.dart';
+import 'custom_flexible_space_bar.dart';
 
 class CustomNicoScrollView extends StatefulWidget {
   const CustomNicoScrollView({

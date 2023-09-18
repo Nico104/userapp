@@ -318,11 +318,12 @@ class _MyFlexibleSpaceBarState extends State<MyFlexibleSpaceBar> {
         final double opacity = settings.toolbarOpacity;
         if (opacity > 0.0) {
           //Title Style
-          TextStyle titleStyle = TextStyle(
-            fontFamily: 'LibreBaskerville',
-            fontSize: 20,
-            color: Colors.black,
-          );
+          // TextStyle titleStyle = TextStyle(
+          //   fontFamily: 'LibreBaskerville',
+          //   fontSize: 20,
+          //   color: Colors.black,
+          // );
+          TextStyle titleStyle = Theme.of(context).appBarTheme.titleTextStyle!;
           // TextStyle titleStyle = GoogleFonts.openSans(fontSize: 20, color: Colors.bl);
           titleStyle = titleStyle.copyWith(
               color: titleStyle.color!.withOpacity(opacity));
