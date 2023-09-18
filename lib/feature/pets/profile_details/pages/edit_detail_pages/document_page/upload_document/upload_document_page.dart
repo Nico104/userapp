@@ -1,11 +1,9 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/document_page/upload_document/upload_document_button.dart';
 
 import '../../../../../../../general/utils_theme/custom_colors.dart';
 import '../../../../../../../general/utils_theme/custom_text_styles.dart';
-import '../../../../fabs/upload_document_fab.dart';
 import '../../../../widgets/custom_textformfield.dart';
 import '../document_page.dart';
 

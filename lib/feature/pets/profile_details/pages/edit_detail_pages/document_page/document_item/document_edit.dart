@@ -4,7 +4,6 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../../../../general/utils_theme/custom_colors.dart';
 import '../../../../../../../general/utils_theme/custom_text_styles.dart';
-import '../../../../fabs/upload_document_fab.dart';
 import '../../../../models/m_document.dart';
 import '../../../../u_profile_details.dart';
 import '../../../../widgets/custom_textformfield.dart';
@@ -88,57 +87,16 @@ class _DocumentEditDialogState extends State<DocumentEditDialog> {
                     }
                   },
                 ),
-                // const SizedBox(height: 28),
-                // Container(
-                //   width: 70.h,
-                //   alignment: Alignment.centerLeft,
-                //   child: DropdownButton<DocumentType>(
-                //     focusColor: Colors.transparent,
-                //     value: selectedDocType,
-                //     onChanged: (DocumentType? newValue) {
-                //       if (newValue != null) {
-                //         setState(() {
-                //           selectedDocType = newValue;
-                //         });
-                //       }
-                //     },
-                //     items: docTypes.map((DocumentType user) {
-                //       return DropdownMenuItem<DocumentType>(
-                //         value: user,
-                //         child: Text(
-                //           user.value,
-                //           style: TextStyle(color: Colors.black),
-                //         ),
-                //       );
-                //     }).toList(),
-                //   ),
-                // ),
                 const SizedBox(height: 28),
                 OutlinedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // print(selectedDocType.key);
                       updateDocument(
                         documentId: widget.document.documentId,
                         documentName: _docNameController.text,
                         documentType: "",
                       ).then((value) => Navigator.pop(context));
                     }
-                    // widget
-                    //     .addDocument(
-                    //       widget.pickedDocument.fileBytes,
-                    //       widget.pickedDocument.fileName,
-                    //       selectedUser.key,
-                    //       getContentType(),
-                    //     )
-                    //     .then((value) => Navigator.pop(context));
-                    // Navigator.pop(context);
-                    // widget.addDocument(
-                    //   widget.pickedDocument.fileBytes,
-                    //   widget.pickedDocument.fileName,
-                    //   selectedDocType.key,
-                    //   getContentType(),
-                    // );
                   },
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),

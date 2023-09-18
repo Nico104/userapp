@@ -2,12 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/c_pet_name.dart';
+import 'package:userapp/feature/pets/profile_details/pages/pet_page%20copy%202.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 
 import '../tag/tag_selection/tag_selection_page.dart';
 import 'profile_details/models/m_pet_profile.dart';
 import 'profile_details/models/m_tag.dart';
-import 'profile_details/profile_detail_view.dart';
 import '../tag/tag_selection/d_tag_selection.dart';
 
 class NewPetProfile extends StatelessWidget {
@@ -65,7 +65,7 @@ class NewPetProfile extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PetProfileDetailView(
+                      builder: (context) => PetPage2(
                         petProfileDetails: petProfileDetails,
                       ),
                     ),
@@ -99,10 +99,10 @@ class NewPetProfile extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               "createNewPetProfileLabel".tr(),
-              style: const TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(color: Colors.white),
             ),
           ),
         ),

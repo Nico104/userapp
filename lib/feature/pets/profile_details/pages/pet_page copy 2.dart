@@ -8,7 +8,6 @@ import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/page_transofrm_horizontal.dart';
-import 'package:userapp/feature/pets/profile_details/fabs/upload_document_fab.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/lost_page/lost_page.dart';
 import 'package:userapp/feature/pets/profile_details/pages/profile_info_page.dart';
@@ -19,6 +18,7 @@ import '../../../../general/utils_custom_icons/custom_icons_icons.dart';
 import '../../../../general/utils_theme/custom_colors.dart';
 import '../../../../general/utils_theme/custom_text_styles.dart';
 import '../../../../general/utils_general.dart';
+import '../../../../general/widgets/auto_save_info.dart';
 import '../../../../general/widgets/custom_open_container.dart';
 import '../../../../general/widgets/more_button.dart';
 import '../../../tag/tag_selection/tag_selection_page.dart';
@@ -27,7 +27,6 @@ import '../../../tag/utils/u_tag.dart';
 import '../../page_transform.dart';
 import '../../u_pets.dart';
 import '../c_pet_name.dart';
-import '../contact/contacts_pet_list_page.dart';
 import '../d_confirm_delete.dart';
 import '../fabs/upload_image_fab.dart';
 import '../models/m_tag.dart';
@@ -48,19 +47,19 @@ class PetPage2 extends StatefulWidget {
   const PetPage2({
     super.key,
     // required this.getProfileDetails,
-    required this.showBottomNavBar,
+    // required this.showBottomNavBar,
     // required this.reloadFuture,
-    required this.setPetName,
+    // required this.setPetName,
     required this.petProfileDetails,
   });
 
   //? Maybe Variable and fetchFrromServer when needed Updated a la Contact
   final PetProfileDetails petProfileDetails;
   // final PetProfileDetails Function() getProfileDetails;
-  final void Function(bool) showBottomNavBar;
+  // final void Function(bool) showBottomNavBar;
   // final VoidCallback reloadFuture;
 
-  final ValueSetter<String> setPetName;
+  // final ValueSetter<String> setPetName;
 
   @override
   State<PetPage2> createState() => _PetPage2State();
@@ -106,7 +105,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _scrollController.addListener(() {
         _initiateIsTopListener();
-        _handleNavBarShown();
+        // _handleNavBarShown();
 
         // _scrollController.position.userScrollDirection
         debugPrint(_scrollController.position.userScrollDirection.toString());
@@ -121,18 +120,18 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
     _controller.dispose();
   }
 
-  void _handleNavBarShown() {
-    //hideBar
-    widget.showBottomNavBar(false);
-    EasyDebounce.debounce(
-      'handleNavBarShown',
-      const Duration(milliseconds: 350),
-      () {
-        //shwoNavbar
-        widget.showBottomNavBar(true);
-      },
-    );
-  }
+  // void _handleNavBarShown() {
+  //   //hideBar
+  //   widget.showBottomNavBar(false);
+  //   EasyDebounce.debounce(
+  //     'handleNavBarShown',
+  //     const Duration(milliseconds: 350),
+  //     () {
+  //       //shwoNavbar
+  //       widget.showBottomNavBar(true);
+  //     },
+  //   );
+  // }
 
   double _tiltAngle = 0;
   // final double maxTilt = 0.02;
@@ -401,13 +400,6 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                             16),
                                                     child: Text(
                                                       "Help your community find Tabo and prevent harm",
-                                                      // style: TextStyle(
-                                                      //   fontWeight:
-                                                      //       FontWeight.w200,
-                                                      //   fontSize: 16,
-                                                      //   color: Colors.white
-                                                      //       .withOpacity(0.54),
-                                                      // ),
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .displaySmall
@@ -1055,16 +1047,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                   ),
                   const GridSpacing(),
                   const GridSpacing(),
-                  Text(
-                    "Every change gets saved and uploaded automatically",
-                    // style: TextStyle(
-                    //   fontWeight: FontWeight.w200,
-                    //   fontSize: 14,
-                    //   color: Colors.black.withOpacity(0.36),
-                    // ),
-                    style: Theme.of(context).textTheme.labelSmall,
-                    textAlign: TextAlign.center,
-                  ),
+                  const AutoSaveInfo(),
                   // const SizedBox(height: 90),
                   const GridSpacing(),
                   const GridSpacing(),
@@ -1076,70 +1059,6 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
       ),
     );
   }
-
-  // Widget? getFloatingActionButton(int index) {
-  //   switch (index) {
-  //     case 1:
-  //       return UploadImageFab(
-  //         addPetPicture: (value) async {
-  //           //Loading Dialog Thingy
-  //           BuildContext? dialogContext;
-  //           showDialog(
-  //             context: context,
-  //             barrierDismissible: false,
-  //             builder: (BuildContext context) {
-  //               dialogContext = context;
-  //               return const UploadPictureDialog();
-  //             },
-  //           );
-  //           await uploadPicture(
-  //             _petProfileDetails.profileId,
-  //             value,
-  //             () async {
-  //               // widget.reloadFuture.call();
-  //               //hekps against 403 from server
-  //               await Future.delayed(const Duration(milliseconds: 2000))
-  //                   .then((value) => reloadPetProfileDetails());
-  //               //Close Loading Dialog Thingy
-  //               Navigator.pop(dialogContext!);
-  //             },
-  //           );
-  //         },
-  //       );
-  //     case 2:
-  //       return UploadDocumentFab(
-  //         addDocument: (value, filename, documentType, contentType) async {
-  //           // Loading Dialog Thingy
-  //           BuildContext? dialogContext;
-  //           showDialog(
-  //             context: context,
-  //             barrierDismissible: false,
-  //             builder: (BuildContext context) {
-  //               dialogContext = context;
-  //               return const UploadPictureDialog();
-  //             },
-  //           );
-  //           await uploadDocuments(
-  //             _petProfileDetails.profileId,
-  //             value,
-  //             filename,
-  //             documentType,
-  //             contentType,
-  //             () async {
-  //               // widget.reloadFuture.call();
-  //               //hekps against 403 from server
-  //               await Future.delayed(const Duration(milliseconds: 2000))
-  //                   .then((value) => reloadPetProfileDetails());
-  //               //Close Loading Dialog Thingy
-  //               Navigator.pop(dialogContext!);
-  //             },
-  //           );
-  //         },
-  //       );
-  //     default:
-  //       return null;
-  //   }
-  // }
 }
 
 class GridSpacing extends StatelessWidget {

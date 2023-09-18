@@ -4,7 +4,6 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:userapp/general/utils_general.dart';
 
 import '../../../pets/profile_details/models/m_pet_profile.dart';
-import '../../../pets/profile_details/profile_detail_view.dart';
 import '../../../../general/utils_theme/custom_colors.dart';
 
 class GoToProfileButton extends StatelessWidget {

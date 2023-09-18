@@ -111,62 +111,57 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                     SizedBox(height: 05.h),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 36, right: 36),
-                      child: CustomBigButton(
-                        label: "loginPageContinueLabel".tr(),
-                        onTap: () {
-                          //Loading Dialog Thingy
-                          BuildContext? dialogContext;
-                          showModalBottomSheet(
-                            context: context,
-                            backgroundColor: Colors.transparent,
-                            isDismissible: false,
-                            builder: (buildContext) {
-                              dialogContext = buildContext;
-                              return Container(
-                                margin:
-                                    const EdgeInsets.fromLTRB(16, 16, 16, 32),
-                                padding: const EdgeInsets.all(16),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
-                                  borderRadius: BorderRadius.circular(28),
-                                ),
-                                child: const SizedBox(
-                                  height: 60,
-                                  width: 60,
-                                  child: CircularProgressIndicator(),
-                                ),
-                              );
-                            },
-                          );
+                    CustomBigButton(
+                      label: "loginPageContinueLabel".tr(),
+                      onTap: () {
+                        //Loading Dialog Thingy
+                        BuildContext? dialogContext;
+                        showModalBottomSheet(
+                          context: context,
+                          backgroundColor: Colors.transparent,
+                          isDismissible: false,
+                          builder: (buildContext) {
+                            dialogContext = buildContext;
+                            return Container(
+                              margin: const EdgeInsets.fromLTRB(16, 16, 16, 32),
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                borderRadius: BorderRadius.circular(28),
+                              ),
+                              child: const SizedBox(
+                                height: 60,
+                                width: 60,
+                                child: CircularProgressIndicator(),
+                              ),
+                            );
+                          },
+                        );
 
-                          signInWithEmailPassword(
-                                  email: emailText, password: passwordText)
-                              .then(
-                            (user) {
-                              Navigator.pop(dialogContext!);
-                              if (user != null) {
-                                setState(() {
-                                  _emailErrorMsg = null;
-                                  _passwordErrorMsg = null;
-                                });
-                                Navigator.of(context)
-                                    .popUntil((route) => route.isFirst);
-                                navigateReplacePerSlide(
-                                    context, const InitApp());
-                              } else {
-                                print("wrong credentials");
-                                setState(() {
-                                  _emailErrorMsg = "This doesnt seem right";
-                                  _passwordErrorMsg =
-                                      "Are you sure? Cause I am not";
-                                });
-                              }
-                            },
-                          );
-                        },
-                      ),
+                        signInWithEmailPassword(
+                                email: emailText, password: passwordText)
+                            .then(
+                          (user) {
+                            Navigator.pop(dialogContext!);
+                            if (user != null) {
+                              setState(() {
+                                _emailErrorMsg = null;
+                                _passwordErrorMsg = null;
+                              });
+                              Navigator.of(context)
+                                  .popUntil((route) => route.isFirst);
+                              navigateReplacePerSlide(context, const InitApp());
+                            } else {
+                              print("wrong credentials");
+                              setState(() {
+                                _emailErrorMsg = "This doesnt seem right";
+                                _passwordErrorMsg =
+                                    "Are you sure? Cause I am not";
+                              });
+                            }
+                          },
+                        );
+                      },
                     ),
                     SizedBox(height: 05.h),
                     const ContinueWithSocialMedia(

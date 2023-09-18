@@ -54,11 +54,6 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
               SizedBox(height: 12),
               Text(
                 "Finma Tag",
-                // style: TextStyle(
-                //   fontFamily: 'LibreBaskerville',
-                //   fontSize: 20 * 1.5,
-                //   color: Colors.transparent,
-                // ),
                 style: Theme.of(context).appBarTheme.titleTextStyle!.copyWith(
                       color: Colors.transparent,
                       fontSize: 20 * 1.5,

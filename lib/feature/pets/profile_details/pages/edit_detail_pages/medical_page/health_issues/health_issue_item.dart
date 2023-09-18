@@ -45,11 +45,7 @@ class HealthIssueItem extends StatelessWidget {
           tag: "healthIssue${healthIssue.healthIssueId}",
           child: Text(
             healthIssue.healthIssueName,
-            style: GoogleFonts.openSans(
-              fontSize: 18,
-              color: Colors.black,
-              fontWeight: FontWeight.w500,
-            ),
+            style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
       ),

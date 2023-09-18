@@ -11,6 +11,7 @@ import 'package:userapp/general/utils_general.dart';
 
 import '../../../../../../general/network_globals.dart';
 import '../../../../../../general/utils_theme/custom_colors.dart';
+import '../../../../../../general/widgets/auto_save_info.dart';
 import '../../../../../auto_translate/u_auto_translate.dart';
 import '../../../../../language/m_language.dart';
 import '../../../d_confirm_delete.dart';
@@ -221,17 +222,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Text(
-              "Every change gets saved and uploaded automatically",
-              style: TextStyle(
-                fontWeight: FontWeight.w200,
-                fontSize: 14,
-                color: Colors.black.withOpacity(0.36),
-              ),
-            ),
-          ),
+          const AutoSaveInfo(),
         ],
       ),
     );
@@ -347,9 +338,9 @@ class _TranslationSelectionRowState extends State<TranslationSelectionRow> {
                                       widget.languages
                                           .elementAt(index)
                                           .languageLabel,
-                                      style: GoogleFonts.openSans(
-                                        fontSize: 14,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelSmall,
                                       textAlign: TextAlign.left,
                                     ),
                                     Spacer(),
@@ -448,9 +439,8 @@ class _TranslationSelectionRowState extends State<TranslationSelectionRow> {
                                     getLanguageFromKey(
                                             context.locale.toString())!
                                         .languageLabel,
-                                    style: GoogleFonts.openSans(
-                                      fontSize: 14,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.labelSmall,
                                     textAlign: TextAlign.left,
                                   ),
                                   Spacer(),

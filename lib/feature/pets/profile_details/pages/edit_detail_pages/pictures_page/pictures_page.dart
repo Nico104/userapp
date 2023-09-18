@@ -6,7 +6,6 @@ import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/pictures_page/picture_expanded.dart';
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/pictures_page/picture_selection.dart';
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/pictures_page/single_picture.dart';
-import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/pictures_page/upload_pictures_button.dart';
 import 'package:userapp/general/network_globals.dart';
 
 import '../../../../../../general/utils_theme/custom_colors.dart';

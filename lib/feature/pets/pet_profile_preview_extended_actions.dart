@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
+import 'package:userapp/feature/pets/profile_details/pages/pet_page%20copy%202.dart';
 import 'package:userapp/feature/pets/profile_details/pages/pet_page.dart';
 import 'package:userapp/feature/scans/scans_page.dart';
 import 'package:userapp/feature/share/share_image_generator.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 
 import '../../general/utils_theme/custom_colors.dart';
-import 'profile_details/profile_detail_view.dart';
 import '../share/share_pet_profile_page.dart';
 
 class ExtendedSettingsContainer extends StatefulWidget {
@@ -49,12 +49,8 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => PetProfileDetailView(
+        builder: (context) => PetPage2(
           petProfileDetails: widget.petProfileDetails,
-          // reloadFuture: widget.reloadFuture,
-          // getProfileDetails: () {
-          //   return widget.petProfileDetails;
-          // },
         ),
       ),
     ).then((value) => widget.reloadFuture.call());

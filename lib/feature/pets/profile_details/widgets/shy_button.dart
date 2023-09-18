@@ -65,11 +65,15 @@ class ShyButton extends StatelessWidget {
                             : EdgeInsets.only(left: 32, right: 32),
                         child: Text(
                           label,
-                          style: GoogleFonts.openSans(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                            color: fontColor ?? Colors.white,
-                          ),
+                          // style: GoogleFonts.prompt(
+                          //   fontWeight: FontWeight.w400,
+                          //   fontSize: 16,
+                          //   color: fontColor ?? Colors.white,
+                          // ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium
+                              ?.copyWith(color: fontColor ?? Colors.white),
                         ),
                       ),
                       icon != null

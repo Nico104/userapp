@@ -84,11 +84,8 @@ class _HealthIssueUpdateBoxState extends State<HealthIssueUpdateBox> {
                               children: [
                                 Text(
                                   "Edit",
-                                  style: GoogleFonts.openSans(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
                                 ),
                                 IconButton(
                                   onPressed: () {

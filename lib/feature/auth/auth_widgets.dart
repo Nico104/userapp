@@ -19,34 +19,38 @@ class CustomBigButton extends StatelessWidget {
   final void Function()? onTap;
   final String label;
 
+  final double _borderRadius = 22;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        height: 60,
-        decoration: BoxDecoration(
-          color: getCustomColors(context).accent,
-          border: Border.all(
-            width: 1,
-            color: getCustomColors(context).lightBorder ?? Colors.transparent,
-            // strokeAlign: BorderSide.strokeAlignOutside,
+      child: Material(
+        borderRadius: BorderRadius.circular(_borderRadius),
+        elevation: 2,
+        child: Container(
+          width: double.infinity,
+          height: 60,
+          decoration: BoxDecoration(
+            color: getCustomColors(context).accent,
+            border: Border.all(
+              width: 1,
+              color: getCustomColors(context).lightBorder ?? Colors.transparent,
+              // strokeAlign: BorderSide.strokeAlignOutside,
+            ),
+            borderRadius: BorderRadius.circular(_borderRadius),
+            //The following elevations have defined shadows: 1, 2, 3, 4, 6, 8, 9, 12, 16, 24
+            // boxShadow: kElevationToShadow[4],
           ),
-          borderRadius: BorderRadius.circular(14),
-          //The following elevations have defined shadows: 1, 2, 3, 4, 6, 8, 9, 12, 16, 24
-          boxShadow: kElevationToShadow[4],
+          child: Center(
+              child: Text(
+            label,
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium
+                ?.copyWith(color: Colors.white),
+          )),
         ),
-        child: Center(
-            child: Text(
-          label,
-          style: const TextStyle(
-            fontFamily: 'Lora',
-            fontWeight: FontWeight.w600,
-            fontSize: 20,
-            color: Colors.white,
-          ),
-        )),
       ),
     );
   }
@@ -65,22 +69,19 @@ class ContinueWithSocialMedia extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 36, right: 36),
-          child: Opacity(
-            opacity: 0.28,
-            child: Row(
-              children: [
-                const Expanded(child: Divider()),
-                SizedBox(width: 03.w),
-                Text(
-                  "continueWithSocials".tr(),
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-                SizedBox(width: 03.w),
-                const Expanded(child: Divider()),
-              ],
-            ),
+        Opacity(
+          opacity: 0.28,
+          child: Row(
+            children: [
+              const Expanded(child: Divider()),
+              SizedBox(width: 03.w),
+              Text(
+                "continueWithSocials".tr(),
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
+              SizedBox(width: 03.w),
+              const Expanded(child: Divider()),
+            ],
           ),
         ),
         SizedBox(height: 02.h),

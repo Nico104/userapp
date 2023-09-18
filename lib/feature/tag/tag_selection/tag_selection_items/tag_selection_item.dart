@@ -151,20 +151,15 @@ class _TagSelectionItemState extends State<TagSelectionItem> {
                         children: [
                           Text(
                             "Finma 1 - Heart",
-                            style: GoogleFonts.openSans(
-                              fontSize: 18,
-                              color: Colors.black.withOpacity(0.6),
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium
+                                ?.copyWith(fontSize: 18),
                           ),
                           const SizedBox(height: 4),
                           Text(
                             widget.tag.collarTagId,
-                            style: GoogleFonts.openSans(
-                              fontSize: 15,
-                              color: Colors.black.withOpacity(0.5),
-                              fontWeight: FontWeight.w300,
-                            ),
+                            style: Theme.of(context).textTheme.labelSmall,
                           ),
                         ],
                       ),

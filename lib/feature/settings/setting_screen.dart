@@ -46,11 +46,7 @@ class _SettingsState extends State<Settings> {
               flexibleSpace: FlexibleSpaceBar(
                 title: Text(
                   "appBarTitleSettings".tr(),
-                  style: TextStyle(
-                    fontFamily: 'LibreBaskerville',
-                    fontSize: 20,
-                    color: Colors.black,
-                  ),
+                  style: Theme.of(context).appBarTheme.titleTextStyle,
                 ),
                 centerTitle: true,
               ),
