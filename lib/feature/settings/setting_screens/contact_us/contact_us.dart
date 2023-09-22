@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/auth/auth_widgets.dart';
 import 'package:userapp/feature/settings/setting_screens/contact_us/contact_success_page.dart';
+import 'package:userapp/feature/settings/setting_screens/contact_us/u_contact_us.dart';
 import 'package:userapp/general/utils_general.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
@@ -18,7 +19,12 @@ class ContactUs extends StatefulWidget {
 }
 
 class _ContactUsState extends State<ContactUs> {
-  final TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _textEditingControllerMessage =
+      TextEditingController();
+  final TextEditingController _textEditingControllerName =
+      TextEditingController();
+  final TextEditingController _textEditingControllerEmail =
+      TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool _showShyButton = true;
@@ -47,7 +53,7 @@ class _ContactUsState extends State<ContactUs> {
                   children: [
                     const SizedBox(height: 32),
                     CustomTextFormField(
-                      // textEditingController: _textEditingController,
+                      textEditingController: _textEditingControllerName,
                       // ignoreBoxShadow: true,
                       // thickUnfocusedBorder: true,
                       maxLines: 1,
@@ -64,7 +70,7 @@ class _ContactUsState extends State<ContactUs> {
                     ),
                     const SizedBox(height: 32),
                     CustomTextFormField(
-                      // textEditingController: _textEditingController,
+                      textEditingController: _textEditingControllerEmail,
                       // ignoreBoxShadow: true,
                       // thickUnfocusedBorder: true,
                       maxLines: 1,
@@ -83,7 +89,7 @@ class _ContactUsState extends State<ContactUs> {
                     SizedBox(
                       height: 40.h,
                       child: CustomTextFormField(
-                        textEditingController: _textEditingController,
+                        textEditingController: _textEditingControllerMessage,
                         // ignoreBoxShadow: true,
                         // thickUnfocusedBorder: true,
                         maxLines: null,
@@ -113,7 +119,13 @@ class _ContactUsState extends State<ContactUs> {
             ),
             label: "Send",
             onTap: () {
-              navigateReplacePerSlide(context, ContactUsSuccessPage());
+              createContactUsMessage(
+                categorie: "Message",
+                text: _textEditingControllerMessage.text,
+                declared_name: _textEditingControllerName.text,
+                declared_email: _textEditingControllerEmail.text,
+              );
+              navigateReplacePerSlide(context, const ContactUsSuccessPage());
             },
           ),
         ],

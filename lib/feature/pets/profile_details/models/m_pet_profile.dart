@@ -31,6 +31,7 @@ class PetProfileDetails {
   bool petIsLost;
   List<Tag> tag;
   final List<Scan> petProfileScans;
+  bool hideContacts;
 
   // PetProfileDetails clone() => PetProfileDetails(
   //       profileId,
@@ -74,6 +75,7 @@ class PetProfileDetails {
     this.petPictures,
     this.petProfileScans,
     this.tag,
+    this.hideContacts,
   );
 
   PetProfileDetails.fromJson(Map<String, dynamic> json)
@@ -100,6 +102,7 @@ class PetProfileDetails {
         //         .toList()
         //     : [],
         petIsLostText = json['pet_is_lost_text'],
+        hideContacts = json['hide_contacts'],
         petContacts = json['Contact'] != null
             ? (json['Contact'] as List).map((t) => Contact.fromJson(t)).toList()
             : [],

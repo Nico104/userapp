@@ -435,6 +435,38 @@ Future<void> deleteDescription(
   }
 }
 
+Future<void> updateContactVisibility({
+  required int petProfileId,
+  required bool contact_visbility,
+}) async {
+  Uri url = Uri.parse('$baseURL/pet/updateContactVisibility');
+  String? token = await getIdToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': '$token',
+    },
+    body: jsonEncode({
+      "contact_visbility": contact_visbility,
+      "petProfileId": petProfileId,
+    }),
+  );
+
+  print(response.body);
+
+  if (response.statusCode == 201) {
+    // If the server did return a 201 CREATED response,
+    // then parse the JSON.
+  } else {
+    // If the server did not return a 201 CREATED response,
+    // then throw an exception.
+    throw Exception('Failed to updateContactVisibility');
+  }
+}
+
 // Future<void> upsertImportantInformation(
 //     ImportantInformation importantInformation) async {
 //   Uri url = Uri.parse('$baseURL/pet/upsertImportantInformation');

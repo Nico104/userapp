@@ -216,7 +216,9 @@ class _ContactPageState extends State<ContactPage> {
               ],
             ),
           ),
-          ContactVisibilitySwitch(),
+          ContactVisibilitySwitch(
+            petProfileDetails: widget.petProfileDetails,
+          ),
         ],
       ),
     );

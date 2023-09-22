@@ -2,12 +2,18 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
+
+import '../../../models/m_pet_profile.dart';
 
 class ContactVisibilitySwitch extends StatefulWidget {
   const ContactVisibilitySwitch({
     super.key,
+    required this.petProfileDetails,
   });
+
+  final PetProfileDetails petProfileDetails;
 
   @override
   State<ContactVisibilitySwitch> createState() =>
@@ -17,8 +23,6 @@ class ContactVisibilitySwitch extends StatefulWidget {
 class _ContactVisibilitySwitchState extends State<ContactVisibilitySwitch> {
   final double _borderRadius = 32;
   final double _height = 65;
-
-  bool _isVisible = true;
 
   final _duration = const Duration(milliseconds: 125);
 
@@ -33,9 +37,12 @@ class _ContactVisibilitySwitchState extends State<ContactVisibilitySwitch> {
           child: InkWell(
             borderRadius: BorderRadius.all(Radius.circular(_borderRadius)),
             onTap: () {
-              setState(() {
-                _isVisible = !_isVisible;
-              });
+              widget.petProfileDetails.hideContacts =
+                  !widget.petProfileDetails.hideContacts;
+              setState(() {});
+              updateContactVisibility(
+                  petProfileId: widget.petProfileDetails.profileId,
+                  contact_visbility: widget.petProfileDetails.hideContacts);
             },
             child: Material(
               borderRadius: BorderRadius.all(Radius.circular(_borderRadius)),
@@ -52,8 +59,9 @@ class _ContactVisibilitySwitchState extends State<ContactVisibilitySwitch> {
                 child: AnimatedAlign(
                   duration: _duration,
                   curve: Curves.fastOutSlowIn,
-                  alignment:
-                      _isVisible ? Alignment.centerRight : Alignment.centerLeft,
+                  alignment: !widget.petProfileDetails.hideContacts
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
                   child: FractionallySizedBox(
                     widthFactor: 0.7,
                     child: AnimatedContainer(
@@ -63,14 +71,14 @@ class _ContactVisibilitySwitchState extends State<ContactVisibilitySwitch> {
                       decoration: BoxDecoration(
                         borderRadius:
                             BorderRadius.all(Radius.circular(_borderRadius)),
-                        color: _isVisible
+                        color: !widget.petProfileDetails.hideContacts
                             ? getCustomColors(context).accent
                             : Colors.red.shade800,
                       ),
                       child: Center(
                           child: AnimatedSwitcher(
                         duration: _duration,
-                        child: _isVisible
+                        child: !widget.petProfileDetails.hideContacts
                             ? Text(
                                 "Visible",
                                 style: Theme.of(context)

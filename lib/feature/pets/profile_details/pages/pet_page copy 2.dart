@@ -499,78 +499,78 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                               ),
                                             ),
                                           ),
-                                          Align(
-                                            alignment: Alignment.bottomLeft,
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    SizedBox(width: 16),
-                                                    Text(
-                                                      "Hide",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .labelLarge,
-                                                    ),
-                                                    const SizedBox(width: 6),
-                                                    // Spacer(),
-                                                    InkWell(
-                                                      onTap: () {
-                                                        print("Help");
-                                                      },
-                                                      child: Icon(
-                                                        Icons.help,
-                                                        size: 22,
-                                                        color: Colors.black
-                                                            .withOpacity(0.54),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: FractionallySizedBox(
-                                                    widthFactor: 0.65,
-                                                    alignment:
-                                                        Alignment.bottomLeft,
-                                                    child: FittedBox(
-                                                      child: Theme(
-                                                        data: Theme.of(context)
-                                                            .copyWith(
-                                                          useMaterial3: true,
-                                                        ),
-                                                        child: SizedBox(
-                                                          child: Switch(
-                                                            value: false,
-                                                            activeColor:
-                                                                getCustomColors(
-                                                                        context)
-                                                                    .accentDark,
-                                                            inactiveTrackColor:
-                                                                getCustomColors(
-                                                                        context)
-                                                                    .lightBorder,
-                                                            onChanged:
-                                                                (bool value) {
-                                                              // setState(() {
-                                                              //   _value = value;
-                                                              // });
-                                                            },
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
+                                          // Align(
+                                          //   alignment: Alignment.bottomLeft,
+                                          //   child: Column(
+                                          //     mainAxisSize: MainAxisSize.min,
+                                          //     crossAxisAlignment:
+                                          //         CrossAxisAlignment.start,
+                                          //     children: [
+                                          //       Row(
+                                          //         mainAxisSize:
+                                          //             MainAxisSize.min,
+                                          //         children: [
+                                          //           SizedBox(width: 16),
+                                          //           Text(
+                                          //             "Hide",
+                                          //             style: Theme.of(context)
+                                          //                 .textTheme
+                                          //                 .labelLarge,
+                                          //           ),
+                                          //           const SizedBox(width: 6),
+                                          //           // Spacer(),
+                                          //           InkWell(
+                                          //             onTap: () {
+                                          //               print("Help");
+                                          //             },
+                                          //             child: Icon(
+                                          //               Icons.help,
+                                          //               size: 22,
+                                          //               color: Colors.black
+                                          //                   .withOpacity(0.54),
+                                          //             ),
+                                          //           ),
+                                          //         ],
+                                          //       ),
+                                          //       Padding(
+                                          //         padding:
+                                          //             const EdgeInsets.all(8.0),
+                                          //         child: FractionallySizedBox(
+                                          //           widthFactor: 0.65,
+                                          //           alignment:
+                                          //               Alignment.bottomLeft,
+                                          //           child: FittedBox(
+                                          //             child: Theme(
+                                          //               data: Theme.of(context)
+                                          //                   .copyWith(
+                                          //                 useMaterial3: true,
+                                          //               ),
+                                          //               child: SizedBox(
+                                          //                 child: Switch(
+                                          //                   value: false,
+                                          //                   activeColor:
+                                          //                       getCustomColors(
+                                          //                               context)
+                                          //                           .accentDark,
+                                          //                   inactiveTrackColor:
+                                          //                       getCustomColors(
+                                          //                               context)
+                                          //                           .lightBorder,
+                                          //                   onChanged:
+                                          //                       (bool value) {
+                                          //                     // setState(() {
+                                          //                     //   _value = value;
+                                          //                     // });
+                                          //                   },
+                                          //                 ),
+                                          //               ),
+                                          //             ),
+                                          //           ),
+                                          //         ),
+                                          //       ),
+                                          //     ],
+                                          //   ),
+                                          // ),
                                         ],
                                       ),
                                     ),
