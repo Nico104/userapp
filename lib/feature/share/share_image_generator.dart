@@ -139,19 +139,19 @@ class _ShareImageGeneratorState extends State<ShareImageGenerator> {
                           size: 28,
                         ),
                         onTap: () async {
-                          //  ' Share.share(
-                          //     'check out my dope ass dog\nhttps://example.com',
-                          //     subject: 'Look at my dope ass dog!',
-                          //   );
-                          //
-                          generateImage(
-                            borderRadius: _borderRadius,
-                            shareBackgroundStyle:
-                                _backgroundStyles.elementAt(_backgroundStyle),
-                            petName: widget.petProfileDetails.petName,
-                          ).then((value) {
-                            onShareXFileFromAssets(value);
-                          });
+                          Share.share(
+                            'check out my dope ass dog https://example.com',
+                            subject: 'Look at my dope ass dog!',
+                          );
+
+                          // generateImage(
+                          //   borderRadius: _borderRadius,
+                          //   shareBackgroundStyle:
+                          //       _backgroundStyles.elementAt(_backgroundStyle),
+                          //   petName: widget.petProfileDetails.petName,
+                          // ).then((value) {
+                          //   onShareXFileFromAssets(value);
+                          // });
                         },
                       ),
                       ShareOptionButton(

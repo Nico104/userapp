@@ -180,6 +180,7 @@ final ThemeData constLightTheme = ThemeData(
     CustomColors(
       // accent: HexColor("#2b4afc"),
       accent: HexColor("#1e202d"),
+      // accent: HexColor("371009"),
       accentLight: HexColor("a9a9ff"),
       // accentDark: HexColor("2642e2"),
       accentDark: HexColor("1c1f2a"),

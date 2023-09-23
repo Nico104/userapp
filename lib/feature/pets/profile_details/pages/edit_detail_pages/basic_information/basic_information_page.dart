@@ -14,6 +14,7 @@ import '../../../c_one_line_simple_input.dart';
 import '../../../c_pet_gender.dart';
 import '../../../models/m_pet_profile.dart';
 import '../../../u_profile_details.dart';
+import '../../../widgets/multi_options_button.dart';
 import '../../../widgets/two_options_button.dart';
 
 class BasicInformationPage extends StatefulWidget {
@@ -95,16 +96,16 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
               ),
               padding: EdgeInsets.all(16 + 8),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Behaviour",
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.all(16),
+            //   child: Align(
+            //     alignment: Alignment.centerLeft,
+            //     child: Text(
+            //       "Behaviour",
+            //       style: Theme.of(context).textTheme.titleMedium,
+            //     ),
+            //   ),
+            // ),
             FutureBuilder(
               future: _behaviourInformationFuture,
               builder: (BuildContext context,
@@ -115,146 +116,201 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       PaddingComponent(
-                        child: TwoOptionButton(
-                          activeColorOption1: HexColor("8be28b"),
-                          inactiveColorOption1: Colors.black.withOpacity(0.1),
-                          activeColorOption2: HexColor("ff6961"),
-                          inactiveColorOption2: Colors.black.withOpacity(0.1),
+                        child: MultiOptionButton(
                           title: "Friendly to Strangers",
-                          activeOption: behaviourInformation
-                                      .goodWithStrangers ==
-                                  true
-                              ? ActiveOption.option1
-                              : behaviourInformation.goodWithStrangers == false
-                                  ? ActiveOption.option2
-                                  : ActiveOption.inactive,
-                          optionLabel1: "Yes",
-                          optionLabel2: "No",
-                          onTap: (val) {
-                            if (val == 0) {
-                              behaviourInformation.goodWithStrangers = null;
-                            } else if (val == 1) {
-                              behaviourInformation.goodWithStrangers = true;
-                            } else if (val == 2) {
-                              behaviourInformation.goodWithStrangers = false;
-                            }
-                            updateBehaviourInformation(behaviourInformation);
-                            setState(() {});
-                          },
+                          initialActiveIndex: 0,
+                          options: [
+                            Option("Yes"),
+                            Option("Sometimes"),
+                            Option("Now"),
+                          ],
                         ),
                       ),
                       PaddingComponent(
-                        child: TwoOptionButton(
-                          activeColorOption1: HexColor("8be28b"),
-                          inactiveColorOption1: Colors.black.withOpacity(0.1),
-                          activeColorOption2: HexColor("ff6961"),
-                          inactiveColorOption2: Colors.black.withOpacity(0.1),
+                        child: MultiOptionButton(
                           title: "Good with Kids",
-                          activeOption:
-                              behaviourInformation.goodWithKids == true
-                                  ? ActiveOption.option1
-                                  : behaviourInformation.goodWithKids == false
-                                      ? ActiveOption.option2
-                                      : ActiveOption.inactive,
-                          optionLabel1: "Yes",
-                          optionLabel2: "No",
-                          onTap: (val) {
-                            if (val == 0) {
-                              behaviourInformation.goodWithKids = null;
-                            } else if (val == 1) {
-                              behaviourInformation.goodWithKids = true;
-                            } else if (val == 2) {
-                              behaviourInformation.goodWithKids = false;
-                            }
-                            updateBehaviourInformation(behaviourInformation);
-                            setState(() {});
-                          },
+                          initialActiveIndex: 0,
+                          options: [
+                            Option("Yes"),
+                            Option("Sometimes"),
+                            Option("Now"),
+                          ],
                         ),
                       ),
                       PaddingComponent(
-                        child: TwoOptionButton(
-                          activeColorOption1: HexColor("8be28b"),
-                          inactiveColorOption1: Colors.black.withOpacity(0.1),
-                          activeColorOption2: HexColor("ff6961"),
-                          inactiveColorOption2: Colors.black.withOpacity(0.1),
+                        child: MultiOptionButton(
                           title: "Good with Dogs",
-                          activeOption:
-                              behaviourInformation.goodWithDogs == true
-                                  ? ActiveOption.option1
-                                  : behaviourInformation.goodWithDogs == false
-                                      ? ActiveOption.option2
-                                      : ActiveOption.inactive,
-                          optionLabel1: "Yes",
-                          optionLabel2: "No",
-                          onTap: (val) {
-                            if (val == 0) {
-                              behaviourInformation.goodWithDogs = null;
-                            } else if (val == 1) {
-                              behaviourInformation.goodWithDogs = true;
-                            } else if (val == 2) {
-                              behaviourInformation.goodWithDogs = false;
-                            }
-                            updateBehaviourInformation(behaviourInformation);
-                            setState(() {});
-                          },
+                          initialActiveIndex: 0,
+                          options: [
+                            Option("Yes"),
+                            Option("Sometimes"),
+                            Option("Now"),
+                          ],
                         ),
                       ),
                       PaddingComponent(
-                        child: TwoOptionButton(
-                          activeColorOption1: HexColor("8be28b"),
-                          inactiveColorOption1: Colors.black.withOpacity(0.1),
-                          activeColorOption2: HexColor("ff6961"),
-                          inactiveColorOption2: Colors.black.withOpacity(0.1),
+                        child: MultiOptionButton(
                           title: "Good with Cats",
-                          activeOption:
-                              behaviourInformation.goodWithCats == true
-                                  ? ActiveOption.option1
-                                  : behaviourInformation.goodWithCats == false
-                                      ? ActiveOption.option2
-                                      : ActiveOption.inactive,
-                          optionLabel1: "Yes",
-                          optionLabel2: "No",
-                          onTap: (val) {
-                            if (val == 0) {
-                              behaviourInformation.goodWithCats = null;
-                            } else if (val == 1) {
-                              behaviourInformation.goodWithCats = true;
-                            } else if (val == 2) {
-                              behaviourInformation.goodWithCats = false;
-                            }
-                            updateBehaviourInformation(behaviourInformation);
-                            setState(() {});
-                          },
+                          initialActiveIndex: 0,
+                          options: [
+                            Option("Yes"),
+                            Option("Sometimes"),
+                            Option("Now"),
+                          ],
                         ),
                       ),
                       PaddingComponent(
-                        child: TwoOptionButton(
-                          activeColorOption1: HexColor("8be28b"),
-                          inactiveColorOption1: Colors.black.withOpacity(0.1),
-                          activeColorOption2: HexColor("ff6961"),
-                          inactiveColorOption2: Colors.black.withOpacity(0.1),
+                        child: MultiOptionButton(
                           title: "Good with Cars",
-                          activeOption:
-                              behaviourInformation.goodWithCars == true
-                                  ? ActiveOption.option1
-                                  : behaviourInformation.goodWithCars == false
-                                      ? ActiveOption.option2
-                                      : ActiveOption.inactive,
-                          optionLabel1: "Yes",
-                          optionLabel2: "No",
-                          onTap: (val) {
-                            if (val == 0) {
-                              behaviourInformation.goodWithCars = null;
-                            } else if (val == 1) {
-                              behaviourInformation.goodWithCars = true;
-                            } else if (val == 2) {
-                              behaviourInformation.goodWithCars = false;
-                            }
-                            updateBehaviourInformation(behaviourInformation);
-                            setState(() {});
-                          },
+                          initialActiveIndex: 0,
+                          options: [
+                            Option("Yes"),
+                            Option("Sometimes"),
+                            Option("Now"),
+                          ],
                         ),
                       ),
+                      // PaddingComponent(
+                      //   child: TwoOptionButton(
+                      //     activeColorOption1: HexColor("8be28b"),
+                      //     inactiveColorOption1: Colors.black.withOpacity(0.1),
+                      //     activeColorOption2: HexColor("ff6961"),
+                      //     inactiveColorOption2: Colors.black.withOpacity(0.1),
+                      //     title: "Friendly to Strangers",
+                      //     activeOption: behaviourInformation
+                      //                 .goodWithStrangers ==
+                      //             true
+                      //         ? ActiveOption.option1
+                      //         : behaviourInformation.goodWithStrangers == false
+                      //             ? ActiveOption.option2
+                      //             : ActiveOption.inactive,
+                      //     optionLabel1: "Yes",
+                      //     optionLabel2: "No",
+                      //     onTap: (val) {
+                      //       if (val == 0) {
+                      //         behaviourInformation.goodWithStrangers = null;
+                      //       } else if (val == 1) {
+                      //         behaviourInformation.goodWithStrangers = true;
+                      //       } else if (val == 2) {
+                      //         behaviourInformation.goodWithStrangers = false;
+                      //       }
+                      //       updateBehaviourInformation(behaviourInformation);
+                      //       setState(() {});
+                      //     },
+                      //   ),
+                      // ),
+                      // PaddingComponent(
+                      //   child: TwoOptionButton(
+                      //     activeColorOption1: HexColor("8be28b"),
+                      //     inactiveColorOption1: Colors.black.withOpacity(0.1),
+                      //     activeColorOption2: HexColor("ff6961"),
+                      //     inactiveColorOption2: Colors.black.withOpacity(0.1),
+                      //     title: "Good with Kids",
+                      //     activeOption:
+                      //         behaviourInformation.goodWithKids == true
+                      //             ? ActiveOption.option1
+                      //             : behaviourInformation.goodWithKids == false
+                      //                 ? ActiveOption.option2
+                      //                 : ActiveOption.inactive,
+                      //     optionLabel1: "Yes",
+                      //     optionLabel2: "No",
+                      //     onTap: (val) {
+                      //       if (val == 0) {
+                      //         behaviourInformation.goodWithKids = null;
+                      //       } else if (val == 1) {
+                      //         behaviourInformation.goodWithKids = true;
+                      //       } else if (val == 2) {
+                      //         behaviourInformation.goodWithKids = false;
+                      //       }
+                      //       updateBehaviourInformation(behaviourInformation);
+                      //       setState(() {});
+                      //     },
+                      //   ),
+                      // ),
+                      // PaddingComponent(
+                      //   child: TwoOptionButton(
+                      //     activeColorOption1: HexColor("8be28b"),
+                      //     inactiveColorOption1: Colors.black.withOpacity(0.1),
+                      //     activeColorOption2: HexColor("ff6961"),
+                      //     inactiveColorOption2: Colors.black.withOpacity(0.1),
+                      //     title: "Good with Dogs",
+                      //     activeOption:
+                      //         behaviourInformation.goodWithDogs == true
+                      //             ? ActiveOption.option1
+                      //             : behaviourInformation.goodWithDogs == false
+                      //                 ? ActiveOption.option2
+                      //                 : ActiveOption.inactive,
+                      //     optionLabel1: "Yes",
+                      //     optionLabel2: "No",
+                      //     onTap: (val) {
+                      //       if (val == 0) {
+                      //         behaviourInformation.goodWithDogs = null;
+                      //       } else if (val == 1) {
+                      //         behaviourInformation.goodWithDogs = true;
+                      //       } else if (val == 2) {
+                      //         behaviourInformation.goodWithDogs = false;
+                      //       }
+                      //       updateBehaviourInformation(behaviourInformation);
+                      //       setState(() {});
+                      //     },
+                      //   ),
+                      // ),
+                      // PaddingComponent(
+                      //   child: TwoOptionButton(
+                      //     activeColorOption1: HexColor("8be28b"),
+                      //     inactiveColorOption1: Colors.black.withOpacity(0.1),
+                      //     activeColorOption2: HexColor("ff6961"),
+                      //     inactiveColorOption2: Colors.black.withOpacity(0.1),
+                      //     title: "Good with Cats",
+                      //     activeOption:
+                      //         behaviourInformation.goodWithCats == true
+                      //             ? ActiveOption.option1
+                      //             : behaviourInformation.goodWithCats == false
+                      //                 ? ActiveOption.option2
+                      //                 : ActiveOption.inactive,
+                      //     optionLabel1: "Yes",
+                      //     optionLabel2: "No",
+                      //     onTap: (val) {
+                      //       if (val == 0) {
+                      //         behaviourInformation.goodWithCats = null;
+                      //       } else if (val == 1) {
+                      //         behaviourInformation.goodWithCats = true;
+                      //       } else if (val == 2) {
+                      //         behaviourInformation.goodWithCats = false;
+                      //       }
+                      //       updateBehaviourInformation(behaviourInformation);
+                      //       setState(() {});
+                      //     },
+                      //   ),
+                      // ),
+                      // PaddingComponent(
+                      //   child: TwoOptionButton(
+                      //     activeColorOption1: HexColor("8be28b"),
+                      //     inactiveColorOption1: Colors.black.withOpacity(0.1),
+                      //     activeColorOption2: HexColor("ff6961"),
+                      //     inactiveColorOption2: Colors.black.withOpacity(0.1),
+                      //     title: "Good with Cars",
+                      //     activeOption:
+                      //         behaviourInformation.goodWithCars == true
+                      //             ? ActiveOption.option1
+                      //             : behaviourInformation.goodWithCars == false
+                      //                 ? ActiveOption.option2
+                      //                 : ActiveOption.inactive,
+                      //     optionLabel1: "Yes",
+                      //     optionLabel2: "No",
+                      //     onTap: (val) {
+                      //       if (val == 0) {
+                      //         behaviourInformation.goodWithCars = null;
+                      //       } else if (val == 1) {
+                      //         behaviourInformation.goodWithCars = true;
+                      //       } else if (val == 2) {
+                      //         behaviourInformation.goodWithCars = false;
+                      //       }
+                      //       updateBehaviourInformation(behaviourInformation);
+                      //       setState(() {});
+                      //     },
+                      //   ),
+                      // ),
                     ],
                   );
                 } else if (snapshot.hasError) {
