@@ -11,17 +11,20 @@ class PetProfilePreview extends StatefulWidget {
     required this.petProfileDetails,
     required this.imageAlignmentOffset,
     required this.reloadFuture,
-    required this.extendedActions,
+    required this.extendedPicture,
     required this.switchExtendedActions,
     required this.setPictureLink,
+    required this.closeNavigationPeppi,
   });
 
   final PetProfileDetails petProfileDetails;
   final double imageAlignmentOffset;
   final VoidCallback reloadFuture;
-  final bool extendedActions;
+  final bool extendedPicture;
   final VoidCallback switchExtendedActions;
   final Function(String) setPictureLink;
+
+  final VoidCallback closeNavigationPeppi;
 
   @override
   State<PetProfilePreview> createState() => PetProfilePreviewState();
@@ -49,20 +52,37 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
     super.initState();
 
     _controller.addListener(() {
+      closeNavigationPeppi();
       setState(() {
         _pageIndex = _controller.page ?? 0;
       });
 
       // widget.setPictureIndex((_controller.page ?? 0).round());
 
-      if (_pageIndex > 0 && !widget.extendedActions) {
+      if (_pageIndex > 0 && !widget.extendedPicture) {
         widget.switchExtendedActions.call();
-      } else if (_pageIndex == 0 && widget.extendedActions) {
+      } else if (_pageIndex == 0 && widget.extendedPicture) {
         widget.switchExtendedActions.call();
       }
 
       resetPicture();
     });
+  }
+
+  bool _debounceNavgationPeppiTemp = false;
+
+  void closeNavigationPeppi() {
+    if (!_debounceNavgationPeppiTemp) {
+      widget.closeNavigationPeppi();
+      _debounceNavgationPeppiTemp = true;
+    }
+    EasyDebounce.debounce(
+      'closeNavigationPeppi',
+      const Duration(milliseconds: 80),
+      () {
+        _debounceNavgationPeppiTemp = false;
+      },
+    );
   }
 
   // @override
@@ -76,7 +96,7 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
       widget.petProfileDetails.profileId.toString(),
       const Duration(milliseconds: 2000),
       () {
-        if (widget.extendedActions) {
+        if (widget.extendedPicture) {
           _controller.animateTo(0,
               curve: Curves.fastOutSlowIn,
               duration: const Duration(milliseconds: 500));
@@ -84,6 +104,14 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
       },
     );
   }
+
+  // void instantResetPicture() {
+  //   if (widget.extendedActions) {
+  //     _controller.animateTo(0,
+  //         curve: Curves.fastOutSlowIn,
+  //         duration: const Duration(milliseconds: 80));
+  //   }
+  // }
 
   @override
   void dispose() {
@@ -122,7 +150,7 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                         //     widget.imageAlignmentOffset == 0 && _pageIndex == 0
                         //         ? 1
                         //         : 0,
-                        opacity: !widget.extendedActions ? 1 : 0,
+                        opacity: !widget.extendedPicture ? 1 : 0,
                         child: Text(
                           widget.petProfileDetails.petName,
                           style: getCustomTextStyles(context).homePetName,
@@ -153,9 +181,9 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                               alignment: const Alignment(0, -0.4),
                               child: AnimatedFractionallySizedBox(
                                 heightFactor:
-                                    widget.extendedActions ? 0.8 : 0.7,
+                                    widget.extendedPicture ? 0.8 : 0.7,
                                 // heightFactor: 1,
-                                widthFactor: widget.extendedActions ? 0.8 : 0.7,
+                                widthFactor: widget.extendedPicture ? 0.8 : 0.7,
                                 duration: _duration,
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -178,7 +206,7 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                                     child: AnimatedFractionallySizedBox(
                                       duration: _duration,
                                       heightFactor:
-                                          widget.extendedActions ? 1 : 1.2,
+                                          widget.extendedPicture ? 1 : 1.2,
                                       alignment: Alignment(
                                         0,
                                         widget.imageAlignmentOffset,

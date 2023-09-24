@@ -1,14 +1,14 @@
 // import 'package:flutter/material.dart';
+// import 'package:share_plus/share_plus.dart';
 // import 'package:sizer/sizer.dart';
 // import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
+// import 'package:userapp/feature/pets/profile_details/pages/pet_page%20copy%202.dart';
 // import 'package:userapp/feature/pets/profile_details/pages/pet_page.dart';
 // import 'package:userapp/feature/scans/scans_page.dart';
 // import 'package:userapp/feature/share/share_image_generator.dart';
 // import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 
-// import '../../delete_me/filetest1.dart';
 // import '../../general/utils_theme/custom_colors.dart';
-// import 'profile_details/profile_detail_view.dart';
 // import '../share/share_pet_profile_page.dart';
 
 // class ExtendedSettingsContainer extends StatefulWidget {
@@ -50,12 +50,8 @@
 //     Navigator.push(
 //       context,
 //       MaterialPageRoute(
-//         builder: (context) => PetProfileDetailView(
+//         builder: (context) => PetPage2(
 //           petProfileDetails: widget.petProfileDetails,
-//           // reloadFuture: widget.reloadFuture,
-//           // getProfileDetails: () {
-//           //   return widget.petProfileDetails;
-//           // },
 //         ),
 //       ),
 //     ).then((value) => widget.reloadFuture.call());
@@ -77,13 +73,20 @@
 //   }
 
 //   void goToShare() {
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(
-//         builder: (context) => ShareImageGenerator(
-//           petProfileDetails: widget.petProfileDetails,
-//         ),
-//       ),
+//     // Navigator.push(
+//     //   context,
+//     //   MaterialPageRoute(
+//     //     // builder: (context) => ShareImageGenerator(
+//     //     //   petProfileDetails: widget.petProfileDetails,
+//     //     // ),
+//     //     builder: (context) => SharePetProfilePage(
+//     //       petProfileDetails: widget.petProfileDetails,
+//     //     ),
+//     //   ),
+//     // );
+//     Share.share(
+//       'check out my dope ass dog https://example.com',
+//       subject: 'Look at my dope ass dog!',
 //     );
 //     resetHandle();
 //   }
@@ -140,29 +143,8 @@
 
 //   @override
 //   Widget build(BuildContext context) {
-//     // return Align(
-//     //   alignment: Alignment.center,
-//     //   child: CustomPaint(
-//     //     child: SizedBox(
-//     //       width: 100.w,
-//     //       height: 500,
-//     //     ),
-//     //     painter: ShapeTest1(),
-//     //   ),
-//     // );
-//     return Container(
-//       decoration: BoxDecoration(
-//         borderRadius: BorderRadius.only(
-//           topLeft: Radius.circular(112),
-//           topRight: Radius.circular(112),
-//         ),
-//         color: Theme.of(context).primaryColor,
-//       ),
-//       width: 100.w,
-//       height: 50.h,
-//     );
 //     return Padding(
-//       padding: const EdgeInsets.all(0),
+//       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
 //       child: AnimatedOpacity(
 //         duration: const Duration(milliseconds: 125),
 //         opacity: widget.isActive ? 1 : 0,
@@ -200,7 +182,7 @@
 //             },
 //             child: Container(
 //               // height: 110,
-//               width: double.infinity,
+//               // width: double.infinity,
 //               // height: 80,
 //               // blur: 7,
 //               // width: 100,
@@ -209,34 +191,21 @@
 //               // borderRadius: BorderRadius.all(Radius.circular(_borderRadius)),
 //               decoration: BoxDecoration(
 //                 borderRadius: BorderRadius.all(Radius.circular(_borderRadius)),
-//                 // boxShadow: kElevationToShadow[4],
+//                 boxShadow: kElevationToShadow[4],
 //                 color: Theme.of(context).primaryColor.withOpacity(1),
 //               ),
 //               child: Column(
 //                 mainAxisSize: MainAxisSize.min,
-//                 crossAxisAlignment: CrossAxisAlignment.start,
 //                 children: [
-//                   CustomPaint(
-//                     child: SizedBox(
-//                       width: 300,
-//                       height: 300,
-//                     ),
-//                     painter: ShapeTest1(),
-//                   ),
 //                   const SizedBox(height: 12),
-//                   Align(
-//                     alignment: Alignment.center,
-//                     child: Container(
-//                       width: 10.w,
-//                       height: 5,
-//                       decoration: BoxDecoration(
-//                         borderRadius: BorderRadius.circular(8),
-//                         color: getCustomColors(context).accent,
-//                       ),
+//                   Container(
+//                     width: 10.w,
+//                     height: 5,
+//                     decoration: BoxDecoration(
+//                       borderRadius: BorderRadius.circular(8),
+//                       color: getCustomColors(context).accent,
 //                     ),
 //                   ),
-//                   const SizedBox(height: 16),
-//                   Text("Tabo"),
 //                   const SizedBox(height: 16),
 //                   ActionButtons(
 //                     goToDetails: () => goToDetails(),
@@ -277,95 +246,59 @@
 
 //   @override
 //   Widget build(BuildContext context) {
-//     return Column(
+//     return Row(
 //       mainAxisSize: MainAxisSize.min,
 //       children: [
-//         const SizedBox(height: 32),
+//         const SizedBox(width: 32),
 //         GestureDetector(
 //           onTap: () {
 //             goToShare();
 //           },
-//           child: Row(
-//             children: [
-//               Container(
-//                 //To trigger the Hit Box
-//                 color: Colors.transparent,
-//                 child: const Center(
-//                   child: Icon(
-//                     CustomIcons.share_thin,
-//                     size: 32,
-//                   ),
-//                 ),
+//           child: Container(
+//             //To trigger the Hit Box
+//             color: Colors.transparent,
+//             child: const Center(
+//               child: Icon(
+//                 CustomIcons.share_thin,
+//                 size: 32,
 //               ),
-//               SizedBox(width: 12),
-//               Column(
-//                 mainAxisSize: MainAxisSize.min,
-//                 children: [
-//                   Text("Share"),
-//                   Text("Send Tabo to your firends or vets"),
-//                 ],
-//               ),
-//             ],
+//             ),
 //           ),
 //         ),
-//         const SizedBox(height: 32),
+//         const SizedBox(width: 32),
 //         GestureDetector(
 //           onTap: () {
 //             goToDetails();
 //           },
-//           child: Row(
-//             children: [
-//               Container(
-//                 //To trigger the Hit Box
-//                 color: Colors.transparent,
-//                 child: const Center(
-//                   child: Icon(
-//                     CustomIcons.edit,
-//                     size: 32,
-//                   ),
-//                 ),
+//           child: Container(
+//             //To trigger the Hit Box
+//             color: Colors.transparent,
+//             child: const Center(
+//               child: Icon(
+//                 CustomIcons.edit,
+//                 size: 32,
 //               ),
-//               SizedBox(width: 12),
-//               Column(
-//                 mainAxisSize: MainAxisSize.min,
-//                 children: [
-//                   Text("Edit"),
-//                   Text("Edit Tabos profile"),
-//                 ],
-//               ),
-//             ],
+//             ),
 //           ),
 //         ),
-//         const SizedBox(height: 32),
+//         const SizedBox(width: 32),
 //         GestureDetector(
 //           onTap: () {
 //             goToScans();
 //           },
-//           child: Row(
-//             children: [
-//               Container(
-//                 //To trigger the Hit Box
-//                 color: Colors.transparent,
-//                 child: const Center(
-//                   child: Icon(
-//                     // CustomIcons.edit_square,
-//                     CustomIcons.qr_code_9,
-//                     size: 32,
-//                   ),
-//                 ),
+//           child: Container(
+//             //To trigger the Hit Box
+//             color: Colors.transparent,
+//             child: const Center(
+//               child: Icon(
+//                 // CustomIcons.edit_square,
+//                 CustomIcons.qr_code_9,
+//                 size: 32,
 //               ),
-//               SizedBox(width: 12),
-//               Column(
-//                 mainAxisSize: MainAxisSize.min,
-//                 children: [
-//                   Text("Scans"),
-//                   Text("Tabo has been scanned 2 times this week"),
-//                 ],
-//               ),
-//             ],
+//             ),
 //           ),
 //         ),
-//         const SizedBox(height: 32),
+//         const SizedBox(width: 32),
 //       ],
 //     );
 //   }

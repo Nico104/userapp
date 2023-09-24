@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/feature/pets/profile_details/pages/pet_page%20copy%202.dart';
@@ -9,6 +10,7 @@ import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 
 import '../../general/utils_theme/custom_colors.dart';
 import '../share/share_pet_profile_page.dart';
+import 'navigation_peppi_content.dart';
 
 class ExtendedSettingsContainer extends StatefulWidget {
   const ExtendedSettingsContainer({
@@ -24,10 +26,10 @@ class ExtendedSettingsContainer extends StatefulWidget {
 
   @override
   State<ExtendedSettingsContainer> createState() =>
-      _ExtendedSettingsContainerState();
+      ExtendedSettingsContainerState();
 }
 
-class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
+class ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
   final double _borderRadius = 42;
   final int iconFlex = 10;
   final int labelFlex = 2;
@@ -39,48 +41,20 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
 
   double _width = 0;
 
+  bool _share = false;
+  bool _scans = false;
+
   @override
   void initState() {
     super.initState();
     bottomPadding = bottomPaddingDefaultValue;
   }
 
-  void goToDetails() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => PetPage2(
-          petProfileDetails: widget.petProfileDetails,
-        ),
-      ),
-    ).then((value) => widget.reloadFuture.call());
-    resetHandle();
-  }
-
-  void goToScans() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ScansPage(
-          petName: widget.petProfileDetails.petName,
-          // scans: widget.petProfileDetails.petProfileScans,
-          petProfileId: widget.petProfileDetails.profileId,
-        ),
-      ),
-    );
-    resetHandle();
-  }
-
-  void goToShare() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ShareImageGenerator(
-          petProfileDetails: widget.petProfileDetails,
-        ),
-      ),
-    );
-    resetHandle();
+  void resetNavigationPeppi() {
+    setState(() {
+      _share = false;
+      _scans = false;
+    });
   }
 
   void resetHandle() {
@@ -90,6 +64,7 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
       draghandleOpacity = 1;
       _width = 0;
     });
+    resetNavigationPeppi();
   }
 
   void swipeContainerUpByPercent(double upPercentageLevel,
@@ -133,12 +108,62 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
     });
   }
 
+  final Duration _duration = const Duration(milliseconds: 125);
+
+  void goToDetails() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PetPage2(
+          petProfileDetails: widget.petProfileDetails,
+        ),
+      ),
+    ).then((value) => widget.reloadFuture.call());
+    resetHandle();
+  }
+
+  void goToScans() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ScansPage(
+          petName: widget.petProfileDetails.petName,
+          // scans: widget.petProfileDetails.petProfileScans,
+          petProfileId: widget.petProfileDetails.profileId,
+        ),
+      ),
+    );
+    resetHandle();
+  }
+
+  void goToShare() {
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     // builder: (context) => ShareImageGenerator(
+    //     //   petProfileDetails: widget.petProfileDetails,
+    //     // ),
+    //     builder: (context) => SharePetProfilePage(
+    //       petProfileDetails: widget.petProfileDetails,
+    //     ),
+    //   ),
+    // );
+    // Share.share(
+    //   'check out my dope ass dog https://example.com',
+    //   subject: 'Look at my dope ass dog!',
+    // );
+    resetHandle();
+    setState(() {
+      _share = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
       child: AnimatedOpacity(
-        duration: const Duration(milliseconds: 125),
+        duration: _duration,
         opacity: widget.isActive ? 1 : 0,
         curve: Curves.easeInOutExpo,
         child: IgnorePointer(
@@ -203,6 +228,11 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
                     goToDetails: () => goToDetails(),
                     goToScans: () => goToScans(),
                     goToShare: () => goToShare(),
+                    scans: _scans,
+                    share: _share,
+                    resetNavigationPeppi: resetNavigationPeppi,
+                    reloadFuture: widget.reloadFuture,
+                    petProfileDetails: widget.petProfileDetails,
                   ),
                   AnimatedContainer(
                     duration: (bottomPadding <= bottomPaddingDefaultValue)
@@ -220,78 +250,6 @@ class _ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class ActionButtons extends StatelessWidget {
-  const ActionButtons({
-    super.key,
-    required this.goToDetails,
-    required this.goToScans,
-    required this.goToShare,
-  });
-
-  final VoidCallback goToDetails;
-  final VoidCallback goToScans;
-  final VoidCallback goToShare;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const SizedBox(width: 32),
-        GestureDetector(
-          onTap: () {
-            goToShare();
-          },
-          child: Container(
-            //To trigger the Hit Box
-            color: Colors.transparent,
-            child: const Center(
-              child: Icon(
-                CustomIcons.share_thin,
-                size: 32,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(width: 32),
-        GestureDetector(
-          onTap: () {
-            goToDetails();
-          },
-          child: Container(
-            //To trigger the Hit Box
-            color: Colors.transparent,
-            child: const Center(
-              child: Icon(
-                CustomIcons.edit,
-                size: 32,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(width: 32),
-        GestureDetector(
-          onTap: () {
-            goToScans();
-          },
-          child: Container(
-            //To trigger the Hit Box
-            color: Colors.transparent,
-            child: const Center(
-              child: Icon(
-                // CustomIcons.edit_square,
-                CustomIcons.qr_code_9,
-                size: 32,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(width: 32),
-      ],
     );
   }
 }

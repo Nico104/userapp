@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:userapp/general/network_globals.dart';
 import 'package:userapp/general/utils_color/hex_color.dart';
-import 'package:userapp/feature/pets/pet_profile_preview_extended_actions.dart';
 import 'package:userapp/feature/pets/profile_details/g_profile_detail_globals.dart'
     as globals;
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import '../language/m_language.dart';
+import '../navigation_peppi/pet_profile_preview_extended_actions.dart';
 import 'my_pets_navbar.dart';
 import 'new_pet_profile.dart';
 import 'page_transform.dart';
@@ -39,7 +39,10 @@ class _MyPetsState extends State<MyPets> {
   final PageController _controller = PageController();
 
   double pageindex = 0;
-  int? activeExtendedActions;
+  int? activeExtendedPicture;
+
+  final GlobalKey<ExtendedSettingsContainerState> _navigationPeppiKey =
+      GlobalKey<ExtendedSettingsContainerState>();
 
   @override
   void initState() {
@@ -70,11 +73,12 @@ class _MyPetsState extends State<MyPets> {
   }
 
   void _closeExtendedActions() {
-    if (activeExtendedActions != null) {
+    if (activeExtendedPicture != null) {
       setState(() {
-        activeExtendedActions = null;
+        activeExtendedPicture = null;
       });
     }
+    _navigationPeppiKey.currentState?.resetNavigationPeppi();
   }
 
   // void precacheImages() {
@@ -223,8 +227,10 @@ class _MyPetsState extends State<MyPets> {
                                       minScaling: 0.65,
                                       minOpacity: 0,
                                       child: PetProfilePreview(
-                                        extendedActions: isExtendedIndexActive(
-                                            activeExtendedActions, position),
+                                        closeNavigationPeppi:
+                                            _closeExtendedActions,
+                                        extendedPicture: isExtendedIndexActive(
+                                            activeExtendedPicture, position),
                                         petProfileDetails: widget.petProfiles
                                             .elementAt(position),
                                         imageAlignmentOffset:
@@ -235,11 +241,11 @@ class _MyPetsState extends State<MyPets> {
                                             widget.reloadFuture.call(),
                                         switchExtendedActions: () {
                                           setState(() {
-                                            if (activeExtendedActions !=
+                                            if (activeExtendedPicture !=
                                                 position) {
-                                              activeExtendedActions = position;
+                                              activeExtendedPicture = position;
                                             } else {
-                                              activeExtendedActions = null;
+                                              activeExtendedPicture = null;
                                             }
                                           });
                                         },
@@ -307,6 +313,7 @@ class _MyPetsState extends State<MyPets> {
                     child: Align(
                       alignment: Alignment.bottomCenter,
                       child: ExtendedSettingsContainer(
+                        key: _navigationPeppiKey,
                         isActive: isInteger(pageindex),
                         petProfileDetails:
                             widget.petProfiles.elementAt(pageindex.round()),
