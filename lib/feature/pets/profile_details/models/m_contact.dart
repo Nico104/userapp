@@ -1,4 +1,5 @@
 import 'package:userapp/feature/pets/profile_details/models/m_contact_descripton.dart';
+import '../../../language/m_language.dart';
 import 'm_phone_number.dart';
 
 class Contact {
@@ -7,12 +8,13 @@ class Contact {
   final DateTime contactCreationDateTime;
   String contactName;
   String? contactPictureLink;
-  ContactDescription? contactDescription;
+  // ContactDescription? contactDescription;
   String? contactEmail;
   String? contactAddress;
   String? contactFacebook;
   String? contactInstagram;
   List<PhoneNumber> contactTelephoneNumbers;
+  List<Language> languagesSpoken;
 
   Contact(
     this.contactId,
@@ -20,12 +22,13 @@ class Contact {
     this.contactCreationDateTime,
     this.contactName,
     this.contactPictureLink,
-    this.contactDescription,
+    // this.contactDescription,
     this.contactEmail,
     this.contactAddress,
     this.contactFacebook,
     this.contactInstagram,
     this.contactTelephoneNumbers,
+    this.languagesSpoken,
   );
 
   Contact.fromJson(Map<String, dynamic> json)
@@ -35,9 +38,9 @@ class Contact {
             DateTime.parse(json['contact_creation_DateTime']),
         contactName = json['contact_name'],
         contactPictureLink = json['contact_picture_link'],
-        contactDescription = json['contact_description'] != null
-            ? ContactDescription.fromJson(json['contact_description'])
-            : null,
+        // contactDescription = json['contact_description'] != null
+        //     ? ContactDescription.fromJson(json['contact_description'])
+        //     : null,
         contactEmail = json['contact_email'],
         contactAddress = json['contact_address'],
         contactFacebook = json['contact_facebook'],
@@ -46,13 +49,18 @@ class Contact {
             ? (json['contact_telephone_numbers'] as List)
                 .map((t) => PhoneNumber.fromJson(t))
                 .toList()
+            : [],
+        languagesSpoken = json['languages_spoken'] != null
+            ? (json['languages_spoken'] as List)
+                .map((t) => Language.fromJson(t))
+                .toList()
             : [];
 
   Map<String, dynamic> toJson() => {
         'contact_id': contactId,
         // 'petProfile_id': petProfileId,
         'contact_name': contactName,
-        'contact_description': contactDescription,
+        // 'contact_description': contactDescription,
         'contact_email': contactEmail,
         'contact_address': contactAddress,
         'contact_facebook': contactFacebook,

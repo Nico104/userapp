@@ -75,7 +75,7 @@ class _ContactListItemState extends State<ContactListItem> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _getContactDescriptionWidget(widget.contact.contactDescription),
+              // _getContactDescriptionWidget(widget.contact.contactDescription),
               const SizedBox(height: 24),
               Text(widget.contact.contactName,
                   style: Theme.of(context).textTheme.titleMedium),

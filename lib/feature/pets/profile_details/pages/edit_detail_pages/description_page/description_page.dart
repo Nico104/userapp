@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:userapp/feature/language/language_selector.dart';
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/description_page/auto_translate_button.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 import 'package:userapp/general/utils_general.dart';
@@ -515,8 +516,10 @@ class AddNewTranslation extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SelectNewTranslationLanguage(
+            builder: (context) => LanguageSelector(
               unavailableLanguages: unavailableLanguages,
+              availableLanguages: availableLanguages,
+              title: "Choose Description Language",
             ),
           ),
         ).then((value) {
@@ -555,88 +558,88 @@ class AddNewTranslation extends StatelessWidget {
   }
 }
 
-class SelectNewTranslationLanguage extends StatefulWidget {
-  const SelectNewTranslationLanguage(
-      {super.key, required this.unavailableLanguages});
+// class SelectNewTranslationLanguage extends StatefulWidget {
+//   const SelectNewTranslationLanguage(
+//       {super.key, required this.unavailableLanguages});
 
-  final List<Language> unavailableLanguages;
+//   final List<Language> unavailableLanguages;
 
-  @override
-  State<SelectNewTranslationLanguage> createState() =>
-      _SelectNewTranslationLanguageState();
-}
+//   @override
+//   State<SelectNewTranslationLanguage> createState() =>
+//       _SelectNewTranslationLanguageState();
+// }
 
-class _SelectNewTranslationLanguageState
-    extends State<SelectNewTranslationLanguage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Choose Description Language"),
-      ),
-      body: ListView.builder(
-        itemCount: availableLanguages.length,
-        itemBuilder: (context, index) {
-          bool available = !listContainsLanguage(
-            widget.unavailableLanguages,
-            availableLanguages.elementAt(index),
-          );
-          return Padding(
-            padding: const EdgeInsets.all(22),
-            child: Material(
-              elevation: 4,
-              borderRadius: BorderRadius.circular(16),
-              child: Opacity(
-                opacity: available ? 1 : 0.34,
-                child: IgnorePointer(
-                  ignoring: !available,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pop(
-                        context,
-                        availableLanguages.elementAt(index),
-                      );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          children: [
-                            AspectRatio(
-                              aspectRatio: 3 / 2,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
-                                child: Image.network(s3BaseUrl +
-                                    availableLanguages
-                                        .elementAt(index)
-                                        .languageImagePath),
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                availableLanguages
-                                    .elementAt(index)
-                                    .languageLabel,
-                                style: Theme.of(context).textTheme.titleMedium,
-                                textAlign: TextAlign.left,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
+// class _SelectNewTranslationLanguageState
+//     extends State<SelectNewTranslationLanguage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("Choose Description Language"),
+//       ),
+//       body: ListView.builder(
+//         itemCount: availableLanguages.length,
+//         itemBuilder: (context, index) {
+//           bool available = !listContainsLanguage(
+//             widget.unavailableLanguages,
+//             availableLanguages.elementAt(index),
+//           );
+//           return Padding(
+//             padding: const EdgeInsets.all(22),
+//             child: Material(
+//               elevation: 4,
+//               borderRadius: BorderRadius.circular(16),
+//               child: Opacity(
+//                 opacity: available ? 1 : 0.34,
+//                 child: IgnorePointer(
+//                   ignoring: !available,
+//                   child: GestureDetector(
+//                     onTap: () {
+//                       Navigator.pop(
+//                         context,
+//                         availableLanguages.elementAt(index),
+//                       );
+//                     },
+//                     child: Container(
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.circular(16),
+//                       ),
+//                       child: Padding(
+//                         padding: const EdgeInsets.all(16),
+//                         child: Column(
+//                           children: [
+//                             AspectRatio(
+//                               aspectRatio: 3 / 2,
+//                               child: ClipRRect(
+//                                 borderRadius: BorderRadius.circular(16),
+//                                 child: Image.network(s3BaseUrl +
+//                                     availableLanguages
+//                                         .elementAt(index)
+//                                         .languageImagePath),
+//                               ),
+//                             ),
+//                             const SizedBox(height: 16),
+//                             Align(
+//                               alignment: Alignment.centerLeft,
+//                               child: Text(
+//                                 availableLanguages
+//                                     .elementAt(index)
+//                                     .languageLabel,
+//                                 style: Theme.of(context).textTheme.titleMedium,
+//                                 textAlign: TextAlign.left,
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ),
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }

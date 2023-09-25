@@ -291,180 +291,231 @@ Future<void> deletePhoneNumber(PhoneNumber phoneNumber) async {
   }
 }
 
+//Languages Spoken
+Future<void> connectLanguageSpoken(int contactId, String languageKey) async {
+  Uri url = Uri.parse('$baseURL/contact/connectLanguageSpoken');
+  String? token = await getIdToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': '$token',
+    },
+    body: jsonEncode(
+      {
+        "contactId": contactId,
+        "languageKey": languageKey,
+      },
+    ),
+  );
+
+  if (response.statusCode == 201) {
+  } else {
+    throw Exception('Failed to connectLanguageSpoken.');
+  }
+}
+
+Future<void> disconnectLanguageSpoken(int contactId, String languageKey) async {
+  Uri url = Uri.parse('$baseURL/contact/disconnectLanguageSpoken');
+  String? token = await getIdToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': '$token',
+    },
+    body: jsonEncode(
+      {
+        "contactId": contactId,
+        "languageKey": languageKey,
+      },
+    ),
+  );
+
+  if (response.statusCode == 201) {
+  } else {
+    throw Exception('Failed to disconnectLanguageSpoken.');
+  }
+}
+
 //Contact Description
 
-Future<List<ContactDescription>> fetchAvailableContactDescription() async {
-  Uri url = Uri.parse('$baseURL/contact/getUserContactDescriptions');
-  String? token = await getIdToken();
+// Future<List<ContactDescription>> fetchAvailableContactDescription() async {
+//   Uri url = Uri.parse('$baseURL/contact/getUserContactDescriptions');
+//   String? token = await getIdToken();
 
-  final response = await http.get(
-    url,
-    headers: {
-      // 'Content-Type': 'application/json; charset=UTF-8',
-      'Accept': 'application/json',
-      'Authorization': '$token',
-    },
-  );
+//   final response = await http.get(
+//     url,
+//     headers: {
+//       // 'Content-Type': 'application/json; charset=UTF-8',
+//       'Accept': 'application/json',
+//       'Authorization': '$token',
+//     },
+//   );
 
-  print(response.statusCode);
+//   print(response.statusCode);
 
-  if (response.statusCode == 200) {
-    return (jsonDecode(response.body) as List)
-        .map((t) => ContactDescription.fromJson(t))
-        .toList();
-  } else {
-    throw Exception('Failed to load AvailableContactDescription');
-  }
-}
+//   if (response.statusCode == 200) {
+//     return (jsonDecode(response.body) as List)
+//         .map((t) => ContactDescription.fromJson(t))
+//         .toList();
+//   } else {
+//     throw Exception('Failed to load AvailableContactDescription');
+//   }
+// }
 
-Future<void> connectContactDescription(
-  int contactId,
-  int contactDescriptionId,
-) async {
-  Uri url = Uri.parse('$baseURL/contact/connectContactDescription');
-  String? token = await getIdToken();
+// Future<void> connectContactDescription(
+//   int contactId,
+//   int contactDescriptionId,
+// ) async {
+//   Uri url = Uri.parse('$baseURL/contact/connectContactDescription');
+//   String? token = await getIdToken();
 
-  final response = await http.post(
-    url,
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept': 'application/json',
-      'Authorization': '$token',
-    },
-    body: jsonEncode({
-      'contact_id': contactId,
-      'contact_description_id': contactDescriptionId,
-    }),
-  );
+//   final response = await http.post(
+//     url,
+//     headers: {
+//       'Content-Type': 'application/json; charset=UTF-8',
+//       'Accept': 'application/json',
+//       'Authorization': '$token',
+//     },
+//     body: jsonEncode({
+//       'contact_id': contactId,
+//       'contact_description_id': contactDescriptionId,
+//     }),
+//   );
 
-  print(response.body);
+//   print(response.body);
 
-  if (response.statusCode == 201) {
-    // return ContactDescription.fromJson(json.decode(response.body));
-  } else {
-    throw Exception('Failed to connect ContactDescription.');
-  }
-}
+//   if (response.statusCode == 201) {
+//     // return ContactDescription.fromJson(json.decode(response.body));
+//   } else {
+//     throw Exception('Failed to connect ContactDescription.');
+//   }
+// }
 
-Future<void> disconnectContactDescription(
-  int contactId,
-) async {
-  Uri url = Uri.parse('$baseURL/contact/disconnectContactDescription');
-  String? token = await getIdToken();
+// Future<void> disconnectContactDescription(
+//   int contactId,
+// ) async {
+//   Uri url = Uri.parse('$baseURL/contact/disconnectContactDescription');
+//   String? token = await getIdToken();
 
-  final response = await http.post(
-    url,
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept': 'application/json',
-      'Authorization': '$token',
-    },
-    body: jsonEncode({
-      'contact_id': contactId,
-    }),
-  );
+//   final response = await http.post(
+//     url,
+//     headers: {
+//       'Content-Type': 'application/json; charset=UTF-8',
+//       'Accept': 'application/json',
+//       'Authorization': '$token',
+//     },
+//     body: jsonEncode({
+//       'contact_id': contactId,
+//     }),
+//   );
 
-  print(response.body);
+//   print(response.body);
 
-  if (response.statusCode == 201) {
-    // return ContactDescription.fromJson(json.decode(response.body));
-  } else {
-    throw Exception('Failed to disconnect ContactDescription.');
-  }
-}
+//   if (response.statusCode == 201) {
+//     // return ContactDescription.fromJson(json.decode(response.body));
+//   } else {
+//     throw Exception('Failed to disconnect ContactDescription.');
+//   }
+// }
 
-Future<ContactDescription> createContactDescription(int contactId) async {
-  Uri url = Uri.parse('$baseURL/contact/createContactDescription');
-  String? token = await getIdToken();
+// Future<ContactDescription> createContactDescription(int contactId) async {
+//   Uri url = Uri.parse('$baseURL/contact/createContactDescription');
+//   String? token = await getIdToken();
 
-  final response = await http.post(
-    url,
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept': 'application/json',
-      'Authorization': '$token',
-    },
-    body: jsonEncode({
-      'contact_id': contactId,
-      'contact_description_hex': getDefaultColor().toHexTriplet(),
-      'contact_description_label': getDefaultLabel(),
-    }),
-  );
+//   final response = await http.post(
+//     url,
+//     headers: {
+//       'Content-Type': 'application/json; charset=UTF-8',
+//       'Accept': 'application/json',
+//       'Authorization': '$token',
+//     },
+//     body: jsonEncode({
+//       'contact_id': contactId,
+//       'contact_description_hex': getDefaultColor().toHexTriplet(),
+//       'contact_description_label': getDefaultLabel(),
+//     }),
+//   );
 
-  print(response.statusCode);
+//   print(response.statusCode);
 
-  if (response.statusCode == 201) {
-    return ContactDescription.fromJson(json.decode(response.body));
-  } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
-    throw Exception('Failed to update ContactDescription.');
-  }
-}
+//   if (response.statusCode == 201) {
+//     return ContactDescription.fromJson(json.decode(response.body));
+//   } else {
+//     // If the server did not return a 201 CREATED response,
+//     // then throw an exception.
+//     throw Exception('Failed to update ContactDescription.');
+//   }
+// }
 
-Future<ContactDescription> updateContactDescription(
-    ContactDescription contactDescription) async {
-  Uri url = Uri.parse('$baseURL/contact/updateContactDescription');
-  String? token = await getIdToken();
+// Future<ContactDescription> updateContactDescription(
+//     ContactDescription contactDescription) async {
+//   Uri url = Uri.parse('$baseURL/contact/updateContactDescription');
+//   String? token = await getIdToken();
 
-  final response = await http.post(
-    url,
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept': 'application/json',
-      'Authorization': '$token',
-    },
-    body: jsonEncode(contactDescription.toJson()),
-  );
+//   final response = await http.post(
+//     url,
+//     headers: {
+//       'Content-Type': 'application/json; charset=UTF-8',
+//       'Accept': 'application/json',
+//       'Authorization': '$token',
+//     },
+//     body: jsonEncode(contactDescription.toJson()),
+//   );
 
-  print(response.statusCode);
+//   print(response.statusCode);
 
-  if (response.statusCode == 201) {
-    return ContactDescription.fromJson(json.decode(response.body));
-  } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
-    throw Exception('Failed to update ContactDescription.');
-  }
-}
+//   if (response.statusCode == 201) {
+//     return ContactDescription.fromJson(json.decode(response.body));
+//   } else {
+//     // If the server did not return a 201 CREATED response,
+//     // then throw an exception.
+//     throw Exception('Failed to update ContactDescription.');
+//   }
+// }
 
-Future<ContactDescription> deleteContactDescription(
-    ContactDescription contactDescription) async {
-  Uri url = Uri.parse('$baseURL/contact/deleteContactDescription');
-  String? token = await getIdToken();
+// Future<ContactDescription> deleteContactDescription(
+//     ContactDescription contactDescription) async {
+//   Uri url = Uri.parse('$baseURL/contact/deleteContactDescription');
+//   String? token = await getIdToken();
 
-  final response = await http.delete(
-    url,
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept': 'application/json',
-      'Authorization': '$token',
-    },
-    body: jsonEncode(contactDescription.toJson()),
-  );
+//   final response = await http.delete(
+//     url,
+//     headers: {
+//       'Content-Type': 'application/json; charset=UTF-8',
+//       'Accept': 'application/json',
+//       'Authorization': '$token',
+//     },
+//     body: jsonEncode(contactDescription.toJson()),
+//   );
 
-  print(response.statusCode);
+//   print(response.statusCode);
 
-  if (response.statusCode == 200) {
-    return ContactDescription.fromJson(json.decode(response.body));
-  } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
-    throw Exception('Failed to delete ContactDescription.');
-  }
-}
+//   if (response.statusCode == 200) {
+//     return ContactDescription.fromJson(json.decode(response.body));
+//   } else {
+//     // If the server did not return a 201 CREATED response,
+//     // then throw an exception.
+//     throw Exception('Failed to delete ContactDescription.');
+//   }
+// }
 
-bool isContactDescriptionSelected(
-    Contact contact, ContactDescription contactDescription) {
-  if (contact.contactDescription != null) {
-    if (contact.contactDescription!.contactDescriptionId ==
-        contactDescription.contactDescriptionId) {
-      return true;
-    }
-  }
+// bool isContactDescriptionSelected(
+//     Contact contact, ContactDescription contactDescription) {
+//   if (contact.contactDescription != null) {
+//     if (contact.contactDescription!.contactDescriptionId ==
+//         contactDescription.contactDescriptionId) {
+//       return true;
+//     }
+//   }
 
-  return false;
-}
+//   return false;
+// }
 
 //Contact Picture
 Future<void> uploadContactPicture(

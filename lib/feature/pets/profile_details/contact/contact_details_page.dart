@@ -17,6 +17,7 @@ import '../models/m_contact.dart';
 import '../pictures/upload_picture_dialog.dart';
 import 'contact_description/contact_description.dart';
 import 'contact_picture/contact_picture_widget.dart';
+import 'languages_spoken/languages_spoken_widget.dart';
 import 'u_contact.dart';
 
 class ContactDetailsPage extends StatefulWidget {
@@ -296,9 +297,9 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                         Row(
                           children: [
                             const Spacer(),
-                            ContactDescriptionComponent(
-                              contact: _contact,
-                            ),
+                            // ContactDescriptionComponent(
+                            //   contact: _contact,
+                            // ),
                             Flexible(
                               child: Align(
                                 alignment: Alignment.centerRight,
@@ -345,6 +346,12 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                           _contact.contactEmail = val;
                           updateContact(_contact);
                         },
+                      ),
+                    ),
+                    PaddingComponent(
+                      child: LanguagesSpoken(
+                        contact: _contact,
+                        reloadContact: reloadContact,
                       ),
                     ),
                     PaddingComponent(
