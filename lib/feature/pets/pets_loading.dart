@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:userapp/feature/pets/my_pets.dart';
+import 'package:userapp/feature/my_pets/my_pets.dart';
 import 'u_pets.dart';
 
 class PetsLoading extends StatefulWidget {

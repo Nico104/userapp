@@ -16,7 +16,7 @@ class HealthIssue {
   HealthIssue.fromJson(Map<String, dynamic> json)
       : healthIssueId = json['health_issue_id'],
         medicalInformationId = json['medicalInformationMedical_information_id'],
-        healthIssueType = json['health_issue_type'],
+        healthIssueType = json['health_issue_type'].toString().toUpperCase(),
         healthIssueName = json['health_issue_name'],
         linkedDocuemntId = json['documentDocument_id'];
 

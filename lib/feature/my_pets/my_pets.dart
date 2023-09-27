@@ -8,10 +8,10 @@ import 'package:userapp/feature/pets/profile_details/g_profile_detail_globals.da
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import '../language/m_language.dart';
 import '../navigation_peppi/pet_profile_preview_extended_actions.dart';
-import 'my_pets_navbar.dart';
-import 'new_pet_profile.dart';
-import 'page_transform.dart';
-import 'pet_profile_preview.dart';
+import 'my_pets_navbar/my_pets_navbar.dart';
+import '../pets/new_pet_profile.dart';
+import '../pets/page_transform.dart';
+import '../pets/pet_profile_preview.dart';
 // import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 
 class MyPets extends StatefulWidget {

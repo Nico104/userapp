@@ -1,13 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/feature/my_pets/my_pets_navbar/quick_menu.dart';
 import 'package:userapp/feature/pets/profile_details/contact/contacts_all_list_page.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
-import '../auth/u_auth.dart';
-import '../notifications/notifications_icon_widget.dart';
-import '../notifications/notifications_page.dart';
-import '../settings/setting_screen.dart';
-import '../../general/utils_theme/custom_text_styles.dart';
-import '../../general/utils_general.dart';
+import '../../auth/u_auth.dart';
+import '../../notifications/notifications_icon_widget.dart';
+import '../../notifications/notifications_page.dart';
+import '../../settings/setting_screen.dart';
+import '../../../general/utils_theme/custom_text_styles.dart';
+import '../../../general/utils_general.dart';
 
 class MyPetsNavbar extends StatefulWidget {
   const MyPetsNavbar({super.key, required this.reloadFuture});
@@ -113,9 +114,24 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
         Expanded(
           child: Align(
             alignment: Alignment.centerLeft,
-            child: AnimatedSwitcher(
-              duration: _duration,
-              child: title ?? getWelcomeTitle(),
+            child: GestureDetector(
+              onTap: () {
+                // Navigator.of(context).push(
+                //   PageRouteBuilder(
+                //     opaque: false,
+                //     barrierDismissible: true,
+                //     pageBuilder: (BuildContext context, _, __) {
+                //       return const QuickMenu(
+                //         heroTag: "quickMenu",
+                //       );
+                //     },
+                //   ),
+                // );
+              },
+              child: AnimatedSwitcher(
+                duration: _duration,
+                child: title ?? getWelcomeTitle(),
+              ),
             ),
           ),
         ),

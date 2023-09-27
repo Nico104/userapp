@@ -76,6 +76,7 @@ dependencies:
   google_fonts: ^4.0.4
   flutter_keyboard_visibility: ^5.4.1
   clickable_list_wheel_view: ^0.2.0
+  collection: ^1.17.0
 
 dev_dependencies:
   flutter_test:

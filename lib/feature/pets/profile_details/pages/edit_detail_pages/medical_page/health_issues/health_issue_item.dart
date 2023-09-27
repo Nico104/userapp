@@ -45,7 +45,7 @@ class HealthIssueItem extends StatelessWidget {
           tag: "healthIssue${healthIssue.healthIssueId}",
           child: Text(
             healthIssue.healthIssueName,
-            style: Theme.of(context).textTheme.titleMedium,
+            style: Theme.of(context).textTheme.labelMedium,
           ),
         ),
       ),
