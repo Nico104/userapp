@@ -372,7 +372,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                   padding:
                                                       const EdgeInsets.all(16),
                                                   child: Text(
-                                                    "Mark as lost",
+                                                    "Lost",
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .titleLarge
@@ -386,24 +386,26 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                             ),
                                           ),
                                           Align(
-                                            alignment: Alignment(1, -0.35),
+                                            alignment: Alignment(1, 0),
                                             child: Row(
                                               children: [
                                                 Spacer(
-                                                  flex: 3,
+                                                  flex: 2,
                                                 ),
                                                 Expanded(
-                                                  flex: 7,
+                                                  flex: 8,
                                                   child: Padding(
                                                     padding:
                                                         const EdgeInsets.all(
                                                             16),
                                                     child: Text(
-                                                      "Help your community find Tabo and prevent harm",
+                                                      "Help find Tabo and prevent harm",
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .displaySmall
                                                           ?.copyWith(
+                                                            fontWeight:
+                                                                FontWeight.w400,
                                                             color: Colors.white
                                                                 .withOpacity(
                                                                     0.54),

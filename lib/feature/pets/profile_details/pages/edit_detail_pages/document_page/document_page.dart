@@ -71,8 +71,7 @@ class _DocumentPageState extends State<DocumentPage> {
           "No Documents yet",
           style: Theme.of(context).textTheme.labelLarge,
         ),
-        const SizedBox(height: 32),
-        // UploadDocumentButton(
+        const SizedBox(height: 32), // UploadDocumentButton(
         //   showUploadButton: _showUploadButton,
         //   profileId: widget.petProfileId,
         //   reloadDocuments: reloadDocuments,
@@ -132,9 +131,6 @@ class _DocumentPageState extends State<DocumentPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (documents.isEmpty) {
-      return getNoDocumetsWidget();
-    }
     return Scaffold(
       body: Stack(
         children: [

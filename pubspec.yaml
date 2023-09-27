@@ -77,6 +77,7 @@ dependencies:
   flutter_keyboard_visibility: ^5.4.1
   clickable_list_wheel_view: ^0.2.0
   collection: ^1.17.0
+  animated_text_kit: ^4.2.2
 
 dev_dependencies:
   flutter_test:

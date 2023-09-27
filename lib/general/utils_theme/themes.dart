@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
 import '../utils_color/hex_color.dart';
 import 'custom_text_styles.dart';
@@ -69,7 +71,7 @@ final ThemeData constLightTheme = ThemeData(
     //BasicInformation SectionTitle
     titleLarge: GoogleFonts.openSans(
       fontWeight: FontWeight.w700,
-      fontSize: 24,
+      fontSize: kIsWeb ? 24 : 16.sp,
       color: Colors.black87,
     ),
     //e.p. Settings Item Label, Extended Actions
@@ -81,7 +83,7 @@ final ThemeData constLightTheme = ThemeData(
     ),
     displaySmall: GoogleFonts.prompt(
       fontWeight: FontWeight.w200,
-      fontSize: 16,
+      fontSize: kIsWeb ? 16 : 10.5.sp,
       color: Colors.black.withOpacity(0.50),
     ),
     //Like Settings suffixText or Forgot Password
@@ -99,7 +101,7 @@ final ThemeData constLightTheme = ThemeData(
     // Used for Button Labels
     labelLarge: GoogleFonts.prompt(
       fontWeight: FontWeight.w300,
-      fontSize: 20,
+      fontSize: kIsWeb ? 20 : 18,
       color: Colors.black.withOpacity(0.54),
     ),
   ),

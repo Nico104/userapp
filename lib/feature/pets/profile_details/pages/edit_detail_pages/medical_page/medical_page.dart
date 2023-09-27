@@ -152,7 +152,7 @@ class _MedicalPageState extends State<MedicalPage> {
               ? const SizedBox.shrink()
               : ShyButton(
                   showUploadButton: _showShyButton,
-                  label: "Upload Document",
+                  label: "New Health Info",
                   onTap: () {
                     BuildContext? dialogContext;
                     showModalBottomSheet(
@@ -206,7 +206,7 @@ class _MedicalPageState extends State<MedicalPage> {
                     );
                   },
                   icon: Icon(
-                    Icons.file_upload_rounded,
+                    Icons.medical_information_rounded,
                     color: Colors.white,
                   ),
                 ),

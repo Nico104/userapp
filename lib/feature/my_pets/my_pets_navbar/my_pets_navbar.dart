@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/my_pets/my_pets_navbar/quick_menu.dart';
@@ -46,6 +47,24 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
                 "${snapshot.data}",
                 style: getCustomTextStyles(context).homeWelcomeUser,
               );
+              // return AnimatedTextKit(
+              //   animatedTexts: [
+              //     TypewriterAnimatedText(
+              //       'Friend',
+              //       textStyle: getCustomTextStyles(context).homeWelcomeUser,
+              //       speed: const Duration(milliseconds: 175),
+              //     ),
+              //     TypewriterAnimatedText(
+              //       "${snapshot.data}",
+              //       textStyle: getCustomTextStyles(context).homeWelcomeUser,
+              //       speed: const Duration(milliseconds: 175),
+              //     ),
+              //   ],
+              //   totalRepeatCount: 1,
+              //   pause: const Duration(milliseconds: 500),
+              //   displayFullTextOnTap: true,
+              //   stopPauseOnTap: true,
+              // );
             } else if (snapshot.hasError) {
               print(snapshot);
               return Text(
@@ -66,7 +85,7 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
   }
 
   void initTiteSwitch() async {
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 12));
     // title = const SizedBox.shrink();
     // if (mounted) {
     //   setState(() {});
@@ -77,6 +96,19 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
       // crossAxisAlignment: CrossAxisAlignment.start,
       // mainAxisSize: MainAxisSize.min,
       children: [
+        // AnimatedTextKit(
+        //   animatedTexts: [
+        //     TypewriterAnimatedText(
+        //       'My ',
+        //       textStyle: getCustomTextStyles(context).homeWelcomeMessage,
+        //       speed: const Duration(milliseconds: 350),
+        //     ),
+        //   ],
+        //   totalRepeatCount: 1,
+        //   pause: const Duration(seconds: 10),
+        //   displayFullTextOnTap: true,
+        //   stopPauseOnTap: true,
+        // ),
         Text(
           "My ",
           style: TextStyle(
@@ -85,8 +117,22 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
             fontSize: 22,
             color: Colors.black.withOpacity(0.7),
           ),
+          // style: getCustomTextStyles(context).homeWelcomeMessage,
         ),
         SizedBox(height: 4),
+        // AnimatedTextKit(
+        //   animatedTexts: [
+        //     TypewriterAnimatedText(
+        //       'Pets',
+        //       textStyle: getCustomTextStyles(context).homeWelcomeUser,
+        //       speed: const Duration(milliseconds: 350),
+        //     ),
+        //   ],
+        //   totalRepeatCount: 1,
+        //   pause: const Duration(seconds: 10),
+        //   displayFullTextOnTap: true,
+        //   stopPauseOnTap: true,
+        // ),
         Text(
           "Pets",
           style: TextStyle(
@@ -132,6 +178,30 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
                 duration: _duration,
                 child: title ?? getWelcomeTitle(),
               ),
+              // child: AnimatedTextKit(
+              //   animatedTexts: [
+              //     TypewriterAnimatedText(
+              //       'Welcome Pupu!',
+              //       textStyle: const TextStyle(
+              //         fontSize: 24,
+              //         fontWeight: FontWeight.bold,
+              //       ),
+              //       speed: const Duration(milliseconds: 200),
+              //     ),
+              //     TypewriterAnimatedText(
+              //       'My Pets',
+              //       textStyle: const TextStyle(
+              //         fontSize: 24,
+              //         fontWeight: FontWeight.bold,
+              //       ),
+              //       speed: const Duration(milliseconds: 350),
+              //     ),
+              //   ],
+              //   totalRepeatCount: 1,
+              //   pause: const Duration(seconds: 10),
+              //   displayFullTextOnTap: true,
+              //   stopPauseOnTap: true,
+              // ),
             ),
           ),
         ),

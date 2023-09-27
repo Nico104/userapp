@@ -75,9 +75,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeNotifier>(
-      builder: (context, theme, _) {
-        return Sizer(builder: (context, orientation, deviceType) {
+    return Sizer(
+      builder: (context, orientation, deviceType) {
+        return Consumer<ThemeNotifier>(builder: (context, theme, _) {
           return MaterialApp(
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,

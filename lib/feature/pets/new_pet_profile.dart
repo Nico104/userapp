@@ -4,6 +4,7 @@ import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/c_pet_name.dart';
 import 'package:userapp/feature/pets/profile_details/pages/pet_page%20copy%202.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
+import 'package:userapp/general/utils_theme/custom_colors.dart';
 
 import '../tag/tag_selection/tag_selection_page.dart';
 import 'profile_details/models/m_pet_profile.dart';
@@ -86,15 +87,16 @@ class NewPetProfile extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(borderRadius),
-              gradient: const LinearGradient(
-                colors: [
-                  Color(0xFF3366FF),
-                  Color(0xFF00CCFF),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                tileMode: TileMode.clamp,
-              ),
+              // gradient: const LinearGradient(
+              //   colors: [
+              //     Color(0xFF3366FF),
+              //     Color(0xFF00CCFF),
+              //   ],
+              //   begin: Alignment.topLeft,
+              //   end: Alignment.bottomRight,
+              //   tileMode: TileMode.clamp,
+              // ),
+              color: getCustomColors(context).accent,
             ),
             alignment: Alignment.center,
             child: Text(
