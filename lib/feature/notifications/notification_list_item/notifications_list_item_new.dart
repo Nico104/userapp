@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:timeago/timeago.dart' as timeago;
@@ -110,7 +111,7 @@ class _NotificationListItemNewState extends State<NotificationListItemNew> {
         children: [
           ListTile(
             leading: const Icon(Icons.check),
-            title: const Text("Mark as read"),
+            title: Text("notificationListItem_markAsRead").tr(),
             onTap: () {
               Navigator.pop(context);
               readNotification(
@@ -120,13 +121,13 @@ class _NotificationListItemNewState extends State<NotificationListItemNew> {
           ),
           ListTile(
             leading: const Icon(CustomIcons.delete),
-            title: const Text("Delete Notification"),
+            title: Text("notificationListItem_deleteNotification").tr(),
             onTap: () {
               Navigator.pop(context);
               showDialog(
                 context: context,
-                builder: (_) => const ConfirmDeleteDialog(
-                  label: "Notification",
+                builder: (_) => ConfirmDeleteDialog(
+                  label: "notificationListItem_notification".tr(),
                 ),
               ).then((value) {
                 if (value != null) {

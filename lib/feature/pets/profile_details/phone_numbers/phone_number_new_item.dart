@@ -1,10 +1,10 @@
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_phone_number.dart';
 
 import '../../../../general/network_globals.dart';
-import '../../../language/c_prefix_selection.dart';
 import '../../../language/country_selector.dart';
 import '../../../language/m_language.dart';
 import '../contact/u_contact.dart';
@@ -61,7 +61,7 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
       child: CustomTextFormField(
         focusNode: widget.focusNode,
         keyboardType: TextInputType.number,
-        hintText: "Add new Phone number...",
+        hintText: "phoneNumberNewItem_addNewNumber".tr(),
         ignoreBoxShadow: true,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         onChanged: (value) {

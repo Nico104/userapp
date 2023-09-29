@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
@@ -185,52 +186,20 @@ Widget getSelectionIcon(TagSelection tagSelection) {
   switch (tagSelection) {
     case TagSelection.available:
       return Chip(
-        label: Text("Select"),
+        label: Text("tagSelectionChip_Select".tr()),
         elevation: 2,
       );
     case TagSelection.selected:
       return Chip(
-        label: Text("Active"),
+        label: Text("tagSelectionChip_Active".tr()),
         elevation: 2,
         backgroundColor: Colors.green,
       );
-    // return Container(
-    //   width: 30,
-    //   height: 30,
-    //   decoration: BoxDecoration(
-    //     borderRadius: BorderRadius.circular(4),
-    //     border: Border.all(
-    //       color: const Color(0xFF228B22),
-    //       width: 3,
-    //     ),
-    //     color: const Color(0xFF50C878),
-    //   ),
-    //   child: const Icon(
-    //     Icons.check,
-    //     color: Color(0xFF228B22),
-    //   ),
-    // );
     case TagSelection.inUseByOtherPet:
       return Chip(
-        label: Text("In Use"),
+        label: Text("tagSelectionChip_InUse".tr()),
         elevation: 2,
         backgroundColor: Colors.green,
-      );
-      return Container(
-        // width: 30,
-        height: 30,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: Colors.grey,
-            width: 2,
-          ),
-          color: Colors.transparent,
-        ),
-        child: const Padding(
-          padding: EdgeInsets.all(4),
-          child: Center(child: Text("in use rn")),
-        ),
       );
   }
 }

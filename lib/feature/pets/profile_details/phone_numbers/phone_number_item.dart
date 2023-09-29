@@ -5,7 +5,6 @@ import 'package:userapp/feature/pets/profile_details/g_profile_detail_globals.da
 import 'package:userapp/feature/pets/profile_details/models/m_phone_number.dart';
 
 import '../../../../general/network_globals.dart';
-import '../../../language/c_prefix_selection.dart';
 import '../../../language/country_selector.dart';
 import '../../../language/m_language.dart';
 import '../contact/u_contact.dart';
@@ -13,6 +12,7 @@ import '../d_confirm_delete.dart';
 import '../u_profile_details.dart';
 import '../widgets/custom_textformfield.dart';
 import 'c_phone_number.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SinglePhonerNumber extends StatefulWidget {
   const SinglePhonerNumber({
@@ -60,7 +60,7 @@ class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
       autofocus: widget.autofocus,
       keyboardType: TextInputType.number,
       initialValue: widget.number.phoneNumber,
-      hintText: "XXX",
+      hintText: "phoneNumberItem_hintText_xxx".tr(),
       ignoreBoxShadow: true,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       onChanged: (value) {
@@ -70,19 +70,6 @@ class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
       prefix: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
-          // showDialog(
-          //   context: context,
-          //   builder: (_) => const PrefixPickerDialogComponent(),
-          // ).then((value) {
-          //   if (value != null) {
-          //     if (value is Country) {
-          //       setState(() {
-          //         widget.number.country = value;
-          //       });
-          //       _updatePhoneNumber();
-          //     }
-          //   }
-          // });
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -146,7 +133,8 @@ class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
           ),
         ),
       ),
-      confirmDeleteDialog: const ConfirmDeleteDialog(label: "Phone Number"),
+      confirmDeleteDialog:
+          ConfirmDeleteDialog(label: "phoneNumberItem_deleteDialog".tr()),
     );
   }
 }

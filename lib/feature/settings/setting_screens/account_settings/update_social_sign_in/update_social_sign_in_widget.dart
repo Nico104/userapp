@@ -30,30 +30,3 @@ class UpdateSocialSignIn extends StatelessWidget {
     );
   }
 }
-
-// String getProviderIdLabel(ProviderId providerId) {
-//   switch (providerId) {
-//     case ProviderId.google:
-//       return "Edit Google-Account";
-//     default:
-//       return "Undefined";
-//   }
-// }
-
-// String getProviderIdEditLink(ProviderId providerId) {
-//   switch (providerId) {
-//     case ProviderId.google:
-//       return "https://myaccount.google.com/";
-//     default:
-//       return "Undefined";
-//   }
-// }
-
-// Icon getProviderIdIcon(ProviderId providerId) {
-//   switch (providerId) {
-//     case ProviderId.google:
-//       return const Icon(Icons.interests);
-//     default:
-//       return const Icon(Icons.alternate_email);
-//   }
-// }

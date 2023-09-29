@@ -105,14 +105,6 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
     );
   }
 
-  // void instantResetPicture() {
-  //   if (widget.extendedActions) {
-  //     _controller.animateTo(0,
-  //         curve: Curves.fastOutSlowIn,
-  //         duration: const Duration(milliseconds: 80));
-  //   }
-  // }
-
   @override
   void dispose() {
     super.dispose();
@@ -146,10 +138,6 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                       AnimatedOpacity(
                         duration: _duration,
                         curve: Curves.fastOutSlowIn,
-                        // opacity:
-                        //     widget.imageAlignmentOffset == 0 && _pageIndex == 0
-                        //         ? 1
-                        //         : 0,
                         opacity: !widget.extendedPicture ? 1 : 0,
                         child: Text(
                           widget.petProfileDetails.petName,
@@ -168,90 +156,52 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                     Expanded(
                       flex: 5,
                       child: PageView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          controller: _controller,
-                          pageSnapping: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount:
-                              widget.petProfileDetails.petPictures.isNotEmpty
-                                  ? widget.petProfileDetails.petPictures.length
-                                  : 1,
-                          itemBuilder: (context, position) {
-                            return Align(
-                              alignment: const Alignment(0, -0.4),
-                              child: AnimatedFractionallySizedBox(
-                                heightFactor:
-                                    widget.extendedPicture ? 0.8 : 0.7,
-                                // heightFactor: 1,
-                                widthFactor: widget.extendedPicture ? 0.8 : 0.7,
-                                duration: _duration,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.circular(borderRadius),
-                                    boxShadow: kElevationToShadow[4],
-                                    // image: DecorationImage(
-                                    //   image: widget.image ??
-                                    //       const NetworkImage(
-                                    //           "https://picsum.photos/600/800"),
-                                    //   fit: BoxFit.cover,
-                                    //   scale: 1.2,
-                                    //   alignment: Alignment(
-                                    //       0, widget.imageAlignmentOffset * 2),
-                                    // ),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius:
-                                        BorderRadius.circular(borderRadius),
-                                    child: AnimatedFractionallySizedBox(
-                                      duration: _duration,
-                                      heightFactor:
-                                          widget.extendedPicture ? 1 : 1.2,
+                        physics: const BouncingScrollPhysics(),
+                        controller: _controller,
+                        pageSnapping: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount:
+                            widget.petProfileDetails.petPictures.isNotEmpty
+                                ? widget.petProfileDetails.petPictures.length
+                                : 1,
+                        itemBuilder: (context, position) {
+                          return Align(
+                            alignment: const Alignment(0, -0.4),
+                            child: AnimatedFractionallySizedBox(
+                              heightFactor: widget.extendedPicture ? 0.8 : 0.7,
+                              // heightFactor: 1,
+                              widthFactor: widget.extendedPicture ? 0.8 : 0.7,
+                              duration: _duration,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.circular(borderRadius),
+                                  boxShadow: kElevationToShadow[4],
+                                ),
+                                child: ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.circular(borderRadius),
+                                  child: AnimatedFractionallySizedBox(
+                                    duration: _duration,
+                                    heightFactor:
+                                        widget.extendedPicture ? 1 : 1.2,
+                                    alignment: Alignment(
+                                      0,
+                                      widget.imageAlignmentOffset,
+                                    ),
+                                    child: Image.network(
+                                      getPictureLink(position),
+                                      fit: BoxFit.cover,
                                       alignment: Alignment(
-                                        0,
-                                        widget.imageAlignmentOffset,
-                                      ),
-                                      // child: Image(
-                                      //   image: widget.image ??
-                                      //       const NetworkImage(
-                                      //         "https://picsum.photos/600/800",
-                                      //       ),
-                                      //   fit: BoxFit.cover,
-                                      //   alignment: Alignment(
-                                      //       0, widget.imageAlignmentOffset * 2),
-                                      // ),
-                                      child: Image.network(
-                                        // widget.petProfileDetails.petPictures
-                                        //         .isNotEmpty
-                                        //     ? s3BaseUrl +
-                                        //         widget.petProfileDetails
-                                        //             .petPictures
-                                        //             .elementAt(position)
-                                        //             .petPictureLink
-                                        //     : "https://picsum.photos/600/800",
-                                        getPictureLink(position),
-                                        fit: BoxFit.cover,
-                                        alignment: Alignment(
-                                            0, widget.imageAlignmentOffset * 2),
-                                        // errorBuilder:
-                                        //     (context, error, stackTrace) {
-                                        //   print(error);
-                                        //   print(widget
-                                        //       .petProfileDetails.petPictures
-                                        //       .elementAt(position)
-                                        //       .petPictureLink);
-                                        //   return Image(
-                                        //     image: NetworkImage(
-                                        //         "https://picsum.photos/600/800"),
-                                        //   );
-                                        // },
-                                      ),
+                                          0, widget.imageAlignmentOffset * 2),
                                     ),
                                   ),
                                 ),
                               ),
-                            );
-                          }),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                     //For floatingappbar
                     const Spacer(),

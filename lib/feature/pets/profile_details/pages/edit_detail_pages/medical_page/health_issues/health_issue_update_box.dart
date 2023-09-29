@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -21,13 +22,9 @@ import 'health_issues_choose_document.dart';
 
 class HealthIssueUpdateBox extends StatefulWidget {
   const HealthIssueUpdateBox(
-      {super.key,
-      required this.healthIssue,
-      required this.nameLabel,
-      required this.petProfileId});
+      {super.key, required this.healthIssue, required this.petProfileId});
 
   final HealthIssue healthIssue;
-  final String nameLabel;
   final int petProfileId;
 
   @override
@@ -84,7 +81,7 @@ class _HealthIssueUpdateBoxState extends State<HealthIssueUpdateBox> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Edit",
+                                  "healthIssue_editTitle".tr(),
                                   style:
                                       Theme.of(context).textTheme.titleMedium,
                                 ),
@@ -104,7 +101,7 @@ class _HealthIssueUpdateBoxState extends State<HealthIssueUpdateBox> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: CustomTextFormField(
                                   initialValue: _healthIssue.healthIssueName,
-                                  hintText: "George the Second",
+                                  hintText: "healthIssue_namePlaceholder".tr(),
                                   showSuffix: false,
                                   onChanged: (val) {
                                     _healthIssue.healthIssueName = val;
@@ -122,7 +119,7 @@ class _HealthIssueUpdateBoxState extends State<HealthIssueUpdateBox> {
                                     if (p0 != null && p0.isNotEmpty) {
                                       return null;
                                     } else {
-                                      return "Name cannot be empty";
+                                      return "healthIssue_errorNameEmpty".tr();
                                     }
                                   },
                                 ),
@@ -182,13 +179,14 @@ class _HealthIssueUpdateBoxState extends State<HealthIssueUpdateBox> {
                                               });
                                             },
                                             child: Container(
-                                              child:
-                                                  const Text("Link Document"),
+                                              child: Text(
+                                                  "healthIssue_linkDocument"
+                                                      .tr()),
                                             ),
                                           );
                                         } else {
-                                          return const Text(
-                                              "No Documents to link");
+                                          return Text(
+                                              "healthIssue_noDocuments".tr());
                                         }
                                       } else if (snapshot.hasError) {
                                         return Text(

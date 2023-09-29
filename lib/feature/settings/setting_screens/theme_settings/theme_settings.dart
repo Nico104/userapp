@@ -41,22 +41,6 @@ class _ThemeSettingsState extends State<ThemeSettings> {
               label: "darkModeLabel".tr(),
               themeData: theme.darkTheme,
             ),
-            // OutlinedButton(
-            //   onPressed: () {
-            //     if (theme.getTheme() == theme.darkTheme) {
-            //       theme.setLightTheme();
-            //     }
-            //   },
-            //   child: const Text("Light"),
-            // ),
-            // OutlinedButton(
-            //   onPressed: () {
-            //     if (theme.getTheme() == theme.lightTheme) {
-            //       theme.setDarkTheme();
-            //     }
-            //   },
-            //   child: const Text("Dark"),
-            // ),
           ],
         ),
       ),

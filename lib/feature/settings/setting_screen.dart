@@ -2,8 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart'
     as firebaseMessaging;
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:userapp/general/widgets/custom_scroll_view.dart';
 import 'package:userapp/init_app.dart';
 import 'package:userapp/feature/settings/setting_screens/contact_us/contact_us.dart';
 import 'package:userapp/feature/settings/setting_screens/language_settings/change_language.dart';
@@ -12,8 +10,6 @@ import 'package:userapp/feature/settings/setting_screens/theme_settings/theme_se
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 
 import '../auth/u_auth.dart';
-import '../../general/utils_color/hex_color.dart';
-import '../../general/utils_theme/theme_provider.dart';
 import '../coming_soon/coming_soon_page.dart';
 import '../../general/utils_general.dart';
 import 'setting_screens/account_settings/account_settings.dart';
@@ -178,18 +174,18 @@ class _SettingsState extends State<Settings> {
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const SizedBox(height: 20),
-                        SettingsItem(
-                          label: "settingsItemReportBug".tr(),
-                          leading: Icon(Icons.warning_amber_rounded),
-                          suffix: Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            navigatePerSlide(
-                              context,
-                              const ComingSoonPage(title: "Report Bug"),
-                            );
-                          },
-                        ),
-                        const SizedBox(height: settingItemSpacing),
+                        // SettingsItem(
+                        //   label: "settingsItemReportBug".tr(),
+                        //   leading: Icon(Icons.warning_amber_rounded),
+                        //   suffix: Icon(Icons.keyboard_arrow_right),
+                        //   onTap: () {
+                        //     navigatePerSlide(
+                        //       context,
+                        //       const ComingSoonPage(title: "Report Bug"),
+                        //     );
+                        //   },
+                        // ),
+                        // const SizedBox(height: settingItemSpacing),
                         SettingsItem(
                           label: "settingsItemContactUs".tr(),
                           leading: const Icon(CustomIcons.notification),

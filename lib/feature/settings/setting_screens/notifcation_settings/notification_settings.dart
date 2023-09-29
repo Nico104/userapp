@@ -30,32 +30,28 @@ class _NotificationSettingsState extends State<NotificationSettings> {
         child: ListView(
           children: [
             const SizedBox(height: 42),
-            const NotificationSettingsItem(
-              label: "Scanned Tag",
-              description:
-                  "Get Notification as soon as one of your Tags has been scanned",
+            NotificationSettingsItem(
+              label: "notificationSettings_1_title".tr(),
+              description: "notificationSettings_1_description".tr(),
             ),
             const SizedBox(height: 32),
-            const NotificationSettingsItem(
-              label: "New Item in Shop",
-              description:
-                  "Get Notification as soon as a new Finma Tag has been released",
+            NotificationSettingsItem(
+              label: "notificationSettings_2_title".tr(),
+              description: "notificationSettings_2_description".tr(),
             ),
             const SizedBox(height: 32),
-            const NotificationSettingsItem(
-              label: "Updates",
-              description:
-                  "Get Notification as soon as a new update is available",
+            NotificationSettingsItem(
+              label: "notificationSettings_3_title".tr(),
+              description: "notificationSettings_3_description".tr(),
             ),
             const SizedBox(height: 32),
-            const NotificationSettingsItem(
-              label: "Reply",
-              description:
-                  'Get Notification as soon as we reply to your request in "Contact us"',
+            NotificationSettingsItem(
+              label: "notificationSettings_4_title".tr(),
+              description: 'notificationSettings_4_description'.tr(),
             ),
             const SizedBox(height: 52),
             SettingsItem(
-              label: "Email Notifications",
+              label: "notificationSettings_emailNotification_label".tr(),
               leading: const Icon(CustomIcons.notification),
               suffix: const Icon(Icons.keyboard_arrow_right),
               onTap: () {

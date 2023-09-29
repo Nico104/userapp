@@ -8,8 +8,6 @@ import 'package:userapp/general/utils_color/hex_color.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
 import '../../../c_component_padding.dart';
-import '../../../c_description.dart';
-import '../../../c_important_information.dart';
 import '../../../c_one_line_simple_input.dart';
 import '../../../c_pet_gender.dart';
 import '../../../models/m_pet_profile.dart';
@@ -47,7 +45,7 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomNicoScrollView(
-        title: Text("Basic Information"),
+        title: Text("basicInformationPage_basicinformation".tr()),
         body: Column(
           children: [
             const SizedBox(height: 16),
@@ -55,8 +53,8 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
               child: OnelineSimpleInput(
                 flex: 7,
                 value: widget.petProfileDetails.petName,
-                emptyValuePlaceholder: "George the Second",
-                title: "Name",
+                emptyValuePlaceholder: "basicInformationPage_nameofthePet".tr(),
+                title: "basicInformationPage_name".tr(),
                 saveValue: (val) async {
                   if (val.isNotEmpty) {
                     widget.petProfileDetails.petName = val;
@@ -69,7 +67,8 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
               child: OnelineSimpleInput(
                 flex: 7,
                 value: widget.petProfileDetails.petChipId ?? "",
-                emptyValuePlaceholder: "977200000000000",
+                emptyValuePlaceholder:
+                    "basicInformationPage_petchipIDnumbers".tr(),
                 title: "profileDetailsComponentTitleChipNumber".tr(),
                 saveValue: (val) async {
                   widget.petProfileDetails.petChipId = val;
@@ -117,12 +116,13 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                     children: [
                       PaddingComponent(
                         child: MultiOptionButton(
-                          title: "Friendly to Strangers",
+                          title:
+                              "basicInformationPage_friendlyToStrangers".tr(),
                           initialActiveIndex: 0,
                           options: [
-                            Option("Yes"),
-                            Option("Sometimes"),
-                            Option("Now"),
+                            Option("basicInformationPage_yes".tr()),
+                            Option("basicInformationPage_sometimes".tr()),
+                            Option("basicInformationPage_no".tr()),
                           ],
                         ),
                       ),
@@ -131,42 +131,53 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                           title: "Good with Kids",
                           initialActiveIndex: 0,
                           options: [
-                            Option("Yes"),
-                            Option("Sometimes"),
-                            Option("Now"),
+                            Option("basicInformationPage_yes".tr()),
+                            Option("basicInformationPage_sometimes".tr()),
+                            Option("basicInformationPage_no".tr()),
                           ],
                         ),
                       ),
                       PaddingComponent(
                         child: MultiOptionButton(
-                          title: "Good with Dogs",
+                          title: "basicInformationPage_goodWithDogs".tr(),
                           initialActiveIndex: 0,
                           options: [
-                            Option("Yes"),
-                            Option("Sometimes"),
-                            Option("Now"),
+                            Option("basicInformationPage_yes".tr()),
+                            Option("basicInformationPage_sometimes".tr()),
+                            Option("basicInformationPage_no".tr()),
                           ],
                         ),
                       ),
                       PaddingComponent(
                         child: MultiOptionButton(
-                          title: "Good with Cats",
+                          title: "basicInformationPage_goodWithCats".tr(),
                           initialActiveIndex: 0,
                           options: [
-                            Option("Yes"),
-                            Option("Sometimes"),
-                            Option("Now"),
+                            Option("basicInformationPage_yes".tr()),
+                            Option("basicInformationPage_sometimes".tr()),
+                            Option("basicInformationPage_no".tr()),
                           ],
                         ),
                       ),
                       PaddingComponent(
                         child: MultiOptionButton(
-                          title: "Good with Cars",
+                          title: "basicInformationPage_goodWithCars".tr(),
                           initialActiveIndex: 0,
                           options: [
-                            Option("Yes"),
-                            Option("Sometimes"),
-                            Option("Now"),
+                            Option("basicInformationPage_yes".tr()),
+                            Option("basicInformationPage_sometimes".tr()),
+                            Option("basicInformationPage_no".tr()),
+                          ],
+                        ),
+                      ),
+                      PaddingComponent(
+                        child: MultiOptionButton(
+                          title: "basicInformationPage_goodWithLoudNoises".tr(),
+                          initialActiveIndex: 0,
+                          options: [
+                            Option("basicInformationPage_yes".tr()),
+                            Option("basicInformationPage_sometimes".tr()),
+                            Option("basicInformationPage_no".tr()),
                           ],
                         ),
                       ),
@@ -174,13 +185,13 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                   );
                 } else if (snapshot.hasError) {
                   return Text(
-                    "error loading version",
+                    "basicInformationPage_errorLoadingVersion".tr(),
                     style: Theme.of(context).textTheme.labelSmall,
                   );
                 } else {
                   //Loading
                   return Text(
-                    "Loading Version",
+                    "basicInformationPage_LoadingVersion".tr(),
                     style: Theme.of(context).textTheme.labelSmall,
                   );
                 }

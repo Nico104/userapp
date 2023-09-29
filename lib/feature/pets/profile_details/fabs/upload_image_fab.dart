@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class UploadImageFab extends StatelessWidget {
         borderRadius: BorderRadius.circular(14),
       ),
       backgroundColor: getCustomColors(context).accent,
-      tooltip: "Click to upload image",
+      tooltip: "uploadImagineFab_clickToUploadImage".tr(),
       onPressed: () async {
         // showDialog(
         //   context: context,

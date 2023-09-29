@@ -25,25 +25,23 @@ class _EmailNotificationSettingsState extends State<EmailNotificationSettings> {
       body: Padding(
         padding: const EdgeInsets.only(left: 22, right: 22),
         child: ListView(
-          children: const [
-            SizedBox(height: 42),
+          children: [
+            const SizedBox(height: 42),
             NotificationSettingsItem(
-              label: "Scanned Tag",
-              description:
-                  "Get Email as soon as one of your Tags has been scanned",
+              label: "notificationEmailSettings_1_title".tr(),
+              description: "notificationEmailSettings_1_description".tr(),
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
             NotificationSettingsItem(
-              label: "New Item in Shop",
-              description:
-                  "Get Email as soon as a new Finma Tag has been released",
+              label: "notificationEmailSettings_2_title".tr(),
+              description: "notificationEmailSettings_2_description".tr(),
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
             NotificationSettingsItem(
-              label: "Newsletter",
-              description: "Regularly receive our pawsome Newsletter",
+              label: "notificationEmailSettings_3_title".tr(),
+              description: "notificationEmailSettings_3_description".tr(),
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
           ],
         ),
       ),

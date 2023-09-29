@@ -3,11 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../general/utils_color/hex_color.dart';
 import '../../pets/profile_details/widgets/custom_textformfield.dart';
 
 import '../auth_widgets.dart';
-import '../login_screen.dart';
 import '../u_auth.dart';
 
 class SignUpEmailPage extends StatefulWidget {
@@ -83,25 +81,22 @@ class _SignUpEmailPageState extends State<SignUpEmailPage> {
                   if (_emailAvailable) {
                     return null;
                   } else {
-                    return 'Email already taken';
+                    return 'emailPageEmailTaken'.tr();
                   }
                 } else {
-                  return 'I somehow am not a valid email mate';
+                  return 'emailPageEmailInvalid'.tr();
                 }
               }
             },
           ),
           SizedBox(height: 05.h),
-          Padding(
-            padding: const EdgeInsets.only(left: 36, right: 36),
-            child: CustomBigButton(
-              label: "emailPageContinueLabel".tr(),
-              onTap: () {
-                if (_formKey.currentState!.validate()) {
-                  widget.onNext.call(emailText);
-                }
-              },
-            ),
+          CustomBigButton(
+            label: "emailPageContinueLabel".tr(),
+            onTap: () {
+              if (_formKey.currentState!.validate()) {
+                widget.onNext.call(emailText);
+              }
+            },
           ),
           SizedBox(height: 05.h),
           const ContinueWithSocialMedia(),

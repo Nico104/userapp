@@ -102,7 +102,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Description"),
+        title: Text("descriptionPage_Description".tr()),
       ),
       // resizeToAvoidBottomInset: false,
       body: Column(
@@ -139,7 +139,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Deutsche Übersetzung",
+                      "descriptionPage_DeutscheUbersetzung".tr(),
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     Text("What are Description Translations?"),
@@ -171,8 +171,10 @@ class _DescriptionPageState extends State<DescriptionPage> {
                       onPressed: () {
                         showDialog(
                           context: context,
-                          builder: (_) => const ConfirmDeleteDialog(
-                            label: "Description Translation",
+                          builder: (_) => ConfirmDeleteDialog(
+                            label:
+                                "descriptionPage_whatAreDescriptionTranslations"
+                                    .tr(),
                           ),
                         ).then(
                           (value) {
@@ -207,7 +209,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
                 // focusNode: focusNode,
                 // initialValue: _getCurrentDescription()?.text,
                 textEditingController: _textEditingController,
-                hintText: "Enter Description",
+                hintText: "descriptionPage_enterdescription".tr(),
                 maxLines: null,
                 expands: true,
                 keyboardType: TextInputType.multiline,
@@ -519,7 +521,7 @@ class AddNewTranslation extends StatelessWidget {
             builder: (context) => LanguageSelector(
               unavailableLanguages: unavailableLanguages,
               availableLanguages: availableLanguages,
-              title: "Choose Description Language",
+              title: "descriptionPage_chooseDescriptionLanguage".tr(),
             ),
           ),
         ).then((value) {

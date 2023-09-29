@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../../general/utils_theme/custom_colors.dart';
@@ -34,7 +35,7 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Upload new Document"),
+        title: Text("uploadDocumentLabel".tr()),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -42,7 +43,7 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "Upload Doucment",
+              "uploadDocumentLabel".tr(),
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 28),
@@ -52,7 +53,7 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
             const SizedBox(height: 28),
             CustomTextFormField(
               initialValue: widget.pickedDocument.fileName,
-              labelText: "Document Name",
+              labelText: "documentEditName".tr(),
             ),
             const SizedBox(height: 28),
             OutlinedButton(
@@ -85,7 +86,7 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
                 ),
               ),
               child: Text(
-                "Upload",
+                "noDocumentsUploadedUpload".tr(),
                 style:
                     getCustomTextStyles(context).dataEditDialogButtonSaveStyle,
               ),

@@ -1,17 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:userapp/feature/auth/u_auth.dart';
 import 'package:userapp/feature/settings/setting_screens/account_settings/update_name/update_name_page.dart';
-import 'package:userapp/feature/settings/setting_screens/account_settings/update_useremail/oldclasses/update_useremail_page.dart';
 import 'package:userapp/feature/settings/setting_screens/account_settings/update_useremail/update_useremail_page_firebase.dart';
 
-import '../../../../general/utils_color/hex_color.dart';
 import '../../../../general/utils_general.dart';
 import '../../widgets/settings_widgets.dart';
 import 'update_password/update_password_page.dart';
-
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 import 'update_social_sign_in/update_social_sign_in_widget.dart';
 
@@ -42,15 +37,17 @@ class _AccountSettingsState extends State<AccountSettings> {
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const UpdateSocialSignIn(
-                label: "Edit Google-Account",
+              UpdateSocialSignIn(
+                label: "googleSignIn_EditTitle".tr(),
                 editAccountLink: "https://myaccount.google.com/",
                 icon: Icon(Icons.alternate_email),
               ),
               const SizedBox(height: settingItemSpacing),
               if (getLoggedInUser()!.email != null)
-                Text(
-                    "You are signed in whith your Google Account with the assigned email address: ${getLoggedInUser()!.email}"),
+                // Text(
+                //     "You are signed in whith your Google Account with the assigned email address: ${getLoggedInUser()!.email}"),
+                Text("googleSignIn_EditInfo"
+                    .tr(namedArgs: {'email': getLoggedInUser()!.email ?? ""})),
             ],
           );
         case SignInProviderId.password:

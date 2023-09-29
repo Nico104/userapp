@@ -4,6 +4,7 @@ import 'package:sizer/sizer.dart';
 import '../../pets/profile_details/widgets/custom_textformfield.dart';
 import '../../../general/utils_theme/custom_colors.dart';
 import '../../../general/utils_theme/custom_text_styles.dart';
+import '../auth_widgets.dart';
 import 'forgot_password_status.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -57,59 +58,46 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            Text(
-              "forgotPassword".tr(),
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            SizedBox(height: 02.h),
-            Text(
-              "Please enter the email connected to your account",
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            SizedBox(height: 05.h),
-            CustomTextFormField(
-              textEditingController: _email,
-              labelText: "Email",
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "textInputErrorEmpty".tr();
-                } else {
-                  return null;
-                }
-              },
-            ),
-            const SizedBox(height: 24),
-            OutlinedButton(
-              onPressed: () async {
-                if (_formKey.currentState!.validate()) {
-                  _updateEmail();
-                }
-              },
-              style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                backgroundColor: getCustomColors(context).accent,
-                side: BorderSide(
-                  width: 0.5,
-                  color: getCustomColors(context).lightBorder ??
-                      Colors.transparent,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
+      body: Padding(
+        padding: const EdgeInsets.all(28.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              Text(
+                "forgotPassword".tr(),
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
-              child: Text(
-                "Change Email",
-                style:
-                    getCustomTextStyles(context).dataEditDialogButtonSaveStyle,
+              SizedBox(height: 02.h),
+              Text(
+                "forgotPasswordText1".tr(),
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
-            ),
-          ],
+              SizedBox(height: 05.h),
+              CustomTextFormField(
+                textEditingController: _email,
+                labelText: "loginPageEmailInputLabel".tr(),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "textInputErrorEmpty".tr();
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+              const SizedBox(height: 24),
+              CustomBigButton(
+                label: "forgotPasswordButtonLabel1".tr(),
+                onTap: () {
+                  if (_formKey.currentState!.validate()) {
+                    _updateEmail();
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

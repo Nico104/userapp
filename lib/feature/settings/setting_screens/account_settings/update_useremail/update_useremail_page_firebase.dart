@@ -97,7 +97,7 @@ class _UpdateUseremailFirebasePageState
                 if (value == null || value.isEmpty) {
                   return "textInputErrorEmpty".tr();
                 } else if (value.length < 8) {
-                  return 'I must be at least 8 characters mate';
+                  return 'passwordPageErrorMinLenght'.tr();
                 } else {
                   return null;
                 }

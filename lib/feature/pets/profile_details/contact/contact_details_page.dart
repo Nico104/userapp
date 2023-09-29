@@ -328,7 +328,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                         flex: 8,
                         value: _contact.contactAddress ?? "",
                         emptyValuePlaceholder:
-                            "Mainstreet 20A, Vienna, Austria",
+                            "contactDetailsPage_mainstreetVienna".tr(),
                         title: "profileDetailsComponentTitleHomeAddress".tr(),
                         saveValue: (val) async {
                           _contact.contactAddress = val;
@@ -340,9 +340,9 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                       child: OnelineSimpleInput(
                         flex: 8,
                         value: _contact.contactEmail ?? "",
-                        emptyValuePlaceholder: "Email",
+                        emptyValuePlaceholder: "contactDetailsPage_email".tr(),
                         // title: "profileDetailsComponentTitleOwnerEmail".tr(),
-                        title: "Email",
+                        title: "contactDetailsPage_email".tr(),
                         saveValue: (val) async {
                           _contact.contactEmail = val;
                           updateContact(_contact);

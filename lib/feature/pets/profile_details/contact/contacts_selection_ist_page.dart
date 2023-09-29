@@ -1,4 +1,5 @@
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/pets/profile_details/contact/u_contact.dart';
 import '../../../auth/u_auth.dart';
@@ -39,7 +40,7 @@ class _SelectionContactsPageState extends State<SelectionContactsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Select Contact"),
+        title: Text("contactsSelectionIstPage_selectcontact".tr()),
         scrolledUnderElevation: 8,
       ),
       body: FutureBuilder<List<Contact>>(
@@ -83,8 +84,8 @@ class _SelectionContactsPageState extends State<SelectionContactsPage> {
             );
           } else if (snapshot.hasError) {
             print(snapshot);
-            return const Text(
-              "Error loading your Contacts",
+            return Text(
+              "contactsSelectionIstPage_errorLoadingContacts".tr(),
             );
           } else {
             //Loading

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:userapp/feature/pets/profile_details/models/medical/m_health_issue.dart';
 
 import 'health_issue_update_box.dart';
@@ -29,7 +28,6 @@ class HealthIssueItem extends StatelessWidget {
             pageBuilder: (BuildContext context, _, __) {
               return HealthIssueUpdateBox(
                 healthIssue: healthIssue,
-                nameLabel: "Label",
                 petProfileId: petProfileId,
               );
             },

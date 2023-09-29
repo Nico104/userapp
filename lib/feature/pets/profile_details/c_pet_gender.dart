@@ -82,15 +82,6 @@ class GenderButton extends StatefulWidget {
 class _GenderButtonState extends State<GenderButton> {
   final Duration _duration = const Duration(milliseconds: 125);
 
-  final double _height = 55;
-  late double _width;
-
-  @override
-  void initState() {
-    super.initState();
-    _width = 35.w;
-  }
-
   final double _borderRardius = 28;
 
   @override

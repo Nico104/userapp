@@ -110,7 +110,7 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
         //   stopPauseOnTap: true,
         // ),
         Text(
-          "My ",
+          "myPetsTitleMy".tr(),
           style: TextStyle(
             fontFamily: 'Promt',
             fontWeight: FontWeight.w300,
@@ -134,7 +134,7 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
         //   stopPauseOnTap: true,
         // ),
         Text(
-          "Pets",
+          "myPetsTitlePets".tr(),
           style: TextStyle(
             fontFamily: 'Promt',
             fontWeight: FontWeight.w600,

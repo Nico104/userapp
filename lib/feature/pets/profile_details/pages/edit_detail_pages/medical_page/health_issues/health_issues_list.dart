@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:userapp/feature/pets/profile_details/models/medical/m_health_issue.dart';
-import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 
 import 'health_issue_item.dart';
-import 'dart:math' as math;
-
-import 'health_issue_update_box.dart';
 
 class HealthIssueList extends StatelessWidget {
   const HealthIssueList(

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/pets/profile_details/contact/u_contact.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
@@ -22,7 +23,7 @@ class NoLanguages extends StatelessWidget {
         children: [
           Flexible(
             child: Text(
-              "Including a contact's spoken languages helps those who find your lost pet contact you more easily.",
+              "noLanguagesWidget_includingSpokenLanguagesHelps".tr(),
               style: Theme.of(context).textTheme.labelMedium,
             ),
           ),
@@ -32,7 +33,7 @@ class NoLanguages extends StatelessWidget {
               connectLanguageSpoken(contactId, language.languageKey)
                   .then((value) => reloadContact());
             },
-            title: "Add Spoken Language",
+            title: "noLanguagesWidget_addSpokenLanguage".tr(),
             availableLanguages: availableLanguages,
             unavailableLanguages: [],
           ),

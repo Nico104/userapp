@@ -176,7 +176,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "alreadyRegistered?".tr(),
+                      "${"alreadyRegistered?".tr()} ",
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                     GestureDetector(

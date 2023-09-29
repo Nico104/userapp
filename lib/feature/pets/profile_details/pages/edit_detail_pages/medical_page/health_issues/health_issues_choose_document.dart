@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -36,14 +37,14 @@ class _HealthIssueLinkDocumentSelectionState
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: <Widget>[
-            const SliverAppBar(
+            SliverAppBar(
               // title: Text("Link Document"),
               expandedHeight: 100,
               pinned: true,
               // automaticallyImplyLeading: false,
               flexibleSpace: FlexibleSpaceBar(
                 background: SizedBox(height: 60),
-                title: Text("Link Document"),
+                title: Text("healthIssue_linkDocument".tr()),
                 centerTitle: true,
               ),
             ),

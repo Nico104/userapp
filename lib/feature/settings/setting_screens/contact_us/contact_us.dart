@@ -1,9 +1,7 @@
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:userapp/feature/auth/auth_widgets.dart';
-import 'package:userapp/feature/settings/setting_screens/contact_us/contact_success_page.dart';
+import 'package:userapp/feature/settings/setting_screens/contact_us/contact_us_success_page.dart';
 import 'package:userapp/feature/settings/setting_screens/contact_us/u_contact_us.dart';
 import 'package:userapp/general/utils_general.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';

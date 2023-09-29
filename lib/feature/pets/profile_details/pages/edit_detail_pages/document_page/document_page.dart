@@ -1,10 +1,8 @@
 import 'dart:typed_data';
 
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/document_page/document_item/documents_list_item.dart';
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/document_page/upload_document/upload_document_page.dart';
@@ -16,7 +14,6 @@ import '../../../../u_pets.dart';
 import '../../../models/m_document.dart';
 import '../../../pictures/upload_picture_dialog.dart';
 import '../../../u_profile_details.dart';
-import '../../../../../../general/widgets/custom_flexible_space_bar.dart';
 
 class DocumentPage extends StatefulWidget {
   const DocumentPage({
@@ -42,7 +39,6 @@ class _DocumentPageState extends State<DocumentPage> {
     documents = widget.initialDocuments;
   }
 
-  //TODO getDocuments
   Future<void> reloadDocuments() async {
     documents = await getPetDocuments(widget.petProfileId);
     setState(() {});
@@ -68,7 +64,7 @@ class _DocumentPageState extends State<DocumentPage> {
         ),
         const SizedBox(height: 32),
         Text(
-          "No Documents yet",
+          "noDocumentsLabel".tr(),
           style: Theme.of(context).textTheme.labelLarge,
         ),
         const SizedBox(height: 32), // UploadDocumentButton(
@@ -76,15 +72,15 @@ class _DocumentPageState extends State<DocumentPage> {
         //   profileId: widget.petProfileId,
         //   reloadDocuments: reloadDocuments,
         // ),
-        ShyButton(
-          showUploadButton: _showShyButton,
-          label: "Upload Document",
-          onTap: () => _uploadDocument(),
-          icon: Icon(
-            Icons.file_upload_rounded,
-            color: Colors.white,
-          ),
-        ),
+        // ShyButton(
+        //   showUploadButton: _showShyButton,
+        //   label: "Upload Document",
+        //   onTap: () => _uploadDocument(),
+        //   icon: Icon(
+        //     Icons.file_upload_rounded,
+        //     color: Colors.white,
+        //   ),
+        // ),
       ],
     );
   }
@@ -143,7 +139,7 @@ class _DocumentPageState extends State<DocumentPage> {
                 });
               },
             ),
-            title: Text("Tabos Docuemnts"),
+            title: Text("documentPageTitle".tr()),
             body: Column(
               children: [
                 const SizedBox(height: 16),
@@ -173,7 +169,7 @@ class _DocumentPageState extends State<DocumentPage> {
           //UploadButton
           ShyButton(
             showUploadButton: _showShyButton,
-            label: "Upload Document",
+            label: "uploadDocumentLabel".tr(),
             onTap: () => _uploadDocument(),
             icon: Icon(
               Icons.file_upload_rounded,

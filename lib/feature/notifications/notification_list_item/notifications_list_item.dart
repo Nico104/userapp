@@ -108,8 +108,8 @@ class _NotificationListItemState extends State<NotificationListItem> {
               Navigator.pop(context);
               showDialog(
                 context: context,
-                builder: (_) => const ConfirmDeleteDialog(
-                  label: "Notification",
+                builder: (_) => ConfirmDeleteDialog(
+                  label: "notificationListItem_notification".tr(),
                 ),
               ).then((value) {
                 if (value != null) {

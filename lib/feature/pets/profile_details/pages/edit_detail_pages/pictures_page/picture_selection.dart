@@ -1,11 +1,11 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 
 import '../../../pictures/new_picture.dart';
 
@@ -35,7 +35,7 @@ class PictureSelection extends StatelessWidget {
         Row(
           children: [
             SelectionOption(
-              label: "Camera",
+              label: "contactDetailsPictureCameraLabel".tr(),
               icon: const Icon(Icons.camera_alt_rounded),
               onTap: () {
                 if (kIsWeb) {
@@ -64,7 +64,7 @@ class PictureSelection extends StatelessWidget {
             ),
             const SizedBox(width: 32),
             SelectionOption(
-              label: "Gallery",
+              label: "contactDetailsPictureGalleryLabel".tr(),
               icon: const Icon(Icons.image),
               onTap: () {
                 if (kIsWeb) {

@@ -1,12 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
-import 'package:userapp/feature/auth/auth_widgets.dart';
 import 'package:userapp/feature/pets/profile_details/g_profile_detail_globals.dart';
 
 import '../../../../general/network_globals.dart';
-import '../../../language/m_language.dart';
-import '../../../pets/profile_details/widgets/custom_textformfield.dart';
 
 class ChangeLanguage extends StatefulWidget {
   const ChangeLanguage({super.key});

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/auto_translate/u_auto_translate.dart';
@@ -54,7 +55,8 @@ class _AutoTranslateDialogState extends State<AutoTranslateDialog> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                          "Choose from which Translation you want to auto_translate"),
+                          "autoTranslateDialog_chooseWhichTranslationtoAutoTranslate"
+                              .tr()),
                       const SizedBox(height: 16),
                       ListView.builder(
                         shrinkWrap: true,

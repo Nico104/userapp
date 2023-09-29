@@ -3,17 +3,9 @@ import 'package:flutter/material.dart';
 class SinglePicture extends StatefulWidget {
   const SinglePicture({
     super.key,
-    // required this.removePetPicture,
     required this.imageUrl,
   });
 
-  // final double imageOffsetRight;
-  // final double imageWidth;
-  // final double imageHeight;
-  // final double imageBorderRadius;
-  // final double closeBorderRadius;
-  //Param index
-  // final VoidCallback removePetPicture;
   final String imageUrl;
 
   @override
@@ -22,21 +14,6 @@ class SinglePicture extends StatefulWidget {
 
 class _SinglePictureState extends State<SinglePicture> {
   final GlobalKey extended = GlobalKey();
-
-  // void showExtendedPicture(BuildContext context) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (_) => ExtendedPicture(
-  //       key: extended,
-  //       imageUrl: widget.imageUrl,
-  //       removePetPicture: () => widget.removePetPicture(),
-  //       errorBuilder: (context, error, stackTrace) =>
-  //           errorBuilder(context, error, stackTrace),
-  //     ),
-  //   );
-  // }
-
-  // void endExtendedPicture(BuildContext context) {}
 
   Widget errorBuilder(
       BuildContext context, Object error, StackTrace? stackTrace) {

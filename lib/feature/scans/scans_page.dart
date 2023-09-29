@@ -97,7 +97,7 @@ class _ScansPageState extends State<ScansPage> {
                               ),
                               const SizedBox(height: 32),
                               Text(
-                                "No Scans for ${widget.petName} yet"
+                                "noScans"
                                     .tr(namedArgs: {'name': widget.petName}),
                                 style: Theme.of(context).textTheme.labelLarge,
                               )

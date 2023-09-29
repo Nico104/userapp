@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -35,7 +36,6 @@ class DocumentItem extends StatefulWidget {
     super.key,
     required this.document,
     required this.removeDocumentFromList,
-    // required this.docTypeKey,
     required this.reloadDocumentList,
   });
 
@@ -58,7 +58,7 @@ class _DocumentItemState extends State<DocumentItem> {
         children: [
           ListTile(
             leading: const Icon(CustomIcons.share_thin),
-            title: const Text("Share"),
+            title: Text("documentOptionShare".tr()),
             onTap: () {
               Navigator.pop(context);
               Share.share(s3BaseUrl + widget.document.documentLink,
@@ -67,7 +67,7 @@ class _DocumentItemState extends State<DocumentItem> {
           ),
           ListTile(
             leading: const Icon(CustomIcons.edit),
-            title: const Text("Edit"),
+            title: Text("documentOptionEdit".tr()),
             onTap: () {
               Navigator.pop(context);
               // updateDocument
@@ -83,13 +83,13 @@ class _DocumentItemState extends State<DocumentItem> {
           ),
           ListTile(
             leading: const Icon(CustomIcons.delete),
-            title: const Text("Delete Document"),
+            title: Text("documentOptionDelete".tr()),
             onTap: () {
               Navigator.pop(context);
               showDialog(
                 context: context,
-                builder: (_) => const ConfirmDeleteDialog(
-                  label: "Document",
+                builder: (_) => ConfirmDeleteDialog(
+                  label: "deleteDocumentLabel".tr(),
                 ),
               ).then((value) {
                 if (value != null) {

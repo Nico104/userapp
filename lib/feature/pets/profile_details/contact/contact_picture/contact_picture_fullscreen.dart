@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:sizer/sizer.dart';
@@ -11,8 +12,8 @@ class ContactPictureFullscreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Contact Picture",
+        title: Text(
+          "contactPictureFullscreen_contactPicture".tr(),
         ),
 
         // centerTitle: false,

@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/c_pet_name.dart';
 import 'package:userapp/feature/pets/profile_details/pages/pet_page%20copy%202.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
@@ -8,20 +7,12 @@ import 'package:userapp/general/utils_theme/custom_colors.dart';
 
 import '../tag/tag_selection/tag_selection_page.dart';
 import 'profile_details/models/m_pet_profile.dart';
-import 'profile_details/models/m_tag.dart';
-import '../tag/tag_selection/d_tag_selection.dart';
 
 class NewPetProfile extends StatelessWidget {
   const NewPetProfile({
     super.key,
     required this.reloadFuture,
   });
-
-  // final double marginhorizontal = 06.w;
-  // final double borderRadius = 14;
-  // final double topOffset = 28;
-  // final double collardimension = 130;
-  // final double collaroffset = 10;
   final VoidCallback reloadFuture;
 
   final double borderRadius = 50;
@@ -45,16 +36,6 @@ class NewPetProfile extends StatelessWidget {
               PetProfileDetails petProfileDetails =
                   await createNewPetProfile(value);
               if (context.mounted) {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => PetProfileDetailView(
-                //       petProfileDetails: petProfileDetails,
-                //     ),
-                //   ),
-                // ).then((value) {
-                //   reloadFuture();
-                // });
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -87,15 +68,6 @@ class NewPetProfile extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(borderRadius),
-              // gradient: const LinearGradient(
-              //   colors: [
-              //     Color(0xFF3366FF),
-              //     Color(0xFF00CCFF),
-              //   ],
-              //   begin: Alignment.topLeft,
-              //   end: Alignment.bottomRight,
-              //   tileMode: TileMode.clamp,
-              // ),
               color: getCustomColors(context).accent,
             ),
             alignment: Alignment.center,

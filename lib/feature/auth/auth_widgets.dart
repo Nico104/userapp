@@ -5,8 +5,6 @@ import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/auth/u_auth.dart';
 import 'package:userapp/init_app.dart';
 import 'package:userapp/general/utils_general.dart';
-
-import '../../general/network_globals.dart';
 import '../../general/utils_theme/custom_colors.dart';
 
 class CustomBigButton extends StatelessWidget {

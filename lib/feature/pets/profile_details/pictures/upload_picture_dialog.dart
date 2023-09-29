@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
 
@@ -20,7 +21,7 @@ class UploadPictureDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "Uploading Picture",
+              "uploadPictureDialog_uploadingPicture".tr(),
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 28),
@@ -29,7 +30,7 @@ class UploadPictureDialog extends StatelessWidget {
             ),
             const SizedBox(height: 28),
             Text(
-              "please don't exit Screen",
+              "uploadPictureDialog_pleaseDontExitScreen".tr(),
               style: Theme.of(context).textTheme.labelMedium,
             ),
           ],

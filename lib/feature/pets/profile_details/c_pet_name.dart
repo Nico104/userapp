@@ -184,10 +184,6 @@ class _EnterNameDialogState extends State<EnterNameDialog> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Text(
-              //   'changeNameTitle'.tr(namedArgs: {'label': widget.label}),
-              //   style: Theme.of(context).textTheme.titleMedium,
-              // ),
               Text(
                 widget.title,
                 style: Theme.of(context).textTheme.titleMedium,

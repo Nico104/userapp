@@ -123,15 +123,6 @@ class OptionButton extends StatefulWidget {
 class _OptionButtonState extends State<OptionButton> {
   final Duration _duration = const Duration(milliseconds: 125);
 
-  // final double _height = 55;
-  // late double _width;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _width = 35.w;
-  // }
-
   final double _borderRardius = 28;
 
   @override

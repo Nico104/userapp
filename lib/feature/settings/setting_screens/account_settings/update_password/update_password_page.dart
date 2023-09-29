@@ -103,7 +103,7 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                   if (value == null || value.isEmpty) {
                     return "textInputErrorEmpty".tr();
                   } else if (value.length < 8) {
-                    return 'I must be at least 8 characters mate';
+                    return 'passwordPageErrorMinLenght'.tr();
                   } else {
                     return null;
                   }
@@ -131,7 +131,7 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                   if (value == null || value.isEmpty) {
                     return "textInputErrorEmpty".tr();
                   } else if (value.length < 8) {
-                    return 'I must be at least 8 characters mate';
+                    return 'passwordPageErrorMinLenght'.tr();
                   } else {
                     return null;
                   }
@@ -159,7 +159,7 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                   if (value == null || value.isEmpty) {
                     return "textInputErrorEmpty".tr();
                   } else if (value != _password.text) {
-                    return 'I must be the equal to the other password mate';
+                    return 'passwordPageErrorNotEqual'.tr();
                   } else {
                     return null;
                   }

@@ -1,38 +1,25 @@
 import 'dart:ui';
 
-import 'package:animations/animations.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
-import 'package:userapp/feature/pets/page_transofrm_horizontal.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
-import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/lost_page/lost_page.dart';
-import 'package:userapp/feature/pets/profile_details/pages/profile_info_page.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../../general/utils_custom_icons/custom_icons_icons.dart';
 import '../../../../general/utils_theme/custom_colors.dart';
-import '../../../../general/utils_theme/custom_text_styles.dart';
 import '../../../../general/utils_general.dart';
 import '../../../../general/widgets/auto_save_info.dart';
-import '../../../../general/widgets/custom_open_container.dart';
 import '../../../../general/widgets/more_button.dart';
 import '../../../tag/tag_selection/tag_selection_page.dart';
-import '../../../tag/tags.dart';
 import '../../../tag/utils/u_tag.dart';
-import '../../page_transform.dart';
 import '../../u_pets.dart';
-import '../c_pet_name.dart';
 import '../d_confirm_delete.dart';
-import '../fabs/upload_image_fab.dart';
 import '../models/m_tag.dart';
-import '../pictures/upload_picture_dialog.dart';
 import '../../../../general/widgets/custom_flexible_space_bar.dart';
-import 'documents_page.dart';
+
 import 'edit_detail_pages/basic_information/basic_information_page.dart';
 import 'edit_detail_pages/contact_page/contact_page.dart';
 import 'edit_detail_pages/description_page/description_page.dart';
@@ -40,26 +27,15 @@ import 'edit_detail_pages/document_page/document_page.dart';
 import 'edit_detail_pages/lost_page/lost_box.dart';
 import 'edit_detail_pages/medical_page/medical_page.dart';
 import 'edit_detail_pages/pictures_page/pictures_page.dart';
-import 'images_page.dart';
-import 'dart:math' as math;
 
 class PetPage2 extends StatefulWidget {
   const PetPage2({
     super.key,
-    // required this.getProfileDetails,
-    // required this.showBottomNavBar,
-    // required this.reloadFuture,
-    // required this.setPetName,
     required this.petProfileDetails,
   });
 
   //? Maybe Variable and fetchFrromServer when needed Updated a la Contact
   final PetProfileDetails petProfileDetails;
-  // final PetProfileDetails Function() getProfileDetails;
-  // final void Function(bool) showBottomNavBar;
-  // final VoidCallback reloadFuture;
-
-  // final ValueSetter<String> setPetName;
 
   @override
   State<PetPage2> createState() => _PetPage2State();
@@ -119,19 +95,6 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
     super.dispose();
     _controller.dispose();
   }
-
-  // void _handleNavBarShown() {
-  //   //hideBar
-  //   widget.showBottomNavBar(false);
-  //   EasyDebounce.debounce(
-  //     'handleNavBarShown',
-  //     const Duration(milliseconds: 350),
-  //     () {
-  //       //shwoNavbar
-  //       widget.showBottomNavBar(true);
-  //     },
-  //   );
-  // }
 
   double _tiltAngle = 0;
   // final double maxTilt = 0.02;
@@ -216,13 +179,13 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
       moreOptions: [
         ListTile(
           leading: Icon(CustomIcons.delete),
-          title: Text("Delete Pet Profile"),
+          title: Text("petPage_Options_Delete".tr()),
           onTap: () {
             Navigator.pop(context);
             showDialog(
               context: context,
-              builder: (_) => const ConfirmDeleteDialog(
-                label: "Pet Profile",
+              builder: (_) => ConfirmDeleteDialog(
+                label: "petPage_confirmDeleteLabel".tr(),
               ),
             ).then((value) {
               if (value != null) {
@@ -372,7 +335,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                   padding:
                                                       const EdgeInsets.all(16),
                                                   child: Text(
-                                                    "Lost",
+                                                    "petPage_Lost".tr(),
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .titleLarge
@@ -399,7 +362,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                         const EdgeInsets.all(
                                                             16),
                                                     child: Text(
-                                                      "Help find Tabo and prevent harm",
+                                                      "petPage_LostInfo".tr(),
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .displaySmall
@@ -473,7 +436,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                           Padding(
                                             padding: const EdgeInsets.all(16),
                                             child: Text(
-                                              "Contact",
+                                              "petPage_Contact".tr(),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .titleLarge,
@@ -488,7 +451,8 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                   Expanded(
                                                     flex: 5,
                                                     child: Text(
-                                                      "Add Contact Information to get Tabo home faster",
+                                                      "petPage_ContactInfo"
+                                                          .tr(),
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .displaySmall,
@@ -501,78 +465,6 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                               ),
                                             ),
                                           ),
-                                          // Align(
-                                          //   alignment: Alignment.bottomLeft,
-                                          //   child: Column(
-                                          //     mainAxisSize: MainAxisSize.min,
-                                          //     crossAxisAlignment:
-                                          //         CrossAxisAlignment.start,
-                                          //     children: [
-                                          //       Row(
-                                          //         mainAxisSize:
-                                          //             MainAxisSize.min,
-                                          //         children: [
-                                          //           SizedBox(width: 16),
-                                          //           Text(
-                                          //             "Hide",
-                                          //             style: Theme.of(context)
-                                          //                 .textTheme
-                                          //                 .labelLarge,
-                                          //           ),
-                                          //           const SizedBox(width: 6),
-                                          //           // Spacer(),
-                                          //           InkWell(
-                                          //             onTap: () {
-                                          //               print("Help");
-                                          //             },
-                                          //             child: Icon(
-                                          //               Icons.help,
-                                          //               size: 22,
-                                          //               color: Colors.black
-                                          //                   .withOpacity(0.54),
-                                          //             ),
-                                          //           ),
-                                          //         ],
-                                          //       ),
-                                          //       Padding(
-                                          //         padding:
-                                          //             const EdgeInsets.all(8.0),
-                                          //         child: FractionallySizedBox(
-                                          //           widthFactor: 0.65,
-                                          //           alignment:
-                                          //               Alignment.bottomLeft,
-                                          //           child: FittedBox(
-                                          //             child: Theme(
-                                          //               data: Theme.of(context)
-                                          //                   .copyWith(
-                                          //                 useMaterial3: true,
-                                          //               ),
-                                          //               child: SizedBox(
-                                          //                 child: Switch(
-                                          //                   value: false,
-                                          //                   activeColor:
-                                          //                       getCustomColors(
-                                          //                               context)
-                                          //                           .accentDark,
-                                          //                   inactiveTrackColor:
-                                          //                       getCustomColors(
-                                          //                               context)
-                                          //                           .lightBorder,
-                                          //                   onChanged:
-                                          //                       (bool value) {
-                                          //                     // setState(() {
-                                          //                     //   _value = value;
-                                          //                     // });
-                                          //                   },
-                                          //                 ),
-                                          //               ),
-                                          //             ),
-                                          //           ),
-                                          //         ),
-                                          //       ),
-                                          //     ],
-                                          //   ),
-                                          // ),
                                         ],
                                       ),
                                     ),
@@ -641,7 +533,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                           child: Padding(
                                             padding: const EdgeInsets.all(16),
                                             child: Text(
-                                              "Finma Tags",
+                                              "petPage_Tags".tr(),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .titleLarge,
@@ -661,7 +553,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                 Expanded(
                                                   flex: 5,
                                                   child: Text(
-                                                    "Assign Finma Tags so Tabo is safe and stylish",
+                                                    "petPage_TagsInfo".tr(),
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .displaySmall,
@@ -733,7 +625,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                         ),
                                         padding: EdgeInsets.all(16),
                                         child: Text(
-                                          "Pictures",
+                                          "petPage_Pictures".tr(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleLarge,
@@ -813,7 +705,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                     Padding(
                                       padding: const EdgeInsets.all(16),
                                       child: Text(
-                                        "Basic Information",
+                                        "petPage_BasicInformation".tr(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge,
@@ -891,7 +783,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                         Padding(
                                           padding: const EdgeInsets.all(16),
                                           child: Text(
-                                            "Description",
+                                            "petPage_Description".tr(),
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .titleLarge,
@@ -944,7 +836,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                         Padding(
                                           padding: const EdgeInsets.all(16),
                                           child: Text(
-                                            "Documents",
+                                            "petPage_Documents".tr(),
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .titleLarge,
@@ -1008,7 +900,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                       Padding(
                                         padding: const EdgeInsets.all(16),
                                         child: Text(
-                                          "Medical",
+                                          "petPage_Medical".tr(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleLarge,
@@ -1023,13 +915,13 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                               Expanded(
                                                 flex: 5,
                                                 child: Text(
-                                                  "Add Medical Information to keep Tabo safe",
+                                                  "petPage_MedicalInfo".tr(),
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .displaySmall,
                                                 ),
                                               ),
-                                              Spacer(
+                                              const Spacer(
                                                 flex: 5,
                                               ),
                                             ],

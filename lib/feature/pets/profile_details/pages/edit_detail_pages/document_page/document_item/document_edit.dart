@@ -70,7 +70,7 @@ class _DocumentEditDialogState extends State<DocumentEditDialog> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Upload Doucment",
+                  "uploadDocumentLabel".tr(),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 28),
@@ -78,7 +78,7 @@ class _DocumentEditDialogState extends State<DocumentEditDialog> {
                 const SizedBox(height: 28),
                 CustomTextFormField(
                   textEditingController: _docNameController,
-                  labelText: "Document Name",
+                  labelText: "documentEditName".tr(),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'textInputErrorEmpty'.tr();
@@ -111,7 +111,7 @@ class _DocumentEditDialogState extends State<DocumentEditDialog> {
                     ),
                   ),
                   child: Text(
-                    "Save",
+                    "documentEditSaveLabel".tr(),
                     style: getCustomTextStyles(context)
                         .dataEditDialogButtonSaveStyle,
                   ),

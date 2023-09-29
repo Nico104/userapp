@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_tag.dart';
@@ -42,7 +43,7 @@ class _TagSelectionItemInUseByOtherPetState
 
   Widget getSuffix() {
     if (usingPet != null) {
-      return Text("in use by ${usingPet!.petName}");
+      return Text("tag_inUseBy".tr(namedArgs: {"name": usingPet!.petName}));
     } else {
       return const CircularProgressIndicator();
     }

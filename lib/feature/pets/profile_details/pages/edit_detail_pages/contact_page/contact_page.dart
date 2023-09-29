@@ -80,7 +80,7 @@ class _ContactPageState extends State<ContactPage> {
             children: [
               ListTile(
                 leading: const Icon(Icons.list),
-                title: const Text("Add exisitng Contact"),
+                title: Text("contactPage_addExistingContact".tr()),
                 onTap: () {
                   Navigator.pop(buildContext);
                   navigatePerSlide(
@@ -96,7 +96,7 @@ class _ContactPageState extends State<ContactPage> {
               ),
               ListTile(
                 leading: const Icon(Icons.add),
-                title: const Text("Create New Contact"),
+                title: Text("contactPage_createNewContact".tr()),
                 onTap: () {
                   Navigator.pop(buildContext);
                   showDialog(
@@ -143,7 +143,7 @@ class _ContactPageState extends State<ContactPage> {
       body: Stack(
         children: [
           CustomNicoScrollView(
-            title: Text("Contacts"),
+            title: Text("contactPage_Contact".tr()),
             expandedHeight: 190,
             background: Padding(
               padding: const EdgeInsets.all(16),
@@ -161,7 +161,7 @@ class _ContactPageState extends State<ContactPage> {
                   ),
                   SizedBox(height: 12),
                   Text(
-                    "Contacts",
+                    "contactPage_Contact".tr(),
                     style:
                         Theme.of(context).appBarTheme.titleTextStyle!.copyWith(
                               color: Colors.transparent,

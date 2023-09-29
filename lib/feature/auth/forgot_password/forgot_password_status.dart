@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/auth/u_auth.dart';
 
@@ -39,30 +40,33 @@ class ForgotPasswordStatus extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text("Password reset email send"),
-                    const SizedBox(height: 16),
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.pop(context, 0);
-                      },
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                        backgroundColor: getCustomColors(context).accent,
-                        side: BorderSide(
-                          width: 0.5,
-                          color: getCustomColors(context).lightBorder ??
-                              Colors.transparent,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: Text(
-                        "Got it",
-                        style: getCustomTextStyles(context)
-                            .dataEditDialogButtonSaveStyle,
-                      ),
+                    Text(
+                      "forgotPasswordStatusSendSuccess".tr(),
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
+                    // const SizedBox(height: 16),
+                    // OutlinedButton(
+                    //   onPressed: () {
+                    //     Navigator.pop(context, 0);
+                    //   },
+                    //   style: OutlinedButton.styleFrom(
+                    //     padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
+                    //     backgroundColor: getCustomColors(context).accent,
+                    //     side: BorderSide(
+                    //       width: 0.5,
+                    //       color: getCustomColors(context).lightBorder ??
+                    //           Colors.transparent,
+                    //     ),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(8),
+                    //     ),
+                    //   ),
+                    //   child: Text(
+                    //     "Got it",
+                    //     style: getCustomTextStyles(context)
+                    //         .dataEditDialogButtonSaveStyle,
+                    //   ),
+                    // ),
                   ],
                 );
               case 2:
@@ -70,29 +74,9 @@ class ForgotPasswordStatus extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text("You provided an invalid email"),
-                    const SizedBox(height: 16),
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.pop(context, 2);
-                      },
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                        backgroundColor: getCustomColors(context).accent,
-                        side: BorderSide(
-                          width: 0.5,
-                          color: getCustomColors(context).lightBorder ??
-                              Colors.transparent,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: Text(
-                        "Got it",
-                        style: getCustomTextStyles(context)
-                            .dataEditDialogButtonSaveStyle,
-                      ),
+                    Text(
+                      "forgotPasswordStatusErrorInvalidEmail".tr(),
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                   ],
                 );
@@ -101,29 +85,9 @@ class ForgotPasswordStatus extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text("No user with provided email found"),
-                    const SizedBox(height: 16),
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.pop(context, 2);
-                      },
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                        backgroundColor: getCustomColors(context).accent,
-                        side: BorderSide(
-                          width: 0.5,
-                          color: getCustomColors(context).lightBorder ??
-                              Colors.transparent,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: Text(
-                        "Got it",
-                        style: getCustomTextStyles(context)
-                            .dataEditDialogButtonSaveStyle,
-                      ),
+                    Text(
+                      "forgotPasswordStatusErrorNoUserFound".tr(),
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                   ],
                 );
@@ -132,30 +96,9 @@ class ForgotPasswordStatus extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text(
-                        "There has been an error. Please try again later"),
-                    const SizedBox(height: 16),
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                        backgroundColor: getCustomColors(context).accent,
-                        side: BorderSide(
-                          width: 0.5,
-                          color: getCustomColors(context).lightBorder ??
-                              Colors.transparent,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: Text(
-                        "Got it",
-                        style: getCustomTextStyles(context)
-                            .dataEditDialogButtonSaveStyle,
-                      ),
+                    Text(
+                      "forgotPasswordStatusErrorUnexpextedError".tr(),
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                   ],
                 );

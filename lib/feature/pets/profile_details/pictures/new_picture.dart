@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -98,7 +99,7 @@ Future<CroppedFile?> cropFile(String path) async {
       //TODO set Colors
       AndroidUiSettings(
         showCropGrid: false,
-        toolbarTitle: 'Cropper',
+        toolbarTitle: 'newPicture_cropper'.tr(),
         toolbarColor: Colors.grey,
         toolbarWidgetColor: Colors.black,
         activeControlsWidgetColor: Colors.black,
@@ -109,7 +110,7 @@ Future<CroppedFile?> cropFile(String path) async {
         lockAspectRatio: false,
       ),
       IOSUiSettings(
-        title: 'Cropper',
+        title: 'newPicture_cropper'.tr(),
       ),
       //Didn't add manifest configuration stuff
       // WebUiSettings(

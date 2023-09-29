@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../general/utils_theme/custom_colors.dart';
@@ -20,7 +21,7 @@ class AddContactHeader extends StatelessWidget {
           children: [
             Flexible(
               child: Text(
-                "In order to be contacted when Tabo get found add a new or existing Contact",
+                "addContactHeader_inOrderToBeContactedAddContact".tr(),
                 style: Theme.of(context).textTheme.labelMedium,
               ),
             ),

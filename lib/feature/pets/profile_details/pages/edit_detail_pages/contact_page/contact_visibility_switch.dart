@@ -1,4 +1,5 @@
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
@@ -80,14 +81,14 @@ class _ContactVisibilitySwitchState extends State<ContactVisibilitySwitch> {
                         duration: _duration,
                         child: !widget.petProfileDetails.hideContacts
                             ? Text(
-                                "Visible",
+                                "contactVisibilitySwitch_visible".tr(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .labelMedium
                                     ?.copyWith(color: Colors.white),
                               )
                             : Text(
-                                "Hidden",
+                                "contactVisibilitySwitch_hidden".tr(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .labelMedium

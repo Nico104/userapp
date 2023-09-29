@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -71,19 +72,10 @@ class _NewPictureWebState extends State<NewPictureWeb> {
       },
       child: _loading
           ? Container(
-              // margin: EdgeInsets.only(
-              //     top: widget.imageOffsetRight / 1.2, right: widget.imageOffsetRight),
-              // width: widget.imageWidth,
-              // height: widget.imageHeight,
               margin: const EdgeInsets.all(24),
-
               child: const CircularProgressIndicator(),
             )
           : Container(
-              // margin: EdgeInsets.only(
-              //     top: widget.imageOffsetRight / 1.2, right: widget.imageOffsetRight),
-              // width: widget.imageWidth,
-              // height: widget.imageHeight,
               margin: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                   border: Border.all(
@@ -110,25 +102,6 @@ Future<Uint8List?> pickAndCropImage(ImageSource imageSource) async {
     return pictureBytes;
   }
 
-  // XFile? image = await ImagePicker().pickImage(source: imageSource);
-
-  // print(image!.by);
-
-  // final http.Response responseData = await http.get(Uri.parse(image!.path));
-  // Uint8List uint8list = responseData.bodyBytes;
-  // var buffer = uint8list.buffer;
-  // ByteData byteData = ByteData.view(buffer);
-  // var tempDir = await getTemporaryDirectory();
-  // File file = await File('${tempDir.path}/img').writeAsBytes(
-  //     buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
-
-  // if (image != null) {
-  //   CroppedFile? croppedFile = await cropFile(image.path);
-  //   if (croppedFile != null) {
-  //     return File(croppedFile.path);
-  //   }
-  // }
-
   return null;
 }
 
@@ -140,7 +113,7 @@ Future<CroppedFile?> cropFile(String path) async {
       //TODO set Colors
       AndroidUiSettings(
         showCropGrid: false,
-        toolbarTitle: 'Cropper',
+        toolbarTitle: 'newPictureWeb_cropper'.tr(),
         toolbarColor: HexColor("FFFF8F"),
         toolbarWidgetColor: Colors.black,
         activeControlsWidgetColor: Colors.black,
@@ -151,7 +124,7 @@ Future<CroppedFile?> cropFile(String path) async {
         lockAspectRatio: true,
       ),
       IOSUiSettings(
-        title: 'Cropper',
+        title: 'newPictureWeb_cropper'.tr(),
       ),
       //Didn't add manifest configuration stuff
       // WebUiSettings(

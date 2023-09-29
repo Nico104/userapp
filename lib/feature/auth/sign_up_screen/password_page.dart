@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../general/utils_color/hex_color.dart';
 import '../../pets/profile_details/widgets/custom_textformfield.dart';
 
 import '../auth_widgets.dart';
@@ -22,20 +21,8 @@ class SignUpPasswordPage extends StatefulWidget {
 
 class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  // TextEditingController password = TextEditingController();
-  // TextEditingController passwordRepeat = TextEditingController();
-
   String password = "";
   String passwordRepeat = "";
-
-  bool _obscurePassword = true;
-
-  // @override
-  // void dispose() {
-  //   password.dispose();
-  //   passwordRepeat.dispose();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +63,7 @@ class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
               if (value == null || value.isEmpty) {
                 return "textInputErrorEmpty".tr();
               } else if (value.length < 8) {
-                return 'I must be at least 8 characters mate';
+                return 'passwordPageErrorMinLenght'.tr();
               } else {
                 return null;
               }
@@ -103,7 +90,7 @@ class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
               if (value == null || value.isEmpty) {
                 return "textInputErrorEmpty".tr();
               } else if (value != password) {
-                return 'I must be the equal to the other password mate';
+                return 'passwordPageErrorNotEqual'.tr();
               } else {
                 return null;
               }
@@ -113,7 +100,7 @@ class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
           Padding(
             padding: const EdgeInsets.only(left: 36, right: 36),
             child: CustomBigButton(
-              label: "Continue",
+              label: "passwordPageButtonLabel".tr(),
               onTap: () {
                 if (_formKey.currentState!.validate()) {
                   widget.onNext.call(password);

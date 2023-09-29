@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/auth/u_auth.dart';
 import 'package:userapp/general/widgets/custom_nico_modal.dart';
@@ -35,30 +36,7 @@ class UpdateEmailStatus extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text("Email updated successfully mate"),
-                    const SizedBox(height: 16),
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.pop(context, 0);
-                      },
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                        backgroundColor: getCustomColors(context).accent,
-                        side: BorderSide(
-                          width: 0.5,
-                          color: getCustomColors(context).lightBorder ??
-                              Colors.transparent,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: Text(
-                        "Got it",
-                        style: getCustomTextStyles(context)
-                            .dataEditDialogButtonSaveStyle,
-                      ),
-                    ),
+                    Text("updateEmailStatus_Success".tr()),
                   ],
                 );
               case 2:
@@ -66,30 +44,7 @@ class UpdateEmailStatus extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text("You provided the wrong current Password"),
-                    const SizedBox(height: 16),
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.pop(context, 2);
-                      },
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                        backgroundColor: getCustomColors(context).accent,
-                        side: BorderSide(
-                          width: 0.5,
-                          color: getCustomColors(context).lightBorder ??
-                              Colors.transparent,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: Text(
-                        "Got it",
-                        style: getCustomTextStyles(context)
-                            .dataEditDialogButtonSaveStyle,
-                      ),
-                    ),
+                    Text("updateEmailStatus_WrongPassword".tr()),
                   ],
                 );
               case 3:
@@ -97,30 +52,7 @@ class UpdateEmailStatus extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text("Too many failed requests. Try again later bro"),
-                    const SizedBox(height: 16),
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.pop(context, 2);
-                      },
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                        backgroundColor: getCustomColors(context).accent,
-                        side: BorderSide(
-                          width: 0.5,
-                          color: getCustomColors(context).lightBorder ??
-                              Colors.transparent,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: Text(
-                        "Got it",
-                        style: getCustomTextStyles(context)
-                            .dataEditDialogButtonSaveStyle,
-                      ),
-                    ),
+                    Text("updateEmailStatus_tooManyFailedRequests".tr()),
                   ],
                 );
               case 4:
@@ -128,30 +60,7 @@ class UpdateEmailStatus extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text("Your new Email provided is invalid bruv"),
-                    const SizedBox(height: 16),
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.pop(context, 2);
-                      },
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                        backgroundColor: getCustomColors(context).accent,
-                        side: BorderSide(
-                          width: 0.5,
-                          color: getCustomColors(context).lightBorder ??
-                              Colors.transparent,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: Text(
-                        "Got it",
-                        style: getCustomTextStyles(context)
-                            .dataEditDialogButtonSaveStyle,
-                      ),
-                    ),
+                    Text("updateEmailStatus_EmailInvalid".tr()),
                   ],
                 );
               case 5:
@@ -159,31 +68,7 @@ class UpdateEmailStatus extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text(
-                        "Your new Email provided is already in use bruv. Who are you?"),
-                    const SizedBox(height: 16),
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.pop(context, 2);
-                      },
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                        backgroundColor: getCustomColors(context).accent,
-                        side: BorderSide(
-                          width: 0.5,
-                          color: getCustomColors(context).lightBorder ??
-                              Colors.transparent,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: Text(
-                        "Got it",
-                        style: getCustomTextStyles(context)
-                            .dataEditDialogButtonSaveStyle,
-                      ),
-                    ),
+                    Text("updateEmailStatus_EmailInUse".tr()),
                   ],
                 );
               default:
@@ -191,31 +76,7 @@ class UpdateEmailStatus extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text(
-                        "Probelms updating your password, please make sure you're online"),
-                    const SizedBox(height: 16),
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                        backgroundColor: getCustomColors(context).accent,
-                        side: BorderSide(
-                          width: 0.5,
-                          color: getCustomColors(context).lightBorder ??
-                              Colors.transparent,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: Text(
-                        "Got it",
-                        style: getCustomTextStyles(context)
-                            .dataEditDialogButtonSaveStyle,
-                      ),
-                    ),
+                    Text("updateEmailStatus_UnexpectedError".tr()),
                   ],
                 );
             }

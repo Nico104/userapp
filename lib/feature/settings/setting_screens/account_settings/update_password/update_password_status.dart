@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/auth/u_auth.dart';
 
@@ -40,30 +41,7 @@ class UpdatePasswordStatus extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text("Password updates successfully mate"),
-                    const SizedBox(height: 16),
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.pop(context, 0);
-                      },
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                        backgroundColor: getCustomColors(context).accent,
-                        side: BorderSide(
-                          width: 0.5,
-                          color: getCustomColors(context).lightBorder ??
-                              Colors.transparent,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: Text(
-                        "Got it",
-                        style: getCustomTextStyles(context)
-                            .dataEditDialogButtonSaveStyle,
-                      ),
-                    ),
+                    Text("updatePasswordStatus_Success".tr()),
                   ],
                 );
               case 2:
@@ -71,30 +49,7 @@ class UpdatePasswordStatus extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text("You provided the wrong current Password"),
-                    const SizedBox(height: 16),
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.pop(context, 2);
-                      },
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                        backgroundColor: getCustomColors(context).accent,
-                        side: BorderSide(
-                          width: 0.5,
-                          color: getCustomColors(context).lightBorder ??
-                              Colors.transparent,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: Text(
-                        "Got it",
-                        style: getCustomTextStyles(context)
-                            .dataEditDialogButtonSaveStyle,
-                      ),
-                    ),
+                    Text("updatePasswordStatus_WrongPassword".tr()),
                   ],
                 );
               case 3:
@@ -102,30 +57,7 @@ class UpdatePasswordStatus extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text("Too many failed requests. Try again later bro"),
-                    const SizedBox(height: 16),
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.pop(context, 2);
-                      },
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                        backgroundColor: getCustomColors(context).accent,
-                        side: BorderSide(
-                          width: 0.5,
-                          color: getCustomColors(context).lightBorder ??
-                              Colors.transparent,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: Text(
-                        "Got it",
-                        style: getCustomTextStyles(context)
-                            .dataEditDialogButtonSaveStyle,
-                      ),
-                    ),
+                    Text("updatePasswordStatus_tooManyFailedRequests".tr()),
                   ],
                 );
               default:
@@ -133,31 +65,7 @@ class UpdatePasswordStatus extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text(
-                        "Probelms updating your password, please make sure you're online"),
-                    const SizedBox(height: 16),
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                        backgroundColor: getCustomColors(context).accent,
-                        side: BorderSide(
-                          width: 0.5,
-                          color: getCustomColors(context).lightBorder ??
-                              Colors.transparent,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: Text(
-                        "Got it",
-                        style: getCustomTextStyles(context)
-                            .dataEditDialogButtonSaveStyle,
-                      ),
-                    ),
+                    Text("updatePasswordStatus_UnexpectedError".tr()),
                   ],
                 );
             }

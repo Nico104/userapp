@@ -1,14 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/tag/tag_selection/tag_selection_list.dart';
-import 'package:userapp/general/utils_color/hex_color.dart';
 import 'package:userapp/general/utils_general.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
 import '../../pets/profile_details/models/m_pet_profile.dart';
 import '../../pets/profile_details/models/m_tag.dart';
-import '../../pets/u_pets.dart';
 import '../utils/u_tag.dart';
 import 'add_tag_header.dart';
 
@@ -35,7 +34,7 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
     return Scaffold(
       body: CustomNicoScrollView(
         // fillRemaining: true,
-        title: Text("Finma Tag"),
+        title: Text("tagSelectionPage_Title".tr()),
         expandedHeight: 190,
         background: Padding(
           padding: const EdgeInsets.all(16),
@@ -44,7 +43,7 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Select",
+                "tagSelectionPage_Subtitle".tr(),
                 style: GoogleFonts.openSans(
                   fontWeight: FontWeight.w200,
                   fontSize: 18 * 1.5,
@@ -53,7 +52,7 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
               ),
               SizedBox(height: 12),
               Text(
-                "Finma Tag",
+                "tagSelectionPage_Title".tr(),
                 style: Theme.of(context).appBarTheme.titleTextStyle!.copyWith(
                       color: Colors.transparent,
                       fontSize: 20 * 1.5,
@@ -77,7 +76,7 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Your Finma Tags",
+                  "tagSelectionPage_ListTitle".tr(),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
@@ -145,115 +144,6 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
               },
             ),
             SizedBox(height: 75.h),
-          ],
-        ),
-      ),
-    );
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Select Finma Tag"),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(32),
-              child: Text(
-                "Choose an already existing Finma Tag or simply add a new one",
-                style: Theme.of(context).textTheme.labelSmall,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            InkWell(
-              onTap: () => navigateReplacePerSlide(
-                  context,
-                  AddFinmaTagHeader(
-                    petProfile: widget.petProfile,
-                  )),
-              child: Container(
-                padding: EdgeInsets.all(12),
-                child: Text(
-                  "Add new Finma Tag",
-                  style: Theme.of(context).textTheme.labelMedium,
-                  textAlign: TextAlign.center,
-                ),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey.shade400),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
-            Padding(
-              child: Divider(
-                color: Colors.grey.shade300,
-                thickness: 0.5,
-                height: 0,
-              ),
-              padding: EdgeInsets.all(32),
-            ),
-            Flexible(
-              child: FutureBuilder<List<Tag>>(
-                future: getUserTags(),
-                builder:
-                    (BuildContext context, AsyncSnapshot<List<Tag>> snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data != null && snapshot.data!.isEmpty) {
-                      // navigateReplacePerSlide(
-                      //     context,
-                      //     AddFinmaTagPage(
-                      //       petProfile: widget.petProfile,
-                      //     ));
-                    }
-                    return TagSelectionList(
-                      userTags: snapshot.data!,
-                      petProfile: widget.petProfile,
-                      reloadUserTags: () {
-                        print("reload user tags");
-                        setState(() {});
-                      },
-                    );
-                  } else if (snapshot.hasError) {
-                    print(snapshot);
-                    //Error
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.error_outline,
-                            color: Colors.red,
-                            size: 60,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 16),
-                            child: Text('Error: ${snapshot.error}'),
-                          ),
-                        ],
-                      ),
-                    );
-                  } else {
-                    //Loading
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          SizedBox(
-                            width: 60,
-                            height: 60,
-                            child: CircularProgressIndicator(),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 16),
-                            child: Text('Awaiting result...'),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
-                },
-              ),
-            ),
           ],
         ),
       ),

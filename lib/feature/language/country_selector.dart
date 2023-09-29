@@ -19,7 +19,7 @@ class CountrySelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomNicoScrollView(
-        title: Text("Select a Country"),
+        title: Text("selectCountry".tr()),
         body: Padding(
           padding: const EdgeInsets.only(left: 16, right: 16, top: 32),
           child: Column(

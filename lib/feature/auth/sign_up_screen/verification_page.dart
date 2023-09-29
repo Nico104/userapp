@@ -1,11 +1,10 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
-
-import '../../../general/utils_color/hex_color.dart';
 
 import '../auth_widgets.dart';
 import '../u_auth.dart';
@@ -43,7 +42,6 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
       if (value) {
         widget.onCodeCorrect.call(code);
       } else {
-        print("code wrong");
         errorController?.add(ErrorAnimationType.shake);
         setState(() {
           hasError = true;
@@ -57,13 +55,13 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
     return Column(
       children: [
         Text(
-          "Verification",
+          "verificationPageTitle".tr(),
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headlineLarge,
         ),
         SizedBox(height: 02.h),
         Text(
-          "We send email pululu",
+          "verificationPageInformation".tr(),
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
@@ -126,7 +124,7 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
         Padding(
           padding: const EdgeInsets.only(left: 36, right: 36),
           child: CustomBigButton(
-            label: "Sign Up",
+            label: "verificationPageButtonLabel".tr(),
             onTap: () {
               if (currentText.length != 6) {
                 print("not complete");

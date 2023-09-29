@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/pets/profile_details/contact/languages_spoken/spoken_language_item.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_contact.dart';
@@ -29,7 +30,7 @@ class LanguagesSpoken extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ComponentTitle(text: "Languages Spoken"),
+        ComponentTitle(text: "languagesSpokenWidget_languagesspoken".tr()),
         contact.languagesSpoken.isNotEmpty
             ? Row(
                 children: [
@@ -94,7 +95,7 @@ class LanguagesSpoken extends StatelessWidget {
                                 contact.contactId, language.languageKey)
                             .then((value) => reloadContact());
                       },
-                      title: "Add Spoken Language",
+                      title: "languagesSpokenWidget_addSpokenLanguage".tr(),
                       availableLanguages: availableLanguages,
                       unavailableLanguages: contact.languagesSpoken,
                     ),

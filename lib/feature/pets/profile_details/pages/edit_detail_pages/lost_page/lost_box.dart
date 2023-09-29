@@ -1,25 +1,13 @@
 import 'dart:ui';
 
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
-import 'package:userapp/feature/pets/profile_details/models/medical/m_health_issue.dart';
-import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
-import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
-import 'package:userapp/general/utils_general.dart';
 
-import '../../../../../../../general/network_globals.dart';
 import '../../../../../../general/utils_theme/custom_colors.dart';
-import '../../../../../../general/utils_theme/custom_text_styles.dart';
 import '../../../widgets/custom_textformfield.dart';
-import '../contact_page/contact_page.dart';
 
 class LostBox extends StatelessWidget {
   const LostBox({
@@ -69,12 +57,13 @@ class LostBox extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Mark Tabo as lost",
+                              "lostBox_Title"
+                                  .tr(namedArgs: {'name': petProfile.petName}),
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             const SizedBox(height: 32),
                             Text(
-                              "Add Information for People to see first",
+                              "lostBox_ImportantInfoLabel".tr(),
                               style: Theme.of(context).textTheme.labelMedium,
                             ),
                             const SizedBox(height: 16),
@@ -100,8 +89,7 @@ class LostBox extends StatelessWidget {
                                 style: Theme.of(context).textTheme.labelMedium,
                                 children: <TextSpan>[
                                   TextSpan(
-                                      text:
-                                          'While Tabo is lost his contact information will be set visible, manage contact visibility in '),
+                                      text: 'lostBox_contactsVisibility'.tr()),
                                   TextSpan(
                                     text: 'Contacts',
                                     style: Theme.of(context)
@@ -129,7 +117,7 @@ class LostBox extends StatelessWidget {
                                   ),
                                   padding: EdgeInsets.fromLTRB(32, 16, 32, 16),
                                   child: Text(
-                                    "Mark as lost",
+                                    "lostBox_confirmLabel".tr(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .labelMedium

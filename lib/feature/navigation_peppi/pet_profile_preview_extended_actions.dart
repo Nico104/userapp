@@ -3,7 +3,6 @@ import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/feature/pets/profile_details/pages/pet_page%20copy%202.dart';
-import 'package:userapp/feature/pets/profile_details/pages/pet_page.dart';
 import 'package:userapp/feature/scans/scans_page.dart';
 import 'package:userapp/feature/share/share_image_generator.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';

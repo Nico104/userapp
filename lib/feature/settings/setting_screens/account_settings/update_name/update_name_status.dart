@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/auth/u_auth.dart';
 
@@ -24,30 +25,7 @@ class UpdateNameStatus extends StatelessWidget {
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text("Name chnaged successfully mate"),
-                const SizedBox(height: 16),
-                OutlinedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                    backgroundColor: getCustomColors(context).accent,
-                    side: BorderSide(
-                      width: 0.5,
-                      color: getCustomColors(context).lightBorder ??
-                          Colors.transparent,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: Text(
-                    "Got it",
-                    style: getCustomTextStyles(context)
-                        .dataEditDialogButtonSaveStyle,
-                  ),
-                ),
+                Text("updateNameStatus_Success".tr()),
               ],
             );
           } else if (snapshot.hasError) {
@@ -55,31 +33,7 @@ class UpdateNameStatus extends StatelessWidget {
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                    "Probelms updating your name, please make sure you're online"),
-                const SizedBox(height: 16),
-                OutlinedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                    backgroundColor: getCustomColors(context).accent,
-                    side: BorderSide(
-                      width: 0.5,
-                      color: getCustomColors(context).lightBorder ??
-                          Colors.transparent,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: Text(
-                    "Got it",
-                    style: getCustomTextStyles(context)
-                        .dataEditDialogButtonSaveStyle,
-                  ),
-                ),
+                Text("updateNameStatus_Error1".tr()),
               ],
             );
           } else {

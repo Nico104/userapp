@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -24,7 +25,7 @@ class GalleryCameraDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "Choose Picture with",
+                "galleryCameraDialog_choosePictureWith".tr(),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 28),
@@ -35,9 +36,9 @@ class GalleryCameraDialog extends StatelessWidget {
                     onTap: () => Navigator.pop(context, 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
-                      children: const [
+                      children: [
                         Icon(Icons.browse_gallery),
-                        Text("Gallery"),
+                        Text("galleryCameraDialog_Gallery".tr()),
                       ],
                     ),
                   ),
@@ -45,9 +46,9 @@ class GalleryCameraDialog extends StatelessWidget {
                     onTap: () => Navigator.pop(context, 1),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
-                      children: const [
+                      children: [
                         Icon(Icons.camera),
-                        Text("Camera"),
+                        Text("galleryCameraDialog_Camera".tr()),
                       ],
                     ),
                   )

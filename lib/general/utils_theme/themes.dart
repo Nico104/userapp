@@ -86,6 +86,12 @@ final ThemeData constLightTheme = ThemeData(
       fontSize: kIsWeb ? 16 : 10.5.sp,
       color: Colors.black.withOpacity(0.50),
     ),
+    displayMedium: GoogleFonts.openSans(
+      // fontFamily: 'Promt',
+      fontWeight: FontWeight.w400,
+      fontSize: 16,
+      color: Colors.black.withOpacity(0.9),
+    ),
     //Like Settings suffixText or Forgot Password
     // labelSmall: TextStyle(
     //   fontFamily: 'Promt',

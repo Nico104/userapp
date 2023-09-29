@@ -1,9 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/cli_commands.dart';
 import 'package:sizer/sizer.dart';
 import 'package:collection/collection.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
-import 'package:userapp/general/utils_color/hex_color.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
 import '../../../../../../general/widgets/custom_nico_modal.dart';
@@ -13,7 +13,6 @@ import '../../../models/medical/m_health_issue.dart';
 import '../../../models/medical/m_medical_information.dart';
 import '../../../widgets/multi_options_button.dart';
 import '../../../../../../general/widgets/shy_button.dart';
-import '../../../widgets/two_options_button.dart';
 import 'health_issues/health_issue_update_box.dart';
 import 'health_issues/health_issues_list.dart';
 
@@ -68,7 +67,7 @@ class _MedicalPageState extends State<MedicalPage> {
                 });
               },
             ),
-            title: Text("Medical Information"),
+            title: Text("medical_Title".tr()),
             body: _medicalInformation == null
                 ? CircularProgressIndicator()
                 : Column(
@@ -102,12 +101,11 @@ class _MedicalPageState extends State<MedicalPage> {
                         //   },
                         // ),
                         child: MultiOptionButton(
-                          title: "Does Tabo still have balls?",
+                          title: "medical_Neutered".tr(),
                           initialActiveIndex: 0,
                           options: [
-                            Option("Yes"),
-                            Option("Only one"),
-                            Option("No"),
+                            Option("basicInformationPage_yes".tr()),
+                            Option("basicInformationPage_no".tr()),
                           ],
                         ),
                       ),
@@ -153,13 +151,13 @@ class _MedicalPageState extends State<MedicalPage> {
               ? const SizedBox.shrink()
               : ShyButton(
                   showUploadButton: _showShyButton,
-                  label: "New Health Info",
+                  label: "medical_NewHealthIssueLabel".tr(),
                   onTap: () {
                     showCustomNicoLoadingModalBottomSheet(
                       context: context,
                       future: createHealthIssue(
-                        healthIssueName: "New Health Information",
-                        healthIssueType: "Misc",
+                        healthIssueName: "defaultHealthIssuesName".tr(),
+                        healthIssueType: "defaultHealthIssueType".tr(),
                         medicalId: _medicalInformation!.medicalInformationId,
                       ),
                       callback: (value) {
@@ -172,7 +170,6 @@ class _MedicalPageState extends State<MedicalPage> {
                             pageBuilder: (BuildContext context, _, __) {
                               return HealthIssueUpdateBox(
                                 healthIssue: value,
-                                nameLabel: "Label",
                                 petProfileId:
                                     widget.petProfileDetails.profileId,
                               );
@@ -184,56 +181,6 @@ class _MedicalPageState extends State<MedicalPage> {
                         });
                       },
                     );
-                    // BuildContext? dialogContext;
-                    // showModalBottomSheet(
-                    //   context: context,
-                    //   backgroundColor: Colors.transparent,
-                    //   isDismissible: false,
-                    //   builder: (buildContext) {
-                    //     dialogContext = buildContext;
-                    //     return Container(
-                    //       margin: const EdgeInsets.fromLTRB(16, 16, 16, 32),
-                    //       padding: const EdgeInsets.all(16),
-                    //       decoration: BoxDecoration(
-                    //         color: Theme.of(context).primaryColor,
-                    //         borderRadius: BorderRadius.circular(28),
-                    //       ),
-                    //       child: const SizedBox(
-                    //         height: 60,
-                    //         width: 60,
-                    //         child: CircularProgressIndicator(),
-                    //       ),
-                    //     );
-                    //   },
-                    // );
-                    // createHealthIssue(
-                    //   healthIssueName: "New Health Information",
-                    //   healthIssueType: "Misc",
-                    //   medicalId: _medicalInformation!.medicalInformationId,
-                    // ).then(
-                    //   (value) {
-                    //     Navigator.pop(dialogContext!);
-                    //     _refreshMedicalInformation();
-                    //     Navigator.of(context)
-                    //         .push(
-                    //       PageRouteBuilder(
-                    //         opaque: false,
-                    //         barrierDismissible: true,
-                    //         pageBuilder: (BuildContext context, _, __) {
-                    //           return HealthIssueUpdateBox(
-                    //             healthIssue: value,
-                    //             nameLabel: "Label",
-                    //             petProfileId:
-                    //                 widget.petProfileDetails.profileId,
-                    //           );
-                    //         },
-                    //       ),
-                    //     )
-                    //         .then((value) {
-                    //       _refreshMedicalInformation();
-                    //     });
-                    //   },
-                    // );
                   },
                   icon: Icon(
                     Icons.medical_information_rounded,

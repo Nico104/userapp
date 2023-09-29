@@ -9,13 +9,10 @@ import 'package:userapp/feature/pets/profile_details/models/medical/m_medical_in
 import 'package:userapp/general/network_globals.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_description.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_document.dart';
-import 'package:userapp/feature/pets/profile_details/models/m_important_information.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_picture.dart';
-import 'package:userapp/feature/pets/profile_details/models/m_phone_number.dart';
 
 import '../../auth/u_auth.dart';
 import 'c_pet_name.dart';
-import 'contact/u_contact.dart';
 import 'models/m_pet_profile.dart';
 import 'models/m_tag.dart';
 import 'package:http_parser/http_parser.dart';

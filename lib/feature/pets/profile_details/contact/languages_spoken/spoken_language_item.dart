@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -39,7 +40,7 @@ class SpokenLanguageItem extends StatelessWidget {
         children: [
           ListTile(
             leading: const Icon(Icons.check),
-            title: const Text("Remove spoken Language"),
+            title: Text("spokenlanguageItem_removeSpokenLanguage".tr()),
             onTap: () {
               Navigator.pop(context);
               onDelete();

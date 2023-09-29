@@ -1,6 +1,4 @@
-import 'dart:ui';
-
-import 'package:easy_debounce/easy_debounce.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/pictures_page/picture_expanded.dart';
@@ -9,7 +7,6 @@ import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/pic
 import 'package:userapp/general/network_globals.dart';
 import 'package:userapp/general/widgets/custom_nico_modal.dart';
 
-import '../../../../../../general/utils_theme/custom_colors.dart';
 import '../../../../../../general/widgets/custom_scroll_view.dart';
 import '../../../../u_pets.dart';
 import '../../../models/m_pet_picture.dart';
@@ -66,12 +63,12 @@ class _PicturesPageState extends State<PicturesPage> {
         ),
         const SizedBox(height: 32),
         Text(
-          "No Pictures yet",
+          "picturesPage_noPictures".tr(),
           style: Theme.of(context).textTheme.labelLarge,
         ),
         const SizedBox(height: 32),
         ShyButton(
-          label: "Upload Picture",
+          label: "picturesPage_uploadPictureLabel".tr(),
           showUploadButton: _showShyButton,
           onTap: () => _uploadPicture(),
           icon: Icon(
@@ -97,7 +94,7 @@ class _PicturesPageState extends State<PicturesPage> {
                 });
               },
             ),
-            title: Text("Tabos Pictures"),
+            title: Text("picturesPage_Title".tr()),
             body: Column(
               children: [
                 pictures.isNotEmpty
@@ -109,7 +106,7 @@ class _PicturesPageState extends State<PicturesPage> {
                           // crossAxisCount: 1,
                           childAspectRatio: 1,
                         ),
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -124,7 +121,7 @@ class _PicturesPageState extends State<PicturesPage> {
             ),
           ),
           ShyButton(
-            label: "Upload Picture",
+            label: "picturesPage_uploadPictureLabel".tr(),
             showUploadButton: _showShyButton,
             onTap: () => _uploadPicture(),
             icon: Icon(
