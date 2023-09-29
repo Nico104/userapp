@@ -144,5 +144,8 @@
     "logInNow": "Log In now",
     "passwordPagePasswordLabel": "Password",
     "passwordPageRepeatPasswordLabel": "Repeat Password",
-    "addTagAppbarTitle": "Add Finma Tag"
+    "addTagAppbarTitle": "Add Finma Tag",
+    "country_de": "Germany",
+    "country_it": "Italy",
+    "country_hu": "Hungary"
 }

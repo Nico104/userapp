@@ -6,6 +6,7 @@ import 'package:userapp/feature/pets/profile_details/phone_numbers/c_phone_numbe
 import 'package:userapp/general/utils_general.dart';
 import '../../../../general/utils_custom_icons/custom_icons_icons.dart';
 import '../../../../general/utils_theme/custom_text_styles.dart';
+import '../../../../general/widgets/custom_nico_modal.dart';
 import '../../../../general/widgets/more_button.dart';
 import '../../u_pets.dart';
 import '../c_component_padding.dart';

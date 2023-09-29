@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:timeago/timeago.dart' as timeago;
+import '../../../general/widgets/custom_nico_modal.dart';
 import '../../pets/profile_details/d_confirm_delete.dart';
 import '../../../general/utils_custom_icons/custom_icons_icons.dart';
 import '../model/m_notification.dart' as models;
@@ -102,54 +103,43 @@ class _NotificationListItemNewState extends State<NotificationListItemNew> {
   }
 
   void _showOptions() {
-    showModalBottomSheet(
+    showCustomNicoModalBottomSheet(
       context: context,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        return Container(
-          margin: const EdgeInsets.fromLTRB(16, 16, 16, 32),
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.circular(28),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            leading: const Icon(Icons.check),
+            title: const Text("Mark as read"),
+            onTap: () {
+              Navigator.pop(context);
+              readNotification(
+                noticicationId: widget.notification.notificationId,
+              ).then((value) => widget.reload());
+            },
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                leading: const Icon(Icons.check),
-                title: const Text("Mark as read"),
-                onTap: () {
-                  Navigator.pop(context);
-                  readNotification(
-                    noticicationId: widget.notification.notificationId,
-                  ).then((value) => widget.reload());
-                },
-              ),
-              ListTile(
-                leading: const Icon(CustomIcons.delete),
-                title: const Text("Delete Notification"),
-                onTap: () {
-                  Navigator.pop(context);
-                  showDialog(
-                    context: context,
-                    builder: (_) => const ConfirmDeleteDialog(
-                      label: "Notification",
-                    ),
-                  ).then((value) {
-                    if (value != null) {
-                      if (value == true) {
-                        deleteNotification(widget.notification)
-                            .then((value) => widget.reload());
-                      }
-                    }
-                  });
-                },
-              ),
-            ],
+          ListTile(
+            leading: const Icon(CustomIcons.delete),
+            title: const Text("Delete Notification"),
+            onTap: () {
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (_) => const ConfirmDeleteDialog(
+                  label: "Notification",
+                ),
+              ).then((value) {
+                if (value != null) {
+                  if (value == true) {
+                    deleteNotification(widget.notification)
+                        .then((value) => widget.reload());
+                  }
+                }
+              });
+            },
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }

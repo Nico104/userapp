@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/auth/u_auth.dart';
+import 'package:userapp/general/widgets/custom_nico_modal.dart';
 
 import '../../../../../general/utils_theme/custom_colors.dart';
 import '../../../../../general/utils_theme/custom_text_styles.dart';
@@ -23,13 +24,7 @@ class UpdateEmailStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(16, 16, 16, 32),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
-        borderRadius: BorderRadius.circular(28),
-      ),
+    return CustomNicoModalBottomSheet(
       child: FutureBuilder(
         future: changeEmail(currentPassword, newEmail),
         builder: (BuildContext context, AsyncSnapshot<int> snapshot) {

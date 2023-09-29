@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/document_page/document_item/documents_list_item.dart';
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/document_page/upload_document/upload_document_page.dart';
-import 'package:userapp/feature/pets/profile_details/widgets/shy_button.dart';
+import 'package:userapp/general/widgets/shy_button.dart';
 
 import '../../../../../../general/utils_general.dart';
 import '../../../../../../general/widgets/custom_scroll_view.dart';

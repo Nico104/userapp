@@ -12,6 +12,7 @@ import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 import 'package:userapp/general/utils_general.dart';
 
 import '../../../../../../../general/network_globals.dart';
+import '../../../../../../../general/widgets/custom_nico_modal.dart';
 import '../../../../../u_pets.dart';
 import '../../../../c_one_line_simple_input.dart';
 import '../../../../u_profile_details.dart';
@@ -230,50 +231,64 @@ class _HealthIssueUpdateBoxState extends State<HealthIssueUpdateBox> {
                                               ),
                                               IconButton(
                                                 onPressed: () {
-                                                  BuildContext? dialogContext;
-                                                  showModalBottomSheet(
+                                                  showCustomNicoLoadingModalBottomSheet(
                                                     context: context,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    isDismissible: false,
-                                                    builder: (buildContext) {
-                                                      dialogContext =
-                                                          buildContext;
-                                                      return Container(
-                                                        margin: const EdgeInsets
-                                                                .fromLTRB(
-                                                            16, 16, 16, 32),
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(16),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .primaryColor,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(28),
-                                                        ),
-                                                        child: const SizedBox(
-                                                          height: 60,
-                                                          width: 60,
-                                                          child:
-                                                              CircularProgressIndicator(),
-                                                        ),
-                                                      );
+                                                    future:
+                                                        unlinkDocumentFromHealthIssue(
+                                                      _healthIssue
+                                                          .healthIssueId,
+                                                    ),
+                                                    callback: (value) {
+                                                      _healthIssue
+                                                              .linkedDocuemntId =
+                                                          null;
+                                                      setState(() {});
                                                     },
                                                   );
-                                                  unlinkDocumentFromHealthIssue(
-                                                    _healthIssue.healthIssueId,
-                                                  ).then((value) {
-                                                    _healthIssue
-                                                            .linkedDocuemntId =
-                                                        null;
-                                                    Navigator.pop(
-                                                        dialogContext!);
-                                                    setState(() {});
-                                                  });
+                                                  // BuildContext? dialogContext;
+                                                  // showModalBottomSheet(
+                                                  //   context: context,
+                                                  //   backgroundColor:
+                                                  //       Colors.transparent,
+                                                  //   isDismissible: false,
+                                                  //   builder: (buildContext) {
+                                                  //     dialogContext =
+                                                  //         buildContext;
+                                                  //     return Container(
+                                                  //       margin: const EdgeInsets
+                                                  //               .fromLTRB(
+                                                  //           16, 16, 16, 32),
+                                                  //       padding:
+                                                  //           const EdgeInsets
+                                                  //               .all(16),
+                                                  //       decoration:
+                                                  //           BoxDecoration(
+                                                  //         color:
+                                                  //             Theme.of(context)
+                                                  //                 .primaryColor,
+                                                  //         borderRadius:
+                                                  //             BorderRadius
+                                                  //                 .circular(28),
+                                                  //       ),
+                                                  //       child: const SizedBox(
+                                                  //         height: 60,
+                                                  //         width: 60,
+                                                  //         child:
+                                                  //             CircularProgressIndicator(),
+                                                  //       ),
+                                                  //     );
+                                                  //   },
+                                                  // );
+                                                  // unlinkDocumentFromHealthIssue(
+                                                  //   _healthIssue.healthIssueId,
+                                                  // ).then((value) {
+                                                  //   _healthIssue
+                                                  //           .linkedDocuemntId =
+                                                  //       null;
+                                                  //   Navigator.pop(
+                                                  //       dialogContext!);
+                                                  //   setState(() {});
+                                                  // });
                                                 },
                                                 icon: const Icon(Icons.close),
                                               )

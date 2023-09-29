@@ -6,8 +6,10 @@ import 'package:userapp/general/utils_color/hex_color.dart';
 import 'package:userapp/feature/pets/profile_details/g_profile_detail_globals.dart'
     as globals;
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
+import '../language/country_selector.dart';
 import '../language/m_language.dart';
 import '../navigation_peppi/pet_profile_preview_extended_actions.dart';
+import '../pets/profile_details/g_profile_detail_globals.dart';
 import 'my_pets_navbar/my_pets_navbar.dart';
 import '../pets/new_pet_profile.dart';
 import '../pets/page_transform.dart';
@@ -115,10 +117,16 @@ class _MyPetsState extends State<MyPets> {
     //   ),
     // );
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        // statusBarColor: Colors.transparent,
-        systemNavigationBarColor: Colors.transparent,
-      ),
+      // value: SystemUiOverlayStyle(
+      //   // statusBarColor: Colors.transparent,
+      //   systemNavigationBarColor:
+      //       Theme.of(context).primaryColor.withOpacity(0.01),
+      //   // systemNavigationBarIconBrightness: Brightness.dark,
+      // ),
+      value: Theme.of(context).appBarTheme.systemOverlayStyle!.copyWith(
+            systemNavigationBarColor:
+                Theme.of(context).primaryColor.withOpacity(0.01),
+          ),
       child: Scaffold(
         // appBar: AppBar(
         //   systemOverlayStyle: SystemUiOverlayStyle(
@@ -308,16 +316,18 @@ class _MyPetsState extends State<MyPets> {
               ),
             ),
             pageindex.round() < widget.petProfiles.length
-                ? Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: ExtendedSettingsContainer(
-                        key: _navigationPeppiKey,
-                        isActive: isInteger(pageindex),
-                        petProfileDetails:
-                            widget.petProfiles.elementAt(pageindex.round()),
-                        reloadFuture: () => widget.reloadFuture.call(),
+                ? SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: ExtendedSettingsContainer(
+                          key: _navigationPeppiKey,
+                          isActive: isInteger(pageindex),
+                          petProfileDetails:
+                              widget.petProfiles.elementAt(pageindex.round()),
+                          reloadFuture: () => widget.reloadFuture.call(),
+                        ),
                       ),
                     ),
                   )

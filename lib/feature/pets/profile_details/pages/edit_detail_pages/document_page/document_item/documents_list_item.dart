@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:userapp/general/network_globals.dart';
 import 'package:userapp/general/utils_color/hex_color.dart';
 import '../../../../../../../general/utils_custom_icons/custom_icons_icons.dart';
+import '../../../../../../../general/widgets/custom_nico_modal.dart';
 import '../../../../d_confirm_delete.dart';
 import '../../../../models/m_document.dart';
 import '../../../../u_profile_details.dart';
@@ -50,70 +51,59 @@ class DocumentItem extends StatefulWidget {
 
 class _DocumentItemState extends State<DocumentItem> {
   void _showOptions() {
-    showModalBottomSheet(
+    showCustomNicoModalBottomSheet(
       context: context,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        return Container(
-          margin: const EdgeInsets.fromLTRB(16, 16, 16, 32),
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.circular(28),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            leading: const Icon(CustomIcons.share_thin),
+            title: const Text("Share"),
+            onTap: () {
+              Navigator.pop(context);
+              Share.share(s3BaseUrl + widget.document.documentLink,
+                  subject: 'Check out ${widget.document.documentName}');
+            },
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                leading: const Icon(CustomIcons.share_thin),
-                title: const Text("Share"),
-                onTap: () {
-                  Navigator.pop(context);
-                  Share.share(s3BaseUrl + widget.document.documentLink,
-                      subject: 'Check out ${widget.document.documentName}');
-                },
-              ),
-              ListTile(
-                leading: const Icon(CustomIcons.edit),
-                title: const Text("Edit"),
-                onTap: () {
-                  Navigator.pop(context);
-                  // updateDocument
-                  showDialog(
-                    context: context,
-                    builder: (context) => DocumentEditDialog(
-                      document: widget.document,
-                    ),
-                  ).then(
-                    (value) => widget.reloadDocumentList(),
-                  );
-                },
-              ),
-              ListTile(
-                leading: const Icon(CustomIcons.delete),
-                title: const Text("Delete Document"),
-                onTap: () {
-                  Navigator.pop(context);
-                  showDialog(
-                    context: context,
-                    builder: (_) => const ConfirmDeleteDialog(
-                      label: "Document",
-                    ),
-                  ).then((value) {
-                    if (value != null) {
-                      if (value == true) {
-                        deleteDocument(widget.document).then(
-                          (value) => widget.removeDocumentFromList(),
-                        );
-                      }
-                    }
-                  });
-                },
-              ),
-            ],
+          ListTile(
+            leading: const Icon(CustomIcons.edit),
+            title: const Text("Edit"),
+            onTap: () {
+              Navigator.pop(context);
+              // updateDocument
+              showDialog(
+                context: context,
+                builder: (context) => DocumentEditDialog(
+                  document: widget.document,
+                ),
+              ).then(
+                (value) => widget.reloadDocumentList(),
+              );
+            },
           ),
-        );
-      },
+          ListTile(
+            leading: const Icon(CustomIcons.delete),
+            title: const Text("Delete Document"),
+            onTap: () {
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (_) => const ConfirmDeleteDialog(
+                  label: "Document",
+                ),
+              ).then((value) {
+                if (value != null) {
+                  if (value == true) {
+                    deleteDocument(widget.document).then(
+                      (value) => widget.removeDocumentFromList(),
+                    );
+                  }
+                }
+              });
+            },
+          ),
+        ],
+      ),
     );
   }
 

@@ -9,7 +9,7 @@ import 'package:userapp/general/utils_general.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
 import '../../../pets/profile_details/widgets/custom_textformfield.dart';
-import '../../../pets/profile_details/widgets/shy_button.dart';
+import '../../../../general/widgets/shy_button.dart';
 
 class ContactUs extends StatefulWidget {
   const ContactUs({super.key});

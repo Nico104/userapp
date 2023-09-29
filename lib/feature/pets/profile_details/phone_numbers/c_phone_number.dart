@@ -112,17 +112,20 @@ class _PetPhoneNumbersComponentState extends State<PetPhoneNumbersComponent> {
   }
 }
 
-Container prefixBlock() {
-  return Container(
-    // height: double.infinity,
-    width: 36,
-    height: 28,
-    decoration:
-        const BoxDecoration(shape: BoxShape.rectangle, color: Colors.redAccent
-            // image: DecorationImage(
-            //   image: NetworkImage(description.language.languageImagePath),
-            //   fit: BoxFit.cover,
-            // ),
-            ),
+Widget prefixBlock() {
+  return AspectRatio(
+    aspectRatio: 3 / 2,
+    child: Container(
+      // height: double.infinity,
+      // width: 36,
+      height: 28,
+      decoration:
+          const BoxDecoration(shape: BoxShape.rectangle, color: Colors.redAccent
+              // image: DecorationImage(
+              //   image: NetworkImage(description.language.languageImagePath),
+              //   fit: BoxFit.cover,
+              // ),
+              ),
+    ),
   );
 }

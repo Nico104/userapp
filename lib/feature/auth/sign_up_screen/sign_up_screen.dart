@@ -6,6 +6,7 @@ import 'package:userapp/feature/auth/sign_up_screen/verification_page.dart';
 import 'package:userapp/feature/auth/u_auth.dart';
 import 'package:userapp/general/utils_general.dart';
 
+import '../../../general/widgets/custom_nico_modal.dart';
 import '../../../init_app.dart';
 import '../../../general/utils_theme/custom_text_styles.dart';
 import 'email_page.dart';
@@ -79,44 +80,63 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           //     curve: Curves.fastOutSlowIn);
 
                           //Loading Dialog Thingy
-                          BuildContext? dialogContext;
-                          showModalBottomSheet(
+                          // BuildContext? dialogContext;
+                          // showModalBottomSheet(
+                          //   context: context,
+                          //   backgroundColor: Colors.transparent,
+                          //   isDismissible: false,
+                          //   builder: (buildContext) {
+                          //     dialogContext = buildContext;
+                          //     return Container(
+                          //       margin:
+                          //           const EdgeInsets.fromLTRB(16, 16, 16, 32),
+                          //       padding: const EdgeInsets.all(16),
+                          //       decoration: BoxDecoration(
+                          //         color: Theme.of(context).primaryColor,
+                          //         borderRadius: BorderRadius.circular(28),
+                          //       ),
+                          //       child: const SizedBox(
+                          //         height: 60,
+                          //         width: 60,
+                          //         child: CircularProgressIndicator(),
+                          //       ),
+                          //     );
+                          //   },
+                          // );
+
+                          // registerWithEmailPassword(
+                          //   email: _email!,
+                          //   password: userpassword,
+                          // ).then((value) {
+                          //   if (_name != null) {
+                          //     updateDisplayName(_name!).then((value) {
+                          //       Navigator.pop(dialogContext!);
+                          //       Navigator.of(context)
+                          //           .popUntil((route) => route.isFirst);
+                          //       navigateReplacePerSlide(
+                          //           context, const InitApp());
+                          //     });
+                          //   }
+                          // });
+
+                          showCustomNicoLoadingModalBottomSheet(
                             context: context,
-                            backgroundColor: Colors.transparent,
-                            isDismissible: false,
-                            builder: (buildContext) {
-                              dialogContext = buildContext;
-                              return Container(
-                                margin:
-                                    const EdgeInsets.fromLTRB(16, 16, 16, 32),
-                                padding: const EdgeInsets.all(16),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
-                                  borderRadius: BorderRadius.circular(28),
-                                ),
-                                child: const SizedBox(
-                                  height: 60,
-                                  width: 60,
-                                  child: CircularProgressIndicator(),
-                                ),
-                              );
+                            future: registerWithEmailPassword(
+                              email: _email!,
+                              password: userpassword,
+                            ),
+                            callback: (value) {
+                              if (_name != null) {
+                                updateDisplayName(_name!).then((value) {
+                                  // Navigator.pop(dialogContext!);
+                                  Navigator.of(context)
+                                      .popUntil((route) => route.isFirst);
+                                  navigateReplacePerSlide(
+                                      context, const InitApp());
+                                });
+                              }
                             },
                           );
-
-                          registerWithEmailPassword(
-                            email: _email!,
-                            password: userpassword,
-                          ).then((value) {
-                            if (_name != null) {
-                              updateDisplayName(_name!).then((value) {
-                                Navigator.pop(dialogContext!);
-                                Navigator.of(context)
-                                    .popUntil((route) => route.isFirst);
-                                navigateReplacePerSlide(
-                                    context, const InitApp());
-                              });
-                            }
-                          });
                         },
                       ),
                       //Sends Code on init Verification Page

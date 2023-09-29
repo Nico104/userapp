@@ -9,6 +9,7 @@ import 'package:userapp/general/utils_color/hex_color.dart';
 import 'package:userapp/general/utils_theme/custom_text_styles.dart';
 import 'package:userapp/general/utils_general.dart';
 
+import '../../general/widgets/custom_nico_modal.dart';
 import '../../init_app.dart';
 import '../pets/profile_details/widgets/custom_textformfield.dart';
 import '../../general/utils_theme/custom_colors.dart';
@@ -114,35 +115,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     CustomBigButton(
                       label: "loginPageContinueLabel".tr(),
                       onTap: () {
-                        //Loading Dialog Thingy
-                        BuildContext? dialogContext;
-                        showModalBottomSheet(
+                        showCustomNicoLoadingModalBottomSheet(
                           context: context,
-                          backgroundColor: Colors.transparent,
-                          isDismissible: false,
-                          builder: (buildContext) {
-                            dialogContext = buildContext;
-                            return Container(
-                              margin: const EdgeInsets.fromLTRB(16, 16, 16, 32),
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                borderRadius: BorderRadius.circular(28),
-                              ),
-                              child: const SizedBox(
-                                height: 60,
-                                width: 60,
-                                child: CircularProgressIndicator(),
-                              ),
-                            );
-                          },
-                        );
-
-                        signInWithEmailPassword(
-                                email: emailText, password: passwordText)
-                            .then(
-                          (user) {
-                            Navigator.pop(dialogContext!);
+                          future: signInWithEmailPassword(
+                              email: emailText, password: passwordText),
+                          callback: (user) {
                             if (user != null) {
                               setState(() {
                                 _emailErrorMsg = null;
@@ -161,6 +138,53 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                           },
                         );
+                        // //Loading Dialog Thingy
+                        // BuildContext? dialogContext;
+                        // showModalBottomSheet(
+                        //   context: context,
+                        //   backgroundColor: Colors.transparent,
+                        //   isDismissible: false,
+                        //   builder: (buildContext) {
+                        //     dialogContext = buildContext;
+                        //     return Container(
+                        //       margin: const EdgeInsets.fromLTRB(16, 16, 16, 32),
+                        //       padding: const EdgeInsets.all(16),
+                        //       decoration: BoxDecoration(
+                        //         color: Theme.of(context).primaryColor,
+                        //         borderRadius: BorderRadius.circular(28),
+                        //       ),
+                        //       child: const SizedBox(
+                        //         height: 60,
+                        //         width: 60,
+                        //         child: CircularProgressIndicator(),
+                        //       ),
+                        //     );
+                        //   },
+                        // );
+
+                        // signInWithEmailPassword(
+                        //         email: emailText, password: passwordText)
+                        //     .then(
+                        //   (user) {
+                        //     Navigator.pop(dialogContext!);
+                        //     if (user != null) {
+                        //       setState(() {
+                        //         _emailErrorMsg = null;
+                        //         _passwordErrorMsg = null;
+                        //       });
+                        //       Navigator.of(context)
+                        //           .popUntil((route) => route.isFirst);
+                        //       navigateReplacePerSlide(context, const InitApp());
+                        //     } else {
+                        //       print("wrong credentials");
+                        //       setState(() {
+                        //         _emailErrorMsg = "This doesnt seem right";
+                        //         _passwordErrorMsg =
+                        //             "Are you sure? Cause I am not";
+                        //       });
+                        //     }
+                        //   },
+                        // );
                       },
                     ),
                     SizedBox(height: 05.h),

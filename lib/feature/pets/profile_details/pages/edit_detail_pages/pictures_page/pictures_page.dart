@@ -7,6 +7,7 @@ import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/pic
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/pictures_page/picture_selection.dart';
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/pictures_page/single_picture.dart';
 import 'package:userapp/general/network_globals.dart';
+import 'package:userapp/general/widgets/custom_nico_modal.dart';
 
 import '../../../../../../general/utils_theme/custom_colors.dart';
 import '../../../../../../general/widgets/custom_scroll_view.dart';
@@ -14,7 +15,7 @@ import '../../../../u_pets.dart';
 import '../../../models/m_pet_picture.dart';
 import '../../../pictures/upload_picture_dialog.dart';
 import '../../../u_profile_details.dart';
-import '../../../widgets/shy_button.dart';
+import '../../../../../../general/widgets/shy_button.dart';
 
 class PicturesPage extends StatefulWidget {
   const PicturesPage(
@@ -137,48 +138,37 @@ class _PicturesPageState extends State<PicturesPage> {
   }
 
   void _uploadPicture() {
-    showModalBottomSheet(
+    showCustomNicoModalBottomSheet(
       context: context,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        return Container(
-          margin: const EdgeInsets.fromLTRB(16, 16, 16, 32),
-          padding: const EdgeInsets.all(24),
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.circular(28),
-          ),
-          child: PictureSelection(
-            addPicture: (value) async {
-              //Loading Dialog Thingy
-              BuildContext? dialogContext;
-              showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (BuildContext context) {
-                  dialogContext = context;
-                  return const UploadPictureDialog();
-                },
-              );
-              await uploadPicture(
-                widget.petProfileId,
-                value,
-                () async {
-                  print("uplaoded");
-                  // widget.reloadFuture.call();
-                  //TODO update UI
-                  //hekps against 403 from server
-                  await Future.delayed(const Duration(milliseconds: 2000)).then(
-                    (value) => reloadPetPictures(),
-                  );
-                  //Close Loading Dialog Thingy
-                  Navigator.pop(dialogContext!);
-                },
-              );
+      child: PictureSelection(
+        addPicture: (value) async {
+          //Loading Dialog Thingy
+          BuildContext? dialogContext;
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              dialogContext = context;
+              return const UploadPictureDialog();
             },
-          ),
-        );
-      },
+          );
+          await uploadPicture(
+            widget.petProfileId,
+            value,
+            () async {
+              print("uplaoded");
+              // widget.reloadFuture.call();
+              //TODO update UI
+              //hekps against 403 from server
+              await Future.delayed(const Duration(milliseconds: 2000)).then(
+                (value) => reloadPetPictures(),
+              );
+              //Close Loading Dialog Thingy
+              Navigator.pop(dialogContext!);
+            },
+          );
+        },
+      ),
     );
   }
 }

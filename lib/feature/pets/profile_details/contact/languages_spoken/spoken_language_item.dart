@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../../../../general/network_globals.dart';
+import '../../../../../general/widgets/custom_nico_modal.dart';
 
 class SpokenLanguageItem extends StatelessWidget {
   const SpokenLanguageItem({
@@ -31,32 +32,21 @@ class SpokenLanguageItem extends StatelessWidget {
   }
 
   void _showOptions(BuildContext context) {
-    showModalBottomSheet(
+    showCustomNicoModalBottomSheet(
       context: context,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        return Container(
-          margin: const EdgeInsets.fromLTRB(16, 16, 16, 32),
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.circular(28),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            leading: const Icon(Icons.check),
+            title: const Text("Remove spoken Language"),
+            onTap: () {
+              Navigator.pop(context);
+              onDelete();
+            },
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                leading: const Icon(Icons.check),
-                title: const Text("Remove spoken Language"),
-                onTap: () {
-                  Navigator.pop(context);
-                  onDelete();
-                },
-              ),
-            ],
-          ),
-        );
-      },
+        ],
+      ),
     );
   }
 }

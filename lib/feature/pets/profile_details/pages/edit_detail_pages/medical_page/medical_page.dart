@@ -6,12 +6,13 @@ import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/general/utils_color/hex_color.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
+import '../../../../../../general/widgets/custom_nico_modal.dart';
 import '../../../c_component_padding.dart';
 import '../../../models/m_pet_profile.dart';
 import '../../../models/medical/m_health_issue.dart';
 import '../../../models/medical/m_medical_information.dart';
 import '../../../widgets/multi_options_button.dart';
-import '../../../widgets/shy_button.dart';
+import '../../../../../../general/widgets/shy_button.dart';
 import '../../../widgets/two_options_button.dart';
 import 'health_issues/health_issue_update_box.dart';
 import 'health_issues/health_issues_list.dart';
@@ -154,35 +155,14 @@ class _MedicalPageState extends State<MedicalPage> {
                   showUploadButton: _showShyButton,
                   label: "New Health Info",
                   onTap: () {
-                    BuildContext? dialogContext;
-                    showModalBottomSheet(
+                    showCustomNicoLoadingModalBottomSheet(
                       context: context,
-                      backgroundColor: Colors.transparent,
-                      isDismissible: false,
-                      builder: (buildContext) {
-                        dialogContext = buildContext;
-                        return Container(
-                          margin: const EdgeInsets.fromLTRB(16, 16, 16, 32),
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.circular(28),
-                          ),
-                          child: const SizedBox(
-                            height: 60,
-                            width: 60,
-                            child: CircularProgressIndicator(),
-                          ),
-                        );
-                      },
-                    );
-                    createHealthIssue(
-                      healthIssueName: "New Health Information",
-                      healthIssueType: "Misc",
-                      medicalId: _medicalInformation!.medicalInformationId,
-                    ).then(
-                      (value) {
-                        Navigator.pop(dialogContext!);
+                      future: createHealthIssue(
+                        healthIssueName: "New Health Information",
+                        healthIssueType: "Misc",
+                        medicalId: _medicalInformation!.medicalInformationId,
+                      ),
+                      callback: (value) {
                         _refreshMedicalInformation();
                         Navigator.of(context)
                             .push(
@@ -204,6 +184,56 @@ class _MedicalPageState extends State<MedicalPage> {
                         });
                       },
                     );
+                    // BuildContext? dialogContext;
+                    // showModalBottomSheet(
+                    //   context: context,
+                    //   backgroundColor: Colors.transparent,
+                    //   isDismissible: false,
+                    //   builder: (buildContext) {
+                    //     dialogContext = buildContext;
+                    //     return Container(
+                    //       margin: const EdgeInsets.fromLTRB(16, 16, 16, 32),
+                    //       padding: const EdgeInsets.all(16),
+                    //       decoration: BoxDecoration(
+                    //         color: Theme.of(context).primaryColor,
+                    //         borderRadius: BorderRadius.circular(28),
+                    //       ),
+                    //       child: const SizedBox(
+                    //         height: 60,
+                    //         width: 60,
+                    //         child: CircularProgressIndicator(),
+                    //       ),
+                    //     );
+                    //   },
+                    // );
+                    // createHealthIssue(
+                    //   healthIssueName: "New Health Information",
+                    //   healthIssueType: "Misc",
+                    //   medicalId: _medicalInformation!.medicalInformationId,
+                    // ).then(
+                    //   (value) {
+                    //     Navigator.pop(dialogContext!);
+                    //     _refreshMedicalInformation();
+                    //     Navigator.of(context)
+                    //         .push(
+                    //       PageRouteBuilder(
+                    //         opaque: false,
+                    //         barrierDismissible: true,
+                    //         pageBuilder: (BuildContext context, _, __) {
+                    //           return HealthIssueUpdateBox(
+                    //             healthIssue: value,
+                    //             nameLabel: "Label",
+                    //             petProfileId:
+                    //                 widget.petProfileDetails.profileId,
+                    //           );
+                    //         },
+                    //       ),
+                    //     )
+                    //         .then((value) {
+                    //       _refreshMedicalInformation();
+                    //     });
+                    //   },
+                    // );
                   },
                   icon: Icon(
                     Icons.medical_information_rounded,

@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/feature/pets/u_pets.dart';
 
+import '../../../../../../../general/widgets/custom_nico_modal.dart';
 import '../../../../../../../general/widgets/custom_scroll_view.dart';
 import '../../../../models/m_document.dart';
 import '../../document_page/document_item/documents_list_item.dart';
@@ -58,34 +59,43 @@ class _HealthIssueLinkDocumentSelectionState
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      BuildContext? dialogContext;
-                      showModalBottomSheet(
+                      showCustomNicoLoadingModalBottomSheet(
                         context: context,
-                        backgroundColor: Colors.transparent,
-                        isDismissible: false,
-                        builder: (buildContext) {
-                          dialogContext = buildContext;
-                          return Container(
-                            margin: const EdgeInsets.fromLTRB(16, 16, 16, 32),
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(28),
-                            ),
-                            child: const SizedBox(
-                              height: 60,
-                              width: 60,
-                              child: CircularProgressIndicator(),
-                            ),
-                          );
+                        future: linkDocumentToHealthIssue(widget.healthIssueId,
+                            widget.documents.elementAt(index).documentId),
+                        callback: (value) {
+                          Navigator.pop(context, value);
                         },
                       );
-                      linkDocumentToHealthIssue(widget.healthIssueId,
-                              widget.documents.elementAt(index).documentId)
-                          .then((value) {
-                        Navigator.pop(dialogContext!);
-                        Navigator.pop(context, value);
-                      });
+
+                      // BuildContext? dialogContext;
+                      // showModalBottomSheet(
+                      //   context: context,
+                      //   backgroundColor: Colors.transparent,
+                      //   isDismissible: false,
+                      //   builder: (buildContext) {
+                      //     dialogContext = buildContext;
+                      //     return Container(
+                      //       margin: const EdgeInsets.fromLTRB(16, 16, 16, 32),
+                      //       padding: const EdgeInsets.all(16),
+                      //       decoration: BoxDecoration(
+                      //         color: Theme.of(context).primaryColor,
+                      //         borderRadius: BorderRadius.circular(28),
+                      //       ),
+                      //       child: const SizedBox(
+                      //         height: 60,
+                      //         width: 60,
+                      //         child: CircularProgressIndicator(),
+                      //       ),
+                      //     );
+                      //   },
+                      // );
+                      // linkDocumentToHealthIssue(widget.healthIssueId,
+                      //         widget.documents.elementAt(index).documentId)
+                      //     .then((value) {
+                      //   Navigator.pop(dialogContext!);
+                      //   Navigator.pop(context, value);
+                      // });
                     },
                     child: DocumentItemHealthIssue(
                       document: widget.documents.elementAt(index),

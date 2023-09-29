@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/c_component_title.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_behaviour_information.dart';
-import 'package:userapp/feature/pets/profile_details/widgets/shy_button.dart';
+import 'package:userapp/general/widgets/shy_button.dart';
 import 'package:userapp/general/utils_color/hex_color.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 

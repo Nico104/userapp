@@ -24,13 +24,13 @@ final ThemeData constLightTheme = ThemeData(
     ),
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      systemNavigationBarColor: Colors.white,
-      // systemNavigationBarIconBrightness: Brightness.light,
-      // statusBarIconBrightness: Brightness.dark,
       statusBarIconBrightness: Brightness.dark,
-      // statusBarBrightness: Brightness.dark,
+      // systemNavigationBarColor: Colors.yellow,
+      systemNavigationBarColor: Colors.white,
+      systemNavigationBarIconBrightness: Brightness.dark,
     ),
   ),
+
   //Used e.p. for SocialMediaContainer
   primaryColor: Colors.white,
   // colorScheme: ColorScheme.fromSwatch().copyWith(secondary: HexColor("FF6B6B")),
@@ -209,6 +209,13 @@ final ThemeData constDarkTheme = ThemeData(
       fontFamily: 'LibreBaskerville',
       fontSize: 20,
       color: Colors.white,
+    ),
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+      // systemNavigationBarColor: Colors.yellow,
+      systemNavigationBarColor: HexColor("121212"),
+      systemNavigationBarIconBrightness: Brightness.light,
     ),
   ),
   //Used e.p. for SocialMediaContainer

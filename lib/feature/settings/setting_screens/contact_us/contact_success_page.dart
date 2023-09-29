@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:userapp/feature/pets/profile_details/widgets/shy_button.dart';
+import 'package:userapp/general/widgets/shy_button.dart';
 import 'package:userapp/general/utils_color/hex_color.dart';
 
 class ContactUsSuccessPage extends StatelessWidget {

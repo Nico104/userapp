@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_phone_number.dart';
 
+import '../../../../general/network_globals.dart';
 import '../../../language/c_prefix_selection.dart';
+import '../../../language/country_selector.dart';
 import '../../../language/m_language.dart';
 import '../contact/u_contact.dart';
+import '../g_profile_detail_globals.dart';
 import '../u_profile_details.dart';
 import '../widgets/custom_textformfield.dart';
 import 'c_phone_number.dart';
@@ -34,8 +37,8 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
   void initState() {
     super.initState();
     //TODO get user country prefix
-    _country =
-        Country('de', '/germany', '+49', Language('Deutsch', 'de', "", false));
+    _country = Country('de', 'flags/language/german_flag.png', '+49',
+        Language('Deutsch', 'de', "flags/language/german_flag.png", false));
   }
 
   void addPhoneNumber(String number) {
@@ -67,9 +70,27 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
         prefix: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () {
-            showDialog(
-              context: context,
-              builder: (_) => const PrefixPickerDialogComponent(),
+            // showDialog(
+            //   context: context,
+            //   builder: (_) => const PrefixPickerDialogComponent(),
+            // ).then((value) {
+            //   if (value != null) {
+            //     if (value is Country) {
+            //       setState(() {
+            //         // widget.number.language = value;
+            //         _country = value;
+            //       });
+            //     }
+            //   }
+            // });
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CountrySelector(
+                  availableCountries: availableCountries,
+                  activeCountry: null,
+                ),
+              ),
             ).then((value) {
               if (value != null) {
                 if (value is Country) {
@@ -91,7 +112,18 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
                 children: [
                   Opacity(
                     opacity: 0.5,
-                    child: prefixBlock(),
+                    child: SizedBox(
+                      height: 28,
+                      child: AspectRatio(
+                        aspectRatio: 3 / 2,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: Image.network(
+                            s3BaseUrl + _country.countryFlagImagePath,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     width: 8,
