@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
 
@@ -33,12 +34,16 @@ class SettingsItem extends StatelessWidget {
           children: [
             leading ?? const SizedBox(),
             const SizedBox(width: 16),
-            Text(
-              label,
-              // style: settingsItem,
-              style: Theme.of(context).textTheme.labelMedium,
+            Expanded(
+              child: AutoSizeText(
+                label,
+                // style: settingsItem,
+                style: Theme.of(context).textTheme.labelMedium,
+                maxLines: 1,
+                // maxFontSize: Theme.of(context).textTheme.labelMedium!.fontSize!,
+              ),
             ),
-            const Spacer(),
+            const SizedBox(width: 16),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [

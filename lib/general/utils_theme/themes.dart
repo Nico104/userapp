@@ -127,13 +127,13 @@ final ThemeData constLightTheme = ThemeData(
       homeWelcomeMessage: TextStyle(
         fontFamily: 'Promt',
         fontWeight: FontWeight.w400,
-        fontSize: 16,
+        fontSize: 18,
         color: Colors.black.withOpacity(0.56),
       ),
       homeWelcomeUser: TextStyle(
         fontFamily: 'Promt',
         fontWeight: FontWeight.w600,
-        fontSize: 16,
+        fontSize: 18,
         color: Colors.black.withOpacity(0.87),
       ),
       dataEditDialogButtonCancelStyle: const TextStyle(
@@ -146,57 +146,32 @@ final ThemeData constLightTheme = ThemeData(
         fontFamily: 'Promt',
         fontWeight: FontWeight.w400,
         fontSize: 16,
-        color: Colors.black,
-      ),
-      profileGenderLabel: const TextStyle(
-        fontFamily: 'Promt',
-        fontWeight: FontWeight.w400,
-        fontSize: 18,
         color: Colors.white,
       ),
-      profileDetailsTabLabelActive: const TextStyle(
-        fontFamily: 'Promt',
-        fontWeight: FontWeight.w600,
-        fontSize: 20,
-        color: Colors.black,
-      ),
-      profileDetailsTabLabelInactive: const TextStyle(
-        fontFamily: 'Promt',
-        fontWeight: FontWeight.w400,
-        fontSize: 20,
-        color: Colors.black,
-      ),
-      textFormFieldHint: TextStyle(
-        fontFamily: 'Promt',
-        fontWeight: FontWeight.w400,
-        fontSize: 16,
-        color: Colors.black.withOpacity(0.16),
-      ),
-      textFormFieldLabel: TextStyle(
-        fontFamily: 'Promt',
-        fontWeight: FontWeight.w400,
-        fontSize: 16,
-        color: Colors.black.withOpacity(0.38),
-      ),
-      authRegisterNowAction: TextStyle(
-        fontFamily: 'Promt',
-        fontWeight: FontWeight.w400,
-        fontSize: 16,
-        color: Colors.blue.shade700,
-      ),
+      //Free
+      profileGenderLabel: const TextStyle(),
+      //Free
+      profileDetailsTabLabelActive: const TextStyle(),
+      //Free
+      profileDetailsTabLabelInactive: const TextStyle(),
+      //Free
+      textFormFieldHint: const TextStyle(),
+      //Free
+      textFormFieldLabel: const TextStyle(),
+      //Free
+      authRegisterNowAction: const TextStyle(),
     ),
     CustomColors(
-      // accent: HexColor("#2b4afc"),
-      accent: HexColor("#1e202d"),
-      // accent: HexColor("371009"),
-      accentLight: HexColor("a9a9ff"),
-      // accentDark: HexColor("2642e2"),
-      accentDark: HexColor("1c1f2a"),
+      accent: HexColor("#4169E1"),
+      accentLessContrast: HexColor("5478e4"),
+      accentHighContrast: HexColor("3a5eca"),
       lightBorder: Colors.black.withOpacity(0.16),
       hardBorder: Colors.black,
+      //Free
       shadow: Colors.black.withOpacity(0.16),
+      //Free
       lightShadow: Colors.black.withOpacity(0.04),
-      accentShadow: HexColor("7676ff").withOpacity(0.28),
+      secondaryAccent: HexColor("e14169"),
       error: HexColor("B00020"),
     ),
   ],
@@ -205,6 +180,7 @@ final ThemeData constLightTheme = ThemeData(
 ///Dark Theme
 final ThemeData constDarkTheme = ThemeData(
   brightness: Brightness.dark,
+
   appBarTheme: AppBarTheme(
     backgroundColor: HexColor("121212"),
     foregroundColor: Colors.white,
@@ -225,8 +201,8 @@ final ThemeData constDarkTheme = ThemeData(
     ),
   ),
   //Used e.p. for SocialMediaContainer
-  primaryColor: HexColor("1f1f1f"),
-  primaryColorLight: HexColor("2c2c2c"),
+  primaryColor: HexColor("121212"),
+  // primaryColorLight: HexColor("2c2c2c"),
   primaryColorDark: Colors.black,
   //Used for Scaffold BG e.p.
   canvasColor: HexColor("121212"),
@@ -236,7 +212,6 @@ final ThemeData constDarkTheme = ThemeData(
   ),
   iconTheme: const IconThemeData(color: Colors.white),
   textTheme: TextTheme(
-    //Login Welcome or Update Password Screen
     headlineLarge: const TextStyle(
       fontFamily: 'LibreBaskerville',
       fontSize: 24,
@@ -244,36 +219,50 @@ final ThemeData constDarkTheme = ThemeData(
     ),
     headlineMedium: TextStyle(
       fontFamily: 'Promt',
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w400,
       fontSize: 16,
       color: Colors.white.withOpacity(0.84),
     ),
-    //e.p. Settings Section Title
-    titleMedium: TextStyle(
-      fontFamily: 'Lora',
-      fontSize: 20,
+
+    titleMedium: GoogleFonts.openSans(
+      fontSize: 18,
+      fontWeight: FontWeight.w600,
+      color: Colors.white.withOpacity(0.95),
+    ),
+    //BasicInformation SectionTitle
+    titleLarge: GoogleFonts.openSans(
+      fontWeight: FontWeight.w700,
+      fontSize: kIsWeb ? 24 : 16.sp,
       color: Colors.white.withOpacity(0.87),
     ),
     //e.p. Settings Item Label, Extended Actions
-    labelMedium: TextStyle(
-      fontFamily: 'Promt',
+    labelMedium: GoogleFonts.prompt(
+      // fontFamily: 'Promt',
+      fontWeight: FontWeight.w400,
+      fontSize: 16,
+      color: Colors.white.withOpacity(0.76),
+    ),
+    displaySmall: GoogleFonts.prompt(
+      fontWeight: FontWeight.w200,
+      fontSize: kIsWeb ? 16 : 10.5.sp,
+      color: Colors.white.withOpacity(0.50),
+    ),
+    displayMedium: GoogleFonts.openSans(
+      // fontFamily: 'Promt',
       fontWeight: FontWeight.w400,
       fontSize: 16,
       color: Colors.white.withOpacity(0.9),
     ),
-    //Like Settings suffixText or Forgot Password
-    labelSmall: TextStyle(
-      fontFamily: 'Promt',
-      fontWeight: FontWeight.w400,
+    labelSmall: GoogleFonts.openSans(
+      fontWeight: FontWeight.w300,
       fontSize: 14,
-      color: Colors.white.withOpacity(0.8),
+      color: Colors.white.withOpacity(0.5),
     ),
     // Used for Button Labels
-    labelLarge: const TextStyle(
-      fontFamily: 'Lora',
-      fontWeight: FontWeight.w600,
-      fontSize: 20,
-      color: Colors.black,
+    labelLarge: GoogleFonts.prompt(
+      fontWeight: FontWeight.w300,
+      fontSize: kIsWeb ? 20 : 18,
+      color: Colors.white.withOpacity(0.54),
     ),
   ),
   extensions: <ThemeExtension<dynamic>>[
@@ -286,20 +275,20 @@ final ThemeData constDarkTheme = ThemeData(
       ),
       homePetName: const TextStyle(
         fontFamily: 'Satisfy',
-        fontSize: 46,
+        fontSize: 38,
         color: Colors.white,
       ),
       homeWelcomeMessage: TextStyle(
         fontFamily: 'Promt',
         fontWeight: FontWeight.w400,
-        fontSize: 16,
-        color: Colors.white.withOpacity(0.7),
+        fontSize: 18,
+        color: Colors.white.withOpacity(0.56),
       ),
       homeWelcomeUser: TextStyle(
         fontFamily: 'Promt',
         fontWeight: FontWeight.w600,
-        fontSize: 16,
-        color: Colors.white.withOpacity(1),
+        fontSize: 18,
+        color: Colors.white.withOpacity(0.87),
       ),
       dataEditDialogButtonCancelStyle: const TextStyle(
         fontFamily: 'Promt',
@@ -307,59 +296,35 @@ final ThemeData constDarkTheme = ThemeData(
         fontSize: 16,
         color: Colors.grey,
       ),
-      dataEditDialogButtonSaveStyle: TextStyle(
+      dataEditDialogButtonSaveStyle: const TextStyle(
         fontFamily: 'Promt',
         fontWeight: FontWeight.w400,
         fontSize: 16,
-        color: Colors.grey.shade800,
+        color: Colors.black,
       ),
-      profileGenderLabel: TextStyle(
-        fontFamily: 'Promt',
-        fontWeight: FontWeight.w500,
-        fontSize: 18,
-        color: Colors.grey.shade800,
-      ),
-      profileDetailsTabLabelActive: const TextStyle(
-        fontFamily: 'Promt',
-        fontWeight: FontWeight.w500,
-        fontSize: 20,
-        color: Colors.white,
-      ),
-      profileDetailsTabLabelInactive: const TextStyle(
-        fontFamily: 'Promt',
-        fontWeight: FontWeight.w400,
-        fontSize: 20,
-        color: Colors.white,
-      ),
-      textFormFieldHint: TextStyle(
-        fontFamily: 'Promt',
-        fontWeight: FontWeight.w400,
-        fontSize: 18,
-        color: Colors.white.withOpacity(0.16),
-      ),
-      textFormFieldLabel: TextStyle(
-        fontFamily: 'Promt',
-        fontWeight: FontWeight.w400,
-        fontSize: 18,
-        color: Colors.white.withOpacity(0.38),
-      ),
-      authRegisterNowAction: TextStyle(
-        fontFamily: 'Promt',
-        fontWeight: FontWeight.w400,
-        fontSize: 16,
-        color: Colors.blue.shade400,
-      ),
+      //Free
+      profileGenderLabel: const TextStyle(),
+      //Free
+      profileDetailsTabLabelActive: const TextStyle(),
+      //Free
+      profileDetailsTabLabelInactive: const TextStyle(),
+      //Free
+      textFormFieldHint: const TextStyle(),
+      //Free
+      textFormFieldLabel: const TextStyle(),
+      //Free
+      authRegisterNowAction: const TextStyle(),
     ),
     CustomColors(
       //TODO accesscolor darkmdoe saturation - 20%
-      accent: HexColor("90CAF9"),
-      accentLight: HexColor("0D47A1"),
-      accentDark: HexColor("BBDEFB"),
-      lightBorder: Colors.white.withOpacity(0),
+      accent: HexColor("4169E1"),
+      accentLessContrast: HexColor("3a5eca"),
+      accentHighContrast: HexColor("5478e4"),
+      lightBorder: Colors.white.withOpacity(0.16),
       hardBorder: Colors.white,
       shadow: Colors.white.withOpacity(0),
       lightShadow: Colors.white.withOpacity(0),
-      accentShadow: HexColor("7676ff").withOpacity(0.28),
+      secondaryAccent: HexColor("e1b941"),
       error: HexColor("CF6679"),
     ),
   ],

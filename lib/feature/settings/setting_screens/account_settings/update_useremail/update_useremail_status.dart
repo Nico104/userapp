@@ -5,6 +5,7 @@ import 'package:userapp/general/widgets/custom_nico_modal.dart';
 
 import '../../../../../general/utils_theme/custom_colors.dart';
 import '../../../../../general/utils_theme/custom_text_styles.dart';
+import '../../../../../general/widgets/loading_indicator.dart';
 
 class UpdateEmailStatus extends StatelessWidget {
   const UpdateEmailStatus({
@@ -86,7 +87,7 @@ class UpdateEmailStatus extends StatelessWidget {
               child: SizedBox(
                 width: 40,
                 height: 40,
-                child: CircularProgressIndicator(),
+                child: CustomLoadingIndicatior(),
               ),
             );
           }

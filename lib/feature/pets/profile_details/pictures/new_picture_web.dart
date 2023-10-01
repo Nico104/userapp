@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:userapp/general/utils_color/hex_color.dart';
 import '../../../../general/utils_theme/custom_colors.dart';
+import '../../../../general/widgets/loading_indicator.dart';
 import 'gallery_camera_dialog.dart';
 import 'package:http/http.dart' as http;
 
@@ -73,7 +74,7 @@ class _NewPictureWebState extends State<NewPictureWeb> {
       child: _loading
           ? Container(
               margin: const EdgeInsets.all(24),
-              child: const CircularProgressIndicator(),
+              child: const CustomLoadingIndicatior(),
             )
           : Container(
               margin: const EdgeInsets.all(8),

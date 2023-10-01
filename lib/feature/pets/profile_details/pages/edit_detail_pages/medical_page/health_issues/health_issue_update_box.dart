@@ -272,7 +272,7 @@ class _HealthIssueUpdateBoxState extends State<HealthIssueUpdateBox> {
                                                   //         height: 60,
                                                   //         width: 60,
                                                   //         child:
-                                                  //             CircularProgressIndicator(),
+                                                  //             CustomLoadingIndicatior(),
                                                   //       ),
                                                   //     );
                                                   //   },

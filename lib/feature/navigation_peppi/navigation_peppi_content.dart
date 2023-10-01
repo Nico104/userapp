@@ -6,7 +6,7 @@ import 'package:userapp/feature/navigation_peppi/share_seppi.dart';
 
 import '../../general/utils_custom_icons/custom_icons_icons.dart';
 import '../pets/profile_details/models/m_pet_profile.dart';
-import '../pets/profile_details/pages/pet_page copy 2.dart';
+import '../pets/profile_details/pages/pet_page.dart';
 import '../scans/scans_page.dart';
 import 'default_peppi.dart';
 

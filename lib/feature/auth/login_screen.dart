@@ -156,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         //       child: const SizedBox(
                         //         height: 60,
                         //         width: 60,
-                        //         child: CircularProgressIndicator(),
+                        //         child: CustomLoadingIndicatior(),
                         //       ),
                         //     );
                         //   },
@@ -248,8 +248,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           child: Text(
                             "Register now",
-                            style: getCustomTextStyles(context)
-                                .authRegisterNowAction,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium
+                                ?.copyWith(
+                                    color: getCustomColors(context)
+                                        .secondaryAccent),
                           ),
                         ),
                       ],
@@ -281,7 +285,7 @@ class RememberMe extends StatelessWidget {
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: rememberMe
-                ? getCustomColors(context).accentLight
+                ? getCustomColors(context).accentLessContrast
                 : Colors.white,
             border: Border.all(
               width: 0.5,

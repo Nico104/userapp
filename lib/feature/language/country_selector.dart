@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
 import '../../general/network_globals.dart';
+import '../../general/widgets/loading_indicator.dart';
 import 'm_language.dart';
 
 class CountrySelector extends StatelessWidget {
@@ -107,8 +109,10 @@ class SingleCountry extends StatelessWidget {
             aspectRatio: 3 / 2,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(4),
-              child: Image.network(
-                s3BaseUrl + country.countryFlagImagePath,
+              child: CachedNetworkImage(
+                imageUrl: s3BaseUrl + country.countryFlagImagePath,
+                placeholder: (context, url) => const CustomLoadingIndicatior(),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
           ),

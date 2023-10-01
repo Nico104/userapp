@@ -91,11 +91,13 @@ class LostBox extends StatelessWidget {
                                   TextSpan(
                                       text: 'lostBox_contactsVisibility'.tr()),
                                   TextSpan(
-                                    text: 'Contacts',
+                                    text: 'lostBox_Contacts'.tr(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .labelMedium
-                                        ?.copyWith(color: Colors.blue),
+                                        ?.copyWith(
+                                            color: getCustomColors(context)
+                                                .secondaryAccent),
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
                                         Navigator.pop(context);

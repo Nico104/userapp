@@ -139,7 +139,7 @@
 //             child: SizedBox(
 //               width: 60,
 //               height: 60,
-//               child: CircularProgressIndicator(),
+//               child: CustomLoadingIndicatior(),
 //             ),
 //           );
 //         }

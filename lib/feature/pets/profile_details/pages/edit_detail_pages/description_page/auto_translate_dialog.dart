@@ -4,6 +4,7 @@ import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/auto_translate/u_auto_translate.dart';
 
 import '../../../../../../general/network_globals.dart';
+import '../../../../../../general/widgets/loading_indicator.dart';
 import '../../../../../language/m_language.dart';
 import '../../../models/m_description.dart';
 
@@ -137,7 +138,7 @@ class _AutoTranslateDialogState extends State<AutoTranslateDialog> {
                       ),
                     ],
                   )
-                : const CircularProgressIndicator(),
+                : const CustomLoadingIndicatior(),
           ),
         ),
       ),

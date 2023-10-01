@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:userapp/feature/my_pets/my_pets_navbar/quick_menu.dart';
 import 'package:userapp/feature/pets/profile_details/contact/contacts_all_list_page.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
+import '../../../general/widgets/future_error_widget.dart';
 import '../../auth/u_auth.dart';
 import '../../notifications/notifications_icon_widget.dart';
 import '../../notifications/notifications_page.dart';
@@ -67,10 +68,16 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
               // );
             } else if (snapshot.hasError) {
               print(snapshot);
-              return Text(
-                "dog whisperer",
-                style: getCustomTextStyles(context).homeWelcomeUser,
-              );
+              WidgetsBinding.instance
+                  .addPostFrameCallback((_) => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FutureErrorWidget(),
+                        ),
+                      ).then((value) => setState(
+                            () {},
+                          )));
+              return const SizedBox.shrink();
             } else {
               //Loading
               return Text(
@@ -110,16 +117,16 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
         //   stopPauseOnTap: true,
         // ),
         Text(
-          "myPetsTitleMy".tr(),
-          style: TextStyle(
-            fontFamily: 'Promt',
-            fontWeight: FontWeight.w300,
-            fontSize: 22,
-            color: Colors.black.withOpacity(0.7),
-          ),
-          // style: getCustomTextStyles(context).homeWelcomeMessage,
+          "myPetsTitleMy".tr() + " ",
+          // style: TextStyle(
+          //   fontFamily: 'Promt',
+          //   fontWeight: FontWeight.w300,
+          //   fontSize: 22,
+          //   color: Colors.black.withOpacity(0.7),
+          // ),
+          style: getCustomTextStyles(context).homeWelcomeMessage,
         ),
-        SizedBox(height: 4),
+        // SizedBox(height: 4),
         // AnimatedTextKit(
         //   animatedTexts: [
         //     TypewriterAnimatedText(
@@ -135,12 +142,13 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
         // ),
         Text(
           "myPetsTitlePets".tr(),
-          style: TextStyle(
-            fontFamily: 'Promt',
-            fontWeight: FontWeight.w600,
-            fontSize: 22,
-            color: Colors.black.withOpacity(1),
-          ),
+          // style: TextStyle(
+          //   fontFamily: 'Promt',
+          //   fontWeight: FontWeight.w600,
+          //   fontSize: 22,
+          //   color: Colors.black.withOpacity(1),
+          // ),
+          style: getCustomTextStyles(context).homeWelcomeUser,
         ),
       ],
     );

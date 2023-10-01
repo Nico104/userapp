@@ -5,7 +5,10 @@ import 'package:userapp/feature/settings/setting_screens/account_settings/update
 import 'package:userapp/feature/settings/setting_screens/account_settings/update_useremail/update_useremail_page_firebase.dart';
 
 import '../../../../general/utils_general.dart';
+import '../../../../general/widgets/future_error_widget.dart';
+import '../../../../general/widgets/loading_indicator.dart';
 import '../../widgets/settings_widgets.dart';
+import 'delete_account/delete_account_page.dart';
 import 'update_password/update_password_page.dart';
 
 import 'update_social_sign_in/update_social_sign_in_widget.dart';
@@ -151,6 +154,16 @@ class _AccountSettingsState extends State<AccountSettings> {
                       color: Colors.red.shade700,
                     ),
                     suffix: const Icon(Icons.keyboard_arrow_right),
+                    onTap: () {
+                      navigatePerSlide(
+                        context,
+                        DeleteAccount(),
+                        callback: () {
+                          //reload Current Name
+                          setState(() {});
+                        },
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(height: 28),
@@ -158,23 +171,15 @@ class _AccountSettingsState extends State<AccountSettings> {
             );
           } else if (snapshot.hasError) {
             print(snapshot);
-            //Error
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.error_outline,
-                    color: Colors.red,
-                    size: 60,
+            WidgetsBinding.instance.addPostFrameCallback((_) => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const FutureErrorWidget(),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: Text('Account Information: ${snapshot.error}'),
-                  ),
-                ],
-              ),
-            );
+                ).then((value) => setState(
+                      () {},
+                    )));
+            return const SizedBox.shrink();
           } else {
             //Loading
             return Center(
@@ -184,7 +189,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                   SizedBox(
                     width: 60,
                     height: 60,
-                    child: CircularProgressIndicator(),
+                    child: CustomLoadingIndicatior(),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 16),

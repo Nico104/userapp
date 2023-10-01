@@ -6,6 +6,7 @@ import 'package:userapp/feature/auth/sign_up_screen/verification_page.dart';
 import 'package:userapp/feature/auth/u_auth.dart';
 import 'package:userapp/general/utils_general.dart';
 
+import '../../../general/utils_theme/custom_colors.dart';
 import '../../../general/widgets/custom_nico_modal.dart';
 import '../../../init_app.dart';
 import '../../../general/utils_theme/custom_text_styles.dart';
@@ -98,7 +99,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           //       child: const SizedBox(
                           //         height: 60,
                           //         width: 60,
-                          //         child: CircularProgressIndicator(),
+                          //         child: CustomLoadingIndicatior(),
                           //       ),
                           //     );
                           //   },
@@ -200,8 +201,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       },
                       child: Text(
                         "logInNow".tr(),
-                        style:
-                            getCustomTextStyles(context).authRegisterNowAction,
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium
+                            ?.copyWith(
+                                color:
+                                    getCustomColors(context).secondaryAccent),
                       ),
                     ),
                   ],

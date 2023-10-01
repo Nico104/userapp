@@ -6,7 +6,7 @@ import 'package:userapp/feature/tag/tag_single.dart';
 import '../../../pets/profile_details/c_pet_name.dart';
 import '../../../pets/profile_details/d_confirm_delete.dart';
 import '../../../pets/profile_details/models/m_pet_profile.dart';
-import '../../../pets/profile_details/pages/pet_page copy 2.dart';
+import '../../../pets/profile_details/pages/pet_page.dart';
 import '../../../pets/profile_details/u_profile_details.dart';
 import '../../../../general/utils_custom_icons/custom_icons_icons.dart';
 import '../../../../general/utils_general.dart';

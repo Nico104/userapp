@@ -7,6 +7,7 @@ import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
 import '../../../../../../general/widgets/custom_nico_modal.dart';
+import '../../../../../../general/widgets/loading_indicator.dart';
 import '../../../c_component_padding.dart';
 import '../../../models/m_pet_profile.dart';
 import '../../../models/medical/m_health_issue.dart';
@@ -69,7 +70,7 @@ class _MedicalPageState extends State<MedicalPage> {
             ),
             title: Text("medical_Title".tr()),
             body: _medicalInformation == null
-                ? CircularProgressIndicator()
+                ? CustomLoadingIndicatior()
                 : Column(
                     children: [
                       SizedBox(height: 42),

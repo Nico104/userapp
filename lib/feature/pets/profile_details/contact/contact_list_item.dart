@@ -4,6 +4,7 @@ import 'package:userapp/general/network_globals.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_contact_descripton.dart';
 import 'package:userapp/general/utils_general.dart';
 import '../../../../general/utils_color/hex_color.dart';
+import '../../../../general/widgets/future_error_widget.dart';
 import '../../u_pets.dart';
 import '../models/m_contact.dart';
 import '../models/m_pet_profile.dart';
@@ -128,6 +129,18 @@ class _ContactListItemState extends State<ContactListItem> {
                               ],
                             );
                           }
+                        } else if (snapshot.hasError) {
+                          WidgetsBinding.instance
+                              .addPostFrameCallback((_) => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const FutureErrorWidget(),
+                                    ),
+                                  ).then((value) => setState(
+                                        () {},
+                                      )));
+                          return const SizedBox.shrink();
                         }
                         return const SizedBox();
                       },

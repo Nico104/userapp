@@ -59,7 +59,7 @@ class _NotificationSettingsItemState extends State<NotificationSettingsItem> {
           data: Theme.of(context).copyWith(useMaterial3: true),
           child: Switch(
             value: _value,
-            activeColor: getCustomColors(context).accentDark,
+            activeColor: getCustomColors(context).accentHighContrast,
             inactiveTrackColor: getCustomColors(context).lightBorder,
             onChanged: (bool value) {
               setState(() {

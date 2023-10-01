@@ -4,6 +4,7 @@ import 'package:userapp/feature/auth/u_auth.dart';
 
 import '../../../../../general/utils_theme/custom_colors.dart';
 import '../../../../../general/utils_theme/custom_text_styles.dart';
+import '../../../../../general/widgets/loading_indicator.dart';
 
 class UpdatePasswordStatus extends StatelessWidget {
   const UpdatePasswordStatus({
@@ -75,7 +76,7 @@ class UpdatePasswordStatus extends StatelessWidget {
               child: SizedBox(
                 width: 40,
                 height: 40,
-                child: CircularProgressIndicator(),
+                child: CustomLoadingIndicatior(),
               ),
             );
           }

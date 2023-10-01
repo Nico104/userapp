@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/my_pets/my_pets.dart';
+import '../../general/widgets/future_error_widget.dart';
+import '../../general/widgets/loading_indicator.dart';
 import 'u_pets.dart';
 
 class PetsLoading extends StatefulWidget {
@@ -38,24 +40,15 @@ class _PetsLoadingState extends State<PetsLoading> {
               reloadFuture: () => rebuildFuture.call(),
             );
           } else if (snapshot.hasError) {
-            print(snapshot);
-            //Error
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.error_outline,
-                    color: Colors.red,
-                    size: 60,
+            WidgetsBinding.instance.addPostFrameCallback((_) => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const FutureErrorWidget(),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: Text('Error: ${snapshot.error}'),
-                  ),
-                ],
-              ),
-            );
+                ).then((value) => setState(
+                      () {},
+                    )));
+            return const SizedBox.shrink();
           } else {
             //Loading
             return Center(
@@ -65,7 +58,7 @@ class _PetsLoadingState extends State<PetsLoading> {
                   SizedBox(
                     width: 60,
                     height: 60,
-                    child: CircularProgressIndicator(),
+                    child: CustomLoadingIndicatior(),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 16),

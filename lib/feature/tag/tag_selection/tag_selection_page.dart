@@ -6,9 +6,12 @@ import 'package:userapp/feature/tag/tag_selection/tag_selection_list.dart';
 import 'package:userapp/general/utils_general.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
+import '../../../general/widgets/future_error_widget.dart';
+import '../../../general/widgets/loading_indicator.dart';
 import '../../pets/profile_details/models/m_pet_profile.dart';
 import '../../pets/profile_details/models/m_tag.dart';
 import '../utils/u_tag.dart';
+import 'add_new_tag_widget.dart';
 import 'add_tag_header.dart';
 
 class TagSelectionPage extends StatefulWidget {
@@ -67,8 +70,13 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 16),
-            AddFinmaTagHeader(
+            // AddFinmaTagHeader(
+            //   petProfile: widget.petProfile,
+            //   subtitle: "addTag_info".tr(),
+            // ),
+            AddNewTagHeader(
               petProfile: widget.petProfile,
+              label: "addTag_info".tr(),
             ),
             const SizedBox(height: 16),
             Padding(
@@ -105,23 +113,16 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
                   );
                 } else if (snapshot.hasError) {
                   print(snapshot);
-                  //Error
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.error_outline,
-                          color: Colors.red,
-                          size: 60,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 16),
-                          child: Text('Error: ${snapshot.error}'),
-                        ),
-                      ],
-                    ),
-                  );
+                  WidgetsBinding.instance
+                      .addPostFrameCallback((_) => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const FutureErrorWidget(),
+                            ),
+                          ).then((value) => setState(
+                                () {},
+                              )));
+                  return const SizedBox.shrink();
                 } else {
                   //Loading
                   return Center(
@@ -131,7 +132,7 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
                         SizedBox(
                           width: 60,
                           height: 60,
-                          child: CircularProgressIndicator(),
+                          child: CustomLoadingIndicatior(),
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 16),

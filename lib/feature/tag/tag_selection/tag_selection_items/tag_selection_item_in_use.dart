@@ -4,6 +4,7 @@ import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_tag.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/feature/pets/u_pets.dart';
+import '../../../../general/widgets/loading_indicator.dart';
 import '../../tag_single.dart';
 import '../d_change_profile.dart';
 
@@ -45,7 +46,7 @@ class _TagSelectionItemInUseByOtherPetState
     if (usingPet != null) {
       return Text("tag_inUseBy".tr(namedArgs: {"name": usingPet!.petName}));
     } else {
-      return const CircularProgressIndicator();
+      return const CustomLoadingIndicatior();
     }
   }
 

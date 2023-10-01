@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 class CustomColors extends ThemeExtension<CustomColors> {
   const CustomColors({
     @required this.accent,
-    @required this.accentLight,
-    @required this.accentDark,
+    @required this.accentLessContrast,
+    @required this.accentHighContrast,
     @required this.lightBorder,
     @required this.hardBorder,
     @required this.shadow,
     @required this.lightShadow,
-    @required this.accentShadow,
+    @required this.secondaryAccent,
     @required this.error,
     this.genderButtonEnabledMale = const Color(0xFF93E4FF),
     this.genderButtonEnabledFemale = const Color(0xFFffb6c1),
@@ -22,13 +22,13 @@ class CustomColors extends ThemeExtension<CustomColors> {
 
   final Color? accent;
   //? In dark mode accentLight might be needed for accentDark in Light mode and vice versa, name accordingly
-  final Color? accentLight;
-  final Color? accentDark;
+  final Color? accentLessContrast;
+  final Color? accentHighContrast;
   final Color? lightBorder;
   final Color? hardBorder;
   final Color? shadow;
   final Color? lightShadow;
-  final Color? accentShadow;
+  final Color? secondaryAccent;
 
   //Gender Buttons
   final Color? genderButtonEnabledMale;
@@ -64,8 +64,8 @@ class CustomColors extends ThemeExtension<CustomColors> {
   }) {
     return CustomColors(
       accent: accent ?? this.accent,
-      accentLight: accent ?? this.accentLight,
-      accentDark: accent ?? this.accentDark,
+      accentLessContrast: accent ?? this.accentLessContrast,
+      accentHighContrast: accent ?? this.accentHighContrast,
       lightBorder: lightBorder ?? this.lightBorder,
       hardBorder: hardBorder ?? this.hardBorder,
       shadow: shadow ?? this.shadow,
@@ -74,7 +74,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
           genderButtonEnabledMale ?? this.genderButtonEnabledMale,
       genderButtonEnabledFemale:
           genderButtonEnabledFemale ?? this.genderButtonEnabledFemale,
-      accentShadow: accentShadow ?? this.accentShadow,
+      secondaryAccent: accentShadow ?? this.secondaryAccent,
       genderButtonDisabledMale:
           genderButtonDisabledMale ?? this.genderButtonDisabledMale,
       genderButtonDisabledFemale:
@@ -98,14 +98,14 @@ class CustomColors extends ThemeExtension<CustomColors> {
         other.accent,
         t,
       ),
-      accentLight: Color.lerp(
-        accentLight,
-        other.accentLight,
+      accentLessContrast: Color.lerp(
+        accentLessContrast,
+        other.accentLessContrast,
         t,
       ),
-      accentDark: Color.lerp(
-        accentDark,
-        other.accentDark,
+      accentHighContrast: Color.lerp(
+        accentHighContrast,
+        other.accentHighContrast,
         t,
       ),
       lightBorder: Color.lerp(
@@ -128,9 +128,9 @@ class CustomColors extends ThemeExtension<CustomColors> {
         other.lightShadow,
         t,
       ),
-      accentShadow: Color.lerp(
-        accentShadow,
-        other.accentShadow,
+      secondaryAccent: Color.lerp(
+        secondaryAccent,
+        other.secondaryAccent,
         t,
       ),
       genderButtonEnabledMale: Color.lerp(

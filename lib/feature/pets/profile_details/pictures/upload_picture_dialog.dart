@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
 
+import '../../../../general/widgets/loading_indicator.dart';
+
 class UploadPictureDialog extends StatelessWidget {
   const UploadPictureDialog({
     super.key,
@@ -25,9 +27,7 @@ class UploadPictureDialog extends StatelessWidget {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 28),
-            CircularProgressIndicator(
-              color: getCustomColors(context).accent,
-            ),
+            CustomLoadingIndicatior(),
             const SizedBox(height: 28),
             Text(
               "uploadPictureDialog_pleaseDontExitScreen".tr(),

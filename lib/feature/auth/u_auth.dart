@@ -154,6 +154,7 @@ Future<void> logout() async {
   //   await googleSignIn.signOut();
   // }
   // print("sssss");
+  print(await googleSignIn.isSignedIn());
   await googleSignIn.isSignedIn().then((s) async {
     if (s) {
       // print("Is signed in" + s.toString());
@@ -836,6 +837,21 @@ Future<firebase_auth.User?> signInWithGoogleWeb() async {
   }
 
   return user;
+}
+
+Future<void> deleteUser() async {
+  var url = Uri.parse('$baseURL/user/deleteUser');
+  String? token = await getIdToken();
+
+  final response = await http.delete(url);
+
+  print(response.body);
+
+  if (response.statusCode == 200) {
+    return;
+  } else {
+    throw Exception("Error deleting User");
+  }
 }
 
 enum SignInProviderId {

@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
-import 'package:userapp/feature/pets/profile_details/pages/pet_page%20copy%202.dart';
+import 'package:userapp/feature/pets/profile_details/pages/pet_page.dart';
 import 'package:userapp/feature/pets/profile_details/phone_numbers/c_phone_number.dart';
 import 'package:userapp/general/utils_general.dart';
 import '../../../../general/utils_custom_icons/custom_icons_icons.dart';
@@ -64,33 +64,40 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
     if (widget.petProfileDetails != null) {
       return MoreButton(
         moreOptions: [
+          // ListTile(
+          //   leading: const Icon(Icons.remove_circle_outline),
+          //   title: Text(
+          //       "Disconnect Contact from ${widget.petProfileDetails!.petName}"),
+          //   onTap: () {
+          //     Navigator.pop(context);
+          //     showDialog(
+          //       context: context,
+          //       builder: (_) => const ConfirmDeleteDialog(
+          //         label: "Contact",
+          //         remove: true,
+          //       ),
+          //     ).then((value) {
+          //       if (value != null) {
+          //         if (value == true) {
+          //           // deleteContact(contact).then((value) {
+          //           //   Navigator.pop(context);
+          //           // });
+          //           disconnectContactFromPet(
+          //                   contactId: _contact.contactId,
+          //                   petProfileId: widget.petProfileDetails!.profileId)
+          //               .then((value) {
+          //             Navigator.pop(context);
+          //           });
+          //         }
+          //       }
+          //     });
+          //   },
+          // ),
           ListTile(
             leading: const Icon(Icons.remove_circle_outline),
-            title: Text(
-                "Disconnect Contact from ${widget.petProfileDetails!.petName}"),
+            title: Text("contact_ShareContact".tr()),
             onTap: () {
               Navigator.pop(context);
-              showDialog(
-                context: context,
-                builder: (_) => const ConfirmDeleteDialog(
-                  label: "Contact",
-                  remove: true,
-                ),
-              ).then((value) {
-                if (value != null) {
-                  if (value == true) {
-                    // deleteContact(contact).then((value) {
-                    //   Navigator.pop(context);
-                    // });
-                    disconnectContactFromPet(
-                            contactId: _contact.contactId,
-                            petProfileId: widget.petProfileDetails!.profileId)
-                        .then((value) {
-                      Navigator.pop(context);
-                    });
-                  }
-                }
-              });
             },
           ),
           ListTile(

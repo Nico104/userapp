@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
@@ -166,8 +167,9 @@ class _OptionButtonState extends State<OptionButton> {
             )),
         padding: EdgeInsets.all(4),
         child: Center(
-          child: Text(
+          child: AutoSizeText(
             widget.label,
+            maxLines: 1,
             style: GoogleFonts.openSans(
               fontSize: 18,
               fontWeight: widget.isActive ? FontWeight.w500 : FontWeight.w400,

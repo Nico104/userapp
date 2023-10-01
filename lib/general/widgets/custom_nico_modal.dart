@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'loading_indicator.dart';
 
 class CustomNicoModalBottomSheet extends StatelessWidget {
   const CustomNicoModalBottomSheet({super.key, required this.child});
@@ -70,9 +71,7 @@ void showCustomNicoLoadingModalBottomSheet({
         child: SizedBox(
           height: 60,
           width: 60,
-          child: CircularProgressIndicator(
-            color: Colors.green,
-          ),
+          child: CustomLoadingIndicatior(),
         ),
       );
       // return Container(
@@ -85,7 +84,7 @@ void showCustomNicoLoadingModalBottomSheet({
       //   child: const SizedBox(
       //     height: 60,
       //     width: 60,
-      //     child: CircularProgressIndicator(),
+      //     child: CustomLoadingIndicatior(),
       //   ),
       // );
     },

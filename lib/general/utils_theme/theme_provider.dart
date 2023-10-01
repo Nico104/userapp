@@ -18,7 +18,7 @@ class ThemeNotifier with ChangeNotifier {
         // } else {
         //   _themeData = darkTheme;
         // }
-        _themeData = lightTheme;
+        _themeData = darkTheme;
         notifyListeners();
       },
     );

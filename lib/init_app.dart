@@ -9,6 +9,8 @@ import 'feature/auth/login_screen.dart';
 import 'feature/auth/u_auth.dart';
 import 'feature/language/country_selector.dart';
 import 'feature/pets/pets_loading.dart';
+import 'general/widgets/future_error_widget.dart';
+import 'general/widgets/loading_indicator.dart';
 
 class InitApp extends StatefulWidget {
   const InitApp({
@@ -153,23 +155,15 @@ class _InitAppState extends State<InitApp> {
           }
         } else if (snapshot.hasError) {
           print(snapshot);
-          //Error
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(
-                  Icons.error_outline,
-                  color: Colors.red,
-                  size: 60,
+          WidgetsBinding.instance.addPostFrameCallback((_) => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FutureErrorWidget(),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: Text('Init App Error: ${snapshot.error}'),
-                ),
-              ],
-            ),
-          );
+              ).then((value) => setState(
+                    () {},
+                  )));
+          return const SizedBox.shrink();
         } else {
           //Loading
           return Center(
@@ -179,7 +173,7 @@ class _InitAppState extends State<InitApp> {
                 SizedBox(
                   width: 60,
                   height: 60,
-                  child: CircularProgressIndicator(),
+                  child: CustomLoadingIndicatior(),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 16),

@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/pets/profile_details/c_pet_name.dart';
-import 'package:userapp/feature/pets/profile_details/pages/pet_page%20copy%202.dart';
+import 'package:userapp/feature/pets/profile_details/pages/pet_page.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
 

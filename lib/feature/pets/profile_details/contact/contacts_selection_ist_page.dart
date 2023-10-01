@@ -2,6 +2,8 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/pets/profile_details/contact/u_contact.dart';
+import '../../../../general/widgets/future_error_widget.dart';
+import '../../../../general/widgets/loading_indicator.dart';
 import '../../../auth/u_auth.dart';
 import '../../../../general/utils_general.dart';
 import '../c_pet_name.dart';
@@ -83,13 +85,18 @@ class _SelectionContactsPageState extends State<SelectionContactsPage> {
               ),
             );
           } else if (snapshot.hasError) {
-            print(snapshot);
-            return Text(
-              "contactsSelectionIstPage_errorLoadingContacts".tr(),
-            );
+            WidgetsBinding.instance.addPostFrameCallback((_) => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const FutureErrorWidget(),
+                  ),
+                ).then((value) => setState(
+                      () {},
+                    )));
+            return const SizedBox.shrink();
           } else {
             //Loading
-            return const CircularProgressIndicator();
+            return const CustomLoadingIndicatior();
           }
         },
       ),

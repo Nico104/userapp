@@ -46,7 +46,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
 
   final double tagDimension = 160;
 
-  bool _headerVisible = true;
+  // bool _headerVisible = true;
   bool _scrollTop = true;
 
   final ScrollController _scrollController = ScrollController();
@@ -147,7 +147,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
   double getScrolledUnderElevation() {
     if (_scrollTop) {
       return 0;
-    } else if (!_scrollTop && _headerVisible) {
+    } else if (!_scrollTop) {
       return 8;
     } else {
       return 0;
@@ -608,27 +608,39 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                     borderRadius: BorderRadius.circular(18),
                                     child: Align(
                                       alignment: Alignment.bottomLeft,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Theme.of(context).primaryColor,
-                                          borderRadius: const BorderRadius.only(
-                                            topRight: Radius.circular(18),
-                                          ),
-                                          border: Border.all(
-                                            width: 0.3,
-                                            color: getCustomColors(context)
-                                                    .hardBorder ??
-                                                Colors.transparent,
-                                            strokeAlign:
-                                                BorderSide.strokeAlignOutside,
-                                          ),
+                                      child: ClipRRect(
+                                        borderRadius: const BorderRadius.only(
+                                          topRight: Radius.circular(18),
                                         ),
-                                        padding: EdgeInsets.all(16),
-                                        child: Text(
-                                          "petPage_Pictures".tr(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge,
+                                        child: BackdropFilter(
+                                          filter: ImageFilter.blur(
+                                              sigmaX: 15, sigmaY: 15),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                  .primaryColor
+                                                  .withOpacity(0.5),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topRight: Radius.circular(18),
+                                              ),
+                                              // border: Border.all(
+                                              //   width: 0.3,
+                                              //   color: getCustomColors(context)
+                                              //           .hardBorder ??
+                                              //       Colors.transparent,
+                                              //   strokeAlign:
+                                              //       BorderSide.strokeAlignOutside,
+                                              // ),
+                                            ),
+                                            padding: EdgeInsets.all(16),
+                                            child: Text(
+                                              "petPage_Pictures".tr(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),

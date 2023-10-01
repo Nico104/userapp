@@ -7,6 +7,7 @@ import 'package:userapp/feature/pets/profile_details/models/m_behaviour_informat
 import 'package:userapp/general/utils_color/hex_color.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
+import '../../../../../../general/widgets/future_error_widget.dart';
 import '../../../c_component_padding.dart';
 import '../../../c_one_line_simple_input.dart';
 import '../../../c_pet_gender.dart';
@@ -184,10 +185,16 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                     ],
                   );
                 } else if (snapshot.hasError) {
-                  return Text(
-                    "basicInformationPage_errorLoadingVersion".tr(),
-                    style: Theme.of(context).textTheme.labelSmall,
-                  );
+                  WidgetsBinding.instance
+                      .addPostFrameCallback((_) => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const FutureErrorWidget(),
+                            ),
+                          ).then((value) => setState(
+                                () {},
+                              )));
+                  return const SizedBox.shrink();
                 } else {
                   //Loading
                   return Text(

@@ -51,87 +51,92 @@ class _PicturesPageState extends State<PicturesPage> {
   }
 
   Widget getNoPicturesWidget() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const SizedBox(
-          height: 120,
-        ),
-        SizedBox(
-          width: 30.w,
-          child: Image.asset("assets/tmp/documents.png"),
-        ),
-        const SizedBox(height: 32),
-        Text(
-          "picturesPage_noPictures".tr(),
-          style: Theme.of(context).textTheme.labelLarge,
-        ),
-        const SizedBox(height: 32),
-        ShyButton(
-          label: "picturesPage_uploadPictureLabel".tr(),
-          showUploadButton: _showShyButton,
-          onTap: () => _uploadPicture(),
-          icon: Icon(
-            Icons.file_upload_rounded,
-            color: Colors.white,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Pictures"),
+      ),
+      body: Column(
+        children: [
+          Spacer(),
+          Image.asset("assets/tmp/dog_bowl.png"),
+          const SizedBox(height: 8),
+          Text(
+            "It looks quite empty in here",
+            style: Theme.of(context).textTheme.titleMedium,
           ),
-        ),
-      ],
+          const SizedBox(height: 8),
+          Text(
+            "picturesPage_noPictures".tr(),
+            style: Theme.of(context).textTheme.labelMedium,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 24),
+          ShyButton(
+            showUploadButton: true,
+            onTap: () {
+              _uploadPicture();
+            },
+            label: "picturesPage_uploadPictureLabel".tr(),
+          ),
+          Spacer(),
+        ],
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          CustomNicoScrollView(
-            // onScroll: _handleNavBarShown,
-            onScroll: () => handleShyButtonShown(
-              setShowShyButton: (p0) {
-                setState(() {
-                  _showShyButton = p0;
-                });
-              },
+    if (pictures.isNotEmpty) {
+      return Scaffold(
+        body: Stack(
+          children: [
+            CustomNicoScrollView(
+              // onScroll: _handleNavBarShown,
+              onScroll: () => handleShyButtonShown(
+                setShowShyButton: (p0) {
+                  setState(() {
+                    _showShyButton = p0;
+                  });
+                },
+              ),
+              title: Text("picturesPage_Title".tr()),
+              body: Column(
+                children: [
+                  GridView.builder(
+                    itemCount: pictures.length,
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: getCrossAxisCount(pictures.length),
+                      // crossAxisCount: 1,
+                      childAspectRatio: 1,
+                    ),
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: PictureItem(picture: pictures.elementAt(index)),
+                      );
+                    },
+                  ),
+                  SizedBox(height: 90.h),
+                ],
+              ),
             ),
-            title: Text("picturesPage_Title".tr()),
-            body: Column(
-              children: [
-                pictures.isNotEmpty
-                    ? GridView.builder(
-                        itemCount: pictures.length,
-                        shrinkWrap: true,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: getCrossAxisCount(pictures.length),
-                          // crossAxisCount: 1,
-                          childAspectRatio: 1,
-                        ),
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child:
-                                PictureItem(picture: pictures.elementAt(index)),
-                          );
-                        },
-                      )
-                    : getNoPicturesWidget(),
-                SizedBox(height: 90.h),
-              ],
+            ShyButton(
+              label: "picturesPage_uploadPictureLabel".tr(),
+              showUploadButton: _showShyButton,
+              onTap: () => _uploadPicture(),
+              icon: Icon(
+                Icons.file_upload_rounded,
+                color: Colors.white,
+              ),
             ),
-          ),
-          ShyButton(
-            label: "picturesPage_uploadPictureLabel".tr(),
-            showUploadButton: _showShyButton,
-            onTap: () => _uploadPicture(),
-            icon: Icon(
-              Icons.file_upload_rounded,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    } else {
+      return getNoPicturesWidget();
+    }
   }
 
   void _uploadPicture() {

@@ -3,6 +3,7 @@ import 'package:userapp/feature/notifications/u_notifications.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
 
 import '../../general/utils_general.dart';
+import '../../general/widgets/future_error_widget.dart';
 import 'notifications_page.dart';
 
 class NotificationsIcon extends StatefulWidget {
@@ -58,6 +59,16 @@ class _NotificationsIconState extends State<NotificationsIcon> {
                 ],
               );
             }
+          } else if (snapshot.hasError) {
+            WidgetsBinding.instance.addPostFrameCallback((_) => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const FutureErrorWidget(),
+                  ),
+                ).then((value) => setState(
+                      () {},
+                    )));
+            return const SizedBox.shrink();
           }
           return widget.icon;
         },

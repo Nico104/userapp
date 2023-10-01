@@ -52,36 +52,36 @@ class _DocumentPageState extends State<DocumentPage> {
   }
 
   Widget getNoDocumetsWidget() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const SizedBox(
-          height: 120,
-        ),
-        SizedBox(
-          width: 30.w,
-          child: Image.asset("assets/tmp/documents.png"),
-        ),
-        const SizedBox(height: 32),
-        Text(
-          "noDocumentsLabel".tr(),
-          style: Theme.of(context).textTheme.labelLarge,
-        ),
-        const SizedBox(height: 32), // UploadDocumentButton(
-        //   showUploadButton: _showUploadButton,
-        //   profileId: widget.petProfileId,
-        //   reloadDocuments: reloadDocuments,
-        // ),
-        // ShyButton(
-        //   showUploadButton: _showShyButton,
-        //   label: "Upload Document",
-        //   onTap: () => _uploadDocument(),
-        //   icon: Icon(
-        //     Icons.file_upload_rounded,
-        //     color: Colors.white,
-        //   ),
-        // ),
-      ],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Pictures"),
+      ),
+      body: Column(
+        children: [
+          Spacer(),
+          Image.asset("assets/tmp/dog_bowl.png"),
+          const SizedBox(height: 8),
+          Text(
+            "It looks quite empty in here",
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            "noDocumentsLabel".tr(),
+            style: Theme.of(context).textTheme.labelMedium,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 24),
+          ShyButton(
+            showUploadButton: true,
+            onTap: () {
+              _uploadDocument();
+            },
+            label: "picturesPage_uploadPictureLabel".tr(),
+          ),
+          Spacer(),
+        ],
+      ),
     );
   }
 
@@ -127,58 +127,60 @@ class _DocumentPageState extends State<DocumentPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          CustomNicoScrollView(
-            // onScroll: _handleNavBarShown,
-            onScroll: () => handleShyButtonShown(
-              setShowShyButton: (p0) {
-                setState(() {
-                  _showShyButton = p0;
-                });
-              },
-            ),
-            title: Text("documentPageTitle".tr()),
-            body: Column(
-              children: [
-                const SizedBox(height: 16),
-                documents.isNotEmpty
-                    ? ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: documents.length,
-                        itemBuilder: (context, index) {
-                          return DocumentItem(
-                            document: documents.elementAt(index),
-                            removeDocumentFromList: () {
-                              setState(
-                                () {
-                                  documents.removeAt(index);
-                                },
-                              );
+    if (documents.isNotEmpty) {
+      return Scaffold(
+        body: Stack(
+          children: [
+            CustomNicoScrollView(
+              // onScroll: _handleNavBarShown,
+              onScroll: () => handleShyButtonShown(
+                setShowShyButton: (p0) {
+                  setState(() {
+                    _showShyButton = p0;
+                  });
+                },
+              ),
+              title: Text("documentPageTitle".tr()),
+              body: Column(
+                children: [
+                  const SizedBox(height: 16),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: documents.length,
+                    itemBuilder: (context, index) {
+                      return DocumentItem(
+                        document: documents.elementAt(index),
+                        removeDocumentFromList: () {
+                          setState(
+                            () {
+                              documents.removeAt(index);
                             },
-                            reloadDocumentList: reloadDocuments,
                           );
                         },
-                      )
-                    : getNoDocumetsWidget(),
-                SizedBox(height: 90.h),
-              ],
+                        reloadDocumentList: reloadDocuments,
+                      );
+                    },
+                  ),
+                  SizedBox(height: 90.h),
+                ],
+              ),
             ),
-          ),
-          //UploadButton
-          ShyButton(
-            showUploadButton: _showShyButton,
-            label: "uploadDocumentLabel".tr(),
-            onTap: () => _uploadDocument(),
-            icon: Icon(
-              Icons.file_upload_rounded,
-              color: Colors.white,
+            //UploadButton
+            ShyButton(
+              showUploadButton: _showShyButton,
+              label: "uploadDocumentLabel".tr(),
+              onTap: () => _uploadDocument(),
+              icon: Icon(
+                Icons.file_upload_rounded,
+                color: Colors.white,
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    } else {
+      return getNoDocumetsWidget();
+    }
   }
 }
 

@@ -1,7 +1,6 @@
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
@@ -27,6 +26,22 @@ class _ContactVisibilitySwitchState extends State<ContactVisibilitySwitch> {
 
   final _duration = const Duration(milliseconds: 125);
 
+  void setVisible() {
+    widget.petProfileDetails.hideContacts = false;
+    setState(() {});
+    updateContactVisibility(
+        petProfileId: widget.petProfileDetails.profileId,
+        contact_visbility: widget.petProfileDetails.hideContacts);
+  }
+
+  void setInvisible() {
+    widget.petProfileDetails.hideContacts = true;
+    setState(() {});
+    updateContactVisibility(
+        petProfileId: widget.petProfileDetails.profileId,
+        contact_visbility: widget.petProfileDetails.hideContacts);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,15 +50,28 @@ class _ContactVisibilitySwitchState extends State<ContactVisibilitySwitch> {
         alignment: const Alignment(0.0, 1.0),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-          child: InkWell(
-            borderRadius: BorderRadius.all(Radius.circular(_borderRadius)),
+          child: GestureDetector(
+            onPanUpdate: (details) {
+              // Swiping in right direction.
+              if (details.delta.dx > 0) {
+                if (widget.petProfileDetails.hideContacts) {
+                  setVisible();
+                }
+              }
+
+              // Swiping in left direction.
+              if (details.delta.dx < 0) {
+                if (!widget.petProfileDetails.hideContacts) {
+                  setInvisible();
+                }
+              }
+            },
             onTap: () {
-              widget.petProfileDetails.hideContacts =
-                  !widget.petProfileDetails.hideContacts;
-              setState(() {});
-              updateContactVisibility(
-                  petProfileId: widget.petProfileDetails.profileId,
-                  contact_visbility: widget.petProfileDetails.hideContacts);
+              if (widget.petProfileDetails.hideContacts) {
+                setVisible();
+              } else {
+                setInvisible();
+              }
             },
             child: Material(
               borderRadius: BorderRadius.all(Radius.circular(_borderRadius)),

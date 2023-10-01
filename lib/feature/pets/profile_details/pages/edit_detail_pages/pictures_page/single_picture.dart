@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../../general/widgets/loading_indicator.dart';
+
 class SinglePicture extends StatefulWidget {
   const SinglePicture({
     super.key,
@@ -21,7 +23,7 @@ class _SinglePictureState extends State<SinglePicture> {
     Future.delayed(Duration(milliseconds: 500)).then((value) {
       setState(() {});
     });
-    return CircularProgressIndicator();
+    return CustomLoadingIndicatior();
   }
 
   @override

@@ -30,11 +30,13 @@ class CustomTextFormField extends StatefulWidget {
     this.focusNode,
     this.maxLenght,
     this.borderRadius = 10,
+    this.minLines,
   });
 
   final String? initialValue;
   final String? hintText;
   final int? maxLines;
+  final int? minLines;
   final int? maxLenght;
   final TextInputAction? textInputAction;
   final Function(String)? onChanged;
@@ -155,6 +157,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               keyboardType: widget.keyboardType,
               maxLines: widget.isPassword ? 1 : widget.maxLines,
               maxLength: widget.maxLenght,
+              minLines: widget.maxLines,
               textInputAction: widget.textInputAction,
               // focusNode: widget.focusNode,
               focusNode: _focusNode,
@@ -184,8 +187,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 labelText: (widget.hintText == null && widget.labelText != null)
                     ? widget.labelText
                     : null,
-                hintStyle: getCustomTextStyles(context).textFormFieldHint,
-                labelStyle: getCustomTextStyles(context).textFormFieldLabel,
+                hintStyle: Theme.of(context).textTheme.displayMedium,
+                labelStyle: Theme.of(context).textTheme.labelMedium,
                 fillColor: Theme.of(context).primaryColor,
                 filled: true,
                 //TODO suffixColor

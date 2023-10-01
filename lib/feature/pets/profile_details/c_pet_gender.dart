@@ -97,7 +97,9 @@ class _GenderButtonState extends State<GenderButton> {
           borderRadius: BorderRadius.circular(_borderRardius),
           color: widget.isActive
               ? widget.activeColor
-              : Colors.black.withOpacity(0.06),
+              : Theme.of(context).brightness == Brightness.light
+                  ? Colors.black.withOpacity(0.06)
+                  : Colors.white.withOpacity(0.06),
         ),
         padding: EdgeInsets.all(12),
         child: Center(
@@ -107,8 +109,12 @@ class _GenderButtonState extends State<GenderButton> {
               fontSize: 18,
               fontWeight: widget.isActive ? FontWeight.w500 : FontWeight.w400,
               color: widget.isActive
-                  ? Colors.white.withOpacity(0.95)
-                  : Colors.black.withOpacity(0.36),
+                  ? Theme.of(context).brightness == Brightness.light
+                      ? Colors.white.withOpacity(0.95)
+                      : Colors.black.withOpacity(0.95)
+                  : Theme.of(context).brightness == Brightness.light
+                      ? Colors.black.withOpacity(0.36)
+                      : Colors.white.withOpacity(0.36),
             ),
           ),
         ),

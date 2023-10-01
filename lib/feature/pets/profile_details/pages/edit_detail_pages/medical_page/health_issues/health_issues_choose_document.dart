@@ -86,7 +86,7 @@ class _HealthIssueLinkDocumentSelectionState
                       //       child: const SizedBox(
                       //         height: 60,
                       //         width: 60,
-                      //         child: CircularProgressIndicator(),
+                      //         child: CustomLoadingIndicatior(),
                       //       ),
                       //     );
                       //   },

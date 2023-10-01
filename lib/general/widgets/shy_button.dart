@@ -1,6 +1,5 @@
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
 
 class ShyButton extends StatelessWidget {
@@ -37,7 +36,7 @@ class ShyButton extends StatelessWidget {
           alignment: showUploadButton
               ? const Alignment(0.0, 1.0)
               : const Alignment(0.0, 3.0),
-          duration: const Duration(milliseconds: 250),
+          duration: const Duration(milliseconds: 80),
           curve: Curves.fastOutSlowIn,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
@@ -87,7 +86,8 @@ class ShyButton extends StatelessWidget {
                                         Radius.circular(_borderRadius)),
                                     // color: Theme.of(context).primaryColor.withOpacity(1),
                                     color: iconBgColor ??
-                                        getCustomColors(context).accentDark,
+                                        getCustomColors(context)
+                                            .accentHighContrast,
                                   ),
                                   padding: EdgeInsets.all(8),
                                   child: Center(

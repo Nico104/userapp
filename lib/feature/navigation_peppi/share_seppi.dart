@@ -4,6 +4,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../general/utils_custom_icons/custom_icons_icons.dart';
+import '../../general/widgets/loading_indicator.dart';
 
 class ShareSeppi extends StatefulWidget {
   const ShareSeppi({super.key, required this.closeShareSeppi});
@@ -133,7 +134,8 @@ class CopyingLinkWidget extends StatelessWidget {
             //   Icons.link,
             //   size: 32,
             // ),
-            SizedBox(width: 32, height: 32, child: CircularProgressIndicator()),
+            const SizedBox(
+                width: 32, height: 32, child: CustomLoadingIndicatior()),
             SizedBox(width: 16),
             Text(
               "Copying..",

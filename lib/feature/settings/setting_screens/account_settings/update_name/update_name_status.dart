@@ -5,6 +5,7 @@ import 'package:userapp/feature/auth/u_auth.dart';
 import '../../../../../general/utils_theme/custom_colors.dart';
 import '../../../../../general/utils_theme/custom_text_styles.dart';
 import '../../../../../general/widgets/custom_nico_modal.dart';
+import '../../../../../general/widgets/loading_indicator.dart';
 
 class UpdateNameStatus extends StatelessWidget {
   const UpdateNameStatus({
@@ -42,7 +43,7 @@ class UpdateNameStatus extends StatelessWidget {
               child: SizedBox(
                 width: 60,
                 height: 60,
-                child: CircularProgressIndicator(),
+                child: CustomLoadingIndicatior(),
               ),
             );
           }
