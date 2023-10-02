@@ -8,14 +8,19 @@ import '../../../general/widgets/future_error_widget.dart';
 import '../../auth/u_auth.dart';
 import '../../notifications/notifications_icon_widget.dart';
 import '../../notifications/notifications_page.dart';
+import '../../pets/profile_details/models/m_pet_profile.dart';
 import '../../settings/setting_screen.dart';
 import '../../../general/utils_theme/custom_text_styles.dart';
 import '../../../general/utils_general.dart';
 
 class MyPetsNavbar extends StatefulWidget {
-  const MyPetsNavbar({super.key, required this.reloadFuture});
+  const MyPetsNavbar(
+      {super.key, required this.reloadFuture, required this.petProfileDetails});
 
   final VoidCallback reloadFuture;
+
+  ///Only used for Theme Selection Page
+  final PetProfileDetails petProfileDetails;
 
   @override
   State<MyPetsNavbar> createState() => _MyPetsNavbarState();
@@ -240,7 +245,9 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
           onTap: () {
             navigatePerSlide(
               context,
-              const Settings(),
+              Settings(
+                petProfileDetails: widget.petProfileDetails,
+              ),
               callback: () => widget.reloadFuture(),
             );
           },

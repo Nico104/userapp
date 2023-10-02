@@ -302,7 +302,7 @@
     "addTag_Error": "UPS ... qualcosa sembra essere sbagliato. Assicurati di controllare di nuovo il codice di attivazione",
     "addTag_WrongCodeContent": "Non è stato rilevato alcun tag Finma valido. Si prega di riprovare.",
     "addTag_SuccessContent": "Il tuo tag Finma è stato aggiunto con successo",
-    "addTag_ActivationCodeLabel": "Immettere 16 Codice di attivazione del simbolo",
+    "addTag_ActivationCodeLabel": "F572-2131-6532-5433",
     "addTag_ActivationCodeMinLenght": "Il codice di attivazione non è lungo 16 simboli. Per favore, mettili tutti qui dentro",
     "addTag_info": "Scegli un tag Finma già esistente o aggiungi semplicemente uno nuovo",
     "addTag_ButtonLabel": "Aggiungi tag Finma",

@@ -192,6 +192,9 @@ class _MyPetsState extends State<MyPets> {
                     const SizedBox(height: 28),
                     MyPetsNavbar(
                       reloadFuture: widget.reloadFuture,
+                      petProfileDetails: widget.petProfiles.isNotEmpty
+                          ? widget.petProfiles.first
+                          : getDummyPetProfile(),
                     ),
                     const SizedBox(height: 36),
                     Expanded(

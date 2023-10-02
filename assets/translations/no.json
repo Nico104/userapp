@@ -302,7 +302,7 @@
     "addTag_Error": "UPS ... noe ser ut til å være galt. Sørg for å sjekke aktiveringskoden igjen",
     "addTag_WrongCodeContent": "Ingen gyldig FINMA -tag ble oppdaget. Vennligst prøv igjen igjen.",
     "addTag_SuccessContent": "FINMA -koden din ble lagt til",
-    "addTag_ActivationCodeLabel": "Skriv inn 16 symbolaktiveringskode",
+    "addTag_ActivationCodeLabel": "F572-2131-6532-5433",
     "addTag_ActivationCodeMinLenght": "Aktiveringskode er ikke 16 symboler lang. Vennligst legg dem alle inn her",
     "addTag_info": "Velg en allerede eksisterende Finma -tag eller bare legg til en ny",
     "addTag_ButtonLabel": "Legg til Finma -tag",

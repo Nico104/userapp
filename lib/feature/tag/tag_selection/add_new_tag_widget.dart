@@ -112,7 +112,7 @@ class _AddFinmaTagHeaderState extends State<AddFinmaTagHeader> {
       children: [
         Padding(
           // padding: const EdgeInsets.fromLTRB(16, 32, 0, 16),
-          padding: const EdgeInsets.fromLTRB(32, 32, 0, 16),
+          padding: const EdgeInsets.fromLTRB(16, 32, 0, 16),
           child: IntrinsicHeight(
             child: Row(
               children: [

@@ -302,7 +302,7 @@
     "addTag_Error": "UPS ... quelque chose semble mal. Assurez-vous de vérifier à nouveau le code d'activation",
     "addTag_WrongCodeContent": "Aucune étiquette Finma valide n'a été détectée. Veuillez réessayer.",
     "addTag_SuccessContent": "Votre étiquette Finma a été ajoutée avec succès",
-    "addTag_ActivationCodeLabel": "Entrez le code d'activation des symboles 16",
+    "addTag_ActivationCodeLabel": "F572-2131-6532-5433",
     "addTag_ActivationCodeMinLenght": "Le code d'activation n'a pas 16 symboles. Veuillez les mettre tous ici",
     "addTag_info": "Choisissez une balise Finma déjà existante ou ajoutez-en un nouveau",
     "addTag_ButtonLabel": "Ajouter la balise Finma",

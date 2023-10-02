@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -32,10 +33,14 @@ class PetPage2 extends StatefulWidget {
   const PetPage2({
     super.key,
     required this.petProfileDetails,
+    this.showAppbar = true,
   });
 
   //? Maybe Variable and fetchFrromServer when needed Updated a la Contact
   final PetProfileDetails petProfileDetails;
+
+  ///Only for Theme Selection Page
+  final bool showAppbar;
 
   @override
   State<PetPage2> createState() => _PetPage2State();
@@ -69,7 +74,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
         initialIndex: 0,
         length: 3,
         vsync: this,
-        animationDuration: Duration(milliseconds: 250));
+        animationDuration: const Duration(milliseconds: 250));
 
     _controller.addListener(() {
       setState(() {
@@ -175,10 +180,10 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
 
   Widget _getMoreButton() {
     return MoreButton(
-      child: Icon(Icons.more_horiz),
+      child: const Icon(Icons.more_horiz),
       moreOptions: [
         ListTile(
-          leading: Icon(CustomIcons.delete),
+          leading: const Icon(CustomIcons.delete),
           title: Text("petPage_Options_Delete".tr()),
           onTap: () {
             Navigator.pop(context);
@@ -235,32 +240,34 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: CustomScrollView(
           controller: _scrollController,
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           slivers: <Widget>[
-            SliverAppBar(
-              pinned: true,
-              stretch: true,
-              expandedHeight: 140.0,
-              actions: [
-                _getMoreButton(),
-                SizedBox(width: 16),
-              ],
-              // automaticallyImplyLeading: false,
-              flexibleSpace: MyFlexibleSpaceBar(
-                titlePaddingTween: EdgeInsetsTween(
-                    begin: EdgeInsets.only(left: 16.0, bottom: 16),
-                    end: EdgeInsets.only(left: 72.0, bottom: 16)),
-                title: Text('petProfileTitle'
-                    .tr(namedArgs: {'petName': _petProfileDetails.petName})),
-                // titlePadding: EdgeInsets.all(0), centerTitle: false,
-                // centerTitle: true,
-                // background: FlutterLogo(),
-              ),
-            ),
+            widget.showAppbar
+                ? SliverAppBar(
+                    pinned: true,
+                    stretch: true,
+                    expandedHeight: 140.0,
+                    actions: [
+                      _getMoreButton(),
+                      const SizedBox(width: 16),
+                    ],
+                    // automaticallyImplyLeading: false,
+                    flexibleSpace: MyFlexibleSpaceBar(
+                      titlePaddingTween: EdgeInsetsTween(
+                          begin: const EdgeInsets.only(left: 16.0, bottom: 16),
+                          end: const EdgeInsets.only(left: 72.0, bottom: 16)),
+                      title: Text('petProfileTitle'.tr(
+                          namedArgs: {'petName': _petProfileDetails.petName})),
+                      // titlePadding: EdgeInsets.all(0), centerTitle: false,
+                      // centerTitle: true,
+                      // background: FlutterLogo(),
+                    ),
+                  )
+                : const SliverToBoxAdapter(child: SizedBox.shrink()),
             SliverToBoxAdapter(
               child: Column(
                 children: [
-                  SizedBox(height: 28),
+                  const SizedBox(height: 28),
                   Row(
                     children: [
                       const GridSpacing(),
@@ -325,61 +332,64 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                               scale: 2.5,
                                             ),
                                           ),
-                                          Align(
-                                            alignment: Alignment.topRight,
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                GridSpacing(),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(16),
-                                                  child: Text(
-                                                    "petPage_Lost".tr(),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleLarge
-                                                        ?.copyWith(
-                                                            color:
-                                                                Colors.white),
-                                                    textAlign: TextAlign.right,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment(1, 0),
-                                            child: Row(
-                                              children: [
-                                                Spacer(
-                                                  flex: 2,
-                                                ),
-                                                Expanded(
-                                                  flex: 8,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            16),
-                                                    child: Text(
-                                                      "petPage_LostInfo".tr(),
+                                          Column(
+                                            children: [
+                                              const GridSpacing(),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  Expanded(
+                                                    child: AutoSizeText(
+                                                      "petPage_Lost".tr(),
                                                       style: Theme.of(context)
                                                           .textTheme
-                                                          .displaySmall
+                                                          .titleLarge
                                                           ?.copyWith(
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: Colors.white
-                                                                .withOpacity(
-                                                                    0.54),
-                                                          ),
+                                                              color:
+                                                                  Colors.white),
                                                       textAlign:
                                                           TextAlign.right,
+                                                      maxLines: 1,
                                                     ),
                                                   ),
+                                                  const GridSpacing(),
+                                                ],
+                                              ),
+                                              const SizedBox(height: 4),
+                                              Expanded(
+                                                child: Row(
+                                                  children: [
+                                                    const Spacer(
+                                                      flex: 3,
+                                                    ),
+                                                    Expanded(
+                                                      flex: 7,
+                                                      child: AutoSizeText(
+                                                        stepGranularity: 0.5,
+                                                        "petPage_LostInfo".tr(),
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .displaySmall
+                                                            ?.copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color: Colors
+                                                                  .white
+                                                                  .withOpacity(
+                                                                      0.54),
+                                                            ),
+                                                        textAlign:
+                                                            TextAlign.right,
+                                                      ),
+                                                    ),
+                                                    const GridSpacing(),
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                              const GridSpacing(),
+                                            ],
                                           ),
                                         ],
                                       ),
@@ -435,15 +445,17 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.all(16),
-                                            child: Text(
+                                            child: AutoSizeText(
                                               "petPage_Contact".tr(),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .titleLarge,
+                                              maxLines: 1,
                                             ),
                                           ),
                                           Align(
-                                            alignment: Alignment(-1, -0.5),
+                                            alignment:
+                                                const Alignment(-1, -0.5),
                                             child: Padding(
                                               padding: const EdgeInsets.all(16),
                                               child: Row(
@@ -458,7 +470,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                           .displaySmall,
                                                     ),
                                                   ),
-                                                  Spacer(
+                                                  const Spacer(
                                                     flex: 5,
                                                   ),
                                                 ],
@@ -522,7 +534,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                           ),
                                         ),
                                         Align(
-                                          alignment: Alignment(-1, -0.3),
+                                          alignment: const Alignment(-1, -0.3),
                                           child: Image.asset(
                                             "assets/details_illustartions/heart_pink_1_cut.png",
                                             scale: 8,
@@ -532,22 +544,23 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                           alignment: Alignment.bottomRight,
                                           child: Padding(
                                             padding: const EdgeInsets.all(16),
-                                            child: Text(
+                                            child: AutoSizeText(
                                               "petPage_Tags".tr(),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .titleLarge,
                                               textAlign: TextAlign.right,
+                                              maxLines: 1,
                                             ),
                                           ),
                                         ),
                                         Align(
-                                          alignment: Alignment(1, 0.6),
+                                          alignment: const Alignment(1, 0.6),
                                           child: Padding(
                                             padding: const EdgeInsets.all(16),
                                             child: Row(
                                               children: [
-                                                Spacer(
+                                                const Spacer(
                                                   flex: 5,
                                                 ),
                                                 Expanded(
@@ -598,7 +611,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                     ),
                                     borderRadius: BorderRadius.circular(18),
                                     boxShadow: kElevationToShadow[3],
-                                    image: DecorationImage(
+                                    image: const DecorationImage(
                                       image: AssetImage(
                                           "assets/details_illustartions/dog_picture_tmp.png"),
                                       fit: BoxFit.cover,
@@ -633,12 +646,13 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                               //       BorderSide.strokeAlignOutside,
                                               // ),
                                             ),
-                                            padding: EdgeInsets.all(16),
-                                            child: Text(
+                                            padding: const EdgeInsets.all(16),
+                                            child: AutoSizeText(
                                               "petPage_Pictures".tr(),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .titleLarge,
+                                              maxLines: 1,
                                             ),
                                           ),
                                         ),
@@ -708,7 +722,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                       ),
                                     ),
                                     Align(
-                                      alignment: Alignment(-0.5, 0.99),
+                                      alignment: const Alignment(-0.5, 0.99),
                                       child: Image.asset(
                                         "assets/details_illustartions/basic_dog_1_cut.png",
                                         scale: 1.5,
@@ -716,11 +730,12 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(16),
-                                      child: Text(
+                                      child: AutoSizeText(
                                         "petPage_BasicInformation".tr(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge,
+                                        maxLines: 1,
                                       ),
                                     ),
                                   ],
@@ -771,20 +786,6 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                     borderRadius: BorderRadius.circular(18),
                                     child: Stack(
                                       children: [
-                                        // Align(
-                                        //   alignment: Alignment.bottomRight,
-                                        //   child: Image.asset(
-                                        //     "assets/details_illustartions/description_dog_1_cut.png",
-                                        //     scale: 1.6,
-                                        //   ),
-                                        // ),
-                                        // Align(
-                                        //   alignment: Alignment.bottomLeft,
-                                        //   child: Image.asset(
-                                        //     "assets/details_illustartions/description_cat_2_cut.png",
-                                        //     scale: 1.9,
-                                        //   ),
-                                        // ),
                                         Align(
                                           alignment: Alignment.bottomLeft,
                                           child: Image.asset(
@@ -794,11 +795,12 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(16),
-                                          child: Text(
+                                          child: AutoSizeText(
                                             "petPage_Description".tr(),
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .titleLarge,
+                                            maxLines: 1,
                                           ),
                                         ),
                                       ],
@@ -839,7 +841,8 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                     child: Stack(
                                       children: [
                                         Align(
-                                          alignment: Alignment(-0.95, 0.99),
+                                          alignment:
+                                              const Alignment(-0.95, 0.99),
                                           child: Image.asset(
                                             "assets/details_illustartions/documents_cat_1_cut.png",
                                             scale: 1.4,
@@ -847,11 +850,12 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(16),
-                                          child: Text(
+                                          child: AutoSizeText(
                                             "petPage_Documents".tr(),
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .titleLarge,
+                                            maxLines: 1,
                                           ),
                                         ),
                                       ],
@@ -911,15 +915,16 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(16),
-                                        child: Text(
+                                        child: AutoSizeText(
                                           "petPage_Medical".tr(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleLarge,
+                                          maxLines: 1,
                                         ),
                                       ),
                                       Align(
-                                        alignment: Alignment(-1, -0.5),
+                                        alignment: const Alignment(-1, -0.5),
                                         child: Padding(
                                           padding: const EdgeInsets.all(16),
                                           child: Row(
@@ -993,11 +998,11 @@ class TabElement extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        SizedBox(
+        const SizedBox(
           height: 16,
         ),
         Text(label),
-        SizedBox(
+        const SizedBox(
           height: 16,
         ),
         Container(

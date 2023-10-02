@@ -302,7 +302,7 @@
     "addTag_Error": "Ups ... etwas scheint falsch zu sein. Überprüfen Sie den Aktivierungscode erneut",
     "addTag_WrongCodeContent": "Es wurde kein gültiges Finma -Tag festgestellt. Bitte erneut wiederholen.",
     "addTag_SuccessContent": "Ihr Finma -Tag wurde erfolgreich hinzugefügt",
-    "addTag_ActivationCodeLabel": "Geben Sie 16 Symbolaktivierungscode ein",
+    "addTag_ActivationCodeLabel": "F572-2131-6532-5433",
     "addTag_ActivationCodeMinLenght": "Der Aktivierungscode ist nicht 16 Symbole lang. Bitte setzen Sie sie alle hier rein",
     "addTag_info": "Wählen Sie ein bereits vorhandenes Finma -Tag oder fügen Sie einfach eine neue hinzu",
     "addTag_ButtonLabel": "Fügen Sie Finma -Tag hinzu",

@@ -302,7 +302,7 @@
     "addTag_Error": "UPS ... úgy tűnik, hogy valami rossz. Ügyeljen arra, hogy újra ellenőrizze az aktiválási kódot",
     "addTag_WrongCodeContent": "Nem észleltek érvényes FINMA címkét. Kérem, újra újra.",
     "addTag_SuccessContent": "A finma címkéjét sikeresen hozzáadták",
-    "addTag_ActivationCodeLabel": "Írja be a 16 szimbólum aktiválási kódját",
+    "addTag_ActivationCodeLabel": "F572-2131-6532-5433",
     "addTag_ActivationCodeMinLenght": "Az aktiválási kód nem 16 szimbólum hosszú. Kérjük, tegye ide mindet",
     "addTag_info": "Válasszon egy már meglévő FINMA címkét, vagy egyszerűen adjon hozzá egy újat",
     "addTag_ButtonLabel": "Adja hozzá a FINMA TAG -t",

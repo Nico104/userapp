@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:userapp/general/utils_theme/store_manager.dart';
 import 'package:userapp/general/utils_theme/themes.dart';
 
@@ -13,12 +14,14 @@ class ThemeNotifier with ChangeNotifier {
   ThemeNotifier() {
     StorageManager.readData('themeMode').then(
       (value) {
-        // if (value == 'light') {
-        //   _themeData = lightTheme;
-        // } else {
-        //   _themeData = darkTheme;
-        // }
-        _themeData = darkTheme;
+        if (value == 'light') {
+          _themeData = lightTheme;
+        } else if (value == 'dark') {
+          _themeData = darkTheme;
+        } else {
+          _themeData = getSystemTheme();
+        }
+
         notifyListeners();
       },
     );
@@ -46,5 +49,22 @@ class ThemeNotifier with ChangeNotifier {
     _themeData = lightTheme;
     StorageManager.saveData('themeMode', 'light');
     notifyListeners();
+  }
+
+  void setSystemTheme() async {
+    print("set system theme");
+    var brightness =
+        SchedulerBinding.instance.platformDispatcher.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+    _themeData = isDarkMode ? darkTheme : lightTheme;
+    StorageManager.saveData('themeMode', 'system');
+    notifyListeners();
+  }
+
+  ThemeData getSystemTheme() {
+    var brightness =
+        SchedulerBinding.instance.platformDispatcher.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+    return isDarkMode ? darkTheme : lightTheme;
   }
 }

@@ -2,20 +2,21 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart'
     as firebaseMessaging;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:userapp/init_app.dart';
+import 'package:userapp/feature/settings/setting_screens/theme_settings/theme_selection_page.dart';
 import 'package:userapp/feature/settings/setting_screens/contact_us/contact_us.dart';
-import 'package:userapp/feature/settings/setting_screens/language_settings/change_language.dart';
 import 'package:userapp/feature/settings/setting_screens/notifcation_settings/notification_settings.dart';
-import 'package:userapp/feature/settings/setting_screens/theme_settings/theme_settings.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 
+import '../../general/utils_theme/theme_provider.dart';
 import '../auth/u_auth.dart';
 import '../coming_soon/coming_soon_page.dart';
 import '../../general/utils_general.dart';
 import '../language/language_selector.dart';
 import '../language/m_language.dart';
 import '../pets/profile_details/g_profile_detail_globals.dart';
+import '../pets/profile_details/models/m_pet_profile.dart';
 import 'setting_screens/account_settings/account_settings.dart';
 import 'setting_screens/my_tags/my_tags_page.dart';
 import 'widgets/settings_widgets.dart';
@@ -24,7 +25,10 @@ import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class Settings extends StatefulWidget {
-  const Settings({super.key});
+  const Settings({super.key, required this.petProfileDetails});
+
+  ///Only used for Theme Selection Page
+  final PetProfileDetails petProfileDetails;
 
   @override
   State<Settings> createState() => _SettingsState();
@@ -109,9 +113,21 @@ class _SettingsState extends State<Settings> {
                           leading: const Icon(Icons.hexagon_outlined),
                           suffix: const Icon(Icons.keyboard_arrow_right),
                           onTap: () {
+                            // navigatePerSlide(
+                            //   context,
+                            //   const ThemeSettings(),
+                            // );
+
                             navigatePerSlide(
                               context,
-                              const ThemeSettings(),
+                              Consumer<ThemeNotifier>(
+                                builder: (context, theme, _) {
+                                  return ThemeSelectionPage(
+                                    theme: theme,
+                                    petProfileDetails: widget.petProfileDetails,
+                                  );
+                                },
+                              ),
                             );
                           },
                         ),

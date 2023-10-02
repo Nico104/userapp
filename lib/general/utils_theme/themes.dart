@@ -92,6 +92,11 @@ final ThemeData constLightTheme = ThemeData(
       fontSize: 16,
       color: Colors.black.withOpacity(0.9),
     ),
+    displayLarge: GoogleFonts.openSans(
+      fontWeight: FontWeight.w200,
+      fontSize: 22,
+      color: Colors.black.withOpacity(0.9),
+    ),
     //Like Settings suffixText or Forgot Password
     // labelSmall: TextStyle(
     //   fontFamily: 'Promt',
@@ -251,6 +256,11 @@ final ThemeData constDarkTheme = ThemeData(
       // fontFamily: 'Promt',
       fontWeight: FontWeight.w400,
       fontSize: 16,
+      color: Colors.white.withOpacity(0.9),
+    ),
+    displayLarge: GoogleFonts.openSans(
+      fontWeight: FontWeight.w200,
+      fontSize: 22,
       color: Colors.white.withOpacity(0.9),
     ),
     labelSmall: GoogleFonts.openSans(

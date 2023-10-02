@@ -185,3 +185,22 @@ String parseStringFromGender(Gender value) {
       return "NONE";
   }
 }
+
+PetProfileDetails getDummyPetProfile() {
+  return PetProfileDetails(
+    0,
+    DateTime.now(),
+    "Tabo",
+    Gender.male,
+    "",
+    [],
+    false,
+    [],
+    "",
+    [],
+    [],
+    [],
+    [],
+    false,
+  );
+}

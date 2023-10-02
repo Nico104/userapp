@@ -47,11 +47,12 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
             children: [
               Text(
                 "tagSelectionPage_Subtitle".tr(),
-                style: GoogleFonts.openSans(
-                  fontWeight: FontWeight.w200,
-                  fontSize: 18 * 1.5,
-                  color: Colors.black,
-                ),
+                // style: GoogleFonts.openSans(
+                //   fontWeight: FontWeight.w200,
+                //   fontSize: 18 * 1.5,
+                //   color: Colors.black,
+                // ),
+                style: Theme.of(context).textTheme.displayLarge,
               ),
               SizedBox(height: 12),
               Text(
