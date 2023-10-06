@@ -45,7 +45,7 @@ class _DeleteAccountConfirmPageState extends State<DeleteAccountConfirmPage> {
                   child: Text("deleteAccountConfrimDeleteInfo3".tr(),
                       style: Theme.of(context).textTheme.displayMedium),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
               ],
             ),
             onScroll: () => handleShyButtonShown(
@@ -65,15 +65,17 @@ class _DeleteAccountConfirmPageState extends State<DeleteAccountConfirmPage> {
                   opaque: false,
                   barrierDismissible: true,
                   pageBuilder: (BuildContext context, _, __) {
-                    return DeleteAccountTypePassword();
+                    return const DeleteAccountTypePassword();
                   },
                 ),
               )
                   .then(
                 (value) async {
                   if (value == true) {
-                    //TODO delete account
-                    await deleteUser();
+                    await deleteUser(
+                      message: widget.message,
+                      reason: widget.reason,
+                    );
                   }
                 },
               );

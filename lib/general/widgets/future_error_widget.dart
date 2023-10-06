@@ -18,6 +18,10 @@ class FutureErrorWidget extends StatelessWidget {
             "No internet connection",
             style: Theme.of(context).textTheme.titleMedium,
           ),
+          Text(
+            error.toString(),
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
           const SizedBox(height: 8),
           Text(
             "Please check you internet connection and try again",

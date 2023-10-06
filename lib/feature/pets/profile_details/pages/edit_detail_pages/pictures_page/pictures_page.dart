@@ -37,7 +37,6 @@ class _PicturesPageState extends State<PicturesPage> {
     pictures = widget.initialPetPictures;
   }
 
-  //TODO getDocuments
   Future<void> reloadPetPictures() async {
     pictures = await getPetPictures(widget.petProfileId);
     setState(() {});
@@ -114,7 +113,10 @@ class _PicturesPageState extends State<PicturesPage> {
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: PictureItem(picture: pictures.elementAt(index)),
+                        child: PictureItem(
+                          picture: pictures.elementAt(index),
+                          reloadPetPictures: reloadPetPictures,
+                        ),
                       );
                     },
                   ),
@@ -176,28 +178,32 @@ class _PicturesPageState extends State<PicturesPage> {
 }
 
 int getCrossAxisCount(int lenght) {
-  if (lenght < 2) {
-    return 1;
-  } else if (lenght < 4) {
-    return 2;
-  } else {
-    return 3;
-  }
+  // if (lenght < 2) {
+  //   return 1;
+  // } else if (lenght < 4) {
+  //   return 2;
+  // } else {
+  //   return 3;
+  // }
+  return 2;
 }
 
 class PictureItem extends StatelessWidget {
   const PictureItem({
     super.key,
     required this.picture,
+    required this.reloadPetPictures,
   });
 
   final PetPicture picture;
+  final VoidCallback reloadPetPictures;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
+        Navigator.of(context)
+            .push(
           PageRouteBuilder(
             opaque: false,
             barrierDismissible: true,
@@ -207,6 +213,13 @@ class PictureItem extends StatelessWidget {
               );
             },
           ),
+        )
+            .then(
+          (delete) {
+            if (delete is bool && delete == true) {
+              reloadPetPictures();
+            }
+          },
         );
       },
       child: Hero(

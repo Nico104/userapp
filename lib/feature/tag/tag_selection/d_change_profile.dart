@@ -39,11 +39,12 @@ class _TagChangeProfileAlertDialogState
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "tagAssignedTo".tr(namedArgs: {'name': widget.currentPetName}),
+                "tagAssignedTo"
+                    .tr(namedArgs: {'value1': widget.currentPetName}),
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               Text(
-                "tagReassign".tr(namedArgs: {'name': widget.newPetName}),
+                "tagReassign".tr(namedArgs: {'value1': widget.newPetName}),
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               const SizedBox(height: 28),

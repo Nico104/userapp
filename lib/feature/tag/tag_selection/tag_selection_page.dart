@@ -11,8 +11,8 @@ import '../../../general/widgets/loading_indicator.dart';
 import '../../pets/profile_details/models/m_pet_profile.dart';
 import '../../pets/profile_details/models/m_tag.dart';
 import '../utils/u_tag.dart';
-import 'add_new_tag_widget.dart';
 import 'add_tag_header.dart';
+import 'add_tag_page.dart';
 
 class TagSelectionPage extends StatefulWidget {
   const TagSelectionPage({
@@ -30,6 +30,18 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => const AddTagPage(),
+      //   ),
+      // ).then((value) {
+      //   setState(() {});
+      // });
+      navigateReplacePerSlide(context, const AddTagPage());
+    });
   }
 
   @override
@@ -47,11 +59,6 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
             children: [
               Text(
                 "tagSelectionPage_Subtitle".tr(),
-                // style: GoogleFonts.openSans(
-                //   fontWeight: FontWeight.w200,
-                //   fontSize: 18 * 1.5,
-                //   color: Colors.black,
-                // ),
                 style: Theme.of(context).textTheme.displayLarge,
               ),
               SizedBox(height: 12),

@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:sizer/sizer.dart';
+import 'package:userapp/feature/navigation_peppi/share_seppi.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 
@@ -13,7 +14,9 @@ import '../../../../general/utils_custom_icons/custom_icons_icons.dart';
 import '../../../../general/utils_theme/custom_colors.dart';
 import '../../../../general/utils_general.dart';
 import '../../../../general/widgets/auto_save_info.dart';
+import '../../../../general/widgets/custom_nico_modal.dart';
 import '../../../../general/widgets/more_button.dart';
+import '../../../scans/scans_page.dart';
 import '../../../tag/tag_selection/tag_selection_page.dart';
 import '../../../tag/utils/u_tag.dart';
 import '../../u_pets.dart';
@@ -34,6 +37,7 @@ class PetPage2 extends StatefulWidget {
     super.key,
     required this.petProfileDetails,
     this.showAppbar = true,
+    this.showDescriptions = true,
   });
 
   //? Maybe Variable and fetchFrromServer when needed Updated a la Contact
@@ -41,6 +45,8 @@ class PetPage2 extends StatefulWidget {
 
   ///Only for Theme Selection Page
   final bool showAppbar;
+
+  final bool showDescriptions;
 
   @override
   State<PetPage2> createState() => _PetPage2State();
@@ -204,7 +210,43 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
             });
           },
         ),
+        ListTile(
+          leading: const Icon(CustomIcons.delete),
+          title: Text("petPage_Options_Share".tr()),
+          onTap: () {
+            Navigator.pop(context);
+            showShare();
+          },
+        ),
+        ListTile(
+          leading: const Icon(CustomIcons.delete),
+          title: Text("petPage_Options_Scans".tr()),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ScansPage(
+                  petName: widget.petProfileDetails.petName,
+                  // scans: widget.petProfileDetails.petProfileScans,
+                  petProfileId: widget.petProfileDetails.profileId,
+                ),
+              ),
+            );
+          },
+        ),
       ],
+    );
+  }
+
+  void showShare() {
+    showCustomNicoModalBottomSheet(
+      context: context,
+      child: ShareSeppi(
+        closeShareSeppi: () {
+          Navigator.pop(context);
+        },
+      ),
     );
   }
 
@@ -257,7 +299,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                           begin: const EdgeInsets.only(left: 16.0, bottom: 16),
                           end: const EdgeInsets.only(left: 72.0, bottom: 16)),
                       title: Text('petProfileTitle'.tr(
-                          namedArgs: {'petName': _petProfileDetails.petName})),
+                          namedArgs: {'value1': _petProfileDetails.petName})),
                       // titlePadding: EdgeInsets.all(0), centerTitle: false,
                       // centerTitle: true,
                       // background: FlutterLogo(),
@@ -357,37 +399,43 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                 ],
                                               ),
                                               const SizedBox(height: 4),
-                                              Expanded(
-                                                child: Row(
-                                                  children: [
-                                                    const Spacer(
-                                                      flex: 3,
-                                                    ),
-                                                    Expanded(
-                                                      flex: 7,
-                                                      child: AutoSizeText(
-                                                        stepGranularity: 0.5,
-                                                        "petPage_LostInfo".tr(),
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .displaySmall
-                                                            ?.copyWith(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                              color: Colors
-                                                                  .white
-                                                                  .withOpacity(
-                                                                      0.54),
+                                              widget.showDescriptions
+                                                  ? Expanded(
+                                                      child: Row(
+                                                        children: [
+                                                          const Spacer(
+                                                            flex: 3,
+                                                          ),
+                                                          Expanded(
+                                                            flex: 7,
+                                                            child: AutoSizeText(
+                                                              stepGranularity:
+                                                                  0.5,
+                                                              "petPage_LostInfo"
+                                                                  .tr(),
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .displaySmall
+                                                                  ?.copyWith(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    color: Colors
+                                                                        .white
+                                                                        .withOpacity(
+                                                                            0.54),
+                                                                  ),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .right,
                                                             ),
-                                                        textAlign:
-                                                            TextAlign.right,
+                                                          ),
+                                                          const GridSpacing(),
+                                                        ],
                                                       ),
-                                                    ),
-                                                    const GridSpacing(),
-                                                  ],
-                                                ),
-                                              ),
+                                                    )
+                                                  : const SizedBox.shrink(),
                                               const GridSpacing(),
                                             ],
                                           ),
@@ -460,16 +508,19 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                               padding: const EdgeInsets.all(16),
                                               child: Row(
                                                 children: [
-                                                  Expanded(
-                                                    flex: 5,
-                                                    child: Text(
-                                                      "petPage_ContactInfo"
-                                                          .tr(),
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .displaySmall,
-                                                    ),
-                                                  ),
+                                                  widget.showDescriptions
+                                                      ? Expanded(
+                                                          flex: 5,
+                                                          child: Text(
+                                                            "petPage_ContactInfo"
+                                                                .tr(),
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .displaySmall,
+                                                          ),
+                                                        )
+                                                      : const SizedBox.shrink(),
                                                   const Spacer(
                                                     flex: 5,
                                                   ),
@@ -563,16 +614,21 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                 const Spacer(
                                                   flex: 5,
                                                 ),
-                                                Expanded(
-                                                  flex: 5,
-                                                  child: Text(
-                                                    "petPage_TagsInfo".tr(),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .displaySmall,
-                                                    textAlign: TextAlign.right,
-                                                  ),
-                                                ),
+                                                widget.showDescriptions
+                                                    ? Expanded(
+                                                        flex: 5,
+                                                        child: Text(
+                                                          "petPage_TagsInfo"
+                                                              .tr(),
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .displaySmall,
+                                                          textAlign:
+                                                              TextAlign.right,
+                                                        ),
+                                                      )
+                                                    : const SizedBox.shrink(),
                                               ],
                                             ),
                                           ),
@@ -929,15 +985,18 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                           padding: const EdgeInsets.all(16),
                                           child: Row(
                                             children: [
-                                              Expanded(
-                                                flex: 5,
-                                                child: Text(
-                                                  "petPage_MedicalInfo".tr(),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .displaySmall,
-                                                ),
-                                              ),
+                                              widget.showDescriptions
+                                                  ? Expanded(
+                                                      flex: 5,
+                                                      child: Text(
+                                                        "petPage_MedicalInfo"
+                                                            .tr(),
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .displaySmall,
+                                                      ),
+                                                    )
+                                                  : const SizedBox.shrink(),
                                               const Spacer(
                                                 flex: 5,
                                               ),

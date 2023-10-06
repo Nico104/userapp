@@ -49,7 +49,6 @@ class AddContactHeader extends StatelessWidget {
                     child: const Icon(
                       Icons.add,
                       size: 22,
-                      color: Colors.black87,
                     ),
                   ),
                 ),

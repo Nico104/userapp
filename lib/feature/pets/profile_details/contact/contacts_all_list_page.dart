@@ -66,7 +66,7 @@
 //                 children: [
 //                   Flexible(
 //                       child: Text("appBarPetContactList"
-//                           .tr(namedArgs: {"name": snapshot.data!}))),
+//                           .tr(namedArgs: {"value1": snapshot.data!}))),
 //                 ],
 //               );
 //             } else {

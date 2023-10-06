@@ -154,15 +154,17 @@ Future<void> logout() async {
   //   await googleSignIn.signOut();
   // }
   // print("sssss");
-  print(await googleSignIn.isSignedIn());
-  await googleSignIn.isSignedIn().then((s) async {
-    if (s) {
-      // print("Is signed in" + s.toString());
-      // await Future.delayed(Duration(seconds: 5));
-      // signOutWithGoogle();
-      await googleSignIn.signOut();
-    }
-  });
+  // print(await googleSignIn.isSignedIn());
+  // print("pulul");
+  // await googleSignIn.isSignedIn().then((s) async {
+  //   if (s) {
+  //     // print("Is signed in" + s.toString());
+  //     // await Future.delayed(Duration(seconds: 5));
+  //     // signOutWithGoogle();
+  //     await googleSignIn.signOut();
+  //   }
+  // });
+  // await googleSignIn.signOut();
 }
 
 Future<void> setLoggedInOnce(bool val) async {
@@ -839,13 +841,27 @@ Future<firebase_auth.User?> signInWithGoogleWeb() async {
   return user;
 }
 
-Future<void> deleteUser() async {
+Future<void> deleteUser({
+  required String message,
+  required String reason,
+}) async {
   var url = Uri.parse('$baseURL/user/deleteUser');
   String? token = await getIdToken();
 
-  final response = await http.delete(url);
+  // final response = await http.delete(url);
 
-  print(response.body);
+  final response = await http.delete(
+    url,
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': '$token',
+    },
+    body: jsonEncode({
+      "message": message,
+      "reason": reason,
+    }),
+  );
 
   if (response.statusCode == 200) {
     return;

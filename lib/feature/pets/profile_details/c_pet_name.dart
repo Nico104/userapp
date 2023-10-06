@@ -193,7 +193,7 @@ class _EnterNameDialogState extends State<EnterNameDialog> {
                 autofocus: true,
                 initialValue: text,
                 // hintText:
-                //     'changeNameHint'.tr(namedArgs: {'label': widget.label}),
+                //     'changeNameHint'.tr(namedArgs: {'value1': widget.label}),
                 hintText: widget.hint,
                 onChanged: (val) {
                   EasyDebounce.debounce(

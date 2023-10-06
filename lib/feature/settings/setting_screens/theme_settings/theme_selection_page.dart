@@ -34,6 +34,7 @@ class _ThemeSelectionPageState extends State<ThemeSelectionPage> {
   bool isSystemActive = false;
 
   late ThemeNotifier theme;
+  final double _buttonHeight = 55 + 18;
 
   @override
   void initState() {
@@ -58,29 +59,21 @@ class _ThemeSelectionPageState extends State<ThemeSelectionPage> {
 
   void generateMap() {
     map.clear();
-    // print(theme.getTheme().brightness);
     if (theme.getTheme() == theme.lightTheme) {
       darkTheme = 1;
       lightTheme = 0;
+    } else {
+      darkTheme = 0;
+      lightTheme = 1;
     }
     map[darkTheme] = ThemeSelectionContainer(
       isActive: theme.getTheme() == theme.darkTheme,
-      onTap: () {
-        if (theme.getTheme() != theme.darkTheme) {
-          theme.setDarkTheme();
-        }
-      },
       label: "darkModeLabel".tr(),
       themeData: theme.darkTheme,
       petProfileDetails: widget.petProfileDetails,
     );
     map[lightTheme] = ThemeSelectionContainer(
       isActive: theme.getTheme() == theme.lightTheme,
-      onTap: () {
-        if (theme.getTheme() != theme.lightTheme) {
-          theme.setLightTheme();
-        }
-      },
       label: "lightModeLabel".tr(),
       themeData: theme.lightTheme,
       petProfileDetails: widget.petProfileDetails,
@@ -95,13 +88,6 @@ class _ThemeSelectionPageState extends State<ThemeSelectionPage> {
     if (mounted) {
       setState(() {});
     }
-  }
-
-  void refreshThemeData() {
-    // print(Provider.of<ThemeNotifier>(context).getTheme());
-    // setState(() {
-    //   theme = Provider.of<ThemeNotifier>(context).getTheme();
-    // });
   }
 
   @override
@@ -121,23 +107,26 @@ class _ThemeSelectionPageState extends State<ThemeSelectionPage> {
                   PointerDeviceKind.mouse,
                 },
               ),
-              child: PageView(
-                physics: const BouncingScrollPhysics(),
-                controller: _pageController,
-                pageSnapping: true,
-                scrollDirection: Axis.vertical,
-                onPageChanged: (index) {
-                  if (index == darkTheme) {
-                    if (theme.getTheme() != theme.darkTheme) {
-                      theme.setDarkTheme();
+              child: Padding(
+                padding: EdgeInsets.only(bottom: _buttonHeight),
+                child: PageView(
+                  physics: const BouncingScrollPhysics(),
+                  controller: _pageController,
+                  pageSnapping: true,
+                  scrollDirection: Axis.vertical,
+                  onPageChanged: (index) {
+                    if (index == darkTheme) {
+                      if (theme.getTheme() != theme.darkTheme) {
+                        theme.setDarkTheme();
+                      }
+                    } else if (index == lightTheme) {
+                      if (theme.getTheme() != theme.lightTheme) {
+                        theme.setLightTheme();
+                      }
                     }
-                  } else if (index == lightTheme) {
-                    if (theme.getTheme() != theme.lightTheme) {
-                      theme.setLightTheme();
-                    }
-                  }
-                },
-                children: map.values.toList(),
+                  },
+                  children: map.values.toList(),
+                ),
               ),
             ),
           ),
@@ -145,27 +134,29 @@ class _ThemeSelectionPageState extends State<ThemeSelectionPage> {
             alignment: Alignment.bottomCenter,
             child: ChooseSystemTheme(
               isActive: isSystemActive,
-              setSystemThemeActivity: (p0) {
-                setState(() {
-                  isSystemActive = p0;
-                });
+              setSystemThemeActivity: (p0) async {
                 if (p0) {
-                  theme.setSystemTheme();
+                  theme.setSystemTheme().then((value) {
+                    generateMap();
+                    _pageController.jumpToPage(0);
+                  });
+                  await Future.delayed(Duration(milliseconds: 125));
+                  setState(() {
+                    isSystemActive = true;
+                  });
+
                   // refreshThemeData();
                   // map.clear();
-                  generateMap();
-                  _pageController.jumpToPage(0);
                 } else {
+                  setState(() {
+                    isSystemActive = false;
+                  });
                   if (Theme.of(context).brightness == Brightness.dark) {
-                    theme.setDarkTheme();
-                    // refreshThemeData();
-                    // map.clear();
+                    await theme.setDarkTheme();
                     generateMap();
                     _pageController.jumpToPage(0);
                   } else {
-                    theme.setLightTheme();
-                    // refreshThemeData();
-                    // map.clear();
+                    await theme.setLightTheme();
                     generateMap();
                     _pageController.jumpToPage(0);
                   }

@@ -31,27 +31,30 @@ class ThemeNotifier with ChangeNotifier {
   ThemeData getTheme() => _themeData;
 
   ///Sets the current active theme to dark mode
-  void setDarkTheme() async {
+
+  Future<void> setDarkTheme() async {
     _themeData = darkTheme;
     StorageManager.saveData('themeMode', 'dark');
     notifyListeners();
   }
 
   ///Sets the current active theme to dark mode
-  void setHighContrastTheme() async {
+
+  Future<void> setHighContrastTheme() async {
     _themeData = darkTheme;
     StorageManager.saveData('themeMode', 'dark');
     notifyListeners();
   }
 
   ///Sets the current active theme to light mode
-  void setLightTheme() async {
+
+  Future<void> setLightTheme() async {
     _themeData = lightTheme;
     StorageManager.saveData('themeMode', 'light');
     notifyListeners();
   }
 
-  void setSystemTheme() async {
+  Future<void> setSystemTheme() async {
     print("set system theme");
     var brightness =
         SchedulerBinding.instance.platformDispatcher.platformBrightness;
@@ -62,8 +65,10 @@ class ThemeNotifier with ChangeNotifier {
   }
 
   ThemeData getSystemTheme() {
-    var brightness =
-        SchedulerBinding.instance.platformDispatcher.platformBrightness;
+    // var brightness =
+    //     SchedulerBinding.instance.platformDispatcher.platformBrightness;
+    final brightness =
+        WidgetsBinding.instance.platformDispatcher.platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
     return isDarkMode ? darkTheme : lightTheme;
   }

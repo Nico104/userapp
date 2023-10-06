@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
@@ -63,8 +64,9 @@ class ShyButton extends StatelessWidget {
                           padding: icon != null
                               ? EdgeInsets.only(left: 32, right: 24)
                               : EdgeInsets.only(left: 32, right: 32),
-                          child: Text(
+                          child: AutoSizeText(
                             label,
+                            maxLines: 1,
                             // style: GoogleFonts.prompt(
                             //   fontWeight: FontWeight.w400,
                             //   fontSize: 16,

@@ -15,6 +15,7 @@ import '../../../models/m_contact.dart';
 import '../../../models/m_pet_profile.dart';
 import 'add_contact_header.dart';
 import 'contact_visibility_switch.dart';
+import 'no_contacts_widget.dart';
 
 class ContactPage extends StatefulWidget {
   const ContactPage({
@@ -144,81 +145,83 @@ class _ContactPageState extends State<ContactPage> {
         children: [
           CustomNicoScrollView(
             title: Text("contactPage_Contact".tr()),
-            expandedHeight: 190,
-            background: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Tabo's",
-                    style: GoogleFonts.openSans(
-                      fontWeight: FontWeight.w200,
-                      fontSize: 18 * 1.5,
-                      color: Colors.black,
-                    ),
-                  ),
-                  SizedBox(height: 12),
-                  Text(
-                    "contactPage_Contact".tr(),
-                    style:
-                        Theme.of(context).appBarTheme.titleTextStyle!.copyWith(
-                              color: Colors.transparent,
-                              fontSize: 20 * 1.5,
-                            ),
-                  ),
-                ],
-              ),
-            ),
+            // expandedHeight: 190,
+            // background: Padding(
+            //   padding: const EdgeInsets.all(16),
+            //   child: Column(
+            //     mainAxisAlignment: MainAxisAlignment.end,
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Text(
+            //         "Tabo's",
+            //         style: Theme.of(context).textTheme.displayLarge,
+            //       ),
+            //       SizedBox(height: 12),
+            //       Text(
+            //         "contactPage_Contact".tr(),
+            //         style:
+            //             Theme.of(context).appBarTheme.titleTextStyle!.copyWith(
+            //                   color: Colors.transparent,
+            //                   fontSize: 20 * 1.5,
+            //                 ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             onScroll: () {},
-            body: Column(
-              children: [
-                const SizedBox(height: 16),
-                //New Contact
-                AddContactHeader(
-                  addNewContact: addNewContact,
-                ),
-                const SizedBox(height: 16),
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'appBarPetContactList'.tr(namedArgs: {
-                        'name': widget.petProfileDetails.petName
-                      }),
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  // controller: _scrollController,
-                  itemCount: widget.petProfileDetails.petContacts.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(24),
-                      child: ContactListItem(
-                        contact: widget.petProfileDetails.petContacts
-                            .elementAt(index),
-                        petProfileDetails: widget.petProfileDetails,
-                        refreshContacts: () {
-                          refreshContacts();
+            body: widget.petProfileDetails.petContacts.isNotEmpty
+                ? Column(
+                    children: [
+                      const SizedBox(height: 16),
+                      //New Contact
+                      AddContactHeader(
+                        addNewContact: addNewContact,
+                      ),
+                      const SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'appBarPetContactList'.tr(namedArgs: {
+                              'value1': widget.petProfileDetails.petName
+                            }),
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        // controller: _scrollController,
+                        itemCount: widget.petProfileDetails.petContacts.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(24),
+                            child: ContactListItem(
+                              contact: widget.petProfileDetails.petContacts
+                                  .elementAt(index),
+                              petProfileDetails: widget.petProfileDetails,
+                              refreshContacts: () {
+                                refreshContacts();
+                              },
+                            ),
+                          );
                         },
                       ),
-                    );
-                  },
-                ),
-                SizedBox(height: 75.h),
-              ],
-            ),
+                      SizedBox(height: 75.h),
+                    ],
+                  )
+                : NoContactsWidget(
+                    addNewContact: addNewContact,
+                  ),
           ),
-          ContactVisibilitySwitch(
-            petProfileDetails: widget.petProfileDetails,
-          ),
+          widget.petProfileDetails.petContacts.isNotEmpty
+              ? ContactVisibilitySwitch(
+                  petProfileDetails: widget.petProfileDetails,
+                )
+              : const SizedBox.shrink(),
         ],
       ),
     );

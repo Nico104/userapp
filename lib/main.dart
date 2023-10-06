@@ -29,9 +29,13 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await _initFirebase();
 
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
-  FlutterNativeSplash.removeAfter(initialization);
+  // FlutterNativeSplash.removeAfter(initialization);
+  FlutterNativeSplash.remove();
 
   runApp(
     EasyLocalization(
@@ -89,7 +93,7 @@ class MyApp extends StatelessWidget {
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
-            title: 'Flutter Demo',
+            title: 'Finma',
             debugShowCheckedModeBanner: false,
             theme: theme.getTheme(),
             home: const InitApp(),

@@ -1,11 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sizer/sizer.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
-
-import '../../../../general/utils_color/hex_color.dart';
-import '../c_component_title.dart';
 
 class MultiOptionButton extends StatefulWidget {
   const MultiOptionButton({
@@ -54,6 +50,8 @@ class _MultiOptionButtonState extends State<MultiOptionButton> {
                 });
               },
               child: Container(
+                //Try out otherwise it is what it is
+                height: 50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(_borderRadius),
                   color: isSelected
@@ -69,8 +67,9 @@ class _MultiOptionButtonState extends State<MultiOptionButton> {
                 ),
                 padding: EdgeInsets.all(10),
                 child: Center(
-                  child: Text(
+                  child: AutoSizeText(
                     _options.elementAt(i).label,
+                    maxLines: 1,
                     style: GoogleFonts.openSans(
                         fontSize: 18,
                         color: isSelected
@@ -109,6 +108,7 @@ class _MultiOptionButtonState extends State<MultiOptionButton> {
         ),
         const SizedBox(height: 24),
         Row(
+          // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: generateOptionButton(),
         ),
         const SizedBox(height: 16),

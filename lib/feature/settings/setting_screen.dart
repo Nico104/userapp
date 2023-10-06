@@ -10,6 +10,7 @@ import 'package:userapp/feature/settings/setting_screens/notifcation_settings/no
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 
 import '../../general/utils_theme/theme_provider.dart';
+import '../../init_app.dart';
 import '../auth/u_auth.dart';
 import '../coming_soon/coming_soon_page.dart';
 import '../../general/utils_general.dart';
@@ -203,9 +204,8 @@ class _SettingsState extends State<Settings> {
                             //   context,
                             //   const ComingSoonPage(title: "Shop"),
                             // );
-                            launchUrl(
-                              Uri.parse("finmapet.com"),
-                            );
+                            launchUrl(Uri.parse("finmapet.com"),
+                                mode: LaunchMode.externalApplication);
                           },
                         ),
                       ],
@@ -258,9 +258,8 @@ class _SettingsState extends State<Settings> {
                             //   context,
                             //   const ComingSoonPage(title: "FAQ"),
                             // );
-                            launchUrl(
-                              Uri.parse("finmapet.com"),
-                            );
+                            launchUrl(Uri.parse("finmapet.com"),
+                                mode: LaunchMode.externalApplication);
                           },
                         ),
                         const SizedBox(height: settingItemSpacing),
@@ -273,9 +272,8 @@ class _SettingsState extends State<Settings> {
                             //   context,
                             //   const ComingSoonPage(title: "Privacy"),
                             // );
-                            launchUrl(
-                              Uri.parse("finmapet.com"),
-                            );
+                            launchUrl(Uri.parse("finmapet.com"),
+                                mode: LaunchMode.externalApplication);
                           },
                         ),
                         const SizedBox(height: settingItemSpacing),
@@ -288,9 +286,8 @@ class _SettingsState extends State<Settings> {
                             //   context,
                             //   const ComingSoonPage(title: "About"),
                             // );
-                            launchUrl(
-                              Uri.parse("finmapet.com"),
-                            );
+                            launchUrl(Uri.parse("finmapet.com"),
+                                mode: LaunchMode.externalApplication);
                           },
                         ),
                       ],
@@ -318,17 +315,17 @@ class _SettingsState extends State<Settings> {
                           }
                         }
 
-                        logout();
+                        // logout();
 
-                        // logout().then(
-                        //   (value) {
-                        //     Navigator.pushAndRemoveUntil(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (context) => const InitApp()),
-                        //         (route) => false);
-                        //   },
-                        // );
+                        logout().then(
+                          (value) {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const InitApp()),
+                                (route) => false);
+                          },
+                        );
                       },
                     ),
                   ),

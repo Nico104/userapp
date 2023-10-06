@@ -6,6 +6,7 @@ import '../../../../general/widgets/future_error_widget.dart';
 import '../../../../general/widgets/loading_indicator.dart';
 import '../../../pets/profile_details/models/m_tag.dart';
 import '../../../tag/tag_selection/add_tag_header.dart';
+import '../../../tag/tag_selection/add_tag_page.dart';
 import '../../../tag/tag_single.dart';
 import '../../../pets/u_pets.dart';
 import '../../../../general/utils_theme/custom_colors.dart';
@@ -20,6 +21,23 @@ class MyTagsSettings extends StatefulWidget {
 }
 
 class _MyTagsSettingsState extends State<MyTagsSettings> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => const AddTagPage(),
+      //   ),
+      // ).then((value) {
+      //   setState(() {});
+      // });
+      navigateReplacePerSlide(context, const AddTagPage());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -105,5 +105,9 @@ dependencies {
 
     // Add the dependencies for any other desired Firebase products
     // https://firebase.google.com/docs/android/setup#available-libraries
+
+    //Splash Screen
+    // implementation "com.airbnb.android:lottie:3.5.0"
+    // implementation "com.android.support.constraint:constraint-layout:2.0.4"
 }
 

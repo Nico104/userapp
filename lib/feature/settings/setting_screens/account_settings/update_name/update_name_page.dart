@@ -64,7 +64,7 @@ class _UpdateNamePageState extends State<UpdateNamePage> {
                     return "textInputErrorEmpty".tr();
                   } else if (value == widget.currentName) {
                     return 'settingsAccountUpdateNameInputErrorAlreadyInUse'
-                        .tr(namedArgs: {"name": widget.currentName});
+                        .tr(namedArgs: {"value1": widget.currentName});
                   } else {
                     return null;
                   }

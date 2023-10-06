@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -57,8 +58,8 @@ class LostBox extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "lostBox_Title"
-                                  .tr(namedArgs: {'name': petProfile.petName}),
+                              "lostBox_Title".tr(
+                                  namedArgs: {'value1': petProfile.petName}),
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             const SizedBox(height: 32),
@@ -90,6 +91,7 @@ class LostBox extends StatelessWidget {
                                 children: <TextSpan>[
                                   TextSpan(
                                       text: 'lostBox_contactsVisibility'.tr()),
+                                  const TextSpan(text: ' '),
                                   TextSpan(
                                     text: 'lostBox_Contacts'.tr(),
                                     style: Theme.of(context)
@@ -117,13 +119,15 @@ class LostBox extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(36),
                                     color: getCustomColors(context).accent,
                                   ),
-                                  padding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                                  child: Text(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                                  child: AutoSizeText(
                                     "lostBox_confirmLabel".tr(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .labelMedium
                                         ?.copyWith(color: Colors.white),
+                                    maxLines: 1,
                                   ),
                                 ),
                               ),

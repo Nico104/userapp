@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -20,11 +21,11 @@ class ChooseSystemTheme extends StatefulWidget {
 
 class _ChooseSystemThemeState extends State<ChooseSystemTheme> {
   final double _borderRadius = 32;
-  final double _height = 65;
+  final double _height = 55;
 
   // bool isActive = false;
 
-  final Duration _duration = Duration(milliseconds: 250);
+  final Duration _duration = Duration(milliseconds: 125);
 
   @override
   Widget build(BuildContext context) {
@@ -42,53 +43,45 @@ class _ChooseSystemThemeState extends State<ChooseSystemTheme> {
           },
           child: Material(
             borderRadius: BorderRadius.all(Radius.circular(_borderRadius)),
-            elevation: 6,
+            elevation: widget.isActive ? 0 : 6,
             child: AnimatedContainer(
               duration: _duration,
               height: widget.isActive ? 90.h : _height,
-              width: widget.isActive ? 100.w : 50.w,
+              width: widget.isActive ? 100.w : 55.w,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(_borderRadius)),
-                color: getCustomColors(context).accent,
+                color: widget.isActive
+                    ? Theme.of(context).canvasColor
+                    : getCustomColors(context).accent,
               ),
               child: AnimatedSwitcher(
                 duration: _duration,
                 child: !widget.isActive
-                    ? IntrinsicHeight(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 32, right: 32),
-                              child: Text(
-                                "Use System Theme",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelMedium
-                                    ?.copyWith(color: Colors.white),
-                              ),
-                            ),
-                          ],
+                    ? Center(
+                        child: AutoSizeText(
+                          "Use System Theme",
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium
+                              ?.copyWith(color: Colors.white),
+                          maxLines: 1,
                         ),
                       )
-                    : ListView(
-                        physics: const NeverScrollableScrollPhysics(),
+                    : Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Spacer(),
-                          Image.asset("assets/tmp/connection_lost.png"),
-                          Spacer(),
+                          const SizedBox(height: 16),
                           Text(
                             "Using Device Theme",
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 16),
                           Text(
                             "You are currently using your devices Theme",
                             style: Theme.of(context).textTheme.labelMedium,
                             textAlign: TextAlign.center,
                           ),
-                          Spacer(),
+                          const SizedBox(height: 16),
                           ShyButton(
                             showUploadButton: true,
                             onTap: () {
@@ -100,7 +93,7 @@ class _ChooseSystemThemeState extends State<ChooseSystemTheme> {
                             },
                             label: "Change Theme",
                           ),
-                          Spacer(),
+                          const SizedBox(height: 16),
                         ],
                       ),
               ),

@@ -115,6 +115,7 @@ class ExtendedSettingsContainerState extends State<ExtendedSettingsContainer> {
       MaterialPageRoute(
         builder: (context) => PetPage2(
           petProfileDetails: widget.petProfileDetails,
+          // showDescriptions: false,
         ),
       ),
     ).then((value) => widget.reloadFuture.call());

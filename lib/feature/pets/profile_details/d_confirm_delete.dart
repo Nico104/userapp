@@ -64,9 +64,9 @@ class _ConfirmDeleteDialogState extends State<ConfirmDeleteDialog> {
               Text(
                 widget.remove
                     ? 'deleteAlerDialogInfoTextRemove'
-                        .tr(namedArgs: {'label': widget.label})
+                        .tr(namedArgs: {'value1': widget.label})
                     : 'deleteAlerDialogInfoTextDelete'
-                        .tr(namedArgs: {'label': widget.label}),
+                        .tr(namedArgs: {'value1': widget.label}),
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               Text(

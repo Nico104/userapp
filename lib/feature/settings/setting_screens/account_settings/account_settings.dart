@@ -50,7 +50,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                 // Text(
                 //     "You are signed in whith your Google Account with the assigned email address: ${getLoggedInUser()!.email}"),
                 Text("googleSignIn_EditInfo"
-                    .tr(namedArgs: {'email': getLoggedInUser()!.email ?? ""})),
+                    .tr(namedArgs: {'value1': getLoggedInUser()!.email ?? ""})),
             ],
           );
         case SignInProviderId.password:
