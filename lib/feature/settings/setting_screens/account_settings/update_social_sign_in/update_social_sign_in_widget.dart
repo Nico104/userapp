@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:userapp/feature/auth/u_auth.dart';
 
-import '../../../widgets/settings_widgets.dart';
+import '../../../utils/widgets/settings_widgets.dart';
 
 class UpdateSocialSignIn extends StatelessWidget {
   const UpdateSocialSignIn(

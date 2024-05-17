@@ -10,6 +10,7 @@ import 'package:userapp/feature/navigation_peppi/share_seppi.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 
+import '../../../../general/utils_color/hex_color.dart';
 import '../../../../general/utils_custom_icons/custom_icons_icons.dart';
 import '../../../../general/utils_theme/custom_colors.dart';
 import '../../../../general/utils_general.dart';
@@ -352,7 +353,8 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       // color: Theme.of(context).primaryColor,
-                                      color: Colors.blue,
+                                      // color: Colors.blue,
+                                      color: HexColor("#958164"),
                                       // border: Border.all(
                                       //   width: 0,
                                       //   color:
@@ -456,17 +458,14 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                   ),
                                 );
                               },
-                              child: Transform(
-                                alignment: FractionalOffset.center,
-                                transform: perspective.scaled(1.0, 1.0, 1.0)
-                                  ..rotateX(_tiltAngle)
-                                  ..rotateY(0.0)
-                                  ..rotateZ(0.0),
-                                child: AspectRatio(
-                                  aspectRatio: 1 / 2,
+                              child: AspectRatio(
+                                aspectRatio: 1 / 2,
+                                child: Material(
+                                  borderRadius: BorderRadius.circular(18),
+                                  elevation: 4,
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: Theme.of(context).primaryColor,
+                                      color: getCustomColors(context).surface,
                                       border: Border.all(
                                         width: 0.3,
                                         color: getCustomColors(context)
@@ -475,7 +474,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                         // strokeAlign: BorderSide.strokeAlignOutside,
                                       ),
                                       borderRadius: BorderRadius.circular(18),
-                                      boxShadow: kElevationToShadow[3],
+                                      // boxShadow: kElevationToShadow[3],
                                     ),
                                     // padding: const EdgeInsets.all(8.0),
                                     child: ClipRRect(
@@ -553,87 +552,92 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                               },
                               child: AspectRatio(
                                 aspectRatio: 1 / 2,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).primaryColor,
-                                    border: Border.all(
-                                      width: 0.5,
-                                      color:
-                                          getCustomColors(context).hardBorder ??
-                                              Colors.transparent,
-                                      // strokeAlign: BorderSide.strokeAlignOutside,
+                                child: Material(
+                                  borderRadius: BorderRadius.circular(18),
+                                  elevation: 4,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: getCustomColors(context).surface,
+                                      border: Border.all(
+                                        width: 0.5,
+                                        color: getCustomColors(context)
+                                                .hardBorder ??
+                                            Colors.transparent,
+                                        // strokeAlign: BorderSide.strokeAlignOutside,
+                                      ),
+                                      borderRadius: BorderRadius.circular(18),
+                                      // boxShadow: kElevationToShadow[3],
                                     ),
-                                    borderRadius: BorderRadius.circular(18),
-                                    boxShadow: kElevationToShadow[3],
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(18),
-                                    child: Stack(
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.topRight,
-                                          child: Image.asset(
-                                            "assets/details_illustartions/gem_gold_1_cut.png",
-                                            scale: 8,
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment.bottomLeft,
-                                          child: Image.asset(
-                                            "assets/details_illustartions/gem_jade_1_cut.png",
-                                            scale: 9,
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: const Alignment(-1, -0.3),
-                                          child: Image.asset(
-                                            "assets/details_illustartions/heart_pink_1_cut.png",
-                                            scale: 8,
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment.bottomRight,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(16),
-                                            child: AutoSizeText(
-                                              "petPage_Tags".tr(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleLarge,
-                                              textAlign: TextAlign.right,
-                                              maxLines: 1,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(18),
+                                      child: Stack(
+                                        children: [
+                                          Align(
+                                            alignment: Alignment.topRight,
+                                            child: Image.asset(
+                                              "assets/details_illustartions/gem_gold_1_cut.png",
+                                              scale: 8,
                                             ),
                                           ),
-                                        ),
-                                        Align(
-                                          alignment: const Alignment(1, 0.6),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(16),
-                                            child: Row(
-                                              children: [
-                                                const Spacer(
-                                                  flex: 5,
-                                                ),
-                                                widget.showDescriptions
-                                                    ? Expanded(
-                                                        flex: 5,
-                                                        child: Text(
-                                                          "petPage_TagsInfo"
-                                                              .tr(),
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .displaySmall,
-                                                          textAlign:
-                                                              TextAlign.right,
-                                                        ),
-                                                      )
-                                                    : const SizedBox.shrink(),
-                                              ],
+                                          Align(
+                                            alignment: Alignment.bottomLeft,
+                                            child: Image.asset(
+                                              "assets/details_illustartions/gem_jade_1_cut.png",
+                                              scale: 9,
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                          Align(
+                                            alignment:
+                                                const Alignment(-1, -0.3),
+                                            child: Image.asset(
+                                              "assets/details_illustartions/heart_pink_1_cut.png",
+                                              scale: 8,
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.bottomRight,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(16),
+                                              child: AutoSizeText(
+                                                "petPage_Tags".tr(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleLarge,
+                                                textAlign: TextAlign.right,
+                                                maxLines: 1,
+                                              ),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: const Alignment(1, 0.6),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(16),
+                                              child: Row(
+                                                children: [
+                                                  const Spacer(
+                                                    flex: 5,
+                                                  ),
+                                                  widget.showDescriptions
+                                                      ? Expanded(
+                                                          flex: 5,
+                                                          child: Text(
+                                                            "petPage_TagsInfo"
+                                                                .tr(),
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .displaySmall,
+                                                            textAlign:
+                                                                TextAlign.right,
+                                                          ),
+                                                        )
+                                                      : const SizedBox.shrink(),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -653,62 +657,66 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                               },
                               child: AspectRatio(
                                 aspectRatio: 1,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    // color: Theme.of(context).primaryColor,
-                                    color: Colors.yellow,
-                                    border: Border.all(
-                                      width: 0.3,
-                                      color:
-                                          getCustomColors(context).hardBorder ??
-                                              Colors.transparent,
-                                      strokeAlign:
-                                          BorderSide.strokeAlignOutside,
+                                child: Material(
+                                  borderRadius: BorderRadius.circular(18),
+                                  elevation: 4,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      // color: getCustomColors(context).surface,
+                                      color: Colors.yellow,
+                                      border: Border.all(
+                                        width: 0.3,
+                                        color: getCustomColors(context)
+                                                .hardBorder ??
+                                            Colors.transparent,
+                                        strokeAlign:
+                                            BorderSide.strokeAlignOutside,
+                                      ),
+                                      borderRadius: BorderRadius.circular(18),
+                                      // boxShadow: kElevationToShadow[3],
+                                      image: const DecorationImage(
+                                        image: AssetImage(
+                                            "assets/details_illustartions/dog_picture_tmp.png"),
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
-                                    borderRadius: BorderRadius.circular(18),
-                                    boxShadow: kElevationToShadow[3],
-                                    image: const DecorationImage(
-                                      image: AssetImage(
-                                          "assets/details_illustartions/dog_picture_tmp.png"),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(18),
-                                    child: Align(
-                                      alignment: Alignment.bottomLeft,
-                                      child: ClipRRect(
-                                        borderRadius: const BorderRadius.only(
-                                          topRight: Radius.circular(18),
-                                        ),
-                                        child: BackdropFilter(
-                                          filter: ImageFilter.blur(
-                                              sigmaX: 15, sigmaY: 15),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: Theme.of(context)
-                                                  .primaryColor
-                                                  .withOpacity(0.5),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topRight: Radius.circular(18),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(18),
+                                      child: Align(
+                                        alignment: Alignment.bottomLeft,
+                                        child: ClipRRect(
+                                          borderRadius: const BorderRadius.only(
+                                            topRight: Radius.circular(18),
+                                          ),
+                                          child: BackdropFilter(
+                                            filter: ImageFilter.blur(
+                                                sigmaX: 15, sigmaY: 15),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Theme.of(context)
+                                                    .primaryColor
+                                                    .withOpacity(0.5),
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  topRight: Radius.circular(18),
+                                                ),
+                                                // border: Border.all(
+                                                //   width: 0.3,
+                                                //   color: getCustomColors(context)
+                                                //           .hardBorder ??
+                                                //       Colors.transparent,
+                                                //   strokeAlign:
+                                                //       BorderSide.strokeAlignOutside,
+                                                // ),
                                               ),
-                                              // border: Border.all(
-                                              //   width: 0.3,
-                                              //   color: getCustomColors(context)
-                                              //           .hardBorder ??
-                                              //       Colors.transparent,
-                                              //   strokeAlign:
-                                              //       BorderSide.strokeAlignOutside,
-                                              // ),
-                                            ),
-                                            padding: const EdgeInsets.all(16),
-                                            child: AutoSizeText(
-                                              "petPage_Pictures".tr(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleLarge,
-                                              maxLines: 1,
+                                              padding: const EdgeInsets.all(16),
+                                              child: AutoSizeText(
+                                                "petPage_Pictures".tr(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleLarge,
+                                                maxLines: 1,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -742,17 +750,14 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                               ),
                             );
                           },
-                          child: Transform(
-                            alignment: FractionalOffset.center,
-                            transform: perspective.scaled(1.0, 1.0, 1.0)
-                              ..rotateX(_tiltAngle)
-                              ..rotateY(0.0)
-                              ..rotateZ(0.0),
-                            child: AspectRatio(
-                              aspectRatio: 2 / 1,
+                          child: AspectRatio(
+                            aspectRatio: 2 / 1,
+                            child: Material(
+                              borderRadius: BorderRadius.circular(18),
+                              elevation: 4,
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
+                                  color: getCustomColors(context).surface,
                                   border: Border.all(
                                     width: 0.3,
                                     color:
@@ -761,7 +766,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                     // strokeAlign: BorderSide.strokeAlignOutside,
                                   ),
                                   borderRadius: BorderRadius.circular(18),
-                                  boxShadow: kElevationToShadow[3],
+                                  // boxShadow: kElevationToShadow[3],
                                 ),
                                 // padding: const EdgeInsets.all(8.0),
                                 child: Stack(
@@ -825,41 +830,45 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                               },
                               child: AspectRatio(
                                 aspectRatio: 1,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).primaryColor,
-                                    border: Border.all(
-                                      width: 0.3,
-                                      color:
-                                          getCustomColors(context).hardBorder ??
-                                              Colors.transparent,
-                                      // strokeAlign: BorderSide.strokeAlignOutside,
+                                child: Material(
+                                  borderRadius: BorderRadius.circular(18),
+                                  elevation: 4,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: getCustomColors(context).surface,
+                                      border: Border.all(
+                                        width: 0.3,
+                                        color: getCustomColors(context)
+                                                .hardBorder ??
+                                            Colors.transparent,
+                                        // strokeAlign: BorderSide.strokeAlignOutside,
+                                      ),
+                                      borderRadius: BorderRadius.circular(18),
+                                      // boxShadow: kElevationToShadow[3],
                                     ),
-                                    borderRadius: BorderRadius.circular(18),
-                                    boxShadow: kElevationToShadow[3],
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(18),
-                                    child: Stack(
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.bottomLeft,
-                                          child: Image.asset(
-                                            "assets/details_illustartions/description_dog_1.png",
-                                            scale: 1.5,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(18),
+                                      child: Stack(
+                                        children: [
+                                          Align(
+                                            alignment: Alignment.bottomLeft,
+                                            child: Image.asset(
+                                              "assets/details_illustartions/description_dog_1.png",
+                                              scale: 1.5,
+                                            ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: AutoSizeText(
-                                            "petPage_Description".tr(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge,
-                                            maxLines: 1,
+                                          Padding(
+                                            padding: const EdgeInsets.all(16),
+                                            child: AutoSizeText(
+                                              "petPage_Description".tr(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge,
+                                              maxLines: 1,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -879,42 +888,46 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                               },
                               child: AspectRatio(
                                 aspectRatio: 1,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).primaryColor,
-                                    border: Border.all(
-                                      width: 0.3,
-                                      color:
-                                          getCustomColors(context).hardBorder ??
-                                              Colors.transparent,
-                                      // strokeAlign: BorderSide.strokeAlignOutside,
+                                child: Material(
+                                  borderRadius: BorderRadius.circular(18),
+                                  elevation: 4,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: getCustomColors(context).surface,
+                                      border: Border.all(
+                                        width: 0.3,
+                                        color: getCustomColors(context)
+                                                .hardBorder ??
+                                            Colors.transparent,
+                                        // strokeAlign: BorderSide.strokeAlignOutside,
+                                      ),
+                                      borderRadius: BorderRadius.circular(18),
+                                      // boxShadow: kElevationToShadow[3],
                                     ),
-                                    borderRadius: BorderRadius.circular(18),
-                                    boxShadow: kElevationToShadow[3],
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(18),
-                                    child: Stack(
-                                      children: [
-                                        Align(
-                                          alignment:
-                                              const Alignment(-0.95, 0.99),
-                                          child: Image.asset(
-                                            "assets/details_illustartions/documents_cat_1_cut.png",
-                                            scale: 1.4,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(18),
+                                      child: Stack(
+                                        children: [
+                                          Align(
+                                            alignment:
+                                                const Alignment(-0.95, 0.99),
+                                            child: Image.asset(
+                                              "assets/details_illustartions/documents_cat_1_cut.png",
+                                              scale: 1.4,
+                                            ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: AutoSizeText(
-                                            "petPage_Documents".tr(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge,
-                                            maxLines: 1,
+                                          Padding(
+                                            padding: const EdgeInsets.all(16),
+                                            child: AutoSizeText(
+                                              "petPage_Documents".tr(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge,
+                                              maxLines: 1,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -936,15 +949,12 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                           },
                           child: AspectRatio(
                             aspectRatio: 1 / 2 - 8 / 100.w,
-                            child: Transform(
-                              alignment: FractionalOffset.center,
-                              transform: perspective.scaled(1.0, 1.0, 1.0)
-                                ..rotateX(_tiltAngle)
-                                ..rotateY(0.0)
-                                ..rotateZ(0.0),
+                            child: Material(
+                              borderRadius: BorderRadius.circular(18),
+                              elevation: 4,
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
+                                  color: getCustomColors(context).surface,
                                   border: Border.all(
                                     width: 0.5,
                                     color:
@@ -953,7 +963,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                     // strokeAlign: BorderSide.strokeAlignOutside,
                                   ),
                                   borderRadius: BorderRadius.circular(18),
-                                  boxShadow: kElevationToShadow[3],
+                                  // boxShadow: kElevationToShadow[3],
                                 ),
                                 // padding: const EdgeInsets.all(8.0),
                                 child: ClipRRect(

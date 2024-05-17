@@ -50,16 +50,13 @@ class _SignUpNamePageState extends State<SignUpNamePage> {
             },
           ),
           SizedBox(height: 05.h),
-          Padding(
-            padding: const EdgeInsets.only(left: 36, right: 36),
-            child: CustomBigButton(
-              label: "namePageContinueLabel".tr(),
-              onTap: () {
-                if (_formKey.currentState!.validate()) {
-                  widget.onNext.call(_textEditingController.text);
-                }
-              },
-            ),
+          CustomBigButton(
+            label: "namePageContinueLabel".tr(),
+            onTap: () {
+              if (_formKey.currentState!.validate()) {
+                widget.onNext.call(_textEditingController.text);
+              }
+            },
           ),
           SizedBox(height: 05.h),
         ],

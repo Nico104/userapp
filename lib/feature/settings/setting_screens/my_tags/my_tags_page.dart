@@ -12,6 +12,7 @@ import '../../../pets/u_pets.dart';
 import '../../../../general/utils_theme/custom_colors.dart';
 import '../../../tag/utils/u_tag.dart';
 import 'my_tags_list_item.dart';
+import 'my_tags_list_item_tmp.dart';
 
 class MyTagsSettings extends StatefulWidget {
   const MyTagsSettings({super.key});
@@ -25,17 +26,17 @@ class _MyTagsSettingsState extends State<MyTagsSettings> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => const AddTagPage(),
-      //   ),
-      // ).then((value) {
-      //   setState(() {});
-      // });
-      navigateReplacePerSlide(context, const AddTagPage());
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   // Navigator.push(
+    //   //   context,
+    //   //   MaterialPageRoute(
+    //   //     builder: (context) => const AddTagPage(),
+    //   //   ),
+    //   // ).then((value) {
+    //   //   setState(() {});
+    //   // });
+    //   navigateReplacePerSlide(context, const AddTagPage());
+    // });
   }
 
   @override
@@ -58,6 +59,12 @@ class _MyTagsSettingsState extends State<MyTagsSettings> {
             builder: (BuildContext context,
                 AsyncSnapshot<List<List<dynamic>>> snapshot) {
               if (snapshot.hasData) {
+                if (snapshot.data![0].isEmpty) {
+                  // navigateReplacePerSlide(context, const AddTagPage());
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    navigateReplacePerSlide(context, const AddTagPage());
+                  });
+                }
                 List<Tag> tags = snapshot.data?.first as List<Tag>;
                 List<PetProfileDetails> petProfiles =
                     snapshot.data?.last as List<PetProfileDetails>;
@@ -86,6 +93,31 @@ class _MyTagsSettingsState extends State<MyTagsSettings> {
                         },
                       );
                     }
+                  },
+                );
+                return GridView.builder(
+                  itemCount: tags.length,
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    // crossAxisCount: getCrossAxisCount(pictures.length),
+                    crossAxisCount: 2,
+                    childAspectRatio: 5 / 6,
+                  ),
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    PetProfileDetails? petProfileDetails =
+                        getPetAssignedToTag(petProfiles, tags.elementAt(index));
+
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: MyTagListItem(
+                        tag: tags.elementAt(index),
+                        petProfileDetails: petProfileDetails,
+                        reloadTags: () {
+                          setState(() {});
+                        },
+                      ),
+                    );
                   },
                 );
               } else if (snapshot.hasError) {

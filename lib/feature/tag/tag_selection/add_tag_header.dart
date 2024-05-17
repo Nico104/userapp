@@ -45,7 +45,8 @@ class AddNewTagHeader extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
+                      // color: Theme.of(context).primaryColor,
+                      color: getCustomColors(context).surface,
                       border: Border.all(
                         width: 0.5,
                         color: getCustomColors(context).hardBorder ??

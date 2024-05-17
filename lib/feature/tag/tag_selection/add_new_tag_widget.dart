@@ -107,123 +107,127 @@ class _AddFinmaTagHeaderState extends State<AddFinmaTagHeader> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          // padding: const EdgeInsets.fromLTRB(16, 32, 0, 16),
-          padding: const EdgeInsets.fromLTRB(16, 32, 0, 16),
-          child: IntrinsicHeight(
-            child: Row(
-              children: [
-                Expanded(
-                  child: CustomTextFormField(
-                    borderRadius: 48,
-                    showSuffix: false,
-                    expands: true,
-                    errorText: errorText,
-                    textEditingController: _textEditingController,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(
-                        // activationCodeLength + (activationCodeLength / 4).round() - 1,
-                        activationCodeLength,
-                      ),
-                      // CustomFourGroupedInputFormatter(),
-                    ],
-                    labelText: "addTag_ActivationCodeLabel".tr(),
-                    validator: (val) {
-                      if (val != null) {
-                        if (val.length == 16) {
-                          return null;
-                        }
-                      }
-                      return "addTag_ActivationCodeMinLenght".tr();
-                    },
-                    onChanged: (p0) {
-                      EasyDebounce.debounce(
-                        'finmaTagActivationCode',
-                        const Duration(milliseconds: 250),
-                        () {
-                          if (mounted) {
-                            setState(() {});
-                          }
-                        },
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(width: 16),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const TagScanner()),
-                    ).then((value) async {
-                      if (value != null) {
-                        //-Idcode last symbols in link
-                        String tagId = value.substring(value.length - 12);
-                        Tag tag = await getTag(tagId);
-                        _checkCode(tag.activationCode, true);
-                      }
-                    });
-                  },
-                  child: Material(
-                    elevation: 2,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(48),
-                      topRight: Radius.circular(0),
-                      bottomLeft: Radius.circular(48),
-                      bottomRight: Radius.circular(0),
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(48),
-                          topRight: Radius.circular(0),
-                          bottomLeft: Radius.circular(48),
-                          bottomRight: Radius.circular(0),
+    return Form(
+      key: _formKey,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            // padding: const EdgeInsets.fromLTRB(16, 32, 0, 16),
+            padding: const EdgeInsets.fromLTRB(16, 32, 0, 16),
+            child: IntrinsicHeight(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: CustomTextFormField(
+                      borderRadius: 48,
+                      showSuffix: false,
+                      expands: true,
+                      errorText: errorText,
+                      textEditingController: _textEditingController,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(
+                          // activationCodeLength + (activationCodeLength / 4).round() - 1,
+                          activationCodeLength,
                         ),
-                        color: getCustomColors(context).accent,
+                        // CustomFourGroupedInputFormatter(),
+                      ],
+                      labelText: "addTag_ActivationCodeLabel".tr(),
+                      validator: (val) {
+                        if (val != null) {
+                          if (val.length == 16) {
+                            return null;
+                          }
+                        }
+                        return "addTag_ActivationCodeMinLenght".tr();
+                      },
+                      onChanged: (p0) {
+                        EasyDebounce.debounce(
+                          'finmaTagActivationCode',
+                          const Duration(milliseconds: 250),
+                          () {
+                            if (mounted) {
+                              setState(() {});
+                            }
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const TagScanner()),
+                      ).then((value) async {
+                        if (value != null) {
+                          //-Idcode last symbols in link
+                          String tagId = value.substring(value.length - 12);
+                          Tag tag = await getTag(tagId);
+                          _checkCode(tag.activationCode, true);
+                        }
+                      });
+                    },
+                    child: Material(
+                      elevation: 2,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(48),
+                        topRight: Radius.circular(0),
+                        bottomLeft: Radius.circular(48),
+                        bottomRight: Radius.circular(0),
                       ),
-                      padding: const EdgeInsets.all(24),
-                      child: const Icon(
-                        CustomIcons.qr_code_9,
-                        size: 22,
-                        color: Colors.white,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(48),
+                            topRight: Radius.circular(0),
+                            bottomLeft: Radius.circular(48),
+                            bottomRight: Radius.circular(0),
+                          ),
+                          color: getCustomColors(context).accent,
+                        ),
+                        padding: const EdgeInsets.all(24),
+                        child: const Icon(
+                          CustomIcons.qr_code_9,
+                          size: 22,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-        _textEditingController.text.length != 16
-            ? Padding(
-                padding: EdgeInsets.all(32),
-                child: Text(
-                  widget.subtitle,
-                  style: Theme.of(context).textTheme.labelSmall,
-                  textAlign: TextAlign.center,
-                ),
-              )
-            : Padding(
-                padding: const EdgeInsets.all(32),
-                child: CustomBigButton(
-                  label: "addTag_ButtonLabel".tr(),
-                  onTap: () {
-                    if (_formKey.currentState!.validate()) {
-                      setState(() {
-                        errorText = null;
-                      });
+          _textEditingController.text.length != 16
+              ? Padding(
+                  padding: EdgeInsets.all(32),
+                  child: Text(
+                    widget.subtitle,
+                    style: Theme.of(context).textTheme.labelSmall,
+                    textAlign: TextAlign.center,
+                  ),
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: CustomBigButton(
+                    label: "addTag_ButtonLabel".tr(),
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        setState(() {
+                          errorText = null;
+                        });
 
-                      _checkCode(_textEditingController.text, false);
-                    }
-                  },
-                ),
-              )
-      ],
+                        _checkCode(_textEditingController.text, false);
+                      }
+                    },
+                  ),
+                )
+        ],
+      ),
     );
   }
 }
+// cDHKPzkaRtwxnOdE

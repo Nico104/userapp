@@ -228,7 +228,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   borderSide: BorderSide(
                     color: getCustomColors(context).hardBorder ??
                         Colors.transparent,
-                    width: (theme.getTheme().brightness == Brightness.dark)
+                    width: (theme.getTheme()?.brightness == Brightness.dark)
                         ? 1.5
                         : 1,
                   ),

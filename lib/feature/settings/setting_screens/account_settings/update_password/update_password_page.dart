@@ -166,17 +166,14 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                 },
               ),
               SizedBox(height: 05.h),
-              Padding(
-                padding: const EdgeInsets.only(left: 36, right: 36),
-                child: CustomBigButton(
-                  label: "updatePasswordChangePasswordLabel".tr(),
-                  onTap: () {
-                    if (_formKey.currentState!.validate()) {
-                      // Navigator.pop(context);
-                      _updatePassword();
-                    }
-                  },
-                ),
+              CustomBigButton(
+                label: "updatePasswordChangePasswordLabel".tr(),
+                onTap: () {
+                  if (_formKey.currentState!.validate()) {
+                    // Navigator.pop(context);
+                    _updatePassword();
+                  }
+                },
               ),
               const Spacer(flex: 14),
             ],

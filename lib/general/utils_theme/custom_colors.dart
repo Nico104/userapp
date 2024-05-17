@@ -8,7 +8,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
     @required this.accentHighContrast,
     @required this.lightBorder,
     @required this.hardBorder,
-    @required this.shadow,
+    @required this.surface,
     @required this.lightShadow,
     @required this.secondaryAccent,
     @required this.error,
@@ -26,7 +26,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
   final Color? accentHighContrast;
   final Color? lightBorder;
   final Color? hardBorder;
-  final Color? shadow;
+  final Color? surface;
   final Color? lightShadow;
   final Color? secondaryAccent;
 
@@ -68,7 +68,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
       accentHighContrast: accent ?? this.accentHighContrast,
       lightBorder: lightBorder ?? this.lightBorder,
       hardBorder: hardBorder ?? this.hardBorder,
-      shadow: shadow ?? this.shadow,
+      surface: shadow ?? this.surface,
       lightShadow: lightShadow ?? this.lightShadow,
       genderButtonEnabledMale:
           genderButtonEnabledMale ?? this.genderButtonEnabledMale,
@@ -118,9 +118,9 @@ class CustomColors extends ThemeExtension<CustomColors> {
         other.hardBorder,
         t,
       ),
-      shadow: Color.lerp(
-        shadow,
-        other.shadow,
+      surface: Color.lerp(
+        surface,
+        other.surface,
         t,
       ),
       lightShadow: Color.lerp(

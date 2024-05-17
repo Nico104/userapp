@@ -1,3 +1,5 @@
+// import 'dart:js';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +39,12 @@ void main() async {
   // FlutterNativeSplash.removeAfter(initialization);
   FlutterNativeSplash.remove();
 
+  final runnableApp = _buildRunnableApp(
+    isWeb: kIsWeb,
+    webAppWidth: 780,
+    app: const MyApp(),
+  );
+
   runApp(
     EasyLocalization(
       supportedLocales: const [
@@ -49,6 +57,7 @@ void main() async {
       ],
       path:
           'assets/translations', // <-- change the path of the translation files
+      // startLocale: ,
       fallbackLocale: const Locale('en'),
       child: MultiProvider(
         providers: [
@@ -57,7 +66,27 @@ void main() async {
           ChangeNotifierProvider<ThemeNotifier>(create: (_) => ThemeNotifier()),
           // ChangeNotifierProvider<UploadStatus>(create: (_) => UploadStatus())
         ],
-        child: const MyApp(),
+        // child: const MyApp(),
+        child: runnableApp,
+      ),
+    ),
+  );
+}
+
+Widget _buildRunnableApp({
+  required bool isWeb,
+  required double webAppWidth,
+  required Widget app,
+}) {
+  if (!isWeb) {
+    return app;
+  }
+
+  return Center(
+    child: ClipRect(
+      child: SizedBox(
+        width: webAppWidth,
+        child: app,
       ),
     ),
   );

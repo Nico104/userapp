@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_tag.dart';
 import 'package:userapp/feature/tag/tag_single.dart';
+import 'package:userapp/general/utils_theme/custom_colors.dart';
 
 import '../../../pets/profile_details/c_pet_name.dart';
 import '../../../pets/profile_details/d_confirm_delete.dart';
@@ -114,13 +115,14 @@ class _MyTagListItemState extends State<MyTagListItem> {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Material(
-        elevation: 4,
+        elevation: 2,
         borderRadius: BorderRadius.circular(_borderRadius),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(_borderRadius),
+            color: getCustomColors(context).surface,
           ),
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(22),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

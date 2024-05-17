@@ -1,9 +1,11 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:userapp/feature/my_pets/my_pets_navbar/quick_menu.dart';
 import 'package:userapp/feature/pets/profile_details/contact/contacts_all_list_page.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
+import '../../../general/utils_theme/theme_provider.dart';
 import '../../../general/widgets/future_error_widget.dart';
 import '../../auth/u_auth.dart';
 import '../../notifications/notifications_icon_widget.dart';
@@ -53,24 +55,6 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
                 "${snapshot.data}",
                 style: getCustomTextStyles(context).homeWelcomeUser,
               );
-              // return AnimatedTextKit(
-              //   animatedTexts: [
-              //     TypewriterAnimatedText(
-              //       'Friend',
-              //       textStyle: getCustomTextStyles(context).homeWelcomeUser,
-              //       speed: const Duration(milliseconds: 175),
-              //     ),
-              //     TypewriterAnimatedText(
-              //       "${snapshot.data}",
-              //       textStyle: getCustomTextStyles(context).homeWelcomeUser,
-              //       speed: const Duration(milliseconds: 175),
-              //     ),
-              //   ],
-              //   totalRepeatCount: 1,
-              //   pause: const Duration(milliseconds: 500),
-              //   displayFullTextOnTap: true,
-              //   stopPauseOnTap: true,
-              // );
             } else if (snapshot.hasError) {
               print(snapshot);
               WidgetsBinding.instance
@@ -98,65 +82,38 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
 
   void initTiteSwitch() async {
     await Future.delayed(const Duration(seconds: 12));
-    // title = const SizedBox.shrink();
-    // if (mounted) {
-    //   setState(() {});
-    // }
-    // await Future.delayed(_duration);
-    title = Wrap(
-      alignment: WrapAlignment.start,
-      // crossAxisAlignment: CrossAxisAlignment.start,
-      // mainAxisSize: MainAxisSize.min,
-      children: [
-        // AnimatedTextKit(
-        //   animatedTexts: [
-        //     TypewriterAnimatedText(
-        //       'My ',
-        //       textStyle: getCustomTextStyles(context).homeWelcomeMessage,
-        //       speed: const Duration(milliseconds: 350),
-        //     ),
-        //   ],
-        //   totalRepeatCount: 1,
-        //   pause: const Duration(seconds: 10),
-        //   displayFullTextOnTap: true,
-        //   stopPauseOnTap: true,
-        // ),
-        Text(
-          "myPetsTitleMy".tr() + " ",
-          // style: TextStyle(
-          //   fontFamily: 'Promt',
-          //   fontWeight: FontWeight.w300,
-          //   fontSize: 22,
-          //   color: Colors.black.withOpacity(0.7),
-          // ),
-          style: getCustomTextStyles(context).homeWelcomeMessage,
-        ),
-        // SizedBox(height: 4),
-        // AnimatedTextKit(
-        //   animatedTexts: [
-        //     TypewriterAnimatedText(
-        //       'Pets',
-        //       textStyle: getCustomTextStyles(context).homeWelcomeUser,
-        //       speed: const Duration(milliseconds: 350),
-        //     ),
-        //   ],
-        //   totalRepeatCount: 1,
-        //   pause: const Duration(seconds: 10),
-        //   displayFullTextOnTap: true,
-        //   stopPauseOnTap: true,
-        // ),
-        Text(
-          "myPetsTitlePets".tr(),
-          // style: TextStyle(
-          //   fontFamily: 'Promt',
-          //   fontWeight: FontWeight.w600,
-          //   fontSize: 22,
-          //   color: Colors.black.withOpacity(1),
-          // ),
-          style: getCustomTextStyles(context).homeWelcomeUser,
-        ),
-      ],
+
+    title = Consumer<ThemeNotifier>(
+      builder: (context, theme, _) {
+        return Wrap(
+          alignment: WrapAlignment.start,
+          children: [
+            Text(
+              "myPetsTitleMy".tr() + " ",
+              style: getCustomTextStyles(context).homeWelcomeMessage,
+            ),
+            Text(
+              "myPetsTitlePets".tr(),
+              style: getCustomTextStyles(context).homeWelcomeUser,
+            ),
+          ],
+        );
+      },
     );
+
+    // title = Wrap(
+    //   alignment: WrapAlignment.start,
+    //   children: [
+    //     Text(
+    //       "myPetsTitleMy".tr() + " ",
+    //       style: getCustomTextStyles(context).homeWelcomeMessage,
+    //     ),
+    //     Text(
+    //       "myPetsTitlePets".tr(),
+    //       style: getCustomTextStyles(context).homeWelcomeUser,
+    //     ),
+    //   ],
+    // );
     if (mounted) {
       setState(() {});
     }
@@ -174,47 +131,11 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
           child: Align(
             alignment: Alignment.centerLeft,
             child: GestureDetector(
-              onTap: () {
-                // Navigator.of(context).push(
-                //   PageRouteBuilder(
-                //     opaque: false,
-                //     barrierDismissible: true,
-                //     pageBuilder: (BuildContext context, _, __) {
-                //       return const QuickMenu(
-                //         heroTag: "quickMenu",
-                //       );
-                //     },
-                //   ),
-                // );
-              },
+              onTap: () {},
               child: AnimatedSwitcher(
                 duration: _duration,
                 child: title ?? getWelcomeTitle(),
               ),
-              // child: AnimatedTextKit(
-              //   animatedTexts: [
-              //     TypewriterAnimatedText(
-              //       'Welcome Pupu!',
-              //       textStyle: const TextStyle(
-              //         fontSize: 24,
-              //         fontWeight: FontWeight.bold,
-              //       ),
-              //       speed: const Duration(milliseconds: 200),
-              //     ),
-              //     TypewriterAnimatedText(
-              //       'My Pets',
-              //       textStyle: const TextStyle(
-              //         fontSize: 24,
-              //         fontWeight: FontWeight.bold,
-              //       ),
-              //       speed: const Duration(milliseconds: 350),
-              //     ),
-              //   ],
-              //   totalRepeatCount: 1,
-              //   pause: const Duration(seconds: 10),
-              //   displayFullTextOnTap: true,
-              //   stopPauseOnTap: true,
-              // ),
             ),
           ),
         ),
@@ -226,21 +147,6 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
           ),
         ),
         const SizedBox(width: 16),
-        // GestureDetector(
-        //   onTap: () {
-        //     navigatePerSlide(
-        //       context,
-        //       const AllContactsPage(),
-        //       //? callback needed?
-        //       callback: () => widget.reloadFuture(),
-        //     );
-        //   },
-        //   child: const Icon(
-        //     Icons.people_outline_rounded,
-        //     size: 28,
-        //   ),
-        // ),
-        // const SizedBox(width: 16),
         GestureDetector(
           onTap: () {
             navigatePerSlide(

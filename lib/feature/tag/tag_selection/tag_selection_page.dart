@@ -31,17 +31,17 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => const AddTagPage(),
-      //   ),
-      // ).then((value) {
-      //   setState(() {});
-      // });
-      navigateReplacePerSlide(context, const AddTagPage());
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   // Navigator.push(
+    //   //   context,
+    //   //   MaterialPageRoute(
+    //   //     builder: (context) => const AddTagPage(),
+    //   //   ),
+    //   // ).then((value) {
+    //   //   setState(() {});
+    //   // });
+    //   navigateReplacePerSlide(context, const AddTagPage());
+    // });
   }
 
   @override

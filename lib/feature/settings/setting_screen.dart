@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart'
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:userapp/feature/onboarding/onboarding_page.dart';
 import 'package:userapp/feature/settings/setting_screens/theme_settings/theme_selection_page.dart';
 import 'package:userapp/feature/settings/setting_screens/contact_us/contact_us.dart';
 import 'package:userapp/feature/settings/setting_screens/notifcation_settings/notification_settings.dart';
@@ -20,7 +21,7 @@ import '../pets/profile_details/g_profile_detail_globals.dart';
 import '../pets/profile_details/models/m_pet_profile.dart';
 import 'setting_screens/account_settings/account_settings.dart';
 import 'setting_screens/my_tags/my_tags_page.dart';
-import 'widgets/settings_widgets.dart';
+import 'utils/widgets/settings_widgets.dart';
 
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -104,7 +105,7 @@ class _SettingsState extends State<Settings> {
                           onTap: () {
                             navigatePerSlide(
                               context,
-                              const NotificationSettings(),
+                              const NotificationSettingsPage(),
                             );
                           },
                         ),
@@ -171,6 +172,18 @@ class _SettingsState extends State<Settings> {
                         ),
                         const SizedBox(height: settingItemSpacing),
                         SettingsItem(
+                          label: "Welcome Page".tr(),
+                          leading: Icon(Icons.light),
+                          suffix: Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            navigatePerSlide(
+                              context,
+                              const OnBoarding(),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: settingItemSpacing),
+                        SettingsItem(
                           label: "settingsItemHowToUse".tr(),
                           leading: Icon(Icons.lightbulb_outline),
                           suffix: Icon(Icons.keyboard_arrow_right),
@@ -199,12 +212,12 @@ class _SettingsState extends State<Settings> {
                           label: "settingsItemGoShop".tr(),
                           leading: Icon(CustomIcons.shopping_bag_8),
                           suffix: Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
+                          onTap: () async {
                             // navigatePerSlide(
                             //   context,
                             //   const ComingSoonPage(title: "Shop"),
                             // );
-                            launchUrl(Uri.parse("finmapet.com"),
+                            await launchUrl(Uri.parse("http://finmapet.com"),
                                 mode: LaunchMode.externalApplication);
                           },
                         ),
@@ -253,12 +266,12 @@ class _SettingsState extends State<Settings> {
                           label: "settingsItemFAQ".tr(),
                           leading: Icon(Icons.question_answer_outlined),
                           suffix: Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
+                          onTap: () async {
                             // navigatePerSlide(
                             //   context,
                             //   const ComingSoonPage(title: "FAQ"),
                             // );
-                            launchUrl(Uri.parse("finmapet.com"),
+                            await launchUrl(Uri.parse("http://finmapet.com"),
                                 mode: LaunchMode.externalApplication);
                           },
                         ),
@@ -267,12 +280,12 @@ class _SettingsState extends State<Settings> {
                           label: "settingsItemPrivacy".tr(),
                           leading: Icon(Icons.privacy_tip_outlined),
                           suffix: Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
+                          onTap: () async {
                             // navigatePerSlide(
                             //   context,
                             //   const ComingSoonPage(title: "Privacy"),
                             // );
-                            launchUrl(Uri.parse("finmapet.com"),
+                            await launchUrl(Uri.parse("http://finmapet.com"),
                                 mode: LaunchMode.externalApplication);
                           },
                         ),
@@ -281,12 +294,12 @@ class _SettingsState extends State<Settings> {
                           label: "settingsItemAbout".tr(),
                           leading: Icon(Icons.question_mark),
                           suffix: Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
+                          onTap: () async {
                             // navigatePerSlide(
                             //   context,
                             //   const ComingSoonPage(title: "About"),
                             // );
-                            launchUrl(Uri.parse("finmapet.com"),
+                            await launchUrl(Uri.parse("http://finmapet.com"),
                                 mode: LaunchMode.externalApplication);
                           },
                         ),

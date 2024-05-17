@@ -36,6 +36,7 @@ final ThemeData constLightTheme = ThemeData(
   // colorScheme: ColorScheme.fromSwatch().copyWith(secondary: HexColor("FF6B6B")),
   // primaryColorLight: ,
   primaryColorDark: HexColor("f3f3f3"),
+
   //Used for Scaffold BG e.p.
   canvasColor: Colors.white,
   dividerTheme: const DividerThemeData(
@@ -167,13 +168,14 @@ final ThemeData constLightTheme = ThemeData(
       authRegisterNowAction: const TextStyle(),
     ),
     CustomColors(
-      accent: HexColor("#4169E1"),
+      // accent: HexColor("#4169E1"),
+      accent: HexColor("#8A7861"),
       accentLessContrast: HexColor("5478e4"),
       accentHighContrast: HexColor("3a5eca"),
       lightBorder: Colors.black.withOpacity(0.16),
       hardBorder: Colors.black,
       //Free
-      shadow: Colors.black.withOpacity(0.16),
+      surface: Colors.white,
       //Free
       lightShadow: Colors.black.withOpacity(0.04),
       secondaryAccent: HexColor("e14169"),
@@ -331,8 +333,9 @@ final ThemeData constDarkTheme = ThemeData(
       accentLessContrast: HexColor("3a5eca"),
       accentHighContrast: HexColor("5478e4"),
       lightBorder: Colors.white.withOpacity(0.16),
-      hardBorder: Colors.white,
-      shadow: Colors.white.withOpacity(0),
+      // hardBorder: Colors.white,
+      hardBorder: Colors.white.withOpacity(0),
+      surface: HexColor("1a1a1a"),
       lightShadow: Colors.white.withOpacity(0),
       secondaryAccent: HexColor("e1b941"),
       error: HexColor("CF6679"),

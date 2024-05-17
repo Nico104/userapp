@@ -7,7 +7,7 @@ import 'package:userapp/feature/settings/setting_screens/account_settings/update
 import '../../../../general/utils_general.dart';
 import '../../../../general/widgets/future_error_widget.dart';
 import '../../../../general/widgets/loading_indicator.dart';
-import '../../widgets/settings_widgets.dart';
+import '../../utils/widgets/settings_widgets.dart';
 import 'delete_account/delete_account_page.dart';
 import 'update_password/update_password_page.dart';
 

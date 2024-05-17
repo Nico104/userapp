@@ -97,16 +97,13 @@ class _SignUpPasswordPageState extends State<SignUpPasswordPage> {
             },
           ),
           SizedBox(height: 05.h),
-          Padding(
-            padding: const EdgeInsets.only(left: 36, right: 36),
-            child: CustomBigButton(
-              label: "passwordPageButtonLabel".tr(),
-              onTap: () {
-                if (_formKey.currentState!.validate()) {
-                  widget.onNext.call(password);
-                }
-              },
-            ),
+          CustomBigButton(
+            label: "passwordPageButtonLabel".tr(),
+            onTap: () {
+              if (_formKey.currentState!.validate()) {
+                widget.onNext.call(password);
+              }
+            },
           ),
           const Spacer(flex: 9),
         ],

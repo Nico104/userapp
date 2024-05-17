@@ -62,7 +62,7 @@ class _PetsLoadingState extends State<PetsLoading> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 16),
-                    child: Text('Awaiting result...'),
+                    child: Text('Loading your pets...'),
                   ),
                 ],
               ),

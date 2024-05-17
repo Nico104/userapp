@@ -106,14 +106,14 @@ class _PetPictureExpandedState extends State<PetPictureExpanded> {
             child: Hero(
               tag: "picture${widget.picture.petPictureId}",
               child: Material(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(22),
                 elevation: 8,
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
                     maxWidth: 80.w,
-                    minWidth: 40.w,
+                    minWidth: 5.w,
                     maxHeight: 50.h,
-                    minHeight: 20.h,
+                    minHeight: 5.h,
                   ),
                   child: Stack(
                     children: [
@@ -121,7 +121,7 @@ class _PetPictureExpandedState extends State<PetPictureExpanded> {
                         borderRadius: BorderRadius.circular(22),
                         child: Image.network(
                           s3BaseUrl + widget.picture.petPictureLink,
-                          fit: BoxFit.contain,
+                          // 'fit: BoxFit.contain,
                         ),
                       ),
                       GestureDetector(

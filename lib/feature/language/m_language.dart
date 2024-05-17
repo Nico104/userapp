@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:userapp/feature/pets/profile_details/g_profile_detail_globals.dart';
 
 class Language {
@@ -25,6 +27,10 @@ class Language {
         // languagePrefix = json['language_country_prefix'],
         languageIsAvailableForAppTranslation =
             json['language_isAvailableForAppTranslation'];
+}
+
+String getDeviceLanguage() {
+  return window.locale.languageCode;
 }
 
 bool listContainsLanguage(List<Language> list, Language language) {

@@ -132,17 +132,22 @@ class SocialMediaContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 60,
-      width: 80,
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
-        border: Border.all(
-          width: 1,
-          color: getCustomColors(context).lightBorder ?? Colors.transparent,
+    return Material(
+      borderRadius: BorderRadius.circular(8),
+      elevation: 4,
+      child: Container(
+        height: 60,
+        width: 80,
+        decoration: BoxDecoration(
+          // color: Theme.of(context).primaryColor,
+          color: getCustomColors(context).surface,
+          border: Border.all(
+            width: 1,
+            color: getCustomColors(context).lightBorder ?? Colors.transparent,
+          ),
+          borderRadius: BorderRadius.circular(8),
+          // boxShadow: kElevationToShadow[4],
         ),
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: kElevationToShadow[4],
       ),
     );
   }

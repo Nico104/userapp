@@ -9,7 +9,7 @@ class ThemeNotifier with ChangeNotifier {
   final lightTheme = constLightTheme;
   final highContrast = constDarkTheme;
 
-  late ThemeData _themeData;
+  ThemeData? _themeData;
 
   ThemeNotifier() {
     StorageManager.readData('themeMode').then(
@@ -28,7 +28,7 @@ class ThemeNotifier with ChangeNotifier {
   }
 
   ///Returns the current active Theme
-  ThemeData getTheme() => _themeData;
+  ThemeData? getTheme() => _themeData;
 
   ///Sets the current active theme to dark mode
 

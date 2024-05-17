@@ -121,22 +121,19 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
           },
         ),
         SizedBox(height: 05.h),
-        Padding(
-          padding: const EdgeInsets.only(left: 36, right: 36),
-          child: CustomBigButton(
-            label: "verificationPageButtonLabel".tr(),
-            onTap: () {
-              if (currentText.length != 6) {
-                print("not complete");
-                errorController?.add(ErrorAnimationType.shake);
-                setState(() {
-                  hasError = true;
-                });
-              } else {
-                checkVerificationCode(currentText);
-              }
-            },
-          ),
+        CustomBigButton(
+          label: "verificationPageButtonLabel".tr(),
+          onTap: () {
+            if (currentText.length != 6) {
+              print("not complete");
+              errorController?.add(ErrorAnimationType.shake);
+              setState(() {
+                hasError = true;
+              });
+            } else {
+              checkVerificationCode(currentText);
+            }
+          },
         ),
         const Spacer(
           flex: 3,

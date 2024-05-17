@@ -5,9 +5,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/auth/sign_up_screen/sign_up_screen.dart';
 import 'package:userapp/feature/pets/profile_details/g_profile_detail_globals.dart';
+import 'package:userapp/general/utils_general.dart';
 import 'feature/auth/login_screen.dart';
 import 'feature/auth/u_auth.dart';
 import 'feature/language/country_selector.dart';
+import 'feature/onboarding/onboarding_page.dart';
 import 'feature/pets/pets_loading.dart';
 import 'general/widgets/future_error_widget.dart';
 import 'general/widgets/loading_indicator.dart';
@@ -67,11 +69,11 @@ class _InitAppState extends State<InitApp> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text("Notification"),
+              title: const Text("Notification"),
               content: Text(event.notification!.body!),
               actions: [
                 TextButton(
-                  child: Text("Ok"),
+                  child: const Text("Ok"),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -122,13 +124,19 @@ class _InitAppState extends State<InitApp> {
     //Messaging
     _initMessaging();
 
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   loginWithSavedCredentials().then((value) {
-    //     if (value) {
-    //       reloadInitApp.call();
-    //     }
-    //   });
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getSeenOnboarding().then((value) {
+        if (!value) {
+          navigatePerSlide(
+            context,
+            const OnBoarding(),
+            callback: () async {
+              await setSeenOnboarding(true);
+            },
+          );
+        }
+      });
+    });
   }
 
   @override
@@ -145,11 +153,11 @@ class _InitAppState extends State<InitApp> {
             //TODO refresh Token...just saying
             return const PetsLoading();
           } else if ((snapshot.data[1] as bool)) {
-            return LoginScreen(
+            return const LoginScreen(
                 // reloadInitApp: () => reloadInitApp(),
                 );
           } else {
-            return SignUpScreen(
+            return const SignUpScreen(
                 // reloadInitApp: () => reloadInitApp(),
                 );
           }
@@ -158,7 +166,7 @@ class _InitAppState extends State<InitApp> {
           WidgetsBinding.instance.addPostFrameCallback((_) => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => FutureErrorWidget(),
+                  builder: (context) => const FutureErrorWidget(),
                 ),
               ).then((value) => setState(
                     () {},
@@ -166,20 +174,18 @@ class _InitAppState extends State<InitApp> {
           return const SizedBox.shrink();
         } else {
           //Loading
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                SizedBox(
-                  width: 60,
-                  height: 60,
-                  child: CustomLoadingIndicatior(),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 16),
-                  child: Text('Awaiting User Data...'),
-                ),
-              ],
+          return Scaffold(
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  SizedBox(
+                    width: 70,
+                    height: 70,
+                    child: CustomLoadingIndicatior(),
+                  ),
+                ],
+              ),
             ),
           );
         }

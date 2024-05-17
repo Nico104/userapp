@@ -71,16 +71,13 @@ class _UpdateNamePageState extends State<UpdateNamePage> {
                 },
               ),
               SizedBox(height: 05.h),
-              Padding(
-                padding: const EdgeInsets.only(left: 36, right: 36),
-                child: CustomBigButton(
-                  label: "settingsAccountUpdateNameSave".tr(),
-                  onTap: () {
-                    if (_formKey.currentState!.validate()) {
-                      _updateName();
-                    }
-                  },
-                ),
+              CustomBigButton(
+                label: "settingsAccountUpdateNameSave".tr(),
+                onTap: () {
+                  if (_formKey.currentState!.validate()) {
+                    _updateName();
+                  }
+                },
               ),
             ],
           ),

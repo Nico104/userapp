@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/general/utils_color/hex_color.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
 
 const double settingItemSpacing = 16;
@@ -72,20 +73,27 @@ class SettingsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(22),
-      margin: const EdgeInsets.fromLTRB(28, 16, 28, 16),
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
-        border: Border.all(
-          width: 0.5,
-          color: getCustomColors(context).hardBorder ?? Colors.transparent,
-          // strokeAlign: BorderSide.strokeAlignOutside,
-        ),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(28, 16, 28, 16),
+      child: Material(
         borderRadius: BorderRadius.circular(18),
-        boxShadow: kElevationToShadow[3],
+        elevation: 4,
+        child: Container(
+          padding: const EdgeInsets.all(22),
+          decoration: BoxDecoration(
+            // color: Theme.of(context).primaryColor,
+            color: getCustomColors(context).surface,
+            border: Border.all(
+              width: 0.5,
+              color: getCustomColors(context).hardBorder ?? Colors.transparent,
+              // strokeAlign: BorderSide.strokeAlignOutside,
+            ),
+            borderRadius: BorderRadius.circular(18),
+            // boxShadow: kElevationToShadow[3],
+          ),
+          child: child,
+        ),
       ),
-      child: child,
     );
   }
 }

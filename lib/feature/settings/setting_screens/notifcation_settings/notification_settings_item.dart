@@ -1,30 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
 
-class NotificationSettingsItem extends StatefulWidget {
+class NotificationSettingsItem extends StatelessWidget {
   const NotificationSettingsItem({
     super.key,
     required this.label,
     this.description,
+    required this.value,
+    required this.setValue,
   });
 
   final String label;
   final String? description;
 
-  @override
-  State<NotificationSettingsItem> createState() =>
-      _NotificationSettingsItemState();
-}
-
-class _NotificationSettingsItemState extends State<NotificationSettingsItem> {
-  late bool _value;
-
-  @override
-  void initState() {
-    super.initState();
-    //TODO get current Setting
-    _value = true;
-  }
+  final bool value;
+  final Function(bool) setValue;
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +28,13 @@ class _NotificationSettingsItemState extends State<NotificationSettingsItem> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                widget.label,
+                label,
                 style: Theme.of(context).textTheme.labelMedium,
               ),
-              widget.description != null
+              description != null
                   ? Flexible(
                       child: Text(
-                        widget.description ?? "",
+                        description ?? "",
                         style: Theme.of(context).textTheme.labelSmall,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -58,13 +48,14 @@ class _NotificationSettingsItemState extends State<NotificationSettingsItem> {
         Theme(
           data: Theme.of(context).copyWith(useMaterial3: true),
           child: Switch(
-            value: _value,
+            value: value,
             activeColor: getCustomColors(context).accentHighContrast,
             inactiveTrackColor: getCustomColors(context).lightBorder,
             onChanged: (bool value) {
-              setState(() {
-                _value = value;
-              });
+              // setState(() {
+              //   widget.value = value;
+              // });
+              setValue(value);
             },
           ),
         ),
