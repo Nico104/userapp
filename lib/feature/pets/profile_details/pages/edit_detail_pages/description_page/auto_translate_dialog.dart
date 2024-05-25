@@ -102,7 +102,7 @@ class _AutoTranslateDialogState extends State<AutoTranslateDialog> {
                                   },
                                   child: Row(
                                     children: [
-                                      Spacer(flex: 1),
+                                      const Spacer(flex: 1),
                                       Expanded(
                                         flex: 5,
                                         child: AspectRatio(
@@ -117,7 +117,7 @@ class _AutoTranslateDialogState extends State<AutoTranslateDialog> {
                                           ),
                                         ),
                                       ),
-                                      Spacer(flex: 10),
+                                      const Spacer(flex: 10),
                                       Text(
                                         languages
                                             .elementAt(index)
@@ -127,7 +127,7 @@ class _AutoTranslateDialogState extends State<AutoTranslateDialog> {
                                             .titleMedium,
                                         textAlign: TextAlign.left,
                                       ),
-                                      Spacer(flex: 1),
+                                      const Spacer(flex: 1),
                                     ],
                                   ),
                                 ),

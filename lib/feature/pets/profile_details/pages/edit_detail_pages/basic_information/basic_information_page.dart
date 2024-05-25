@@ -1,10 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
-import 'package:userapp/feature/pets/profile_details/c_component_title.dart';
+import 'package:userapp/feature/pets/profile_details/c_multi_line_simple_input.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_behaviour_information.dart';
-import 'package:userapp/general/utils_color/hex_color.dart';
+import 'package:userapp/general/widgets/auto_save_info.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
 import '../../../../../../general/widgets/future_error_widget.dart';
@@ -14,7 +13,6 @@ import '../../../c_pet_gender.dart';
 import '../../../models/m_pet_profile.dart';
 import '../../../u_profile_details.dart';
 import '../../../widgets/multi_options_button.dart';
-import '../../../widgets/two_options_button.dart';
 
 class BasicInformationPage extends StatefulWidget {
   const BasicInformationPage({
@@ -78,6 +76,32 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
               ),
             ),
             PaddingComponent(
+              child: OnelineSimpleInput(
+                flex: 7,
+                value: widget.petProfileDetails.petChipId ?? "",
+                emptyValuePlaceholder:
+                    "basicInformationPage_licensenumbers".tr(),
+                title: "basicInformationPage_licensenumbers".tr(),
+                saveValue: (val) async {
+                  widget.petProfileDetails.pet_licenceID = val;
+                  updatePetProfileCore(widget.petProfileDetails);
+                },
+              ),
+            ),
+            PaddingComponent(
+              child: OnelineSimpleInput(
+                flex: 7,
+                value: widget.petProfileDetails.petChipId ?? "",
+                emptyValuePlaceholder: "basicInformationPage_tattooID".tr(),
+                title: "basicInformationPage_tattooID".tr(),
+                saveValue: (val) async {
+                  widget.petProfileDetails.pet_tattooID = val;
+                  updatePetProfileCore(widget.petProfileDetails);
+                },
+              ),
+            ),
+
+            PaddingComponent(
               child: PetGenderComponent(
                 gender: _gender,
                 setGender: (value) {
@@ -89,12 +113,12 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
               ),
             ),
             Padding(
+              padding: const EdgeInsets.all(16 + 8),
               child: Divider(
                 color: Colors.grey.shade300,
                 thickness: 0.5,
                 height: 0,
               ),
-              padding: EdgeInsets.all(16 + 8),
             ),
             // Padding(
             //   padding: const EdgeInsets.all(16),
@@ -106,6 +130,88 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
             //     ),
             //   ),
             // ),
+            PaddingComponent(
+              child: MultiSimpleInput(
+                // flexSpacer: 0,
+                value: widget.petProfileDetails.petName,
+                emptyValuePlaceholder: "basicInformationPage_favoriteToys".tr(),
+                title: "basicInformationPage_favoriteToys".tr(),
+                saveValue: (val) async {
+                  if (val.isNotEmpty) {
+                    widget.petProfileDetails.pet_favorite_toys = val;
+                    updatePetProfileCore(widget.petProfileDetails);
+                  }
+                },
+              ),
+            ),
+            PaddingComponent(
+              child: MultiSimpleInput(
+                // flexSpacer: 0,
+                value: widget.petProfileDetails.petName,
+                emptyValuePlaceholder:
+                    "basicInformationPage_favoriteActivities".tr(),
+                title: "basicInformationPage_favoriteActivities".tr(),
+                saveValue: (val) async {
+                  if (val.isNotEmpty) {
+                    widget.petProfileDetails.pet_favorite_activities = val;
+                    updatePetProfileCore(widget.petProfileDetails);
+                  }
+                },
+              ),
+            ),
+            PaddingComponent(
+              child: MultiSimpleInput(
+                // flexSpacer: 0,
+                value: widget.petProfileDetails.petName,
+                emptyValuePlaceholder:
+                    "basicInformationPage_behavioralNotes".tr(),
+                title: "basicInformationPage_behavioralNotes".tr(),
+                saveValue: (val) async {
+                  if (val.isNotEmpty) {
+                    widget.petProfileDetails.pet_behavioral_notes = val;
+                    updatePetProfileCore(widget.petProfileDetails);
+                  }
+                },
+              ),
+            ),
+            PaddingComponent(
+              child: MultiSimpleInput(
+                // flexSpacer: 0,
+                value: widget.petProfileDetails.petName,
+                emptyValuePlaceholder: "basicInformationPage_specialNeeds".tr(),
+                title: "basicInformationPage_specialNeeds".tr(),
+                saveValue: (val) async {
+                  if (val.isNotEmpty) {
+                    widget.petProfileDetails.pet_special_needs = val;
+                    updatePetProfileCore(widget.petProfileDetails);
+                  }
+                },
+              ),
+            ),
+            PaddingComponent(
+              child: MultiSimpleInput(
+                // flexSpacer: 0,
+                value: widget.petProfileDetails.petName,
+                emptyValuePlaceholder:
+                    "basicInformationPage_dietPreferences".tr(),
+                title: "basicInformationPage_dietPreferences".tr(),
+                saveValue: (val) async {
+                  if (val.isNotEmpty) {
+                    widget.petProfileDetails.pet_diet_preferences = val;
+                    updatePetProfileCore(widget.petProfileDetails);
+                  }
+                },
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(16 + 8),
+              child: Divider(
+                color: Colors.grey.shade300,
+                thickness: 0.5,
+                height: 0,
+              ),
+            ),
             FutureBuilder(
               future: _behaviourInformationFuture,
               builder: (BuildContext context,
@@ -182,6 +288,7 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                           ],
                         ),
                       ),
+                      const AutoSaveInfo(),
                     ],
                   );
                 } else if (snapshot.hasError) {
@@ -204,7 +311,6 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                 }
               },
             ),
-            SizedBox(height: 40.h),
           ],
         ),
         onScroll: () {},

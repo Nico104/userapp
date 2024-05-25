@@ -5,10 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:userapp/feature/pets/profile_details/contact/languages_spoken/spoken_language_item.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_contact.dart';
 
-import '../../../../../general/network_globals.dart';
-import '../../../../../general/utils_theme/custom_colors.dart';
-import '../../../../language/language_selector.dart';
-import '../../../../language/m_language.dart';
 import '../../c_component_title.dart';
 import '../../g_profile_detail_globals.dart';
 import '../u_contact.dart';

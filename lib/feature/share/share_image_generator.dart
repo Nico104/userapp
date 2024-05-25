@@ -4,7 +4,6 @@ import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:userapp/feature/share/u_share.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 import 'package:flutter/services.dart';
 
@@ -93,7 +92,7 @@ class _ShareImageGeneratorState extends State<ShareImageGenerator> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      QrImage(
+                      QrImageView(
                         foregroundColor: _backgroundStyles
                             .elementAt(_backgroundStyle)
                             .qrCodeColor,
@@ -162,7 +161,7 @@ class _ShareImageGeneratorState extends State<ShareImageGenerator> {
                         ),
                         onTap: () async {
                           await Clipboard.setData(
-                              ClipboardData(text: "your text"));
+                              const ClipboardData(text: "your text"));
                         },
                       ),
                     ],

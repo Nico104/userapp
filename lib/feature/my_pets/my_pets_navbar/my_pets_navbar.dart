@@ -1,15 +1,11 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:userapp/feature/my_pets/my_pets_navbar/quick_menu.dart';
-import 'package:userapp/feature/pets/profile_details/contact/contacts_all_list_page.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 import '../../../general/utils_theme/theme_provider.dart';
 import '../../../general/widgets/future_error_widget.dart';
 import '../../auth/u_auth.dart';
 import '../../notifications/notifications_icon_widget.dart';
-import '../../notifications/notifications_page.dart';
 import '../../pets/profile_details/models/m_pet_profile.dart';
 import '../../settings/setting_screen.dart';
 import '../../../general/utils_theme/custom_text_styles.dart';
@@ -89,7 +85,7 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
           alignment: WrapAlignment.start,
           children: [
             Text(
-              "myPetsTitleMy".tr() + " ",
+              "${"myPetsTitleMy".tr()} ",
               style: getCustomTextStyles(context).homeWelcomeMessage,
             ),
             Text(

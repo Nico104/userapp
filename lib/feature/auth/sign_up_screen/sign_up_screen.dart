@@ -2,14 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/auth/login_screen.dart';
-import 'package:userapp/feature/auth/sign_up_screen/verification_page.dart';
 import 'package:userapp/feature/auth/u_auth.dart';
 import 'package:userapp/general/utils_general.dart';
 
 import '../../../general/utils_theme/custom_colors.dart';
 import '../../../general/widgets/custom_nico_modal.dart';
 import '../../../init_app.dart';
-import '../../../general/utils_theme/custom_text_styles.dart';
 import 'email_page.dart';
 import 'name_page.dart';
 import 'password_page.dart';

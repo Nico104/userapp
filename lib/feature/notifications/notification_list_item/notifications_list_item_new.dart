@@ -111,7 +111,7 @@ class _NotificationListItemNewState extends State<NotificationListItemNew> {
         children: [
           ListTile(
             leading: const Icon(Icons.check),
-            title: Text("notificationListItem_markAsRead").tr(),
+            title: const Text("notificationListItem_markAsRead").tr(),
             onTap: () {
               Navigator.pop(context);
               readNotification(
@@ -121,7 +121,7 @@ class _NotificationListItemNewState extends State<NotificationListItemNew> {
           ),
           ListTile(
             leading: const Icon(CustomIcons.delete),
-            title: Text("notificationListItem_deleteNotification").tr(),
+            title: const Text("notificationListItem_deleteNotification").tr(),
             onTap: () {
               Navigator.pop(context);
               showDialog(

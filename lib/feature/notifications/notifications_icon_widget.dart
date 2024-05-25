@@ -53,7 +53,7 @@ class _NotificationsIconState extends State<NotificationsIcon> {
                     padding: const EdgeInsets.all(6),
                     child: Text(
                       snapshot.data!.toString(),
-                      style: TextStyle(fontSize: 12),
+                      style: const TextStyle(fontSize: 12),
                     ),
                   ),
                 ],

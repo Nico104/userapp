@@ -7,12 +7,9 @@ import '../../../../general/widgets/loading_indicator.dart';
 import '../../../pets/profile_details/models/m_tag.dart';
 import '../../../tag/tag_selection/add_tag_header.dart';
 import '../../../tag/tag_selection/add_tag_page.dart';
-import '../../../tag/tag_single.dart';
 import '../../../pets/u_pets.dart';
-import '../../../../general/utils_theme/custom_colors.dart';
 import '../../../tag/utils/u_tag.dart';
 import 'my_tags_list_item.dart';
-import 'my_tags_list_item_tmp.dart';
 
 class MyTagsSettings extends StatefulWidget {
   const MyTagsSettings({super.key});
@@ -74,9 +71,9 @@ class _MyTagsSettingsState extends State<MyTagsSettings> {
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
                     if (index == 0) {
-                      return Column(
+                      return const Column(
                         mainAxisSize: MainAxisSize.min,
-                        children: const [
+                        children: [
                           SizedBox(height: 42),
                         ],
                       );
@@ -135,10 +132,10 @@ class _MyTagsSettingsState extends State<MyTagsSettings> {
                 return const SizedBox.shrink();
               } else {
                 //Loading
-                return Center(
+                return const Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       SizedBox(
                         width: 60,
                         height: 60,

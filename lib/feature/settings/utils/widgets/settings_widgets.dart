@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:userapp/general/utils_color/hex_color.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
 
 const double settingItemSpacing = 16;

@@ -22,7 +22,7 @@ class _ShareSeppiState extends State<ShareSeppi> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(Duration(seconds: 10))
+      Future.delayed(const Duration(seconds: 10))
           .then((value) => widget.closeShareSeppi());
     });
   }
@@ -40,7 +40,7 @@ class _ShareSeppiState extends State<ShareSeppi> {
                     setState(() {
                       _copying = true;
                     });
-                    await Future.delayed(Duration(milliseconds: 1000));
+                    await Future.delayed(const Duration(milliseconds: 1000));
                     await Clipboard.setData(
                             const ClipboardData(text: "your text"))
                         .whenComplete(() => widget.closeShareSeppi());
@@ -52,11 +52,11 @@ class _ShareSeppiState extends State<ShareSeppi> {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.link,
                           size: 32,
                         ),
-                        SizedBox(width: 16),
+                        const SizedBox(width: 16),
                         Text(
                           "Copy Link",
                           style: Theme.of(context).textTheme.labelLarge,
@@ -92,11 +92,11 @@ class _ShareSeppiState extends State<ShareSeppi> {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        const Icon(
                           CustomIcons.share_thin,
                           size: 32,
                         ),
-                        SizedBox(width: 16),
+                        const SizedBox(width: 16),
                         Text(
                           "Share via Platform",
                           style: Theme.of(context).textTheme.labelLarge,
@@ -136,7 +136,7 @@ class CopyingLinkWidget extends StatelessWidget {
             // ),
             const SizedBox(
                 width: 32, height: 32, child: CustomLoadingIndicatior()),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Text(
               "Copying..",
               style: Theme.of(context).textTheme.labelLarge,

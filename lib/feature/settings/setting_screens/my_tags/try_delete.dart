@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:userapp/feature/settings/setting_screens/my_tags/my_tag_tile_buttons.dart';
 
 import '../../../../general/utils_theme/custom_colors.dart';
@@ -48,7 +46,7 @@ class TryDelete extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(28),
+            padding: const EdgeInsets.all(28),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

@@ -99,7 +99,8 @@ class _SignUpEmailPageState extends State<SignUpEmailPage> {
             },
           ),
           SizedBox(height: 05.h),
-          const ContinueWithSocialMedia(),
+          // const ContinueWithSocialMedia(),
+          const ContinueWithGoogle(),
         ],
       ),
     );

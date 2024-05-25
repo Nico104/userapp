@@ -4,7 +4,6 @@ import 'package:userapp/feature/pets/profile_details/models/m_pet_picture.dart';
 import 'package:userapp/general/network_globals.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_document.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_scan.dart';
-import 'package:userapp/feature/pets/profile_details/models/m_tag.dart';
 
 import '../auth/u_auth.dart';
 import '../language/m_language.dart';

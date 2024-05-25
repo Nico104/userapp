@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:userapp/general/utils_color/hex_color.dart';
 
 class MyCustomClipper extends CustomClipper<Path> {
   @override
@@ -180,10 +179,10 @@ class RPSCustomPainter extends CustomPainter {
         clockwise: true);
     path_0.close();
 
-    Paint paint_0_fill = Paint()..style = PaintingStyle.fill;
-    paint_0_fill.color = color;
+    Paint paint0Fill = Paint()..style = PaintingStyle.fill;
+    paint0Fill.color = color;
     // canvas.drawShadow(path_0, Colors.grey, 2, false);
-    canvas.drawPath(path_0, paint_0_fill);
+    canvas.drawPath(path_0, paint0Fill);
   }
 
   @override

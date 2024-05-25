@@ -2,9 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:userapp/general/network_globals.dart';
-import 'package:userapp/general/utils_color/hex_color.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_contact.dart';
-import 'package:userapp/feature/pets/profile_details/models/m_contact_descripton.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_phone_number.dart';
 import '../../../auth/u_auth.dart';
 import 'package:http_parser/http_parser.dart';
@@ -541,7 +539,7 @@ Future<void> uploadContactPicture(
       }
     });
   }).catchError((err) {
-    print('error : ' + err.toString());
+    print('error : $err');
   }).whenComplete(() {
     print("upload fertig1");
   });

@@ -324,5 +324,18 @@
     "deleteAccountTitleConfirmDeleteButtonLabel3": "Continua",
     "deleteAccountPasswordCheckTitle": "Digita la tua password",
     "deleteAccountPasswordCheckButtonLabelConfirm": "Eliminare l'account",
-    "deleteAccountPasswordCheckButtonLabelCancel": "Annulla"
+    "deleteAccountPasswordCheckButtonLabelCancel": "Annulla",
+    "medicalInformation_breed": "Breed",
+    "medicalInformation_age": "Age",
+    "medicalPage_enterVaccinations": "Vaccinations",
+    "medicalPage_enterAllergies": "Allergies",
+    "medicalPage_enterMedications": "Medications",
+    "medicalPage_enterChronicConditions": "Chronic Conditions",
+    "basicInformationPage_licensenumbers": "Licence Number",
+    "basicInformationPage_tattooID": "Tattoo ID",
+    "basicInformationPage_favoriteToys": "Favorite Toys",
+    "basicInformationPage_favoriteActivities": "Favorite Activities",
+    "basicInformationPage_behavioralNotes": "Behavioral Notes",
+    "basicInformationPage_specialNeeds": "Special Needs",
+    "basicInformationPage_dietPreferences": "Diet Preferences"
 }

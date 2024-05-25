@@ -11,7 +11,6 @@ import 'package:provider/provider.dart';
 import 'general/utils_firebase/firebase_options.dart';
 import 'init_app.dart';
 
-import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 // if (Platform.isIOS) {

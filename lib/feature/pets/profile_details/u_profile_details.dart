@@ -27,7 +27,7 @@ Future<void> uploadPicture(
   Function() callback,
 ) async {
   var url = Uri.parse('$baseURL/pet/uploadPicture/$profileId');
-  print("URL: " + url.toString());
+  print("URL: $url");
   String? token = await getIdToken();
 
   var request = http.MultipartRequest('POST', url);
@@ -44,7 +44,7 @@ Future<void> uploadPicture(
       }
     });
   }).catchError((err) {
-    print('error : ' + err.toString());
+    print('error : $err');
   }).whenComplete(() {
     print("upload fertig1");
   });
@@ -87,7 +87,7 @@ Future<void> uploadDocuments(
   Function() callback,
 ) async {
   var url = Uri.parse('$baseURL/pet/uploadDocument/$profileId');
-  print("URL: " + url.toString());
+  print("URL: $url");
   String? token = await getIdToken();
 
   var request = http.MultipartRequest('POST', url);
@@ -113,7 +113,7 @@ Future<void> uploadDocuments(
       }
     });
   }).catchError((err) {
-    print('error : ' + err.toString());
+    print('error : $err');
   }).whenComplete(() {
     print("upload fertig2");
   });

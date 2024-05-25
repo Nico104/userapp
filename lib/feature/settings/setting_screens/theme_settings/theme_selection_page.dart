@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:userapp/feature/settings/setting_screens/theme_settings/system_theme_widget.dart';
 import 'package:userapp/feature/settings/setting_screens/theme_settings/theme_item.dart';
 
@@ -140,7 +139,7 @@ class _ThemeSelectionPageState extends State<ThemeSelectionPage> {
                     generateMap();
                     _pageController.jumpToPage(0);
                   });
-                  await Future.delayed(Duration(milliseconds: 125));
+                  await Future.delayed(const Duration(milliseconds: 125));
                   setState(() {
                     isSystemActive = true;
                   });

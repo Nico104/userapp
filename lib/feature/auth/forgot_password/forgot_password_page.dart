@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../pets/profile_details/widgets/custom_textformfield.dart';
-import '../../../general/utils_theme/custom_colors.dart';
-import '../../../general/utils_theme/custom_text_styles.dart';
 import '../auth_widgets.dart';
 import 'forgot_password_status.dart';
 import 'package:easy_localization/easy_localization.dart';

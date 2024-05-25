@@ -4,11 +4,9 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/auth/sign_up_screen/sign_up_screen.dart';
-import 'package:userapp/feature/pets/profile_details/g_profile_detail_globals.dart';
 import 'package:userapp/general/utils_general.dart';
 import 'feature/auth/login_screen.dart';
 import 'feature/auth/u_auth.dart';
-import 'feature/language/country_selector.dart';
 import 'feature/onboarding/onboarding_page.dart';
 import 'feature/pets/pets_loading.dart';
 import 'general/widgets/future_error_widget.dart';
@@ -45,13 +43,13 @@ class _InitAppState extends State<InitApp> {
         //https://firebase.google.com/docs/cloud-messaging/flutter/client
         messaging = FirebaseMessaging.instance;
         messaging.getToken().then((fcmToken) {
-          print("Token: " + fcmToken.toString() + "\n\n\n");
+          print("Token: $fcmToken\n\n\n");
           if (fcmToken != null) {
             connectDeviceTokenToUser(fcmToken);
           }
         });
         FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
-          print("Token refreshed: " + fcmToken + "\n\n\n");
+          print("Token refreshed: $fcmToken\n\n\n");
           connectDeviceTokenToUser(fcmToken);
         }).onError((err) {
           // Error getting token.
@@ -174,11 +172,11 @@ class _InitAppState extends State<InitApp> {
           return const SizedBox.shrink();
         } else {
           //Loading
-          return Scaffold(
+          return const Scaffold(
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   SizedBox(
                     width: 70,
                     height: 70,

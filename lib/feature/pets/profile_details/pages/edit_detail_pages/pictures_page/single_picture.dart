@@ -20,10 +20,10 @@ class _SinglePictureState extends State<SinglePicture> {
   Widget errorBuilder(
       BuildContext context, Object error, StackTrace? stackTrace) {
     print(error);
-    Future.delayed(Duration(milliseconds: 500)).then((value) {
+    Future.delayed(const Duration(milliseconds: 500)).then((value) {
       setState(() {});
     });
-    return CustomLoadingIndicatior();
+    return const CustomLoadingIndicatior();
   }
 
   @override

@@ -25,7 +25,7 @@ class ContactUsSuccessPage extends StatelessWidget {
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_back_rounded,
                         color: Colors.white,
                       ),
@@ -35,7 +35,7 @@ class ContactUsSuccessPage extends StatelessWidget {
               ),
               Expanded(
                 child: Align(
-                  alignment: Alignment(-0.7, 0.7),
+                  alignment: const Alignment(-0.7, 0.7),
                   child: Text(
                     "Thank\nYou.",
                     style: GoogleFonts.openSans(
@@ -52,7 +52,7 @@ class ContactUsSuccessPage extends StatelessWidget {
               ),
               Expanded(
                 child: Align(
-                  alignment: Alignment(-0.7, -0.7),
+                  alignment: const Alignment(-0.7, -0.7),
                   child: Text(
                     "We'll be in touch.\nShortly!",
                     style:

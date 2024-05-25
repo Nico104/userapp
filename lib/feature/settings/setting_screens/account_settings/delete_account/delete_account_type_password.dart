@@ -1,10 +1,8 @@
 import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 
 import '../../../../../../general/utils_theme/custom_colors.dart';
 import '../../../../pets/profile_details/widgets/custom_textformfield.dart';
@@ -87,7 +85,7 @@ class _DeleteAccountTypePasswordState extends State<DeleteAccountTypePassword> {
                                     borderRadius: BorderRadius.circular(36),
                                     color: getCustomColors(context).accent,
                                   ),
-                                  padding: EdgeInsets.fromLTRB(32, 16, 32, 16),
+                                  padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
                                   child: Text(
                                     "deleteAccountPasswordCheckButtonLabelConfirm"
                                         .tr(),

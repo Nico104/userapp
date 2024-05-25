@@ -6,7 +6,6 @@ import 'package:userapp/feature/pets/profile_details/phone_numbers/c_phone_numbe
 import 'package:userapp/general/utils_general.dart';
 import '../../../../general/utils_custom_icons/custom_icons_icons.dart';
 import '../../../../general/utils_theme/custom_text_styles.dart';
-import '../../../../general/widgets/custom_nico_modal.dart';
 import '../../../../general/widgets/more_button.dart';
 import '../../u_pets.dart';
 import '../c_component_padding.dart';
@@ -16,7 +15,6 @@ import '../c_social_media.dart';
 import '../d_confirm_delete.dart';
 import '../models/m_contact.dart';
 import '../pictures/upload_picture_dialog.dart';
-import 'contact_description/contact_description.dart';
 import 'contact_picture/contact_picture_widget.dart';
 import 'languages_spoken/languages_spoken_widget.dart';
 import 'u_contact.dart';

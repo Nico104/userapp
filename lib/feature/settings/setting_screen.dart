@@ -173,8 +173,8 @@ class _SettingsState extends State<Settings> {
                         const SizedBox(height: settingItemSpacing),
                         SettingsItem(
                           label: "Welcome Page".tr(),
-                          leading: Icon(Icons.light),
-                          suffix: Icon(Icons.keyboard_arrow_right),
+                          leading: const Icon(Icons.light),
+                          suffix: const Icon(Icons.keyboard_arrow_right),
                           onTap: () {
                             navigatePerSlide(
                               context,
@@ -185,8 +185,8 @@ class _SettingsState extends State<Settings> {
                         const SizedBox(height: settingItemSpacing),
                         SettingsItem(
                           label: "settingsItemHowToUse".tr(),
-                          leading: Icon(Icons.lightbulb_outline),
-                          suffix: Icon(Icons.keyboard_arrow_right),
+                          leading: const Icon(Icons.lightbulb_outline),
+                          suffix: const Icon(Icons.keyboard_arrow_right),
                           onTap: () {
                             navigatePerSlide(
                               context,
@@ -210,8 +210,8 @@ class _SettingsState extends State<Settings> {
                         const SizedBox(height: 20),
                         SettingsItem(
                           label: "settingsItemGoShop".tr(),
-                          leading: Icon(CustomIcons.shopping_bag_8),
-                          suffix: Icon(Icons.keyboard_arrow_right),
+                          leading: const Icon(CustomIcons.shopping_bag_8),
+                          suffix: const Icon(Icons.keyboard_arrow_right),
                           onTap: () async {
                             // navigatePerSlide(
                             //   context,
@@ -264,8 +264,8 @@ class _SettingsState extends State<Settings> {
                         const SizedBox(height: settingItemSpacing),
                         SettingsItem(
                           label: "settingsItemFAQ".tr(),
-                          leading: Icon(Icons.question_answer_outlined),
-                          suffix: Icon(Icons.keyboard_arrow_right),
+                          leading: const Icon(Icons.question_answer_outlined),
+                          suffix: const Icon(Icons.keyboard_arrow_right),
                           onTap: () async {
                             // navigatePerSlide(
                             //   context,
@@ -278,8 +278,8 @@ class _SettingsState extends State<Settings> {
                         const SizedBox(height: settingItemSpacing),
                         SettingsItem(
                           label: "settingsItemPrivacy".tr(),
-                          leading: Icon(Icons.privacy_tip_outlined),
-                          suffix: Icon(Icons.keyboard_arrow_right),
+                          leading: const Icon(Icons.privacy_tip_outlined),
+                          suffix: const Icon(Icons.keyboard_arrow_right),
                           onTap: () async {
                             // navigatePerSlide(
                             //   context,
@@ -292,8 +292,8 @@ class _SettingsState extends State<Settings> {
                         const SizedBox(height: settingItemSpacing),
                         SettingsItem(
                           label: "settingsItemAbout".tr(),
-                          leading: Icon(Icons.question_mark),
-                          suffix: Icon(Icons.keyboard_arrow_right),
+                          leading: const Icon(Icons.question_mark),
+                          suffix: const Icon(Icons.keyboard_arrow_right),
                           onTap: () async {
                             // navigatePerSlide(
                             //   context,

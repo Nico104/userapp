@@ -56,7 +56,7 @@ class _PicturesPageState extends State<PicturesPage> {
       ),
       body: Column(
         children: [
-          Spacer(),
+          const Spacer(),
           Image.asset("assets/tmp/dog_bowl.png"),
           const SizedBox(height: 8),
           Text(
@@ -77,7 +77,7 @@ class _PicturesPageState extends State<PicturesPage> {
             },
             label: "picturesPage_uploadPictureLabel".tr(),
           ),
-          Spacer(),
+          const Spacer(),
         ],
       ),
     );
@@ -128,7 +128,7 @@ class _PicturesPageState extends State<PicturesPage> {
               label: "picturesPage_uploadPictureLabel".tr(),
               showUploadButton: _showShyButton,
               onTap: () => _uploadPicture(),
-              icon: Icon(
+              icon: const Icon(
                 Icons.file_upload_rounded,
                 color: Colors.white,
               ),

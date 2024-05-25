@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:userapp/general/network_globals.dart';
 import '../auth/u_auth.dart';
 
 Future<String> translateDeepL({
@@ -8,8 +7,8 @@ Future<String> translateDeepL({
   required String source_lang,
   required String text,
 }) async {
-  print("target " + target_lang);
-  print("source " + source_lang);
+  print("target $target_lang");
+  print("source $source_lang");
   Uri url = Uri.parse('https://api-free.deepl.com/v2/translate');
   String? token = await getIdToken();
 

@@ -11,9 +11,9 @@ class FutureErrorWidget extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Spacer(),
+          const Spacer(),
           Image.asset("assets/tmp/connection_lost.png"),
-          Spacer(),
+          const Spacer(),
           Text(
             "No internet connection",
             style: Theme.of(context).textTheme.titleMedium,
@@ -28,7 +28,7 @@ class FutureErrorWidget extends StatelessWidget {
             style: Theme.of(context).textTheme.labelMedium,
             textAlign: TextAlign.center,
           ),
-          Spacer(),
+          const Spacer(),
           ShyButton(
             showUploadButton: true,
             onTap: () {
@@ -36,7 +36,7 @@ class FutureErrorWidget extends StatelessWidget {
             },
             label: "Try again",
           ),
-          Spacer(),
+          const Spacer(),
         ],
       ),
     );

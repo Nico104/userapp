@@ -64,17 +64,17 @@ class CustomColors extends ThemeExtension<CustomColors> {
   }) {
     return CustomColors(
       accent: accent ?? this.accent,
-      accentLessContrast: accent ?? this.accentLessContrast,
-      accentHighContrast: accent ?? this.accentHighContrast,
+      accentLessContrast: accent ?? accentLessContrast,
+      accentHighContrast: accent ?? accentHighContrast,
       lightBorder: lightBorder ?? this.lightBorder,
       hardBorder: hardBorder ?? this.hardBorder,
-      surface: shadow ?? this.surface,
+      surface: shadow ?? surface,
       lightShadow: lightShadow ?? this.lightShadow,
       genderButtonEnabledMale:
           genderButtonEnabledMale ?? this.genderButtonEnabledMale,
       genderButtonEnabledFemale:
           genderButtonEnabledFemale ?? this.genderButtonEnabledFemale,
-      secondaryAccent: accentShadow ?? this.secondaryAccent,
+      secondaryAccent: accentShadow ?? secondaryAccent,
       genderButtonDisabledMale:
           genderButtonDisabledMale ?? this.genderButtonDisabledMale,
       genderButtonDisabledFemale:

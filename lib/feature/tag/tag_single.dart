@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/general/network_globals.dart';
-import 'dart:math' as math;
+import 'package:userapp/general/widgets/loading_indicator.dart';
 
 class TagSingle extends StatelessWidget {
   const TagSingle({
@@ -17,6 +19,7 @@ class TagSingle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Bilder direct mit shadow zeichnen
+
     return Image.network(
       // "assets/tmp/2d_paw_blue.png",
       s3BaseUrl + picturePath,

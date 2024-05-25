@@ -9,9 +9,7 @@ import '../../../language/country_selector.dart';
 import '../../../language/m_language.dart';
 import '../contact/u_contact.dart';
 import '../g_profile_detail_globals.dart';
-import '../u_profile_details.dart';
 import '../widgets/custom_textformfield.dart';
-import 'c_phone_number.dart';
 
 class NewPhonerNumber extends StatefulWidget {
   const NewPhonerNumber({

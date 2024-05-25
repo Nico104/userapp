@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../general/utils_color/hex_color.dart';
-import '../c_component_title.dart';
 
 enum ActiveOption {
   inactive,
@@ -142,7 +140,7 @@ class _OptionButtonState extends State<OptionButton> {
                   widget.isActive ? Colors.transparent : widget.inactiveColor,
               width: 2,
             )),
-        padding: EdgeInsets.all(4),
+        padding: const EdgeInsets.all(4),
         child: Center(
           child: Text(
             widget.label,

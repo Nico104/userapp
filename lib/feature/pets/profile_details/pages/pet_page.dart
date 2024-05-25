@@ -187,7 +187,6 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
 
   Widget _getMoreButton() {
     return MoreButton(
-      child: const Icon(Icons.more_horiz),
       moreOptions: [
         ListTile(
           leading: const Icon(CustomIcons.delete),
@@ -237,6 +236,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
           },
         ),
       ],
+      child: const Icon(Icons.more_horiz),
     );
   }
 

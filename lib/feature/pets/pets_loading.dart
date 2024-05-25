@@ -51,10 +51,10 @@ class _PetsLoadingState extends State<PetsLoading> {
             return const SizedBox.shrink();
           } else {
             //Loading
-            return Center(
+            return const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   SizedBox(
                     width: 60,
                     height: 60,

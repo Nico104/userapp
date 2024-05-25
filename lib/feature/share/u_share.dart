@@ -38,7 +38,7 @@ Future<Uint8List> generateImage({
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  QrImage(
+                  QrImageView(
                     foregroundColor: shareBackgroundStyle.qrCodeColor,
                     // size: 60.w,
                     data: 'This is a simple QR code',

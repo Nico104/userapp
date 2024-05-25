@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/feature/pets/profile_details/pages/pet_page.dart';
 import 'package:userapp/feature/scans/scans_page.dart';
-import 'package:userapp/feature/share/share_image_generator.dart';
-import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 
 import '../../general/utils_theme/custom_colors.dart';
-import '../share/share_pet_profile_page.dart';
 import 'navigation_peppi_content.dart';
 
 class ExtendedSettingsContainer extends StatefulWidget {

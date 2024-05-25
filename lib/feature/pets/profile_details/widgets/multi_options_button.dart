@@ -51,7 +51,7 @@ class _MultiOptionButtonState extends State<MultiOptionButton> {
               },
               child: Container(
                 //Try out otherwise it is what it is
-                height: 50,
+                height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(_borderRadius),
                   color: isSelected
@@ -65,7 +65,7 @@ class _MultiOptionButtonState extends State<MultiOptionButton> {
                           width: 1,
                         ),
                 ),
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Center(
                   child: AutoSizeText(
                     _options.elementAt(i).label,
@@ -165,7 +165,7 @@ class _OptionButtonState extends State<OptionButton> {
                   widget.isActive ? Colors.transparent : widget.inactiveColor,
               width: 2,
             )),
-        padding: EdgeInsets.all(4),
+        padding: const EdgeInsets.all(4),
         child: Center(
           child: AutoSizeText(
             widget.label,

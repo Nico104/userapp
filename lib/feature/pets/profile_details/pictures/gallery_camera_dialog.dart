@@ -37,7 +37,7 @@ class GalleryCameraDialog extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.browse_gallery),
+                        const Icon(Icons.browse_gallery),
                         Text("galleryCameraDialog_Gallery".tr()),
                       ],
                     ),
@@ -47,7 +47,7 @@ class GalleryCameraDialog extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.camera),
+                        const Icon(Icons.camera),
                         Text("galleryCameraDialog_Camera".tr()),
                       ],
                     ),

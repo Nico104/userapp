@@ -9,9 +9,7 @@ import '../../../language/country_selector.dart';
 import '../../../language/m_language.dart';
 import '../contact/u_contact.dart';
 import '../d_confirm_delete.dart';
-import '../u_profile_details.dart';
 import '../widgets/custom_textformfield.dart';
-import 'c_phone_number.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class SinglePhonerNumber extends StatefulWidget {

@@ -47,12 +47,12 @@ class LanguageSelector extends StatelessWidget {
                           ),
                         ),
                         Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 32, 0, 32),
                           child: Divider(
                             color: Colors.grey.shade300,
                             thickness: 0.5,
                             height: 0,
                           ),
-                          padding: EdgeInsets.fromLTRB(0, 32, 0, 32),
                         ),
                       ],
                     )
@@ -198,7 +198,7 @@ class SingleLanguage extends StatelessWidget {
           language.languageLabel,
           style: Theme.of(context).textTheme.labelLarge,
         ),
-        Spacer(),
+        const Spacer(),
       ],
     );
   }

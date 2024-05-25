@@ -5,10 +5,7 @@
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 /// The part of a material design [AppBar] that expands, collapses, and
 /// stretches.
@@ -179,7 +176,6 @@ class MyFlexibleSpaceBar extends StatefulWidget {
 class _MyFlexibleSpaceBarState extends State<MyFlexibleSpaceBar> {
   bool? _getEffectiveCenterTitle(ThemeData theme) {
     if (widget.centerTitle != null) return widget.centerTitle;
-    assert(theme.platform != null);
     switch (theme.platform) {
       case TargetPlatform.android:
       case TargetPlatform.fuchsia:
@@ -195,7 +191,6 @@ class _MyFlexibleSpaceBarState extends State<MyFlexibleSpaceBar> {
   Alignment _getTitleAlignment(bool effectiveCenterTitle) {
     if (effectiveCenterTitle) return Alignment.bottomCenter;
     final TextDirection textDirection = Directionality.of(context);
-    assert(textDirection != null);
     switch (textDirection) {
       case TextDirection.rtl:
         return Alignment.bottomRight;
@@ -222,10 +217,6 @@ class _MyFlexibleSpaceBarState extends State<MyFlexibleSpaceBar> {
         builder: (BuildContext context, BoxConstraints constraints) {
       final FlexibleSpaceBarSettings settings = context
           .dependOnInheritedWidgetOfExactType<FlexibleSpaceBarSettings>()!;
-      assert(
-        settings != null,
-        'A FlexibleSpaceBar must be wrapped in the widget returned by FlexibleSpaceBar.createSettings().',
-      );
 
       final List<Widget> children = <Widget>[];
 
@@ -272,94 +263,92 @@ class _MyFlexibleSpaceBarState extends State<MyFlexibleSpaceBar> {
               (constraints.maxHeight - settings.maxExtent) / 10;
           children.add(Positioned.fill(
               child: BackdropFilter(
-                  child: Container(
-                    color: Colors.transparent,
-                  ),
                   filter: ui.ImageFilter.blur(
                     sigmaX: blurAmount,
                     sigmaY: blurAmount,
+                  ),
+                  child: Container(
+                    color: Colors.transparent,
                   ))));
         }
       }
 
       // title
-      if (widget.title != null) {
-        final ThemeData theme = Theme.of(context);
+      final ThemeData theme = Theme.of(context);
 
-        Widget title;
-        switch (theme.platform) {
-          case TargetPlatform.iOS:
-          case TargetPlatform.macOS:
-            title = widget.title;
-            break;
-          case TargetPlatform.android:
-          case TargetPlatform.fuchsia:
-          case TargetPlatform.linux:
-          case TargetPlatform.windows:
-            title = Semantics(
-              namesRoute: true,
-              child: widget.title,
-            );
-            break;
-        }
-
-        // StretchMode.fadeTitle
-        if (widget.stretchModes.contains(StretchMode.fadeTitle) &&
-            constraints.maxHeight > settings.maxExtent) {
-          final double stretchOpacity = 1 -
-              (((constraints.maxHeight - settings.maxExtent) / 100)
-                  .clamp(0.0, 1.0));
-          title = Opacity(
-            opacity: stretchOpacity,
-            child: title,
+      Widget title;
+      switch (theme.platform) {
+        case TargetPlatform.iOS:
+        case TargetPlatform.macOS:
+          title = widget.title;
+          break;
+        case TargetPlatform.android:
+        case TargetPlatform.fuchsia:
+        case TargetPlatform.linux:
+        case TargetPlatform.windows:
+          title = Semantics(
+            namesRoute: true,
+            child: widget.title,
           );
-        }
-
-        final double opacity = settings.toolbarOpacity;
-        if (opacity > 0.0) {
-          //Title Style
-          // TextStyle titleStyle = TextStyle(
-          //   fontFamily: 'LibreBaskerville',
-          //   fontSize: 20,
-          //   color: Colors.black,
-          // );
-          TextStyle titleStyle = Theme.of(context).appBarTheme.titleTextStyle!;
-          // TextStyle titleStyle = GoogleFonts.openSans(fontSize: 20, color: Colors.bl);
-          titleStyle = titleStyle.copyWith(
-              color: titleStyle.color!.withOpacity(opacity));
-          final bool? effectiveCenterTitle = _getEffectiveCenterTitle(theme);
-          final padding =
-              widget.titlePadding ?? widget.titlePaddingTween.transform(t);
-          final double scaleValue =
-              Tween<double>(begin: 1.5, end: 1.0).transform(t);
-          final Matrix4 scaleTransform = Matrix4.identity()
-            ..scale(scaleValue, scaleValue, 1.0);
-          final Alignment titleAlignment =
-              _getTitleAlignment(effectiveCenterTitle!);
-          children.add(Container(
-            padding: padding,
-            child: Transform(
-              alignment: titleAlignment,
-              transform: scaleTransform,
-              child: Align(
-                alignment: titleAlignment,
-                child: DefaultTextStyle(
-                  style: titleStyle,
-                  child: LayoutBuilder(builder:
-                      (BuildContext context, BoxConstraints constraints) {
-                    return Container(
-                      width: constraints.maxWidth / scaleValue,
-                      alignment: titleAlignment,
-                      child: title,
-                    );
-                  }),
-                ),
-              ),
-            ),
-          ));
-        }
+          break;
       }
 
+      // StretchMode.fadeTitle
+      if (widget.stretchModes.contains(StretchMode.fadeTitle) &&
+          constraints.maxHeight > settings.maxExtent) {
+        final double stretchOpacity = 1 -
+            (((constraints.maxHeight - settings.maxExtent) / 100)
+                .clamp(0.0, 1.0));
+        title = Opacity(
+          opacity: stretchOpacity,
+          child: title,
+        );
+      }
+
+      final double opacity = settings.toolbarOpacity;
+      if (opacity > 0.0) {
+        //Title Style
+        // TextStyle titleStyle = TextStyle(
+        //   fontFamily: 'LibreBaskerville',
+        //   fontSize: 20,
+        //   color: Colors.black,
+        // );
+        TextStyle titleStyle = Theme.of(context).appBarTheme.titleTextStyle!;
+        // TextStyle titleStyle = GoogleFonts.openSans(fontSize: 20, color: Colors.bl);
+        titleStyle = titleStyle.copyWith(
+            color: titleStyle.color!.withOpacity(opacity));
+        final bool? effectiveCenterTitle = _getEffectiveCenterTitle(theme);
+        final padding =
+            widget.titlePadding ?? widget.titlePaddingTween.transform(t);
+        final double scaleValue =
+            Tween<double>(begin: 1.5, end: 1.0).transform(t);
+        final Matrix4 scaleTransform = Matrix4.identity()
+          ..scale(scaleValue, scaleValue, 1.0);
+        final Alignment titleAlignment =
+            _getTitleAlignment(effectiveCenterTitle!);
+        children.add(Container(
+          padding: padding,
+          child: Transform(
+            alignment: titleAlignment,
+            transform: scaleTransform,
+            child: Align(
+              alignment: titleAlignment,
+              child: DefaultTextStyle(
+                style: titleStyle,
+                child: LayoutBuilder(builder:
+                    (BuildContext context, BoxConstraints constraints) {
+                  return Container(
+                    width: constraints.maxWidth / scaleValue,
+                    alignment: titleAlignment,
+                    child: title,
+                  );
+                }),
+              ),
+            ),
+          ),
+        ));
+      }
+    
       // children.add(widget.foreground);
 
       return ClipRect(child: Stack(children: children));

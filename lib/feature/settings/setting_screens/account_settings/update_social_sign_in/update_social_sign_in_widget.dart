@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:userapp/feature/auth/u_auth.dart';
 
 import '../../../utils/widgets/settings_widgets.dart';
 

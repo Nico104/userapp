@@ -25,7 +25,7 @@ class _ChooseSystemThemeState extends State<ChooseSystemTheme> {
 
   // bool isActive = false;
 
-  final Duration _duration = Duration(milliseconds: 125);
+  final Duration _duration = const Duration(milliseconds: 125);
 
   @override
   Widget build(BuildContext context) {

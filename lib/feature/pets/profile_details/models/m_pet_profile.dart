@@ -2,9 +2,7 @@ import 'package:userapp/feature/pets/profile_details/models/m_contact.dart';
 
 import 'm_description.dart';
 import 'm_document.dart';
-import 'm_important_information.dart';
 import 'm_pet_picture.dart';
-import 'm_phone_number.dart';
 import 'm_scan.dart';
 import 'm_tag.dart';
 
@@ -32,6 +30,13 @@ class PetProfileDetails {
   List<Tag> tag;
   final List<Scan> petProfileScans;
   bool hideContacts;
+  String? pet_tattooID;
+  String? pet_licenceID;
+  String? pet_favorite_toys;
+  String? pet_favorite_activities;
+  String? pet_behavioral_notes;
+  String? pet_special_needs;
+  String? pet_diet_preferences;
 
   // PetProfileDetails clone() => PetProfileDetails(
   //       profileId,
@@ -76,6 +81,13 @@ class PetProfileDetails {
     this.petProfileScans,
     this.tag,
     this.hideContacts,
+    this.pet_behavioral_notes,
+    this.pet_diet_preferences,
+    this.pet_favorite_activities,
+    this.pet_favorite_toys,
+    this.pet_licenceID,
+    this.pet_special_needs,
+    this.pet_tattooID,
   );
 
   PetProfileDetails.fromJson(Map<String, dynamic> json)
@@ -123,7 +135,14 @@ class PetProfileDetails {
             : [],
         tag = json['Tag'] != null
             ? (json['Tag'] as List).map((t) => Tag.fromJson(t)).toList()
-            : [];
+            : [],
+        pet_tattooID = json['pet_tattooID'],
+        pet_licenceID = json['pet_licenceID'],
+        pet_favorite_toys = json['pet_favorite_toys'],
+        pet_favorite_activities = json['pet_favorite_activities'],
+        pet_behavioral_notes = json['pet_behavioral_notes'],
+        pet_special_needs = json['pet_special_needs'],
+        pet_diet_preferences = json['pet_diet_preferences'];
 
   //New PetProfileDetails Object for creatring new Profile
   // PetProfileDetails.createNewEmptyProfile(this.tag)
@@ -157,7 +176,14 @@ class PetProfileDetails {
         // 'pet_owner_facebook': petOwnerFacebook,
         // 'pet_owner_instagram': petOwnerInstagram,
         'pet_is_Lost': petIsLost,
-        'pet_is_lost_text': petIsLostText
+        'pet_is_lost_text': petIsLostText,
+        'pet_tattooID': pet_tattooID,
+        'pet_licenceID': pet_licenceID,
+        'pet_favorite_toys': pet_favorite_toys,
+        'pet_favorite_activities': pet_favorite_activities,
+        'pet_behavioral_notes': pet_behavioral_notes,
+        'pet_special_needs': pet_special_needs,
+        'pet_diet_preferences': pet_diet_preferences,
       };
 }
 
@@ -202,5 +228,12 @@ PetProfileDetails getDummyPetProfile() {
     [],
     [],
     false,
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
   );
 }

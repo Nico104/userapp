@@ -36,6 +36,7 @@ final ThemeData constLightTheme = ThemeData(
   // colorScheme: ColorScheme.fromSwatch().copyWith(secondary: HexColor("FF6B6B")),
   // primaryColorLight: ,
   primaryColorDark: HexColor("f3f3f3"),
+  scaffoldBackgroundColor: Colors.white,
 
   //Used for Scaffold BG e.p.
   canvasColor: Colors.white,
@@ -194,7 +195,7 @@ final ThemeData constDarkTheme = ThemeData(
     elevation: 0,
     scrolledUnderElevation: 8,
     centerTitle: true,
-    titleTextStyle: TextStyle(
+    titleTextStyle: const TextStyle(
       fontFamily: 'LibreBaskerville',
       fontSize: 20,
       color: Colors.white,

@@ -1,15 +1,13 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/tag/tag_selection/tag_selection_list.dart';
-import 'package:userapp/general/utils_color/hex_color.dart';
+import 'package:userapp/general/widgets/loading_indicator.dart';
 import '../../../../general/network_globals.dart';
 import '../../../pets/profile_details/models/m_tag.dart';
 import '../../../pets/profile_details/u_profile_details.dart';
-import '../../tag_single.dart';
 import '../d_change_profile.dart';
 
 class TagSelectionItem extends StatefulWidget {
@@ -123,23 +121,19 @@ class _TagSelectionItemState extends State<TagSelectionItem> {
                             padding: const EdgeInsets.only(top: 4, right: 2),
                             child: Opacity(
                               opacity: 0.2,
-                              child: Image.network(
-                                s3BaseUrl + widget.tag.picturePath,
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.contain,
-                                color: Colors.black,
-                              ),
+                              child: TagImage(widget: widget),
+                              // child: Image.network(
+                              //   s3BaseUrl + widget.tag.picturePath,
+                              //   width: 100,
+                              //   height: 100,
+                              //   fit: BoxFit.contain,
+                              //   color: Colors.black,
+                              // ),
                             ),
                           ),
                           BackdropFilter(
                             filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                            child: Image.network(
-                              s3BaseUrl + widget.tag.picturePath,
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.contain,
-                            ),
+                            child: TagImage(widget: widget),
                           ),
                         ],
                       ),
@@ -177,6 +171,30 @@ class _TagSelectionItemState extends State<TagSelectionItem> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class TagImage extends StatelessWidget {
+  const TagImage({
+    super.key,
+    required this.widget,
+  });
+
+  final TagSelectionItem widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return CachedNetworkImage(
+      width: 100,
+      height: 100,
+      fit: BoxFit.contain,
+      imageUrl: s3BaseUrl + widget.tag.picturePath,
+      placeholder: (context, url) => const CustomLoadingIndicatior(),
+      errorWidget: (context, url, error) => const Icon(
+        Icons.error,
+        size: 50,
       ),
     );
   }

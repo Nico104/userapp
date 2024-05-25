@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'rotation_3d.dart';
-import 'dart:math' as math;
 
 class PetProfilePreviewPageTransform extends StatelessWidget {
   const PetProfilePreviewPageTransform({

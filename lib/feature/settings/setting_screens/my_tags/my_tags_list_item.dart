@@ -117,44 +117,47 @@ class _MyTagListItemState extends State<MyTagListItem> {
       child: Material(
         elevation: 2,
         borderRadius: BorderRadius.circular(_borderRadius),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(_borderRadius),
-            color: getCustomColors(context).surface,
-          ),
-          padding: const EdgeInsets.all(22),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TagSingle(
-                collardimension: 80,
-                picturePath: widget.tag.picturePath,
-              ),
-              const SizedBox(width: 36),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(
-                    widget.tag.collarTagId,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    widget.petProfileDetails != null
-                        ? "myTags_InUse".tr(namedArgs: {
-                            "value1": widget.petProfileDetails!.petName
-                          })
-                        : "myTags_NotInUse".tr(),
-                    style: Theme.of(context).textTheme.labelMedium,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-              const Spacer(),
-              _getMoreButton(),
-            ],
+        child: GestureDetector(
+          onLongPress: () {},
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(_borderRadius),
+              color: getCustomColors(context).surface,
+            ),
+            padding: const EdgeInsets.all(22),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TagSingle(
+                  collardimension: 80,
+                  picturePath: widget.tag.picturePath,
+                ),
+                const SizedBox(width: 36),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      widget.tag.collarTagId,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      widget.petProfileDetails != null
+                          ? "myTags_InUse".tr(namedArgs: {
+                              "value1": widget.petProfileDetails!.petName
+                            })
+                          : "myTags_NotInUse".tr(),
+                      style: Theme.of(context).textTheme.labelMedium,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                _getMoreButton(),
+              ],
+            ),
           ),
         ),
       ),

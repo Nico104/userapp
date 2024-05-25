@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 
@@ -63,7 +61,7 @@ class _ExtendedPictureState extends State<ExtendedPicture> {
                       widget.removePetPicture.call();
                       Navigator.pop(context);
                     },
-                    child: Icon(
+                    child: const Icon(
                       CustomIcons.delete,
                       size: 34,
                     ),

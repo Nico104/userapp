@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/general/utils_general.dart';
 
@@ -35,7 +34,7 @@ class AddNewTagHeader extends StatelessWidget {
             InkWell(
               onTap: () {
                 // addNewContact();
-                navigatePerSlide(context, AddTagPage());
+                navigatePerSlide(context, const AddTagPage());
               },
               child: Material(
                 elevation: 2,

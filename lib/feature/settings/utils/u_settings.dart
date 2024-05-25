@@ -18,7 +18,7 @@ Future<NotificationSettings> getNotificationSettings() async {
     },
   );
 
-  print("Body. " + response.body);
+  print("Body. ${response.body}");
 
   if (response.statusCode == 200) {
     return NotificationSettings.fromJson(jsonDecode(response.body));

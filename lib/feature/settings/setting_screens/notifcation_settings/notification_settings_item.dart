@@ -46,7 +46,7 @@ class NotificationSettingsItem extends StatelessWidget {
         ),
         const SizedBox(width: 22),
         Theme(
-          data: Theme.of(context).copyWith(useMaterial3: true),
+          data: Theme.of(context).copyWith(),
           child: Switch(
             value: value,
             activeColor: getCustomColors(context).accentHighContrast,

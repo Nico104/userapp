@@ -58,7 +58,7 @@ class _DocumentPageState extends State<DocumentPage> {
       ),
       body: Column(
         children: [
-          Spacer(),
+          const Spacer(),
           Image.asset("assets/tmp/dog_bowl.png"),
           const SizedBox(height: 8),
           Text(
@@ -79,7 +79,7 @@ class _DocumentPageState extends State<DocumentPage> {
             },
             label: "picturesPage_uploadPictureLabel".tr(),
           ),
-          Spacer(),
+          const Spacer(),
         ],
       ),
     );
@@ -170,7 +170,7 @@ class _DocumentPageState extends State<DocumentPage> {
               showUploadButton: _showShyButton,
               label: "uploadDocumentLabel".tr(),
               onTap: () => _uploadDocument(),
-              icon: Icon(
+              icon: const Icon(
                 Icons.file_upload_rounded,
                 color: Colors.white,
               ),
@@ -193,14 +193,14 @@ Future<PickedDocument?> pickDocument() async {
     allowMultiple: false,
   );
 
-  print("Result: " + result.toString());
+  print("Result: $result");
 
   if (result != null && result.files.isNotEmpty) {
     String fileExtension = result.files.first.extension!;
     Uint8List fileBytes = result.files.first.bytes!;
 
     String fileName = result.files.first.name.split('.').first;
-    print("File Name: " + fileName);
+    print("File Name: $fileName");
     return PickedDocument(fileExtension, fileBytes, fileName);
   }
   return null;

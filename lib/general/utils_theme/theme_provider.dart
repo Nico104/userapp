@@ -19,7 +19,8 @@ class ThemeNotifier with ChangeNotifier {
         } else if (value == 'dark') {
           _themeData = darkTheme;
         } else {
-          _themeData = getSystemTheme();
+          // _themeData = getSystemTheme();
+          _themeData = lightTheme;
         }
 
         notifyListeners();

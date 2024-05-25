@@ -32,7 +32,7 @@ class _PetPictureExpandedState extends State<PetPictureExpanded> {
         children: [
           ListTile(
             leading: const Icon(Icons.check),
-            title: Text("picture_Options_Label_Share").tr(),
+            title: const Text("picture_Options_Label_Share").tr(),
             onTap: () async {
               Navigator.pop(context);
               http.Response response = await http.get(
@@ -46,7 +46,7 @@ class _PetPictureExpandedState extends State<PetPictureExpanded> {
           ),
           ListTile(
             leading: const Icon(CustomIcons.delete),
-            title: Text("picture_Options_Label_Delete").tr(),
+            title: const Text("picture_Options_Label_Delete").tr(),
             onTap: () {
               Navigator.pop(context);
               showDialog(

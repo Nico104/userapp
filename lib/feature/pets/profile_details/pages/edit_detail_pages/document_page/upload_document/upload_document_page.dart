@@ -49,7 +49,7 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
             const SizedBox(height: 28),
             getContentType() != 'pdf'
                 ? Image.memory(widget.pickedDocument.fileBytes)
-                : Text("pdf document"),
+                : const Text("pdf document"),
             const SizedBox(height: 28),
             CustomTextFormField(
               initialValue: widget.pickedDocument.fileName,

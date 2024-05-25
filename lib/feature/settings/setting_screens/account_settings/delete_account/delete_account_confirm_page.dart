@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
-import 'package:userapp/feature/pets/profile_details/widgets/custom_textformfield.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 import 'package:userapp/general/widgets/shy_button.dart';
 

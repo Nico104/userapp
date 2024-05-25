@@ -7,7 +7,6 @@ import '../../../../../../../general/utils_theme/custom_text_styles.dart';
 import '../../../../models/m_document.dart';
 import '../../../../u_profile_details.dart';
 import '../../../../widgets/custom_textformfield.dart';
-import 'package:easy_debounce/easy_debounce.dart';
 
 class DocumentEditDialog extends StatefulWidget {
   const DocumentEditDialog({
@@ -46,9 +45,9 @@ class _DocumentEditDialogState extends State<DocumentEditDialog> {
     if (widget.document.contentType == 'image') {
       return Image.network(widget.document.documentLink);
     } else if (widget.document.contentType == 'pdf') {
-      return Text("pdf document");
+      return const Text("pdf document");
     } else {
-      return Text("undefined documenttype");
+      return const Text("undefined documenttype");
     }
   }
 

@@ -23,10 +23,10 @@ class EmptyTag extends StatelessWidget {
         //   // strokeAlign: BorderSide.strokeAlignOutside,
         // ),
       ),
-      child: Center(
+      child: const Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: const [
+          children: [
             Icon(Icons.add),
             Text("Finma Tag"),
           ],

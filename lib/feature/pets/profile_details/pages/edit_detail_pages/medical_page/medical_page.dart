@@ -1,9 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/cli_commands.dart';
 import 'package:sizer/sizer.dart';
 import 'package:collection/collection.dart';
+import 'package:userapp/feature/pets/profile_details/c_multi_line_simple_input.dart';
+import 'package:userapp/feature/pets/profile_details/c_one_line_simple_input.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
+import 'package:userapp/feature/pets/profile_details/widgets/custom_textformfield.dart';
+import 'package:userapp/general/widgets/auto_save_info.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
 import '../../../../../../general/widgets/custom_nico_modal.dart';
@@ -70,37 +73,11 @@ class _MedicalPageState extends State<MedicalPage> {
             ),
             title: Text("medical_Title".tr()),
             body: _medicalInformation == null
-                ? CustomLoadingIndicatior()
+                ? const CustomLoadingIndicatior()
                 : Column(
                     children: [
-                      SizedBox(height: 42),
+                      const SizedBox(height: 42),
                       PaddingComponent(
-                        // child: TwoOptionButton(
-                        //   activeColorOption1: HexColor("8be28b"),
-                        //   inactiveColorOption1: Colors.black.withOpacity(0.1),
-                        //   activeColorOption2: HexColor("ff6961"),
-                        //   inactiveColorOption2: Colors.black.withOpacity(0.1),
-                        //   title: "Is Tabo Sterilized?",
-                        //   activeOption: _medicalInformation!.sterilized == true
-                        //       ? ActiveOption.option1
-                        //       : _medicalInformation?.sterilized == false
-                        //           ? ActiveOption.option2
-                        //           : ActiveOption.inactive,
-                        //   optionLabel1: "Yes",
-                        //   optionLabel2: "No",
-                        //   onTap: (val) {
-                        //     if (val == 0) {
-                        //       _medicalInformation?.sterilized = null;
-                        //     } else if (val == 1) {
-                        //       _medicalInformation?.sterilized = true;
-                        //     } else if (val == 2) {
-                        //       _medicalInformation?.sterilized = false;
-                        //     }
-
-                        //     updateMedicalInformation(_medicalInformation!);
-                        //     setState(() {});
-                        //   },
-                        // ),
                         child: MultiOptionButton(
                           title: "medical_Neutered".tr(),
                           initialActiveIndex: 0,
@@ -111,83 +88,193 @@ class _MedicalPageState extends State<MedicalPage> {
                         ),
                       ),
                       Padding(
+                        padding: const EdgeInsets.all(16 + 8),
                         child: Divider(
                           color: Colors.grey.shade300,
                           thickness: 0.5,
                           height: 0,
                         ),
-                        padding: EdgeInsets.all(16 + 8),
                       ),
-                      ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: healthIssues.length,
-                        itemBuilder: (context, index) {
-                          return PaddingComponent(
-                            child: HealthIssueList(
-                              list: healthIssues.entries.elementAt(index).value,
-                              title: healthIssues.entries
-                                  .elementAt(index)
-                                  .key
-                                  .capitalize(),
-                              petProfileId: widget.petProfileDetails.profileId,
-                              refreshHealthIssues: () {
-                                _refreshMedicalInformation();
-                              },
-                              newName: "New Allergy",
-                              newType: "allergies",
-                              medicalInformationId:
-                                  _medicalInformation!.medicalInformationId,
-                            ),
-                          );
-                        },
+                      PaddingComponent(
+                        child: OnelineSimpleInput(
+                          flex: 7,
+                          value: widget.petProfileDetails.petName,
+                          emptyValuePlaceholder:
+                              "medicalInformation_breed".tr(),
+                          title: "medicalInformation_breed".tr(),
+                          saveValue: (val) async {
+                            if (val.isNotEmpty) {
+                              _medicalInformation?.breed = val;
+                              updateMedicalInformation(_medicalInformation!);
+                              _refreshMedicalInformation();
+                            }
+                          },
+                        ),
                       ),
-                      SizedBox(
-                        height: 90.h,
-                      )
+                      PaddingComponent(
+                        child: OnelineSimpleInput(
+                          flex: 7,
+                          value: widget.petProfileDetails.petName,
+                          emptyValuePlaceholder: "medicalInformation_age".tr(),
+                          title: "medicalInformation_age".tr(),
+                          saveValue: (val) async {
+                            if (val.isNotEmpty) {
+                              _medicalInformation?.age = val;
+                              updateMedicalInformation(_medicalInformation!);
+                              _refreshMedicalInformation();
+                            }
+                          },
+                        ),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.all(16 + 8),
+                        child: Divider(
+                          color: Colors.grey.shade300,
+                          thickness: 0.5,
+                          height: 0,
+                        ),
+                      ),
+                      PaddingComponent(
+                        child: MultiSimpleInput(
+                          // flexSpacer: 0,
+                          value: widget.petProfileDetails.petName,
+                          emptyValuePlaceholder:
+                              "medicalPage_enterVaccinations".tr(),
+                          title: "medicalPage_enterVaccinations".tr(),
+                          saveValue: (val) async {
+                            if (val.isNotEmpty) {
+                              _medicalInformation?.vaccinations = val;
+                              updateMedicalInformation(_medicalInformation!);
+                              _refreshMedicalInformation();
+                            }
+                          },
+                        ),
+                      ),
+                      PaddingComponent(
+                        child: MultiSimpleInput(
+                          // flexSpacer: 0,
+                          value: widget.petProfileDetails.petName,
+                          emptyValuePlaceholder:
+                              "medicalPage_enterAllergies".tr(),
+                          title: "medicalPage_enterAllergies".tr(),
+                          saveValue: (val) async {
+                            if (val.isNotEmpty) {
+                              _medicalInformation?.allergies = val;
+                              updateMedicalInformation(_medicalInformation!);
+                              _refreshMedicalInformation();
+                            }
+                          },
+                        ),
+                      ),
+                      PaddingComponent(
+                        child: MultiSimpleInput(
+                          // flexSpacer: 0,
+                          value: widget.petProfileDetails.petName,
+                          emptyValuePlaceholder:
+                              "medicalPage_enterMedications".tr(),
+                          title: "medicalPage_enterMedications".tr(),
+                          saveValue: (val) async {
+                            if (val.isNotEmpty) {
+                              _medicalInformation?.medications = val;
+                              updateMedicalInformation(_medicalInformation!);
+                              _refreshMedicalInformation();
+                            }
+                          },
+                        ),
+                      ),
+                      PaddingComponent(
+                        child: MultiSimpleInput(
+                          // flexSpacer: 0,
+                          value: widget.petProfileDetails.petName,
+                          emptyValuePlaceholder:
+                              "medicalPage_enterChronicConditions".tr(),
+                          title: "medicalPage_enterChronicConditions".tr(),
+                          saveValue: (val) async {
+                            if (val.isNotEmpty) {
+                              _medicalInformation?.chronicConditions = val;
+                              updateMedicalInformation(_medicalInformation!);
+                              _refreshMedicalInformation();
+                            }
+                          },
+                        ),
+                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.all(16),
+                      //   child: CustomTextFormField(
+                      //     hintText: "medicalPage_enterVacciantions".tr(),
+                      //     maxLines: null,
+                      //     keyboardType: TextInputType.multiline,
+                      //     onChanged: (val) {},
+                      //     showSuffix: false,
+                      //   ),
+                      // ),
+                      // ListView.builder(
+                      //   physics: const NeverScrollableScrollPhysics(),
+                      //   shrinkWrap: true,
+                      //   itemCount: healthIssues.length,
+                      //   itemBuilder: (context, index) {
+                      //     return PaddingComponent(
+                      //       child: HealthIssueList(
+                      //         list: healthIssues.entries.elementAt(index).value,
+                      //         title: healthIssues.entries.elementAt(index).key,
+                      //         petProfileId: widget.petProfileDetails.profileId,
+                      //         refreshHealthIssues: () {
+                      //           _refreshMedicalInformation();
+                      //         },
+                      //         newName: "New Allergy",
+                      //         newType: "allergies",
+                      //         medicalInformationId:
+                      //             _medicalInformation!.medicalInformationId,
+                      //       ),
+                      //     );
+                      //   },
+                      // ),
+
+                      const AutoSaveInfo(),
                     ],
                   ),
           ),
-          _medicalInformation == null
-              ? const SizedBox.shrink()
-              : ShyButton(
-                  showUploadButton: _showShyButton,
-                  label: "medical_NewHealthIssueLabel".tr(),
-                  onTap: () {
-                    showCustomNicoLoadingModalBottomSheet(
-                      context: context,
-                      future: createHealthIssue(
-                        healthIssueName: "defaultHealthIssuesName".tr(),
-                        healthIssueType: "defaultHealthIssueType".tr(),
-                        medicalId: _medicalInformation!.medicalInformationId,
-                      ),
-                      callback: (value) {
-                        _refreshMedicalInformation();
-                        Navigator.of(context)
-                            .push(
-                          PageRouteBuilder(
-                            opaque: false,
-                            barrierDismissible: true,
-                            pageBuilder: (BuildContext context, _, __) {
-                              return HealthIssueUpdateBox(
-                                healthIssue: value,
-                                petProfileId:
-                                    widget.petProfileDetails.profileId,
-                              );
-                            },
-                          ),
-                        )
-                            .then((value) {
-                          _refreshMedicalInformation();
-                        });
-                      },
-                    );
-                  },
-                  icon: Icon(
-                    Icons.medical_information_rounded,
-                    color: Colors.white,
-                  ),
-                ),
+          // _medicalInformation == null
+          //     ? const SizedBox.shrink()
+          //     : ShyButton(
+          //         showUploadButton: _showShyButton,
+          //         label: "medical_NewHealthIssueLabel".tr(),
+          //         onTap: () {
+          //           showCustomNicoLoadingModalBottomSheet(
+          //             context: context,
+          //             future: createHealthIssue(
+          //               healthIssueName: "defaultHealthIssuesName".tr(),
+          //               healthIssueType: "defaultHealthIssueType".tr(),
+          //               medicalId: _medicalInformation!.medicalInformationId,
+          //             ),
+          //             callback: (value) {
+          //               _refreshMedicalInformation();
+          //               Navigator.of(context)
+          //                   .push(
+          //                 PageRouteBuilder(
+          //                   opaque: false,
+          //                   barrierDismissible: true,
+          //                   pageBuilder: (BuildContext context, _, __) {
+          //                     return HealthIssueUpdateBox(
+          //                       healthIssue: value,
+          //                       petProfileId:
+          //                           widget.petProfileDetails.profileId,
+          //                     );
+          //                   },
+          //                 ),
+          //               )
+          //                   .then((value) {
+          //                 _refreshMedicalInformation();
+          //               });
+          //             },
+          //           );
+          //         },
+          //         icon: const Icon(
+          //           Icons.medical_information_rounded,
+          //           color: Colors.white,
+          //         ),
+          //       ),
         ],
       ),
     );

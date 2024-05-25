@@ -1,18 +1,14 @@
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/auth/auth_widgets.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/feature/pets/profile_details/widgets/custom_textformfield.dart';
 import 'package:userapp/feature/tag/tag_selection/scan_tag.dart';
-import 'package:userapp/feature/tag/tag_selection/tag_selection_page.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
 
-import '../../../general/utils_general.dart';
 import '../../pets/profile_details/models/m_pet_profile.dart';
 import '../../pets/profile_details/models/m_tag.dart';
 import '../utils/u_tag.dart';
@@ -155,55 +151,55 @@ class _AddFinmaTagHeaderState extends State<AddFinmaTagHeader> {
                     ),
                   ),
                   const SizedBox(width: 16),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const TagScanner()),
-                      ).then((value) async {
-                        if (value != null) {
-                          //-Idcode last symbols in link
-                          String tagId = value.substring(value.length - 12);
-                          Tag tag = await getTag(tagId);
-                          _checkCode(tag.activationCode, true);
-                        }
-                      });
-                    },
-                    child: Material(
-                      elevation: 2,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(48),
-                        topRight: Radius.circular(0),
-                        bottomLeft: Radius.circular(48),
-                        bottomRight: Radius.circular(0),
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(48),
-                            topRight: Radius.circular(0),
-                            bottomLeft: Radius.circular(48),
-                            bottomRight: Radius.circular(0),
-                          ),
-                          color: getCustomColors(context).accent,
-                        ),
-                        padding: const EdgeInsets.all(24),
-                        child: const Icon(
-                          CustomIcons.qr_code_9,
-                          size: 22,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // InkWell(
+                  //   onTap: () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //           builder: (context) => const TagScanner()),
+                  //     ).then((value) async {
+                  //       if (value != null) {
+                  //         //-Idcode last symbols in link
+                  //         String tagId = value.substring(value.length - 12);
+                  //         Tag tag = await getTag(tagId);
+                  //         _checkCode(tag.activationCode, true);
+                  //       }
+                  //     });
+                  //   },
+                  //   child: Material(
+                  //     elevation: 2,
+                  //     borderRadius: const BorderRadius.only(
+                  //       topLeft: Radius.circular(48),
+                  //       topRight: Radius.circular(0),
+                  //       bottomLeft: Radius.circular(48),
+                  //       bottomRight: Radius.circular(0),
+                  //     ),
+                  //     child: Container(
+                  //       decoration: BoxDecoration(
+                  //         borderRadius: const BorderRadius.only(
+                  //           topLeft: Radius.circular(48),
+                  //           topRight: Radius.circular(0),
+                  //           bottomLeft: Radius.circular(48),
+                  //           bottomRight: Radius.circular(0),
+                  //         ),
+                  //         color: getCustomColors(context).accent,
+                  //       ),
+                  //       padding: const EdgeInsets.all(24),
+                  //       child: const Icon(
+                  //         CustomIcons.qr_code_9,
+                  //         size: 22,
+                  //         color: Colors.white,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
           ),
           _textEditingController.text.length != 16
               ? Padding(
-                  padding: EdgeInsets.all(32),
+                  padding: const EdgeInsets.all(32),
                   child: Text(
                     widget.subtitle,
                     style: Theme.of(context).textTheme.labelSmall,

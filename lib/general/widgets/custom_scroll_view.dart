@@ -53,8 +53,8 @@ class _CustomNicoScrollViewState extends State<CustomNicoScrollView> {
             // automaticallyImplyLeading: false,
             flexibleSpace: MyFlexibleSpaceBar(
               titlePaddingTween: EdgeInsetsTween(
-                  begin: EdgeInsets.only(left: 16.0, bottom: 16),
-                  end: EdgeInsets.only(left: 72.0, bottom: 16)),
+                  begin: const EdgeInsets.only(left: 16.0, bottom: 16),
+                  end: const EdgeInsets.only(left: 72.0, bottom: 16)),
               title: widget.title,
               // titlePadding: EdgeInsets.all(0), centerTitle: false,
               // centerTitle: true,

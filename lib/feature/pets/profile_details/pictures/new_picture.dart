@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:image_cropper/image_cropper.dart';
-import 'package:userapp/general/utils_color/hex_color.dart';
 import '../../../../general/utils_theme/custom_colors.dart';
 import 'gallery_camera_dialog.dart';
 

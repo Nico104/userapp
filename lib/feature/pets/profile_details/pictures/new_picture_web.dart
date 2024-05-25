@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -11,7 +10,6 @@ import 'package:userapp/general/utils_color/hex_color.dart';
 import '../../../../general/utils_theme/custom_colors.dart';
 import '../../../../general/widgets/loading_indicator.dart';
 import 'gallery_camera_dialog.dart';
-import 'package:http/http.dart' as http;
 
 class NewPictureWeb extends StatefulWidget {
   const NewPictureWeb({

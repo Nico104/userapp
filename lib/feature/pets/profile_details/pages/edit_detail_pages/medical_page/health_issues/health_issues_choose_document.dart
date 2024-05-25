@@ -1,12 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
-import 'package:userapp/feature/pets/u_pets.dart';
 
 import '../../../../../../../general/widgets/custom_nico_modal.dart';
-import '../../../../../../../general/widgets/custom_scroll_view.dart';
 import '../../../../models/m_document.dart';
 import '../../document_page/document_item/documents_list_item.dart';
 
@@ -43,7 +40,7 @@ class _HealthIssueLinkDocumentSelectionState
               pinned: true,
               // automaticallyImplyLeading: false,
               flexibleSpace: FlexibleSpaceBar(
-                background: SizedBox(height: 60),
+                background: const SizedBox(height: 60),
                 title: Text("healthIssue_linkDocument".tr()),
                 centerTitle: true,
               ),

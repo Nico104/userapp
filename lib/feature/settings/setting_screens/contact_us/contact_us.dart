@@ -41,7 +41,7 @@ class _ContactUsState extends State<ContactUs> {
                 });
               },
             ),
-            title: Text("Get in touch"),
+            title: const Text("Get in touch"),
             body: Padding(
               padding: const EdgeInsets.only(left: 28, right: 28),
               child: Form(
@@ -111,7 +111,7 @@ class _ContactUsState extends State<ContactUs> {
           ),
           ShyButton(
             showUploadButton: _showShyButton,
-            icon: Icon(
+            icon: const Icon(
               Icons.mail_outline_rounded,
               color: Colors.white,
             ),

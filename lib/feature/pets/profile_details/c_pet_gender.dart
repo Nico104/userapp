@@ -101,7 +101,7 @@ class _GenderButtonState extends State<GenderButton> {
                   ? Colors.black.withOpacity(0.06)
                   : Colors.white.withOpacity(0.06),
         ),
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         child: Center(
           child: Text(
             widget.label,

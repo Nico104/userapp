@@ -1,15 +1,9 @@
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/auth/auth_widgets.dart';
 import 'package:userapp/feature/settings/setting_screens/account_settings/update_useremail/update_useremail_status.dart';
 
-import '../../../../auth/u_auth.dart';
 import '../../../../pets/profile_details/widgets/custom_textformfield.dart';
-import '../../../../../general/utils_theme/custom_colors.dart';
-import '../../../../../general/utils_theme/custom_text_styles.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class UpdateUseremailFirebasePage extends StatefulWidget {

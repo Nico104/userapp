@@ -4,7 +4,6 @@ import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
 import '../../pets/profile_details/models/m_pet_profile.dart';
 import 'add_new_tag_widget.dart';
-import 'add_tag_header.dart';
 import 'add_tag_tutorial.dart';
 
 class AddTagPage extends StatelessWidget {
@@ -19,7 +18,7 @@ class AddTagPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomNicoScrollView(
-        title: Text("Add Tag"),
+        title: const Text("Add Tag"),
         body: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -28,14 +27,17 @@ class AddTagPage extends StatelessWidget {
               subtitle: "addTag_info1".tr(),
             ),
             Padding(
+              padding: const EdgeInsets.all(16 + 8),
               child: Divider(
                 color: Colors.grey.shade300,
                 thickness: 0.5,
                 height: 0,
               ),
-              padding: EdgeInsets.all(16 + 8),
             ),
-            AddTagTutorial(),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: const AddTagTutorial(),
+            ),
           ],
         ),
         onScroll: () {},

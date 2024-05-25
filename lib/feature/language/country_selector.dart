@@ -43,12 +43,12 @@ class CountrySelector extends StatelessWidget {
                           ),
                         ),
                         Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 32, 0, 32),
                           child: Divider(
                             color: Colors.grey.shade300,
                             thickness: 0.5,
                             height: 0,
                           ),
-                          padding: EdgeInsets.fromLTRB(0, 32, 0, 32),
                         ),
                       ],
                     )
@@ -123,7 +123,7 @@ class SingleCountry extends StatelessWidget {
           "country_${country.countryKey}".tr(),
           style: Theme.of(context).textTheme.labelLarge,
         ),
-        Spacer(),
+        const Spacer(),
         Text(
           "(${country.countryPhonePrefix})",
           style: Theme.of(context).textTheme.labelMedium,

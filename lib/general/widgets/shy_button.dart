@@ -62,8 +62,8 @@ class ShyButton extends StatelessWidget {
                       children: [
                         Padding(
                           padding: icon != null
-                              ? EdgeInsets.only(left: 32, right: 24)
-                              : EdgeInsets.only(left: 32, right: 32),
+                              ? const EdgeInsets.only(left: 32, right: 24)
+                              : const EdgeInsets.only(left: 32, right: 32),
                           child: AutoSizeText(
                             label,
                             maxLines: 1,
@@ -91,7 +91,7 @@ class ShyButton extends StatelessWidget {
                                         getCustomColors(context)
                                             .accentHighContrast,
                                   ),
-                                  padding: EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(8),
                                   child: Center(
                                     child: icon,
                                   ),

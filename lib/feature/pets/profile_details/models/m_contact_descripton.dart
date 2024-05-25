@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:userapp/general/utils_color/hex_color.dart';
 
 class ContactDescription {
   final int contactDescriptionId;
@@ -34,7 +33,7 @@ class ContactDescription {
 
 List<Color> getAvailableContactDescriptionColors() {
   //Material default Colors
-  List<Color> _defaultColors = [
+  List<Color> defaultColors = [
     Colors.red,
     Colors.pink,
     Colors.purple,
@@ -56,7 +55,7 @@ List<Color> getAvailableContactDescriptionColors() {
     Colors.grey,
     Colors.blueGrey,
   ];
-  return _defaultColors;
+  return defaultColors;
 }
 
 Color getDefaultColor() {

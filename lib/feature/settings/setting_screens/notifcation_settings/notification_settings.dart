@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import '../../../../general/utils_custom_icons/custom_icons_icons.dart';
-import '../../../../general/utils_general.dart';
 import '../../../../general/widgets/loading_indicator.dart';
 import '../../utils/u_settings.dart';
 import 'notification_settings_item.dart';

@@ -1,15 +1,10 @@
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/pets/profile_details/contact/u_contact.dart';
 import '../../../../general/widgets/future_error_widget.dart';
 import '../../../../general/widgets/loading_indicator.dart';
-import '../../../auth/u_auth.dart';
-import '../../../../general/utils_general.dart';
-import '../c_pet_name.dart';
 import '../models/m_contact.dart';
 import '../models/m_pet_profile.dart';
-import 'contact_details_page.dart';
 import 'contact_list_item.dart';
 
 class SelectionContactsPage extends StatefulWidget {

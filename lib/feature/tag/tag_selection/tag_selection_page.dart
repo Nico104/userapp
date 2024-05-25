@@ -1,9 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/tag/tag_selection/tag_selection_list.dart';
-import 'package:userapp/general/utils_general.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
 import '../../../general/widgets/future_error_widget.dart';
@@ -12,7 +10,6 @@ import '../../pets/profile_details/models/m_pet_profile.dart';
 import '../../pets/profile_details/models/m_tag.dart';
 import '../utils/u_tag.dart';
 import 'add_tag_header.dart';
-import 'add_tag_page.dart';
 
 class TagSelectionPage extends StatefulWidget {
   const TagSelectionPage({
@@ -61,7 +58,7 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
                 "tagSelectionPage_Subtitle".tr(),
                 style: Theme.of(context).textTheme.displayLarge,
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               Text(
                 "tagSelectionPage_Title".tr(),
                 style: Theme.of(context).appBarTheme.titleTextStyle!.copyWith(
@@ -109,7 +106,7 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
                     //     AddFinmaTagPage(
                     //       petProfile: widget.petProfile,
                     //     ));
-                    return SizedBox.shrink();
+                    return const SizedBox.shrink();
                   }
                   return TagSelectionList(
                     userTags: snapshot.data!,
@@ -133,10 +130,10 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
                   return const SizedBox.shrink();
                 } else {
                   //Loading
-                  return Center(
+                  return const Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         SizedBox(
                           width: 60,
                           height: 60,

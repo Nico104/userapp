@@ -1,10 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/pets/profile_details/contact/u_contact.dart';
-import 'package:userapp/general/utils_theme/custom_colors.dart';
 
-import '../../../../language/language_selector.dart';
-import '../../../../language/m_language.dart';
 import '../../g_profile_detail_globals.dart';
 import 'add_language_button.dart';
 
@@ -35,7 +32,7 @@ class NoLanguages extends StatelessWidget {
             },
             title: "noLanguagesWidget_addSpokenLanguage".tr(),
             availableLanguages: availableLanguages,
-            unavailableLanguages: [],
+            unavailableLanguages: const [],
           ),
         ],
       ),

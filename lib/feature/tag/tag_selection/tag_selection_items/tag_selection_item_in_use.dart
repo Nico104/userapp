@@ -107,7 +107,7 @@ class _TagSelectionItemInUseByOtherPetState
                 color: Colors.transparent,
               ),
               child: Padding(
-                padding: EdgeInsets.all(4),
+                padding: const EdgeInsets.all(4),
                 child: Center(child: getSuffix()),
               ),
             ),

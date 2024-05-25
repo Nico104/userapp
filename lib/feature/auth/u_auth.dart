@@ -1,16 +1,12 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:userapp/general/network_globals.dart';
 
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-
-import 'U_auth_globals.dart';
 
 // final facebookLogin = FacebookLogin();
 final firebase_auth.FirebaseAuth firebaseAuth =
@@ -72,7 +68,7 @@ Future<String> getName() async {
     'Authorization': '$token',
   });
 
-  print("Name " + response.body);
+  print("Name ${response.body}");
 
   if (response.statusCode == 200 && response.body.isNotEmpty) {
     return response.body;
@@ -738,7 +734,7 @@ Future<firebase_auth.User?> signInWithEmailPassword(
       // userEmail = user.email;
       print(user);
       user.getIdToken().then((value) {
-        print("Id Token: " + value);
+        print("Id Token: ${value!}");
       });
 
       // SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -786,16 +782,16 @@ Future<firebase_auth.User?> signInWithGoogle(
     } on firebase_auth.FirebaseAuthException catch (e) {
       if (e.code == 'account-exists-with-different-credential') {
         // handle the error here
-        print("Error:  ->  " + e.toString());
+        print("Error:  ->  $e");
         throw Exception(e);
       } else if (e.code == 'invalid-credential') {
         // handle the error here
-        print("Error:  ->  " + e.toString());
+        print("Error:  ->  $e");
         throw Exception(e);
       }
     } catch (e) {
       // handle the error here
-      print("Error:  ->  " + e.toString());
+      print("Error:  ->  $e");
       throw Exception(e);
     }
   } else {

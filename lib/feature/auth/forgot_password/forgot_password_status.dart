@@ -2,8 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/auth/u_auth.dart';
 
-import '../../../general/utils_theme/custom_colors.dart';
-import '../../../general/utils_theme/custom_text_styles.dart';
 import '../../../general/widgets/future_error_widget.dart';
 import '../../../general/widgets/loading_indicator.dart';
 
@@ -114,7 +112,7 @@ class _ForgotPasswordStatusState extends State<ForgotPasswordStatus> {
             WidgetsBinding.instance.addPostFrameCallback((_) => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => FutureErrorWidget(),
+                    builder: (context) => const FutureErrorWidget(),
                   ),
                 ).then((value) => setState(
                       () {},

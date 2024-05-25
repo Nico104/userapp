@@ -6,10 +6,8 @@ import 'package:userapp/general/utils_color/hex_color.dart';
 import 'package:userapp/feature/pets/profile_details/g_profile_detail_globals.dart'
     as globals;
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
-import '../language/country_selector.dart';
 import '../language/m_language.dart';
 import '../navigation_peppi/pet_profile_preview_extended_actions.dart';
-import '../pets/profile_details/g_profile_detail_globals.dart';
 import 'my_pets_navbar/my_pets_navbar.dart';
 import '../pets/new_pet_profile.dart';
 import '../pets/page_transform.dart';

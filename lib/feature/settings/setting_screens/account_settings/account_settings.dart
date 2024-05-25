@@ -43,7 +43,7 @@ class _AccountSettingsState extends State<AccountSettings> {
               UpdateSocialSignIn(
                 label: "googleSignIn_EditTitle".tr(),
                 editAccountLink: "https://myaccount.google.com/",
-                icon: Icon(Icons.alternate_email),
+                icon: const Icon(Icons.alternate_email),
               ),
               const SizedBox(height: settingItemSpacing),
               if (getLoggedInUser()!.email != null)
@@ -157,7 +157,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                     onTap: () {
                       navigatePerSlide(
                         context,
-                        DeleteAccount(),
+                        const DeleteAccount(),
                         callback: () {
                           //reload Current Name
                           setState(() {});
@@ -182,10 +182,10 @@ class _AccountSettingsState extends State<AccountSettings> {
             return const SizedBox.shrink();
           } else {
             //Loading
-            return Center(
+            return const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   SizedBox(
                     width: 60,
                     height: 60,
