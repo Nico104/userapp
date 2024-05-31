@@ -170,18 +170,19 @@ class _SettingsState extends State<Settings> {
                             },
                           ),
                         ),
-                        const SizedBox(height: settingItemSpacing),
-                        SettingsItem(
-                          label: "Welcome Page".tr(),
-                          leading: const Icon(Icons.light),
-                          suffix: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            navigatePerSlide(
-                              context,
-                              const OnBoarding(),
-                            );
-                          },
-                        ),
+                        //TODO solve how to mka eon boarding screen
+                        // const SizedBox(height: settingItemSpacing),
+                        // SettingsItem(
+                        //   label: "Welcome Page".tr(),
+                        //   leading: const Icon(Icons.light),
+                        //   suffix: const Icon(Icons.keyboard_arrow_right),
+                        //   onTap: () {
+                        //     navigatePerSlide(
+                        //       context,
+                        //       const OnBoarding(),
+                        //     );
+                        //   },
+                        // ),
                         const SizedBox(height: settingItemSpacing),
                         SettingsItem(
                           label: "settingsItemHowToUse".tr(),

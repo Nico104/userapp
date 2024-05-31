@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:userapp/feature/language/language_selector.dart';
+import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/description_page/auto_translate_button.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 
@@ -17,11 +18,11 @@ import '../../../u_profile_details.dart';
 import '../../../widgets/custom_textformfield.dart';
 
 class DescriptionPage extends StatefulWidget {
-  const DescriptionPage(
-      {super.key, required this.descriptions, required this.petProfileId});
+  const DescriptionPage({super.key, required this.petProfileDetails});
 
-  final List<Description> descriptions;
-  final int petProfileId;
+  // final List<Description> descriptions;
+  // final int petProfileId;
+  final PetProfileDetails petProfileDetails;
 
   @override
   State<DescriptionPage> createState() => _DescriptionPageState();
@@ -33,64 +34,81 @@ class _DescriptionPageState extends State<DescriptionPage> {
   final TextEditingController _textEditingController = TextEditingController();
 
   void _updateDescription(String text) {
-    if (_currentLanguage != null) {
-      EasyDebounce.debounce(
-        'updateDescription+${_currentLanguage?.languageKey}',
-        const Duration(milliseconds: 250),
-        () {
-          Description description =
-              Description(text, _currentLanguage!, widget.petProfileId);
-          // if (widget.descriptions.contains((element) =>
-          //     element.language.languageKey == _currentLanguage!.languageKey)) {}
-          if (widget.descriptions
-              .where((element) =>
-                  element.language.languageKey == _currentLanguage!.languageKey)
-              .isNotEmpty) {
-            widget.descriptions
-                .singleWhere((element) =>
-                    element.language.languageKey ==
-                    _currentLanguage!.languageKey)
-                .text = text;
-          } else {
-            setState(() {
-              widget.descriptions.add(description);
-            });
-          }
-          upsertDescription(description);
-        },
-      );
-    }
+    // if (_currentLanguage != null) {
+    //   EasyDebounce.debounce(
+    //     'updateDescription+${_currentLanguage?.languageKey}',
+    //     const Duration(milliseconds: 250),
+    //     () {
+    //       Description description =
+    //           Description(text, _currentLanguage!, widget.petProfileId);
+    //       // if (widget.descriptions.contains((element) =>
+    //       //     element.language.languageKey == _currentLanguage!.languageKey)) {}
+    //       if (widget.descriptions
+    //           .where((element) =>
+    //               element.language.languageKey == _currentLanguage!.languageKey)
+    //           .isNotEmpty) {
+    //         widget.descriptions
+    //             .singleWhere((element) =>
+    //                 element.language.languageKey ==
+    //                 _currentLanguage!.languageKey)
+    //             .text = text;
+    //       } else {
+    //         setState(() {
+    //           widget.descriptions.add(description);
+    //         });
+    //       }
+    //       upsertDescription(description);
+    //     },
+    //   );
+    // }
+
+    EasyDebounce.debounce(
+      'updateDescription',
+      const Duration(milliseconds: 250),
+      () {
+        setState(() {
+          widget.petProfileDetails.description = text;
+        });
+        updatePetProfileCore(widget.petProfileDetails);
+      },
+    );
   }
 
-  void _setCurrentLanguage(Language? language) {
-    setState(() {
-      _currentLanguage = language;
-    });
-    if (_getCurrentDescription() != null) {
-      _textEditingController.text = _getCurrentDescription()!.text;
-    }
-  }
+  // void _setCurrentLanguage(Language? language) {
+  //   setState(() {
+  //     _currentLanguage = language;
+  //   });
+  //   if (_getCurrentDescription() != null) {
+  //     _textEditingController.text = _getCurrentDescription()!.text;
+  //   }
+  // }
 
-  Description? _getCurrentDescription() {
-    if (_currentLanguage != null &&
-        widget.descriptions
-            .where((element) =>
-                element.language.languageKey == _currentLanguage!.languageKey)
-            .isNotEmpty) {
-      return widget.descriptions
-          .where((element) =>
-              element.language.languageKey == _currentLanguage!.languageKey)
-          .first;
-    } else {
-      return null;
-    }
-  }
+  // Description? _getCurrentDescription() {
+  //   if (_currentLanguage != null &&
+  //       widget.descriptions
+  //           .where((element) =>
+  //               element.language.languageKey == _currentLanguage!.languageKey)
+  //           .isNotEmpty) {
+  //     return widget.descriptions
+  //         .where((element) =>
+  //             element.language.languageKey == _currentLanguage!.languageKey)
+  //         .first;
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
-  void _removeDescriptionFromList(Description description) {
-    setState(() {
-      widget.descriptions.removeWhere((element) =>
-          element.language.languageKey == description.language.languageKey);
-    });
+  // void _removeDescriptionFromList(Description description) {
+  //   setState(() {
+  //     widget.descriptions.removeWhere((element) =>
+  //         element.language.languageKey == description.language.languageKey);
+  //   });
+  // }
+
+  @override
+  void initState() {
+    super.initState();
+    _textEditingController.text = widget.petProfileDetails.description;
   }
 
   @override

@@ -20,9 +20,10 @@ class TagSingle extends StatelessWidget {
   Widget build(BuildContext context) {
     //Bilder direct mit shadow zeichnen
 
-    return Image.network(
-      // "assets/tmp/2d_paw_blue.png",
-      s3BaseUrl + picturePath,
+    return CachedNetworkImage(
+      imageUrl: s3BaseUrl + picturePath,
+      placeholder: (context, url) => const CustomLoadingIndicatior(),
+      errorWidget: (context, url, error) => const Icon(Icons.error),
       width: collardimension,
       height: collardimension,
       fit: BoxFit.contain,

@@ -37,9 +37,10 @@ class OnBoarding extends StatelessWidget {
             Image.asset('assets/tmp/onboarding1.png'),
             Image.asset('assets/tmp/onboarding1.png'),
             Image.asset('assets/tmp/onboarding1.png'),
+            Image.asset('assets/tmp/onboarding1.png'),
           ],
           centerBackground: true,
-          totalPage: 3,
+          totalPage: 4,
           speed: 1.8,
           pageBodies: [
             Container(
@@ -100,6 +101,27 @@ class OnBoarding extends StatelessWidget {
                   ),
                   Text(
                     'Enjoy your Finma Tag and having all your Pets information with him/her all the time while managing it all easily right here',
+                    style: Theme.of(context).textTheme.displayMedium,
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: Column(
+                children: <Widget>[
+                  const SizedBox(
+                    height: 480,
+                  ),
+                  Text(
+                    'Sign Up',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    'Create your account in just a few clicks',
                     style: Theme.of(context).textTheme.displayMedium,
                   ),
                 ],

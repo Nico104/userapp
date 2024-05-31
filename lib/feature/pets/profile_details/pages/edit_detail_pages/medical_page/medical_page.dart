@@ -98,7 +98,7 @@ class _MedicalPageState extends State<MedicalPage> {
                       PaddingComponent(
                         child: OnelineSimpleInput(
                           flex: 7,
-                          value: widget.petProfileDetails.petName,
+                          value: _medicalInformation?.breed ?? "",
                           emptyValuePlaceholder:
                               "medicalInformation_breed".tr(),
                           title: "medicalInformation_breed".tr(),
@@ -114,7 +114,7 @@ class _MedicalPageState extends State<MedicalPage> {
                       PaddingComponent(
                         child: OnelineSimpleInput(
                           flex: 7,
-                          value: widget.petProfileDetails.petName,
+                          value: _medicalInformation?.age ?? "",
                           emptyValuePlaceholder: "medicalInformation_age".tr(),
                           title: "medicalInformation_age".tr(),
                           saveValue: (val) async {
@@ -138,7 +138,7 @@ class _MedicalPageState extends State<MedicalPage> {
                       PaddingComponent(
                         child: MultiSimpleInput(
                           // flexSpacer: 0,
-                          value: widget.petProfileDetails.petName,
+                          value: _medicalInformation?.vaccinations ?? "",
                           emptyValuePlaceholder:
                               "medicalPage_enterVaccinations".tr(),
                           title: "medicalPage_enterVaccinations".tr(),
@@ -154,7 +154,7 @@ class _MedicalPageState extends State<MedicalPage> {
                       PaddingComponent(
                         child: MultiSimpleInput(
                           // flexSpacer: 0,
-                          value: widget.petProfileDetails.petName,
+                          value: _medicalInformation?.allergies ?? "",
                           emptyValuePlaceholder:
                               "medicalPage_enterAllergies".tr(),
                           title: "medicalPage_enterAllergies".tr(),
@@ -170,7 +170,7 @@ class _MedicalPageState extends State<MedicalPage> {
                       PaddingComponent(
                         child: MultiSimpleInput(
                           // flexSpacer: 0,
-                          value: widget.petProfileDetails.petName,
+                          value: _medicalInformation?.medications ?? "",
                           emptyValuePlaceholder:
                               "medicalPage_enterMedications".tr(),
                           title: "medicalPage_enterMedications".tr(),
@@ -186,7 +186,7 @@ class _MedicalPageState extends State<MedicalPage> {
                       PaddingComponent(
                         child: MultiSimpleInput(
                           // flexSpacer: 0,
-                          value: widget.petProfileDetails.petName,
+                          value: _medicalInformation?.chronicConditions ?? "",
                           emptyValuePlaceholder:
                               "medicalPage_enterChronicConditions".tr(),
                           title: "medicalPage_enterChronicConditions".tr(),

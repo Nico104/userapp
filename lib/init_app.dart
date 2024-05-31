@@ -122,19 +122,20 @@ class _InitAppState extends State<InitApp> {
     //Messaging
     _initMessaging();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      getSeenOnboarding().then((value) {
-        if (!value) {
-          navigatePerSlide(
-            context,
-            const OnBoarding(),
-            callback: () async {
-              await setSeenOnboarding(true);
-            },
-          );
-        }
-      });
-    });
+    //TODO solve how to mka eon boarding screen
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   getSeenOnboarding().then((value) {
+    //     if (!value) {
+    //       navigatePerSlide(
+    //         context,
+    //         const OnBoarding(),
+    //         callback: () async {
+    //           await setSeenOnboarding(true);
+    //         },
+    //       );
+    //     }
+    //   });
+    // });
   }
 
   @override

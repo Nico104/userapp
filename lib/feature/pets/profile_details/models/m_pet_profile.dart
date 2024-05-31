@@ -29,7 +29,6 @@ class PetProfileDetails {
   bool petIsLost;
   List<Tag> tag;
   final List<Scan> petProfileScans;
-  bool hideContacts;
   String? pet_tattooID;
   String? pet_licenceID;
   String? pet_favorite_toys;
@@ -37,6 +36,13 @@ class PetProfileDetails {
   String? pet_behavioral_notes;
   String? pet_special_needs;
   String? pet_diet_preferences;
+  bool hide_contacts;
+  bool hide_information;
+  bool hide_medical;
+  bool hide_pictures;
+  bool hide_documents;
+  bool hide_description;
+  String description;
 
   // PetProfileDetails clone() => PetProfileDetails(
   //       profileId,
@@ -80,7 +86,7 @@ class PetProfileDetails {
     this.petPictures,
     this.petProfileScans,
     this.tag,
-    this.hideContacts,
+    this.hide_contacts,
     this.pet_behavioral_notes,
     this.pet_diet_preferences,
     this.pet_favorite_activities,
@@ -88,10 +94,17 @@ class PetProfileDetails {
     this.pet_licenceID,
     this.pet_special_needs,
     this.pet_tattooID,
+    this.hide_description,
+    this.hide_documents,
+    this.hide_information,
+    this.hide_medical,
+    this.hide_pictures,
+    this.description,
   );
 
   PetProfileDetails.fromJson(Map<String, dynamic> json)
       : profileId = json['profile_id'],
+        description = json['description'],
         profileCreationDateTime =
             DateTime.parse(json['profile_creation_DateTime']),
         petName = json['pet_name'],
@@ -114,7 +127,12 @@ class PetProfileDetails {
         //         .toList()
         //     : [],
         petIsLostText = json['pet_is_lost_text'],
-        hideContacts = json['hide_contacts'],
+        hide_contacts = json['hide_contacts'],
+        hide_information = json['hide_information'],
+        hide_medical = json['hide_medical'],
+        hide_pictures = json['hide_pictures'],
+        hide_documents = json['hide_documents'],
+        hide_description = json['hide_description'],
         petContacts = json['Contact'] != null
             ? (json['Contact'] as List).map((t) => Contact.fromJson(t)).toList()
             : [],
@@ -168,6 +186,7 @@ class PetProfileDetails {
   Map<String, dynamic> toJson() => {
         'profile_id': profileId,
         'pet_name': petName,
+        'description': description,
         'pet_gender': parseStringFromGender(petGender),
         'pet_chip_id': petChipId,
         // 'pet_owner_name': petOwnerName,
@@ -184,6 +203,13 @@ class PetProfileDetails {
         'pet_behavioral_notes': pet_behavioral_notes,
         'pet_special_needs': pet_special_needs,
         'pet_diet_preferences': pet_diet_preferences,
+
+        'hide_contacts': hide_contacts,
+        'hide_information': hide_information,
+        'hide_medical': hide_medical,
+        'hide_pictures': hide_pictures,
+        'hide_documents': hide_documents,
+        'hide_description': hide_description,
       };
 }
 
@@ -234,6 +260,12 @@ PetProfileDetails getDummyPetProfile() {
     "",
     "",
     "",
+    "",
+    false,
+    false,
+    false,
+    false,
+    false,
     "",
   );
 }

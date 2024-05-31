@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/general/widgets/loading_indicator.dart';
 
 import '../../../../../general/network_globals.dart';
 import '../../../../../general/widgets/custom_nico_modal.dart';
@@ -22,8 +24,10 @@ class SpokenLanguageItem extends StatelessWidget {
         aspectRatio: 3 / 2,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: Image.network(
-            s3BaseUrl + languageImagePath,
+          child: CachedNetworkImage(
+            imageUrl: s3BaseUrl + languageImagePath,
+            placeholder: (context, url) => const CustomLoadingIndicatior(),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
         ),
       ),

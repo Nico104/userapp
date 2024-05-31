@@ -9,6 +9,7 @@ import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/navigation_peppi/share_seppi.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
+import 'package:userapp/feature/pets/profile_details/visibility/visibility_menu.dart';
 
 import '../../../../general/utils_color/hex_color.dart';
 import '../../../../general/utils_custom_icons/custom_icons_icons.dart';
@@ -235,6 +236,21 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
             );
           },
         ),
+        ListTile(
+          leading: const Icon(CustomIcons.delete),
+          title: Text("Visibility Menu"),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => VisibilityMenu(
+                  petProfileDetails: _petProfileDetails,
+                ),
+              ),
+            );
+          },
+        ),
       ],
       child: const Icon(Icons.more_horiz),
     );
@@ -330,14 +346,16 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                               (BuildContext context, _, __) {
                                             return LostBox(
                                               petProfile: _petProfileDetails,
-                                              goToContacts: () {
+                                              goToVisibilityMenu: () {
                                                 navigatePerSlide(
-                                                  context,
-                                                  ContactPage(
-                                                    petProfileDetails: widget
-                                                        .petProfileDetails,
-                                                  ),
-                                                );
+                                                    context,
+                                                    // ContactPage(
+                                                    //   petProfileDetails: widget
+                                                    //       .petProfileDetails,
+                                                    // ),
+                                                    VisibilityMenu(
+                                                        petProfileDetails: widget
+                                                            .petProfileDetails));
                                               },
                                             );
                                             // return LostPage(
@@ -743,6 +761,9 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                               context,
                               BasicInformationPage(
                                 petProfileDetails: _petProfileDetails,
+                                reloadPetProfileDetails: () {
+                                  reloadPetProfileDetails();
+                                },
                                 setGender: (value) {
                                   _petProfileDetails.petGender = value;
                                   updatePetProfileCore(_petProfileDetails);
@@ -822,9 +843,10 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                 navigatePerSlide(
                                   context,
                                   DescriptionPage(
-                                    descriptions:
-                                        _petProfileDetails.petDescription,
-                                    petProfileId: _petProfileDetails.profileId,
+                                    // descriptions:
+                                    //     _petProfileDetails.petDescription,
+                                    // petProfileId: _petProfileDetails.profileId,
+                                    petProfileDetails: _petProfileDetails,
                                   ),
                                 );
                               },

@@ -6,20 +6,27 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
+import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 
 import '../../../../../../general/utils_theme/custom_colors.dart';
 import '../../../widgets/custom_textformfield.dart';
 
-class LostBox extends StatelessWidget {
+class LostBox extends StatefulWidget {
   const LostBox({
     super.key,
     required this.petProfile,
-    required this.goToContacts,
+    required this.goToVisibilityMenu,
   });
 
   final PetProfileDetails petProfile;
+  final VoidCallback goToVisibilityMenu;
+
+  @override
+  State<LostBox> createState() => _LostBoxState();
+}
+
+class _LostBoxState extends State<LostBox> {
   final double _borderRadius = 36;
-  final VoidCallback goToContacts;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +42,7 @@ class LostBox extends StatelessWidget {
           color: Colors.black.withOpacity(0.06),
           child: Center(
             child: Hero(
-              tag: "lost${petProfile.profileId}",
+              tag: "lost${widget.petProfile.profileId}",
               child: Material(
                 borderRadius: BorderRadius.circular(_borderRadius),
                 elevation: 8,
@@ -58,8 +65,9 @@ class LostBox extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "lostBox_Title".tr(
-                                  namedArgs: {'value1': petProfile.petName}),
+                              "lostBox_Title".tr(namedArgs: {
+                                'value1': widget.petProfile.petName
+                              }),
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             const SizedBox(height: 32),
@@ -71,7 +79,7 @@ class LostBox extends StatelessWidget {
                             Flexible(
                               child: CustomTextFormField(
                                 // focusNode: focusNode,
-                                initialValue: petProfile.petIsLostText,
+                                initialValue: widget.petProfile.petIsLostText,
                                 // textEditingController: _textEditingController,
                                 hintText: "Important Information",
                                 maxLines: null,
@@ -79,7 +87,7 @@ class LostBox extends StatelessWidget {
                                 keyboardType: TextInputType.multiline,
                                 autofocus: false,
                                 onChanged: (val) {
-                                  petProfile.petIsLostText = val;
+                                  widget.petProfile.petIsLostText = val;
                                 },
                                 showSuffix: false,
                               ),
@@ -93,7 +101,7 @@ class LostBox extends StatelessWidget {
                                       text: 'lostBox_contactsVisibility'.tr()),
                                   const TextSpan(text: ' '),
                                   TextSpan(
-                                    text: 'lostBox_Contacts'.tr(),
+                                    text: 'lostBox_Visibility Menu'.tr(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .labelMedium
@@ -103,7 +111,7 @@ class LostBox extends StatelessWidget {
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
                                         Navigator.pop(context);
-                                        goToContacts();
+                                        widget.goToVisibilityMenu();
                                       },
                                   ),
                                 ],
@@ -114,20 +122,33 @@ class LostBox extends StatelessWidget {
                               child: Material(
                                 elevation: 2,
                                 borderRadius: BorderRadius.circular(36),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(36),
-                                    color: getCustomColors(context).accent,
-                                  ),
-                                  padding:
-                                      const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                                  child: AutoSizeText(
-                                    "lostBox_confirmLabel".tr(),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelMedium
-                                        ?.copyWith(color: Colors.white),
-                                    maxLines: 1,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      widget.petProfile.petIsLost =
+                                          !widget.petProfile.petIsLost;
+                                    });
+                                    updatePetProfileCore(widget.petProfile);
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(36),
+                                      color: widget.petProfile.petIsLost
+                                          ? Colors.green.shade300
+                                          : getCustomColors(context).accent,
+                                    ),
+                                    padding: const EdgeInsets.fromLTRB(
+                                        32, 16, 32, 16),
+                                    child: AutoSizeText(
+                                      widget.petProfile.petIsLost
+                                          ? "Mark as found"
+                                          : "lostBox_confirmLabel".tr(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium
+                                          ?.copyWith(color: Colors.white),
+                                      maxLines: 1,
+                                    ),
                                   ),
                                 ),
                               ),

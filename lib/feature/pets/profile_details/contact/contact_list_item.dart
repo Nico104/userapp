@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/general/network_globals.dart';
@@ -90,7 +91,8 @@ class _ContactListItemState extends State<ContactListItem> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                        image: NetworkImage(_getProfilePictureLink()),
+                        image: CachedNetworkImageProvider(
+                            _getProfilePictureLink()),
                         fit: BoxFit.cover,
                       ),
                     ),

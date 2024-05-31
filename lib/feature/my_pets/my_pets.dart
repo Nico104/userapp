@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:userapp/general/network_globals.dart';
@@ -145,12 +146,20 @@ class _MyPetsState extends State<MyPets> {
                 decoration: pageindex.round() < widget.petProfiles.length
                     ? BoxDecoration(
                         image: DecorationImage(
-                          image: NetworkImage(
+                          image: CachedNetworkImageProvider(
                             getBGPictureLink(),
-                            // _bgPictureLink,
+                            // fit: BoxFit.cover,
+                            scale: 1.2,
+                            // imageUrl: getBGPictureLink(),
+                            // placeholder: (context, url) =>
+                            //     const CustomLoadingIndicatior(),
+                            // errorWidget: (context, url, error) =>
+                            //     const Icon(Icons.error),
                           ),
-                          fit: BoxFit.cover,
-                          scale: 1.2,
+                          // NetworkImage(
+                          //   getBGPictureLink(),
+                          //   // _bgPictureLink,
+                          // ),
                         ),
                       )
                     : BoxDecoration(

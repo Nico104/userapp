@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:userapp/feature/pets/profile_details/g_profile_detail_globals.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_phone_number.dart';
+import 'package:userapp/general/widgets/loading_indicator.dart';
 
 import '../../../../general/network_globals.dart';
 import '../../../language/country_selector.dart';
@@ -104,9 +106,13 @@ class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
                       aspectRatio: 3 / 2,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(4),
-                        child: Image.network(
-                          s3BaseUrl +
+                        child: CachedNetworkImage(
+                          imageUrl: s3BaseUrl +
                               widget.number.country.countryFlagImagePath,
+                          placeholder: (context, url) =>
+                              const CustomLoadingIndicatior(),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                         ),
                       ),
                     ),

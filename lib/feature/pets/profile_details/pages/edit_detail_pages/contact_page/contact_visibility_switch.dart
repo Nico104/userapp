@@ -27,19 +27,19 @@ class _ContactVisibilitySwitchState extends State<ContactVisibilitySwitch> {
   final _duration = const Duration(milliseconds: 125);
 
   void setVisible() {
-    widget.petProfileDetails.hideContacts = false;
+    widget.petProfileDetails.hide_contacts = false;
     setState(() {});
     updateContactVisibility(
         petProfileId: widget.petProfileDetails.profileId,
-        contact_visbility: widget.petProfileDetails.hideContacts);
+        contact_visbility: widget.petProfileDetails.hide_contacts);
   }
 
   void setInvisible() {
-    widget.petProfileDetails.hideContacts = true;
+    widget.petProfileDetails.hide_contacts = true;
     setState(() {});
     updateContactVisibility(
         petProfileId: widget.petProfileDetails.profileId,
-        contact_visbility: widget.petProfileDetails.hideContacts);
+        contact_visbility: widget.petProfileDetails.hide_contacts);
   }
 
   @override
@@ -54,20 +54,20 @@ class _ContactVisibilitySwitchState extends State<ContactVisibilitySwitch> {
             onPanUpdate: (details) {
               // Swiping in right direction.
               if (details.delta.dx > 0) {
-                if (widget.petProfileDetails.hideContacts) {
+                if (widget.petProfileDetails.hide_contacts) {
                   setVisible();
                 }
               }
 
               // Swiping in left direction.
               if (details.delta.dx < 0) {
-                if (!widget.petProfileDetails.hideContacts) {
+                if (!widget.petProfileDetails.hide_contacts) {
                   setInvisible();
                 }
               }
             },
             onTap: () {
-              if (widget.petProfileDetails.hideContacts) {
+              if (widget.petProfileDetails.hide_contacts) {
                 setVisible();
               } else {
                 setInvisible();
@@ -88,7 +88,7 @@ class _ContactVisibilitySwitchState extends State<ContactVisibilitySwitch> {
                 child: AnimatedAlign(
                   duration: _duration,
                   curve: Curves.fastOutSlowIn,
-                  alignment: !widget.petProfileDetails.hideContacts
+                  alignment: !widget.petProfileDetails.hide_contacts
                       ? Alignment.centerRight
                       : Alignment.centerLeft,
                   child: FractionallySizedBox(
@@ -100,14 +100,14 @@ class _ContactVisibilitySwitchState extends State<ContactVisibilitySwitch> {
                       decoration: BoxDecoration(
                         borderRadius:
                             BorderRadius.all(Radius.circular(_borderRadius)),
-                        color: !widget.petProfileDetails.hideContacts
+                        color: !widget.petProfileDetails.hide_contacts
                             ? getCustomColors(context).accent
                             : Colors.red.shade800,
                       ),
                       child: Center(
                           child: AnimatedSwitcher(
                         duration: _duration,
-                        child: !widget.petProfileDetails.hideContacts
+                        child: !widget.petProfileDetails.hide_contacts
                             ? Text(
                                 "contactVisibilitySwitch_visible".tr(),
                                 style: Theme.of(context)

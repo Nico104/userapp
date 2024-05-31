@@ -19,6 +19,7 @@ class BasicInformationPage extends StatefulWidget {
     super.key,
     required this.petProfileDetails,
     required this.setGender,
+    required this.reloadPetProfileDetails,
   });
 
   @override
@@ -26,6 +27,7 @@ class BasicInformationPage extends StatefulWidget {
 
   final PetProfileDetails petProfileDetails;
   final void Function(Gender) setGender;
+  final void Function() reloadPetProfileDetails;
 }
 
 class _BasicInformationPageState extends State<BasicInformationPage> {
@@ -78,7 +80,7 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
             PaddingComponent(
               child: OnelineSimpleInput(
                 flex: 7,
-                value: widget.petProfileDetails.petChipId ?? "",
+                value: widget.petProfileDetails.pet_licenceID ?? "",
                 emptyValuePlaceholder:
                     "basicInformationPage_licensenumbers".tr(),
                 title: "basicInformationPage_licensenumbers".tr(),
@@ -133,7 +135,7 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
             PaddingComponent(
               child: MultiSimpleInput(
                 // flexSpacer: 0,
-                value: widget.petProfileDetails.petName,
+                value: widget.petProfileDetails.pet_favorite_toys ?? "",
                 emptyValuePlaceholder: "basicInformationPage_favoriteToys".tr(),
                 title: "basicInformationPage_favoriteToys".tr(),
                 saveValue: (val) async {
@@ -147,7 +149,7 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
             PaddingComponent(
               child: MultiSimpleInput(
                 // flexSpacer: 0,
-                value: widget.petProfileDetails.petName,
+                value: widget.petProfileDetails.pet_favorite_activities ?? "",
                 emptyValuePlaceholder:
                     "basicInformationPage_favoriteActivities".tr(),
                 title: "basicInformationPage_favoriteActivities".tr(),
@@ -162,7 +164,7 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
             PaddingComponent(
               child: MultiSimpleInput(
                 // flexSpacer: 0,
-                value: widget.petProfileDetails.petName,
+                value: widget.petProfileDetails.pet_behavioral_notes ?? "",
                 emptyValuePlaceholder:
                     "basicInformationPage_behavioralNotes".tr(),
                 title: "basicInformationPage_behavioralNotes".tr(),
@@ -177,7 +179,7 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
             PaddingComponent(
               child: MultiSimpleInput(
                 // flexSpacer: 0,
-                value: widget.petProfileDetails.petName,
+                value: widget.petProfileDetails.pet_special_needs ?? "",
                 emptyValuePlaceholder: "basicInformationPage_specialNeeds".tr(),
                 title: "basicInformationPage_specialNeeds".tr(),
                 saveValue: (val) async {
@@ -191,7 +193,7 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
             PaddingComponent(
               child: MultiSimpleInput(
                 // flexSpacer: 0,
-                value: widget.petProfileDetails.petName,
+                value: widget.petProfileDetails.pet_diet_preferences ?? "",
                 emptyValuePlaceholder:
                     "basicInformationPage_dietPreferences".tr(),
                 title: "basicInformationPage_dietPreferences".tr(),
@@ -217,7 +219,6 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
               builder: (BuildContext context,
                   AsyncSnapshot<BehaviourInformation> snapshot) {
                 if (snapshot.hasData) {
-                  BehaviourInformation behaviourInformation = snapshot.data!;
                   return Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [

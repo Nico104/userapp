@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/general/network_globals.dart';
+import 'package:userapp/general/widgets/loading_indicator.dart';
 import '../../general/utils_theme/custom_text_styles.dart';
 import 'profile_details/models/m_pet_profile.dart';
 
@@ -189,8 +191,12 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
                                       0,
                                       widget.imageAlignmentOffset,
                                     ),
-                                    child: Image.network(
-                                      getPictureLink(position),
+                                    child: CachedNetworkImage(
+                                      imageUrl: getPictureLink(position),
+                                      placeholder: (context, url) =>
+                                          const CustomLoadingIndicatior(),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
                                       fit: BoxFit.cover,
                                       alignment: Alignment(
                                           0, widget.imageAlignmentOffset * 2),

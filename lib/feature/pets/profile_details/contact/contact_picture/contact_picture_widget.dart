@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/general/network_globals.dart';
 import 'package:userapp/general/utils_theme/custom_colors.dart';
@@ -53,7 +54,7 @@ class ContactPicture extends StatelessWidget {
                 borderRadius: BorderRadius.circular(128),
                 // border: Border.all(color: Colors.grey, width: 1.5),
                 image: DecorationImage(
-                  image: NetworkImage(_getContactPictureLink()),
+                  image: CachedNetworkImageProvider(_getContactPictureLink()),
                   fit: BoxFit.cover,
                 ),
               ),
