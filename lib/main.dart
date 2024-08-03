@@ -40,7 +40,8 @@ void main() async {
 
   final runnableApp = _buildRunnableApp(
     isWeb: kIsWeb,
-    webAppWidth: 780,
+    // webAppWidth: double.infinity,
+    webAppWidth: 680,
     app: const MyApp(),
   );
 
@@ -114,6 +115,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.setLocale(Locale('de'));
     return Sizer(
       builder: (context, orientation, deviceType) {
         return Consumer<ThemeNotifier>(builder: (context, theme, _) {

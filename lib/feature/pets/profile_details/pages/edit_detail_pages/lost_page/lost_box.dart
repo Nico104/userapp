@@ -101,7 +101,7 @@ class _LostBoxState extends State<LostBox> {
                                       text: 'lostBox_contactsVisibility'.tr()),
                                   const TextSpan(text: ' '),
                                   TextSpan(
-                                    text: 'lostBox_Visibility Menu'.tr(),
+                                    text: 'lostBox_Visibility_menu'.tr(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .labelMedium

@@ -1,5 +1,7 @@
+import 'dart:math';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:userapp/general/network_globals.dart';
@@ -88,21 +90,40 @@ class _MyPetsState extends State<MyPets> {
   //   // }
   // }
 
+  String bglink = "";
+
   String getBGPictureLink() {
-    if (widget.petProfiles
-        .elementAt(pageindex.round())
-        .petPictures
-        .isNotEmpty) {
-      return s3BaseUrl +
-          widget.petProfiles
-              .elementAt(pageindex.round())
-              .petPictures
-              .first
-              .petPictureLink;
-    } else {
-      //TODO reserve doggo pic
-      return "https://picsum.photos/600/800";
-    }
+    EasyDebounce.debounce(
+      'bgimage',
+      Duration(milliseconds: 200),
+      () {
+        if (widget.petProfiles
+            .elementAt(pageindex.round())
+            .petPictures
+            .isNotEmpty) {
+          setState(() {
+            bglink = s3BaseUrl +
+                widget.petProfiles
+                    .elementAt(pageindex.round())
+                    .petPictures
+                    .first
+                    .petPictureLink;
+          });
+        } else {
+          //TODO reserve doggo pic
+
+          setState(() {
+            bglink = getfallbackBGimage();
+          });
+        }
+      },
+    );
+    return bglink;
+  }
+
+  String getfallbackBGimage() {
+    var rng = Random();
+    return "https://picsum.photos/400";
   }
 
   // String _bgPictureLink = "https://picsum.photos/600/800";
@@ -146,8 +167,20 @@ class _MyPetsState extends State<MyPets> {
                 decoration: pageindex.round() < widget.petProfiles.length
                     ? BoxDecoration(
                         image: DecorationImage(
+                          fit: BoxFit.cover,
                           image: CachedNetworkImageProvider(
-                            getBGPictureLink(),
+                            widget.petProfiles
+                                    .elementAt(pageindex.round())
+                                    .petPictures
+                                    .isNotEmpty
+                                ? s3BaseUrl +
+                                    widget.petProfiles
+                                        .elementAt(pageindex.round())
+                                        .petPictures
+                                        .first
+                                        .petPictureLink
+                                : getfallbackBGimage(),
+                            // getBGPictureLink(),
                             // fit: BoxFit.cover,
                             scale: 1.2,
                             // imageUrl: getBGPictureLink(),
@@ -181,7 +214,7 @@ class _MyPetsState extends State<MyPets> {
                         ),
                         child: Container(
                           color:
-                              Theme.of(context).canvasColor.withOpacity(0.60),
+                              Theme.of(context).canvasColor.withOpacity(0.80),
                           // color: Theme.of(context).canvasColor.withOpacity(0.0),
                         ),
                       )

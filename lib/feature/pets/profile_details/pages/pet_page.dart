@@ -191,7 +191,8 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
       moreOptions: [
         ListTile(
           leading: const Icon(CustomIcons.delete),
-          title: Text("petPage_Options_Delete".tr()),
+          title: Text("petPage_Options_Delete"
+              .tr(namedArgs: {'name': widget.petProfileDetails.petName})),
           onTap: () {
             Navigator.pop(context);
             showDialog(
@@ -212,7 +213,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
           },
         ),
         ListTile(
-          leading: const Icon(CustomIcons.delete),
+          leading: const Icon(CustomIcons.share_thin),
           title: Text("petPage_Options_Share".tr()),
           onTap: () {
             Navigator.pop(context);
@@ -220,7 +221,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
           },
         ),
         ListTile(
-          leading: const Icon(CustomIcons.delete),
+          leading: const Icon(CustomIcons.qr_code_9),
           title: Text("petPage_Options_Scans".tr()),
           onTap: () {
             Navigator.pop(context);
@@ -237,7 +238,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
           },
         ),
         ListTile(
-          leading: const Icon(CustomIcons.delete),
+          leading: const Icon(Icons.visibility_outlined),
           title: Text("Visibility Menu"),
           onTap: () {
             Navigator.pop(context);
@@ -249,6 +250,13 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                 ),
               ),
             );
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.help_outline),
+          title: Text("helpWithThisPage".tr()),
+          onTap: () {
+            //Todo Link to help website
           },
         ),
       ],
@@ -339,32 +347,34 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                 onTap: () {
                                   Navigator.of(context)
                                       .push(
-                                        PageRouteBuilder(
-                                          opaque: false,
-                                          barrierDismissible: true,
-                                          pageBuilder:
-                                              (BuildContext context, _, __) {
-                                            return LostBox(
-                                              petProfile: _petProfileDetails,
-                                              goToVisibilityMenu: () {
-                                                navigatePerSlide(
-                                                    context,
-                                                    // ContactPage(
-                                                    //   petProfileDetails: widget
-                                                    //       .petProfileDetails,
-                                                    // ),
-                                                    VisibilityMenu(
-                                                        petProfileDetails: widget
-                                                            .petProfileDetails));
-                                              },
-                                            );
-                                            // return LostPage(
-                                            //     petProfileDetails:
-                                            //         _petProfileDetails);
+                                    PageRouteBuilder(
+                                      opaque: false,
+                                      barrierDismissible: true,
+                                      pageBuilder:
+                                          (BuildContext context, _, __) {
+                                        return LostBox(
+                                          petProfile: _petProfileDetails,
+                                          goToVisibilityMenu: () {
+                                            navigatePerSlide(
+                                                context,
+                                                // ContactPage(
+                                                //   petProfileDetails: widget
+                                                //       .petProfileDetails,
+                                                // ),
+                                                VisibilityMenu(
+                                                    petProfileDetails: widget
+                                                        .petProfileDetails));
                                           },
-                                        ),
-                                      )
-                                      .then((value) {});
+                                        );
+                                        // return LostPage(
+                                        //     petProfileDetails:
+                                        //         _petProfileDetails);
+                                      },
+                                    ),
+                                  )
+                                      .then((value) {
+                                    setState(() {});
+                                  });
                                 },
                                 child: Hero(
                                   tag: "lost${_petProfileDetails.profileId}",
@@ -372,7 +382,9 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                     decoration: BoxDecoration(
                                       // color: Theme.of(context).primaryColor,
                                       // color: Colors.blue,
-                                      color: HexColor("#958164"),
+                                      color: _petProfileDetails.petIsLost
+                                          ? HexColor("#A52A2A")
+                                          : HexColor("#958164"),
                                       // border: Border.all(
                                       //   width: 0,
                                       //   color:
@@ -408,6 +420,17 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                           .textTheme
                                                           .titleLarge
                                                           ?.copyWith(
+                                                              decoration: !_petProfileDetails
+                                                                      .petIsLost
+                                                                  ? TextDecoration
+                                                                      .lineThrough
+                                                                  : null,
+                                                              decorationColor:
+                                                                  Colors.white
+                                                                      .withOpacity(
+                                                                          0.9),
+                                                              decorationThickness:
+                                                                  6,
                                                               color:
                                                                   Colors.white),
                                                       textAlign:
@@ -424,10 +447,10 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                       child: Row(
                                                         children: [
                                                           const Spacer(
-                                                            flex: 3,
+                                                            flex: 1,
                                                           ),
                                                           Expanded(
-                                                            flex: 7,
+                                                            flex: 2,
                                                             child: AutoSizeText(
                                                               stepGranularity:
                                                                   0.5,
@@ -528,14 +551,34 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                   widget.showDescriptions
                                                       ? Expanded(
                                                           flex: 5,
-                                                          child: Text(
-                                                            "petPage_ContactInfo"
-                                                                .tr(),
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .displaySmall,
-                                                          ),
+                                                          child: (widget
+                                                                  .petProfileDetails
+                                                                  .petContacts
+                                                                  .isEmpty)
+                                                              ? Text(
+                                                                  "Keine Kontakte vorhanden"
+                                                                      .tr(),
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .displaySmall,
+                                                                )
+                                                              // : Text(
+                                                              //     "petPage_ContactInfo"
+                                                              //         .tr(),
+                                                              //     style: Theme.of(
+                                                              //             context)
+                                                              //         .textTheme
+                                                              //         .displaySmall,
+                                                              //   ),
+                                                              : Text(
+                                                                  "${widget.petProfileDetails.petContacts.length} Kontakte"
+                                                                      .tr(),
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .displaySmall,
+                                                                ),
                                                         )
                                                       : const SizedBox.shrink(),
                                                   const Spacer(
@@ -638,16 +681,36 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                   widget.showDescriptions
                                                       ? Expanded(
                                                           flex: 5,
-                                                          child: Text(
-                                                            "petPage_TagsInfo"
-                                                                .tr(),
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .displaySmall,
-                                                            textAlign:
-                                                                TextAlign.right,
-                                                          ),
+                                                          // child: Text(
+                                                          //   "petPage_TagsInfo"
+                                                          //       .tr(),
+                                                          //   style: Theme.of(
+                                                          //           context)
+                                                          //       .textTheme
+                                                          //       .displaySmall,
+                                                          //   textAlign:
+                                                          //       TextAlign.right,
+                                                          // ),
+                                                          child: (widget
+                                                                  .petProfileDetails
+                                                                  .tag
+                                                                  .isEmpty)
+                                                              ? Text(
+                                                                  "Keine Tags aktiv"
+                                                                      .tr(),
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .displaySmall,
+                                                                )
+                                                              : Text(
+                                                                  "${widget.petProfileDetails.tag.length} Tag aktiv"
+                                                                      .tr(),
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .displaySmall,
+                                                                ),
                                                         )
                                                       : const SizedBox.shrink(),
                                                 ],
@@ -671,6 +734,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                     initialPetPictures:
                                         _petProfileDetails.petPictures,
                                   ),
+                                  callback: () => reloadPetProfileDetails(),
                                 );
                               },
                               child: AspectRatio(
@@ -906,6 +970,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                         _petProfileDetails.petDocuments,
                                     petProfileId: _petProfileDetails.profileId,
                                   ),
+                                  callback: () => reloadPetProfileDetails(),
                                 );
                               },
                               child: AspectRatio(
@@ -1011,31 +1076,32 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                           maxLines: 1,
                                         ),
                                       ),
-                                      Align(
-                                        alignment: const Alignment(-1, -0.5),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: Row(
-                                            children: [
-                                              widget.showDescriptions
-                                                  ? Expanded(
-                                                      flex: 5,
-                                                      child: Text(
-                                                        "petPage_MedicalInfo"
-                                                            .tr(),
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .displaySmall,
-                                                      ),
-                                                    )
-                                                  : const SizedBox.shrink(),
-                                              const Spacer(
-                                                flex: 5,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
+                                      //? Medical Info
+                                      // Align(
+                                      //   alignment: const Alignment(-1, -0.5),
+                                      //   child: Padding(
+                                      //     padding: const EdgeInsets.all(16),
+                                      //     child: Row(
+                                      //       children: [
+                                      //         widget.showDescriptions
+                                      //             ? Expanded(
+                                      //                 flex: 5,
+                                      //                 child: Text(
+                                      //                   "petPage_MedicalInfo"
+                                      //                       .tr(),
+                                      //                   style: Theme.of(context)
+                                      //                       .textTheme
+                                      //                       .displaySmall,
+                                      //                 ),
+                                      //               )
+                                      //             : const SizedBox.shrink(),
+                                      //         const Spacer(
+                                      //           flex: 5,
+                                      //         ),
+                                      //       ],
+                                      //     ),
+                                      //   ),
+                                      // ),
                                     ],
                                   ),
                                 ),

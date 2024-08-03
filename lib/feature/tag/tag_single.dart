@@ -23,7 +23,9 @@ class TagSingle extends StatelessWidget {
     return CachedNetworkImage(
       imageUrl: s3BaseUrl + picturePath,
       placeholder: (context, url) => const CustomLoadingIndicatior(),
-      errorWidget: (context, url, error) => const Icon(Icons.error),
+      // errorWidget: (context, url, error) => const Icon(Icons.error),
+      errorWidget: (context, url, error) =>
+          Image.asset("assets/details_illustartions/newtag2.png"),
       width: collardimension,
       height: collardimension,
       fit: BoxFit.contain,

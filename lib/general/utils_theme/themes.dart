@@ -11,7 +11,7 @@ import 'custom_text_styles.dart';
 final ThemeData constLightTheme = ThemeData(
   brightness: Brightness.light,
 
-  appBarTheme: const AppBarTheme(
+  appBarTheme: AppBarTheme(
     backgroundColor: Colors.white,
     foregroundColor: Colors.black,
     elevation: 0,
@@ -22,6 +22,7 @@ final ThemeData constLightTheme = ThemeData(
       fontSize: 20,
       color: Colors.black,
     ),
+    surfaceTintColor: HexColor("#8A7861"),
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
@@ -200,6 +201,7 @@ final ThemeData constDarkTheme = ThemeData(
       fontSize: 20,
       color: Colors.white,
     ),
+    surfaceTintColor: HexColor("#4169E1"),
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
@@ -212,6 +214,7 @@ final ThemeData constDarkTheme = ThemeData(
   primaryColor: HexColor("121212"),
   // primaryColorLight: HexColor("2c2c2c"),
   primaryColorDark: Colors.black,
+  scaffoldBackgroundColor: HexColor("121212"),
   //Used for Scaffold BG e.p.
   canvasColor: HexColor("121212"),
   dividerTheme: const DividerThemeData(

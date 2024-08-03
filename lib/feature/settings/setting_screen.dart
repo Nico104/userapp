@@ -9,6 +9,7 @@ import 'package:userapp/feature/settings/setting_screens/theme_settings/theme_se
 import 'package:userapp/feature/settings/setting_screens/contact_us/contact_us.dart';
 import 'package:userapp/feature/settings/setting_screens/notifcation_settings/notification_settings.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
+import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
 import '../../general/utils_theme/theme_provider.dart';
 import '../../init_app.dart';
@@ -42,312 +43,323 @@ class _SettingsState extends State<Settings> {
     return Scaffold(
       body: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-        child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: <Widget>[
-            SliverAppBar(
-              pinned: true,
-              stretch: true,
-              expandedHeight: 140,
-              flexibleSpace: FlexibleSpaceBar(
-                title: Text(
-                  "appBarTitleSettings".tr(),
-                  style: Theme.of(context).appBarTheme.titleTextStyle,
-                ),
-                centerTitle: true,
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Column(
-                // controller: _scrollSontroller,
-                children: [
-                  const SizedBox(height: 42),
-                  SettingsContainer(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "settingsSectionTitleGeneral".tr(),
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        const SizedBox(height: 20),
-                        SettingsItem(
-                          label: "settingsItemAccount".tr(),
-                          leading: const Icon(Icons.person_outline),
-                          suffix: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            navigatePerSlide(context, const AccountSettings());
-                          },
-                        ),
-                        const SizedBox(height: settingItemSpacing),
-                        SettingsItem(
-                          label: "settingsItemMyTags".tr(),
-                          leading: const Icon(Icons.hexagon_outlined),
-                          suffix: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            navigatePerSlide(
-                              context,
-                              const MyTagsSettings(),
-                            );
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => const MyTagsSettings(),
-                            //   ),
-                            // );
-                          },
-                        ),
-                        const SizedBox(height: settingItemSpacing),
-                        SettingsItem(
-                          label: "settingsItemNotifications".tr(),
-                          leading: const Icon(CustomIcons.notification),
-                          suffix: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            navigatePerSlide(
-                              context,
-                              const NotificationSettingsPage(),
-                            );
-                          },
-                        ),
-                        const SizedBox(height: settingItemSpacing),
-                        SettingsItem(
-                          label: "settingsItemThemes".tr(),
-                          leading: const Icon(Icons.hexagon_outlined),
-                          suffix: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            // navigatePerSlide(
-                            //   context,
-                            //   const ThemeSettings(),
-                            // );
-
-                            navigatePerSlide(
-                              context,
-                              Consumer<ThemeNotifier>(
-                                builder: (context, theme, _) {
-                                  return ThemeSelectionPage(
-                                    theme: theme,
-                                    petProfileDetails: widget.petProfileDetails,
-                                  );
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                        const SizedBox(height: settingItemSpacing),
-                        Hero(
-                          tag: "settingsLang",
-                          child: SettingsItem(
-                            label: "settingsItemLangauge".tr(),
-                            leading: const Icon(Icons.translate),
-                            suffix: const Icon(Icons.keyboard_arrow_right),
-                            onTap: () {
-                              // navigatePerSlide(
-                              //   context,
-                              //   const ChangeLanguage(),
-                              // );
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => LanguageSelector(
-                                    activeLanguage: getLanguageFromKey(
-                                        context.locale.toString())!,
-                                    unavailableLanguages: const [],
-                                    availableLanguages: availableLanguages,
-                                    title: "appBarLangaugeSettings".tr(),
-                                    heroTag: "settingsLang",
-                                  ),
-                                ),
-                              ).then((value) async {
-                                if (value is Language) {
-                                  await context
-                                      .setLocale(Locale(value.languageKey));
-                                  //Wait otherwise Language doesnt update .tr()
-                                  await Future.delayed(
-                                      const Duration(milliseconds: 125));
-                                  setState(() {});
-                                }
-                              });
-                            },
-                          ),
-                        ),
-                        //TODO solve how to mka eon boarding screen
-                        // const SizedBox(height: settingItemSpacing),
-                        // SettingsItem(
-                        //   label: "Welcome Page".tr(),
-                        //   leading: const Icon(Icons.light),
-                        //   suffix: const Icon(Icons.keyboard_arrow_right),
-                        //   onTap: () {
-                        //     navigatePerSlide(
-                        //       context,
-                        //       const OnBoarding(),
-                        //     );
-                        //   },
-                        // ),
-                        const SizedBox(height: settingItemSpacing),
-                        SettingsItem(
-                          label: "settingsItemHowToUse".tr(),
-                          leading: const Icon(Icons.lightbulb_outline),
-                          suffix: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            navigatePerSlide(
-                              context,
-                              const ComingSoonPage(title: "How To Use"),
-                            );
-                          },
-                        ),
-                      ],
+        child: CustomNicoScrollView(
+          title: Text(
+            "appBarTitleSettings".tr(),
+            style: Theme.of(context).appBarTheme.titleTextStyle,
+          ),
+          centerTitle: true,
+          // physics: const BouncingScrollPhysics(),
+          // slivers: <Widget>[
+          //   SliverAppBar(
+          //     forceMaterialTransparency: false,
+          //     pinned: true,
+          //     stretch: true,
+          //     expandedHeight: 140,
+          //     backgroundColor: Theme.of(context).primaryColor,
+          //     flexibleSpace: FlexibleSpaceBar(
+          //       title: Text(
+          //         "appBarTitleSettings".tr(),
+          //         style: Theme.of(context).appBarTheme.titleTextStyle,
+          //       ),
+          //       centerTitle: true,
+          //     ),
+          //   ),
+          onScroll: () {},
+          body: Column(
+            // controller: _scrollSontroller,
+            children: [
+              const SizedBox(height: 42),
+              SettingsContainer(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "settingsSectionTitleGeneral".tr(),
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
-                  ),
-
-                  //Shop
-                  SettingsContainer(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "settingsSectionTitleShop".tr(),
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        const SizedBox(height: 20),
-                        SettingsItem(
-                          label: "settingsItemGoShop".tr(),
-                          leading: const Icon(CustomIcons.shopping_bag_8),
-                          suffix: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () async {
-                            // navigatePerSlide(
-                            //   context,
-                            //   const ComingSoonPage(title: "Shop"),
-                            // );
-                            await launchUrl(Uri.parse("http://finmapet.com"),
-                                mode: LaunchMode.externalApplication);
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  //Help and Support
-                  SettingsContainer(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "settingsSectionTitleHelp".tr(),
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        const SizedBox(height: 20),
-                        // SettingsItem(
-                        //   label: "settingsItemReportBug".tr(),
-                        //   leading: Icon(Icons.warning_amber_rounded),
-                        //   suffix: Icon(Icons.keyboard_arrow_right),
-                        //   onTap: () {
-                        //     navigatePerSlide(
-                        //       context,
-                        //       const ComingSoonPage(title: "Report Bug"),
-                        //     );
-                        //   },
-                        // ),
-                        // const SizedBox(height: settingItemSpacing),
-                        SettingsItem(
-                          label: "settingsItemContactUs".tr(),
-                          leading: const Icon(CustomIcons.notification),
-                          suffix: const Icon(Icons.keyboard_arrow_right),
-                          // onTap: () {
-                          //   navigatePerSlide(context, const ContactUs());
-                          // },
-                          onTap: () {
-                            navigatePerSlide(
-                              context,
-                              const ContactUs(),
-                            );
-                          },
-                        ),
-                        const SizedBox(height: settingItemSpacing),
-                        SettingsItem(
-                          label: "settingsItemFAQ".tr(),
-                          leading: const Icon(Icons.question_answer_outlined),
-                          suffix: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () async {
-                            // navigatePerSlide(
-                            //   context,
-                            //   const ComingSoonPage(title: "FAQ"),
-                            // );
-                            await launchUrl(Uri.parse("http://finmapet.com"),
-                                mode: LaunchMode.externalApplication);
-                          },
-                        ),
-                        const SizedBox(height: settingItemSpacing),
-                        SettingsItem(
-                          label: "settingsItemPrivacy".tr(),
-                          leading: const Icon(Icons.privacy_tip_outlined),
-                          suffix: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () async {
-                            // navigatePerSlide(
-                            //   context,
-                            //   const ComingSoonPage(title: "Privacy"),
-                            // );
-                            await launchUrl(Uri.parse("http://finmapet.com"),
-                                mode: LaunchMode.externalApplication);
-                          },
-                        ),
-                        const SizedBox(height: settingItemSpacing),
-                        SettingsItem(
-                          label: "settingsItemAbout".tr(),
-                          leading: const Icon(Icons.question_mark),
-                          suffix: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () async {
-                            // navigatePerSlide(
-                            //   context,
-                            //   const ComingSoonPage(title: "About"),
-                            // );
-                            await launchUrl(Uri.parse("http://finmapet.com"),
-                                mode: LaunchMode.externalApplication);
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  SettingsContainer(
-                    child: SettingsItem(
-                      label: "settingsItemLogout".tr(),
-                      leading: const Icon(
-                        Icons.logout_outlined,
-                        color: Colors.red,
-                      ),
+                    const SizedBox(height: 20),
+                    SettingsItem(
+                      label: "settingsItemAccount".tr(),
+                      leading: const Icon(Icons.person_outline),
                       suffix: const Icon(Icons.keyboard_arrow_right),
-                      onTap: () async {
-                        if (!kIsWeb) {
-                          if (Platform.isAndroid || Platform.isIOS) {
-                            firebaseMessaging.FirebaseMessaging messaging =
-                                firebaseMessaging.FirebaseMessaging.instance;
-                            await messaging.getToken().then((fcmToken) async {
-                              if (fcmToken != null) {
-                                await deleteDeviceToken(fcmToken);
-                              }
-                            });
-                          }
-                        }
-
-                        // logout();
-
-                        logout().then(
-                          (value) {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const InitApp()),
-                                (route) => false);
-                          },
+                      onTap: () {
+                        navigatePerSlide(context, const AccountSettings());
+                      },
+                    ),
+                    const SizedBox(height: settingItemSpacing),
+                    SettingsItem(
+                      label: "settingsItemMyTags".tr(),
+                      leading: const Icon(Icons.hexagon_outlined),
+                      suffix: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        navigatePerSlide(
+                          context,
+                          const MyTagsSettings(),
+                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => const MyTagsSettings(),
+                        //   ),
+                        // );
+                      },
+                    ),
+                    const SizedBox(height: settingItemSpacing),
+                    SettingsItem(
+                      label: "settingsItemNotifications".tr(),
+                      leading: const Icon(CustomIcons.notification),
+                      suffix: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        navigatePerSlide(
+                          context,
+                          const NotificationSettingsPage(),
                         );
                       },
                     ),
-                  ),
-                  const SizedBox(height: 28),
-                ],
+                    const SizedBox(height: settingItemSpacing),
+                    SettingsItem(
+                      label: "settingsItemThemes".tr(),
+                      leading: const Icon(Icons.hexagon_outlined),
+                      suffix: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        // navigatePerSlide(
+                        //   context,
+                        //   const ThemeSettings(),
+                        // );
+
+                        navigatePerSlide(
+                          context,
+                          Consumer<ThemeNotifier>(
+                            builder: (context, theme, _) {
+                              return ThemeSelectionPage(
+                                theme: theme,
+                                petProfileDetails: widget.petProfileDetails,
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: settingItemSpacing),
+                    Hero(
+                      tag: "settingsLang",
+                      child: SettingsItem(
+                        label: "settingsItemLangauge".tr(),
+                        leading: const Icon(Icons.translate),
+                        suffix: const Icon(Icons.keyboard_arrow_right),
+                        onTap: () {
+                          // navigatePerSlide(
+                          //   context,
+                          //   const ChangeLanguage(),
+                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LanguageSelector(
+                                activeLanguage: getLanguageFromKey(
+                                    context.locale.toString())!,
+                                unavailableLanguages: const [],
+                                availableLanguages: availableLanguages,
+                                title: "appBarLangaugeSettings".tr(),
+                                heroTag: "settingsLang",
+                              ),
+                            ),
+                          ).then((value) async {
+                            if (value is Language) {
+                              await context
+                                  .setLocale(Locale(value.languageKey));
+                              //Wait otherwise Language doesnt update .tr()
+                              await Future.delayed(
+                                  const Duration(milliseconds: 125));
+                              setState(() {});
+                            }
+                          });
+                        },
+                      ),
+                    ),
+                    //TODO solve how to mka eon boarding screen
+                    // const SizedBox(height: settingItemSpacing),
+                    // SettingsItem(
+                    //   label: "Welcome Page".tr(),
+                    //   leading: const Icon(Icons.light),
+                    //   suffix: const Icon(Icons.keyboard_arrow_right),
+                    //   onTap: () {
+                    //     navigatePerSlide(
+                    //       context,
+                    //       const OnBoarding(),
+                    //     );
+                    //   },
+                    // ),
+                    const SizedBox(height: settingItemSpacing),
+                    SettingsItem(
+                      label: "settingsItemHowToUse".tr(),
+                      leading: const Icon(Icons.lightbulb_outline),
+                      suffix: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        navigatePerSlide(
+                          context,
+                          const ComingSoonPage(title: "How To Use"),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+
+              //Shop
+              SettingsContainer(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "settingsSectionTitleShop".tr(),
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 20),
+                    SettingsItem(
+                      label: "settingsItemGoShop".tr(),
+                      leading: const Icon(CustomIcons.shopping_bag_8),
+                      suffix: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () async {
+                        // navigatePerSlide(
+                        //   context,
+                        //   const ComingSoonPage(title: "Shop"),
+                        // );
+                        await launchUrl(Uri.parse("http://finmapet.com"),
+                            mode: LaunchMode.externalApplication);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
+              //Help and Support
+              SettingsContainer(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "settingsSectionTitleHelp".tr(),
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 20),
+                    // SettingsItem(
+                    //   label: "settingsItemReportBug".tr(),
+                    //   leading: Icon(Icons.warning_amber_rounded),
+                    //   suffix: Icon(Icons.keyboard_arrow_right),
+                    //   onTap: () {
+                    //     navigatePerSlide(
+                    //       context,
+                    //       const ComingSoonPage(title: "Report Bug"),
+                    //     );
+                    //   },
+                    // ),
+                    // const SizedBox(height: settingItemSpacing),
+                    SettingsItem(
+                      label: "settingsItemContactUs".tr(),
+                      leading: const Icon(CustomIcons.notification),
+                      suffix: const Icon(Icons.keyboard_arrow_right),
+                      // onTap: () {
+                      //   navigatePerSlide(context, const ContactUs());
+                      // },
+                      onTap: () {
+                        navigatePerSlide(
+                          context,
+                          const ContactUs(),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: settingItemSpacing),
+                    SettingsItem(
+                      label: "settingsItemFAQ".tr(),
+                      leading: const Icon(Icons.question_answer_outlined),
+                      suffix: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () async {
+                        // navigatePerSlide(
+                        //   context,
+                        //   const ComingSoonPage(title: "FAQ"),
+                        // );
+                        await launchUrl(Uri.parse("http://finmapet.com"),
+                            mode: LaunchMode.externalApplication);
+                      },
+                    ),
+                    const SizedBox(height: settingItemSpacing),
+                    SettingsItem(
+                      label: "settingsItemPrivacy".tr(),
+                      leading: const Icon(Icons.privacy_tip_outlined),
+                      suffix: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () async {
+                        // navigatePerSlide(
+                        //   context,
+                        //   const ComingSoonPage(title: "Privacy"),
+                        // );
+                        await launchUrl(Uri.parse("http://finmapet.com"),
+                            mode: LaunchMode.externalApplication);
+                      },
+                    ),
+                    const SizedBox(height: settingItemSpacing),
+                    SettingsItem(
+                      label: "settingsItemAbout".tr(),
+                      leading: const Icon(Icons.question_mark),
+                      suffix: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () async {
+                        // navigatePerSlide(
+                        //   context,
+                        //   const ComingSoonPage(title: "About"),
+                        // );
+                        await launchUrl(Uri.parse("http://finmapet.com"),
+                            mode: LaunchMode.externalApplication);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
+              SettingsContainer(
+                child: SettingsItem(
+                  label: "settingsItemLogout".tr(),
+                  leading: const Icon(
+                    Icons.logout_outlined,
+                    color: Colors.red,
+                  ),
+                  suffix: const Icon(Icons.keyboard_arrow_right),
+                  onTap: () async {
+                    if (!kIsWeb) {
+                      if (Platform.isAndroid || Platform.isIOS) {
+                        firebaseMessaging.FirebaseMessaging messaging =
+                            firebaseMessaging.FirebaseMessaging.instance;
+                        await messaging.getToken().then((fcmToken) async {
+                          if (fcmToken != null) {
+                            await deleteDeviceToken(fcmToken);
+                          }
+                        });
+                      }
+                    }
+
+                    // logout();
+
+                    logout().then(
+                      (value) {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const InitApp()),
+                            (route) => false);
+                      },
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 28),
+            ],
+          ),
+          // SliverToBoxAdapter(
+          //   child: Container(
+          //     color: Theme.of(context).primaryColor,
+          //     child:
+          //   ),
+          // ),
         ),
       ),
     );

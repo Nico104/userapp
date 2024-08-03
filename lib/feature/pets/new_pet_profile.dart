@@ -59,26 +59,33 @@ class NewPetProfile extends StatelessWidget {
             }
           });
         },
-        child: Material(
-          borderRadius: BorderRadius.circular(borderRadius),
-          elevation: 8,
-          child: Container(
-            width: 250,
-            height: 70,
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
+        child: Column(
+          children: [
+            Spacer(),
+            Material(
               borderRadius: BorderRadius.circular(borderRadius),
-              color: getCustomColors(context).accent,
+              elevation: 8,
+              child: Container(
+                width: 250,
+                // height: 70,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(borderRadius),
+                  color: getCustomColors(context).accent,
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  "createNewPetProfileLabel".tr(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge
+                      ?.copyWith(color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ),
-            alignment: Alignment.center,
-            child: Text(
-              "createNewPetProfileLabel".tr(),
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: Colors.white),
-            ),
-          ),
+            Spacer(),
+          ],
         ),
       ),
     );

@@ -189,6 +189,8 @@ flutter:
     - assets/tmp/launch_icon.png
     - assets/tmp/onboarding1.png
     - assets/tmp/google.png
+    - assets/details_illustartions/newtag1.png
+    - assets/details_illustartions/newtag2.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

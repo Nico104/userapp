@@ -12,6 +12,7 @@ class CustomNicoScrollView extends StatefulWidget {
     this.fillRemaining = false,
     this.background,
     this.expandedHeight = 140,
+    this.centerTitle = false,
   });
 
   final Widget title;
@@ -21,6 +22,7 @@ class CustomNicoScrollView extends StatefulWidget {
   final bool fillRemaining;
   final Widget? background;
   final double expandedHeight;
+  final bool centerTitle;
 
   @override
   State<CustomNicoScrollView> createState() => _CustomNicoScrollViewState();
@@ -46,6 +48,10 @@ class _CustomNicoScrollViewState extends State<CustomNicoScrollView> {
         physics: const BouncingScrollPhysics(),
         slivers: <Widget>[
           SliverAppBar(
+            // forceMaterialTransparency: true,
+            // surfaceTintColor: Colors.transparent,
+            // surfaceTintColor: Colors.transparent,
+
             pinned: true,
             stretch: true,
             expandedHeight: widget.expandedHeight,
@@ -53,11 +59,15 @@ class _CustomNicoScrollViewState extends State<CustomNicoScrollView> {
             // automaticallyImplyLeading: false,
             flexibleSpace: MyFlexibleSpaceBar(
               titlePaddingTween: EdgeInsetsTween(
-                  begin: const EdgeInsets.only(left: 16.0, bottom: 16),
-                  end: const EdgeInsets.only(left: 72.0, bottom: 16)),
+                  begin: widget.centerTitle
+                      ? const EdgeInsets.only(left: 16.0, bottom: 16)
+                      : const EdgeInsets.only(left: 16.0, bottom: 16),
+                  end: widget.centerTitle
+                      ? const EdgeInsets.only(left: 16, bottom: 16)
+                      : const EdgeInsets.only(left: 72.0, bottom: 16)),
               title: widget.title,
               // titlePadding: EdgeInsets.all(0), centerTitle: false,
-              // centerTitle: true,
+              centerTitle: widget.centerTitle,
               background: widget.background,
             ),
           ),
@@ -67,7 +77,9 @@ class _CustomNicoScrollViewState extends State<CustomNicoScrollView> {
                   child: widget.body,
                 )
               : SliverToBoxAdapter(
-                  child: widget.body,
+                  child: Container(
+                      color: Theme.of(context).primaryColor,
+                      child: widget.body),
                 ),
         ],
       ),

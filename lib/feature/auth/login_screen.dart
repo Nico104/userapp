@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sizer/sizer.dart';
+import 'package:userapp/feature/auth/fancy_auth_background.dart';
 import 'package:userapp/feature/auth/sign_up_screen/sign_up_screen.dart';
 import 'package:userapp/feature/auth/u_auth.dart';
 import 'package:userapp/general/utils_general.dart';
@@ -32,70 +33,59 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            physics: const ClampingScrollPhysics(),
-            child: SizedBox(
-              height: 100.h,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(28, 76, 28, 28),
-                child: Column(
-                  children: [
-                    Text(
-                      "loginPageTitle".tr(),
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headlineLarge,
-                    ),
-                    SizedBox(height: 2.h),
-                    Text(
-                      "loginPageSubTitle".tr(),
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    SizedBox(height: 4.h),
-                    CustomTextFormField(
-                      onChanged: (value) => _debounceEmail(value),
-                      errorText: _emailErrorMsg,
-                      labelText: "loginPageEmailInputLabel".tr(),
-                    ),
-                    SizedBox(height: 2.h),
-                    CustomTextFormField(
-                      isPassword: true,
-                      onChanged: (value) => _debouncePassword(value),
-                      errorText: _passwordErrorMsg,
-                      labelText: "loginPagePasswordInputLabel".tr(),
-                    ),
-                    SizedBox(height: 2.h),
-                    Row(
-                      children: [
-                        const Spacer(),
-                        GestureDetector(
-                          onTap: () => _navigateToForgotPassword(context),
-                          child: Text(
-                            "forgotPassword".tr(),
-                            style: Theme.of(context).textTheme.labelSmall,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 5.h),
-                    CustomBigButton(
-                      label: "loginPageContinueLabel".tr(),
-                      onTap: () => _handleLogin(context),
-                    ),
-                    SizedBox(height: 5.h),
-                    // const ContinueWithSocialMedia(),
-                    const ContinueWithGoogle(),
-                    const Spacer(),
-                    _buildVersionInfo(),
-                    _buildRegisterNow(context),
-                  ],
-                ),
-              ),
+      body: FancyAuthBackground(
+        child: Column(
+          children: [
+            Text(
+              "loginPageTitle".tr(),
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
-          ),
-        ],
+            SizedBox(height: 2.h),
+            Text(
+              "loginPageSubTitle".tr(),
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            SizedBox(height: 4.h),
+            CustomTextFormField(
+              onChanged: (value) => _debounceEmail(value),
+              errorText: _emailErrorMsg,
+              labelText: "loginPageEmailInputLabel".tr(),
+            ),
+            SizedBox(height: 2.h),
+            CustomTextFormField(
+              isPassword: true,
+              onChanged: (value) => _debouncePassword(value),
+              errorText: _passwordErrorMsg,
+              labelText: "loginPagePasswordInputLabel".tr(),
+            ),
+            SizedBox(height: 2.h),
+            Row(
+              children: [
+                const Spacer(),
+                GestureDetector(
+                  onTap: () => _navigateToForgotPassword(context),
+                  child: Text(
+                    "forgotPassword".tr(),
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 5.h),
+            CustomBigButton(
+              label: "loginPageContinueLabel".tr(),
+              onTap: () => _handleLogin(context),
+            ),
+            SizedBox(height: 5.h),
+            // const ContinueWithSocialMedia(),
+            const ContinueWithGoogle(),
+            const Spacer(),
+            // _buildVersionInfo(),
+            _buildRegisterNow(context),
+          ],
+        ),
       ),
     );
   }
