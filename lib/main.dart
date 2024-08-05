@@ -42,6 +42,7 @@ void main() async {
     isWeb: kIsWeb,
     // webAppWidth: double.infinity,
     webAppWidth: 680,
+    webAppHeight: 1080,
     app: const MyApp(),
   );
 
@@ -76,17 +77,28 @@ void main() async {
 Widget _buildRunnableApp({
   required bool isWeb,
   required double webAppWidth,
+  required double webAppHeight,
   required Widget app,
 }) {
   if (!isWeb) {
     return app;
   }
 
-  return Center(
-    child: ClipRect(
-      child: SizedBox(
-        width: webAppWidth,
-        child: app,
+  return Container(
+    width: double.infinity,
+    height: double.infinity,
+    child: Center(
+      child: Material(
+        elevation: 6,
+        borderRadius: BorderRadius.circular(8),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: SizedBox(
+            width: webAppWidth,
+            height: webAppHeight,
+            child: app,
+          ),
+        ),
       ),
     ),
   );

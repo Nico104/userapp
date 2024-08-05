@@ -152,13 +152,9 @@ class _InitAppState extends State<InitApp> {
             //TODO refresh Token...just saying
             return const PetsLoading();
           } else if ((snapshot.data[1] as bool)) {
-            return const LoginScreen(
-                // reloadInitApp: () => reloadInitApp(),
-                );
+            return const LoginScreen();
           } else {
-            return const SignUpScreen(
-                // reloadInitApp: () => reloadInitApp(),
-                );
+            return const SignUpScreen();
           }
         } else if (snapshot.hasError) {
           print(snapshot);
@@ -192,3 +188,40 @@ class _InitAppState extends State<InitApp> {
     );
   }
 }
+
+// class AuthWebWrapper extends StatelessWidget {
+//   const AuthWebWrapper({super.key, required this.child});
+
+//   final Widget child;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: double.infinity,
+//       height: double.infinity,
+//       child: Center(
+//         child: Material(
+//           elevation: 4,
+//           child: ClipRRect(
+//             borderRadius: BorderRadius.circular(16),
+//             child: SizedBox(
+//               width: webwidth,
+//               child: child,
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class HomeWebWrapper extends StatelessWidget {
+//   const HomeWebWrapper({super.key, required this.child});
+
+//   final Widget child;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return const Placeholder();
+//   }
+// }

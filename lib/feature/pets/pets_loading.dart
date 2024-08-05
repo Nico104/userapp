@@ -29,7 +29,7 @@ class _PetsLoadingState extends State<PetsLoading> {
         future: Future.wait([
           fetchUserPets(),
           fetchAvailableLanguages(),
-          fetchAvailableCountries(),
+          fetchAvailableCountriesLocal(),
         ]),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {

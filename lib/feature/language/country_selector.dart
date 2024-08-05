@@ -1,13 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/feature/pets/profile_details/widgets/custom_textformfield.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
 import '../../general/network_globals.dart';
 import '../../general/widgets/loading_indicator.dart';
 import 'm_language.dart';
 
-class CountrySelector extends StatelessWidget {
+class CountrySelector extends StatefulWidget {
   const CountrySelector({
     super.key,
     required this.availableCountries,
@@ -16,6 +18,29 @@ class CountrySelector extends StatelessWidget {
 
   final List<Country> availableCountries;
   final Country? activeCountry;
+
+  @override
+  State<CountrySelector> createState() => _CountrySelectorState();
+}
+
+class _CountrySelectorState extends State<CountrySelector> {
+  late List<Country> filteredCountries;
+
+  @override
+  void initState() {
+    super.initState();
+    filteredCountries = widget.availableCountries;
+  }
+
+  void _filterCountries(String filter) {
+    setState(() {
+      filteredCountries = widget.availableCountries
+          .where((country) =>
+              country.name.toLowerCase().contains(filter.toLowerCase()) ||
+              country.dial_code.toLowerCase().contains(filter.toLowerCase()))
+          .toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +53,7 @@ class CountrySelector extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 28),
-              activeCountry != null
+              widget.activeCountry != null
                   ? Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -38,8 +63,9 @@ class CountrySelector extends StatelessWidget {
                           },
                           behavior: HitTestBehavior.opaque,
                           child: Hero(
-                            tag: activeCountry!.countryKey,
-                            child: SingleCountry(country: activeCountry!),
+                            tag: widget.activeCountry!.code,
+                            child:
+                                SingleCountry(country: widget.activeCountry!),
                           ),
                         ),
                         Padding(
@@ -53,14 +79,21 @@ class CountrySelector extends StatelessWidget {
                       ],
                     )
                   : const SizedBox.shrink(),
+              CustomTextFormField(
+                hintText: "Search".tr(),
+                ignoreBoxShadow: true,
+                onChanged: (value) {
+                  _filterCountries(value);
+                },
+              ),
               ListView.builder(
-                itemCount: availableCountries.length,
+                itemCount: filteredCountries.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   bool isActive = false;
-                  if (activeCountry != null) {
-                    if (activeCountry?.countryKey ==
-                        availableCountries.elementAt(index).countryKey) {
+                  if (widget.activeCountry != null) {
+                    if (widget.activeCountry?.code ==
+                        filteredCountries.elementAt(index).code) {
                       isActive = true;
                     }
                   }
@@ -71,14 +104,14 @@ class CountrySelector extends StatelessWidget {
                       onTap: () {
                         Navigator.pop(
                           context,
-                          isActive ? null : availableCountries.elementAt(index),
+                          isActive ? null : filteredCountries.elementAt(index),
                         );
                       },
                       behavior: HitTestBehavior.opaque,
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
                         child: SingleCountry(
-                          country: availableCountries.elementAt(index),
+                          country: filteredCountries.elementAt(index),
                         ),
                       ),
                     ),
@@ -103,29 +136,29 @@ class SingleCountry extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SizedBox(
-          height: 40,
-          child: AspectRatio(
-            aspectRatio: 3 / 2,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: CachedNetworkImage(
-                imageUrl: s3BaseUrl + country.countryFlagImagePath,
-                placeholder: (context, url) => const CustomLoadingIndicatior(),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-              ),
-            ),
-          ),
-        ),
+        // SizedBox(
+        //   height: 40,
+        //   child: AspectRatio(
+        //     aspectRatio: 3 / 2,
+        //     child: ClipRRect(
+        //       borderRadius: BorderRadius.circular(4),
+        //       child: CachedNetworkImage(
+        //         imageUrl: s3BaseUrl + country.countryFlagImagePath,
+        //         placeholder: (context, url) => const CustomLoadingIndicatior(),
+        //         errorWidget: (context, url, error) => const Icon(Icons.error),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         const SizedBox(width: 16),
         //Put countrykey as a translation element
         Text(
-          "country_${country.countryKey}".tr(),
+          country.name,
           style: Theme.of(context).textTheme.labelLarge,
         ),
         const Spacer(),
         Text(
-          "(${country.countryPhonePrefix})",
+          "(${country.dial_code})",
           style: Theme.of(context).textTheme.labelMedium,
         ),
       ],

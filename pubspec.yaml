@@ -85,6 +85,7 @@ dependencies:
   flutter_onboarding_slider: ^1.0.10
 
   http_parser: any
+  country_code_picker: ^3.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -191,6 +192,8 @@ flutter:
     - assets/tmp/google.png
     - assets/details_illustartions/newtag1.png
     - assets/details_illustartions/newtag2.png
+    - assets/tmp/startLogo.png
+    - assets/countries/countries.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

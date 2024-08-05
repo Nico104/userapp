@@ -52,21 +52,18 @@ Language? getLanguageFromKey(String languageKey) {
 }
 
 class Country {
-  final String countryKey;
-  final String countryFlagImagePath;
-  final String countryPhonePrefix;
-  final Language language;
+  final String name;
+  final String code;
+  final String dial_code;
 
   Country(
-    this.countryKey,
-    this.countryFlagImagePath,
-    this.countryPhonePrefix,
-    this.language,
+    this.name,
+    this.code,
+    this.dial_code,
   );
 
   Country.fromJson(Map<String, dynamic> json)
-      : countryKey = json['country_key'],
-        countryFlagImagePath = json['country_flag_image_path'],
-        countryPhonePrefix = json['country_phone_prefix'],
-        language = Language.fromJson(json['country_language']);
+      : name = json['name'],
+        code = json['code'],
+        dial_code = json['dial_code'];
 }

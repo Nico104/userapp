@@ -47,9 +47,13 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 28),
-            getContentType() != 'pdf'
-                ? Image.memory(widget.pickedDocument.fileBytes)
-                : const Text("pdf document"),
+            Flexible(
+              child: getContentType() != 'pdf'
+                  ? Image.memory(
+                      widget.pickedDocument.fileBytes,
+                    )
+                  : const Text("pdf document"),
+            ),
             const SizedBox(height: 28),
             CustomTextFormField(
               initialValue: widget.pickedDocument.fileName,
@@ -90,7 +94,8 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
                 style:
                     getCustomTextStyles(context).dataEditDialogButtonSaveStyle,
               ),
-            )
+            ),
+            const SizedBox(height: 28),
           ],
         ),
       ),

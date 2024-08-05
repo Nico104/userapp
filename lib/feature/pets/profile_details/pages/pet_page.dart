@@ -543,7 +543,8 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                           ),
                                           Align(
                                             alignment:
-                                                const Alignment(-1, -0.5),
+                                                // const Alignment(-1, -0.5),
+                                                Alignment.bottomLeft,
                                             child: Padding(
                                               padding: const EdgeInsets.all(16),
                                               child: Row(
@@ -558,6 +559,9 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                               ? Text(
                                                                   "Keine Kontakte vorhanden"
                                                                       .tr(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .justify,
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
@@ -574,6 +578,9 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                               : Text(
                                                                   "${widget.petProfileDetails.petContacts.length} Kontakte"
                                                                       .tr(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .justify,
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
@@ -582,7 +589,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                         )
                                                       : const SizedBox.shrink(),
                                                   const Spacer(
-                                                    flex: 5,
+                                                    flex: 4,
                                                   ),
                                                 ],
                                               ),

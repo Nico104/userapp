@@ -41,8 +41,8 @@ final ThemeData constLightTheme = ThemeData(
 
   //Used for Scaffold BG e.p.
   canvasColor: Colors.white,
-  dividerTheme: const DividerThemeData(
-    color: Colors.black,
+  dividerTheme: DividerThemeData(
+    color: Colors.black.withOpacity(0.25),
     thickness: 1,
   ),
   iconTheme: const IconThemeData(color: Colors.black),

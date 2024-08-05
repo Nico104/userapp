@@ -211,8 +211,11 @@ class _ContactListItemState extends State<ContactListItem> {
 
     if (widget.contact.contactTelephoneNumbers.isNotEmpty) {
       if (widget.contact.contactTelephoneNumbers.length > 1) {
+        // Text phoneNumber = Text(
+        //     "${widget.contact.contactTelephoneNumbers.first.country.countryPhonePrefix} ${widget.contact.contactTelephoneNumbers.first.phoneNumber} and ${widget.contact.contactTelephoneNumbers.length - 1} others");
         Text phoneNumber = Text(
-            "${widget.contact.contactTelephoneNumbers.first.country.countryPhonePrefix} ${widget.contact.contactTelephoneNumbers.first.phoneNumber} and ${widget.contact.contactTelephoneNumbers.length - 1} others");
+            "${widget.contact.contactTelephoneNumbers.first.phoneNumber} and ${widget.contact.contactTelephoneNumbers.length - 1} others");
+
         list.add(phoneNumber);
       } else {
         Text phoneNumber =

@@ -88,8 +88,7 @@ class ShyButton extends StatelessWidget {
                                         Radius.circular(_borderRadius)),
                                     // color: Theme.of(context).primaryColor.withOpacity(1),
                                     color: iconBgColor ??
-                                        getCustomColors(context)
-                                            .accentHighContrast,
+                                        getCustomColors(context).lightBorder,
                                   ),
                                   padding: const EdgeInsets.all(8),
                                   child: Center(

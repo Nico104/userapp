@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -31,14 +32,16 @@ class NewPhonerNumber extends StatefulWidget {
 }
 
 class _NewPhonerNumberState extends State<NewPhonerNumber> {
-  late Country _country;
+  Country? _country;
+
+  String number = "";
 
   @override
   void initState() {
     super.initState();
     //TODO get user country prefix
-    _country = Country('de', 'flags/language/german_flag.png', '+49',
-        Language('Deutsch', 'de', "flags/language/german_flag.png", false));
+    // _country = Country('de', 'flags/language/german_flag.png', '+49',
+    //     Language('Deutsch', 'de', "flags/language/german_flag.png", false));
   }
 
   void addPhoneNumber(String number) {
@@ -47,7 +50,7 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
       const Duration(milliseconds: 500),
       () {
         if (number.isNotEmpty) {
-          createPhoneNumber(widget.contactId, _country.countryKey, number)
+          createPhoneNumber(widget.contactId, number)
               .then((value) => widget.addNewPhoneNumber(value));
         }
       },
@@ -60,19 +63,43 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
       opacity: 0.8,
       child: CustomTextFormField(
         focusNode: widget.focusNode,
-        keyboardType: TextInputType.number,
+        keyboardType: TextInputType.phone,
         hintText: "phoneNumberNewItem_addNewNumber".tr(),
         ignoreBoxShadow: true,
-        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        // inputFormatters: [
+        //   FilteringTextInputFormatter.allow(
+        //     RegExp(
+        //       r'^\+?\d*',
+        //     ),
+        //   ),
+        // ],
         onChanged: (value) {
-          addPhoneNumber(value);
+          number = value;
+          if ((_country != null && value.isNotEmpty)) {
+            addPhoneNumber("${_country!.dial_code} $value");
+          } else if (value.startsWith("+") && value.length > 2) {
+            addPhoneNumber(value);
+          }
         },
         prefix: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () {
             // showDialog(
             //   context: context,
-            //   builder: (_) => const PrefixPickerDialogComponent(),
+            //   builder: (_) => const CountryCodePicker(
+            //     onChanged: print,
+            //     // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+            //     initialSelection: 'IT',
+            //     favorite: ['+39', 'FR'],
+            //     // optional. Shows only country name and flag
+            //     showCountryOnly: false,
+            //     // optional. Shows only country name and flag when popup is closed.
+            //     showOnlyCountryWhenClosed: false,
+
+            //     // optional. aligns the flag and the Text left
+            //     alignLeft: false,
+            //   ),
             // ).then((value) {
             //   if (value != null) {
             //     if (value is Country) {
@@ -94,10 +121,14 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
             ).then((value) {
               if (value != null) {
                 if (value is Country) {
-                  setState(() {
-                    // widget.number.language = value;
-                    _country = value;
-                  });
+                  if (number.isNotEmpty) {
+                    addPhoneNumber("${value.dial_code} $number");
+                  } else {
+                    setState(() {
+                      // widget.number.language = value;
+                      _country = value;
+                    });
+                  }
                 }
               }
             });
@@ -110,30 +141,34 @@ class _NewPhonerNumberState extends State<NewPhonerNumber> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Opacity(
-                    opacity: 0.5,
-                    child: SizedBox(
-                      height: 28,
-                      child: AspectRatio(
-                        aspectRatio: 3 / 2,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(4),
-                          child: CachedNetworkImage(
-                            imageUrl: s3BaseUrl + _country.countryFlagImagePath,
-                            placeholder: (context, url) =>
-                                const CustomLoadingIndicatior(),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                          ),
-                        ),
-                      ),
-                    ),
+                  // Opacity(
+                  //   opacity: 0.5,
+                  //   child: SizedBox(
+                  //     height: 28,
+                  //     child: AspectRatio(
+                  //       aspectRatio: 3 / 2,
+                  //       child: ClipRRect(
+                  //         borderRadius: BorderRadius.circular(4),
+                  //         child: CachedNetworkImage(
+                  //           imageUrl: s3BaseUrl + _country.countryFlagImagePath,
+                  //           placeholder: (context, url) =>
+                  //               const CustomLoadingIndicatior(),
+                  //           errorWidget: (context, url, error) =>
+                  //               const Icon(Icons.error),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  Text(
+                    _country == null ? ".." : _country!.name,
+                    style: Theme.of(context).textTheme.labelMedium,
                   ),
                   const SizedBox(
                     width: 8,
                   ),
                   Text(
-                    _country.countryPhonePrefix,
+                    _country == null ? "+.." : _country!.dial_code,
                     style: Theme.of(context).textTheme.labelMedium,
                   ),
                   const SizedBox(

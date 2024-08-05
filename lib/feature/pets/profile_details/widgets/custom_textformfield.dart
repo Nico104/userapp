@@ -133,19 +133,19 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       builder: (context, theme, _) {
         return Stack(
           children: [
-            AnimatedContainer(
-              // height: ,
-              duration: const Duration(milliseconds: 125),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(widget.borderRadius),
-                boxShadow: (_isFocused && !widget.ignoreBoxShadow)
-                    ? kElevationToShadow[2]
-                    : kElevationToShadow[0],
-              ),
-              child: TextFormField(
-                enabled: false,
-              ),
-            ),
+            // AnimatedContainer(
+            //   // height: ,
+            //   duration: const Duration(milliseconds: 125),
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(widget.borderRadius),
+            //     boxShadow: (_isFocused && !widget.ignoreBoxShadow)
+            //         ? kElevationToShadow[2]
+            //         : kElevationToShadow[0],
+            //   ),
+            //   child: TextFormField(
+            //     enabled: false,
+            //   ),
+            // ),
             TextFormField(
               inputFormatters: widget.inputFormatters,
               expands: widget.expands,

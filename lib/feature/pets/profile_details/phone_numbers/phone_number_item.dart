@@ -43,7 +43,7 @@ class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
       const Duration(milliseconds: 250),
       () {
         if (widget.number.phoneNumber.isEmpty) {
-          print("delete id ${widget.number.phoneNumberId}");
+          // print("delete id ${widget.number.phoneNumberId}");
           deletePhoneNumber(widget.number)
               .then((value) => widget.removePhoneNumber());
         } else {
@@ -58,15 +58,23 @@ class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
     return CustomTextFormField(
       focusNode: widget.focusNode,
       autofocus: widget.autofocus,
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.phone,
       initialValue: widget.number.phoneNumber,
       hintText: "phoneNumberItem_hintText_xxx".tr(),
       ignoreBoxShadow: true,
-      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      // inputFormatters: [
+      //   FilteringTextInputFormatter.allow(
+      //     RegExp(
+      //       r'^\+?\d*',
+      //     ),
+      //   ),
+      // ],
       onChanged: (value) {
         widget.number.phoneNumber = value;
         _updatePhoneNumber();
       },
+      /*
       prefix: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
@@ -100,28 +108,32 @@ class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   // prefixBlock(),
-                  SizedBox(
-                    height: 28,
-                    child: AspectRatio(
-                      aspectRatio: 3 / 2,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(4),
-                        child: CachedNetworkImage(
-                          imageUrl: s3BaseUrl +
-                              widget.number.country.countryFlagImagePath,
-                          placeholder: (context, url) =>
-                              const CustomLoadingIndicatior(),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
-                        ),
-                      ),
-                    ),
+                  // SizedBox(
+                  //   height: 28,
+                  //   child: AspectRatio(
+                  //     aspectRatio: 3 / 2,
+                  //     child: ClipRRect(
+                  //       borderRadius: BorderRadius.circular(4),
+                  //       child: CachedNetworkImage(
+                  //         imageUrl: s3BaseUrl +
+                  //             widget.number.country.countryFlagImagePath,
+                  //         placeholder: (context, url) =>
+                  //             const CustomLoadingIndicatior(),
+                  //         errorWidget: (context, url, error) =>
+                  //             const Icon(Icons.error),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  Text(
+                    _country.name,
+                    style: Theme.of(context).textTheme.labelMedium,
                   ),
                   const SizedBox(
                     width: 8,
                   ),
                   Text(
-                    widget.number.country.countryPhonePrefix,
+                    _country.dial_code,
                     style: Theme.of(context).textTheme.labelMedium,
                   ),
                   const SizedBox(
@@ -137,6 +149,7 @@ class _SinglePhonerNumberState extends State<SinglePhonerNumber> {
           ),
         ),
       ),
+      */
       confirmDeleteDialog:
           ConfirmDeleteDialog(label: "phoneNumberItem_deleteDialog".tr()),
     );

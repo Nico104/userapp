@@ -164,6 +164,8 @@ import 'package:userapp/init_app.dart';
 import 'package:userapp/general/utils_general.dart';
 import '../../general/utils_theme/custom_colors.dart';
 
+double borderRadious = 8;
+
 class CustomBigButton extends StatelessWidget {
   const CustomBigButton({
     super.key,
@@ -179,8 +181,8 @@ class CustomBigButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Material(
-        borderRadius: BorderRadius.circular(22),
-        elevation: 2,
+        borderRadius: BorderRadius.circular(borderRadious),
+        elevation: 1,
         child: Container(
           width: double.infinity,
           height: 60,
@@ -190,7 +192,7 @@ class CustomBigButton extends StatelessWidget {
               width: 1,
               color: getCustomColors(context).lightBorder ?? Colors.transparent,
             ),
-            borderRadius: BorderRadius.circular(22),
+            borderRadius: BorderRadius.circular(borderRadious),
           ),
           child: Center(
             child: Text(
@@ -207,66 +209,66 @@ class CustomBigButton extends StatelessWidget {
   }
 }
 
-class ContinueWithSocialMedia extends StatelessWidget {
-  const ContinueWithSocialMedia({super.key});
+// class ContinueWithSocialMedia extends StatelessWidget {
+//   const ContinueWithSocialMedia({super.key});
 
-  Future<void> _handleSignIn(
-      BuildContext context, Future<void> Function() signInMethod) async {
-    try {
-      await signInMethod();
-      Navigator.of(context).popUntil((route) => route.isFirst);
-      navigateReplacePerSlide(context, const InitApp());
-    } catch (e) {
-      // Handle error (e.g., show a dialog or a snackbar)
-      print("Error signing in: $e");
-    }
-  }
+//   Future<void> _handleSignIn(
+//       BuildContext context, Future<void> Function() signInMethod) async {
+//     try {
+//       await signInMethod();
+//       Navigator.of(context).popUntil((route) => route.isFirst);
+//       navigateReplacePerSlide(context, const InitApp());
+//     } catch (e) {
+//       // Handle error (e.g., show a dialog or a snackbar)
+//       print("Error signing in: $e");
+//     }
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Opacity(
-          opacity: 0.28,
-          child: Row(
-            children: [
-              const Expanded(child: Divider()),
-              SizedBox(width: 3.w),
-              Text(
-                "continueWithSocials".tr(),
-                style: Theme.of(context).textTheme.labelMedium,
-              ),
-              SizedBox(width: 3.w),
-              const Expanded(child: Divider()),
-            ],
-          ),
-        ),
-        SizedBox(height: 2.h),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 36),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: () => _handleSignIn(
-                  context,
-                  kIsWeb
-                      ? signInWithGoogleWeb
-                      : () => signInWithGoogle(context: context),
-                ),
-                child: const SocialMediaContainer(),
-              ),
-              const SocialMediaContainer(),
-              const SocialMediaContainer(),
-            ],
-          ),
-        ),
-        SizedBox(height: 3.h),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       mainAxisSize: MainAxisSize.min,
+//       children: [
+//         Opacity(
+//           opacity: 0.28,
+//           child: Row(
+//             children: [
+//               // const Expanded(child: Divider()),
+//               SizedBox(width: 3.w),
+//               Text(
+//                 "continueWithSocials".tr(),
+//                 style: Theme.of(context).textTheme.labelMedium,
+//               ),
+//               SizedBox(width: 3.w),
+//               // const Expanded(child: Divider()),
+//             ],
+//           ),
+//         ),
+//         SizedBox(height: 2.h),
+//         Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 36),
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               GestureDetector(
+//                 onTap: () => _handleSignIn(
+//                   context,
+//                   kIsWeb
+//                       ? signInWithGoogleWeb
+//                       : () => signInWithGoogle(context: context),
+//                 ),
+//                 child: const SocialMediaContainer(),
+//               ),
+//               const SocialMediaContainer(),
+//               const SocialMediaContainer(),
+//             ],
+//           ),
+//         ),
+//         SizedBox(height: 3.h),
+//       ],
+//     );
+//   }
+// }
 
 class ContinueWithGoogle extends StatelessWidget {
   const ContinueWithGoogle({super.key});
@@ -292,6 +294,7 @@ class ContinueWithGoogle extends StatelessWidget {
           opacity: 0.28,
           child: Row(
             children: [
+              SizedBox(width: 3.w),
               const Expanded(child: Divider()),
               SizedBox(width: 3.w),
               Text(
@@ -300,6 +303,7 @@ class ContinueWithGoogle extends StatelessWidget {
               ),
               SizedBox(width: 3.w),
               const Expanded(child: Divider()),
+              SizedBox(width: 3.w),
             ],
           ),
         ),

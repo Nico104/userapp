@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:userapp/feature/pets/profile_details/models/m_pet_picture.dart';
 import 'package:userapp/general/network_globals.dart';
@@ -67,16 +68,26 @@ Future<List<Language>> fetchAvailableLanguages() async {
   }
 }
 
-Future<List<Country>> fetchAvailableCountries() async {
-  final response = await http.get(Uri.parse('$baseURL/pet/getCountries'));
+// Future<List<Country>> fetchAvailableCountries() async {
+//   final response = await http.get(Uri.parse('$baseURL/pet/getCountries'));
 
-  if (response.statusCode == 200) {
-    return (jsonDecode(response.body) as List)
-        .map((t) => Country.fromJson(t))
-        .toList();
-  } else {
-    throw Exception('Failed to load Countries');
-  }
+//   if (response.statusCode == 200) {
+//     return (jsonDecode(response.body) as List)
+//         .map((t) => Country.fromJson(t))
+//         .toList();
+//   } else {
+//     throw Exception('Failed to load Countries');
+//   }
+// }
+
+Future<List<Country>> fetchAvailableCountriesLocal() async {
+  // final response = await http.get(Uri.parse('$baseURL/pet/getCountries'));
+  final String response =
+      await rootBundle.loadString('assets/countries/countries.json');
+
+  return (jsonDecode(response) as List)
+      .map((t) => Country.fromJson(t))
+      .toList();
 }
 
 Future<PetProfileDetails> getPet(int petProfileId) async {
