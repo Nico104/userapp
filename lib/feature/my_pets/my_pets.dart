@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:userapp/feature/pets/profile_details/models/m_social_media.dart';
 import 'package:userapp/general/network_globals.dart';
 import 'package:userapp/general/utils_color/hex_color.dart';
 import 'package:userapp/feature/pets/profile_details/g_profile_detail_globals.dart'
@@ -25,12 +26,14 @@ class MyPets extends StatefulWidget {
     required this.availableLanguages,
     required this.reloadFuture,
     required this.availableCountries,
+    required this.availableSocialMedias,
   });
 
   final List<PetProfileDetails> petProfiles;
 
   final List<Language> availableLanguages;
   final List<Country> availableCountries;
+  final List<SocialMedia> availableSocialMedias;
 
   final VoidCallback reloadFuture;
 
@@ -53,6 +56,7 @@ class _MyPetsState extends State<MyPets> {
     //InitAvailableLanguages and Countries
     globals.availableLanguages = List.from(widget.availableLanguages);
     globals.availableCountries = List.from(widget.availableCountries);
+    globals.availableSocialMedias = List.from(widget.availableSocialMedias);
 
     _controller.addListener(() {
       setState(() {

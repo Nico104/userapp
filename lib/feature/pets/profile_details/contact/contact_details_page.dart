@@ -369,16 +369,8 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                     PaddingComponent(
                       child: SocialMediaComponent(
                         title: "profileDetailsComponentTitleSocialMedia".tr(),
-                        facebook: _contact.contactFacebook ?? "",
-                        saveFacebook: (val) async {
-                          _contact.contactFacebook = val;
-                          updateContact(_contact);
-                        },
-                        instagram: _contact.contactInstagram ?? "",
-                        saveInstagram: (val) async {
-                          _contact.contactInstagram = val;
-                          updateContact(_contact);
-                        },
+                        socialMedias: widget.contact.socialMediaConnection,
+                        contactId: widget.contact.contactId,
                       ),
                     ),
                     const SizedBox(

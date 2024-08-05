@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
+import 'package:userapp/feature/pets/profile_details/models/m_social_media.dart';
 import 'package:userapp/general/network_globals.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_contact.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_phone_number.dart';
@@ -147,6 +148,54 @@ Future<Contact> disconnectContactFromPet({
     return Contact.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to disconnect Contact.');
+  }
+}
+
+Future<SocialMediaConnection> upsertSocialMediaConnection(
+    SocialMediaConnection socialMediaconnection) async {
+  Uri url = Uri.parse('$baseURL/contact/upsertSocialMedia');
+  String? token = await getIdToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': '$token',
+    },
+    body: jsonEncode(socialMediaconnection.toJson()),
+  );
+
+  print(response.statusCode);
+
+  if (response.statusCode == 201) {
+    return SocialMediaConnection.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to update SocialMediaConnection.');
+  }
+}
+
+Future<SocialMediaConnection> deleteSocialMediaConnection(
+    SocialMediaConnection socialMediaconnection) async {
+  Uri url = Uri.parse('$baseURL/contact/deleteSocialMediaConnection');
+  String? token = await getIdToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': '$token',
+    },
+    body: jsonEncode(socialMediaconnection.toJson()),
+  );
+
+  print(response.statusCode);
+
+  if (response.statusCode == 201) {
+    return SocialMediaConnection.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to update SocialMediaConnection.');
   }
 }
 

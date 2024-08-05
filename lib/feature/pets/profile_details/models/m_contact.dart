@@ -1,3 +1,5 @@
+import 'package:userapp/feature/pets/profile_details/models/m_social_media.dart';
+
 import '../../../language/m_language.dart';
 import 'm_phone_number.dart';
 
@@ -14,6 +16,7 @@ class Contact {
   String? contactInstagram;
   List<PhoneNumber> contactTelephoneNumbers;
   List<Language> languagesSpoken;
+  List<SocialMediaConnection> socialMediaConnection;
 
   Contact(
     this.contactId,
@@ -28,6 +31,7 @@ class Contact {
     this.contactInstagram,
     this.contactTelephoneNumbers,
     this.languagesSpoken,
+    this.socialMediaConnection,
   );
 
   Contact.fromJson(Map<String, dynamic> json)
@@ -47,6 +51,11 @@ class Contact {
         contactTelephoneNumbers = json['contact_telephone_numbers'] != null
             ? (json['contact_telephone_numbers'] as List)
                 .map((t) => PhoneNumber.fromJson(t))
+                .toList()
+            : [],
+        socialMediaConnection = json['social_medias'] != null
+            ? (json['social_medias'] as List)
+                .map((t) => SocialMediaConnection.fromJson(t))
                 .toList()
             : [],
         languagesSpoken = json['languages_spoken'] != null

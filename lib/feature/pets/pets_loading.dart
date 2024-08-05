@@ -30,6 +30,7 @@ class _PetsLoadingState extends State<PetsLoading> {
           fetchUserPets(),
           fetchAvailableLanguages(),
           fetchAvailableCountriesLocal(),
+          fetchAvailableSocialMedias(),
         ]),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
@@ -37,6 +38,7 @@ class _PetsLoadingState extends State<PetsLoading> {
               petProfiles: snapshot.data[0],
               availableLanguages: snapshot.data[1],
               availableCountries: snapshot.data[2],
+              availableSocialMedias: snapshot.data[3],
               reloadFuture: () => rebuildFuture.call(),
             );
           } else if (snapshot.hasError) {

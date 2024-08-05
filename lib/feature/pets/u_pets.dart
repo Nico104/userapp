@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:userapp/feature/pets/profile_details/models/m_pet_picture.dart';
+import 'package:userapp/feature/pets/profile_details/models/m_social_media.dart';
 import 'package:userapp/general/network_globals.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_document.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_scan.dart';
@@ -88,6 +89,19 @@ Future<List<Country>> fetchAvailableCountriesLocal() async {
   return (jsonDecode(response) as List)
       .map((t) => Country.fromJson(t))
       .toList();
+}
+
+Future<List<SocialMedia>> fetchAvailableSocialMedias() async {
+  final response =
+      await http.get(Uri.parse('$baseURL/contact/getSocialMedias'));
+
+  if (response.statusCode == 200) {
+    return (jsonDecode(response.body) as List)
+        .map((t) => SocialMedia.fromJson(t))
+        .toList();
+  } else {
+    throw Exception('Failed to load Languages');
+  }
 }
 
 Future<PetProfileDetails> getPet(int petProfileId) async {
