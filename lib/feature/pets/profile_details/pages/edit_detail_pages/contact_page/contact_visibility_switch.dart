@@ -26,21 +26,29 @@ class _ContactVisibilitySwitchState extends State<ContactVisibilitySwitch> {
 
   final _duration = const Duration(milliseconds: 125);
 
-  void setVisible() {
-    widget.petProfileDetails.hide_contacts = false;
-    setState(() {});
-    updateContactVisibility(
-        petProfileId: widget.petProfileDetails.profileId,
-        contact_visbility: widget.petProfileDetails.hide_contacts);
+  // void setVisible() {
+  //   widget.petProfileDetails.hide_contacts = false;
+  //   setState(() {});
+  //   updateContactVisibility(
+  //       petProfileId: widget.petProfileDetails.profileId,
+  //       contact_visbility: widget.petProfileDetails.hide_contacts);
+  // }
+
+  void hideContactVisibility(bool hide) {
+    setState(() {
+      widget.petProfileDetails.hide_contacts = hide;
+    });
+    print(widget.petProfileDetails.hide_contacts);
+    updatePetProfileCore(widget.petProfileDetails);
   }
 
-  void setInvisible() {
-    widget.petProfileDetails.hide_contacts = true;
-    setState(() {});
-    updateContactVisibility(
-        petProfileId: widget.petProfileDetails.profileId,
-        contact_visbility: widget.petProfileDetails.hide_contacts);
-  }
+  // void setInvisible() {
+  //   widget.petProfileDetails.hide_contacts = true;
+  //   setState(() {});
+  //   updateContactVisibility(
+  //       petProfileId: widget.petProfileDetails.profileId,
+  //       contact_visbility: widget.petProfileDetails.hide_contacts);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -55,22 +63,26 @@ class _ContactVisibilitySwitchState extends State<ContactVisibilitySwitch> {
               // Swiping in right direction.
               if (details.delta.dx > 0) {
                 if (widget.petProfileDetails.hide_contacts) {
-                  setVisible();
+                  // setVisible();
+                  hideContactVisibility(false);
                 }
               }
 
               // Swiping in left direction.
               if (details.delta.dx < 0) {
                 if (!widget.petProfileDetails.hide_contacts) {
-                  setInvisible();
+                  // setInvisible();
+                  hideContactVisibility(false);
                 }
               }
             },
             onTap: () {
               if (widget.petProfileDetails.hide_contacts) {
-                setVisible();
+                // setVisible();
+                hideContactVisibility(false);
               } else {
-                setInvisible();
+                // setInvisible();
+                hideContactVisibility(true);
               }
             },
             child: Material(

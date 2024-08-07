@@ -4,12 +4,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_social_media.dart';
 import 'package:userapp/general/network_globals.dart';
 import 'package:userapp/general/utils_color/hex_color.dart';
 import 'package:userapp/feature/pets/profile_details/g_profile_detail_globals.dart'
     as globals;
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
+import 'package:userapp/general/utils_theme/theme_provider.dart';
+import 'package:userapp/general/utils_theme/themes.dart';
 import '../language/m_language.dart';
 import '../navigation_peppi/pet_profile_preview_extended_actions.dart';
 import 'my_pets_navbar/my_pets_navbar.dart';
@@ -117,7 +120,7 @@ class _MyPetsState extends State<MyPets> {
           //TODO reserve doggo pic
 
           setState(() {
-            bglink = getfallbackBGimage();
+            bglink = getfallbackBGImageLink(pageindex.round());
           });
         }
       },
@@ -125,9 +128,18 @@ class _MyPetsState extends State<MyPets> {
     return bglink;
   }
 
-  String getfallbackBGimage() {
-    var rng = Random();
-    return "https://picsum.photos/400";
+  String getfallbackBGImageLink(int index) {
+    // String prefix = "light";
+
+    // if (Provider.of<ThemeNotifier>(context, listen: false).getTheme() ==
+    //     constDarkTheme) {
+    //   prefix = "dark";
+    // }
+
+    // var rng = Random();
+    // return s3BaseUrl + "utils/temp/dog_1.png";
+    // return "https://ams1.vultrobjects.com/utils/temp/$prefix${(index % 2) + 1}.webp";
+    return "${s3BaseUrl}utils/temp/placeholder7pet_placeholder_${(index % 1) + 1}.webp";
   }
 
   // String _bgPictureLink = "https://picsum.photos/600/800";
@@ -183,7 +195,7 @@ class _MyPetsState extends State<MyPets> {
                                         .petPictures
                                         .first
                                         .petPictureLink
-                                : getfallbackBGimage(),
+                                : getfallbackBGImageLink(pageindex.round()),
                             // getBGPictureLink(),
                             // fit: BoxFit.cover,
                             scale: 1.2,
@@ -323,6 +335,9 @@ class _MyPetsState extends State<MyPets> {
                                           //   );
                                           // }
                                         },
+                                        fallBackImageLink:
+                                            getfallbackBGImageLink(
+                                                pageindex.round()),
                                       ),
                                     );
                                   }

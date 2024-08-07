@@ -338,7 +338,7 @@ final ThemeData constDarkTheme = ThemeData(
       accentHighContrast: HexColor("5478e4"),
       lightBorder: Colors.white.withOpacity(0.16),
       // hardBorder: Colors.white,
-      hardBorder: Colors.white.withOpacity(0),
+      hardBorder: Colors.white.withOpacity(0.6),
       surface: HexColor("1a1a1a"),
       lightShadow: Colors.white.withOpacity(0),
       secondaryAccent: HexColor("e1b941"),

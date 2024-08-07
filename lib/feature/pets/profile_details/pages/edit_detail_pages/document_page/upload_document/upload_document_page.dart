@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../../../../../../general/utils_theme/custom_colors.dart';
 import '../../../../../../../general/utils_theme/custom_text_styles.dart';
@@ -52,7 +53,9 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
                   ? Image.memory(
                       widget.pickedDocument.fileBytes,
                     )
-                  : const Text("pdf document"),
+                  : SizedBox(
+                      width: 10.w,
+                      child: Image.asset("assets/tmp/pdf_icon.png")),
             ),
             const SizedBox(height: 28),
             CustomTextFormField(

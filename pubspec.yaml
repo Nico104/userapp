@@ -194,6 +194,7 @@ flutter:
     - assets/details_illustartions/newtag2.png
     - assets/tmp/startLogo.png
     - assets/countries/countries.json
+    - assets/tmp/pdf_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

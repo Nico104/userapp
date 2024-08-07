@@ -23,7 +23,7 @@ class ContactPicture extends StatelessWidget {
       return s3BaseUrl + contactPictureLink!;
     } else {
       //TDO get default avatar Link
-      return "https://picsum.photos/512";
+      return "${s3BaseUrl}utils/temp/placeholder/contact_placeholder.jpg";
     }
   }
 

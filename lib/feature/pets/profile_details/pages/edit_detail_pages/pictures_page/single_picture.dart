@@ -30,14 +30,11 @@ class _SinglePictureState extends State<SinglePicture> {
   @override
   Widget build(BuildContext context) {
     print(widget.imageUrl);
-    return CachedNetworkImage(imageUrl: widget.imageUrl);
-    return Image.network(
-      // "https://picsum.photos/200/300",
-      widget.imageUrl,
-      // "https://ams1.vultrobjects.com/petpictures/petpictures/5ebfe69a12f6783c2965013290d71954",
+    return CachedNetworkImage(
+      imageUrl: widget.imageUrl,
+      placeholder: (context, url) => const CustomLoadingIndicatior(),
+      errorWidget: (context, url, error) => const Icon(Icons.error),
       fit: BoxFit.cover,
-      errorBuilder: (context, error, stackTrace) =>
-          errorBuilder(context, error, stackTrace),
     );
   }
 }

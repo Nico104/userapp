@@ -31,7 +31,7 @@ class _PetPictureExpandedState extends State<PetPictureExpanded> {
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
-            leading: const Icon(Icons.check),
+            leading: const Icon(CustomIcons.share_thin),
             title: const Text("picture_Options_Label_Share").tr(),
             onTap: () async {
               Navigator.pop(context);

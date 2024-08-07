@@ -111,12 +111,12 @@ class ContactPictureSelection extends StatelessWidget {
                 }
               },
             ),
-            const SizedBox(width: 32),
-            SelectionOption(
-              label: "contactDetailsPictureAvatarLabel".tr(),
-              icon: const Icon(Icons.person_2),
-              onTap: () {},
-            ),
+            // const SizedBox(width: 32),
+            // SelectionOption(
+            //   label: "contactDetailsPictureAvatarLabel".tr(),
+            //   icon: const Icon(Icons.person_2),
+            //   onTap: () {},
+            // ),
           ],
         ),
       ],

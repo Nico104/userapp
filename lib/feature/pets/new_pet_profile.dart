@@ -39,22 +39,33 @@ class NewPetProfile extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => TagSelectionPage(
-                      petProfile: petProfileDetails,
+                    builder: (context) => PetPage2(
+                      petProfileDetails: petProfileDetails,
+                      openTagPageOnStart: true,
                     ),
                   ),
                 ).then((value) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PetPage2(
-                        petProfileDetails: petProfileDetails,
-                      ),
-                    ),
-                  ).then((value) {
-                    reloadFuture();
-                  });
+                  reloadFuture();
                 });
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => TagSelectionPage(
+                //       petProfile: petProfileDetails,
+                //     ),
+                //   ),
+                // ).then((value) {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => PetPage2(
+                //         petProfileDetails: petProfileDetails,
+                //       ),
+                //     ),
+                //   ).then((value) {
+                //     reloadFuture();
+                //   });
+                // });
               }
             }
           });

@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/contact/u_contact.dart';
 import 'package:userapp/feature/pets/profile_details/g_profile_detail_globals.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_social_media.dart';
+import 'package:userapp/general/network_globals.dart';
 import 'package:userapp/general/widgets/custom_nico_modal.dart';
 
 import '../../../general/utils_theme/custom_colors.dart';
@@ -38,13 +41,13 @@ class SocialMediaComponent extends StatefulWidget {
 }
 
 class _SocialMediaComponentState extends State<SocialMediaComponent> {
-  String getHintText(SocialMediaConnection socialMediaConnection) {
+  SocialMedia getSocialMedia(SocialMediaConnection socialMediaConnection) {
     for (SocialMedia socialMedia in availableSocialMedias) {
       if (socialMedia.id == socialMediaConnection.social_media_Id) {
-        return socialMedia.hintText;
+        return socialMedia;
       }
     }
-    return "";
+    return SocialMedia(0, "voidnet", "void", "nothing to see here..");
   }
 
   @override
@@ -61,15 +64,15 @@ class _SocialMediaComponentState extends State<SocialMediaComponent> {
                 itemCount: widget.socialMedias.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
                     child: SingleSocialMedia(
                       flex: 8,
                       emptyValuePlaceholder:
-                          getHintText(widget.socialMedias.elementAt(index)),
-                      icon: const Icon(
-                        Icons.facebook,
-                        color: Colors.blue,
-                      ),
+                          getSocialMedia(widget.socialMedias.elementAt(index))
+                              .hintText,
+                      imageUrl: s3BaseUrl +
+                          getSocialMedia(widget.socialMedias.elementAt(index))
+                              .imagepath,
                       saveValue: (value) {
                         if (value.isNotEmpty) {
                           widget.socialMedias
@@ -94,26 +97,50 @@ class _SocialMediaComponentState extends State<SocialMediaComponent> {
                   );
                 },
               )
-            : SizedBox.shrink(),
+            : const SizedBox.shrink(),
+        const SizedBox(
+          height: 16,
+        ),
         InkWell(
           onTap: () {
             showCustomNicoModalBottomSheet(
               context: context,
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 for (SocialMedia social in availableSocialMedias)
-                  ListTile(
-                    leading: const Icon(Icons.pets),
-                    title: Text(social.name),
-                    onTap: () {
-                      upsertSocialMediaConnection(SocialMediaConnection(
-                          social.id, widget.contactId, ""));
-                      setState(() {
-                        widget.socialMedias.add(SocialMediaConnection(
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(45),
+                          child: CachedNetworkImage(
+                            imageUrl: s3BaseUrl + social.imagepath,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      // leading: AspectRatio(
+                      //   aspectRatio: 1,
+                      //   child: ClipRRect(
+                      //     borderRadius: BorderRadius.circular(4),
+                      //     child: CachedNetworkImage(
+                      //       imageUrl: s3BaseUrl + social.imagepath,
+                      //       fit: BoxFit.cover,
+                      //     ),
+                      //   ),
+                      // ),
+                      title: Text(social.name),
+                      onTap: () {
+                        upsertSocialMediaConnection(SocialMediaConnection(
                             social.id, widget.contactId, ""));
-                      });
+                        setState(() {
+                          widget.socialMedias.add(SocialMediaConnection(
+                              social.id, widget.contactId, ""));
+                        });
 
-                      Navigator.pop(context);
-                    },
+                        Navigator.pop(context);
+                      },
+                    ),
                   ),
               ]),
             );
@@ -134,55 +161,78 @@ class SingleSocialMedia extends StatelessWidget {
     required this.value,
     required this.saveValue,
     required this.emptyValuePlaceholder,
-    required this.icon,
+    // required this.icon,
     required this.index,
     required this.flex,
     required this.delete,
+    required this.imageUrl,
   });
 
   final String value;
   final ValueSetter<String> saveValue;
   final String emptyValuePlaceholder;
-  final Widget icon;
+  // final Widget icon;
   final int index;
   final int flex;
   final VoidCallback delete;
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
     return IntrinsicHeight(
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            width: 55,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color:
-                    getCustomColors(context).lightBorder ?? Colors.transparent,
-                width: 0.5,
-              ),
-              boxShadow: kElevationToShadow[0],
-              color: Theme.of(context).primaryColor,
-            ),
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: SizedBox.expand(
-                  child: FittedBox(
-                    child: icon,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(
-            width: 8,
-          ),
+          // CircleAvatar(
+          //   child: ClipRRect(
+          //     borderRadius: BorderRadius.circular(45),
+          //     child: CachedNetworkImage(
+          //       fit: BoxFit.cover,
+          //       imageUrl: imageUrl,
+          //     ),
+          //   ),
+          // ),
+          // Container(
+          //   // width: 55,
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(8),
+          //     border: Border.all(
+          //       color:
+          //           getCustomColors(context).lightBorder ?? Colors.transparent,
+          //       width: 0.5,
+          //     ),
+          //     boxShadow: kElevationToShadow[0],
+          //     color: Theme.of(context).primaryColor,
+          //   ),
+          //   child: Center(
+          //     child: Padding(
+          //       padding: const EdgeInsets.all(8),
+          //       child: SizedBox.expand(
+          //         child: FittedBox(
+          //           child: icon,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // const SizedBox(
+          //   width: 8,
+          // ),
           Expanded(
             flex: flex,
             child: CustomTextFormField(
+              prefix: Padding(
+                padding: const EdgeInsets.all(8),
+                child: CircleAvatar(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(45),
+                    child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      imageUrl: imageUrl,
+                    ),
+                  ),
+                ),
+              ),
               initialValue: value,
               hintText: emptyValuePlaceholder,
               showSuffix: false,
@@ -197,14 +247,16 @@ class SingleSocialMedia extends StatelessWidget {
               },
             ),
           ),
-          const Spacer(),
-          InkWell(
-            onTap: delete,
-            child: Icon(Icons.delete),
-          ),
           const SizedBox(
             width: 16,
-          )
+          ),
+          InkWell(
+            onTap: delete,
+            child: Icon(Icons.delete_outline_rounded),
+          ),
+          // const SizedBox(
+          //   width: 8,
+          // )
         ],
       ),
     );

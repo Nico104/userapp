@@ -45,7 +45,10 @@ class _DocumentEditDialogState extends State<DocumentEditDialog> {
     if (widget.document.contentType == 'image') {
       return Image.network(widget.document.documentLink);
     } else if (widget.document.contentType == 'pdf') {
-      return const Text("pdf document");
+      return SizedBox(
+        width: 10.w,
+        child: Image.asset("assets/tmp/pdf_icon.png"),
+      );
     } else {
       return const Text("undefined documenttype");
     }

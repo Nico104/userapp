@@ -17,6 +17,7 @@ class PetProfilePreview extends StatefulWidget {
     required this.switchExtendedActions,
     required this.setPictureLink,
     required this.closeNavigationPeppi,
+    required this.fallBackImageLink,
   });
 
   final PetProfileDetails petProfileDetails;
@@ -27,6 +28,8 @@ class PetProfilePreview extends StatefulWidget {
   final Function(String) setPictureLink;
 
   final VoidCallback closeNavigationPeppi;
+
+  final String fallBackImageLink;
 
   @override
   State<PetProfilePreview> createState() => PetProfilePreviewState();
@@ -119,7 +122,7 @@ class PetProfilePreviewState extends State<PetProfilePreview> {
             widget.petProfileDetails.petPictures
                 .elementAt(position)
                 .petPictureLink
-        : "https://picsum.photos/600/800";
+        : widget.fallBackImageLink;
     widget.setPictureLink(pictureLink);
     return pictureLink;
   }

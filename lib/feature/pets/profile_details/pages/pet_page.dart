@@ -40,6 +40,7 @@ class PetPage2 extends StatefulWidget {
     required this.petProfileDetails,
     this.showAppbar = true,
     this.showDescriptions = true,
+    this.openTagPageOnStart = false,
   });
 
   //? Maybe Variable and fetchFrromServer when needed Updated a la Contact
@@ -49,6 +50,8 @@ class PetPage2 extends StatefulWidget {
   final bool showAppbar;
 
   final bool showDescriptions;
+
+  final bool openTagPageOnStart;
 
   @override
   State<PetPage2> createState() => _PetPage2State();
@@ -92,6 +95,14 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
     });
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (widget.openTagPageOnStart) {
+        navigatePerSlide(
+          context,
+          TagSelectionPage(
+            petProfile: _petProfileDetails,
+          ),
+        );
+      }
       _scrollController.addListener(() {
         _initiateIsTopListener();
         // _handleNavBarShown();

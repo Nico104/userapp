@@ -116,8 +116,8 @@ class SingleLanguage extends StatelessWidget {
               borderRadius: BorderRadius.circular(4),
               child: CachedNetworkImage(
                 imageUrl: s3BaseUrl + language.languageImagePath,
-                placeholder: (context, url) => const CustomLoadingIndicatior(),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+                // placeholder: (context, url) => const CustomLoadingIndicatior(),
+                // errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
           ),

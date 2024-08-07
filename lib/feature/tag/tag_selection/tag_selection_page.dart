@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:userapp/feature/tag/tag_selection/add_tag_page.dart';
 import 'package:userapp/feature/tag/tag_selection/tag_selection_list.dart';
+import 'package:userapp/general/utils_general.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
 import '../../../general/widgets/future_error_widget.dart';
@@ -28,17 +30,17 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
   void initState() {
     super.initState();
 
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   // Navigator.push(
-    //   //   context,
-    //   //   MaterialPageRoute(
-    //   //     builder: (context) => const AddTagPage(),
-    //   //   ),
-    //   // ).then((value) {
-    //   //   setState(() {});
-    //   // });
-    //   navigateReplacePerSlide(context, const AddTagPage());
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => const AddTagPage(),
+      //   ),
+      // ).then((value) {
+      //   setState(() {});
+      // });
+      navigateReplacePerSlide(context, const AddTagPage());
+    });
   }
 
   @override
