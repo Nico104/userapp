@@ -280,8 +280,6 @@ Future<PetProfileDetails> updatePetProfileCore(
 
   print(response.body);
 
-  print(petProfileDetails.hide_information);
-
   if (response.statusCode == 201) {
     return PetProfileDetails.fromJson(jsonDecode(response.body));
   } else {

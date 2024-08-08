@@ -36,6 +36,12 @@ class PetProfileDetails {
   String? pet_behavioral_notes;
   String? pet_special_needs;
   String? pet_diet_preferences;
+  bool scan_hide_contacts;
+  bool scan_hide_information;
+  bool scan_hide_medical;
+  bool scan_hide_pictures;
+  bool scan_hide_documents;
+  bool scan_hide_description;
   bool hide_contacts;
   bool hide_information;
   bool hide_medical;
@@ -94,6 +100,12 @@ class PetProfileDetails {
     this.pet_licenceID,
     this.pet_special_needs,
     this.pet_tattooID,
+    this.scan_hide_contacts,
+    this.scan_hide_description,
+    this.scan_hide_documents,
+    this.scan_hide_information,
+    this.scan_hide_medical,
+    this.scan_hide_pictures,
     this.hide_description,
     this.hide_documents,
     this.hide_information,
@@ -127,6 +139,12 @@ class PetProfileDetails {
         //         .toList()
         //     : [],
         petIsLostText = json['pet_is_lost_text'],
+        scan_hide_contacts = json['scan_hide_contacts'],
+        scan_hide_information = json['scan_hide_information'],
+        scan_hide_medical = json['scan_hide_medical'],
+        scan_hide_pictures = json['scan_hide_pictures'],
+        scan_hide_documents = json['scan_hide_documents'],
+        scan_hide_description = json['scan_hide_description'],
         hide_contacts = json['hide_contacts'],
         hide_information = json['hide_information'],
         hide_medical = json['hide_medical'],
@@ -210,6 +228,13 @@ class PetProfileDetails {
         'hide_pictures': hide_pictures,
         'hide_documents': hide_documents,
         'hide_description': hide_description,
+
+        'scan_hide_contacts': scan_hide_contacts,
+        'scan_hide_information': scan_hide_information,
+        'scan_hide_medical': scan_hide_medical,
+        'scan_hide_pictures': scan_hide_pictures,
+        'scan_hide_documents': scan_hide_documents,
+        'scan_hide_description': scan_hide_description,
       };
 }
 
@@ -261,6 +286,12 @@ PetProfileDetails getDummyPetProfile() {
     "",
     "",
     "",
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
     false,
     false,
     false,

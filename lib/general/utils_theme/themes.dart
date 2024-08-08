@@ -84,10 +84,10 @@ final ThemeData constLightTheme = ThemeData(
       fontSize: 16,
       color: Colors.black.withOpacity(0.76),
     ),
-    displaySmall: GoogleFonts.prompt(
+    displaySmall: GoogleFonts.roboto(
       fontWeight: FontWeight.w200,
       fontSize: kIsWeb ? 16 : 10.5.sp,
-      color: Colors.black.withOpacity(0.50),
+      color: Colors.black.withOpacity(0.70),
     ),
     displayMedium: GoogleFonts.openSans(
       // fontFamily: 'Promt',
@@ -173,7 +173,8 @@ final ThemeData constLightTheme = ThemeData(
       // accent: HexColor("#4169E1"),
       accent: HexColor("#8A7861"),
       accentLessContrast: HexColor("5478e4"),
-      accentHighContrast: HexColor("3a5eca"),
+      // accentHighContrast: HexColor("3a5eca"),
+      accentHighContrast: HexColor("656bff"),
       lightBorder: Colors.black.withOpacity(0.16),
       hardBorder: Colors.black,
       //Free

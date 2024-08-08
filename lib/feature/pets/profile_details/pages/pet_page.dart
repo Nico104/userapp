@@ -352,6 +352,182 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                       Expanded(
                         child: Column(
                           children: [
+                            GestureDetector(
+                              onTap: () {
+                                navigatePerSlide(
+                                  context,
+                                  VisibilityMenu(
+                                    petProfileDetails: widget.petProfileDetails,
+                                  ),
+                                );
+                              },
+                              child: AspectRatio(
+                                aspectRatio: 1,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    // color: Colors.blue,
+                                    // color: _petProfileDetails.petIsLost
+                                    //     ? HexColor("#A52A2A")
+                                    //     : HexColor("#958164"),
+                                    // border: Border.all(
+                                    //   width: 0,
+                                    //   color:
+                                    //       getCustomColors(context).hardBorder ??
+                                    //           Colors.transparent,
+                                    //   // strokeAlign: BorderSide.strokeAlignOutside,
+                                    // ),
+                                    borderRadius: BorderRadius.circular(18),
+                                    boxShadow: kElevationToShadow[6],
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(18),
+                                    child: Stack(
+                                      children: [
+                                        Align(
+                                          alignment: Alignment(-1.5, 0.6),
+                                          child: Image.asset(
+                                            "assets/details_illustartions/privacy.png",
+                                            scale: 1.5,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(16),
+                                          child: AutoSizeText(
+                                            "Privacy".tr(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge,
+                                            maxLines: 1,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const GridSpacing(),
+                            GestureDetector(
+                              onTap: () {
+                                navigatePerSlide(
+                                  context,
+                                  ContactPage(
+                                    petProfileDetails: widget.petProfileDetails,
+                                  ),
+                                );
+                              },
+                              child: AspectRatio(
+                                aspectRatio: 1 / 2,
+                                child: Material(
+                                  borderRadius: BorderRadius.circular(18),
+                                  elevation: 4,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: getCustomColors(context).surface,
+                                      border: Border.all(
+                                        width: 0.3,
+                                        color: getCustomColors(context)
+                                                .hardBorder ??
+                                            Colors.transparent,
+                                        // strokeAlign: BorderSide.strokeAlignOutside,
+                                      ),
+                                      borderRadius: BorderRadius.circular(18),
+                                      // boxShadow: kElevationToShadow[3],
+                                    ),
+                                    // padding: const EdgeInsets.all(8.0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(18),
+                                      child: Stack(
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 8.0),
+                                            child: Align(
+                                              alignment: Alignment.bottomRight,
+                                              child: Image.asset(
+                                                  "assets/details_illustartions/contact_1_cut.png"),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(16),
+                                            child: AutoSizeText(
+                                              "petPage_Contact".tr(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge,
+                                              maxLines: 1,
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment:
+                                                // const Alignment(-1, -0.5),
+                                                Alignment.bottomLeft,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(16),
+                                              child: Row(
+                                                children: [
+                                                  widget.showDescriptions
+                                                      ? Expanded(
+                                                          flex: 5,
+                                                          child: (widget
+                                                                  .petProfileDetails
+                                                                  .petContacts
+                                                                  .isEmpty)
+                                                              ? Text(
+                                                                  "Keine Kontakte vorhanden"
+                                                                      .tr(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .justify,
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .displaySmall,
+                                                                )
+                                                              // : Text(
+                                                              //     "petPage_ContactInfo"
+                                                              //         .tr(),
+                                                              //     style: Theme.of(
+                                                              //             context)
+                                                              //         .textTheme
+                                                              //         .displaySmall,
+                                                              //   ),
+                                                              : Text(
+                                                                  "${widget.petProfileDetails.petContacts.length} Kontakte"
+                                                                      .tr(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .justify,
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .displaySmall,
+                                                                ),
+                                                        )
+                                                      : const SizedBox.shrink(),
+                                                  const Spacer(
+                                                    flex: 4,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const GridSpacing(),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            const GridSpacing(),
                             AspectRatio(
                               aspectRatio: 1,
                               child: GestureDetector(
@@ -505,132 +681,13 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                               onTap: () {
                                 navigatePerSlide(
                                   context,
-                                  ContactPage(
-                                    petProfileDetails: widget.petProfileDetails,
-                                  ),
-                                );
-                              },
-                              child: AspectRatio(
-                                aspectRatio: 1 / 2,
-                                child: Material(
-                                  borderRadius: BorderRadius.circular(18),
-                                  elevation: 4,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: getCustomColors(context).surface,
-                                      border: Border.all(
-                                        width: 0.3,
-                                        color: getCustomColors(context)
-                                                .hardBorder ??
-                                            Colors.transparent,
-                                        // strokeAlign: BorderSide.strokeAlignOutside,
-                                      ),
-                                      borderRadius: BorderRadius.circular(18),
-                                      // boxShadow: kElevationToShadow[3],
-                                    ),
-                                    // padding: const EdgeInsets.all(8.0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(18),
-                                      child: Stack(
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 8.0),
-                                            child: Align(
-                                              alignment: Alignment.bottomRight,
-                                              child: Image.asset(
-                                                  "assets/details_illustartions/contact_1_cut.png"),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(16),
-                                            child: AutoSizeText(
-                                              "petPage_Contact".tr(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleLarge,
-                                              maxLines: 1,
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment:
-                                                // const Alignment(-1, -0.5),
-                                                Alignment.bottomLeft,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(16),
-                                              child: Row(
-                                                children: [
-                                                  widget.showDescriptions
-                                                      ? Expanded(
-                                                          flex: 5,
-                                                          child: (widget
-                                                                  .petProfileDetails
-                                                                  .petContacts
-                                                                  .isEmpty)
-                                                              ? Text(
-                                                                  "Keine Kontakte vorhanden"
-                                                                      .tr(),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .justify,
-                                                                  style: Theme.of(
-                                                                          context)
-                                                                      .textTheme
-                                                                      .displaySmall,
-                                                                )
-                                                              // : Text(
-                                                              //     "petPage_ContactInfo"
-                                                              //         .tr(),
-                                                              //     style: Theme.of(
-                                                              //             context)
-                                                              //         .textTheme
-                                                              //         .displaySmall,
-                                                              //   ),
-                                                              : Text(
-                                                                  "${widget.petProfileDetails.petContacts.length} Kontakte"
-                                                                      .tr(),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .justify,
-                                                                  style: Theme.of(
-                                                                          context)
-                                                                      .textTheme
-                                                                      .displaySmall,
-                                                                ),
-                                                        )
-                                                      : const SizedBox.shrink(),
-                                                  const Spacer(
-                                                    flex: 4,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const GridSpacing(),
-                      Expanded(
-                        child: Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                navigatePerSlide(
-                                  context,
                                   TagSelectionPage(
                                     petProfile: _petProfileDetails,
                                   ),
                                 );
                               },
                               child: AspectRatio(
-                                aspectRatio: 1 / 2,
+                                aspectRatio: 1,
                                 child: Material(
                                   borderRadius: BorderRadius.circular(18),
                                   elevation: 4,

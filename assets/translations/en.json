@@ -343,5 +343,10 @@
     "lostBox_Visibility_menu": "Visibility Menu",
     "petPage_Options_Share": "Share Profile",
     "petPage_Options_Scans": "Scans History",
-    "helpWithThisPage": "Help"
+    "helpWithThisPage": "Help",
+    "visibility_menu_scan_description_1": "The Scan tab controls what information is visible when someone scans the pet's profile using a QR code or similar methods.",
+    "visibility_menu_scan_description_2": "Similar to the Share tab, you can adjust visibility settings for contacts, medical information, and other details, but specifically for those who scan the profile. This allows for greater control over what details are accessible in different viewing contexts.",
+    "visibility_menu_share_description_1": "The Share tab manages the visibility of information for people who access the pet's profile via a shared link. When you share a pet’s profile, you can decide what information will be visible to the recipient by toggling the settings on this tab.",
+    "visibility_menu_share_description_2": "Information such as contacts, medical details, pictures, and documents can be selectively hidden from viewers who access the profile through the shared link, ensuring that only the necessary details are shared.",
+    "visibility_menu_description": "The Visibility Menu allows users to control what information is visible to others when sharing a pet's profile through the app. The menu is divided into two main tabs: Share and Scan, each affecting different methods of accessing the pet's profile."
 }
