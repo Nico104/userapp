@@ -34,7 +34,7 @@ List<Widget> _buildTags(List<Tag> list, double collardimension) {
         child: TagSingle(
           collardimension: collardimension,
           // tagPersonalisation: tag.collarTagPersonalisation,
-          picturePath: tag.picturePath,
+          picturePath: tag.model.picturePath,
         ),
       ),
     );

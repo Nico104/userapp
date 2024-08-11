@@ -215,11 +215,11 @@ class _ContactPageState extends State<ContactPage> {
                     addNewContact: addNewContact,
                   ),
           ),
-          widget.petProfileDetails.petContacts.isNotEmpty
-              ? ContactVisibilitySwitch(
-                  petProfileDetails: widget.petProfileDetails,
-                )
-              : const SizedBox.shrink(),
+          // widget.petProfileDetails.petContacts.isNotEmpty
+          //     ? ContactVisibilitySwitch(
+          //         petProfileDetails: widget.petProfileDetails,
+          //       )
+          //     : const SizedBox.shrink(),
         ],
       ),
     );

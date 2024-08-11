@@ -29,6 +29,8 @@ class _DocumentEditDialogState extends State<DocumentEditDialog> {
   //   const DocumentType('medicine', 'medicine'),
   // ];
 
+  //! Max upload size 500M, set ing nginx.conf
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late TextEditingController _docNameController;
 

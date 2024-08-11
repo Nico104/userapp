@@ -859,6 +859,8 @@ Future<void> deleteUser({
     }),
   );
 
+  print(response.body);
+
   if (response.statusCode == 200) {
     return;
   } else {

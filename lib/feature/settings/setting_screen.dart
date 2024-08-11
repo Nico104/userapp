@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart'
     as firebaseMessaging;
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:userapp/feature/onboarding/onboarding_page.dart';
@@ -118,30 +119,31 @@ class _SettingsState extends State<Settings> {
                       },
                     ),
                     const SizedBox(height: settingItemSpacing),
-                    SettingsItem(
-                      label: "settingsItemThemes".tr(),
-                      leading: const Icon(Icons.hexagon_outlined),
-                      suffix: const Icon(Icons.keyboard_arrow_right),
-                      onTap: () {
-                        // navigatePerSlide(
-                        //   context,
-                        //   const ThemeSettings(),
-                        // );
+                    //TODO release Themes / newer Texts styles not well connected with Themes
+                    // SettingsItem(
+                    //   label: "settingsItemThemes".tr(),
+                    //   leading: const Icon(Icons.hexagon_outlined),
+                    //   suffix: const Icon(Icons.keyboard_arrow_right),
+                    //   onTap: () {
+                    //     // navigatePerSlide(
+                    //     //   context,
+                    //     //   const ThemeSettings(),
+                    //     // );
 
-                        navigatePerSlide(
-                          context,
-                          Consumer<ThemeNotifier>(
-                            builder: (context, theme, _) {
-                              return ThemeSelectionPage(
-                                theme: theme,
-                                petProfileDetails: widget.petProfileDetails,
-                              );
-                            },
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: settingItemSpacing),
+                    //     navigatePerSlide(
+                    //       context,
+                    //       Consumer<ThemeNotifier>(
+                    //         builder: (context, theme, _) {
+                    //           return ThemeSelectionPage(
+                    //             theme: theme,
+                    //             petProfileDetails: widget.petProfileDetails,
+                    //           );
+                    //         },
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
+                    // const SizedBox(height: settingItemSpacing),
                     Hero(
                       tag: "settingsLang",
                       child: SettingsItem(
@@ -264,10 +266,11 @@ class _SettingsState extends State<Settings> {
                       //   navigatePerSlide(context, const ContactUs());
                       // },
                       onTap: () {
-                        navigatePerSlide(
-                          context,
-                          const ContactUs(),
-                        );
+                        showContactUsOptions(context);
+                        // navigatePerSlide(
+                        //   context,
+                        //   const ContactUs(),
+                        // );
                       },
                     ),
                     const SizedBox(height: settingItemSpacing),
@@ -298,20 +301,20 @@ class _SettingsState extends State<Settings> {
                             mode: LaunchMode.externalApplication);
                       },
                     ),
-                    const SizedBox(height: settingItemSpacing),
-                    SettingsItem(
-                      label: "settingsItemAbout".tr(),
-                      leading: const Icon(Icons.question_mark),
-                      suffix: const Icon(Icons.keyboard_arrow_right),
-                      onTap: () async {
-                        // navigatePerSlide(
-                        //   context,
-                        //   const ComingSoonPage(title: "About"),
-                        // );
-                        await launchUrl(Uri.parse("http://finmapet.com"),
-                            mode: LaunchMode.externalApplication);
-                      },
-                    ),
+                    // const SizedBox(height: settingItemSpacing),
+                    // SettingsItem(
+                    //   label: "settingsItemAbout".tr(),
+                    //   leading: const Icon(Icons.question_mark),
+                    //   suffix: const Icon(Icons.keyboard_arrow_right),
+                    //   onTap: () async {
+                    //     // navigatePerSlide(
+                    //     //   context,
+                    //     //   const ComingSoonPage(title: "About"),
+                    //     // );
+                    //     await launchUrl(Uri.parse("http://finmapet.com"),
+                    //         mode: LaunchMode.externalApplication);
+                    //   },
+                    // ),
                   ],
                 ),
               ),
@@ -351,6 +354,16 @@ class _SettingsState extends State<Settings> {
                   },
                 ),
               ),
+
+              Padding(
+                padding: const EdgeInsets.all(16),
+                // child: Text(
+                //   "Every change gets saved and uploaded automatically",
+                //   style: Theme.of(context).textTheme.labelSmall,
+                //   textAlign: TextAlign.center,
+                // ),
+                child: _buildVersionInfoText(),
+              ),
               const SizedBox(height: 28),
             ],
           ),
@@ -364,4 +377,31 @@ class _SettingsState extends State<Settings> {
       ),
     );
   }
+}
+
+Widget _buildVersionInfoText() {
+  return FutureBuilder<PackageInfo>(
+    future: PackageInfo.fromPlatform(),
+    builder: (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
+      if (snapshot.hasData) {
+        return Text(
+          "Version: ${snapshot.data!.version}",
+          style: Theme.of(context).textTheme.labelSmall,
+          textAlign: TextAlign.center,
+        );
+      } else if (snapshot.hasError) {
+        return Text(
+          "error loading version",
+          style: Theme.of(context).textTheme.labelSmall,
+          textAlign: TextAlign.center,
+        );
+      } else {
+        return Text(
+          "Loading Version",
+          style: Theme.of(context).textTheme.labelSmall,
+          textAlign: TextAlign.center,
+        );
+      }
+    },
+  );
 }

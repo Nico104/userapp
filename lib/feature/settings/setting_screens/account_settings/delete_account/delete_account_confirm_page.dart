@@ -1,7 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/feature/auth/login_screen.dart';
+import 'package:userapp/feature/pets/profile_details/d_confirm_delete.dart';
+import 'package:userapp/feature/pets/profile_details/pages/pet_page.dart';
+import 'package:userapp/general/utils_general.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 import 'package:userapp/general/widgets/shy_button.dart';
+import 'package:userapp/init_app.dart';
 
 import '../../../../auth/u_auth.dart';
 import 'delete_account_type_password.dart';
@@ -56,27 +61,49 @@ class _DeleteAccountConfirmPageState extends State<DeleteAccountConfirmPage> {
           ),
           ShyButton(
             showUploadButton: _showShyButton,
-            onTap: () {
-              Navigator.of(context)
-                  .push(
-                PageRouteBuilder(
-                  opaque: false,
-                  barrierDismissible: true,
-                  pageBuilder: (BuildContext context, _, __) {
-                    return const DeleteAccountTypePassword();
-                  },
+            onTap: () async {
+              showDialog(
+                context: context,
+                builder: (_) => const ConfirmDeleteDialog(
+                  label: "Account",
                 ),
-              )
-                  .then(
-                (value) async {
+              ).then((value) async {
+                if (value != null) {
                   if (value == true) {
-                    await deleteUser(
+                    deleteUser(
                       message: widget.message,
                       reason: widget.reason,
-                    );
+                    ).then((value) {
+                      navigateReplacePerSlide(context, const LoginScreen());
+                    });
+                  } else {
+                    navigateReplacePerSlide(context, const InitApp());
                   }
-                },
-              );
+                } else {
+                  navigateReplacePerSlide(context, const InitApp());
+                }
+              });
+
+              // Navigator.of(context)
+              //     .push(
+              //   PageRouteBuilder(
+              //     opaque: false,
+              //     barrierDismissible: true,
+              //     pageBuilder: (BuildContext context, _, __) {
+              //       return const DeleteAccountTypePassword();
+              //     },
+              //   ),
+              // )
+              //     .then(
+              //   (value) async {
+              //     if (value == true) {
+              //       await deleteUser(
+              //         message: widget.message,
+              //         reason: widget.reason,
+              //       );
+              //     }
+              //   },
+              // );
             },
             label: "deleteAccountTitleConfirmDeleteButtonLabel3".tr(),
           ),

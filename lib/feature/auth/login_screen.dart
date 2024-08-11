@@ -161,30 +161,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildVersionInfo() {
-    return FutureBuilder<PackageInfo>(
-      future: PackageInfo.fromPlatform(),
-      builder: (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
-        if (snapshot.hasData) {
-          return Text(
-            "Version: ${snapshot.data!.version}",
-            style: Theme.of(context).textTheme.labelSmall,
-          );
-        } else if (snapshot.hasError) {
-          return Text(
-            "error loading version",
-            style: Theme.of(context).textTheme.labelSmall,
-          );
-        } else {
-          return Text(
-            "Loading Version",
-            style: Theme.of(context).textTheme.labelSmall,
-          );
-        }
-      },
-    );
-  }
-
   Widget _buildRegisterNow(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

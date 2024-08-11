@@ -1,13 +1,52 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:userapp/feature/settings/setting_screens/contact_us/contact_us_success_page.dart';
 import 'package:userapp/feature/settings/setting_screens/contact_us/u_contact_us.dart';
 import 'package:userapp/general/utils_general.dart';
+import 'package:userapp/general/widgets/custom_nico_modal.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
 
 import '../../../pets/profile_details/widgets/custom_textformfield.dart';
 import '../../../../general/widgets/shy_button.dart';
+
+void showContactUsOptions(BuildContext context) {
+  showCustomNicoModalBottomSheet(
+    context: context,
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ListTile(
+          leading: const Icon(Icons.mail_outline_rounded),
+          title: Text("Email us".tr()),
+          onTap: () {
+            Navigator.pop(context);
+            // To create email with params
+            final Uri emailLaunchUri = Uri(
+              scheme: 'mailto',
+              path: contactEmail,
+              queryParameters: {
+                'subject': "This is my subject",
+                'body': "Hey Kashish here goes the body"
+              },
+            );
+            launchUrl(emailLaunchUri);
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.copy),
+          title: Text("Copy Email Address".tr()),
+          onTap: () async {
+            Navigator.pop(context);
+            await Clipboard.setData(ClipboardData(text: contactEmail));
+          },
+        ),
+      ],
+    ),
+  );
+}
 
 class ContactUs extends StatefulWidget {
   const ContactUs({super.key});

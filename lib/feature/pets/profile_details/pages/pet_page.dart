@@ -346,305 +346,183 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
               child: Column(
                 children: [
                   const SizedBox(height: 28),
+                  //Privacy and Lost
                   Row(
                     children: [
                       const GridSpacing(),
                       Expanded(
-                        child: Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                navigatePerSlide(
-                                  context,
-                                  VisibilityMenu(
-                                    petProfileDetails: widget.petProfileDetails,
-                                  ),
-                                );
-                              },
-                              child: AspectRatio(
-                                aspectRatio: 1,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).primaryColor,
-                                    // color: Colors.blue,
-                                    // color: _petProfileDetails.petIsLost
-                                    //     ? HexColor("#A52A2A")
-                                    //     : HexColor("#958164"),
-                                    // border: Border.all(
-                                    //   width: 0,
-                                    //   color:
-                                    //       getCustomColors(context).hardBorder ??
-                                    //           Colors.transparent,
-                                    //   // strokeAlign: BorderSide.strokeAlignOutside,
-                                    // ),
-                                    borderRadius: BorderRadius.circular(18),
-                                    boxShadow: kElevationToShadow[6],
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(18),
-                                    child: Stack(
-                                      children: [
-                                        Align(
-                                          alignment: Alignment(-1.5, 0.6),
-                                          child: Image.asset(
-                                            "assets/details_illustartions/privacy.png",
-                                            scale: 1.5,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: AutoSizeText(
-                                            "Privacy".tr(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge,
-                                            maxLines: 1,
-                                          ),
-                                        ),
-                                      ],
+                        child: GestureDetector(
+                          onTap: () {
+                            navigatePerSlide(
+                              context,
+                              VisibilityMenu(
+                                petProfileDetails: widget.petProfileDetails,
+                              ),
+                            );
+                          },
+                          child: AspectRatio(
+                            aspectRatio: 1,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                // color: Colors.blue,
+                                // color: _petProfileDetails.petIsLost
+                                //     ? HexColor("#A52A2A")
+                                //     : HexColor("#958164"),
+                                // border: Border.all(
+                                //   width: 0,
+                                //   color:
+                                //       getCustomColors(context).hardBorder ??
+                                //           Colors.transparent,
+                                //   // strokeAlign: BorderSide.strokeAlignOutside,
+                                // ),
+                                borderRadius: BorderRadius.circular(18),
+                                boxShadow: kElevationToShadow[6],
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(18),
+                                child: Stack(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment(-1.2, 0.6),
+                                      child: Image.asset(
+                                        "assets/details_illustartions/privacy.png",
+                                        scale: 2.5,
+                                      ),
                                     ),
-                                  ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(16),
+                                      child: AutoSizeText(
+                                        "Privacy".tr(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge,
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                            const GridSpacing(),
-                            GestureDetector(
-                              onTap: () {
-                                navigatePerSlide(
-                                  context,
-                                  ContactPage(
-                                    petProfileDetails: widget.petProfileDetails,
-                                  ),
-                                );
-                              },
-                              child: AspectRatio(
-                                aspectRatio: 1 / 2,
-                                child: Material(
-                                  borderRadius: BorderRadius.circular(18),
-                                  elevation: 4,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: getCustomColors(context).surface,
-                                      border: Border.all(
-                                        width: 0.3,
-                                        color: getCustomColors(context)
-                                                .hardBorder ??
-                                            Colors.transparent,
-                                        // strokeAlign: BorderSide.strokeAlignOutside,
-                                      ),
-                                      borderRadius: BorderRadius.circular(18),
-                                      // boxShadow: kElevationToShadow[3],
-                                    ),
-                                    // padding: const EdgeInsets.all(8.0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(18),
-                                      child: Stack(
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 8.0),
-                                            child: Align(
-                                              alignment: Alignment.bottomRight,
-                                              child: Image.asset(
-                                                  "assets/details_illustartions/contact_1_cut.png"),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(16),
-                                            child: AutoSizeText(
-                                              "petPage_Contact".tr(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleLarge,
-                                              maxLines: 1,
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment:
-                                                // const Alignment(-1, -0.5),
-                                                Alignment.bottomLeft,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(16),
-                                              child: Row(
-                                                children: [
-                                                  widget.showDescriptions
-                                                      ? Expanded(
-                                                          flex: 5,
-                                                          child: (widget
-                                                                  .petProfileDetails
-                                                                  .petContacts
-                                                                  .isEmpty)
-                                                              ? Text(
-                                                                  "Keine Kontakte vorhanden"
-                                                                      .tr(),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .justify,
-                                                                  style: Theme.of(
-                                                                          context)
-                                                                      .textTheme
-                                                                      .displaySmall,
-                                                                )
-                                                              // : Text(
-                                                              //     "petPage_ContactInfo"
-                                                              //         .tr(),
-                                                              //     style: Theme.of(
-                                                              //             context)
-                                                              //         .textTheme
-                                                              //         .displaySmall,
-                                                              //   ),
-                                                              : Text(
-                                                                  "${widget.petProfileDetails.petContacts.length} Kontakte"
-                                                                      .tr(),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .justify,
-                                                                  style: Theme.of(
-                                                                          context)
-                                                                      .textTheme
-                                                                      .displaySmall,
-                                                                ),
-                                                        )
-                                                      : const SizedBox.shrink(),
-                                                  const Spacer(
-                                                    flex: 4,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
                       const GridSpacing(),
                       Expanded(
-                        child: Column(
-                          children: [
-                            const GridSpacing(),
-                            AspectRatio(
-                              aspectRatio: 1,
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context)
-                                      .push(
-                                    PageRouteBuilder(
-                                      opaque: false,
-                                      barrierDismissible: true,
-                                      pageBuilder:
-                                          (BuildContext context, _, __) {
-                                        return LostBox(
-                                          petProfile: _petProfileDetails,
-                                          goToVisibilityMenu: () {
-                                            navigatePerSlide(
-                                                context,
-                                                // ContactPage(
-                                                //   petProfileDetails: widget
-                                                //       .petProfileDetails,
-                                                // ),
-                                                VisibilityMenu(
-                                                    petProfileDetails: widget
-                                                        .petProfileDetails));
-                                          },
-                                        );
-                                        // return LostPage(
-                                        //     petProfileDetails:
-                                        //         _petProfileDetails);
+                        child: AspectRatio(
+                          aspectRatio: 1,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .push(
+                                PageRouteBuilder(
+                                  opaque: false,
+                                  barrierDismissible: true,
+                                  pageBuilder: (BuildContext context, _, __) {
+                                    return LostBox(
+                                      petProfile: _petProfileDetails,
+                                      goToVisibilityMenu: () {
+                                        navigatePerSlide(
+                                            context,
+                                            // ContactPage(
+                                            //   petProfileDetails: widget
+                                            //       .petProfileDetails,
+                                            // ),
+                                            VisibilityMenu(
+                                                petProfileDetails:
+                                                    widget.petProfileDetails));
                                       },
-                                    ),
-                                  )
-                                      .then((value) {
-                                    setState(() {});
-                                  });
-                                },
-                                child: Hero(
-                                  tag: "lost${_petProfileDetails.profileId}",
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      // color: Theme.of(context).primaryColor,
-                                      // color: Colors.blue,
-                                      color: _petProfileDetails.petIsLost
-                                          ? HexColor("#A52A2A")
-                                          : HexColor("#958164"),
-                                      // border: Border.all(
-                                      //   width: 0,
-                                      //   color:
-                                      //       getCustomColors(context).hardBorder ??
-                                      //           Colors.transparent,
-                                      //   // strokeAlign: BorderSide.strokeAlignOutside,
-                                      // ),
-                                      borderRadius: BorderRadius.circular(18),
-                                      boxShadow: kElevationToShadow[6],
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(18),
-                                      child: Stack(
+                                    );
+                                    // return LostPage(
+                                    //     petProfileDetails:
+                                    //         _petProfileDetails);
+                                  },
+                                ),
+                              )
+                                  .then((value) {
+                                setState(() {});
+                              });
+                            },
+                            child: Hero(
+                              tag: "lost${_petProfileDetails.profileId}",
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  // color: Theme.of(context).primaryColor,
+                                  // color: Colors.blue,
+                                  color: _petProfileDetails.petIsLost
+                                      ? HexColor("#A52A2A")
+                                      : HexColor("#958164"),
+                                  // border: Border.all(
+                                  //   width: 0,
+                                  //   color:
+                                  //       getCustomColors(context).hardBorder ??
+                                  //           Colors.transparent,
+                                  //   // strokeAlign: BorderSide.strokeAlignOutside,
+                                  // ),
+                                  borderRadius: BorderRadius.circular(18),
+                                  boxShadow: kElevationToShadow[6],
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(18),
+                                  child: Stack(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.bottomLeft,
+                                        child: Image.asset(
+                                          "assets/details_illustartions/lost_dog_1_cut.png",
+                                          scale: 2.5,
+                                        ),
+                                      ),
+                                      Column(
                                         children: [
-                                          Align(
-                                            alignment: Alignment.bottomLeft,
-                                            child: Image.asset(
-                                              "assets/details_illustartions/lost_dog_1_cut.png",
-                                              scale: 2.5,
-                                            ),
-                                          ),
-                                          Column(
+                                          const GridSpacing(),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
                                             children: [
-                                              const GridSpacing(),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                children: [
-                                                  Expanded(
-                                                    child: AutoSizeText(
-                                                      "petPage_Lost".tr(),
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleLarge
-                                                          ?.copyWith(
-                                                              decoration: !_petProfileDetails
+                                              Expanded(
+                                                child: AutoSizeText(
+                                                  "petPage_Lost".tr(),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleLarge
+                                                      ?.copyWith(
+                                                          decoration:
+                                                              !_petProfileDetails
                                                                       .petIsLost
                                                                   ? TextDecoration
                                                                       .lineThrough
                                                                   : null,
-                                                              decorationColor:
-                                                                  Colors.white
-                                                                      .withOpacity(
-                                                                          0.9),
-                                                              decorationThickness:
-                                                                  6,
-                                                              color:
-                                                                  Colors.white),
-                                                      textAlign:
-                                                          TextAlign.right,
-                                                      maxLines: 1,
-                                                    ),
-                                                  ),
-                                                  const GridSpacing(),
-                                                ],
+                                                          decorationColor:
+                                                              Colors.white
+                                                                  .withOpacity(
+                                                                      0.9),
+                                                          decorationThickness:
+                                                              6,
+                                                          color: Colors.white),
+                                                  textAlign: TextAlign.right,
+                                                  maxLines: 1,
+                                                ),
                                               ),
-                                              const SizedBox(height: 4),
-                                              widget.showDescriptions
-                                                  ? Expanded(
-                                                      child: Row(
-                                                        children: [
-                                                          const Spacer(
-                                                            flex: 1,
-                                                          ),
-                                                          Expanded(
-                                                            flex: 2,
-                                                            child: AutoSizeText(
-                                                              stepGranularity:
-                                                                  0.5,
-                                                              "petPage_LostInfo"
-                                                                  .tr(),
-                                                              style: Theme.of(
-                                                                      context)
+                                              const GridSpacing(),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 4),
+                                          widget.showDescriptions
+                                              ? Expanded(
+                                                  child: Row(
+                                                    children: [
+                                                      const Spacer(
+                                                        flex: 1,
+                                                      ),
+                                                      Expanded(
+                                                        flex: 2,
+                                                        child: AutoSizeText(
+                                                          stepGranularity: 0.5,
+                                                          "petPage_LostInfo"
+                                                              .tr(),
+                                                          style:
+                                                              Theme.of(context)
                                                                   .textTheme
                                                                   .displaySmall
                                                                   ?.copyWith(
@@ -656,27 +534,153 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                                         .withOpacity(
                                                                             0.54),
                                                                   ),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .right,
-                                                            ),
-                                                          ),
-                                                          const GridSpacing(),
-                                                        ],
+                                                          textAlign:
+                                                              TextAlign.right,
+                                                        ),
                                                       ),
-                                                    )
-                                                  : const SizedBox.shrink(),
-                                              const GridSpacing(),
-                                            ],
-                                          ),
+                                                      const GridSpacing(),
+                                                    ],
+                                                  ),
+                                                )
+                                              : const SizedBox.shrink(),
+                                          const GridSpacing(),
                                         ],
                                       ),
-                                    ),
+                                    ],
                                   ),
                                 ),
                               ),
                             ),
-                            const GridSpacing(),
+                          ),
+                        ),
+                      ),
+                      const GridSpacing(),
+                    ],
+                  ),
+                  const GridSpacing(),
+                  //Kontakte, Tags and Pictures
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const GridSpacing(),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            navigatePerSlide(
+                              context,
+                              ContactPage(
+                                petProfileDetails: widget.petProfileDetails,
+                              ),
+                            );
+                          },
+                          child: AspectRatio(
+                            aspectRatio: 1 / 2 - 8 / 100.w,
+                            child: Material(
+                              borderRadius: BorderRadius.circular(18),
+                              elevation: 4,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: getCustomColors(context).surface,
+                                  border: Border.all(
+                                    width: 0.5,
+                                    color:
+                                        getCustomColors(context).hardBorder ??
+                                            Colors.transparent,
+                                    // strokeAlign: BorderSide.strokeAlignOutside,
+                                  ),
+                                  borderRadius: BorderRadius.circular(18),
+                                  // boxShadow: kElevationToShadow[3],
+                                ),
+                                // padding: const EdgeInsets.all(8.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(18),
+                                  child: Stack(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 8.0),
+                                        child: Align(
+                                          alignment: Alignment.bottomRight,
+                                          child: Image.asset(
+                                              "assets/details_illustartions/contact_1_cut.png"),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(16),
+                                        child: AutoSizeText(
+                                          "petPage_Contact".tr(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge,
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment:
+                                            // const Alignment(-1, -0.5),
+                                            Alignment.bottomLeft,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16),
+                                          child: Row(
+                                            children: [
+                                              widget.showDescriptions
+                                                  ? Expanded(
+                                                      flex: 5,
+                                                      child: (widget
+                                                              .petProfileDetails
+                                                              .petContacts
+                                                              .isEmpty)
+                                                          ? Text(
+                                                              "Keine Kontakte vorhanden"
+                                                                  .tr(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .justify,
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .displaySmall,
+                                                            )
+                                                          // : Text(
+                                                          //     "petPage_ContactInfo"
+                                                          //         .tr(),
+                                                          //     style: Theme.of(
+                                                          //             context)
+                                                          //         .textTheme
+                                                          //         .displaySmall,
+                                                          //   ),
+                                                          : Text(
+                                                              "${widget.petProfileDetails.petContacts.length} Kontakte"
+                                                                  .tr(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .justify,
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .displaySmall,
+                                                            ),
+                                                    )
+                                                  : const SizedBox.shrink(),
+                                              const Spacer(
+                                                flex: 4,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const GridSpacing(),
+                      Expanded(
+                        child: Column(
+                          children: [
                             GestureDetector(
                               onTap: () {
                                 navigatePerSlide(
@@ -695,7 +699,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                     decoration: BoxDecoration(
                                       color: getCustomColors(context).surface,
                                       border: Border.all(
-                                        width: 0.5,
+                                        width: 0.3,
                                         color: getCustomColors(context)
                                                 .hardBorder ??
                                             Colors.transparent,
@@ -817,63 +821,59 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                 child: Material(
                                   borderRadius: BorderRadius.circular(18),
                                   elevation: 4,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      // color: getCustomColors(context).surface,
-                                      color: Colors.yellow,
-                                      border: Border.all(
-                                        width: 0.3,
-                                        color: getCustomColors(context)
-                                                .hardBorder ??
-                                            Colors.transparent,
-                                        strokeAlign:
-                                            BorderSide.strokeAlignOutside,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(18),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        // color: getCustomColors(context).surface,
+                                        color: Colors.yellow,
+                                        border: Border.all(
+                                          width: 0.3,
+                                          color: getCustomColors(context)
+                                                  .hardBorder ??
+                                              Colors.transparent,
+                                          strokeAlign:
+                                              BorderSide.strokeAlignOutside,
+                                        ),
+                                        borderRadius: BorderRadius.circular(18),
+                                        // boxShadow: kElevationToShadow[3],
+                                        image: const DecorationImage(
+                                          image: AssetImage(
+                                              "assets/details_illustartions/dog_picture_tmp.png"),
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
-                                      borderRadius: BorderRadius.circular(18),
-                                      // boxShadow: kElevationToShadow[3],
-                                      image: const DecorationImage(
-                                        image: AssetImage(
-                                            "assets/details_illustartions/dog_picture_tmp.png"),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(18),
                                       child: Align(
                                         alignment: Alignment.bottomLeft,
                                         child: ClipRRect(
                                           borderRadius: const BorderRadius.only(
                                             topRight: Radius.circular(18),
                                           ),
-                                          child: BackdropFilter(
-                                            filter: ImageFilter.blur(
-                                                sigmaX: 15, sigmaY: 15),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: Theme.of(context)
-                                                    .primaryColor
-                                                    .withOpacity(0.5),
-                                                borderRadius:
-                                                    const BorderRadius.only(
-                                                  topRight: Radius.circular(18),
-                                                ),
-                                                // border: Border.all(
-                                                //   width: 0.3,
-                                                //   color: getCustomColors(context)
-                                                //           .hardBorder ??
-                                                //       Colors.transparent,
-                                                //   strokeAlign:
-                                                //       BorderSide.strokeAlignOutside,
-                                                // ),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                  .primaryColor
+                                                  .withOpacity(0.7),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topRight: Radius.circular(18),
                                               ),
-                                              padding: const EdgeInsets.all(16),
-                                              child: AutoSizeText(
-                                                "petPage_Pictures".tr(),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleLarge,
-                                                maxLines: 1,
-                                              ),
+                                              // border: Border.all(
+                                              //   width: 0.3,
+                                              //   color: getCustomColors(context)
+                                              //           .hardBorder ??
+                                              //       Colors.transparent,
+                                              //   strokeAlign:
+                                              //       BorderSide.strokeAlignOutside,
+                                              // ),
+                                            ),
+                                            padding: const EdgeInsets.all(16),
+                                            child: AutoSizeText(
+                                              "petPage_Pictures".tr(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge,
+                                              maxLines: 1,
                                             ),
                                           ),
                                         ),
@@ -1151,32 +1151,6 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                           maxLines: 1,
                                         ),
                                       ),
-                                      //? Medical Info
-                                      // Align(
-                                      //   alignment: const Alignment(-1, -0.5),
-                                      //   child: Padding(
-                                      //     padding: const EdgeInsets.all(16),
-                                      //     child: Row(
-                                      //       children: [
-                                      //         widget.showDescriptions
-                                      //             ? Expanded(
-                                      //                 flex: 5,
-                                      //                 child: Text(
-                                      //                   "petPage_MedicalInfo"
-                                      //                       .tr(),
-                                      //                   style: Theme.of(context)
-                                      //                       .textTheme
-                                      //                       .displaySmall,
-                                      //                 ),
-                                      //               )
-                                      //             : const SizedBox.shrink(),
-                                      //         const Spacer(
-                                      //           flex: 5,
-                                      //         ),
-                                      //       ],
-                                      //     ),
-                                      //   ),
-                                      // ),
                                     ],
                                   ),
                                 ),
@@ -1188,10 +1162,10 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                       const GridSpacing(),
                     ],
                   ),
+
                   const GridSpacing(),
                   const GridSpacing(),
                   const AutoSaveInfo(),
-                  // const SizedBox(height: 90),
                   const GridSpacing(),
                   const GridSpacing(),
                 ],

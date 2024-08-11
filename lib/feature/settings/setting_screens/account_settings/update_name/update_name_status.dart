@@ -21,6 +21,13 @@ class UpdateNameStatus extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
           if (snapshot.hasData) {
             // makeDissmissable();
+            Future.delayed(Durations.extralong4).then(
+              (value) {
+                if (context.mounted) {
+                  Navigator.pop(context);
+                }
+              },
+            );
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -29,6 +36,13 @@ class UpdateNameStatus extends StatelessWidget {
             );
           } else if (snapshot.hasError) {
             // makeDissmissable();
+            Future.delayed(Durations.extralong4).then(
+              (value) {
+                if (context.mounted) {
+                  Navigator.pop(context);
+                }
+              },
+            );
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [

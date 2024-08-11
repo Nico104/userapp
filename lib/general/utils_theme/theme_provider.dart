@@ -14,15 +14,18 @@ class ThemeNotifier with ChangeNotifier {
   ThemeNotifier() {
     StorageManager.readData('themeMode').then(
       (value) {
-        if (value == 'light') {
-          _themeData = lightTheme;
-        } else if (value == 'dark') {
-          _themeData = darkTheme;
-        } else {
-          // _themeData = getSystemTheme();
-          _themeData = lightTheme;
-        }
+        //TODO Themes integration finishing all styles and colors. but for now the app just needs to be functional
+        // if (value == 'light') {
+        //   _themeData = lightTheme;
+        // } else if (value == 'dark') {
+        //   _themeData = darkTheme;
+        // } else {
+        //   // _themeData = getSystemTheme();
+        //   _themeData = lightTheme;
+        // }
+        // notifyListeners();
 
+        _themeData = lightTheme;
         notifyListeners();
       },
     );

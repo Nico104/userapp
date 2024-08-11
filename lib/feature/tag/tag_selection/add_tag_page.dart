@@ -23,7 +23,7 @@ class AddTagPage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             AddFinmaTagHeader(
-              petProfile: null,
+              petProfile: petProfile,
               subtitle: "addTag_info1".tr(),
             ),
             Padding(

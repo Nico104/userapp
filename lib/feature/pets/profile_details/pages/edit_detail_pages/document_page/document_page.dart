@@ -145,6 +145,7 @@ class _DocumentPageState extends State<DocumentPage> {
                 children: [
                   const SizedBox(height: 16),
                   ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: documents.length,
                     itemBuilder: (context, index) {

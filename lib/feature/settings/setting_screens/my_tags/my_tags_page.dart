@@ -46,6 +46,9 @@ class _MyTagsSettingsState extends State<MyTagsSettings> {
         children: [
           AddNewTagHeader(
             label: "settingsMyTags_addTagInfo1".tr(),
+            reloadTags: () {
+              setState(() {});
+            },
           ),
           const SizedBox(height: 16),
           FutureBuilder<List<List<dynamic>>>(

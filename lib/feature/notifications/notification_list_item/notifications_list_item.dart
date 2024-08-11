@@ -49,11 +49,12 @@ class _NotificationListItemState extends State<NotificationListItem> {
               children: [
                 Text(
                   widget.notification.notificationTitle,
-                  style: Theme.of(context).textTheme.labelLarge,
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
                 Text(
                   widget.notification.notificationBody,
-                  style: Theme.of(context).textTheme.labelMedium,
+                  style: Theme.of(context).textTheme.labelSmall,
+                  softWrap: true,
                 ),
                 Text(
                   // https://pub.dev/packages/timeago for other languages

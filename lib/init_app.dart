@@ -157,7 +157,7 @@ class _InitAppState extends State<InitApp> {
             return const SignUpScreen();
           }
         } else if (snapshot.hasError) {
-          print(snapshot);
+          print("Error" + snapshot.error.toString());
           WidgetsBinding.instance.addPostFrameCallback((_) => Navigator.push(
                 context,
                 MaterialPageRoute(

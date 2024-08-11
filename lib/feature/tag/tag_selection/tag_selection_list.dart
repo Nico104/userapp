@@ -36,6 +36,13 @@ class _TagSelectionListState extends State<TagSelectionList> {
       // physics: const NeverScrollableScrollPhysics(),
       itemCount: widget.userTags.length,
       itemBuilder: (BuildContext context, int index) {
+        // return TagSelectionItem(
+        //   tag: widget.userTags.elementAt(index),
+        //   tagSelection: getTagSelection(
+        //       widget.userTags.elementAt(index), widget.petProfile.profileId),
+        //   petProfile: widget.petProfile,
+        //   reloadUserTags: widget.reloadUserTags,
+        // );
         switch (getTagSelection(
           widget.userTags.elementAt(index),
           widget.petProfile.profileId,
@@ -45,7 +52,7 @@ class _TagSelectionListState extends State<TagSelectionList> {
               tag: widget.userTags.elementAt(index),
               tagSelection: getTagSelection(widget.userTags.elementAt(index),
                   widget.petProfile.profileId),
-              petProfileId: widget.petProfile.profileId,
+              petProfile: widget.petProfile,
               reloadUserTags: widget.reloadUserTags,
             );
           case TagSelection.selected:
@@ -53,7 +60,7 @@ class _TagSelectionListState extends State<TagSelectionList> {
               tag: widget.userTags.elementAt(index),
               tagSelection: getTagSelection(widget.userTags.elementAt(index),
                   widget.petProfile.profileId),
-              petProfileId: widget.petProfile.profileId,
+              petProfile: widget.petProfile,
               reloadUserTags: widget.reloadUserTags,
             );
           case TagSelection.inUseByOtherPet:

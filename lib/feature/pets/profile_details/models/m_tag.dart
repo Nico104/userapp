@@ -1,18 +1,21 @@
+import 'package:userapp/feature/pets/profile_details/models/m_tag_model.dart';
+
 class Tag {
   final String collarTagId;
   final int? petProfileId;
   //!Change with User Model
   final String? assignedUseremail;
-  final String activationCode;
-  final String picturePath;
+  final String publicCode;
+  // final String picturePath;
+  final TagModel model;
   // final TagPersonalisation collarTagPersonalisation;
 
   Tag(
     this.collarTagId,
     this.petProfileId,
     this.assignedUseremail,
-    this.activationCode,
-    this.picturePath,
+    this.publicCode,
+    this.model,
     // this.collarTagPersonalisation,
   );
 
@@ -20,8 +23,9 @@ class Tag {
       : collarTagId = json['collarTag_id'],
         petProfileId = json['petProfile_id'],
         assignedUseremail = json['assignedUseremail'],
-        picturePath = json['picturePath'],
-        activationCode = json['activationCode'];
+        // picturePath = json['picturePath'],
+        publicCode = json['publicCode'],
+        model = TagModel.fromJson(json['model']);
   // collarTagPersonalisation =
   //     TagPersonalisation.fromJson(json['CollarTagPersonalisation']);
 }

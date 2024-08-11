@@ -10,10 +10,12 @@ class AddNewTagHeader extends StatelessWidget {
     super.key,
     this.petProfile,
     required this.label,
+    required this.reloadTags,
   });
 
   final PetProfileDetails? petProfile;
   final String label;
+  final VoidCallback reloadTags;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,13 @@ class AddNewTagHeader extends StatelessWidget {
             InkWell(
               onTap: () {
                 // addNewContact();
-                navigatePerSlide(context, const AddTagPage());
+                navigatePerSlide(
+                  context,
+                  AddTagPage(
+                    petProfile: petProfile,
+                  ),
+                  callback: () => reloadTags(),
+                );
               },
               child: Material(
                 elevation: 2,

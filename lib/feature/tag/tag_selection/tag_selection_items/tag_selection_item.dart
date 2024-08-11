@@ -3,7 +3,10 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
+import 'package:userapp/feature/pets/u_pets.dart';
 import 'package:userapp/feature/tag/tag_selection/tag_selection_list.dart';
+import 'package:userapp/general/utils_theme/custom_colors.dart';
 import 'package:userapp/general/widgets/loading_indicator.dart';
 import '../../../../general/network_globals.dart';
 import '../../../pets/profile_details/models/m_tag.dart';
@@ -16,13 +19,13 @@ class TagSelectionItem extends StatefulWidget {
     required this.tag,
     // required this.toggleSelectedValue,
     required this.tagSelection,
-    required this.petProfileId,
+    required this.petProfile,
     required this.reloadUserTags,
   });
 
   final Tag tag;
   final TagSelection tagSelection;
-  final int petProfileId;
+  final PetProfileDetails petProfile;
 
   final VoidCallback reloadUserTags;
 
@@ -51,6 +54,98 @@ class _TagSelectionItemState extends State<TagSelectionItem> {
     });
   }
 
+  Widget getSubtitle() {
+    switch (widget.tagSelection) {
+      case TagSelection.available:
+        return Wrap(
+          children: [
+            Text(
+              "Available. ",
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: getCustomColors(context).accentHighContrast,
+                  ),
+            ),
+            Text(
+              "Not in use",
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+          ],
+        );
+
+      case TagSelection.selected:
+        return Wrap(
+          children: [
+            Text(
+              "In Use. Active for ",
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+            Text(
+              widget.petProfile.petName,
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: getCustomColors(context).accentHighContrast,
+                  ),
+            ),
+          ],
+        );
+
+      case TagSelection.inUseByOtherPet:
+        return Text(
+          "In Use. Active for ...",
+          style: Theme.of(context).textTheme.labelSmall,
+        );
+      // Using 2nd file class for Profile Loading
+      // return FutureBuilder<PetProfileDetails>(
+      //   future: getPet(widget.tag.petProfileId!),
+      //   builder: (BuildContext context,
+      //       AsyncSnapshot<PetProfileDetails> snapshot) {
+      //     if (snapshot.hasData) {
+      //       return Text(
+      //         "In Use. Active for ${snapshot.data!.petName}",
+      //         style: Theme.of(context).textTheme.labelSmall,
+      //       );
+      //     } else if (snapshot.hasError) {
+      //       return Text(
+      //         "In Use. Active for ...",
+      //         style: Theme.of(context).textTheme.labelSmall,
+      //       );
+      //     } else {
+      //       return Text(
+      //         "In Use. Active for ...",
+      //         style: Theme.of(context).textTheme.labelSmall,
+      //       );
+      //     }
+      //   },
+      // );
+    }
+  }
+
+  BoxDecoration getContainerDecoration() {
+    switch (widget.tagSelection) {
+      case TagSelection.available:
+        return BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          // color: HexColor("F8C8DC").withOpacity(0.35),
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: kElevationToShadow[1],
+          border: Border.all(color: Colors.black45, width: 0.5),
+        );
+
+      case TagSelection.selected:
+        return BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          // color: HexColor("F8C8DC").withOpacity(0.35),
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: kElevationToShadow[0],
+          border: Border.all(color: Colors.black38, width: 1.5),
+        );
+
+      case TagSelection.inUseByOtherPet:
+        return BoxDecoration();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -60,13 +155,13 @@ class _TagSelectionItemState extends State<TagSelectionItem> {
           case TagSelection.available:
             _select();
             connectTagFromPetProfile(
-                    widget.petProfileId, widget.tag.collarTagId)
+                    widget.petProfile.profileId, widget.tag.collarTagId)
                 .then((value) => widget.reloadUserTags());
             break;
           case TagSelection.selected:
             _unselect();
             disconnectTagFromPetProfile(
-                    widget.petProfileId, widget.tag.collarTagId)
+                    widget.petProfile.profileId, widget.tag.collarTagId)
                 .then((value) => widget.reloadUserTags());
             break;
           case TagSelection.inUseByOtherPet:
@@ -74,14 +169,14 @@ class _TagSelectionItemState extends State<TagSelectionItem> {
               context: context,
               builder: (_) => TagChangeProfileAlertDialog(
                 currentPetName: widget.tag.petProfileId.toString(),
-                newPetName: widget.petProfileId.toString(),
+                newPetName: widget.petProfile.profileId.toString(),
               ),
             ).then((value) {
               if (value != null && value is bool) {
                 if (value == true) {
                   _select();
                   connectTagFromPetProfile(
-                          widget.petProfileId, widget.tag.collarTagId)
+                          widget.petProfile.profileId, widget.tag.collarTagId)
                       .then((value) => widget.reloadUserTags());
                 }
               }
@@ -90,83 +185,63 @@ class _TagSelectionItemState extends State<TagSelectionItem> {
         }
       },
       child: ClipRRect(
-        child: Opacity(
-          opacity: !_isSelected ? 0.8 : 1,
-          child: Transform.scale(
-            // scale: _isSelected ? 0.8 : 1,
-            scale: 1,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Material(
-                elevation: 0,
-                borderRadius: BorderRadius.circular(8),
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    // color: HexColor("F8C8DC").withOpacity(0.35),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    children: [
-                      // const Spacer(
-                      //   flex: 1,
-                      // ),
-                      const SizedBox(height: 32),
+        child: Transform.scale(
+          scale: 1,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: getContainerDecoration(),
+              child: Row(
+                children: [
+                  // const Spacer(
+                  //   flex: 1,
+                  // ),
+                  const SizedBox(height: 32),
 
-                      Stack(
-                        alignment: Alignment.topRight,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 4, right: 2),
-                            child: Opacity(
-                              opacity: 0.2,
-                              child: TagImage(widget: widget),
-                              // child: Image.network(
-                              //   s3BaseUrl + widget.tag.picturePath,
-                              //   width: 100,
-                              //   height: 100,
-                              //   fit: BoxFit.contain,
-                              //   color: Colors.black,
-                              // ),
-                            ),
-                          ),
-                          BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                            child: TagImage(widget: widget),
-                          ),
-                        ],
+                  // const SizedBox(height: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.tag.model.tagModel_Label,
+                        // "Finma 1 - Heart",
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium
+                            ?.copyWith(fontSize: 18),
                       ),
-                      const Spacer(
-                        flex: 1,
-                      ),
-                      // const SizedBox(height: 16),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Finma 1 - Heart",
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelMedium
-                                ?.copyWith(fontSize: 18),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            widget.tag.collarTagId,
-                            style: Theme.of(context).textTheme.labelSmall,
-                          ),
-                        ],
-                      ),
-                      // const SizedBox(height: 16),
-                      const Spacer(
-                        flex: 5,
-                      ),
-                      getSelectionIcon(widget.tagSelection),
-                      const SizedBox(height: 32),
+                      const SizedBox(height: 4),
+                      getSubtitle(),
                     ],
                   ),
-                ),
+                  const Spacer(
+                    flex: 1,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4, right: 2),
+                    child: Opacity(
+                      opacity: 0.9,
+                      child: TagImage(
+                        picturePath: widget.tag.model.picturePath,
+                      ),
+                      // child: Image.network(
+                      //   s3BaseUrl + widget.tag.picturePath,
+                      //   width: 100,
+                      //   height: 100,
+                      //   fit: BoxFit.contain,
+                      //   color: Colors.black,
+                      // ),
+                    ),
+                  ),
+
+                  // const SizedBox(height: 16),
+                  // const Spacer(
+                  //   flex: 5,
+                  // ),
+                  // getSelectionIcon(widget.tagSelection),
+                  const SizedBox(height: 32),
+                ],
               ),
             ),
           ),
@@ -179,10 +254,10 @@ class _TagSelectionItemState extends State<TagSelectionItem> {
 class TagImage extends StatelessWidget {
   const TagImage({
     super.key,
-    required this.widget,
+    required this.picturePath,
   });
 
-  final TagSelectionItem widget;
+  final String picturePath;
 
   @override
   Widget build(BuildContext context) {
@@ -190,7 +265,7 @@ class TagImage extends StatelessWidget {
       width: 100,
       height: 100,
       fit: BoxFit.contain,
-      imageUrl: s3BaseUrl + widget.tag.picturePath,
+      imageUrl: s3BaseUrl + picturePath,
       placeholder: (context, url) => const CustomLoadingIndicatior(),
       errorWidget: (context, url, error) => const Icon(
         Icons.error,

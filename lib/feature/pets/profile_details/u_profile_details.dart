@@ -86,6 +86,11 @@ Future<void> uploadDocuments(
   String contentType,
   Function() callback,
 ) async {
+  print("ID: " + profileId.toString());
+  print("document: " + document.toString());
+  print("documentName: " + documentName.toString());
+  print("contentType: " + contentType.toString());
+
   var url = Uri.parse('$baseURL/pet/uploadDocument/$profileId');
   print("URL: $url");
   String? token = await getIdToken();
@@ -108,6 +113,7 @@ Future<void> uploadDocuments(
 
   await request.send().then((result) async {
     http.Response.fromStream(result).then((response) {
+      print(response.body);
       if (response.statusCode == 201) {
         print("Uploaded");
       }

@@ -121,7 +121,7 @@ class _DocumentItemState extends State<DocumentItem> {
             border: Border.all(color: Colors.black, width: 0.2),
           ),
           child: GestureDetector(
-            behavior: HitTestBehavior.opaque,
+            // behavior: HitTestBehavior.,
             onTap: () {
               launchUrl(
                 Uri.parse(s3BaseUrl + widget.document.documentLink),

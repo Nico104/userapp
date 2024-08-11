@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/feature/tag/tag_selection/add_tag_page.dart';
 import 'package:userapp/feature/tag/tag_selection/tag_selection_list.dart';
 import 'package:userapp/general/utils_general.dart';
@@ -30,7 +31,7 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       // Navigator.push(
       //   context,
       //   MaterialPageRoute(
@@ -39,9 +40,37 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
       // ).then((value) {
       //   setState(() {});
       // });
-      navigateReplacePerSlide(context, const AddTagPage());
+      if (widget.petProfile.tag.isEmpty) {
+        if ((await future).isEmpty) {
+          // navigateReplacePerSlide(context, AddTagPage());  b
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddTagPage(
+                petProfile: widget.petProfile,
+              ),
+            ),
+          ).then((value) {
+            setState(() {});
+            // print(value);
+            // if (value != null) {
+            //   Tag tag = Tag.fromJson(value);
+            //   connectTagFromPetProfile(
+            //       widget.petProfile.profileId, tag.collarTagId);
+            //   // if (value is Tag) {
+            //   //   Tag tag = value;
+            //   //   connectTagFromPetProfile(
+            //   //       widget.petProfile.profileId, tag.collarTagId);
+            //   // }
+            // }
+            // Navigator.pop(context);
+          });
+        }
+      }
     });
   }
+
+  Future<List<Tag>> future = getUserTags();
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +113,9 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
             AddNewTagHeader(
               petProfile: widget.petProfile,
               label: "addTag_info".tr(),
+              reloadTags: () {
+                setState(() {});
+              },
             ),
             const SizedBox(height: 16),
             Padding(
@@ -108,6 +140,7 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
                     //     AddFinmaTagPage(
                     //       petProfile: widget.petProfile,
                     //     ));
+                    // navigateReplacePerSlide(context, const AddTagPage());
                     return const SizedBox.shrink();
                   }
                   return TagSelectionList(

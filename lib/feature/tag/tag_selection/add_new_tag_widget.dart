@@ -31,7 +31,7 @@ class AddFinmaTagHeader extends StatefulWidget {
 class _AddFinmaTagHeaderState extends State<AddFinmaTagHeader> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _textEditingController = TextEditingController();
-  int activationCodeLength = 16;
+  int activationCodeLength = 12;
 
   String? errorText;
 
@@ -42,8 +42,8 @@ class _AddFinmaTagHeaderState extends State<AddFinmaTagHeader> {
         if (widget.petProfile != null) {
           connectTagFromPetProfile(
                   widget.petProfile!.profileId, tag.collarTagId)
-              .then((value) =>
-                  _showSuccessDialog().then((value) => Navigator.pop(context)));
+              .then((value) => _showSuccessDialog()
+                  .then((value) => Navigator.pop(context, tag)));
         } else {
           _showSuccessDialog().then((value) => Navigator.pop(context));
         }
@@ -131,7 +131,7 @@ class _AddFinmaTagHeaderState extends State<AddFinmaTagHeader> {
                       labelText: "addTag_ActivationCodeLabel".tr(),
                       validator: (val) {
                         if (val != null) {
-                          if (val.length == 16) {
+                          if (val.length == activationCodeLength) {
                             return null;
                           }
                         }
@@ -197,7 +197,7 @@ class _AddFinmaTagHeaderState extends State<AddFinmaTagHeader> {
               ),
             ),
           ),
-          _textEditingController.text.length != 16
+          _textEditingController.text.length != activationCodeLength
               ? Padding(
                   padding: const EdgeInsets.all(32),
                   child: Text(
@@ -216,7 +216,8 @@ class _AddFinmaTagHeaderState extends State<AddFinmaTagHeader> {
                           errorText = null;
                         });
 
-                        _checkCode(_textEditingController.text, false);
+                        _checkCode(
+                            _textEditingController.text.toUpperCase(), false);
                       }
                     },
                   ),

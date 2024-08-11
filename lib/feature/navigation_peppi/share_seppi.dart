@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
+import 'package:userapp/general/utils_general.dart';
 
 import '../../general/utils_custom_icons/custom_icons_icons.dart';
 import '../../general/widgets/loading_indicator.dart';
@@ -41,8 +42,7 @@ class _ShareSeppiState extends State<ShareSeppi> {
                       _copying = true;
                     });
                     await Future.delayed(const Duration(milliseconds: 1000));
-                    await Clipboard.setData(
-                            const ClipboardData(text: "your text"))
+                    await Clipboard.setData(ClipboardData(text: sharingLink))
                         .whenComplete(() => widget.closeShareSeppi());
                   },
                   behavior: HitTestBehavior.opaque,
@@ -81,8 +81,8 @@ class _ShareSeppiState extends State<ShareSeppi> {
                 GestureDetector(
                   onTap: () {
                     Share.share(
-                      'check out my dope ass dog https://example.com',
-                      subject: 'Look at my dope ass dog!',
+                      'check out my dope dog $sharingLink',
+                      subject: 'Look at my dope dog!',
                     ).whenComplete(() => widget.closeShareSeppi());
                   },
                   behavior: HitTestBehavior.opaque,

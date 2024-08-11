@@ -78,6 +78,33 @@ Future<Tag> assignTagToUser(String activationCode) async {
   }
 }
 
+Future<Tag> disconnectTagFromUser(String tagId) async {
+  Uri url = Uri.parse('$baseURL/tag/disconnectTagFromUser');
+  String? token = await getIdToken();
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': '$token',
+    },
+    body: jsonEncode({"tagId": tagId}),
+  );
+
+  print(response.body);
+
+  if (response.statusCode == 201) {
+    if (response.body.isNotEmpty) {
+      return Tag.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to disconnectTagFromUser');
+    }
+  } else {
+    throw Exception('Failed to disconnectTagFromUser');
+  }
+}
+
 Future<Tag> getTag(String tagId) async {
   Uri url = Uri.parse('$baseURL/tag/getTag/$tagId');
   String? token = await getIdToken();

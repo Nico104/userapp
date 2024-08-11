@@ -139,7 +139,7 @@ class _MyPetsState extends State<MyPets> {
     // var rng = Random();
     // return s3BaseUrl + "utils/temp/dog_1.png";
     // return "https://ams1.vultrobjects.com/utils/temp/$prefix${(index % 2) + 1}.webp";
-    return "${s3BaseUrl}utils/temp/placeholder7pet_placeholder_${(index % 1) + 1}.webp";
+    return "${s3BaseUrl}utils/temp/placeholder/pet_placeholder_${(index % 2) + 1}.jpg";
   }
 
   // String _bgPictureLink = "https://picsum.photos/600/800";
