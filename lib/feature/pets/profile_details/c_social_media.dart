@@ -40,16 +40,16 @@ class SocialMediaComponent extends StatefulWidget {
   State<SocialMediaComponent> createState() => _SocialMediaComponentState();
 }
 
-class _SocialMediaComponentState extends State<SocialMediaComponent> {
-  SocialMedia getSocialMedia(SocialMediaConnection socialMediaConnection) {
-    for (SocialMedia socialMedia in availableSocialMedias) {
-      if (socialMedia.id == socialMediaConnection.social_media_Id) {
-        return socialMedia;
-      }
+SocialMedia getSocialMedia(SocialMediaConnection socialMediaConnection) {
+  for (SocialMedia socialMedia in availableSocialMedias) {
+    if (socialMedia.id == socialMediaConnection.social_media_Id) {
+      return socialMedia;
     }
-    return SocialMedia(0, "voidnet", "void", "nothing to see here..");
   }
+  return SocialMedia(0, "voidnet", "void", "nothing to see here..");
+}
 
+class _SocialMediaComponentState extends State<SocialMediaComponent> {
   @override
   Widget build(BuildContext context) {
     print(widget.socialMedias);
@@ -146,7 +146,7 @@ class _SocialMediaComponentState extends State<SocialMediaComponent> {
             );
           },
           child: Text(
-            "Add Social Media".tr(),
+            "add_social_media".tr(),
             style: Theme.of(context).textTheme.labelMedium,
           ),
         )

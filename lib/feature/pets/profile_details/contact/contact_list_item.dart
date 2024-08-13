@@ -37,7 +37,7 @@ class _ContactListItemState extends State<ContactListItem> {
     if (widget.contact.contactPictureLink != null) {
       return s3BaseUrl + widget.contact.contactPictureLink!;
     } else {
-      return "https://picsum.photos/264";
+      return placeholderImageLink;
     }
   }
 

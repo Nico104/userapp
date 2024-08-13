@@ -136,8 +136,9 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
               child: MultiSimpleInput(
                 // flexSpacer: 0,
                 value: widget.petProfileDetails.pet_favorite_toys ?? "",
-                emptyValuePlaceholder: "basicInformationPage_favoriteToys".tr(),
-                title: "basicInformationPage_favoriteToysHint".tr(),
+                title: "basicInformationPage_favoriteToys".tr(),
+                emptyValuePlaceholder:
+                    "basicInformationPage_favoriteToysHint".tr(),
                 saveValue: (val) async {
                   if (val.isNotEmpty) {
                     widget.petProfileDetails.pet_favorite_toys = val;
@@ -150,9 +151,9 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
               child: MultiSimpleInput(
                 // flexSpacer: 0,
                 value: widget.petProfileDetails.pet_favorite_activities ?? "",
+                title: "basicInformationPage_favoriteActivities".tr(),
                 emptyValuePlaceholder:
-                    "basicInformationPage_favoriteActivities".tr(),
-                title: "basicInformationPage_favoriteActivitiesHint".tr(),
+                    "basicInformationPage_favoriteActivitiesHint".tr(),
                 saveValue: (val) async {
                   if (val.isNotEmpty) {
                     widget.petProfileDetails.pet_favorite_activities = val;
@@ -165,9 +166,9 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
               child: MultiSimpleInput(
                 // flexSpacer: 0,
                 value: widget.petProfileDetails.pet_behavioral_notes ?? "",
+                title: "basicInformationPage_behavioralNotes".tr(),
                 emptyValuePlaceholder:
-                    "basicInformationPage_behavioralNotes".tr(),
-                title: "basicInformationPage_behavioralNotesHint".tr(),
+                    "basicInformationPage_behavioralNotesHint".tr(),
                 saveValue: (val) async {
                   if (val.isNotEmpty) {
                     widget.petProfileDetails.pet_behavioral_notes = val;
@@ -180,8 +181,9 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
               child: MultiSimpleInput(
                 // flexSpacer: 0,
                 value: widget.petProfileDetails.pet_special_needs ?? "",
-                emptyValuePlaceholder: "basicInformationPage_specialNeeds".tr(),
-                title: "basicInformationPage_specialNeedsHint".tr(),
+                title: "basicInformationPage_specialNeeds".tr(),
+                emptyValuePlaceholder:
+                    "basicInformationPage_specialNeedsHint".tr(),
                 saveValue: (val) async {
                   if (val.isNotEmpty) {
                     widget.petProfileDetails.pet_special_needs = val;
@@ -194,9 +196,9 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
               child: MultiSimpleInput(
                 // flexSpacer: 0,
                 value: widget.petProfileDetails.pet_diet_preferences ?? "",
+                title: "basicInformationPage_dietPreferences".tr(),
                 emptyValuePlaceholder:
-                    "basicInformationPage_dietPreferences".tr(),
-                title: "basicInformationPage_dietPreferencesHint".tr(),
+                    "basicInformationPage_dietPreferencesHint".tr(),
                 saveValue: (val) async {
                   if (val.isNotEmpty) {
                     widget.petProfileDetails.pet_diet_preferences = val;

@@ -88,7 +88,7 @@
     "settingsAccountInformationEmail": "Email",
     "settingsAccountInformationPassword": "Password",
     "appBarSettingsAccountUpdateName": "Update Name",
-    "settingsAccountUpdateNameInfoText": "Suddenly a new Name, huh?",
+    "settingsAccountUpdateNameInfoText": "New name? Looks like you're making some changes!",
     "settingsAccountUpdateNameInputLabel": "Name",
     "textInputErrorEmpty": "This field cannot be left empty.",
     "settingsAccountUpdateNameInputErrorAlreadyInUse": "You are already called {Karamba}",
@@ -391,5 +391,12 @@
     "tutorial_imageDescription_Pet_Lost": "Tailfur Pet Profile",
     "tutorial_Title_Notifications": "Notifications",
     "tutorial_Description_Notifications": "In the Settings page, find the Notifications section. Here, you can toggle which notifications you want to receive and deactivate any you prefer not to get.",
-    "tutorial_imageDescription_Notifications": "Tailfur Settings"
+    "tutorial_imageDescription_Notifications": "Tailfur Settings",
+    "shareContactText_Contact_Name": "Contact Name",
+    "shareContactText_Address": "Address",
+    "shareContactText_Email": "Email",
+    "shareContactText_Phone_Numbers": "Phone Numbers",
+    "shareContactText_Social_Media": "Social Media",
+    "shareContactText_Languages_Spoken": "Languages Spoken",
+    "add_social_media": "Add Social Media"
 }

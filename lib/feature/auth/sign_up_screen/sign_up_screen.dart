@@ -30,7 +30,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   String? _email;
   String? _password;
-  String? _name;
+  String? _name = "";
   // String? code;
 
   @override
@@ -56,16 +56,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           curve: Curves.fastOutSlowIn);
                     },
                   ),
-                  SignUpNamePage(
-                    onNext: (name) {
-                      setState(() {
-                        _name = name;
-                      });
-                      controller.animateToPage(2,
-                          duration: const Duration(milliseconds: 250),
-                          curve: Curves.fastOutSlowIn);
-                    },
-                  ),
+                  //TODO Handle Display Name Sizuation
+                  // SignUpNamePage(
+                  //   onNext: (name) {
+                  //     setState(() {
+                  //       _name = name;
+                  //     });
+                  //     controller.animateToPage(2,
+                  //         duration: const Duration(milliseconds: 250),
+                  //         curve: Curves.fastOutSlowIn);
+                  //   },
+                  // ),
                   SignUpPasswordPage(
                     onNext: (userpassword) {
                       // setState(() {

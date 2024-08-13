@@ -46,43 +46,39 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
         FutureBuilder<String>(
           future: getDisplayName(),
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-            if (snapshot.hasData) {
-              return Text(
-                "${snapshot.data}",
-                style: getCustomTextStyles(context).homeWelcomeUser,
-              );
-            } else if (snapshot.hasError) {
-              print(snapshot);
-              WidgetsBinding.instance
-                  .addPostFrameCallback((_) => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const FutureErrorWidget(),
-                        ),
-                      ).then((value) => setState(
-                            () {},
-                          )));
-              return const SizedBox.shrink();
+            if (snapshot.hasData && snapshot.data != null) {
+              String patttern = r'^[a-z A-Z,.\-]+$';
+              RegExp regExp = new RegExp(patttern);
+              if (snapshot.data?.length == 0) {
+                // return 'Please enter full name';
+              } else if (!regExp.hasMatch(snapshot.data!)) {
+                // return 'Please enter valid full name';
+              } else {
+                return Text(
+                  "${snapshot.data}",
+                  style: getCustomTextStyles(context).homeWelcomeUser,
+                );
+              }
             } else {
               //Loading
               // return Text(
               //   "mucho mucho bro",
               //   style: getCustomTextStyles(context).homeWelcomeUser,
               // );
-              return Wrap(
-                alignment: WrapAlignment.start,
-                children: [
-                  Text(
-                    "${"myPetsTitleMy".tr()} ",
-                    style: getCustomTextStyles(context).homeWelcomeMessage,
-                  ),
-                  Text(
-                    "myPetsTitlePets".tr(),
-                    style: getCustomTextStyles(context).homeWelcomeUser,
-                  ),
-                ],
-              );
             }
+            return Wrap(
+              alignment: WrapAlignment.start,
+              children: [
+                Text(
+                  "${"myPetsTitleMy".tr()} ",
+                  style: getCustomTextStyles(context).homeWelcomeMessage,
+                ),
+                Text(
+                  "myPetsTitlePets".tr(),
+                  style: getCustomTextStyles(context).homeWelcomeUser,
+                ),
+              ],
+            );
           },
         ),
       ],
@@ -90,7 +86,7 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
   }
 
   void initTiteSwitch() async {
-    await Future.delayed(const Duration(seconds: 12));
+    await Future.delayed(const Duration(seconds: 0));
 
     title = Consumer<ThemeNotifier>(
       builder: (context, theme, _) {

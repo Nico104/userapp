@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:userapp/feature/language/m_language.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/feature/pets/profile_details/pages/pet_page.dart';
 import 'package:userapp/feature/pets/profile_details/phone_numbers/c_phone_number.dart';
@@ -92,10 +94,13 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
           //   },
           // ),
           ListTile(
-            leading: const Icon(Icons.remove_circle_outline),
+            leading: const Icon(CustomIcons.share_thin),
             title: Text("contact_ShareContact".tr()),
             onTap: () {
-              Navigator.pop(context);
+              Share.share(
+                getContactDetailsAsText(_contact),
+                subject: 'Get in Touch with ${_contact.contactName}',
+              ).whenComplete(() => Navigator.pop(context));
             },
           ),
           ListTile(
@@ -385,4 +390,45 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
       ),
     );
   }
+}
+
+String getContactDetailsAsText(Contact contact) {
+  StringBuffer contactDetails = StringBuffer();
+
+  contactDetails.write(
+      "${"shareContactText_Contact_Name".tr()}: ${contact.contactName}\n");
+
+  if (contact.contactAddress != null && contact.contactAddress!.isNotEmpty) {
+    contactDetails.write(
+        "${"shareContactText_Address".tr()}: ${contact.contactAddress}\n");
+  }
+
+  if (contact.contactEmail != null && contact.contactEmail!.isNotEmpty) {
+    contactDetails
+        .write("${"shareContactText_Email".tr()}: ${contact.contactEmail}\n");
+  }
+
+  if (contact.contactTelephoneNumbers.isNotEmpty) {
+    contactDetails.write("${"shareContactText_Phone_Numbers".tr()}:\n");
+    for (var phoneNumber in contact.contactTelephoneNumbers) {
+      contactDetails.write("- ${phoneNumber.phoneNumber}\n");
+    }
+  }
+
+  if (contact.socialMediaConnection.isNotEmpty) {
+    contactDetails.write("${"shareContactText_Social_Media".tr()}:\n");
+    for (var socialMedia in contact.socialMediaConnection) {
+      contactDetails.write(
+          "- ${getSocialMedia(socialMedia).name}: ${socialMedia.social_media_account_name}\n");
+    }
+  }
+
+  if (contact.languagesSpoken.isNotEmpty) {
+    contactDetails.write("${"shareContactText_Languages_Spoken".tr()}:\n");
+    for (Language language in contact.languagesSpoken) {
+      contactDetails.write("- ${language.languageLabel}\n");
+    }
+  }
+
+  return contactDetails.toString();
 }

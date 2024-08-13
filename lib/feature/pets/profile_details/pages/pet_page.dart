@@ -752,50 +752,51 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                               ),
                                             ),
                                           ),
-                                          Align(
-                                            alignment: const Alignment(1, 0.6),
+                                          const Align(
+                                            alignment: Alignment(1, 0.6),
                                             child: Padding(
-                                              padding: const EdgeInsets.all(16),
+                                              padding: EdgeInsets.all(16),
                                               child: Row(
                                                 children: [
-                                                  const Spacer(
+                                                  Spacer(
                                                     flex: 5,
                                                   ),
-                                                  widget.showDescriptions
-                                                      ? Expanded(
-                                                          flex: 5,
-                                                          // child: Text(
-                                                          //   "petPage_TagsInfo"
-                                                          //       .tr(),
-                                                          //   style: Theme.of(
-                                                          //           context)
-                                                          //       .textTheme
-                                                          //       .displaySmall,
-                                                          //   textAlign:
-                                                          //       TextAlign.right,
-                                                          // ),
-                                                          child: (widget
-                                                                  .petProfileDetails
-                                                                  .tag
-                                                                  .isEmpty)
-                                                              ? Text(
-                                                                  "noActiveTag"
-                                                                      .tr(),
-                                                                  style: Theme.of(
-                                                                          context)
-                                                                      .textTheme
-                                                                      .displaySmall,
-                                                                )
-                                                              : Text(
-                                                                  "${widget.petProfileDetails.tag.length} Tag aktiv"
-                                                                      .tr(),
-                                                                  style: Theme.of(
-                                                                          context)
-                                                                      .textTheme
-                                                                      .displaySmall,
-                                                                ),
-                                                        )
-                                                      : const SizedBox.shrink(),
+                                                  //TODO handle Descriptions of PEt PRofile Sections
+                                                  // widget.showDescriptions
+                                                  //     ? Expanded(
+                                                  //         flex: 5,
+                                                  //         // child: Text(
+                                                  //         //   "petPage_TagsInfo"
+                                                  //         //       .tr(),
+                                                  //         //   style: Theme.of(
+                                                  //         //           context)
+                                                  //         //       .textTheme
+                                                  //         //       .displaySmall,
+                                                  //         //   textAlign:
+                                                  //         //       TextAlign.right,
+                                                  //         // ),
+                                                  //         child: (widget
+                                                  //                 .petProfileDetails
+                                                  //                 .tag
+                                                  //                 .isEmpty)
+                                                  //             ? Text(
+                                                  //                 "noActiveTag"
+                                                  //                     .tr(),
+                                                  //                 style: Theme.of(
+                                                  //                         context)
+                                                  //                     .textTheme
+                                                  //                     .displaySmall,
+                                                  //               )
+                                                  //             : Text(
+                                                  //                 "${widget.petProfileDetails.tag.length} Tag aktiv"
+                                                  //                     .tr(),
+                                                  //                 style: Theme.of(
+                                                  //                         context)
+                                                  //                     .textTheme
+                                                  //                     .displaySmall,
+                                                  //               ),
+                                                  //       )
+                                                  //     : const SizedBox.shrink(),
                                                 ],
                                               ),
                                             ),

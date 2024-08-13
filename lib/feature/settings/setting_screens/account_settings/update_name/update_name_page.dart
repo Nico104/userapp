@@ -60,14 +60,14 @@ class _UpdateNamePageState extends State<UpdateNamePage> {
                 maxLenght: 18,
                 labelText: "settingsAccountUpdateNameInputLabel".tr(),
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "textInputErrorEmpty".tr();
-                  } else if (value == widget.currentName) {
-                    return 'settingsAccountUpdateNameInputErrorAlreadyInUse'
-                        .tr(namedArgs: {'Karamba': widget.currentName});
-                  } else {
-                    return null;
-                  }
+                  // if (value == null || value.isEmpty) {
+                  //   return "textInputErrorEmpty".tr();
+                  // } else if (value == widget.currentName) {
+                  //   return 'settingsAccountUpdateNameInputErrorAlreadyInUse'
+                  //       .tr(namedArgs: {'Karamba': widget.currentName});
+                  // } else {
+                  //   return null;
+                  // }
                 },
               ),
               SizedBox(height: 05.h),

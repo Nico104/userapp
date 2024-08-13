@@ -134,6 +134,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "792601770447-e4krftfhovudj95qufoqn46elcuudv3v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tailfur.userapp",
+            "certificate_hash": "519d8110016d9c9f3e196fa6fcc408a2257d886b"
+          }
+        },
+        {
           "client_id": "792601770447-p9co7sss4ne2mubk0k2i8g9vkv7q2jlb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
