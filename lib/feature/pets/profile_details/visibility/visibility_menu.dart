@@ -34,7 +34,7 @@ class _VisibilityMenuState extends State<VisibilityMenu> {
   Widget build(BuildContext context) {
     return Material(
       child: CustomNicoScrollView(
-        title: Text("Visiblity Menu"),
+        title: Text("visibilityMenuTitle".tr()),
         body: Column(
           // mainAxisSize: MainAxisSize.min,
           children: [

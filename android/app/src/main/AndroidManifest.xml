@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.finma.userapp">
+    package="com.tailfur.userapp">
    <application
         android:label="Finma"
         android:name="${applicationName}"

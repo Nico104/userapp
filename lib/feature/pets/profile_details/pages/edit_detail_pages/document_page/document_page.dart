@@ -54,7 +54,7 @@ class _DocumentPageState extends State<DocumentPage> {
   Widget getNoDocumetsWidget() {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Pictures"),
+        title: Text("documentPageTitle".tr()),
       ),
       body: Column(
         children: [
@@ -62,12 +62,12 @@ class _DocumentPageState extends State<DocumentPage> {
           Image.asset("assets/tmp/dog_bowl.png"),
           const SizedBox(height: 8),
           Text(
-            "It looks quite empty in here",
+            "noDocumentsLabel".tr(),
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: 8),
           Text(
-            "noDocumentsLabel".tr(),
+            "noDocuments".tr(),
             style: Theme.of(context).textTheme.labelMedium,
             textAlign: TextAlign.center,
           ),
@@ -77,7 +77,7 @@ class _DocumentPageState extends State<DocumentPage> {
             onTap: () {
               _uploadDocument();
             },
-            label: "picturesPage_uploadPictureLabel".tr(),
+            label: "uploadDocumentLabel".tr(),
           ),
           const Spacer(),
         ],

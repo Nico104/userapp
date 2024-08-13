@@ -51,7 +51,7 @@ class _ScansPageState extends State<ScansPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ScansTitle".tr(namedArgs: {'value1': widget.petName})),
+        title: Text("ScansTitle".tr(namedArgs: {'Karamba': widget.petName})),
       ),
       // body: ListView.builder(
       //   itemCount: scans.length,
@@ -98,7 +98,7 @@ class _ScansPageState extends State<ScansPage> {
                               const SizedBox(height: 32),
                               Text(
                                 "noScans"
-                                    .tr(namedArgs: {'value1': widget.petName}),
+                                    .tr(namedArgs: {'Karamba': widget.petName}),
                                 style: Theme.of(context).textTheme.labelLarge,
                               )
                             ],

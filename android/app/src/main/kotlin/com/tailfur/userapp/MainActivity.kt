@@ -1,4 +1,4 @@
-package com.finma.userapp
+package com.tailfur.userapp
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -41,8 +41,10 @@ void main() async {
   final runnableApp = _buildRunnableApp(
     isWeb: kIsWeb,
     // webAppWidth: double.infinity,
-    webAppWidth: 680,
-    webAppHeight: 1080,
+    // webAppWidth: 680,
+    // webAppHeight: 1080,
+    webAppWidth: 1179 / 2,
+    webAppHeight: 2556 / 2,
     app: const MyApp(),
   );
 

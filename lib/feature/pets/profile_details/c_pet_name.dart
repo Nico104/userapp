@@ -15,117 +15,117 @@ import '../../tag/tags.dart';
 import '../../tag/utils/u_tag.dart';
 import 'models/m_tag.dart';
 
-class PetNameComponent extends StatefulWidget {
-  const PetNameComponent({
-    super.key,
-    required this.setPetName,
-    required this.petName,
-    required this.gender,
-    required this.tag,
-    required this.setTags,
-    required this.collardimension,
-    required this.petProfile,
-    // required this.refresh,
-  });
+// class PetNameComponent extends StatefulWidget {
+//   const PetNameComponent({
+//     super.key,
+//     required this.setPetName,
+//     required this.petName,
+//     required this.gender,
+//     required this.tag,
+//     required this.setTags,
+//     required this.collardimension,
+//     required this.petProfile,
+//     // required this.refresh,
+//   });
 
-  final PetProfileDetails petProfile;
+//   final PetProfileDetails petProfile;
 
-  //Name
-  final String petName;
-  final ValueSetter<String> setPetName;
+//   //Name
+//   final String petName;
+//   final ValueSetter<String> setPetName;
 
-  //Gender
-  final Gender gender;
+//   //Gender
+//   final Gender gender;
 
-  //Tags
-  final List<Tag> tag;
-  final ValueSetter<List<Tag>> setTags;
-  final double collardimension;
+//   //Tags
+//   final List<Tag> tag;
+//   final ValueSetter<List<Tag>> setTags;
+//   final double collardimension;
 
-  // final VoidCallback refresh;
+//   // final VoidCallback refresh;
 
-  @override
-  State<PetNameComponent> createState() => _PetNameComponentState();
-}
+//   @override
+//   State<PetNameComponent> createState() => _PetNameComponentState();
+// }
 
-class _PetNameComponentState extends State<PetNameComponent> {
-  late List<Tag> userProfileTags;
+// class _PetNameComponentState extends State<PetNameComponent> {
+//   late List<Tag> userProfileTags;
 
-  @override
-  void initState() {
-    super.initState();
-    userProfileTags = widget.tag;
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     userProfileTags = widget.tag;
+//   }
 
-  Future<void> reloadTags() async {
-    List<Tag> newTags = await getUserProfileTags(widget.petProfile.profileId);
-    setState(() {
-      userProfileTags = newTags;
-    });
-  }
+//   Future<void> reloadTags() async {
+//     List<Tag> newTags = await getUserProfileTags(widget.petProfile.profileId);
+//     setState(() {
+//       userProfileTags = newTags;
+//     });
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        GestureDetector(
-          onTap: () {
-            navigatePerSlide(
-              context,
-              TagSelectionPage(
-                petProfile: widget.petProfile,
-              ),
-              callback: () => reloadTags(),
-            );
-          },
-          child: Tags(
-              collardimension: widget.collardimension, tag: userProfileTags),
-        ),
-        const Spacer(
-          flex: 3,
-        ),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  widget.petName,
-                  style: getCustomTextStyles(context).profileDetailsPetName,
-                ),
-                GestureDetector(
-                  onTap: () =>
-                      askForPetName(context, widget.setPetName, widget.petName),
-                  child: const Padding(
-                    padding: EdgeInsets.only(left: 14, bottom: 14, right: 14),
-                    child: Icon(
-                      CustomIcons.edit_square,
-                      size: 18,
-                    ),
-                  ),
-                )
-              ],
-            ),
-            widget.gender != Gender.none
-                ? Text(
-                    getPetTitle(widget.gender),
-                    style: Theme.of(context).textTheme.labelSmall,
-                  )
-                : const SizedBox(),
-          ],
-        ),
-        const Spacer(
-          flex: 16,
-        ),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.start,
+//       children: [
+//         GestureDetector(
+//           onTap: () {
+//             navigatePerSlide(
+//               context,
+//               TagSelectionPage(
+//                 petProfile: widget.petProfile,
+//               ),
+//               callback: () => reloadTags(),
+//             );
+//           },
+//           child: Tags(
+//               collardimension: widget.collardimension, tag: userProfileTags),
+//         ),
+//         const Spacer(
+//           flex: 3,
+//         ),
+//         Column(
+//           mainAxisSize: MainAxisSize.min,
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Row(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               mainAxisSize: MainAxisSize.min,
+//               children: [
+//                 Text(
+//                   widget.petName,
+//                   style: getCustomTextStyles(context).profileDetailsPetName,
+//                 ),
+//                 GestureDetector(
+//                   onTap: () =>
+//                       askForPetName(context, widget.setPetName, widget.petName),
+//                   child: const Padding(
+//                     padding: EdgeInsets.only(left: 14, bottom: 14, right: 14),
+//                     child: Icon(
+//                       CustomIcons.edit_square,
+//                       size: 18,
+//                     ),
+//                   ),
+//                 )
+//               ],
+//             ),
+//             widget.gender != Gender.none
+//                 ? Text(
+//                     getPetTitle(widget.gender),
+//                     style: Theme.of(context).textTheme.labelSmall,
+//                   )
+//                 : const SizedBox(),
+//           ],
+//         ),
+//         const Spacer(
+//           flex: 16,
+//         ),
+//       ],
+//     );
+//   }
+// }
 
 String getPetTitle(Gender gender) {
   switch (gender) {
@@ -192,7 +192,7 @@ class _EnterNameDialogState extends State<EnterNameDialog> {
                 autofocus: true,
                 initialValue: text,
                 // hintText:
-                //     'changeNameHint'.tr(namedArgs: {'value1': widget.label}),
+                //     'changeNameHint'.tr(namedArgs: {'Karamba': widget.label}),
                 hintText: widget.hint,
                 onChanged: (val) {
                   EasyDebounce.debounce(

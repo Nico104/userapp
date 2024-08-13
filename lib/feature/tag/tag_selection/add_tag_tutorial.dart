@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
@@ -54,24 +55,20 @@ class _AddTagTutorialState extends State<AddTagTutorial> {
         ),
         const SizedBox(height: 36),
         TutorialStep(
-          title: "Step 1: Locate Your Activation Code",
-          subtitle:
-              "You’ll find your unique 12-symbol activation code on the card included with your product, as shown in the illustration above.",
+          title: "addTagTutorial_Step1_title".tr(),
+          subtitle: "addTagTutorial_Step1_subtitle".tr(),
         ),
         TutorialStep(
-          title: "Step 2: Enter the Activation Code",
-          subtitle:
-              "In the text field at the top of this page, carefully enter the 16-symbol activation code exactly as it appears on your card.",
+          title: "addTagTutorial_Step2_title".tr(),
+          subtitle: "addTagTutorial_Step2_subtitle".tr(),
         ),
         TutorialStep(
-          title: "Step 3: Submit the Code",
-          subtitle:
-              "After entering the activation code, click the or \"Add Tag\" button to proceed.",
+          title: "addTagTutorial_Step3_title".tr(),
+          subtitle: "addTagTutorial_Step3_subtitle".tr(),
         ),
         TutorialStep(
-          title: "Step 4: Confirmation",
-          subtitle:
-              "Once the process is complete, your dog tag will be successfully linked to your account.",
+          title: "addTagTutorial_Step4_title".tr(),
+          subtitle: "addTagTutorial_Step4_subtitle".tr(),
         ),
         const SizedBox(height: 32),
         // Opacity(

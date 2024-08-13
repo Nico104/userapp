@@ -128,7 +128,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
             ListTile(
               leading: const Icon(Icons.pets),
               title: Text("contactGoToPet"
-                  .tr(namedArgs: {'value1': petProfile.petName})),
+                  .tr(namedArgs: {'Karamba': petProfile.petName})),
               onTap: () {
                 Navigator.pop(context);
                 navigatePerSlide(
@@ -171,7 +171,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('appBarContactDetails'
-            .tr(namedArgs: {'value1': _contact.contactName})),
+            .tr(namedArgs: {'Karamba': _contact.contactName})),
         scrolledUnderElevation: 8,
       ),
       body: GestureDetector(

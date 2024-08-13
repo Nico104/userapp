@@ -10,7 +10,6 @@ Future<String> translateDeepL({
   print("target $target_lang");
   print("source $source_lang");
   Uri url = Uri.parse('https://api-free.deepl.com/v2/translate');
-  String? token = await getIdToken();
 
   final response = await http.post(
     url,

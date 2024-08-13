@@ -20,7 +20,7 @@ void showContactUsOptions(BuildContext context) {
       children: [
         ListTile(
           leading: const Icon(Icons.mail_outline_rounded),
-          title: Text("Email us".tr()),
+          title: Text("contactUsEmailUs".tr()),
           onTap: () {
             Navigator.pop(context);
             // To create email with params
@@ -37,7 +37,7 @@ void showContactUsOptions(BuildContext context) {
         ),
         ListTile(
           leading: const Icon(Icons.copy),
-          title: Text("Copy Email Address".tr()),
+          title: Text("contactUsCopyEmail".tr()),
           onTap: () async {
             Navigator.pop(context);
             await Clipboard.setData(ClipboardData(text: contactEmail));
@@ -80,7 +80,7 @@ class _ContactUsState extends State<ContactUs> {
                 });
               },
             ),
-            title: const Text("Get in touch"),
+            title: Text("appBarTitleContactUs".tr()),
             body: Padding(
               padding: const EdgeInsets.only(left: 28, right: 28),
               child: Form(

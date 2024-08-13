@@ -66,7 +66,7 @@ class _LostBoxState extends State<LostBox> {
                           children: [
                             Text(
                               "lostBox_Title".tr(namedArgs: {
-                                'value1': widget.petProfile.petName
+                                'Karamba': widget.petProfile.petName
                               }),
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
@@ -81,7 +81,7 @@ class _LostBoxState extends State<LostBox> {
                                 // focusNode: focusNode,
                                 initialValue: widget.petProfile.petIsLostText,
                                 // textEditingController: _textEditingController,
-                                hintText: "Important Information",
+                                hintText: "lostBox_ImportantInfoHint".tr(),
                                 maxLines: null,
                                 expands: false,
                                 keyboardType: TextInputType.multiline,

@@ -43,7 +43,7 @@ class _MyTagListItemState extends State<MyTagListItem> {
   //           ? ListTile(
   //               leading: const Icon(CustomIcons.edit),
   //               title: Text("myTags_OptionGoToPet".tr(
-  //                   namedArgs: {"name": widget.petProfileDetails!.petName})),
+  //                   namedArgs: {'Karamba': widget.petProfileDetails!.petName})),
   //               onTap: () {
   //                 Navigator.pop(context);
   //                 navigatePerSlide(
@@ -126,7 +126,7 @@ class _MyTagListItemState extends State<MyTagListItem> {
             ? ListTile(
                 leading: const Icon(CustomIcons.edit),
                 title: Text("myTags_OptionGoToPet".tr(
-                    namedArgs: {"name": widget.petProfileDetails!.petName})),
+                    namedArgs: {'Karamba': widget.petProfileDetails!.petName})),
                 onTap: () {
                   Navigator.pop(context);
                   navigatePerSlide(
@@ -248,7 +248,7 @@ class _MyTagListItemState extends State<MyTagListItem> {
                     Text(
                       widget.petProfileDetails != null
                           ? "myTags_InUse".tr(namedArgs: {
-                              "value1": widget.petProfileDetails!.petName
+                              'Karamba': widget.petProfileDetails!.petName
                             })
                           : "myTags_NotInUse".tr(),
                       style: Theme.of(context).textTheme.labelSmall,
@@ -306,7 +306,7 @@ class _MyTagListItemState extends State<MyTagListItem> {
         //         Text(
         //           widget.petProfileDetails != null
         //               ? "myTags_InUse".tr(namedArgs: {
-        //                   "value1": widget.petProfileDetails!.petName
+        //                   'Karamba': widget.petProfileDetails!.petName
         //                 })
         //               : "myTags_NotInUse".tr(),
         //           style: Theme.of(context).textTheme.labelMedium,

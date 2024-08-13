@@ -49,8 +49,8 @@ class _AccountSettingsState extends State<AccountSettings> {
               if (getLoggedInUser()!.email != null)
                 // Text(
                 //     "You are signed in whith your Google Account with the assigned email address: ${getLoggedInUser()!.email}"),
-                Text("googleSignIn_EditInfo"
-                    .tr(namedArgs: {'value1': getLoggedInUser()!.email ?? ""})),
+                Text("googleSignIn_EditInfo".tr(
+                    namedArgs: {'Karamba': getLoggedInUser()!.email ?? ""})),
             ],
           );
         case SignInProviderId.password:

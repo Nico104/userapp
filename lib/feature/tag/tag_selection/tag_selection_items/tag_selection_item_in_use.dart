@@ -45,7 +45,7 @@ class _TagSelectionItemInUseByOtherPetState
 
   Widget getSuffix() {
     if (usingPet != null) {
-      return Text("tag_inUseBy".tr(namedArgs: {"value1": usingPet!.petName}));
+      return Text("tag_inUseBy".tr(namedArgs: {'Karamba': usingPet!.petName}));
     } else {
       return const CustomLoadingIndicatior();
     }

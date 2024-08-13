@@ -164,6 +164,7 @@ Future<void> readAllUserNotifications() async {
 }
 
 Future<void> deleteNotification(Notification notification) async {
+  // print(notification.notificationId);
   Uri url = Uri.parse('$baseURL/notification/deleteNotification');
   String? token = await getIdToken();
 

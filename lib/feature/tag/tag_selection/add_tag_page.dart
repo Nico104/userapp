@@ -18,7 +18,7 @@ class AddTagPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomNicoScrollView(
-        title: const Text("Add Tag"),
+        title: Text("addTagAppbarTitle".tr()),
         body: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

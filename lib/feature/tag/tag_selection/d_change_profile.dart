@@ -40,11 +40,11 @@ class _TagChangeProfileAlertDialogState
             children: [
               Text(
                 "tagAssignedTo"
-                    .tr(namedArgs: {'value1': widget.currentPetName}),
+                    .tr(namedArgs: {'Karamba': widget.currentPetName}),
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               Text(
-                "tagReassign".tr(namedArgs: {'value1': widget.newPetName}),
+                "tagReassign".tr(namedArgs: {'Karamba': widget.newPetName}),
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               const SizedBox(height: 28),

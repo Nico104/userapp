@@ -39,32 +39,36 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             Column(
               children: [
-                Row(
-                  children: [
-                    Spacer(),
-                    Expanded(child: Image.asset("assets/tmp/startLogo.png")),
-                    Spacer(),
-                  ],
-                ),
-                SizedBox(height: 6.h),
+                // Row(
+                //   children: [
+                //     Spacer(),
+                //     Expanded(child: Image.asset("assets/tmp/startLogo.png")),
+                //     Spacer(),
+                //   ],
+                // ),
+                // SizedBox(height: 6.h),
                 Text(
                   "loginPageTitle".tr(),
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
                 SizedBox(height: 2.h),
+                // const Spacer(flex: 2),
                 Text(
                   "loginPageSubTitle".tr(),
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 SizedBox(height: 4.h),
+                // const Spacer(flex: 4),
                 CustomTextFormField(
                   onChanged: (value) => _debounceEmail(value),
                   errorText: _emailErrorMsg,
                   labelText: "loginPageEmailInputLabel".tr(),
                 ),
                 SizedBox(height: 2.h),
+                // const Spacer(flex: 2),
+
                 CustomTextFormField(
                   isPassword: true,
                   onChanged: (value) => _debouncePassword(value),
@@ -72,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   labelText: "loginPagePasswordInputLabel".tr(),
                 ),
                 SizedBox(height: 2.h),
+                // const Spacer(flex: 2),
                 Row(
                   children: [
                     const Spacer(),
@@ -85,6 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 SizedBox(height: 5.h),
+                // const Spacer(flex: 5),
                 SizedBox(
                   // width: 70.w,
                   child: CustomBigButton(
@@ -93,6 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 SizedBox(height: 5.h),
+                // const Spacer(flex: 5),
                 // const ContinueWithSocialMedia(),
                 const ContinueWithGoogle(),
               ],

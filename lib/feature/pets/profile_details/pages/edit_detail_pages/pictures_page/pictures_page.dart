@@ -52,7 +52,7 @@ class _PicturesPageState extends State<PicturesPage> {
   Widget getNoPicturesWidget() {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Pictures"),
+        title: Text("picturesPage_Title".tr()),
       ),
       body: Column(
         children: [
@@ -60,7 +60,7 @@ class _PicturesPageState extends State<PicturesPage> {
           Image.asset("assets/tmp/dog_bowl.png"),
           const SizedBox(height: 8),
           Text(
-            "It looks quite empty in here",
+            "picturesPage_noPicturesLabel".tr(),
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: 8),

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import 'package:timeago/timeago.dart' as timeago;
 import '../../../general/widgets/custom_nico_modal.dart';
@@ -58,27 +59,33 @@ class _NotificationListItemNewState extends State<NotificationListItemNew> {
               ],
             ),
             const Spacer(flex: 1),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.notification.notificationTitle,
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-                Text(
-                  widget.notification.notificationBody,
-                  style: Theme.of(context).textTheme.labelMedium,
-                ),
-                Text(
-                  // https://pub.dev/packages/timeago for other languages
-                  timeago.format(widget.notification.creationDateTime),
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelSmall!
-                      .copyWith(color: Colors.indigo.shade400),
-                ),
-              ],
+            SizedBox(
+              width: 70.w,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.notification.notificationTitle,
+                    style: Theme.of(context).textTheme.labelLarge,
+                    softWrap: true,
+                  ),
+                  Text(
+                    widget.notification.notificationBody,
+                    style: Theme.of(context).textTheme.labelMedium,
+                    softWrap: true,
+                  ),
+                  Text(
+                    // https://pub.dev/packages/timeago for other languages
+                    timeago.format(widget.notification.creationDateTime),
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall!
+                        .copyWith(color: Colors.indigo.shade400),
+                    softWrap: true,
+                  ),
+                ],
+              ),
             ),
             const Spacer(
               flex: 8,

@@ -203,7 +203,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
         ListTile(
           leading: const Icon(CustomIcons.delete),
           title: Text("petPage_Options_Delete"
-              .tr(namedArgs: {'name': widget.petProfileDetails.petName})),
+              .tr(namedArgs: {'Karamba': widget.petProfileDetails.petName})),
           onTap: () {
             Navigator.pop(context);
             showDialog(
@@ -250,7 +250,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
         ),
         ListTile(
           leading: const Icon(Icons.visibility_outlined),
-          title: Text("Visibility Menu"),
+          title: Text("lostBox_Visibility_menu".tr()),
           onTap: () {
             Navigator.pop(context);
             Navigator.push(
@@ -335,7 +335,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                           begin: const EdgeInsets.only(left: 16.0, bottom: 16),
                           end: const EdgeInsets.only(left: 72.0, bottom: 16)),
                       title: Text('petProfileTitle'.tr(
-                          namedArgs: {'value1': _petProfileDetails.petName})),
+                          namedArgs: {'Karamba': _petProfileDetails.petName})),
                       // titlePadding: EdgeInsets.all(0), centerTitle: false,
                       // centerTitle: true,
                       // background: FlutterLogo(),
@@ -377,7 +377,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                 //   // strokeAlign: BorderSide.strokeAlignOutside,
                                 // ),
                                 borderRadius: BorderRadius.circular(18),
-                                boxShadow: kElevationToShadow[6],
+                                boxShadow: kElevationToShadow[4],
                               ),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(18),
@@ -393,7 +393,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                     Padding(
                                       padding: const EdgeInsets.all(16),
                                       child: AutoSizeText(
-                                        "Privacy".tr(),
+                                        "petDetailsVisibility".tr(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge,
@@ -460,7 +460,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                   //   // strokeAlign: BorderSide.strokeAlignOutside,
                                   // ),
                                   borderRadius: BorderRadius.circular(18),
-                                  boxShadow: kElevationToShadow[6],
+                                  boxShadow: kElevationToShadow[4],
                                 ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(18),
@@ -519,8 +519,12 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                         flex: 2,
                                                         child: AutoSizeText(
                                                           stepGranularity: 0.5,
-                                                          "petPage_LostInfo"
-                                                              .tr(),
+                                                          "petPage_LostInfo".tr(
+                                                              namedArgs: {
+                                                                'Karamba': widget
+                                                                    .petProfileDetails
+                                                                    .petName
+                                                              }),
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
@@ -581,13 +585,13 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: getCustomColors(context).surface,
-                                  border: Border.all(
-                                    width: 0.5,
-                                    color:
-                                        getCustomColors(context).hardBorder ??
-                                            Colors.transparent,
-                                    // strokeAlign: BorderSide.strokeAlignOutside,
-                                  ),
+                                  // border: Border.all(
+                                  //   width: 0.5,
+                                  //   color:
+                                  //       getCustomColors(context).hardBorder ??
+                                  //           Colors.transparent,
+                                  //   // strokeAlign: BorderSide.strokeAlignOutside,
+                                  // ),
                                   borderRadius: BorderRadius.circular(18),
                                   // boxShadow: kElevationToShadow[3],
                                 ),
@@ -615,60 +619,60 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                           maxLines: 1,
                                         ),
                                       ),
-                                      Align(
-                                        alignment:
-                                            // const Alignment(-1, -0.5),
-                                            Alignment.bottomLeft,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: Row(
-                                            children: [
-                                              widget.showDescriptions
-                                                  ? Expanded(
-                                                      flex: 5,
-                                                      child: (widget
-                                                              .petProfileDetails
-                                                              .petContacts
-                                                              .isEmpty)
-                                                          ? Text(
-                                                              "Keine Kontakte vorhanden"
-                                                                  .tr(),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .justify,
-                                                              style: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .displaySmall,
-                                                            )
-                                                          // : Text(
-                                                          //     "petPage_ContactInfo"
-                                                          //         .tr(),
-                                                          //     style: Theme.of(
-                                                          //             context)
-                                                          //         .textTheme
-                                                          //         .displaySmall,
-                                                          //   ),
-                                                          : Text(
-                                                              "${widget.petProfileDetails.petContacts.length} Kontakte"
-                                                                  .tr(),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .justify,
-                                                              style: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .displaySmall,
-                                                            ),
-                                                    )
-                                                  : const SizedBox.shrink(),
-                                              const Spacer(
-                                                flex: 4,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
+                                      // Align(
+                                      //   alignment:
+                                      //       // const Alignment(-1, -0.5),
+                                      //       Alignment.bottomLeft,
+                                      //   child: Padding(
+                                      //     padding: const EdgeInsets.all(16),
+                                      //     child: Row(
+                                      //       children: [
+                                      //         widget.showDescriptions
+                                      //             ? Expanded(
+                                      //                 flex: 5,
+                                      //                 child: (widget
+                                      //                         .petProfileDetails
+                                      //                         .petContacts
+                                      //                         .isEmpty)
+                                      //                     ? Text(
+                                      //                         "Keine Kontakte vorhanden"
+                                      //                             .tr(),
+                                      //                         textAlign:
+                                      //                             TextAlign
+                                      //                                 .justify,
+                                      //                         style: Theme.of(
+                                      //                                 context)
+                                      //                             .textTheme
+                                      //                             .displaySmall,
+                                      //                       )
+                                      //                     // : Text(
+                                      //                     //     "petPage_ContactInfo"
+                                      //                     //         .tr(),
+                                      //                     //     style: Theme.of(
+                                      //                     //             context)
+                                      //                     //         .textTheme
+                                      //                     //         .displaySmall,
+                                      //                     //   ),
+                                      //                     : Text(
+                                      //                         "${widget.petProfileDetails.petContacts.length} Kontakte"
+                                      //                             .tr(),
+                                      //                         textAlign:
+                                      //                             TextAlign
+                                      //                                 .justify,
+                                      //                         style: Theme.of(
+                                      //                                 context)
+                                      //                             .textTheme
+                                      //                             .displaySmall,
+                                      //                       ),
+                                      //               )
+                                      //             : const SizedBox.shrink(),
+                                      //         const Spacer(
+                                      //           flex: 4,
+                                      //         ),
+                                      //       ],
+                                      //     ),
+                                      //   ),
+                                      // ),
                                     ],
                                   ),
                                 ),
@@ -698,13 +702,13 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       color: getCustomColors(context).surface,
-                                      border: Border.all(
-                                        width: 0.3,
-                                        color: getCustomColors(context)
-                                                .hardBorder ??
-                                            Colors.transparent,
-                                        // strokeAlign: BorderSide.strokeAlignOutside,
-                                      ),
+                                      // border: Border.all(
+                                      // //   width: 0.3,
+                                      // //   color: getCustomColors(context)
+                                      // //           .hardBorder ??
+                                      // //       Colors.transparent,
+                                      // //   // strokeAlign: BorderSide.strokeAlignOutside,
+                                      // // ),
                                       borderRadius: BorderRadius.circular(18),
                                       // boxShadow: kElevationToShadow[3],
                                     ),
@@ -775,7 +779,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                                                   .tag
                                                                   .isEmpty)
                                                               ? Text(
-                                                                  "Keine Tags aktiv"
+                                                                  "noActiveTag"
                                                                       .tr(),
                                                                   style: Theme.of(
                                                                           context)
@@ -827,14 +831,14 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                       decoration: BoxDecoration(
                                         // color: getCustomColors(context).surface,
                                         color: Colors.yellow,
-                                        border: Border.all(
-                                          width: 0.3,
-                                          color: getCustomColors(context)
-                                                  .hardBorder ??
-                                              Colors.transparent,
-                                          strokeAlign:
-                                              BorderSide.strokeAlignOutside,
-                                        ),
+                                        // border: Border.all(
+                                        //   width: 0.3,
+                                        //   color: getCustomColors(context)
+                                        //           .hardBorder ??
+                                        //       Colors.transparent,
+                                        //   strokeAlign:
+                                        //       BorderSide.strokeAlignOutside,
+                                        // ),
                                         borderRadius: BorderRadius.circular(18),
                                         // boxShadow: kElevationToShadow[3],
                                         image: const DecorationImage(
@@ -918,13 +922,13 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: getCustomColors(context).surface,
-                                  border: Border.all(
-                                    width: 0.3,
-                                    color:
-                                        getCustomColors(context).hardBorder ??
-                                            Colors.transparent,
-                                    // strokeAlign: BorderSide.strokeAlignOutside,
-                                  ),
+                                  // border: Border.all(
+                                  //   width: 0.3,
+                                  //   color:
+                                  //       getCustomColors(context).hardBorder ??
+                                  //           Colors.transparent,
+                                  //   // strokeAlign: BorderSide.strokeAlignOutside,
+                                  // ),
                                   borderRadius: BorderRadius.circular(18),
                                   // boxShadow: kElevationToShadow[3],
                                 ),
@@ -997,13 +1001,13 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       color: getCustomColors(context).surface,
-                                      border: Border.all(
-                                        width: 0.3,
-                                        color: getCustomColors(context)
-                                                .hardBorder ??
-                                            Colors.transparent,
-                                        // strokeAlign: BorderSide.strokeAlignOutside,
-                                      ),
+                                      // border: Border.all(
+                                      //   width: 0.3,
+                                      //   color: getCustomColors(context)
+                                      //           .hardBorder ??
+                                      //       Colors.transparent,
+                                      //   // strokeAlign: BorderSide.strokeAlignOutside,
+                                      // ),
                                       borderRadius: BorderRadius.circular(18),
                                       // boxShadow: kElevationToShadow[3],
                                     ),
@@ -1056,13 +1060,13 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       color: getCustomColors(context).surface,
-                                      border: Border.all(
-                                        width: 0.3,
-                                        color: getCustomColors(context)
-                                                .hardBorder ??
-                                            Colors.transparent,
-                                        // strokeAlign: BorderSide.strokeAlignOutside,
-                                      ),
+                                      // border: Border.all(
+                                      //   width: 0.3,
+                                      //   color: getCustomColors(context)
+                                      //           .hardBorder ??
+                                      //       Colors.transparent,
+                                      //   // strokeAlign: BorderSide.strokeAlignOutside,
+                                      // ),
                                       borderRadius: BorderRadius.circular(18),
                                       // boxShadow: kElevationToShadow[3],
                                     ),
@@ -1117,13 +1121,13 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: getCustomColors(context).surface,
-                                  border: Border.all(
-                                    width: 0.5,
-                                    color:
-                                        getCustomColors(context).hardBorder ??
-                                            Colors.transparent,
-                                    // strokeAlign: BorderSide.strokeAlignOutside,
-                                  ),
+                                  // border: Border.all(
+                                  //   width: 0.5,
+                                  //   color:
+                                  //       getCustomColors(context).hardBorder ??
+                                  //           Colors.transparent,
+                                  //   // strokeAlign: BorderSide.strokeAlignOutside,
+                                  // ),
                                   borderRadius: BorderRadius.circular(18),
                                   // boxShadow: kElevationToShadow[3],
                                 ),

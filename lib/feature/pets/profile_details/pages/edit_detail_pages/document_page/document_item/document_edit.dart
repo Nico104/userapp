@@ -52,7 +52,7 @@ class _DocumentEditDialogState extends State<DocumentEditDialog> {
         child: Image.asset("assets/tmp/pdf_icon.png"),
       );
     } else {
-      return const Text("undefined documenttype");
+      return Text("unknowknDocumentType".tr());
     }
   }
 

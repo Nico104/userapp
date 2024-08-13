@@ -65,9 +65,22 @@ class _MyPetsNavbarState extends State<MyPetsNavbar> {
               return const SizedBox.shrink();
             } else {
               //Loading
-              return Text(
-                "mucho mucho bro",
-                style: getCustomTextStyles(context).homeWelcomeUser,
+              // return Text(
+              //   "mucho mucho bro",
+              //   style: getCustomTextStyles(context).homeWelcomeUser,
+              // );
+              return Wrap(
+                alignment: WrapAlignment.start,
+                children: [
+                  Text(
+                    "${"myPetsTitleMy".tr()} ",
+                    style: getCustomTextStyles(context).homeWelcomeMessage,
+                  ),
+                  Text(
+                    "myPetsTitlePets".tr(),
+                    style: getCustomTextStyles(context).homeWelcomeUser,
+                  ),
+                ],
               );
             }
           },

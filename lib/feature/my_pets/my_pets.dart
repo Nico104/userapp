@@ -5,6 +5,7 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_social_media.dart';
 import 'package:userapp/general/network_globals.dart';
 import 'package:userapp/general/utils_color/hex_color.dart';
@@ -50,6 +51,8 @@ class _MyPetsState extends State<MyPets> {
   double pageindex = 0;
   int? activeExtendedPicture;
 
+  late String newPetBG;
+
   final GlobalKey<ExtendedSettingsContainerState> _navigationPeppiKey =
       GlobalKey<ExtendedSettingsContainerState>();
 
@@ -60,6 +63,8 @@ class _MyPetsState extends State<MyPets> {
     globals.availableLanguages = List.from(widget.availableLanguages);
     globals.availableCountries = List.from(widget.availableCountries);
     globals.availableSocialMedias = List.from(widget.availableSocialMedias);
+
+    newPetBG = getNewPetBG();
 
     _controller.addListener(() {
       setState(() {
@@ -129,20 +134,13 @@ class _MyPetsState extends State<MyPets> {
   }
 
   String getfallbackBGImageLink(int index) {
-    // String prefix = "light";
-
-    // if (Provider.of<ThemeNotifier>(context, listen: false).getTheme() ==
-    //     constDarkTheme) {
-    //   prefix = "dark";
-    // }
-
-    // var rng = Random();
-    // return s3BaseUrl + "utils/temp/dog_1.png";
-    // return "https://ams1.vultrobjects.com/utils/temp/$prefix${(index % 2) + 1}.webp";
     return "${s3BaseUrl}utils/temp/placeholder/pet_placeholder_${(index % 2) + 1}.jpg";
   }
 
-  // String _bgPictureLink = "https://picsum.photos/600/800";
+  String getNewPetBG() {
+    var rng = Random();
+    return "${s3BaseUrl}utils/new_pet_bg/new_pet_bg_${rng.nextInt(12) + 1}.jpg";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -170,6 +168,7 @@ class _MyPetsState extends State<MyPets> {
         //     statusBarColor: Colors.pink, // Status bar
         //   ),
         // ),
+
         body: Stack(
           children: [
             AnimatedSwitcher(
@@ -177,66 +176,72 @@ class _MyPetsState extends State<MyPets> {
               switchInCurve: Curves.fastOutSlowIn,
               switchOutCurve: Curves.fastOutSlowIn,
               child: Container(
-                key: ValueKey(pageindex.round()),
-                // height: double.infinity,
-                width: double.infinity,
-                decoration: pageindex.round() < widget.petProfiles.length
-                    ? BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: CachedNetworkImageProvider(
-                            widget.petProfiles
-                                    .elementAt(pageindex.round())
-                                    .petPictures
-                                    .isNotEmpty
-                                ? s3BaseUrl +
-                                    widget.petProfiles
-                                        .elementAt(pageindex.round())
-                                        .petPictures
-                                        .first
-                                        .petPictureLink
-                                : getfallbackBGImageLink(pageindex.round()),
-                            // getBGPictureLink(),
-                            // fit: BoxFit.cover,
-                            scale: 1.2,
-                            // imageUrl: getBGPictureLink(),
-                            // placeholder: (context, url) =>
-                            //     const CustomLoadingIndicatior(),
-                            // errorWidget: (context, url, error) =>
-                            //     const Icon(Icons.error),
+                  key: ValueKey(pageindex.round()),
+                  // height: double.infinity,
+                  width: double.infinity,
+                  decoration: pageindex.round() < widget.petProfiles.length
+                      ? BoxDecoration(
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: CachedNetworkImageProvider(
+                              widget.petProfiles
+                                      .elementAt(pageindex.round())
+                                      .petPictures
+                                      .isNotEmpty
+                                  ? s3BaseUrl +
+                                      widget.petProfiles
+                                          .elementAt(pageindex.round())
+                                          .petPictures
+                                          .first
+                                          .petPictureLink
+                                  : getfallbackBGImageLink(pageindex.round()),
+                              scale: 1.2,
+                            ),
                           ),
-                          // NetworkImage(
-                          //   getBGPictureLink(),
-                          //   // _bgPictureLink,
-                          // ),
-                        ),
-                      )
-                    : BoxDecoration(
-                        color: HexColor("ebebd3"),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                            "assets/new_pet_bg/dog_1.png",
+                        )
+                      : BoxDecoration(
+                          color: HexColor("ebebd3"),
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              newPetBG,
+                            ),
+                            fit: BoxFit.cover,
+                            alignment: Alignment.bottomCenter,
+                            scale: 1,
                           ),
-                          fit: BoxFit.contain,
-                          alignment: Alignment.bottomCenter,
-                          scale: 1,
                         ),
-                      ),
-                child: pageindex.round() < widget.petProfiles.length
-                    ? BackdropFilter(
-                        filter: ImageFilter.blur(
-                          sigmaX: 15,
-                          sigmaY: 15,
-                        ),
-                        child: Container(
-                          color:
-                              Theme.of(context).canvasColor.withOpacity(0.80),
-                          // color: Theme.of(context).canvasColor.withOpacity(0.0),
-                        ),
-                      )
-                    : null,
-              ),
+                  child: ClipRRect(
+                    child: pageindex.round() < widget.petProfiles.length
+                        ? BackdropFilter(
+                            filter: ImageFilter.blur(
+                              sigmaX: 15,
+                              sigmaY: 15,
+                            ),
+                            child: Container(
+                              width: double.infinity,
+                              color: Theme.of(context)
+                                  .canvasColor
+                                  .withOpacity(0.5),
+                              // Theme.of(context)
+                              //     .canvasColor
+                              //     .withOpacity(0.0),
+                            ),
+                          )
+                        // : null,
+                        : BackdropFilter(
+                            filter: ImageFilter.blur(
+                              sigmaX: 5,
+                              sigmaY: 5,
+                            ),
+                            child: Container(
+                              color: Theme.of(context)
+                                  .canvasColor
+                                  .withOpacity(0.3),
+                            ),
+                          ),
+                  )),
             ),
+
             SafeArea(
               child: GestureDetector(
                 behavior: HitTestBehavior.opaque,
@@ -377,6 +382,7 @@ class _MyPetsState extends State<MyPets> {
                 ),
               ),
             ),
+
             pageindex.round() < widget.petProfiles.length
                 ? SafeArea(
                     child: Padding(

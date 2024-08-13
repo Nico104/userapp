@@ -137,7 +137,7 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                 // flexSpacer: 0,
                 value: widget.petProfileDetails.pet_favorite_toys ?? "",
                 emptyValuePlaceholder: "basicInformationPage_favoriteToys".tr(),
-                title: "basicInformationPage_favoriteToys".tr(),
+                title: "basicInformationPage_favoriteToysHint".tr(),
                 saveValue: (val) async {
                   if (val.isNotEmpty) {
                     widget.petProfileDetails.pet_favorite_toys = val;
@@ -152,7 +152,7 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                 value: widget.petProfileDetails.pet_favorite_activities ?? "",
                 emptyValuePlaceholder:
                     "basicInformationPage_favoriteActivities".tr(),
-                title: "basicInformationPage_favoriteActivities".tr(),
+                title: "basicInformationPage_favoriteActivitiesHint".tr(),
                 saveValue: (val) async {
                   if (val.isNotEmpty) {
                     widget.petProfileDetails.pet_favorite_activities = val;
@@ -167,7 +167,7 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                 value: widget.petProfileDetails.pet_behavioral_notes ?? "",
                 emptyValuePlaceholder:
                     "basicInformationPage_behavioralNotes".tr(),
-                title: "basicInformationPage_behavioralNotes".tr(),
+                title: "basicInformationPage_behavioralNotesHint".tr(),
                 saveValue: (val) async {
                   if (val.isNotEmpty) {
                     widget.petProfileDetails.pet_behavioral_notes = val;
@@ -181,7 +181,7 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                 // flexSpacer: 0,
                 value: widget.petProfileDetails.pet_special_needs ?? "",
                 emptyValuePlaceholder: "basicInformationPage_specialNeeds".tr(),
-                title: "basicInformationPage_specialNeeds".tr(),
+                title: "basicInformationPage_specialNeedsHint".tr(),
                 saveValue: (val) async {
                   if (val.isNotEmpty) {
                     widget.petProfileDetails.pet_special_needs = val;
@@ -196,7 +196,7 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                 value: widget.petProfileDetails.pet_diet_preferences ?? "",
                 emptyValuePlaceholder:
                     "basicInformationPage_dietPreferences".tr(),
-                title: "basicInformationPage_dietPreferences".tr(),
+                title: "basicInformationPage_dietPreferencesHint".tr(),
                 saveValue: (val) async {
                   if (val.isNotEmpty) {
                     widget.petProfileDetails.pet_diet_preferences = val;

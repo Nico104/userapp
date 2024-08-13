@@ -6,6 +6,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:userapp/feature/onboarding/onboarding_page.dart';
+import 'package:userapp/feature/settings/setting_screens/how_to/how_to_dialog.dart';
 import 'package:userapp/feature/settings/setting_screens/theme_settings/theme_selection_page.dart';
 import 'package:userapp/feature/settings/setting_screens/contact_us/contact_us.dart';
 import 'package:userapp/feature/settings/setting_screens/notifcation_settings/notification_settings.dart';
@@ -50,22 +51,6 @@ class _SettingsState extends State<Settings> {
             style: Theme.of(context).appBarTheme.titleTextStyle,
           ),
           centerTitle: true,
-          // physics: const BouncingScrollPhysics(),
-          // slivers: <Widget>[
-          //   SliverAppBar(
-          //     forceMaterialTransparency: false,
-          //     pinned: true,
-          //     stretch: true,
-          //     expandedHeight: 140,
-          //     backgroundColor: Theme.of(context).primaryColor,
-          //     flexibleSpace: FlexibleSpaceBar(
-          //       title: Text(
-          //         "appBarTitleSettings".tr(),
-          //         style: Theme.of(context).appBarTheme.titleTextStyle,
-          //       ),
-          //       centerTitle: true,
-          //     ),
-          //   ),
           onScroll: () {},
           body: Column(
             // controller: _scrollSontroller,
@@ -199,10 +184,19 @@ class _SettingsState extends State<Settings> {
                       leading: const Icon(Icons.lightbulb_outline),
                       suffix: const Icon(Icons.keyboard_arrow_right),
                       onTap: () {
-                        navigatePerSlide(
-                          context,
-                          const ComingSoonPage(title: "How To Use"),
-                        );
+                        Navigator.of(context).push(PageRouteBuilder(
+                            opaque: false,
+                            pageBuilder: (BuildContext context, _, __) {
+                              return HowToDialog();
+                            }));
+                        // showDialog(
+                        //   context: context,
+                        //   builder: (_) => HowToDialog(),
+                        // );
+                        // navigatePerSlide(
+                        //   context,
+                        //   const ComingSoonPage(title: "How To Use"),
+                        // );
                       },
                     ),
                   ],
@@ -274,20 +268,20 @@ class _SettingsState extends State<Settings> {
                       },
                     ),
                     const SizedBox(height: settingItemSpacing),
-                    SettingsItem(
-                      label: "settingsItemFAQ".tr(),
-                      leading: const Icon(Icons.question_answer_outlined),
-                      suffix: const Icon(Icons.keyboard_arrow_right),
-                      onTap: () async {
-                        // navigatePerSlide(
-                        //   context,
-                        //   const ComingSoonPage(title: "FAQ"),
-                        // );
-                        await launchUrl(Uri.parse("http://finmapet.com"),
-                            mode: LaunchMode.externalApplication);
-                      },
-                    ),
-                    const SizedBox(height: settingItemSpacing),
+                    // SettingsItem(
+                    //   label: "settingsItemFAQ".tr(),
+                    //   leading: const Icon(Icons.question_answer_outlined),
+                    //   suffix: const Icon(Icons.keyboard_arrow_right),
+                    //   onTap: () async {
+                    //     // navigatePerSlide(
+                    //       // context,
+                    //     //   const ComingSoonPage(title: "FAQ"),
+                    //     // );
+                    //     await launchUrl(Uri.parse("http://finmapet.com"),
+                    //         mode: LaunchMode.externalApplication);
+                    //   },
+                    // ),
+                    // const SizedBox(height: settingItemSpacing),
                     SettingsItem(
                       label: "settingsItemPrivacy".tr(),
                       leading: const Icon(Icons.privacy_tip_outlined),

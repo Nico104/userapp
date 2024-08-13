@@ -182,7 +182,7 @@ class _ContactPageState extends State<ContactPage> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'appBarPetContactList'.tr(namedArgs: {
-                              'value1': widget.petProfileDetails.petName
+                              'Karamba': widget.petProfileDetails.petName
                             }),
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
