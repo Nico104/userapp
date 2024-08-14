@@ -82,41 +82,43 @@ class _ScansPageState extends State<ScansPage> {
                   key: _refreshIndicatorKey,
                   onRefresh: _refreshScanss,
                   child: (_scansList.isNotEmpty)
-                      ? Column(
-                          children: [
-                            const SizedBox(height: 42),
-                            Text(
-                              "scansPage_description_1".tr(),
-                              style: GoogleFonts.openSans(
-                                fontSize: 16,
-                                color: Colors.black54,
-                                fontWeight: FontWeight.w300,
+                      ? SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 42),
+                              Text(
+                                "scansPage_description_1".tr(),
+                                style: GoogleFonts.openSans(
+                                  fontSize: 16,
+                                  color: Colors.black54,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              "scansPage_description_2".tr(),
-                              style: GoogleFonts.openSans(
-                                fontSize: 16,
-                                color: Colors.black54,
-                                fontWeight: FontWeight.w300,
+                              const SizedBox(height: 8),
+                              Text(
+                                "scansPage_description_2".tr(),
+                                style: GoogleFonts.openSans(
+                                  fontSize: 16,
+                                  color: Colors.black54,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              "scansPage_description_3".tr(),
-                              style: GoogleFonts.openSans(
-                                fontSize: 16,
-                                color: Colors.black54,
-                                fontWeight: FontWeight.w300,
+                              const SizedBox(height: 8),
+                              Text(
+                                "scansPage_description_3".tr(),
+                                style: GoogleFonts.openSans(
+                                  fontSize: 16,
+                                  color: Colors.black54,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 42),
-                            Expanded(
-                              child: GroupedListView<Scan, DateTime>(
+                              const SizedBox(height: 42),
+                              GroupedListView<Scan, DateTime>(
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
                                 elements: _scansList,
                                 groupBy: (element) =>
                                     DateUtils.dateOnly(element.scanDateTime),
@@ -172,49 +174,8 @@ class _ScansPageState extends State<ScansPage> {
                                 order: GroupedListOrder
                                     .DESC, // optional// optional
                               ),
-                              // child: GroupedListView<dynamic, String>(
-                              //   elements: _scansList,
-                              //   groupBy: (element) => element['group'],
-                              //   groupComparator: (value1, value2) =>
-                              //       value2.compareTo(value1),
-                              //   itemComparator: (item1, item2) =>
-                              //       item1['name'].compareTo(item2['name']),
-                              //   order: GroupedListOrder.DESC,
-                              //   useStickyGroupSeparators: true,
-                              //   groupSeparatorBuilder: (String value) =>
-                              //       Padding(
-                              //     padding: const EdgeInsets.all(8.0),
-                              //     child: Text(
-                              //       value,
-                              //       textAlign: TextAlign.center,
-                              //       style: const TextStyle(
-                              //           fontSize: 20,
-                              //           fontWeight: FontWeight.bold),
-                              //     ),
-                              //   ),
-                              //   itemBuilder: (c, element) {
-                              //     return Card(
-                              //       elevation: 8.0,
-                              //       margin: const EdgeInsets.symmetric(
-                              //           horizontal: 10.0, vertical: 6.0),
-                              //       child: SizedBox(
-                              //         child: ListTile(
-                              //           contentPadding:
-                              //               const EdgeInsets.symmetric(
-                              //                   horizontal: 20.0,
-                              //                   vertical: 10.0),
-                              //           leading:
-                              //               const Icon(Icons.account_circle),
-                              //           title: Text(element['name']),
-                              //           trailing:
-                              //               const Icon(Icons.arrow_forward),
-                              //         ),
-                              //       ),
-                              //     );
-                              //   },
-                              // ),
-                            ),
-                          ],
+                            ],
+                          ),
                         )
                       // ? ListView.builder(
                       //     itemCount: _scansList.length,
