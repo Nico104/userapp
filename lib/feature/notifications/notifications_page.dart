@@ -82,10 +82,16 @@ class _NotificationPageState extends State<NotificationPage> {
                                     ? NotificationListItem(
                                         notification: _notificationsList[index],
                                         reload: _refreshNotifications,
+                                        newNotification: false,
                                       )
-                                    : NotificationListItemNew(
+                                    // : NotificationListItemNew(
+                                    //     notification: _notificationsList[index],
+                                    //     reload: _refreshNotifications,
+                                    //   ),
+                                    : NotificationListItem(
                                         notification: _notificationsList[index],
                                         reload: _refreshNotifications,
+                                        newNotification: true,
                                       ),
                                 index < _notificationsList.length - 1
                                     ? Divider(

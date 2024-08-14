@@ -10,6 +10,7 @@ import 'package:userapp/feature/navigation_peppi/share_seppi.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/feature/pets/profile_details/visibility/visibility_menu.dart';
+import 'package:userapp/feature/settings/setting_screens/how_to/how_to_dialog.dart';
 
 import '../../../../general/utils_color/hex_color.dart';
 import '../../../../general/utils_custom_icons/custom_icons_icons.dart';
@@ -268,6 +269,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
           title: Text("helpWithThisPage".tr()),
           onTap: () {
             //Todo Link to help website
+            showHowToDialog(context);
           },
         ),
       ],

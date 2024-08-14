@@ -140,10 +140,8 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                 emptyValuePlaceholder:
                     "basicInformationPage_favoriteToysHint".tr(),
                 saveValue: (val) async {
-                  if (val.isNotEmpty) {
-                    widget.petProfileDetails.pet_favorite_toys = val;
-                    updatePetProfileCore(widget.petProfileDetails);
-                  }
+                  widget.petProfileDetails.pet_favorite_toys = val;
+                  updatePetProfileCore(widget.petProfileDetails);
                 },
               ),
             ),
@@ -155,10 +153,8 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                 emptyValuePlaceholder:
                     "basicInformationPage_favoriteActivitiesHint".tr(),
                 saveValue: (val) async {
-                  if (val.isNotEmpty) {
-                    widget.petProfileDetails.pet_favorite_activities = val;
-                    updatePetProfileCore(widget.petProfileDetails);
-                  }
+                  widget.petProfileDetails.pet_favorite_activities = val;
+                  updatePetProfileCore(widget.petProfileDetails);
                 },
               ),
             ),
@@ -170,10 +166,8 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                 emptyValuePlaceholder:
                     "basicInformationPage_behavioralNotesHint".tr(),
                 saveValue: (val) async {
-                  if (val.isNotEmpty) {
-                    widget.petProfileDetails.pet_behavioral_notes = val;
-                    updatePetProfileCore(widget.petProfileDetails);
-                  }
+                  widget.petProfileDetails.pet_behavioral_notes = val;
+                  updatePetProfileCore(widget.petProfileDetails);
                 },
               ),
             ),
@@ -185,10 +179,8 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                 emptyValuePlaceholder:
                     "basicInformationPage_specialNeedsHint".tr(),
                 saveValue: (val) async {
-                  if (val.isNotEmpty) {
-                    widget.petProfileDetails.pet_special_needs = val;
-                    updatePetProfileCore(widget.petProfileDetails);
-                  }
+                  widget.petProfileDetails.pet_special_needs = val;
+                  updatePetProfileCore(widget.petProfileDetails);
                 },
               ),
             ),
@@ -200,10 +192,8 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                 emptyValuePlaceholder:
                     "basicInformationPage_dietPreferencesHint".tr(),
                 saveValue: (val) async {
-                  if (val.isNotEmpty) {
-                    widget.petProfileDetails.pet_diet_preferences = val;
-                    updatePetProfileCore(widget.petProfileDetails);
-                  }
+                  widget.petProfileDetails.pet_diet_preferences = val;
+                  updatePetProfileCore(widget.petProfileDetails);
                 },
               ),
             ),
@@ -220,7 +210,8 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
               future: _behaviourInformationFuture,
               builder: (BuildContext context,
                   AsyncSnapshot<BehaviourInformation> snapshot) {
-                if (snapshot.hasData) {
+                if (snapshot.hasData && snapshot.data != null) {
+                  BehaviourInformation behaviourInformation = snapshot.data!;
                   return Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -228,70 +219,98 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                         child: MultiOptionButton(
                           title:
                               "basicInformationPage_friendlyToStrangers".tr(),
-                          initialActiveIndex: 0,
+                          initialActiveIndex:
+                              getIndex(behaviourInformation.goodWithStrangers),
                           options: [
                             Option("basicInformationPage_yes".tr()),
-                            Option("basicInformationPage_sometimes".tr()),
+                            // Option("basicInformationPage_sometimes".tr()),
                             Option("basicInformationPage_no".tr()),
                           ],
+                          onTap: (p0) {
+                            behaviourInformation.goodWithStrangers =
+                                getBool(p0);
+                            updateBehaviourInformation(behaviourInformation);
+                          },
                         ),
                       ),
                       PaddingComponent(
                         child: MultiOptionButton(
                           title: "Good with Kids",
-                          initialActiveIndex: 0,
+                          initialActiveIndex:
+                              getIndex(behaviourInformation.goodWithKids),
                           options: [
                             Option("basicInformationPage_yes".tr()),
-                            Option("basicInformationPage_sometimes".tr()),
                             Option("basicInformationPage_no".tr()),
                           ],
+                          onTap: (p0) {
+                            behaviourInformation.goodWithKids = getBool(p0);
+                            updateBehaviourInformation(behaviourInformation);
+                          },
                         ),
                       ),
                       PaddingComponent(
                         child: MultiOptionButton(
                           title: "basicInformationPage_goodWithDogs".tr(),
-                          initialActiveIndex: 0,
+                          initialActiveIndex:
+                              getIndex(behaviourInformation.goodWithDogs),
                           options: [
                             Option("basicInformationPage_yes".tr()),
-                            Option("basicInformationPage_sometimes".tr()),
                             Option("basicInformationPage_no".tr()),
                           ],
+                          onTap: (p0) {
+                            behaviourInformation.goodWithDogs = getBool(p0);
+                            updateBehaviourInformation(behaviourInformation);
+                          },
                         ),
                       ),
                       PaddingComponent(
                         child: MultiOptionButton(
                           title: "basicInformationPage_goodWithCats".tr(),
-                          initialActiveIndex: 0,
+                          initialActiveIndex:
+                              getIndex(behaviourInformation.goodWithCats),
                           options: [
                             Option("basicInformationPage_yes".tr()),
-                            Option("basicInformationPage_sometimes".tr()),
                             Option("basicInformationPage_no".tr()),
                           ],
+                          onTap: (p0) {
+                            behaviourInformation.goodWithCats = getBool(p0);
+                            updateBehaviourInformation(behaviourInformation);
+                          },
                         ),
                       ),
                       PaddingComponent(
                         child: MultiOptionButton(
                           title: "basicInformationPage_goodWithCars".tr(),
-                          initialActiveIndex: 0,
+                          initialActiveIndex:
+                              getIndex(behaviourInformation.goodWithCars),
                           options: [
                             Option("basicInformationPage_yes".tr()),
-                            Option("basicInformationPage_sometimes".tr()),
                             Option("basicInformationPage_no".tr()),
                           ],
+                          onTap: (p0) {
+                            behaviourInformation.goodWithCars = getBool(p0);
+                            updateBehaviourInformation(behaviourInformation);
+                          },
                         ),
                       ),
-                      PaddingComponent(
-                        child: MultiOptionButton(
-                          title: "basicInformationPage_goodWithLoudNoises".tr(),
-                          initialActiveIndex: 0,
-                          options: [
-                            Option("basicInformationPage_yes".tr()),
-                            Option("basicInformationPage_sometimes".tr()),
-                            Option("basicInformationPage_no".tr()),
-                          ],
-                        ),
-                      ),
+                      // PaddingComponent(
+                      //   child: MultiOptionButton(
+                      //     title: "basicInformationPage_goodWithLoudNoises".tr(),
+                      //     initialActiveIndex:
+                      //         getIndex(behaviourInformation.goodWith),
+                      //     options: [
+                      //       Option("basicInformationPage_yes".tr()),
+                      //       Option("basicInformationPage_no".tr()),
+                      //     ],
+                      //     onTap: (p0) {
+                      //       behaviourInformation.goodWithStrangers =
+                      //           getBool(p0);
+                      //       updateBehaviourInformation(behaviourInformation);
+                      //     },
+                      //   ),
+                      // ),
                       const AutoSaveInfo(),
+                      const SizedBox(height: 12),
                     ],
                   );
                 } else if (snapshot.hasError) {
@@ -319,5 +338,25 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
         onScroll: () {},
       ),
     );
+  }
+}
+
+int? getIndex(bool? val, {int indexYes = 0, int indexNo = 1}) {
+  if (val == null) {
+    return null;
+  } else if (val) {
+    return indexYes;
+  } else {
+    return indexNo;
+  }
+}
+
+bool? getBool(int? index, {int indexYes = 0, int indexNo = 1}) {
+  if (index == null) {
+    return null;
+  } else if (index == 0) {
+    return true;
+  } else {
+    return false;
   }
 }

@@ -184,19 +184,12 @@ class _SettingsState extends State<Settings> {
                       leading: const Icon(Icons.lightbulb_outline),
                       suffix: const Icon(Icons.keyboard_arrow_right),
                       onTap: () {
-                        Navigator.of(context).push(PageRouteBuilder(
-                            opaque: false,
-                            pageBuilder: (BuildContext context, _, __) {
-                              return HowToDialog();
-                            }));
-                        // showDialog(
-                        //   context: context,
-                        //   builder: (_) => HowToDialog(),
-                        // );
-                        // navigatePerSlide(
-                        //   context,
-                        //   const ComingSoonPage(title: "How To Use"),
-                        // );
+                        // Navigator.of(context).push(PageRouteBuilder(
+                        //     opaque: false,
+                        //     pageBuilder: (BuildContext context, _, __) {
+                        //       return HowToDialog();
+                        //     }));
+                        showHowToDialog(context);
                       },
                     ),
                   ],

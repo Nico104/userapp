@@ -9,6 +9,14 @@ import 'package:userapp/general/network_globals.dart';
 
 //TODO localization
 
+void showHowToDialog(BuildContext context) {
+  Navigator.of(context).push(PageRouteBuilder(
+      opaque: false,
+      pageBuilder: (BuildContext context, _, __) {
+        return const HowToDialog();
+      }));
+}
+
 class HowToDialog extends StatefulWidget {
   const HowToDialog({Key? key}) : super(key: key);
 

@@ -1,7 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:grouped_list/grouped_list.dart';
 import 'package:sizer/sizer.dart';
 import 'package:userapp/feature/scans/scans_list_item.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 import '../pets/profile_details/models/m_scan.dart';
 import '../pets/u_pets.dart';
@@ -79,14 +82,148 @@ class _ScansPageState extends State<ScansPage> {
                   key: _refreshIndicatorKey,
                   onRefresh: _refreshScanss,
                   child: (_scansList.isNotEmpty)
-                      ? ListView.builder(
-                          itemCount: _scansList.length,
-                          itemBuilder: (context, index) {
-                            return ScanItem(
-                              scan: _scansList.elementAt(index),
-                            );
-                          },
+                      ? Column(
+                          children: [
+                            const SizedBox(height: 42),
+                            Text(
+                              "scansPage_description_1".tr(),
+                              style: GoogleFonts.openSans(
+                                fontSize: 16,
+                                color: Colors.black54,
+                                fontWeight: FontWeight.w300,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              "scansPage_description_2".tr(),
+                              style: GoogleFonts.openSans(
+                                fontSize: 16,
+                                color: Colors.black54,
+                                fontWeight: FontWeight.w300,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              "scansPage_description_3".tr(),
+                              style: GoogleFonts.openSans(
+                                fontSize: 16,
+                                color: Colors.black54,
+                                fontWeight: FontWeight.w300,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 42),
+                            Expanded(
+                              child: GroupedListView<Scan, DateTime>(
+                                elements: _scansList,
+                                groupBy: (element) =>
+                                    DateUtils.dateOnly(element.scanDateTime),
+                                // groupSeparatorBuilder:
+                                //     (DateTime groupByValue) => Text(
+                                //   timeago.format(groupByValue),
+                                // ),
+                                groupSeparatorBuilder:
+                                    (DateTime groupByValue) => Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    timeago.format(groupByValue),
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                ),
+                                itemBuilder: (context, Scan element) =>
+                                    ScanItem(
+                                  scan: element,
+                                ),
+                                // itemBuilder: (c, element) {
+                                //   return Card(
+                                //     color: Colors.white,
+                                //     elevation: 2,
+                                //     margin: const EdgeInsets.symmetric(
+                                //         horizontal: 10.0, vertical: 6.0),
+                                //     child: SizedBox(
+                                //       child: ListTile(
+                                //         contentPadding:
+                                //             const EdgeInsets.symmetric(
+                                //                 horizontal: 20.0,
+                                //                 vertical: 10.0),
+                                //         leading:
+                                //             const Icon(Icons.account_circle),
+                                //         title: Text(
+                                //           element.scanCity,
+                                //           style: Theme.of(context)
+                                //               .textTheme
+                                //               .labelLarge,
+                                //         ),
+                                //         trailing:
+                                //             const Icon(Icons.arrow_forward),
+                                //       ),
+                                //     ),
+                                //   );
+                                // },
+                                itemComparator: (item1, item2) => item1
+                                    .scanDateTime
+                                    .compareTo(item2.scanDateTime), // optional
+                                // useStickyGroupSeparators: true, // optional
+                                floatingHeader: true, // optional
+                                order: GroupedListOrder
+                                    .DESC, // optional// optional
+                              ),
+                              // child: GroupedListView<dynamic, String>(
+                              //   elements: _scansList,
+                              //   groupBy: (element) => element['group'],
+                              //   groupComparator: (value1, value2) =>
+                              //       value2.compareTo(value1),
+                              //   itemComparator: (item1, item2) =>
+                              //       item1['name'].compareTo(item2['name']),
+                              //   order: GroupedListOrder.DESC,
+                              //   useStickyGroupSeparators: true,
+                              //   groupSeparatorBuilder: (String value) =>
+                              //       Padding(
+                              //     padding: const EdgeInsets.all(8.0),
+                              //     child: Text(
+                              //       value,
+                              //       textAlign: TextAlign.center,
+                              //       style: const TextStyle(
+                              //           fontSize: 20,
+                              //           fontWeight: FontWeight.bold),
+                              //     ),
+                              //   ),
+                              //   itemBuilder: (c, element) {
+                              //     return Card(
+                              //       elevation: 8.0,
+                              //       margin: const EdgeInsets.symmetric(
+                              //           horizontal: 10.0, vertical: 6.0),
+                              //       child: SizedBox(
+                              //         child: ListTile(
+                              //           contentPadding:
+                              //               const EdgeInsets.symmetric(
+                              //                   horizontal: 20.0,
+                              //                   vertical: 10.0),
+                              //           leading:
+                              //               const Icon(Icons.account_circle),
+                              //           title: Text(element['name']),
+                              //           trailing:
+                              //               const Icon(Icons.arrow_forward),
+                              //         ),
+                              //       ),
+                              //     );
+                              //   },
+                              // ),
+                            ),
+                          ],
                         )
+                      // ? ListView.builder(
+                      //     itemCount: _scansList.length,
+                      //     itemBuilder: (context, index) {
+                      //       return ScanItem(
+                      //         scan: _scansList.elementAt(index),
+                      //       );
+                      //     },
+                      //   )
                       : Center(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -112,3 +249,37 @@ class _ScansPageState extends State<ScansPage> {
     );
   }
 }
+
+// _createGroupedListView() {
+//   return GroupedListView<dynamic, String>(
+//     elements: _elements,
+//     groupBy: (element) => element['group'],
+//     groupComparator: (value1, value2) => value2.compareTo(value1),
+//     itemComparator: (item1, item2) => item1['name'].compareTo(item2['name']),
+//     order: GroupedListOrder.DESC,
+//     useStickyGroupSeparators: true,
+//     groupSeparatorBuilder: (String value) => Padding(
+//       padding: const EdgeInsets.all(8.0),
+//       child: Text(
+//         value,
+//         textAlign: TextAlign.center,
+//         style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+//       ),
+//     ),
+//     itemBuilder: (c, element) {
+//       return Card(
+//         elevation: 8.0,
+//         margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+//         child: SizedBox(
+//           child: ListTile(
+//             contentPadding:
+//                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+//             leading: const Icon(Icons.account_circle),
+//             title: Text(element['name']),
+//             trailing: const Icon(Icons.arrow_forward),
+//           ),
+//         ),
+//       );
+//     },
+//   );
+// }

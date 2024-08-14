@@ -110,25 +110,18 @@ class _VisibilityMenuState extends State<VisibilityMenu> {
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 42),
-                          InkWell(
-                            onTap: () => showVisibilityOption(context),
-                            child: IgnorePointer(
-                              child: NotificationSettingsItem(
-                                label: "Hide Contacts",
-                                description:
-                                    "Hides Contacts for people getting on ${widget.petProfileDetails.petName}'s profile",
-                                value: widget.petProfileDetails.hide_contacts,
-                                setValue: (value) {
-                                  setState(() {
-                                    widget.petProfileDetails.hide_contacts =
-                                        value;
-                                  });
-                                  print(widget.petProfileDetails.hide_contacts);
-                                  updatePetProfileCore(
-                                      widget.petProfileDetails);
-                                },
-                              ),
-                            ),
+                          NotificationSettingsItem(
+                            label: "Hide Contacts",
+                            description:
+                                "Hides Contacts for people getting on ${widget.petProfileDetails.petName}'s profile",
+                            value: widget.petProfileDetails.hide_contacts,
+                            setValue: (value) {
+                              setState(() {
+                                widget.petProfileDetails.hide_contacts = value;
+                              });
+                              print(widget.petProfileDetails.hide_contacts);
+                              updatePetProfileCore(widget.petProfileDetails);
+                            },
                           ),
                           const SizedBox(height: 32),
                           NotificationSettingsItem(

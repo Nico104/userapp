@@ -87,6 +87,7 @@ class _CountrySelectorState extends State<CountrySelector> {
                 },
               ),
               ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: filteredCountries.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {

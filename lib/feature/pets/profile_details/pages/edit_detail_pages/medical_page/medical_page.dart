@@ -4,6 +4,7 @@ import 'package:sizer/sizer.dart';
 import 'package:collection/collection.dart';
 import 'package:userapp/feature/pets/profile_details/c_multi_line_simple_input.dart';
 import 'package:userapp/feature/pets/profile_details/c_one_line_simple_input.dart';
+import 'package:userapp/feature/pets/profile_details/pages/edit_detail_pages/basic_information/basic_information_page.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/feature/pets/profile_details/widgets/custom_textformfield.dart';
 import 'package:userapp/general/widgets/auto_save_info.dart';
@@ -80,11 +81,16 @@ class _MedicalPageState extends State<MedicalPage> {
                       PaddingComponent(
                         child: MultiOptionButton(
                           title: "medical_Neutered".tr(),
-                          initialActiveIndex: 0,
+                          initialActiveIndex:
+                              getIndex(_medicalInformation?.sterilized),
                           options: [
                             Option("basicInformationPage_yes".tr()),
                             Option("basicInformationPage_no".tr()),
                           ],
+                          onTap: (p0) {
+                            _medicalInformation?.sterilized = getBool(p0);
+                            updateMedicalInformation(_medicalInformation!);
+                          },
                         ),
                       ),
                       Padding(

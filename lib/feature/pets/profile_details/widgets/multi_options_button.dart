@@ -9,18 +9,20 @@ class MultiOptionButton extends StatefulWidget {
     required this.options,
     required this.initialActiveIndex,
     required this.title,
+    required this.onTap,
   });
 
   @override
   State<MultiOptionButton> createState() => _MultiOptionButtonState();
 
   final List<Option> options;
-  final int initialActiveIndex;
+  final int? initialActiveIndex;
   final String title;
+  final Function(int?) onTap;
 }
 
 class _MultiOptionButtonState extends State<MultiOptionButton> {
-  late int _activeOptionIndex;
+  late int? _activeOptionIndex;
   late final List<Option> _options;
   final double _borderRadius = 14;
 
@@ -31,12 +33,15 @@ class _MultiOptionButtonState extends State<MultiOptionButton> {
     _options = widget.options;
   }
 
-  List<Widget> generateOptionButton() {
+  List<Widget> generateOptionButton(Function(int?) onTap) {
     List<Widget> list = [];
 
     for (int i = 0; i < _options.length; i++) {
-      bool isSelected = i == _activeOptionIndex;
-      // String label ;
+      bool isSelected = false;
+      if (_activeOptionIndex != null && i == _activeOptionIndex) {
+        isSelected = i == _activeOptionIndex;
+      }
+
       Widget widget = Expanded(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -46,8 +51,13 @@ class _MultiOptionButtonState extends State<MultiOptionButton> {
             child: InkWell(
               onTap: () {
                 setState(() {
-                  _activeOptionIndex = i;
+                  if (_activeOptionIndex == i) {
+                    _activeOptionIndex = null;
+                  } else {
+                    _activeOptionIndex = i;
+                  }
                 });
+                onTap(_activeOptionIndex);
               },
               child: Container(
                 //Try out otherwise it is what it is
@@ -109,7 +119,7 @@ class _MultiOptionButtonState extends State<MultiOptionButton> {
         const SizedBox(height: 24),
         Row(
           // crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: generateOptionButton(),
+          children: generateOptionButton(widget.onTap),
         ),
         const SizedBox(height: 16),
       ],
