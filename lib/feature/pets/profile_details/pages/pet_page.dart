@@ -284,6 +284,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
         closeShareSeppi: () {
           Navigator.pop(context);
         },
+        petProfileId: _petProfileDetails.profileId,
       ),
     );
   }

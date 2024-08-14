@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 String contactEmail = "myemail@gmail.com";
-String sharingLink = "SharingLink.com/id";
+String sharingLink = "https://thatsmydog-ff655.web.app/#/";
 
 void navigatePerSlide(BuildContext context, Widget naviagteTo,
     {int durationMilliseconds = 125, VoidCallback? callback}) {

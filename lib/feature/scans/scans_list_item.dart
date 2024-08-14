@@ -44,7 +44,7 @@ class _ScanItemState extends State<ScanItem> {
                       trailing: IconButton(
                           onPressed: () async {
                             await Clipboard.setData(
-                                ClipboardData(text: sharingLink));
+                                ClipboardData(text: widget.scan.scanIpAddress));
                           },
                           icon: Icon(Icons.copy_rounded)),
                       onTap: () {
