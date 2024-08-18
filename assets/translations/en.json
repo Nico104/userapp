@@ -315,6 +315,8 @@
     "tagSelectionPage_ListTitle": "Your Finma Tags",
     "contact_ShareContact": "Share Contact",
     "addTag_info1": "Add a new Tag by entering your Activation Code. Simply follow the steps below",
+    "addTag_shopinfo1": "In case you dont need have a Tag yet consider buying one",
+    "addTag_shopinfo2": "Shop",
     "settingsMyTags_addTagInfo1": "In order to have a Finma Tag assigned to your Account you have to add it first",
     "deleteAccountTitle1": "Delete Account",
     "deleteAccountButtonLabel1": "Continue",
@@ -405,5 +407,7 @@
     "scansPage_description_2": "Even if someone finds your pet and chooses not to contact you or share their exact location, this information can still be a valuable clue in helping you locate your beloved companion. Every bit of data counts in the search to bring your pet home!",
     "scansPage_description_3": "Please note that the link you share with others when you provide your pet’s information is different from the one on the tag. These scans are only from the tag link and are not affected by anyone you’ve shared your pet’s details with.",
     "scanPageShowIpAddress": "Show IP-Address?",
-    "NoTagsAssignedYet": "No tags are currently assigned to {Karamba}. As a result, {Karamba}'s tag information will not be displayed when the tag is scanned."
+    "NoTagsAssignedYet": "No tags are currently assigned to {Karamba}. As a result, {Karamba}'s tag information will not be displayed when the tag is scanned.",
+    "ShareNoTagTitle": "Sharing Not Available Without Tag",
+    "ShareNoTagLabel": "Please add a tag in {Karamba}'s profile to enable sharing."
 }

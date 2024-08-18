@@ -199,7 +199,7 @@ class _AddFinmaTagHeaderState extends State<AddFinmaTagHeader> {
           ),
           _textEditingController.text.length != activationCodeLength
               ? Padding(
-                  padding: const EdgeInsets.all(32),
+                  padding: const EdgeInsets.all(16),
                   child: Text(
                     widget.subtitle,
                     style: Theme.of(context).textTheme.labelSmall,
@@ -207,7 +207,7 @@ class _AddFinmaTagHeaderState extends State<AddFinmaTagHeader> {
                   ),
                 )
               : Padding(
-                  padding: const EdgeInsets.all(32),
+                  padding: const EdgeInsets.all(16),
                   child: CustomBigButton(
                     label: "addTag_ButtonLabel".tr(),
                     onTap: () {

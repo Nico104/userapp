@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
+import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/general/utils_general.dart';
 
 import '../../general/utils_custom_icons/custom_icons_icons.dart';
@@ -9,10 +11,14 @@ import '../../general/widgets/loading_indicator.dart';
 
 class ShareSeppi extends StatefulWidget {
   const ShareSeppi(
-      {super.key, required this.closeShareSeppi, required this.petProfileId});
+      {super.key,
+      required this.closeShareSeppi,
+      // required this.petProfileId,
+      required this.petProfileDetails});
 
   final VoidCallback closeShareSeppi;
-  final int petProfileId;
+  // final int petProfileId;
+  final PetProfileDetails petProfileDetails;
 
   @override
   State<ShareSeppi> createState() => _ShareSeppiState();
@@ -32,6 +38,28 @@ class _ShareSeppiState extends State<ShareSeppi> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.petProfileDetails.tag.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.all(16),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "ShareNoTagTitle".tr(),
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                "ShareNoTagLabel".tr(
+                    namedArgs: {"Karamba": widget.petProfileDetails.petName}),
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
     return Padding(
       padding: const EdgeInsets.all(16),
       child: !_copying
@@ -45,7 +73,8 @@ class _ShareSeppiState extends State<ShareSeppi> {
                     });
                     await Future.delayed(const Duration(milliseconds: 1000));
                     await Clipboard.setData(ClipboardData(
-                            text: sharingLink + widget.petProfileId.toString()))
+                            text: sharingLink +
+                                widget.petProfileDetails.profileId.toString()))
                         .whenComplete(() => widget.closeShareSeppi());
                   },
                   behavior: HitTestBehavior.opaque,
@@ -84,7 +113,7 @@ class _ShareSeppiState extends State<ShareSeppi> {
                 GestureDetector(
                   onTap: () {
                     Share.share(
-                      'check out my dope dog $sharingLink${widget.petProfileId}',
+                      'check out my dope dog $sharingLink${widget.petProfileDetails.profileId}',
                       subject: 'Look at my dope dog!',
                     ).whenComplete(() => widget.closeShareSeppi());
                   },

@@ -10,6 +10,7 @@ import 'package:userapp/feature/settings/setting_screens/how_to/how_to_dialog.da
 import 'package:userapp/feature/settings/setting_screens/theme_settings/theme_selection_page.dart';
 import 'package:userapp/feature/settings/setting_screens/contact_us/contact_us.dart';
 import 'package:userapp/feature/settings/setting_screens/notifcation_settings/notification_settings.dart';
+import 'package:userapp/general/network_globals.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
 import 'package:userapp/general/widgets/custom_nico_modal.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
@@ -217,7 +218,7 @@ class _SettingsState extends State<Settings> {
                         //   context,
                         //   const ComingSoonPage(title: "Shop"),
                         // );
-                        await launchUrl(Uri.parse("http://finmapet.com"),
+                        await launchUrl(Uri.parse(shopUrl),
                             mode: LaunchMode.externalApplication);
                       },
                     ),

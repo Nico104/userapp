@@ -44,7 +44,8 @@ class ActionButtons extends StatelessWidget {
     } else {
       return ShareSeppi(
         closeShareSeppi: resetNavigationPeppi,
-        petProfileId: petProfileDetails.profileId,
+        // petProfileId: petProfileDetails.profileId,
+        petProfileDetails: petProfileDetails,
       );
     }
   }

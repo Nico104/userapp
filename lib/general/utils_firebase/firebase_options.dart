@@ -48,7 +48,8 @@ class DefaultFirebaseOptions {
     appId: '1:792601770447:web:6df5a9aea81f4178687aba',
     messagingSenderId: '792601770447',
     projectId: 'finma-dbc70',
-    authDomain: 'finma-dbc70.firebaseapp.com',
+    // authDomain: 'finma-dbc70.firebaseapp.com',
+    authDomain: 'auth.tailfur-find.com',
     storageBucket: 'finma-dbc70.appspot.com',
     measurementId: 'G-CSNCRPPEWN',
   );

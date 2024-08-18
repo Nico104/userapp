@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:sizer/sizer.dart';
+import 'package:toastification/toastification.dart';
 import 'package:userapp/general/utils_theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'general/utils_firebase/firebase_options.dart';
@@ -133,14 +134,16 @@ class MyApp extends StatelessWidget {
     return Sizer(
       builder: (context, orientation, deviceType) {
         return Consumer<ThemeNotifier>(builder: (context, theme, _) {
-          return MaterialApp(
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
-            title: 'Finma',
-            debugShowCheckedModeBanner: false,
-            theme: theme.getTheme(),
-            home: const InitApp(),
+          return ToastificationWrapper(
+            child: MaterialApp(
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: context.locale,
+              title: 'Finma',
+              debugShowCheckedModeBanner: false,
+              theme: theme.getTheme(),
+              home: const InitApp(),
+            ),
           );
         });
       },

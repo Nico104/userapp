@@ -11,6 +11,7 @@ import 'package:userapp/feature/navigation_peppi/share_seppi.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
 import 'package:userapp/feature/pets/profile_details/visibility/visibility_menu.dart';
+import 'package:userapp/feature/pets/profile_details/widgets/icon8_link.dart';
 import 'package:userapp/feature/settings/setting_screens/how_to/how_to_dialog.dart';
 
 import '../../../../general/utils_color/hex_color.dart';
@@ -106,7 +107,8 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
         );
       } else {
         toastification.show(
-          title: Text("NoTagsAssignedYet".tr()),
+          title: Text("NoTagsAssignedYet"
+              .tr(namedArgs: {"Karamba": widget.petProfileDetails.petName})),
           autoCloseDuration: const Duration(seconds: 6),
         );
       }
@@ -289,7 +291,8 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
         closeShareSeppi: () {
           Navigator.pop(context);
         },
-        petProfileId: _petProfileDetails.profileId,
+        // petProfileId: _petProfileDetails.profileId,
+        petProfileDetails: _petProfileDetails,
       ),
     );
   }
@@ -1182,6 +1185,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                   const GridSpacing(),
                   const GridSpacing(),
                   const AutoSaveInfo(),
+                  const Icon8Link(),
                   const GridSpacing(),
                   const GridSpacing(),
                 ],
