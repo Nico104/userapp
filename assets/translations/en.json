@@ -404,5 +404,6 @@
     "scansPage_description_1": "Below, you’ll find all the times someone has opened the link on your pet’s tag. The location data shown is based on the IP address of the device used, so please note that the location might not be perfectly accurate as it can be altered or faked.",
     "scansPage_description_2": "Even if someone finds your pet and chooses not to contact you or share their exact location, this information can still be a valuable clue in helping you locate your beloved companion. Every bit of data counts in the search to bring your pet home!",
     "scansPage_description_3": "Please note that the link you share with others when you provide your pet’s information is different from the one on the tag. These scans are only from the tag link and are not affected by anyone you’ve shared your pet’s details with.",
-    "scanPageShowIpAddress": "Show IP-Address?"
+    "scanPageShowIpAddress": "Show IP-Address?",
+    "NoTagsAssignedYet": "No tags are currently assigned to {Karamba}. As a result, {Karamba}'s tag information will not be displayed when the tag is scanned."
 }

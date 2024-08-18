@@ -90,6 +90,8 @@ dependencies:
   grouped_list: ^6.0.0
   timezone: ^0.9.4
   wheel_chooser: ^1.1.2
+  toastification: ^2.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

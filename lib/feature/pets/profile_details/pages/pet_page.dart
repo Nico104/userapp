@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:sizer/sizer.dart';
+import 'package:toastification/toastification.dart';
 import 'package:userapp/feature/navigation_peppi/share_seppi.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_pet_profile.dart';
 import 'package:userapp/feature/pets/profile_details/u_profile_details.dart';
@@ -102,6 +103,11 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
           TagSelectionPage(
             petProfile: _petProfileDetails,
           ),
+        );
+      } else {
+        toastification.show(
+          title: Text("NoTagsAssignedYet".tr()),
+          autoCloseDuration: const Duration(seconds: 6),
         );
       }
       _scrollController.addListener(() {
