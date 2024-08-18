@@ -99,11 +99,11 @@ Future<CroppedFile?> cropFile(String path) async {
       AndroidUiSettings(
         showCropGrid: false,
         toolbarTitle: 'newPicture_cropper'.tr(),
-        toolbarColor: Colors.grey,
+        toolbarColor: Colors.white70,
         toolbarWidgetColor: Colors.black,
         activeControlsWidgetColor: Colors.black,
         backgroundColor: Colors.black,
-        cropFrameColor: Colors.grey,
+        cropFrameColor: Colors.white70,
         cropFrameStrokeWidth: 6,
         hideBottomControls: true,
         lockAspectRatio: false,

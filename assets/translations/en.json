@@ -392,6 +392,8 @@
     "tutorial_Title_Notifications": "Notifications",
     "tutorial_Description_Notifications": "In the Settings page, find the Notifications section. Here, you can toggle which notifications you want to receive and deactivate any you prefer not to get.",
     "tutorial_imageDescription_Notifications": "Tailfur Settings",
+    "tutorial_Next": "Next",
+    "tutorial_Done": "Done",
     "shareContactText_Contact_Name": "Contact Name",
     "shareContactText_Address": "Address",
     "shareContactText_Email": "Email",

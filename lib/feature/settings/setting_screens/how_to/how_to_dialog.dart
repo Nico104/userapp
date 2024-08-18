@@ -171,7 +171,9 @@ class _HowToDialogState extends State<HowToDialog> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 12, horizontal: 24),
                           child: Text(
-                            !isLastPage() ? "Next" : "Done",
+                            !isLastPage()
+                                ? "tutorial_Next".tr()
+                                : "tutorial_Done".tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .labelLarge

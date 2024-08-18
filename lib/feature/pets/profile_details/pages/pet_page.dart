@@ -215,7 +215,6 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
             ).then((value) {
               if (value != null) {
                 if (value == true) {
-                  //TODO test delete from settings menu because of the refresh Profiles on pop()
                   deletePetProfile(_petProfileDetails).then((value) {
                     Navigator.pop(context);
                   });
@@ -325,6 +324,9 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
           slivers: <Widget>[
             widget.showAppbar
                 ? SliverAppBar(
+                    // forceElevated: true,
+                    // elevation: 10,
+                    // scrolledUnderElevation: 4,
                     pinned: true,
                     stretch: true,
                     expandedHeight: 140.0,
@@ -387,7 +389,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                 child: Stack(
                                   children: [
                                     Align(
-                                      alignment: Alignment(-1.2, 0.6),
+                                      alignment: const Alignment(-1.2, 0.6),
                                       child: Image.asset(
                                         "assets/details_illustartions/privacy.png",
                                         scale: 2.5,

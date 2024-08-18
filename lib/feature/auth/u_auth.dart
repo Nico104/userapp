@@ -141,9 +141,34 @@ Future<void> responsiveFeelGoodWait(int milliseconds) async {
 Future<void> logout() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.remove('DisplayName');
+
+  await prefs.remove(
+    'access_token',
+  );
   // await firebaseAuth.signOut();
   // await googleSignIn.disconnect();
+  // await firebaseAuth.signOut();
+
+  // try {
+  //   await googleSignIn.disconnect();
+  // } catch (error) {
+  //   print("Google Sign-Out Error: $error");
+  // }
+
+  // final GoogleSignIn googleSignIn = GoogleSignIn();
+  // await googleSignIn.signOut();
+
+  SignInProviderId? providerId = getLoggedInUserProviderId();
+
+  if (providerId != null) {
+    if (providerId == SignInProviderId.google) {
+      await googleSignIn.disconnect();
+      await googleSignIn.signOut();
+    }
+  }
+
   await firebaseAuth.signOut();
+  // await googleSignIn.signOut();
 
   // SignInProviderId? providerId = getLoggedInUserProviderId();
   // if (providerId != null && providerId == SignInProviderId.google) {
@@ -489,7 +514,8 @@ Future<int> changeEmail(String currentPassword, String newEmail) async {
     try {
       await user.reauthenticateWithCredential(cred);
       //TODO verify
-      await user.updateEmail(newEmail);
+      // await user.updateEmail(newEmail);
+      await user.verifyBeforeUpdateEmail(newEmail);
       print("success");
       return 0;
     } on firebase_auth.FirebaseAuthException catch (e) {

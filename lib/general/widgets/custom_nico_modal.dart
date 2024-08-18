@@ -57,7 +57,7 @@ void showCustomNicoModalBottomSheet({
 
 void showCustomNicoLoadingModalBottomSheet({
   required BuildContext context,
-  required Future<dynamic> future,
+  required Future<dynamic>? future,
   required Function(dynamic) callback,
 }) {
   BuildContext? dialogContext;
@@ -89,12 +89,15 @@ void showCustomNicoLoadingModalBottomSheet({
       // );
     },
   );
-  future.then(
-    (value) {
-      Navigator.pop(dialogContext!);
-      callback(value);
-    },
-  );
+  if (future != null) {
+    future.then(
+      (value) {
+        Navigator.pop(dialogContext!);
+        callback(value);
+      },
+    );
+  }
+
   // createHealthIssue(
   //   healthIssueName: "New Health Information",
   //   healthIssueType: "Misc",

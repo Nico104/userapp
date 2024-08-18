@@ -123,25 +123,25 @@ class _AccountSettingsState extends State<AccountSettings> {
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 28),
-                      SettingsItem(
-                        label: "settingsAccountInformationName".tr(),
-                        leading: const Icon(Icons.person),
-                        suffix: const Icon(Icons.keyboard_arrow_right),
-                        suffixText: snapshot.data[0],
-                        onTap: () {
-                          navigatePerSlide(
-                            context,
-                            UpdateNamePage(
-                              currentName: snapshot.data[0],
-                            ),
-                            callback: () {
-                              //reload Current Name
-                              setState(() {});
-                            },
-                          );
-                        },
-                      ),
-                      const SizedBox(height: settingItemSpacing),
+                      // SettingsItem(
+                      //   label: "settingsAccountInformationName".tr(),
+                      //   leading: const Icon(Icons.person),
+                      //   suffix: const Icon(Icons.keyboard_arrow_right),
+                      //   suffixText: snapshot.data[0],
+                      //   onTap: () {
+                      //     navigatePerSlide(
+                      //       context,
+                      //       UpdateNamePage(
+                      //         currentName: snapshot.data[0],
+                      //       ),
+                      //       callback: () {
+                      //         //reload Current Name
+                      //         setState(() {});
+                      //       },
+                      //     );
+                      //   },
+                      // ),
+                      // const SizedBox(height: settingItemSpacing),
                       _getAccountSettings(),
                     ],
                   ),

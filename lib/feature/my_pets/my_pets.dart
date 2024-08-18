@@ -122,8 +122,6 @@ class _MyPetsState extends State<MyPets> {
                     .petPictureLink;
           });
         } else {
-          //TODO reserve doggo pic
-
           setState(() {
             bglink = getfallbackBGImageLink(pageindex.round());
           });

@@ -51,7 +51,7 @@ class _CustomNicoScrollViewState extends State<CustomNicoScrollView> {
             // forceMaterialTransparency: true,
             // surfaceTintColor: Colors.transparent,
             // surfaceTintColor: Colors.transparent,
-
+            scrolledUnderElevation: 4,
             pinned: true,
             stretch: true,
             expandedHeight: widget.expandedHeight,

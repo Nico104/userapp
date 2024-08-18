@@ -84,7 +84,13 @@ class _ScanItemState extends State<ScanItem> {
               style: Theme.of(context).textTheme.labelLarge,
             ),
             subtitle: Text(
-              DateFormat('yyyy-MM-dd – kk:mm').format(widget.scan.scanDateTime),
+              // DateFormat('yyyy-MM-dd – kk:mm').format(widget.scan.scanDateTime),
+              DateFormat('yyyy-MM-dd – kk:mm')
+                  .format(widget.scan.scanDateTime.toLocal()),
+              // DateFormat('yyyy-MM-dd – kk:mm')
+              //     .parse(widget.scan.scanDateTime, true)
+              //     .toLocal()
+              //     .toString(),
               style: Theme.of(context).textTheme.labelMedium,
             ),
             trailing: const Icon(Icons.arrow_forward),

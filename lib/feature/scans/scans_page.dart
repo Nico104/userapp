@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:sizer/sizer.dart';
+import 'package:userapp/feature/scans/choose_timezone.dart';
 import 'package:userapp/feature/scans/scans_list_item.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -115,6 +116,14 @@ class _ScansPageState extends State<ScansPage> {
                                 ),
                                 textAlign: TextAlign.center,
                               ),
+                              const SizedBox(height: 8),
+                              // InkWell(
+                              //   onTap: () {
+                              //     showChooseTimeZoneDialog(context);
+                              //   },
+                              //   child: Text("Time: +1"),
+                              // ),
+                              const SizedBox(height: 8),
                               const SizedBox(height: 42),
                               GroupedListView<Scan, DateTime>(
                                 physics: NeverScrollableScrollPhysics(),

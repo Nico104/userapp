@@ -11,7 +11,9 @@ import 'package:userapp/feature/settings/setting_screens/theme_settings/theme_se
 import 'package:userapp/feature/settings/setting_screens/contact_us/contact_us.dart';
 import 'package:userapp/feature/settings/setting_screens/notifcation_settings/notification_settings.dart';
 import 'package:userapp/general/utils_custom_icons/custom_icons_icons.dart';
+import 'package:userapp/general/widgets/custom_nico_modal.dart';
 import 'package:userapp/general/widgets/custom_scroll_view.dart';
+import 'package:userapp/general/widgets/loading_indicator.dart';
 
 import '../../general/utils_theme/theme_provider.dart';
 import '../../init_app.dart';
@@ -315,6 +317,25 @@ class _SettingsState extends State<Settings> {
                   ),
                   suffix: const Icon(Icons.keyboard_arrow_right),
                   onTap: () async {
+                    BuildContext context2 = context;
+                    showCustomNicoLoadingModalBottomSheet(
+                      context: context2,
+                      future: null,
+                      callback: (p0) {},
+                    );
+                    // showNicoModalBottomSheet(
+                    //     context: context2,
+                    //     backgroundColor: Colors.transparent,
+                    //     builder: (context) {
+                    //       return const Center(
+                    //         child: SizedBox(
+                    //           width: 40,
+                    //           height: 40,
+                    //           child: CustomLoadingIndicatior(),
+                    //         ),
+                    //       );
+                    //     });
+
                     if (!kIsWeb) {
                       if (Platform.isAndroid || Platform.isIOS) {
                         firebaseMessaging.FirebaseMessaging messaging =
@@ -331,11 +352,16 @@ class _SettingsState extends State<Settings> {
 
                     logout().then(
                       (value) {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const InitApp()),
-                            (route) => false);
+                        Future.delayed(Durations.short4).then(
+                          (value) {
+                            Navigator.pop(context2);
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const InitApp()),
+                                (route) => false);
+                          },
+                        );
                       },
                     );
                   },
