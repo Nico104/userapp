@@ -159,6 +159,12 @@ class _SettingsState extends State<Settings> {
                             if (value is Language) {
                               await context
                                   .setLocale(Locale(value.languageKey));
+                              //For Notification
+                              // updateUserAppLanguageBackendSync(
+                              //     value.languageKey);
+                              updateUserAppLanguageBackendSync(
+                                  context.locale.toString());
+
                               //Wait otherwise Language doesnt update .tr()
                               await Future.delayed(
                                   const Duration(milliseconds: 125));

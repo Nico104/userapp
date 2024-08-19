@@ -409,5 +409,8 @@
     "scanPageShowIpAddress": "Show IP-Address?",
     "NoTagsAssignedYet": "No tags are currently assigned to {Karamba}. As a result, {Karamba}'s tag information will not be displayed when the tag is scanned.",
     "ShareNoTagTitle": "Sharing Not Available Without Tag",
-    "ShareNoTagLabel": "Please add a tag in {Karamba}'s profile to enable sharing."
+    "ShareNoTagLabel": "Please add a tag in {Karamba}'s profile to enable sharing.",
+    "futureErrorTitle": "Oops....",
+    "futureErrorLabel": "There is a connection error. Please check your internet and try again",
+    "futureErrorButtonLabel": "Try again"
 }

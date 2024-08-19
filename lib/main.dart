@@ -51,13 +51,14 @@ void main() async {
 
   runApp(
     EasyLocalization(
+      useOnlyLangCode: true,
       supportedLocales: const [
         Locale('en'),
         Locale('de'),
         Locale('it'),
-        Locale('hu'),
-        Locale('no'),
-        Locale('fr'),
+        // Locale('hu'),
+        // Locale('no'),
+        // Locale('fr'),
       ],
       path:
           'assets/translations', // <-- change the path of the translation files

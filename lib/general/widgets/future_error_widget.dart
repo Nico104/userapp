@@ -1,5 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/general/widgets/shy_button.dart';
+
+//TODO localiization
 
 class FutureErrorWidget extends StatelessWidget {
   const FutureErrorWidget({super.key, this.error});
@@ -11,11 +14,15 @@ class FutureErrorWidget extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          const Spacer(),
+          const Spacer(
+            flex: 2,
+          ),
           Image.asset("assets/tmp/connection_lost.png"),
-          const Spacer(),
+          const Spacer(
+            flex: 2,
+          ),
           Text(
-            "No internet connection",
+            "futureErrorTitle".tr(),
             style: Theme.of(context).textTheme.titleMedium,
           ),
           Text(
@@ -24,7 +31,7 @@ class FutureErrorWidget extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            "Please check you internet connection and try again",
+            "futureErrorLabel".tr(),
             style: Theme.of(context).textTheme.labelMedium,
             textAlign: TextAlign.center,
           ),
@@ -34,9 +41,9 @@ class FutureErrorWidget extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
             },
-            label: "Try again",
+            label: "futureErrorButtonLabel".tr(),
           ),
-          const Spacer(),
+          SizedBox(height: 16),
         ],
       ),
     );

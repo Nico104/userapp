@@ -1,5 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/feature/auth/u_auth.dart';
 import 'package:userapp/feature/my_pets/my_pets.dart';
+import 'package:userapp/feature/onboarding/onboarding_page.dart';
+import 'package:userapp/feature/settings/setting_screens/how_to/how_to_dialog.dart';
 import '../../general/widgets/future_error_widget.dart';
 import '../../general/widgets/loading_indicator.dart';
 import 'u_pets.dart';
@@ -20,6 +24,40 @@ class _PetsLoadingState extends State<PetsLoading> {
   void rebuildFuture() {
     print("reload");
     setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getSeenOnboarding().then((value) {
+        if (!value) {
+          // navigatePerSlide(
+          //   context,
+          //   const OnBoarding(),
+          //   callback: () async {
+          //     await setSeenOnboarding(true);
+          //   },
+          // );
+          Navigator.of(context)
+              .push(PageRouteBuilder(
+                  opaque: false,
+                  pageBuilder: (BuildContext context, _, __) {
+                    return const HowToDialog();
+                  }))
+              .then(
+            (value) async {
+              await setSeenOnboarding(true);
+            },
+          );
+        }
+      });
+
+      print("Changed to" + context.locale.toString());
+      //TODO remove this and add a intial asking for language
+      updateUserAppLanguageBackendSync(context.locale.toString());
+    });
   }
 
   @override

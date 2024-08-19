@@ -26,6 +26,7 @@ Future<String?> getIdToken() async {
 ///Return true if the User is Authenticated
 Future<bool> isAuthenticated() async {
   var url = Uri.parse('$baseURL/protected');
+  // var url = Uri.https('85.208.51.194:3000/protected');
   String? token = await getIdToken();
   if (token == null) {
     return false;
@@ -33,6 +34,7 @@ Future<bool> isAuthenticated() async {
 
   //? Could potentially put Name in here
 
+  print("Token: " + token.toString());
   final response = await http.get(url, headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
@@ -916,4 +918,30 @@ SignInProviderId? getLoggedInUserProviderId() {
     }
   }
   return null;
+}
+
+//For correct Notification Language
+Future<bool> updateUserAppLanguageBackendSync(String lang_key) async {
+  var url = Uri.parse('$baseURL/user/updateUserAppLanguage');
+  String? token = await getIdToken();
+
+  print("TokenU: " + token.toString());
+
+  final response = await http.post(url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': '$token',
+      },
+      body: json.encode(<String, String>{
+        "lang_key": lang_key,
+      }));
+
+  print(response.body);
+
+  if (response.statusCode == 201) {
+    return true;
+  } else {
+    throw false;
+  }
 }

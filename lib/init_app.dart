@@ -1,9 +1,11 @@
 import 'dart:io' show Platform;
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/feature/auth/sign_up_screen/sign_up_screen.dart';
+import 'package:userapp/feature/settings/setting_screens/how_to/how_to_dialog.dart';
 import 'package:userapp/general/utils_general.dart';
 import 'feature/auth/login_screen.dart';
 import 'feature/auth/u_auth.dart';
@@ -121,21 +123,6 @@ class _InitAppState extends State<InitApp> {
 
     //Messaging
     _initMessaging();
-
-    //TODO solve how to mka eon boarding screen
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   getSeenOnboarding().then((value) {
-    //     if (!value) {
-    //       navigatePerSlide(
-    //         context,
-    //         const OnBoarding(),
-    //         callback: () async {
-    //           await setSeenOnboarding(true);
-    //         },
-    //       );
-    //     }
-    //   });
-    // });
   }
 
   @override
