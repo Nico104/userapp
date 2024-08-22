@@ -58,6 +58,7 @@ class _AccountSettingsState extends State<AccountSettings> {
             mainAxisSize: MainAxisSize.min,
             children: [
               SettingsItem(
+                maxLines: 1,
                 label: "settingsAccountInformationEmail".tr(),
                 leading: const Icon(Icons.email_outlined),
                 suffix: const Icon(Icons.keyboard_arrow_right),
@@ -75,6 +76,7 @@ class _AccountSettingsState extends State<AccountSettings> {
               ),
               const SizedBox(height: settingItemSpacing),
               SettingsItem(
+                maxLines: 1,
                 label: "settingsAccountInformationPassword".tr(),
                 leading: const Icon(Icons.password_outlined),
                 suffix: const Icon(Icons.keyboard_arrow_right),

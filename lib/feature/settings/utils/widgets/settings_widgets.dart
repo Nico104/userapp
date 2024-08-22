@@ -12,6 +12,7 @@ class SettingsItem extends StatelessWidget {
     required this.suffix,
     this.onTap,
     this.suffixText,
+    this.maxLines,
   });
 
   final String label;
@@ -19,6 +20,7 @@ class SettingsItem extends StatelessWidget {
   final Widget? suffix;
   final String? suffixText;
   final Function()? onTap;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class SettingsItem extends StatelessWidget {
                 wrapWords: true,
                 // style: settingsItem,
                 style: Theme.of(context).textTheme.labelMedium,
-                // maxLines: 1,
+                maxLines: maxLines,
                 // maxFontSize: Theme.of(context).textTheme.labelMedium!.fontSize!,
               ),
             ),

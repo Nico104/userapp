@@ -282,7 +282,7 @@
     "myTags_OptionRemoveTag": "Remove Finma Tag",
     "confirmDelete_Tag": "Finma Tag",
     "myTags_InUse": "Currently on {Karamba}",
-    "myTags_NotInUse": "No furry friend has the honor",
+    "myTags_NotInUse": "Not assigned to any pet",
     "notificationEmailSettings_1_title": "Scanned Tag",
     "notificationEmailSettings_1_description": "Get Email as soon as one of your Tags has been scanned",
     "notificationEmailSettings_2_title": "New Item in Shop",
