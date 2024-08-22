@@ -56,7 +56,7 @@ void main() async {
         Locale('en'),
         Locale('de'),
         Locale('it'),
-        // Locale('hu'),
+        Locale('hu'),
         // Locale('no'),
         // Locale('fr'),
       ],
@@ -131,7 +131,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // context.setLocale(Locale('de'));
+    context.setLocale(Locale('hu'));
     return Sizer(
       builder: (context, orientation, deviceType) {
         return Consumer<ThemeNotifier>(builder: (context, theme, _) {

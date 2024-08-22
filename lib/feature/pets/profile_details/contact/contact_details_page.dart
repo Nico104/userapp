@@ -178,6 +178,12 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
         title: Text('appBarContactDetails'
             .tr(namedArgs: {'Karamba': _contact.contactName})),
         scrolledUnderElevation: 8,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: _getMoreButton(),
+          ),
+        ],
       ),
       body: GestureDetector(
         onTap: () {
@@ -190,7 +196,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
             slivers: [
               SliverAppBar(
                 automaticallyImplyLeading: false,
-                expandedHeight: 400,
+                // expandedHeight: 400,
                 stretch: true,
                 flexibleSpace: FlexibleSpaceBar(
                   collapseMode: CollapseMode.pin,
@@ -200,131 +206,132 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Spacer(
-                          flex: 2,
-                        ),
-                        ContactPicture(
-                          contactPictureLink: _contact.contactPictureLink,
-                          addContactPicture: (value) async {
-                            //Loading Dialog Thingy
-                            BuildContext? dialogContext;
-                            showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (BuildContext context) {
-                                dialogContext = context;
-                                return const UploadPictureDialog();
-                              },
-                            );
-                            await uploadContactPicture(
-                              _contact.contactId,
-                              value,
-                              () async {
-                                // widget.reloadFuture.call();
-                                //hekps against 403 from server
-                                await Future.delayed(
-                                        const Duration(milliseconds: 2000))
-                                    .then((value) {
-                                  reloadContact();
-                                });
-                                //Close Loading Dialog Thingy
-                                Navigator.pop(dialogContext!);
-                              },
-                            );
-                          },
-                          onDelete: () {
-                            if (_contact.contactPictureLink != null) {
-                              deleteContactPicture(
-                                _contact.contactId,
-                                _contact.contactPictureLink!,
-                              ).then((value) {
-                                // widget.reloadFuture.call();
-                                // refresh();
-                                reloadContact();
-                              });
-                            }
-                          },
-                        ),
+                        // const Spacer(
+                        //   flex: 2,
+                        // ),
+                        // ContactPicture(
+                        //   contactPictureLink: _contact.contactPictureLink,
+                        //   addContactPicture: (value) async {
+                        //     //Loading Dialog Thingy
+                        //     BuildContext? dialogContext;
+                        //     showDialog(
+                        //       context: context,
+                        //       barrierDismissible: false,
+                        //       builder: (BuildContext context) {
+                        //         dialogContext = context;
+                        //         return const UploadPictureDialog();
+                        //       },
+                        //     );
+                        //     await uploadContactPicture(
+                        //       _contact.contactId,
+                        //       value,
+                        //       () async {
+                        //         // widget.reloadFuture.call();
+                        //         //hekps against 403 from server
+                        //         await Future.delayed(
+                        //                 const Duration(milliseconds: 2000))
+                        //             .then((value) {
+                        //           reloadContact();
+                        //         });
+                        //         //Close Loading Dialog Thingy
+                        //         Navigator.pop(dialogContext!);
+                        //       },
+                        //     );
+                        //   },
+                        //   onDelete: () {
+                        //     if (_contact.contactPictureLink != null) {
+                        //       deleteContactPicture(
+                        //         _contact.contactId,
+                        //         _contact.contactPictureLink!,
+                        //       ).then((value) {
+                        //         // widget.reloadFuture.call();
+                        //         // refresh();
+                        //         reloadContact();
+                        //       });
+                        //     }
+                        //   },
+                        // ),
                         // const SizedBox(height: 36),
-                        const Spacer(
-                          flex: 3,
-                        ),
+                        // const Spacer(
+                        //   flex: 1,
+                        // ),
                         //Name
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          // mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Spacer(),
-                            Text(
-                              _contact.contactName,
-                              style: getCustomTextStyles(context)
-                                  .profileDetailsPetName,
-                            ),
-                            Expanded(
-                              child: Align(
-                                alignment: Alignment.topLeft,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (_) => EnterNameDialog(
-                                        initialValue: _contact.contactName,
-                                        title:
-                                            "contactDetailsChangeContactNameTitle"
-                                                .tr(),
-                                        hint:
-                                            "contactDetailsChangeContactNameHint"
-                                                .tr(),
-                                        confirmLabel:
-                                            "contactDetailsSaveContactNameLabel"
-                                                .tr(),
-                                      ),
-                                    ).then((value) {
-                                      if (value != null) {
-                                        _contact.contactName = value;
-                                        updateContact(_contact);
-                                        setState(() {});
-                                      }
-                                    });
-                                  },
-                                  child: const Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 14, bottom: 14, right: 14),
-                                    child: Icon(
-                                      CustomIcons.edit_square,
-                                      size: 18,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+                        // Row(
+                        //   crossAxisAlignment: CrossAxisAlignment.start,
+                        //   // mainAxisSize: MainAxisSize.min,
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     const Spacer(),
+                        //     Text(
+                        //       _contact.contactName,
+                        //       style: getCustomTextStyles(context)
+                        //           .profileDetailsPetName,
+                        //     ),
+                        //     Expanded(
+                        //       child: Align(
+                        //         alignment: Alignment.topLeft,
+                        //         child: GestureDetector(
+                        //           onTap: () {
+                        //             showDialog(
+                        //               context: context,
+                        //               builder: (_) => EnterNameDialog(
+                        //                 initialValue: _contact.contactName,
+                        //                 title:
+                        //                     "contactDetailsChangeContactNameTitle"
+                        //                         .tr(),
+                        //                 hint:
+                        //                     "contactDetailsChangeContactNameHint"
+                        //                         .tr(),
+                        //                 confirmLabel:
+                        //                     "contactDetailsSaveContactNameLabel"
+                        //                         .tr(),
+                        //               ),
+                        //             ).then((value) {
+                        //               if (value != null) {
+                        //                 _contact.contactName = value;
+                        //                 updateContact(_contact);
+                        //                 setState(() {});
+                        //               }
+                        //             });
+                        //           },
+                        //           child: const Padding(
+                        //             padding: EdgeInsets.only(
+                        //                 left: 14, bottom: 14, right: 14),
+                        //             child: Icon(
+                        //               CustomIcons.edit_square,
+                        //               size: 18,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     )
+                        //   ],
+                        // ),
+                        // const SizedBox(height: 36),
                         // const SizedBox(height: 22),
-                        const Spacer(
-                          flex: 2,
-                        ),
-                        Row(
-                          children: [
-                            const Spacer(),
-                            // ContactDescriptionComponent(
-                            //   contact: _contact,
-                            // ),
-                            Flexible(
-                              child: Align(
-                                alignment: Alignment.centerRight,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 16),
-                                  child: _getMoreButton(),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Spacer(
-                          flex: 2,
-                        ),
+                        // const Spacer(
+                        //   flex: 2,
+                        // ),
+                        // Row(
+                        //   children: [
+                        //     const Spacer(),
+                        //     // ContactDescriptionComponent(
+                        //     //   contact: _contact,
+                        //     // ),
+                        //     Flexible(
+                        //       child: Align(
+                        //         alignment: Alignment.centerRight,
+                        //         child: Padding(
+                        //           padding: const EdgeInsets.only(right: 16),
+                        //           child: _getMoreButton(),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                        // const Spacer(
+                        //   flex: 1,
+                        // ),
                       ],
                     ),
                   ),
@@ -333,6 +340,62 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
               SliverList(
                 delegate: SliverChildListDelegate(
                   [
+                    const SizedBox(height: 36),
+                    // const Spacer(
+                    //   flex: 1,
+                    // ),
+                    //Name
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      // mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Spacer(),
+                        Text(
+                          _contact.contactName,
+                          style: getCustomTextStyles(context)
+                              .profileDetailsPetName,
+                        ),
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (_) => EnterNameDialog(
+                                    initialValue: _contact.contactName,
+                                    title:
+                                        "contactDetailsChangeContactNameTitle"
+                                            .tr(),
+                                    hint: "contactDetailsChangeContactNameHint"
+                                        .tr(),
+                                    confirmLabel:
+                                        "contactDetailsSaveContactNameLabel"
+                                            .tr(),
+                                  ),
+                                ).then((value) {
+                                  if (value != null) {
+                                    _contact.contactName = value;
+                                    updateContact(_contact);
+                                    setState(() {});
+                                  }
+                                });
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.only(
+                                    left: 14, bottom: 14, right: 14),
+                                child: Icon(
+                                  CustomIcons.edit_square,
+                                  size: 18,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 36),
                     PaddingComponent(
                       child: OnelineSimpleInput(
                         flex: 8,
