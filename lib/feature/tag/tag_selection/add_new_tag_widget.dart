@@ -116,6 +116,7 @@ class _AddFinmaTagHeaderState extends State<AddFinmaTagHeader> {
                 children: [
                   Expanded(
                     child: CustomTextFormField(
+                      keyboardType: TextInputType.number,
                       borderRadius: 48,
                       showSuffix: false,
                       expands: true,

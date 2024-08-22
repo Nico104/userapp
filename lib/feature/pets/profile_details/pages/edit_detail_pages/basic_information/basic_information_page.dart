@@ -77,31 +77,32 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                 },
               ),
             ),
-            PaddingComponent(
-              child: OnelineSimpleInput(
-                flex: 7,
-                value: widget.petProfileDetails.pet_licenceID ?? "",
-                emptyValuePlaceholder:
-                    "basicInformationPage_licensenumbers".tr(),
-                title: "basicInformationPage_licensenumbers".tr(),
-                saveValue: (val) async {
-                  widget.petProfileDetails.pet_licenceID = val;
-                  updatePetProfileCore(widget.petProfileDetails);
-                },
-              ),
-            ),
-            PaddingComponent(
-              child: OnelineSimpleInput(
-                flex: 7,
-                value: widget.petProfileDetails.petChipId ?? "",
-                emptyValuePlaceholder: "basicInformationPage_tattooID".tr(),
-                title: "basicInformationPage_tattooID".tr(),
-                saveValue: (val) async {
-                  widget.petProfileDetails.pet_tattooID = val;
-                  updatePetProfileCore(widget.petProfileDetails);
-                },
-              ),
-            ),
+            //? Eszti hot gsog brauchts net
+            // PaddingComponent(
+            //   child: OnelineSimpleInput(
+            //     flex: 7,
+            //     value: widget.petProfileDetails.pet_licenceID ?? "",
+            //     emptyValuePlaceholder:
+            //         "basicInformationPage_licensenumbers".tr(),
+            //     title: "basicInformationPage_licensenumbers".tr(),
+            //     saveValue: (val) async {
+            //       widget.petProfileDetails.pet_licenceID = val;
+            //       updatePetProfileCore(widget.petProfileDetails);
+            //     },
+            //   ),
+            // ),
+            // PaddingComponent(
+            //   child: OnelineSimpleInput(
+            //     flex: 7,
+            //     value: widget.petProfileDetails.petChipId ?? "",
+            //     emptyValuePlaceholder: "basicInformationPage_tattooID".tr(),
+            //     title: "basicInformationPage_tattooID".tr(),
+            //     saveValue: (val) async {
+            //       widget.petProfileDetails.pet_tattooID = val;
+            //       updatePetProfileCore(widget.petProfileDetails);
+            //     },
+            //   ),
+            // ),
 
             PaddingComponent(
               child: PetGenderComponent(
@@ -235,7 +236,7 @@ class _BasicInformationPageState extends State<BasicInformationPage> {
                       ),
                       PaddingComponent(
                         child: MultiOptionButton(
-                          title: "Good with Kids",
+                          title: "basicInformationPage_goodWithKids".tr(),
                           initialActiveIndex:
                               getIndex(behaviourInformation.goodWithKids),
                           options: [

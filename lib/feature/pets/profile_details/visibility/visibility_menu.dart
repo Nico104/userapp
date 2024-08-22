@@ -111,9 +111,11 @@ class _VisibilityMenuState extends State<VisibilityMenu> {
                           ),
                           const SizedBox(height: 42),
                           NotificationSettingsItem(
-                            label: "Hide Contacts",
-                            description:
-                                "Hides Contacts for people getting on ${widget.petProfileDetails.petName}'s profile",
+                            label: "VisibilityHideContactsTitle".tr(),
+                            description: "VisibilityHideContactsLabel".tr(
+                                namedArgs: {
+                                  'Karamba': widget.petProfileDetails.petName
+                                }),
                             value: widget.petProfileDetails.hide_contacts,
                             setValue: (value) {
                               setState(() {
@@ -125,9 +127,11 @@ class _VisibilityMenuState extends State<VisibilityMenu> {
                           ),
                           const SizedBox(height: 32),
                           NotificationSettingsItem(
-                            label: "Hide Informations",
-                            description:
-                                "Hides Informations for people getting on ${widget.petProfileDetails.petName}'s profile",
+                            label: "VisibilityHideInformationTitle".tr(),
+                            description: "VisibilityHideInformationLabel".tr(
+                                namedArgs: {
+                                  'Karamba': widget.petProfileDetails.petName
+                                }),
                             value: widget.petProfileDetails.hide_information,
                             setValue: (value) {
                               setState(() {
@@ -140,9 +144,11 @@ class _VisibilityMenuState extends State<VisibilityMenu> {
                           ),
                           const SizedBox(height: 32),
                           NotificationSettingsItem(
-                            label: "Hide Medical Informations",
-                            description:
-                                "Hides Medical Informations for people getting on ${widget.petProfileDetails.petName}'s profile",
+                            label: "VisibilityHideMedicalsTitle".tr(),
+                            description: "VisibilityHideMedicalsLabel".tr(
+                                namedArgs: {
+                                  'Karamba': widget.petProfileDetails.petName
+                                }),
                             value: widget.petProfileDetails.hide_medical,
                             setValue: (value) {
                               setState(() {
@@ -154,9 +160,11 @@ class _VisibilityMenuState extends State<VisibilityMenu> {
                           ),
                           const SizedBox(height: 32),
                           NotificationSettingsItem(
-                            label: "Hide Pictures",
-                            description:
-                                "Hides Pictures for people getting on ${widget.petProfileDetails.petName}'s profile",
+                            label: "VisibilityHidePicturesTitle".tr(),
+                            description: "VisibilityHidePicturesLabel".tr(
+                                namedArgs: {
+                                  'Karamba': widget.petProfileDetails.petName
+                                }),
                             value: widget.petProfileDetails.hide_pictures,
                             setValue: (value) {
                               setState(() {
@@ -168,9 +176,11 @@ class _VisibilityMenuState extends State<VisibilityMenu> {
                           ),
                           const SizedBox(height: 32),
                           NotificationSettingsItem(
-                            label: "Hide Description",
-                            description:
-                                "Hides Description for people getting on ${widget.petProfileDetails.petName}'s profile",
+                            label: "VisibilityHideDescriptionTitle".tr(),
+                            description: "VisibilityHideDescriptionLabel".tr(
+                                namedArgs: {
+                                  'Karamba': widget.petProfileDetails.petName
+                                }),
                             value: widget.petProfileDetails.hide_description,
                             setValue: (value) {
                               setState(() {
@@ -183,9 +193,11 @@ class _VisibilityMenuState extends State<VisibilityMenu> {
                           ),
                           const SizedBox(height: 32),
                           NotificationSettingsItem(
-                            label: "Hide Documents",
-                            description:
-                                "Hides Documents for people getting on ${widget.petProfileDetails.petName}'s profile",
+                            label: "VisibilityHideDocumentsTitle".tr(),
+                            description: "VisibilityHideDocumentsLabel".tr(
+                                namedArgs: {
+                                  'Karamba': widget.petProfileDetails.petName
+                                }),
                             value: widget.petProfileDetails.hide_documents,
                             setValue: (value) {
                               setState(() {
@@ -227,9 +239,11 @@ class _VisibilityMenuState extends State<VisibilityMenu> {
                             onTap: () => showVisibilityOption(context),
                             child: IgnorePointer(
                               child: NotificationSettingsItem(
-                                label: "Hide Contacts",
-                                description:
-                                    "Hides Contacts for people getting on ${widget.petProfileDetails.petName}'s profile",
+                                label: "VisibilityHideContactsTitle".tr(),
+                                description: "VisibilityHideContactsLabel"
+                                    .tr(namedArgs: {
+                                  'Karamba': widget.petProfileDetails.petName
+                                }),
                                 value:
                                     widget.petProfileDetails.scan_hide_contacts,
                                 setValue: (value) {
@@ -247,9 +261,11 @@ class _VisibilityMenuState extends State<VisibilityMenu> {
                           ),
                           const SizedBox(height: 32),
                           NotificationSettingsItem(
-                            label: "Hide Informations",
-                            description:
-                                "Hides Informations for people getting on ${widget.petProfileDetails.petName}'s profile",
+                            label: "VisibilityHideInformationTitle".tr(),
+                            description: "VisibilityHideInformationLabel".tr(
+                                namedArgs: {
+                                  'Karamba': widget.petProfileDetails.petName
+                                }),
                             value:
                                 widget.petProfileDetails.scan_hide_information,
                             setValue: (value) {
@@ -264,9 +280,11 @@ class _VisibilityMenuState extends State<VisibilityMenu> {
                           ),
                           const SizedBox(height: 32),
                           NotificationSettingsItem(
-                            label: "Hide Medical Informations",
-                            description:
-                                "Hides Medical Informations for people getting on ${widget.petProfileDetails.petName}'s profile",
+                            label: "VisibilityHideMedicalsTitle".tr(),
+                            description: "VisibilityHideMedicalsLabel".tr(
+                                namedArgs: {
+                                  'Karamba': widget.petProfileDetails.petName
+                                }),
                             value: widget.petProfileDetails.scan_hide_medical,
                             setValue: (value) {
                               setState(() {
@@ -279,9 +297,11 @@ class _VisibilityMenuState extends State<VisibilityMenu> {
                           ),
                           const SizedBox(height: 32),
                           NotificationSettingsItem(
-                            label: "Hide Pictures",
-                            description:
-                                "Hides Pictures for people getting on ${widget.petProfileDetails.petName}'s profile",
+                            label: "VisibilityHidePicturesTitle".tr(),
+                            description: "VisibilityHidePicturesLabel".tr(
+                                namedArgs: {
+                                  'Karamba': widget.petProfileDetails.petName
+                                }),
                             value: widget.petProfileDetails.scan_hide_pictures,
                             setValue: (value) {
                               setState(() {
@@ -295,9 +315,11 @@ class _VisibilityMenuState extends State<VisibilityMenu> {
                           ),
                           const SizedBox(height: 32),
                           NotificationSettingsItem(
-                            label: "Hide Description",
-                            description:
-                                "Hides Description for people getting on ${widget.petProfileDetails.petName}'s profile",
+                            label: "VisibilityHideDescriptionTitle".tr(),
+                            description: "VisibilityHideDescriptionLabel".tr(
+                                namedArgs: {
+                                  'Karamba': widget.petProfileDetails.petName
+                                }),
                             value:
                                 widget.petProfileDetails.scan_hide_description,
                             setValue: (value) {
@@ -312,9 +334,11 @@ class _VisibilityMenuState extends State<VisibilityMenu> {
                           ),
                           const SizedBox(height: 32),
                           NotificationSettingsItem(
-                            label: "Hide Documents",
-                            description:
-                                "Hides Documents for people getting on ${widget.petProfileDetails.petName}'s profile",
+                            label: "VisibilityHideDocumentsTitle".tr(),
+                            description: "VisibilityHideDocumentsLabel".tr(
+                                namedArgs: {
+                                  'Karamba': widget.petProfileDetails.petName
+                                }),
                             value: widget.petProfileDetails.scan_hide_documents,
                             setValue: (value) {
                               setState(() {

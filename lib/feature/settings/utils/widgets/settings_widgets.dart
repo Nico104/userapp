@@ -37,9 +37,10 @@ class SettingsItem extends StatelessWidget {
             Expanded(
               child: AutoSizeText(
                 label,
+                wrapWords: true,
                 // style: settingsItem,
                 style: Theme.of(context).textTheme.labelMedium,
-                maxLines: 1,
+                // maxLines: 1,
                 // maxFontSize: Theme.of(context).textTheme.labelMedium!.fontSize!,
               ),
             ),

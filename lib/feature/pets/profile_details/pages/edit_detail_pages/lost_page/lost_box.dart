@@ -141,7 +141,7 @@ class _LostBoxState extends State<LostBox> {
                                         32, 16, 32, 16),
                                     child: AutoSizeText(
                                       widget.petProfile.petIsLost
-                                          ? "Mark as found"
+                                          ? "lostBox_confirmFoundLabel".tr()
                                           : "lostBox_confirmLabel".tr(),
                                       style: Theme.of(context)
                                           .textTheme
