@@ -205,7 +205,7 @@ class _TagSelectionItemState extends State<TagSelectionItem> {
                     children: [
                       Text(
                         widget.tag.model.tagModel_Label,
-                        // "Finma 1 - Heart",
+                        // "Tailfur 1 - Heart",
                         style: Theme.of(context)
                             .textTheme
                             .labelMedium

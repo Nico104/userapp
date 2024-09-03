@@ -78,7 +78,7 @@
 //                     height: 12,
 //                   ),
 //                   Text(
-//                     'Add your Finma Tag to your Pet',
+//                     'Add your Tailfur Tag to your Pet',
 //                     style: Theme.of(context).textTheme.displayMedium,
 //                   ),
 //                 ],
@@ -99,7 +99,7 @@
 //                     height: 12,
 //                   ),
 //                   Text(
-//                     'Enjoy your Finma Tag and having all your Pets information with him/her all the time while managing it all easily right here',
+//                     'Enjoy your Tailfur Tag and having all your Pets information with him/her all the time while managing it all easily right here',
 //                     style: Theme.of(context).textTheme.displayMedium,
 //                   ),
 //                 ],

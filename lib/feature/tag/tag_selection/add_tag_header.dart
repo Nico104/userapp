@@ -27,7 +27,7 @@ class AddNewTagHeader extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                // "In order to have a Finma Tag assigned to your Account you have to add it first",
+                // "In order to have a Tailfur Tag assigned to your Account you have to add it first",
                 label,
                 style: Theme.of(context).textTheme.labelMedium,
               ),

@@ -33,7 +33,12 @@ class _SinglePictureState extends State<SinglePicture> {
     return CachedNetworkImage(
       imageUrl: widget.imageUrl,
       placeholder: (context, url) => const CustomLoadingIndicatior(),
-      errorWidget: (context, url, error) => const Icon(Icons.error),
+      errorWidget: (context, url, error) {
+        print(error.toString());
+        // if(error.)
+        // setState(() {});
+        return const Icon(Icons.error);
+      },
       fit: BoxFit.cover,
     );
   }

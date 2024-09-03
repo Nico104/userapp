@@ -140,7 +140,7 @@ class MyApp extends StatelessWidget {
               localizationsDelegates: context.localizationDelegates,
               supportedLocales: context.supportedLocales,
               locale: context.locale,
-              title: 'Finma',
+              title: 'Tailfur',
               debugShowCheckedModeBanner: false,
               theme: theme.getTheme(),
               home: const InitApp(),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class AutoSaveInfo extends StatelessWidget {
@@ -10,7 +11,7 @@ class AutoSaveInfo extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Text(
-        "Every change gets saved and uploaded automatically",
+        "autoSaveInfo".tr(),
         style: Theme.of(context).textTheme.labelSmall,
         textAlign: TextAlign.center,
       ),

@@ -183,7 +183,8 @@ final ThemeData constLightTheme = ThemeData(
       hardBorder: HexColor("040707"),
       //Free
       // surface: Colors.white,
-      surface: HexColor("#F2F3F4"),
+      // surface: HexColor("#F2F3F4"),
+      surface: HexColor("fefdfb"),
       //Free
       lightShadow: HexColor("040707").withOpacity(0.04),
       secondaryAccent: HexColor("e14169"),

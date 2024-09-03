@@ -378,8 +378,8 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                             aspectRatio: 1,
                             child: Container(
                               decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                // color: Colors.blue,
+                                color: getCustomColors(context).surface,
+                                // color: HexColor("fefdfb"),
                                 // color: _petProfileDetails.petIsLost
                                 //     ? HexColor("#A52A2A")
                                 //     : HexColor("#958164"),
@@ -599,6 +599,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: getCustomColors(context).surface,
+                                  // color: HexColor("fefdfb"),
                                   // border: Border.all(
                                   //   width: 0.5,
                                   //   color:
@@ -716,6 +717,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       color: getCustomColors(context).surface,
+                                      // color: HexColor("fefdfb"),
                                       // border: Border.all(
                                       // //   width: 0.3,
                                       // //   color: getCustomColors(context)
@@ -844,8 +846,9 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                                     borderRadius: BorderRadius.circular(18),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        // color: getCustomColors(context).surface,
-                                        color: Colors.yellow,
+                                        color: getCustomColors(context).surface,
+                                        // color: Colors.yellow,
+                                        // color: HexColor("fefdfb"),
                                         // border: Border.all(
                                         //   width: 0.3,
                                         //   color: getCustomColors(context)
@@ -937,6 +940,7 @@ class _PetPage2State extends State<PetPage2> with TickerProviderStateMixin {
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: getCustomColors(context).surface,
+                                  // color: HexColor("fefdfb"),
                                   // border: Border.all(
                                   //   width: 0.3,
                                   //   color:

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:userapp/feature/pets/profile_details/models/m_scan.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:intl/intl.dart';
@@ -54,6 +55,15 @@ class _ScanItemState extends State<ScanItem> {
                   ],
                 ),
               );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.location_searching_rounded),
+            title: Text("locateIpAddress".tr()),
+            onTap: () {
+              Navigator.pop(context);
+              launchUrl(Uri.parse(
+                  "https://ip-api.com/#${widget.scan.scanIpAddress}"));
             },
           ),
         ],

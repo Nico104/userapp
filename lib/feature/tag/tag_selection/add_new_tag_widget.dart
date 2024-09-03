@@ -13,8 +13,8 @@ import '../../pets/profile_details/models/m_pet_profile.dart';
 import '../../pets/profile_details/models/m_tag.dart';
 import '../utils/u_tag.dart';
 
-class AddFinmaTagHeader extends StatefulWidget {
-  const AddFinmaTagHeader({
+class AddTailfurTagHeader extends StatefulWidget {
+  const AddTailfurTagHeader({
     super.key,
     required this.petProfile,
     required this.subtitle,
@@ -25,10 +25,10 @@ class AddFinmaTagHeader extends StatefulWidget {
   final String subtitle;
 
   @override
-  State<AddFinmaTagHeader> createState() => _AddFinmaTagHeaderState();
+  State<AddTailfurTagHeader> createState() => _AddTailfurTagHeaderState();
 }
 
-class _AddFinmaTagHeaderState extends State<AddFinmaTagHeader> {
+class _AddTailfurTagHeaderState extends State<AddTailfurTagHeader> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _textEditingController = TextEditingController();
   int activationCodeLength = 12;
@@ -116,7 +116,6 @@ class _AddFinmaTagHeaderState extends State<AddFinmaTagHeader> {
                 children: [
                   Expanded(
                     child: CustomTextFormField(
-                      keyboardType: TextInputType.number,
                       borderRadius: 48,
                       showSuffix: false,
                       expands: true,

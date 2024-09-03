@@ -58,7 +58,7 @@ class OnBoarding extends StatelessWidget {
                     height: 12,
                   ),
                   Text(
-                    'Create your Pets digital Profile in order to make your Finma Tags accessable',
+                    'Create your Pets digital Profile in order to make your Tailfur Tags accessable',
                     style: Theme.of(context).textTheme.displayMedium,
                   ),
                 ],
@@ -79,7 +79,7 @@ class OnBoarding extends StatelessWidget {
                     height: 12,
                   ),
                   Text(
-                    'Add your Finma Tag to your Pet',
+                    'Add your Tailfur Tag to your Pet',
                     style: Theme.of(context).textTheme.displayMedium,
                   ),
                 ],
@@ -100,7 +100,7 @@ class OnBoarding extends StatelessWidget {
                     height: 12,
                   ),
                   Text(
-                    'Enjoy your Finma Tag and having all your Pets information with him/her all the time while managing it all easily right here',
+                    'Enjoy your Tailfur Tag and having all your Pets information with him/her all the time while managing it all easily right here',
                     style: Theme.of(context).textTheme.displayMedium,
                   ),
                 ],

@@ -24,7 +24,7 @@ class AddTagPage extends StatelessWidget {
         body: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            AddFinmaTagHeader(
+            AddTailfurTagHeader(
               petProfile: petProfile,
               subtitle: "addTag_info1".tr(),
             ),

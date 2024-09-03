@@ -164,7 +164,7 @@ class _PicturesPageState extends State<PicturesPage> {
               // widget.reloadFuture.call();
               //TODO update UI
               //hekps against 403 from server
-              await Future.delayed(const Duration(milliseconds: 2000)).then(
+              await Future.delayed(const Duration(milliseconds: 4000)).then(
                 (value) => reloadPetPictures(),
               );
               //Close Loading Dialog Thingy

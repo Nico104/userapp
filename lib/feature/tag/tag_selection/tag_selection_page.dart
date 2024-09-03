@@ -106,7 +106,7 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 16),
-            // AddFinmaTagHeader(
+            // AddTailfurTagHeader(
             //   petProfile: widget.petProfile,
             //   subtitle: "addTag_info".tr(),
             // ),
@@ -137,7 +137,7 @@ class _TagSelectionPageState extends State<TagSelectionPage> {
                   if (snapshot.data != null && snapshot.data!.isEmpty) {
                     // navigateReplacePerSlide(
                     //     context,
-                    //     AddFinmaTagPage(
+                    //     AddTailfurTagPage(
                     //       petProfile: widget.petProfile,
                     //     ));
                     // navigateReplacePerSlide(context, const AddTagPage());

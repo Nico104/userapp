@@ -429,5 +429,6 @@
     "VisibilityHideDocumentsTitle": "Dokumentumok elrejtése",
     "VisibilityHideDocumentsLabel": "Dokumentumok elrejtése azok elől, akik {Karamba} profiljára kattintanak",
     "VisibilityTabsScan": "Szkennelés",
-    "VisibilityTabsShare": "Megosztás"
+    "VisibilityTabsShare": "Megosztás",
+    "locateIpAddress": "Ip-cím helyének meghatározása"
 }
